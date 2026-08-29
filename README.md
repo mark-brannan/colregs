@@ -33,7 +33,7 @@ jurisdiction departs from it. Other parts of the rules are on the list too,
 starting with day shapes and the Part D sound and light signals. The
 requirements spell this out under REQ-SCOPE and REQ-PART.
 
-Development is requirements-first: sessions work against the numbered
+Development is requirements-first: changes are made against the numbered
 requirements in [`docs/requirements.md`](docs/requirements.md) and cite them,
 and decisions that shaped the design are written down as ADRs in
 [`docs/adr/`](docs/adr/) instead of being argued again.
