@@ -211,3 +211,11 @@ Tracked here until resolved; each becomes an ADR.
   checked against the primary source. CEVNI is the one most likely to fail.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
+- **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
+  Three gates (`23a2`, `26b-mast`, `30c`'s `length_m` thresholds) live only in
+  `modality_by`, not in the entry's `when` — they flip `shall` to `may`, not
+  which entries apply. The fixture format only asserts applying entry ids, not
+  expected modality, so there is no way to fixture these three without
+  extending the schema to carry expected modality per entry. Not done
+  speculatively; blocks a clean REQ-VERIFY-5 pass on these three gates until
+  decided.

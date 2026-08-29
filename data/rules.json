@@ -1,5 +1,4 @@
 {
- "ruleset": "international",
  "source": "USCG Navigation Rules, amalgamated (International text only)",
  "source_url": "https://www.navcen.uscg.gov/navigation-rules-amalgamated",
  "retrieved": "2026-08-29",
@@ -15,189 +14,189 @@
    "path": "3(b)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"power-driven vessel\" means any vessel propelled by machinery."
   },
   "3(c)": {
    "path": "3(c)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"sailing vessel\" means any vessel under sail provided that propelling machinery, if fitted, is not being used."
   },
   "3(d)": {
    "path": "3(d)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"vessel engaged in fishing\" means any vessel fishing with nets, lines, trawls, or other fishing apparatus which restrict maneuverability, but does not include a vessel fishing with trolling lines or other fishing apparatus which do not restrict maneuverability."
   },
   "3(e)": {
    "path": "3(e)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"seaplane\" includes any aircraft designed to maneuver on the water."
   },
   "3(f)": {
    "path": "3(f)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"vessel not under command\" means a vessel which through some exceptional circumstance is unable to maneuver as required by these Rules and is therefore unable to keep out of the way of another vessel."
   },
   "3(g)": {
    "path": "3(g)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"vessel restricted in her ability to maneuver\" means a vessel which from the nature of her work is restricted in her ability to maneuver as required by these Rules and is, therefore, unable to keep out of the way of another vessel. The term \"vessels restricted in their ability to maneuver\" shall include but not be limited to: (i) A vessel engaged in laying, servicing, or picking up a navigational mark, submarine cable or pipeline; (ii) A vessel engaged in dredging, surveying or underwater operations; (iii) A vessel engaged in replenishment or transferring persons, provisions or cargo while underway; (iv) A vessel engaged in the launching or recovery of aircraft; (v) A vessel engaged in mine clearance operations; (vi) A vessel engaged in a towing operation such as severely restricts the towing vessel and her tow in their ability to deviate from their course."
   },
   "3(h)": {
    "path": "3(h)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"vessel constrained by her draft\" means a power-driven vessel which because of her draft in relation to the available depth and width of navigable water is severely restricted in her ability to deviate from the course she is following."
   },
   "3(i)": {
    "path": "3(i)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The word \"underway\" means that a vessel is not at anchor, or made fast to the shore, or aground."
   },
   "3(j)": {
    "path": "3(j)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The words \"length\" and \"breadth\" of a vessel mean her length overall and greatest breadth."
   },
   "3(m)": {
    "path": "3(m)",
    "rule": "3",
    "rule_title": "General Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The term \"Wing-In-Ground (WIG) craft\" means a multimodal craft which, in its main operational mode, flies in close proximity to the surface by utilizing surface-effect action."
   },
   "20(a)": {
    "path": "20(a)",
    "rule": "20",
    "rule_title": "Application",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Rules 20-31 shall be complied with in all weathers."
   },
   "20(b)": {
    "path": "20(b)",
    "rule": "20",
    "rule_title": "Application",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The Rules concerning lights shall be complied with from sunset to sunrise, and during such times no other lights shall be exhibited, except such lights which cannot be mistaken for the lights specified in these Rules or do not impair their visibility or distinctive character, or interfere with the keeping of a proper look-out."
   },
   "20(c)": {
    "path": "20(c)",
    "rule": "20",
    "rule_title": "Application",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The lights prescribed by these Rules shall, if carried, also be exhibited from sunrise to sunset in restricted visibility and may be exhibited in all other circumstances when it is deemed necessary."
   },
   "20(d)": {
    "path": "20(d)",
    "rule": "20",
    "rule_title": "Application",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The Rules concerning shapes shall be complied with by day."
   },
   "20(e)": {
    "path": "20(e)",
    "rule": "20",
    "rule_title": "Application",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The lights and shapes specified in these Rules shall comply with the provisions of Annex I of these Rules."
   },
   "21(a)": {
    "path": "21(a)",
    "rule": "21",
    "rule_title": "Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "\"Masthead light\" means a white light placed over the fore and aft centerline of the vessel showing an unbroken light over an arc of the horizon of 225 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on either side of the vessel."
   },
   "21(b)": {
    "path": "21(b)",
    "rule": "21",
    "rule_title": "Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "\"Sidelights\" means a green light on the starboard side and a red light on the port side each showing an unbroken light over an arc of the horizon of 112.5 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on its respective side. In a vessel of less than 20 meters in length the sidelights may be combined in one lantern carried on the fore and aft centerline of the vessel."
   },
   "21(c)": {
    "path": "21(c)",
    "rule": "21",
    "rule_title": "Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "\"Sternlight\" means a white light placed as nearly as practicable at the stern showing an unbroken light over an arc of the horizon of 135 degrees and so fixed as to show the light 67.5 degrees from right aft on each side of the vessel."
   },
   "21(d)": {
    "path": "21(d)",
    "rule": "21",
    "rule_title": "Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "\"Towing light\" means a yellow light having the same characteristics as the \"sternlight\" defined in Rule 21(c)."
   },
   "21(e)": {
    "path": "21(e)",
    "rule": "21",
    "rule_title": "Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "\"All-round light\" means a light showing an unbroken light over an arc of the horizon of 360 degrees."
   },
   "21(f)": {
    "path": "21(f)",
    "rule": "21",
    "rule_title": "Definitions",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "\"Flashing light\" means a light flashing at regular intervals at a frequency of 120 flashes or more per minute."
   },
   "22": {
    "path": "22",
    "rule": "22",
    "rule_title": "Visibility of Lights",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The lights prescribed in Rules (Subpart C) shall have an intensity as specified in Annex I to these Rules (33 CFR part 84), so as to be visible at the following minimum ranges:"
   },
   "22(a)": {
    "path": "22(a)",
    "rule": "22",
    "rule_title": "Visibility of Lights",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "In vessels of 50 meters or more in length: (i) a masthead light, 6 miles; (ii) a sidelight, 3 miles; (iii) a sternlight, 3 miles; (iv) a towing light, 3 miles; and (v) a white, red, green or yellow all-round light, 3 miles."
   },
   "22(b)": {
    "path": "22(b)",
    "rule": "22",
    "rule_title": "Visibility of Lights",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "In vessels of 12 meters or more in length but less than 50 meters in length: (i) a masthead light, 5 miles; except that where the length of the vessel is less than 20 meters, 3 miles; (ii) a sidelight, 2 miles; (iii) a sternlight, 2 miles; (iv) a towing light, 2 miles; and (v) a white, red, green or yellow all-round light, 2 miles."
   },
   "22(c)": {
    "path": "22(c)",
    "rule": "22",
    "rule_title": "Visibility of Lights",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "In vessels of less than 12 meters in length: (i) a masthead light, 2 miles; (ii) a sidelight, 1 mile; (iii) a sternlight, 2 miles; (iv) a towing light, 2 miles; and (v) a white, red, green or yellow all-round light, 2 miles."
   },
   "22(d)": {
    "path": "22(d)",
    "rule": "22",
    "rule_title": "Visibility of Lights",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "In inconspicuous, partly submerged vessels or objects being towed: (i) a white all-round light, 3 miles."
   },
   "23(a)": {
    "path": "23(a)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A power-driven vessel underway shall exhibit:",
    "images": [
     "NRHB_23_a.png"
@@ -207,7 +206,7 @@
    "path": "23(a)(i)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a masthead light forward;",
    "images": [
     "NRHB_23_a.png"
@@ -217,7 +216,7 @@
    "path": "23(a)(ii)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a second masthead light abaft of and higher than the forward one; except that a vessel of less than 50 meters in length shall not be obliged to exhibit such a light but may do so;",
    "images": [
     "NRHB_23_aii.png"
@@ -227,21 +226,21 @@
    "path": "23(a)(iii)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "sidelights; and,"
   },
   "23(a)(iv)": {
    "path": "23(a)(iv)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a sternlight."
   },
   "23(b)": {
    "path": "23(b)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "An air-cushion vessel when operating in non-displacement mode shall, in addition to the lights prescribed in Rule 23(a), exhibit an all-round flashing yellow light.",
    "images": [
     "NRHB_23_b.png"
@@ -251,14 +250,14 @@
    "path": "23(c)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A WIG craft only when taking off, landing and in flight near the surface shall, in addition to the lights prescribed in Rule 23(a), exhibit a high intensity all-round flashing red light."
   },
   "23(d)(i)": {
    "path": "23(d)(i)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A power-driven vessel of less than 12 meters in length may in lieu of the lights prescribed in Rule 23(a) exhibit an all-round white light and sidelights.",
    "images": [
     "NRHB_23_di.png"
@@ -268,7 +267,7 @@
    "path": "23(d)(ii)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a power-driven vessel of less than 7 meters in length whose maximum speed does not exceed 7 knots may in lieu of the lights prescribed in Rule 23(a) exhibit an all-round white light and shall, if practicable, also exhibit sidelights.",
    "images": [
     "NRHB_23_Intl_dii.png"
@@ -278,14 +277,14 @@
    "path": "23(d)(iii)",
    "rule": "23",
    "rule_title": "Power-driven Vessels Underway",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "the masthead light or all-round white light on a power-driven vessel of less than 12 meters in length may be displaced from the fore and aft center line of the vessel if center line fitting is not practicable, provided that the sidelights are combined in one lantern which shall be carried on the fore and aft center line of the vessel or located as nearly as practicable in the same fore and aft line as the masthead light or the all-round white light."
   },
   "24(a)": {
    "path": "24(a)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A power-driven vessel when towing astern shall exhibit:",
    "images": [
     "NRHB_24_a.png"
@@ -295,7 +294,7 @@
    "path": "24(a)(i)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Instead of the light prescribed in Rule 23(a)(i) or Rule 23(a)(ii), two masthead lights in a vertical line. When the length of the tow, measuring from the stern of the towing vessel to the after end of the tow, exceeds 200 meters, three such lights in a vertical line;",
    "images": [
     "NRHB_24_a.png"
@@ -305,28 +304,28 @@
    "path": "24(a)(ii)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "sidelights;"
   },
   "24(a)(iii)": {
    "path": "24(a)(iii)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a sternlight;"
   },
   "24(a)(iv)": {
    "path": "24(a)(iv)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a towing light in a vertical line above the sternlight; and"
   },
   "24(a)(v)": {
    "path": "24(a)(v)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when the length of the tow exceeds 200 meters, a diamond shape where it can best be seen.",
    "images": [
     "NRHB_24_av.png"
@@ -336,7 +335,7 @@
    "path": "24(b)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "When a pushing vessel and a vessel being pushed ahead are rigidly connected in a composite unit they shall be regarded as a power-driven vessel and exhibit the lights prescribed in Rule 23(a).",
    "images": [
     "NRHB_23_a.png"
@@ -346,14 +345,14 @@
    "path": "24(c)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A power-driven vessel when pushing ahead or towing alongside, except in the case of a composite unit, shall exhibit: (i) instead of the light prescribed in Rule 23(a)(i) or Rule 23(a)(ii), two masthead lights in a vertical line; (ii) sidelights; (iii) a sternlight."
   },
   "24(d)": {
    "path": "24(d)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A power-driven vessel to which Rule 24(a) or (c) applies shall also comply with Rule 23(a)(ii).",
    "images": [
     "NRHB_24_d.png"
@@ -363,7 +362,7 @@
    "path": "24(e)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel or object being towed, other than those mentioned in Rule 24(g), shall exhibit: (i) sidelights; (ii) a sternlight; (iii) when the length of the tow exceeds 200 meters, a diamond shape where it can best be seen.",
    "images": [
     "NRHB_24_e.png",
@@ -374,7 +373,7 @@
    "path": "24(f)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Provided that any number of vessels being towed alongside or pushed in a group shall be lighted as one vessel. (i) a vessel being pushed ahead, not being part of a composite unit, shall exhibit at the forward end, sidelights; (ii) a vessel being towed alongside shall exhibit a sternlight and at the forward end, sidelights.",
    "images": [
     "NRHB_24_f.png"
@@ -384,28 +383,28 @@
    "path": "24(g)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "An inconspicuous, partly submerged vessel or object, or combination of such vessels or objects being towed, shall exhibit: (ii) if it is 25 meters or more in breadth, two additional all-round white lights at or near the extremities of its breadth; (iii) if it exceeds 100 meters in length, additional all-round white lights between the lights prescribed in Rule 24(g)(i) and so that the distance between the lights shall not exceed 100 meters; (iv) a diamond shape at or near the aftermost extremity of the last vessel or object being towed; and if the length of the tow exceeds 200 meters an additional diamond shape where it can best be seen and located as far forward as is practicable."
   },
   "24(h)": {
    "path": "24(h)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Where from any sufficient cause it is impracticable for a vessel or object being towed to exhibit the lights or shapes prescribed in Rule 24(e) or (g), all possible measures shall be taken to light the vessel or object towed or at least to indicate the presence of such vessel or object."
   },
   "24(i)": {
    "path": "24(i)",
    "rule": "24",
    "rule_title": "Towing and Pushing",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Where from any sufficient cause it is impracticable for a vessel not normally engaged in towing operations to display the lights prescribed in Rule 24(a), Rule 24(c), such vessel shall not be required to exhibit those lights when engaged in towing another vessel in distress or otherwise in need of assistance. All possible measures shall be taken to indicate the nature of the relationship between the towing vessel and the vessel being towed as authorized by Rule 36, in particular by illuminating the towline."
   },
   "25(a)": {
    "path": "25(a)",
    "rule": "25",
    "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A sailing vessel underway shall exhibit: (i) sidelights; (ii) a sternlight.",
    "images": [
     "NRHB_25_a.png"
@@ -415,7 +414,7 @@
    "path": "25(b)",
    "rule": "25",
    "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "In a sailing vessel of less than 20 meters in length the lights prescribed in Rule 25(a) may be combined in one lantern carried at or near the top of the mast where it can best be seen.",
    "images": [
     "NRHB_25_b.png"
@@ -425,7 +424,7 @@
    "path": "25(c)",
    "rule": "25",
    "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A sailing vessel underway may, in addition to the lights prescribed in Rule 25(a), exhibit at or near the top of the mast, where they can best be seen, two all-round lights in a vertical line, the upper being red and the lower green, but these lights shall not be exhibited in conjunction with the combined lantern permitted by Rule 25(b).",
    "images": [
     "NRHB_25_c.png"
@@ -435,7 +434,7 @@
    "path": "25(d)(i)",
    "rule": "25",
    "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A sailing vessel of less than 7 meters in length shall, if practicable, exhibit the lights prescribed in Rule 25(a) or (b), but if she does not, she shall have ready at hand an electric torch or lighted lantern showing a white light which shall be exhibited in sufficient time to prevent collision.",
    "images": [
     "NRHB_25_d.png"
@@ -445,7 +444,7 @@
    "path": "25(d)(ii)",
    "rule": "25",
    "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel under oars may exhibit the lights prescribed in this rule for sailing vessels, but if she does not, she shall have ready at hand an electric torch or lighted lantern showing a white light which shall be exhibited in sufficient time to prevent collision.",
    "images": [
     "NRHB_25_dii.png"
@@ -455,7 +454,7 @@
    "path": "25(e)",
    "rule": "25",
    "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel proceeding under sail when also being propelled by machinery shall exhibit forward where it can best be seen a conical shape, apex downwards.",
    "images": [
     "NRHB_25_e.png"
@@ -465,14 +464,14 @@
    "path": "26(a)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel engaged in fishing, whether underway or at anchor, shall exhibit only the lights and shapes prescribed in this Rule."
   },
   "26(b)": {
    "path": "26(b)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel when engaged in trawling, by which is meant the dragging through the water of a dredge net or other apparatus used as a fishing appliance, shall exhibit:",
    "images": [
     "NRHB_26_b.png"
@@ -482,7 +481,7 @@
    "path": "26(b)(i)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "two all-round lights in a vertical line, the upper being green and the lower white, or a shape consisting of two cones with their apexes together in a vertical line one above the other;",
    "images": [
     "NRHB_26_b.png"
@@ -492,14 +491,14 @@
    "path": "26(b)(ii)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a masthead light abaft of and higher than the all-round green light; a vessel of less than 50 meters in length shall not be obliged to exhibit such a light but may do so;"
   },
   "26(b)(iii)": {
    "path": "26(b)(iii)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when making way through the water, in addition to the lights prescribed in this paragraph, sidelights and a sternlight.",
    "images": [
     "NRHB_26_biii.png"
@@ -509,28 +508,28 @@
    "path": "26(c)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel engaged in fishing, other than trawling, shall exhibit:"
   },
   "26(c)(i)": {
    "path": "26(c)(i)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "two all-round lights in a vertical line, the upper being red and the lower white, or a shape consisting of two cones with their apexes together in a vertical line one above the other;"
   },
   "26(c)(ii)": {
    "path": "26(c)(ii)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when there is outlying gear extending more than 150 meters horizontally from the vessel, an all-round white light or a cone apex upwards in the direction of the gear."
   },
   "26(c)(iii)": {
    "path": "26(c)(iii)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when making way through the water, in addition to the lights prescribed in this paragraph, sidelights and a sternlight.",
    "images": [
     "NRHB_26_ciii.png"
@@ -540,21 +539,21 @@
    "path": "26(d)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The additional signals described in Annex II to these Regulations apply to a vessel engaged in fishing in close proximity to other vessels engaged in fishing."
   },
   "26(e)": {
    "path": "26(e)",
    "rule": "26",
    "rule_title": "Fishing Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel when not engaged in fishing shall not exhibit the lights or shapes prescribed in this Rule, but only those prescribed for a vessel of her length."
   },
   "27(a)": {
    "path": "27(a)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel not under command shall exhibit:",
    "images": [
     "NRHB_27_a.png"
@@ -564,7 +563,7 @@
    "path": "27(a)(i)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "two all-round red lights in a vertical line where they can best be seen;",
    "images": [
     "NRHB_27_a.png"
@@ -574,14 +573,14 @@
    "path": "27(a)(ii)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "two balls or similar shapes in a vertical line where they can best be seen;"
   },
   "27(a)(iii)": {
    "path": "27(a)(iii)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when making way through the water, in addition to the lights prescribed in this paragraph, sidelights and a sternlight.",
    "images": [
     "NRHB_27_aiii.png"
@@ -591,28 +590,28 @@
    "path": "27(b)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel restricted in her ability to maneuver, except a vessel engaged in mine clearance operations, shall exhibit:"
   },
   "27(b)(i)": {
    "path": "27(b)(i)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "three all-round lights in a vertical line where they can best be seen. The highest and lowest of these lights shall be red and the middle light shall be white;"
   },
   "27(b)(ii)": {
    "path": "27(b)(ii)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "three shapes in a vertical line where they can best be seen. The highest and lowest of these shapes shall be balls and the middle one a diamond."
   },
   "27(b)(iii)": {
    "path": "27(b)(iii)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when making way through the water, a masthead light(s), sidelights and a sternlight in addition to the lights prescribed in Rule 27(b)(i);",
    "images": [
     "NRHB_27_biii.png"
@@ -622,7 +621,7 @@
    "path": "27(b)(iv)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when at anchor, in addition to the lights or shapes prescribed in Rule 27(b)(i) and (ii), the light, lights, or shapes prescribed in Rule 30.",
    "images": [
     "NRHB_27_biv.png"
@@ -632,7 +631,7 @@
    "path": "27(c)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A power-driven vessel engaged in a towing operation such as severely restricts the towing vessel and her tow in their ability to deviate from their course shall, in addition to the lights or shape prescribed in Rule 24(a), exhibit the lights or shapes prescribed in subparagraphs (b)(i) and (ii) of this Rule.",
    "images": [
     "NRHB_27_c.png"
@@ -642,7 +641,7 @@
    "path": "27(d)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel engaged in dredging or underwater operations, when restricted in her ability to maneuver, shall exhibit the lights and shapes prescribed in Rules 27(b)(i), (ii) and (iii) and shall in addition when an obstruction exists, exhibit:",
    "images": [
     "NRHB_27_d.png"
@@ -652,7 +651,7 @@
    "path": "27(d)(i)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "two all-round red lights or two balls in a vertical line to indicate the side on which the obstruction exists;",
    "images": [
     "NRHB_27_d.png"
@@ -662,7 +661,7 @@
    "path": "27(d)(ii)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "two all-round green lights or two diamonds in a vertical line to indicate the side on which another vessel may pass; and",
    "images": [
     "NRHB_27_d.png"
@@ -672,7 +671,7 @@
    "path": "27(d)(iii)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when at anchor, the lights or shapes prescribed in this paragraph instead of the lights or shapes prescribed in Rule 30.",
    "images": [
     "NRHB_27_diii.png"
@@ -682,14 +681,14 @@
    "path": "27(e)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Whenever the size of a vessel engaged in diving operations makes it impracticable to exhibit all lights and shapes prescribed in Rule 27(d), the following shall be exhibited:"
   },
   "27(e)(i)": {
    "path": "27(e)(i)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Three all-round lights in a vertical line where they can best be seen. The highest and lowest of these lights shall be red and the middle light shall be white;",
    "images": [
     "NRHB_27_ei.png"
@@ -699,7 +698,7 @@
    "path": "27(e)(ii)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "a rigid replica of the International Code flag \"A\" not less than 1 meter in height. Measures shall be taken to ensure its all-round visibility.",
    "images": [
     "NRHB_27_eii.png"
@@ -709,7 +708,7 @@
    "path": "27(f)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel engaged in mine clearance operations shall, in addition to the lights prescribed for a power-driven vessel in Rule 23(a) or to the lights or shape prescribed for a vessel at anchor in Rule 30 as appropriate, exhibit three all-round green lights or three balls. One of these lights or shapes shall be exhibited near the foremast head and one at each end of the fore yard. These lights or shapes indicate that it is dangerous for another vessel to approach within 1000 meters of the mine clearance vessel.",
    "images": [
     "NRHB_27_f.png"
@@ -719,21 +718,21 @@
    "path": "27(g)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Vessels of less than 12 meters in length, except those engaged in diving operations, shall not be required to exhibit the lights and shapes prescribed in this Rule."
   },
   "27(h)": {
    "path": "27(h)",
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "The signals prescribed in this Rule are not signals of vessels in distress and requiring assistance. Such signals are contained in Annex IV to these Rules."
   },
   "28": {
    "path": "28",
    "rule": "28",
    "rule_title": "Vessels Constrained by Their Draft",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel constrained by her draft may, in addition to the lights prescribed for power-driven vessels in Rule 23(a), exhibit where they can best be seen three all-round red lights in a vertical line, or a cylinder.",
    "images": [
     "NRHB_28.png"
@@ -743,7 +742,7 @@
    "path": "29(a)",
    "rule": "29",
    "rule_title": "Pilot Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel engaged on pilotage duty shall exhibit:",
    "images": [
     "NRHB_29_a.png"
@@ -753,7 +752,7 @@
    "path": "29(a)(i)",
    "rule": "29",
    "rule_title": "Pilot Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "at or near the masthead, two all-round lights in a vertical line, the upper being white and the lower red;",
    "images": [
     "NRHB_29_a.png"
@@ -763,14 +762,14 @@
    "path": "29(a)(ii)",
    "rule": "29",
    "rule_title": "Pilot Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when underway, in addition, sidelights and a sternlight;"
   },
   "29(a)(iii)": {
    "path": "29(a)(iii)",
    "rule": "29",
    "rule_title": "Pilot Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "when at anchor, in addition to the lights prescribed in Rule 29(a)(i), the light, lights, or shape prescribed in Rule 30 for vessels at anchor.",
    "images": [
     "NRHB_29_aiii.png"
@@ -780,14 +779,14 @@
    "path": "29(b)",
    "rule": "29",
    "rule_title": "Pilot Vessels",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A pilot vessel when not engaged on pilotage duty shall exhibit the lights or shapes prescribed for a similar vessel of her length."
   },
   "30(a)": {
    "path": "30(a)",
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel at anchor shall exhibit where it can best be seen: (i) in the fore part, an all-round white light or one ball; (ii) at or near the stern and at a lower level than the light prescribed in Rule 30(a)(i), an all-round white light.",
    "images": [
     "NRHB_30_a.png"
@@ -797,21 +796,21 @@
    "path": "30(b)",
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel of less than 50 meters in length may exhibit an all-round white light where it can best be seen instead of the lights prescribed in Rule 30(a)."
   },
   "30(c)": {
    "path": "30(c)",
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel at anchor may, and a vessel of 100 meters and more in length shall, also use the available working or equivalent lights to illuminate her decks."
   },
   "30(d)": {
    "path": "30(d)",
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel aground shall exhibit the lights prescribed in Rule 30(a) or (b) and in addition, if practicable, where they can best be seen: (i) two all-round red lights in a vertical line; (ii) three balls in a vertical line.",
    "images": [
     "NRHB_30_d.png",
@@ -822,21 +821,21 @@
    "path": "30(e)",
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel of less than 7 meters in length, when at anchor not in or near a narrow channel, fairway or where other vessels normally navigate, shall not be required to exhibit the lights or shape prescribed in Rule 30(a) and (b)."
   },
   "30(f)": {
    "path": "30(f)",
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "A vessel of less than 12 meters in length, when aground, shall not be required to exhibit the lights or shapes prescribed in Rule 30(d)(i) and (ii)."
   },
   "31": {
    "path": "31",
    "rule": "31",
    "rule_title": "Seaplanes",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "text": "Where it is impracticable for a seaplane or a WIG craft to exhibit lights or shapes of the characteristics or in the positions prescribed in Rules 20-31 she shall exhibit lights and shapes as closely similar in characteristics and position as is possible."
   }
  }

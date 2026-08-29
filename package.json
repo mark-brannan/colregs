@@ -1,12 +1,22 @@
 {
   "name": "colregs",
   "version": "0.1.0",
-  "description": "COLREGS 72 navigation light rules and USCG diagrams as language-neutral JSON, with cross-implementation fixtures",
+  "description": "COLREGS 72 and its national amalgamations as language-neutral JSON — rule text, light definitions, and applicability predicates — with cross-implementation fixtures",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mark-brannan/colregs.git"
   },
+  "keywords": [
+    "colregs",
+    "navrules",
+    "navigation-rules",
+    "inland-rules",
+    "33-cfr-83",
+    "cevni",
+    "collision-regulations",
+    "navigation-lights"
+  ],
   "scripts": { "test": "node --test test/*.mjs" },
-  "files": ["data", "images", "fixtures", "PROVENANCE.md"]
+  "files": ["data", "images", "fixtures", "docs", "PROVENANCE.md"]
 }

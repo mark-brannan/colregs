@@ -1,5 +1,5 @@
 {
- "ruleset": "international",
+ "jurisdiction": "intl",
  "source": "Annex I - Positioning and Technical Details of Lights and Shapes (33 CFR 84), International text",
  "note": "The structured half of the image payload: where each light sits and what it looks like, so a renderer can draw a configuration instead of picking a scan. Bearing arcs live in lights.json; this file carries heights, spacings, colour and intensity.",
  "vertical_positioning": [

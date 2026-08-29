@@ -119,7 +119,13 @@
   },
   "wig": {
    "cite": "23(c)",
-   "actuable": false
+   "actuable": false,
+   "note": "The vessel is a wing-in-ground craft. Doesn't by itself mean 23(c) applies -- see wig_near_surface."
+  },
+  "wig_near_surface": {
+   "cite": "23(c)",
+   "actuable": false,
+   "note": "Taking off, landing, or in flight near the surface. 23(c) is scoped to this phase, not to being a WIG craft generally."
   },
   "near_channel": {
    "cite": "30(e)",
