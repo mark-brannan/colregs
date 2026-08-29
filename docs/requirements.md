@@ -132,7 +132,48 @@ Four layers, each independently addressable.
 
 ---
 
-## 5. Provenance and licensing
+## 5. Languages and localization
+
+COLREGS 72 is multi-lingual at the source: English and French are equally
+authentic treaty texts, Spanish and Russian official translations were
+deposited with the original, Arabic and Chinese texts exist through IMO's
+official languages, and many states gazette their own legally binding
+translation. See ADR 0003.
+
+- **REQ-LANG-1** — Language MUST be a dimension orthogonal to jurisdiction,
+  identified by BCP 47 tags. Which body of rules applies and which text of
+  them is displayed are independent questions; neither MUST ever be inferred
+  from the other.
+- **REQ-LANG-2** — Identifiers — entry ids, fact values, light ids,
+  paragraph paths, relation names — MUST be language-neutral and MUST NOT
+  be localized. Translations attach to identifiers; they never replace them.
+- **REQ-LANG-3** — Rule text MUST be storable as a **corpus** per
+  (jurisdiction × language × source), keyed by paragraph path, with
+  corpus-level provenance and one declared status tier:
+  `authentic` / `official` / `national` / `community`. Tier is a property of
+  the source, not the language. REQ-MODEL-1's verbatim rule applies per
+  corpus, against that corpus's own source.
+- **REQ-LANG-4** — Adding a language MUST be additive: no schema change, no
+  edits to existing corpora or catalogs (the language mirror of REQ-SCOPE-4).
+- **REQ-LANG-5** — Corpora MAY be partial. Coverage MUST be declared in
+  machine-readable form, and CI MUST fail on a corpus key that does not
+  resolve to a known paragraph path. Silence MUST NOT imply coverage (the
+  language mirror of REQ-SCOPE-6).
+- **REQ-LANG-6** — Display strings for the identifier vocabularies (light
+  names, fact-value labels, modality labels, image captions) MUST be
+  addressable via stable string keys with per-language catalogs, separate
+  from legal corpora. Maintainer notes inside structural files are working
+  documentation, not display strings, and stay untranslated.
+- **REQ-LANG-7** — The package MUST NOT encode a language fallback policy.
+  It declares what exists; the consumer chooses what to show and how to
+  fall back (the language mirror of REQ-CONS-3).
+- **REQ-LANG-8** — A `community`-tier corpus MUST record who produced and
+  who reviewed it. Machine translation without named human review MUST NOT
+  be accepted.
+
+---
+
+## 6. Provenance and licensing
 
 - **REQ-PROV-1** — Every text and image asset MUST record its source, the date
   retrieved, and its licence or public-domain basis.
@@ -149,7 +190,7 @@ Four layers, each independently addressable.
 
 ---
 
-## 6. Verification
+## 7. Verification
 
 - **REQ-VERIFY-1** — Fixtures MUST pair fact records with the entries that apply,
   and MUST be consumable by an implementation in any language.
@@ -167,7 +208,7 @@ Four layers, each independently addressable.
 
 ---
 
-## 7. Packaging
+## 8. Packaging
 
 - **REQ-PKG-1** — Zero runtime dependencies.
 - **REQ-PKG-2** — Data MUST be consumable without a JavaScript runtime: plain
@@ -182,7 +223,7 @@ Four layers, each independently addressable.
 
 ---
 
-## 8. Consumer contracts
+## 9. Consumer contracts
 
 - **REQ-CONS-1** — The switching subset MUST be derivable from the data by
   filtering, not by a separate hand-maintained list. A consumer MUST be able to
@@ -197,7 +238,7 @@ Four layers, each independently addressable.
 
 ---
 
-## 9. Open questions
+## 10. Open questions
 
 Tracked here until resolved; each becomes an ADR.
 
@@ -219,3 +260,13 @@ Tracked here until resolved; each becomes an ADR.
   extending the schema to carry expected modality per entry. Not done
   speculatively; blocks a clean REQ-VERIFY-5 pass on these three gates until
   decided.
+- **Q-6** — The treaty-language facts behind §5 (en/fr authentic, es/ru
+  deposited translations, ar/zh via IMO official languages) are recalled, not
+  verified. Verify against the Convention's final clauses and IMO's current
+  practice before the first non-English corpus lands.
+- **Q-7** — Reproduction terms per language corpus are unverified, and this —
+  not translation effort — sequences the work. IMO's consolidated
+  six-language editions are sold publications and probably NOT reproducible;
+  the UNTS deposit (en/fr authentic texts) and national gazettes (Finlex,
+  BOE, …) are the likely lawful sources. REQ-PROV-2 blocks each corpus until
+  its source's terms are checked and recorded.
