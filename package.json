@@ -1,6 +1,6 @@
 {
   "name": "colregs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "COLREGS 72 and its national amalgamations as language-neutral JSON — rule text, light definitions, and applicability predicates — with cross-implementation fixtures",
   "license": "MIT",
   "repository": {
