@@ -26,6 +26,13 @@ includes the Great Lakes and Western Rivers variants), no Canada, no day
 shapes. Every entry already carries a `ruleset` field, so adding a
 jurisdiction later doesn't disturb what's here.
 
+The aim is wider than that, and wider than the US. National amalgamations
+(US Inland, Canada, and whoever comes after) are meant to land as *deltas*
+from the international text, each entry inheriting from `intl` unless the
+jurisdiction departs from it. Other parts of the rules are on the list too,
+starting with day shapes and the Part D sound and light signals. The
+requirements spell this out under REQ-SCOPE and REQ-PART.
+
 Development is requirements-first: sessions work against the numbered
 requirements in [`docs/requirements.md`](docs/requirements.md) and cite them,
 and decisions that shaped the design are written down as ADRs in
