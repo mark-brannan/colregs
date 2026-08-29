@@ -1,0 +1,308 @@
+{
+ "note": "The fact record a consumer evaluates applicability predicates against. Three orthogonal axes plus scalars; there is no separate COLREGS vessel-class field, because under COLREGS what a vessel is follows from what it is doing.",
+ "axes": {
+  "propulsion": {
+   "values": [
+    "power",
+    "sail",
+    "oars"
+   ],
+   "cites": {
+    "power": "3(b)",
+    "sail": "3(c)",
+    "oars": "25(d)(ii)"
+   },
+   "note": "A vessel under sail with propelling machinery in use is 'power' (Rule 3(c)); the 25(e) day shape is the only trace motorsailing leaves at night."
+  },
+  "activity": {
+   "values": [
+    "none",
+    "fishing",
+    "trawling",
+    "towing",
+    "pushing",
+    "being_towed",
+    "nuc",
+    "ram",
+    "ram_underwater",
+    "cbd",
+    "mine",
+    "pilot",
+    "diving"
+   ],
+   "cites": {
+    "fishing": "3(d)",
+    "trawling": "26(b)",
+    "nuc": "3(f)",
+    "ram": "3(g)",
+    "ram_underwater": "27(d)",
+    "cbd": "3(h)",
+    "mine": "27(f)",
+    "pilot": "29(a)",
+    "diving": "27(e)",
+    "towing": "24(a)",
+    "pushing": "24(b)",
+    "being_towed": "24(e)"
+   },
+   "note": "'ram_underwater' is a vessel restricted in her ability to maneuver that is dredging or engaged in underwater operations (27(d)); it is a refinement of 'ram', not a peer of it, and predicates written for 'ram' also read it."
+  },
+  "position": {
+   "values": [
+    "underway",
+    "anchored",
+    "aground",
+    "moored"
+   ],
+   "cites": {
+    "underway": "3(i)"
+   },
+   "note": "Rule 3(i): underway means not at anchor, not made fast to the shore, not aground."
+  }
+ },
+ "modifiers": {
+  "making_way": {
+   "type": "boolean",
+   "refines": "position=underway",
+   "note": "Undefined in the Rules; it means moving through the water. Underway but not making way is free drifting. Only the 26/27-family predicates read it (26(b)(iii), 26(c)(iii), 27(a)(iii), 27(b)(iii)); Rules 23 and 25 gate on 'underway' alone, so a power-driven vessel drifting in neutral still shows full running lights.",
+   "actuable": true
+  }
+ },
+ "numerics": {
+  "length_m": {
+   "type": "number",
+   "unit": "m",
+   "cite": "3(j)",
+   "note": "Length overall. COLREGS thresholds are 7, 12, 20, 50 and 100 m.",
+   "actuable": true,
+   "signalk": "design.length.value.overall"
+  },
+  "tow_length_m": {
+   "type": "number",
+   "unit": "m",
+   "cite": "24(a)(i)",
+   "note": "From the stern of the towing vessel to the after end of the tow.",
+   "actuable": true,
+   "signalk": null
+  },
+  "max_speed_kn": {
+   "type": "number",
+   "unit": "kn",
+   "cite": "23(d)(ii)",
+   "note": "Read only by 23(d)(ii). No SignalK path publishes it; design.maxSpeed does not exist in the schema. Kept because the rule has it.",
+   "actuable": true,
+   "signalk": null
+  },
+  "gear_extent_m": {
+   "type": "number",
+   "unit": "m",
+   "cite": "26(c)(ii)",
+   "actuable": false,
+   "signalk": null
+  },
+  "beam_m": {
+   "type": "number",
+   "unit": "m",
+   "cite": "24(g)",
+   "actuable": false,
+   "signalk": "design.beam.value"
+  }
+ },
+ "booleans": {
+  "composite_unit": {
+   "cite": "24(b)",
+   "actuable": false
+  },
+  "non_displacement": {
+   "cite": "23(b)",
+   "actuable": false,
+   "note": "Air-cushion vessel operating in non-displacement mode."
+  },
+  "wig": {
+   "cite": "23(c)",
+   "actuable": false
+  },
+  "near_channel": {
+   "cite": "30(e)",
+   "actuable": false,
+   "note": "At anchor in or near a narrow channel, fairway, or where other vessels normally navigate."
+  },
+  "inconspicuous_partly_submerged_tow": {
+   "cite": "24(g)",
+   "actuable": false
+  },
+  "towed_alongside": {
+   "cite": "24(c)",
+   "actuable": false
+  },
+  "obstruction_exists": {
+   "cite": "27(d)",
+   "actuable": false
+  }
+ },
+ "enums": {
+  "obstruction_side": {
+   "values": [
+    "port",
+    "starboard"
+   ],
+   "cite": "27(d)(i)",
+   "actuable": false
+  }
+ },
+ "actuable_subset": {
+  "note": "What a switching consumer needs and can get: the three axes (decodable from navigation.state), making_way, and length_m. Everything else is education-side.",
+  "fields": [
+   "propulsion",
+   "activity",
+   "position",
+   "making_way",
+   "length_m"
+  ]
+ },
+ "signalk_navigation_state": {
+  "source": "@signalk/signalk-schema schemas/groups/navigation.json (state.value.enum)",
+  "verified": "2026-08-29",
+  "decode": {
+   "not under command": {
+    "activity": "nuc",
+    "position": "underway"
+   },
+   "anchored": {
+    "activity": "none",
+    "position": "anchored"
+   },
+   "moored": {
+    "activity": "none",
+    "position": "moored"
+   },
+   "sailing": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "underway"
+   },
+   "motoring": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway"
+   },
+   "towing < 200m": {
+    "propulsion": "power",
+    "activity": "towing",
+    "position": "underway",
+    "tow_length_m": {
+     "lte": 200
+    }
+   },
+   "towing > 200m": {
+    "propulsion": "power",
+    "activity": "towing",
+    "position": "underway",
+    "tow_length_m": {
+     "gt": 200
+    }
+   },
+   "pushing": {
+    "propulsion": "power",
+    "activity": "pushing",
+    "position": "underway"
+   },
+   "fishing": {
+    "activity": "fishing",
+    "position": "underway"
+   },
+   "fishing-hampered": {
+    "activity": "fishing",
+    "position": "underway",
+    "annex_ii_signal": "purse_seine_hampered"
+   },
+   "trawling": {
+    "activity": "trawling",
+    "position": "underway"
+   },
+   "trawling-shooting": {
+    "activity": "trawling",
+    "position": "underway",
+    "annex_ii_signal": "shooting"
+   },
+   "trawling-hauling": {
+    "activity": "trawling",
+    "position": "underway",
+    "annex_ii_signal": "hauling"
+   },
+   "pilotage": {
+    "activity": "pilot"
+   },
+   "not-under-way": {},
+   "aground": {
+    "activity": "none",
+    "position": "aground"
+   },
+   "restricted manouverability": {
+    "activity": "ram"
+   },
+   "restricted manouverability towing < 200m": {
+    "propulsion": "power",
+    "activity": "ram",
+    "also_activity": "towing",
+    "tow_length_m": {
+     "lte": 200
+    }
+   },
+   "restricted manouverability towing > 200m": {
+    "propulsion": "power",
+    "activity": "ram",
+    "also_activity": "towing",
+    "tow_length_m": {
+     "gt": 200
+    }
+   },
+   "restricted manouverability underwater operations": {
+    "activity": "ram_underwater"
+   },
+   "constrained by draft": {
+    "propulsion": "power",
+    "activity": "cbd",
+    "position": "underway"
+   },
+   "mine clearance": {
+    "activity": "mine"
+   }
+  },
+  "undecodable": [
+   "Reserved for future amendment of Navigational Status for HSC",
+   "Reserved for future amendment of Navigational Status for WIG",
+   "Reserved for future use-11",
+   "Reserved for future use-12",
+   "Reserved for future use-13",
+   "Reserved for future use-14",
+   "not defined (example)"
+  ],
+  "lossy": [
+   {
+    "what": "fishing or trawling at anchor",
+    "why": "Rule 26(a) applies 'whether underway or at anchor', but 'fishing' and 'anchored' are mutually exclusive values of one flat enum, so the pair cannot be stated.",
+    "cite": "26(a)"
+   },
+   {
+    "what": "making way vs. underway-but-not-making-way",
+    "why": "No enum value distinguishes them, and no SignalK path carries the boolean. 26(b)(iii), 26(c)(iii), 27(a)(iii) and 27(b)(iii) all turn on it.",
+    "cite": "27(a)(i) vs 27(a)(iii)"
+   },
+   {
+    "what": "pilotage underway vs. at anchor",
+    "why": "'pilotage' fixes activity but says nothing about position; 29(a)(ii) and 29(a)(iii) prescribe different lights.",
+    "cite": "29(a)"
+   },
+   {
+    "what": "not-under-way",
+    "why": "Decodes to no axis at all: it excludes 'underway' but does not say which of anchored, moored or aground holds.",
+    "cite": "3(i)"
+   },
+   {
+    "what": "vessel or object being towed, and diving",
+    "why": "No enum value exists for either; 24(e) and 27(e) are unreachable from navigation.state.",
+    "cite": "24(e), 27(e)"
+   }
+  ]
+ }
+}

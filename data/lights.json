@@ -1,0 +1,229 @@
+{
+ "ruleset": "international",
+ "bearing_convention": {
+  "zero": "right ahead",
+  "direction": "clockwise (0 bow, 90 starboard beam, 180 right aft)",
+  "units": "degrees",
+  "wrap": "an arc with from_deg > to_deg wraps through 0"
+ },
+ "lights": {
+  "masthead": {
+   "name": "masthead light",
+   "colregs_term": "masthead light",
+   "cite": "21(a)",
+   "color": "white",
+   "character": "steady",
+   "arc_deg": 225,
+   "arc": {
+    "from_deg": 247.5,
+    "to_deg": 112.5
+   },
+   "placement": "over the fore and aft centerline of the vessel; shows from right ahead to 22.5 degrees abaft the beam on either side",
+   "rule21": true
+  },
+  "sidelights": {
+   "name": "sidelights",
+   "colregs_term": "sidelights",
+   "cite": "21(b)",
+   "character": "steady",
+   "composite": true,
+   "components": [
+    "sidelight_starboard",
+    "sidelight_port"
+   ],
+   "placement": "one on each side; in a vessel of less than 20 meters in length they may be combined in one lantern carried on the fore and aft centerline",
+   "combined_lantern_max_length_m": 20,
+   "rule21": true
+  },
+  "sidelight_starboard": {
+   "name": "starboard sidelight",
+   "colregs_term": "sidelight",
+   "cite": "21(b)",
+   "color": "green",
+   "character": "steady",
+   "arc_deg": 112.5,
+   "arc": {
+    "from_deg": 0.0,
+    "to_deg": 112.5
+   },
+   "side": "starboard",
+   "rule21": true
+  },
+  "sidelight_port": {
+   "name": "port sidelight",
+   "colregs_term": "sidelight",
+   "cite": "21(b)",
+   "color": "red",
+   "character": "steady",
+   "arc_deg": 112.5,
+   "arc": {
+    "from_deg": 247.5,
+    "to_deg": 360.0
+   },
+   "side": "port",
+   "rule21": true
+  },
+  "sternlight": {
+   "name": "sternlight",
+   "colregs_term": "sternlight",
+   "cite": "21(c)",
+   "color": "white",
+   "character": "steady",
+   "arc_deg": 135,
+   "arc": {
+    "from_deg": 112.5,
+    "to_deg": 247.5
+   },
+   "placement": "as nearly as practicable at the stern; shows 67.5 degrees from right aft on each side",
+   "rule21": true
+  },
+  "towing": {
+   "name": "towing light",
+   "colregs_term": "towing light",
+   "cite": "21(d)",
+   "color": "yellow",
+   "character": "steady",
+   "arc_deg": 135,
+   "arc": {
+    "from_deg": 112.5,
+    "to_deg": 247.5
+   },
+   "same_characteristics_as": "sternlight",
+   "rule21": true
+  },
+  "all_round": {
+   "name": "all-round light",
+   "colregs_term": "all-round light",
+   "cite": "21(e)",
+   "color": null,
+   "color_note": "colour is fixed by the citing paragraph, not by Rule 21",
+   "character": "steady",
+   "arc_deg": 360,
+   "arc": {
+    "from_deg": 0.0,
+    "to_deg": 360.0
+   },
+   "rule21": true
+  },
+  "flashing": {
+   "name": "flashing light",
+   "colregs_term": "flashing light",
+   "cite": "21(f)",
+   "color": null,
+   "color_note": "colour is fixed by the citing paragraph",
+   "character": "flashing",
+   "flashes_per_minute_min": 120,
+   "arc_deg": 360,
+   "arc": {
+    "from_deg": 0.0,
+    "to_deg": 360.0
+   },
+   "note": "Rule 21(f) defines the character only; every International use of it (23(b), 23(c)) is an all-round light.",
+   "rule21": true
+  },
+  "torch": {
+   "name": "electric torch or lighted lantern",
+   "colregs_term": "electric torch or lighted lantern",
+   "cite": "25(d)(i)",
+   "color": "white",
+   "character": "shown in sufficient time to prevent collision",
+   "arc_deg": null,
+   "arc": null,
+   "rule21": false,
+   "note": "Not a fixed navigation light: it is held ready at hand and shown on approach. It has no prescribed arc, range or position."
+  },
+  "deck_lights": {
+   "name": "working or equivalent lights",
+   "colregs_term": "working or equivalent lights",
+   "cite": "30(c)",
+   "color": null,
+   "character": "steady",
+   "arc_deg": null,
+   "arc": null,
+   "rule21": false,
+   "note": "Deck illumination for a vessel at anchor; not a signal light."
+  }
+ },
+ "visibility": {
+  "cite": "22",
+  "note": "Minimum ranges by length band; intensity per Annex I (see geometry.json).",
+  "bands": [
+   {
+    "cite": "22(a)",
+    "when": {
+     "length_m": {
+      "gte": 50
+     }
+    },
+    "ranges_nm": {
+     "masthead": 6,
+     "sidelight": 3,
+     "sternlight": 3,
+     "towing": 3,
+     "all_round": 3
+    }
+   },
+   {
+    "cite": "22(b)",
+    "when": {
+     "length_m": {
+      "gte": 12,
+      "lt": 50
+     }
+    },
+    "ranges_nm": {
+     "masthead": 5,
+     "sidelight": 2,
+     "sternlight": 2,
+     "towing": 2,
+     "all_round": 2
+    }
+   },
+   {
+    "cite": "22(b)(i)",
+    "when": {
+     "length_m": {
+      "gte": 12,
+      "lt": 20
+     }
+    },
+    "refines": "22(b)",
+    "overrides_nm": {
+     "masthead": 3
+    }
+   },
+   {
+    "cite": "22(c)",
+    "when": {
+     "length_m": {
+      "lt": 12
+     }
+    },
+    "ranges_nm": {
+     "masthead": 2,
+     "sidelight": 1,
+     "sternlight": 2,
+     "towing": 2,
+     "all_round": 2
+    }
+   },
+   {
+    "cite": "22(d)",
+    "when": {
+     "inconspicuous_partly_submerged_tow": true
+    },
+    "ranges_nm": {
+     "all_round": 3
+    }
+   }
+  ]
+ },
+ "colregs_vocabulary": [
+  "masthead light",
+  "sidelights",
+  "sternlight",
+  "towing light",
+  "all-round light",
+  "flashing light"
+ ]
+}

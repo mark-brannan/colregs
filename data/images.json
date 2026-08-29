@@ -1,0 +1,876 @@
+{
+ "note": "Every image in images/, with where it came from and which paragraph or applicability entry it illustrates. The arc GIFs are decorative; the arcs themselves are data in lights.json.",
+ "count": 43,
+ "images": {
+  "NRHB_23_Intl_dii.png": {
+   "file": "NRHB_23_Intl_dii.png",
+   "bytes": 175440,
+   "sha256": "4ab742c440084403ae8c78caa1bd863fe21b6c98b311799f0e1bb3f6564aec57",
+   "pixels": [
+    936,
+    582
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_Intl_dii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Power Driven Vessel less than 12m"
+   ],
+   "paragraphs": [
+    "23(d)(ii)"
+   ],
+   "entries": [
+    "23d2"
+   ]
+  },
+  "NRHB_23_a.png": {
+   "file": "NRHB_23_a.png",
+   "bytes": 316372,
+   "sha256": "d3a57beef206b6055b755849df08e8da8db7fca2f82329f7f436bd311a1f86c7",
+   "pixels": [
+    880,
+    900
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_a.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Air Cushion Vessel in Displacement Mode",
+    "Composite Unit",
+    "Power Driven Vessel Underway 50m or greater"
+   ],
+   "paragraphs": [
+    "23(a)",
+    "23(a)(i)",
+    "24(b)"
+   ],
+   "entries": [
+    "23a1",
+    "24b"
+   ]
+  },
+  "NRHB_23_aii.png": {
+   "file": "NRHB_23_aii.png",
+   "bytes": 380798,
+   "sha256": "67ba3533c4de8fe4069c22a8749e6e593486169175c1c34c67862d1630707b55",
+   "pixels": [
+    899,
+    923
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_aii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Power Driven Vessel Underway less than 50m"
+   ],
+   "paragraphs": [
+    "23(a)(ii)"
+   ],
+   "entries": [
+    "23a2"
+   ]
+  },
+  "NRHB_23_b.png": {
+   "file": "NRHB_23_b.png",
+   "bytes": 308494,
+   "sha256": "b3b09638393ca550f85642a95874e54bdaaea2ac8327a2cd790b78884f81ed7d",
+   "pixels": [
+    918,
+    573
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_b.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Air Cushion Vessel in Nondisplacement Mode"
+   ],
+   "paragraphs": [
+    "23(b)"
+   ],
+   "entries": [
+    "23b"
+   ]
+  },
+  "NRHB_23_di.png": {
+   "file": "NRHB_23_di.png",
+   "bytes": 279055,
+   "sha256": "752aa0da07cfd76e8be7bb64b20bd94bb38b42d35d0553ee861721829e920f8e",
+   "pixels": [
+    925,
+    573
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_di.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Power Driven Vessel less than 12m"
+   ],
+   "paragraphs": [
+    "23(d)(i)"
+   ],
+   "entries": [
+    "23d1"
+   ]
+  },
+  "NRHB_23_e.png": {
+   "file": "NRHB_23_e.png",
+   "bytes": 360112,
+   "sha256": "0de184ff20ea9b7f9695c7837730c13c1c9cdc3ce7c48d59cea884a5ac8c5044",
+   "pixels": [
+    892,
+    888
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_e.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "unmapped_reason": "illustrates a paragraph outside this release's scope (inland-only, or a rule family not in the table)"
+  },
+  "NRHB_24_a.png": {
+   "file": "NRHB_24_a.png",
+   "bytes": 320798,
+   "sha256": "4ebdd5a119903c73ab6669c8b1c7a9ef57d932a93e7d8851986c6787666c08f1",
+   "pixels": [
+    882,
+    760
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_a.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "paragraphs": [
+    "24(a)",
+    "24(a)(i)"
+   ],
+   "entries": [
+    "24a-m2",
+    "24a-m3",
+    "24a-rest"
+   ]
+  },
+  "NRHB_24_av.png": {
+   "file": "NRHB_24_av.png",
+   "bytes": 278415,
+   "sha256": "34aa971cb44d8d1de868c324c88eca6be6aa12241b44544b8302e94de9522257",
+   "pixels": [
+    883,
+    763
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_av.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Power Driven Vessel Towing Astern"
+   ],
+   "paragraphs": [
+    "24(a)(v)"
+   ]
+  },
+  "NRHB_24_d.png": {
+   "file": "NRHB_24_d.png",
+   "bytes": 141832,
+   "sha256": "f73f6419886dd0e5d1a126c147ab6bc22b352eb836e2f71b6218f9d23cec09c0",
+   "pixels": [
+    758,
+    487
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_d.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Power Driven Vessel Towing Astern"
+   ],
+   "paragraphs": [
+    "24(d)"
+   ]
+  },
+  "NRHB_24_e.png": {
+   "file": "NRHB_24_e.png",
+   "bytes": 234368,
+   "sha256": "eaaec88135a22ad156ff2a084fd9551c2e50374a3e1b50f46b2f71a4609a7e35",
+   "pixels": [
+    882,
+    528
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_e.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel or Object Being Towed"
+   ],
+   "paragraphs": [
+    "24(e)"
+   ],
+   "entries": [
+    "24e"
+   ]
+  },
+  "NRHB_24_eiii.png": {
+   "file": "NRHB_24_eiii.png",
+   "bytes": 234588,
+   "sha256": "32a448a4dd09bf6ba88e525ab7a0972c9bc76a9e70d7c9261eeff1454e67c75b",
+   "pixels": [
+    890,
+    510
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_eiii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel or Object Being Towed"
+   ],
+   "paragraphs": [
+    "24(e)"
+   ]
+  },
+  "NRHB_24_f.png": {
+   "file": "NRHB_24_f.png",
+   "bytes": 125000,
+   "sha256": "f6a88a5c6eaf0c10efd2db403969a95b87d1081ce677defd5f40b11209b05b78",
+   "pixels": [
+    704,
+    426
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_f.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel being Pushed Ahead or Alongside"
+   ],
+   "paragraphs": [
+    "24(f)"
+   ]
+  },
+  "NRHB_24_j.png": {
+   "file": "NRHB_24_j.png",
+   "bytes": 123444,
+   "sha256": "e0300a45ffd000f340482ca067963ac9e066f00a2c3680624374343cf5f54dbd",
+   "pixels": [
+    693,
+    436
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_j.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Power Driven Vessel Pushing Ahead on Western R."
+   ],
+   "unmapped_reason": "illustrates a paragraph outside this release's scope (inland-only, or a rule family not in the table)"
+  },
+  "NRHB_25_a.png": {
+   "file": "NRHB_25_a.png",
+   "bytes": 229286,
+   "sha256": "595be8f4f28824123ca8d755707ad4eadf0475ba04fcbc9d7d91ea0448565e39",
+   "pixels": [
+    904,
+    911
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_a.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Sailing Vessel Underway"
+   ],
+   "paragraphs": [
+    "25(a)"
+   ],
+   "entries": [
+    "25a"
+   ]
+  },
+  "NRHB_25_b.png": {
+   "file": "NRHB_25_b.png",
+   "bytes": 240677,
+   "sha256": "fd7b0b676efd561cf43b2edf7ad5e51e0dcd7f6afa14a36ac7039f2a24675b91",
+   "pixels": [
+    899,
+    937
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_b.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "paragraphs": [
+    "25(b)"
+   ],
+   "entries": [
+    "25b"
+   ]
+  },
+  "NRHB_25_c.png": {
+   "file": "NRHB_25_c.png",
+   "bytes": 258208,
+   "sha256": "cc400917553abe53a9bbc09db66e9427e6098c79c401534f3d24ac765776df82",
+   "pixels": [
+    902,
+    902
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_c.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Sailing Vessel Underway"
+   ],
+   "paragraphs": [
+    "25(c)"
+   ],
+   "entries": [
+    "25c"
+   ]
+  },
+  "NRHB_25_d.png": {
+   "file": "NRHB_25_d.png",
+   "bytes": 188278,
+   "sha256": "be9aa5b1803ee3bfef7ea9788a4ed1eb7675744d8cba9a9a7549c1f4872cddba",
+   "pixels": [
+    870,
+    895
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_d.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Sailing Vessel Underway less than 7meters"
+   ],
+   "paragraphs": [
+    "25(d)(i)"
+   ],
+   "entries": [
+    "25d1"
+   ]
+  },
+  "NRHB_25_dii.png": {
+   "file": "NRHB_25_dii.png",
+   "bytes": 274816,
+   "sha256": "a780ba9d1fb21ae5926ce399b25e0f05f05e3dfe158a47c049ddcde458a8628b",
+   "pixels": [
+    868,
+    896
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_dii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel Under Oars"
+   ],
+   "paragraphs": [
+    "25(d)(ii)"
+   ],
+   "entries": [
+    "25d2"
+   ]
+  },
+  "NRHB_25_e.png": {
+   "file": "NRHB_25_e.png",
+   "bytes": 174398,
+   "sha256": "7b23a6a2b681c6a2a1495dde47519783ddaf4b180777de3ab0055bef71217c8d",
+   "pixels": [
+    789,
+    963
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_e.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel Under Oars"
+   ],
+   "paragraphs": [
+    "25(e)"
+   ]
+  },
+  "NRHB_26_b.png": {
+   "file": "NRHB_26_b.png",
+   "bytes": 73807,
+   "sha256": "9d1b2cd40b9e2152dcc3668fa75b4d75383014ad299bd7b2473c6be28d5c65e5",
+   "pixels": [
+    772,
+    388
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_b.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels Engaged in Trawling"
+   ],
+   "paragraphs": [
+    "26(b)",
+    "26(b)(i)"
+   ],
+   "entries": [
+    "26b-id"
+   ]
+  },
+  "NRHB_26_biii.png": {
+   "file": "NRHB_26_biii.png",
+   "bytes": 81026,
+   "sha256": "12e14b5c281abc4156cf5a5db4092ece5464885f13ec63ac1e7a8e85ee4e8c46",
+   "pixels": [
+    776,
+    402
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_biii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels Engaged in Trawling"
+   ],
+   "paragraphs": [
+    "26(b)(iii)"
+   ],
+   "entries": [
+    "26b-mw"
+   ]
+  },
+  "NRHB_26_ciii.png": {
+   "file": "NRHB_26_ciii.png",
+   "bytes": 373236,
+   "sha256": "4693c5fa026a2d6652253a913dd74fb71f6865fcfa6fc457dd14feb0d7cfa898",
+   "pixels": [
+    881,
+    776
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_ciii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels Engaged in Trawling"
+   ],
+   "paragraphs": [
+    "26(c)(iii)"
+   ],
+   "entries": [
+    "26c-mw"
+   ]
+  },
+  "NRHB_27_a.png": {
+   "file": "NRHB_27_a.png",
+   "bytes": 420911,
+   "sha256": "1462fc50b3ca9729e21b65d292233d5fd73ef561f2f664edad116927e61bc568",
+   "pixels": [
+    902,
+    894
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_a.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels Not Under Command"
+   ],
+   "paragraphs": [
+    "27(a)",
+    "27(a)(i)"
+   ],
+   "entries": [
+    "27a-id"
+   ]
+  },
+  "NRHB_27_aiii.png": {
+   "file": "NRHB_27_aiii.png",
+   "bytes": 412460,
+   "sha256": "c0b7a9bd3ac00a05cb9fbd9c7e50741d516c27ef3c6a16a687396adac200711a",
+   "pixels": [
+    892,
+    900
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_aiii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels Not Under Command"
+   ],
+   "paragraphs": [
+    "27(a)(iii)"
+   ],
+   "entries": [
+    "27a-mw"
+   ]
+  },
+  "NRHB_27_biii.png": {
+   "file": "NRHB_27_biii.png",
+   "bytes": 315448,
+   "sha256": "9e3a38238c43a41ad751d508dae74cbbd2f51753ecd84bf3f7a0fc9fca91dcba",
+   "pixels": [
+    880,
+    721
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_biii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel Restricted in Her Ability to Maneuver"
+   ],
+   "paragraphs": [
+    "27(b)(iii)"
+   ],
+   "entries": [
+    "27b-mw"
+   ]
+  },
+  "NRHB_27_biv.png": {
+   "file": "NRHB_27_biv.png",
+   "bytes": 315752,
+   "sha256": "08ef5d76073b7e486ba0fb1f883c04b817017d16eaff91572174937a40afa813",
+   "pixels": [
+    884,
+    725
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_biv.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel Restricted in Her Ability to Maneuver"
+   ],
+   "paragraphs": [
+    "27(b)(iv)"
+   ],
+   "entries": [
+    "27b-anc"
+   ]
+  },
+  "NRHB_27_c.png": {
+   "file": "NRHB_27_c.png",
+   "bytes": 326929,
+   "sha256": "db616d37bb9f21c6e625cfbbf728c598a5c0f0ec054b1b33948b9dcd21c57493",
+   "pixels": [
+    924,
+    694
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_c.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Restricted Maneuvering Towing Operation"
+   ],
+   "paragraphs": [
+    "27(c)"
+   ]
+  },
+  "NRHB_27_d.png": {
+   "file": "NRHB_27_d.png",
+   "bytes": 167956,
+   "sha256": "a8442834e042db063a02df80570746d25d015d6642ec3c1cfd3e2df3f6e8c68b",
+   "pixels": [
+    871,
+    433
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_d.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Dredging and Underwater Operations"
+   ],
+   "paragraphs": [
+    "27(d)",
+    "27(d)(i)",
+    "27(d)(ii)"
+   ],
+   "entries": [
+    "27d"
+   ]
+  },
+  "NRHB_27_diii.png": {
+   "file": "NRHB_27_diii.png",
+   "bytes": 162614,
+   "sha256": "02df0e5dfb53037b76da28697d08d78ac0116e3c5e17849e4015f384cbaa5a5a",
+   "pixels": [
+    808,
+    434
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_diii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel Restricted in Her Ability to Maneuver"
+   ],
+   "paragraphs": [
+    "27(d)(iii)"
+   ]
+  },
+  "NRHB_27_ei.png": {
+   "file": "NRHB_27_ei.png",
+   "bytes": 301734,
+   "sha256": "be030654330416045c24294eaadd179f6a240fae3ca951cb4e5e47dc1b59d945",
+   "pixels": [
+    934,
+    924
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_ei.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "paragraphs": [
+    "27(e)(i)"
+   ],
+   "entries": [
+    "27e"
+   ]
+  },
+  "NRHB_27_eii.png": {
+   "file": "NRHB_27_eii.png",
+   "bytes": 302440,
+   "sha256": "a0002003c0ef3dd60ca35a0e6c09533fe38028b7b30ca19db4485026c162a423",
+   "pixels": [
+    937,
+    921
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_eii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel Engaged in Diving Operations"
+   ],
+   "paragraphs": [
+    "27(e)(ii)"
+   ]
+  },
+  "NRHB_27_f.png": {
+   "file": "NRHB_27_f.png",
+   "bytes": 213526,
+   "sha256": "e0120ae573b0db557f90fa1d57e8e2a7edaaab712c5bd00ae3805caadb2a2c55",
+   "pixels": [
+    709,
+    705
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_f.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel engaged in mineclearance operations"
+   ],
+   "paragraphs": [
+    "27(f)"
+   ],
+   "entries": [
+    "27f"
+   ]
+  },
+  "NRHB_28.png": {
+   "file": "NRHB_28.png",
+   "bytes": 344813,
+   "sha256": "16abb6ccb4352af1ea1772e0157da3090d414ef425fa4f2caeedfc1001b49d9e",
+   "pixels": [
+    893,
+    853
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_28.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels Constrained by Draft"
+   ],
+   "paragraphs": [
+    "28"
+   ],
+   "entries": [
+    "28"
+   ]
+  },
+  "NRHB_29_a.png": {
+   "file": "NRHB_29_a.png",
+   "bytes": 272789,
+   "sha256": "4f7dbe2cf1855c54491d0b40602da99dc073150da1a9bb151f236a375a991e68",
+   "pixels": [
+    867,
+    732
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_29_a.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Pilot Vessels"
+   ],
+   "paragraphs": [
+    "29(a)",
+    "29(a)(i)"
+   ],
+   "entries": [
+    "29a"
+   ]
+  },
+  "NRHB_29_aiii.png": {
+   "file": "NRHB_29_aiii.png",
+   "bytes": 305420,
+   "sha256": "b4b40080a104add6ec7c0245a0ce327482607c6fefe709b87d0790d6f51f60c7",
+   "pixels": [
+    865,
+    739
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_29_aiii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Pilot Vessels"
+   ],
+   "paragraphs": [
+    "29(a)(iii)"
+   ],
+   "entries": [
+    "29a"
+   ]
+  },
+  "NRHB_30_a.png": {
+   "file": "NRHB_30_a.png",
+   "bytes": 349840,
+   "sha256": "09b5477e510b7f09c9a68896b7df0aa2297bff99e16ab2b91b6dd05698d32aaa",
+   "pixels": [
+    863,
+    725
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_a.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels at Anchor"
+   ],
+   "paragraphs": [
+    "30(a)"
+   ],
+   "entries": [
+    "30a"
+   ]
+  },
+  "NRHB_30_d.png": {
+   "file": "NRHB_30_d.png",
+   "bytes": 253031,
+   "sha256": "364492db5bf7e2440d52c73666bfd3907bc0bc39cf6372d04baf26b83c93beef",
+   "pixels": [
+    702,
+    724
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_d.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessel Aground"
+   ],
+   "paragraphs": [
+    "30(d)"
+   ],
+   "entries": [
+    "30d"
+   ]
+  },
+  "NRHB_30_dii.png": {
+   "file": "NRHB_30_dii.png",
+   "bytes": 46910,
+   "sha256": "ad2c7dba0d300ec2eba891d41245363729cd8546ee3e0a8a715e52f50ef32d3b",
+   "pixels": [
+    513,
+    420
+   ],
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_dii.png",
+   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+   "retrieved": "2026-08-29",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Vessels at Anchor"
+   ],
+   "paragraphs": [
+    "30(d)"
+   ]
+  },
+  "mastheadarc.gif": {
+   "file": "mastheadarc.gif",
+   "bytes": 14296,
+   "sha256": "c18c2c1121e9d9a13982cea1689a3bbd2679935af38b43df5ac87bfd12de63d5",
+   "pixels": [
+    225,
+    325
+   ],
+   "source_url": null,
+   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
+   "retrieved": "2026-08-29",
+   "rights": "unverified - see PROVENANCE.md",
+   "provenance_status": "unresolved"
+  },
+  "portarc.gif": {
+   "file": "portarc.gif",
+   "bytes": 14923,
+   "sha256": "ce9fcb56b3e69d8a17f6db94d1b825a7758bced22bfd152d0eabc1265ed2d471",
+   "pixels": [
+    225,
+    325
+   ],
+   "source_url": null,
+   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
+   "retrieved": "2026-08-29",
+   "rights": "unverified - see PROVENANCE.md",
+   "provenance_status": "unresolved"
+  },
+  "stbdarc.gif": {
+   "file": "stbdarc.gif",
+   "bytes": 15211,
+   "sha256": "3bf14f3a573f1b16d56f96833181cc1e8504f9389a80b776d8c9bddc59af1751",
+   "pixels": [
+    225,
+    325
+   ],
+   "source_url": null,
+   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
+   "retrieved": "2026-08-29",
+   "rights": "unverified - see PROVENANCE.md",
+   "provenance_status": "unresolved"
+  },
+  "sternarc.gif": {
+   "file": "sternarc.gif",
+   "bytes": 14745,
+   "sha256": "fcc2b93ee4509adad0df0e3cb17b11e9f9e181bc96a77acfa789bea489b0836b",
+   "pixels": [
+    225,
+    325
+   ],
+   "source_url": null,
+   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
+   "retrieved": "2026-08-29",
+   "rights": "unverified - see PROVENANCE.md",
+   "provenance_status": "unresolved"
+  },
+  "towingarc.gif": {
+   "file": "towingarc.gif",
+   "bytes": 14316,
+   "sha256": "8c92b0e55c42cb81ba69d97ddf4f9eb5f24646599c0396a3d8d1ea0881543dc1",
+   "pixels": [
+    225,
+    325
+   ],
+   "source_url": null,
+   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
+   "retrieved": "2026-08-29",
+   "rights": "unverified - see PROVENANCE.md",
+   "provenance_status": "unresolved"
+  }
+ }
+}

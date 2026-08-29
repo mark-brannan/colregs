@@ -1,0 +1,412 @@
+{
+ "note": "Fact records and the applicability entry ids that apply to each, under the International rules at night. An implementation in any language that consumes data/applicability.json should reproduce these exactly, using the predicate semantics in README.md.",
+ "ruleset": "international",
+ "cases": [
+  {
+   "name": "sailing yacht 11.6 m under sail",
+   "facts": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 11.6
+   },
+   "expect": [
+    "25a",
+    "25b",
+    "25c"
+   ]
+  },
+  {
+   "name": "same yacht motoring",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 11.6
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34",
+    "23d1"
+   ]
+  },
+  {
+   "name": "power vessel 15 m underway",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 15
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ]
+  },
+  {
+   "name": "power vessel 55 m underway",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 55
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ]
+  },
+  {
+   "name": "6 m outboard, max speed 6 kn",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 6,
+    "max_speed_kn": 6
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34",
+    "23d1",
+    "23d2"
+   ]
+  },
+  {
+   "name": "6 m outboard, max speed 20 kn",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 6,
+    "max_speed_kn": 20
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34",
+    "23d1"
+   ]
+  },
+  {
+   "name": "dinghy under sail, 3.5 m",
+   "facts": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 3.5
+   },
+   "expect": [
+    "25a",
+    "25b",
+    "25c",
+    "25d1"
+   ]
+  },
+  {
+   "name": "10 m vessel under oars",
+   "facts": {
+    "propulsion": "oars",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 10
+   },
+   "expect": [
+    "25d2"
+   ]
+  },
+  {
+   "name": "motoring but drifting in neutral, 11.6 m",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "making_way": false,
+    "length_m": 11.6
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34",
+    "23d1"
+   ]
+  },
+  {
+   "name": "anchored, 11.6 m",
+   "facts": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "anchored",
+    "length_m": 11.6
+   },
+   "expect": [
+    "30a",
+    "30b",
+    "30c"
+   ]
+  },
+  {
+   "name": "anchored, 6 m, clear of the channel",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "anchored",
+    "length_m": 6,
+    "near_channel": false
+   },
+   "expect": [
+    "30a",
+    "30b",
+    "30c",
+    "30e"
+   ]
+  },
+  {
+   "name": "aground, 15 m",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "aground",
+    "length_m": 15
+   },
+   "expect": [
+    "30d"
+   ]
+  },
+  {
+   "name": "aground, 10 m (30(f) relief)",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "aground",
+    "length_m": 10
+   },
+   "expect": []
+  },
+  {
+   "name": "trawler 30 m making way",
+   "facts": {
+    "propulsion": "power",
+    "activity": "trawling",
+    "position": "underway",
+    "making_way": true,
+    "length_m": 30
+   },
+   "expect": [
+    "26b-id",
+    "26b-mast",
+    "26b-mw"
+   ]
+  },
+  {
+   "name": "trawler 30 m drifting",
+   "facts": {
+    "propulsion": "power",
+    "activity": "trawling",
+    "position": "underway",
+    "making_way": false,
+    "length_m": 30
+   },
+   "expect": [
+    "26b-id",
+    "26b-mast"
+   ]
+  },
+  {
+   "name": "fishing other than trawling, gear out 200 m, not making way",
+   "facts": {
+    "propulsion": "power",
+    "activity": "fishing",
+    "position": "underway",
+    "making_way": false,
+    "length_m": 12,
+    "gear_extent_m": 200
+   },
+   "expect": [
+    "26c-id",
+    "26c-gear"
+   ]
+  },
+  {
+   "name": "not under command, making way",
+   "facts": {
+    "propulsion": "power",
+    "activity": "nuc",
+    "position": "underway",
+    "making_way": true,
+    "length_m": 40
+   },
+   "expect": [
+    "27a-id",
+    "27a-mw"
+   ]
+  },
+  {
+   "name": "not under command, drifting",
+   "facts": {
+    "propulsion": "power",
+    "activity": "nuc",
+    "position": "underway",
+    "making_way": false,
+    "length_m": 40
+   },
+   "expect": [
+    "27a-id"
+   ]
+  },
+  {
+   "name": "restricted in ability to maneuver, at anchor",
+   "facts": {
+    "propulsion": "power",
+    "activity": "ram",
+    "position": "anchored",
+    "length_m": 60
+   },
+   "expect": [
+    "27b-id",
+    "27b-anc",
+    "30a",
+    "30c"
+   ]
+  },
+  {
+   "name": "dredger, restricted, obstruction to port, making way",
+   "facts": {
+    "propulsion": "power",
+    "activity": "ram_underwater",
+    "position": "underway",
+    "making_way": true,
+    "length_m": 45,
+    "obstruction_exists": true,
+    "obstruction_side": "port"
+   },
+   "expect": [
+    "27b-id",
+    "27b-mw",
+    "27d"
+   ]
+  },
+  {
+   "name": "towing astern, tow 150 m",
+   "facts": {
+    "propulsion": "power",
+    "activity": "towing",
+    "position": "underway",
+    "length_m": 40,
+    "tow_length_m": 150
+   },
+   "expect": [
+    "24a-m2",
+    "24a-rest"
+   ]
+  },
+  {
+   "name": "towing astern, tow 300 m",
+   "facts": {
+    "propulsion": "power",
+    "activity": "towing",
+    "position": "underway",
+    "length_m": 40,
+    "tow_length_m": 300
+   },
+   "expect": [
+    "24a-m3",
+    "24a-rest"
+   ]
+  },
+  {
+   "name": "pushing ahead, composite unit",
+   "facts": {
+    "propulsion": "power",
+    "activity": "pushing",
+    "position": "underway",
+    "length_m": 30,
+    "composite_unit": true
+   },
+   "expect": [
+    "24b"
+   ]
+  },
+  {
+   "name": "pushing ahead, not a composite unit",
+   "facts": {
+    "propulsion": "power",
+    "activity": "pushing",
+    "position": "underway",
+    "length_m": 30,
+    "composite_unit": false
+   },
+   "expect": [
+    "24c"
+   ]
+  },
+  {
+   "name": "constrained by draft",
+   "facts": {
+    "propulsion": "power",
+    "activity": "cbd",
+    "position": "underway",
+    "length_m": 200
+   },
+   "expect": [
+    "28"
+   ]
+  },
+  {
+   "name": "on pilotage duty, underway",
+   "facts": {
+    "propulsion": "power",
+    "activity": "pilot",
+    "position": "underway",
+    "length_m": 20
+   },
+   "expect": [
+    "29a"
+   ]
+  },
+  {
+   "name": "mine clearance, underway",
+   "facts": {
+    "propulsion": "power",
+    "activity": "mine",
+    "position": "underway",
+    "length_m": 60
+   },
+   "expect": [
+    "27f"
+   ]
+  },
+  {
+   "name": "diving operations from a small vessel",
+   "facts": {
+    "propulsion": "power",
+    "activity": "diving",
+    "position": "underway",
+    "length_m": 9
+   },
+   "expect": [
+    "27e"
+   ]
+  },
+  {
+   "name": "air-cushion vessel in non-displacement mode",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": 25,
+    "non_displacement": true
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34",
+    "23b"
+   ]
+  }
+ ]
+}

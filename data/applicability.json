@@ -1,0 +1,1108 @@
+{
+ "ruleset": "international",
+ "conditions": "night (Rule 20(b): sunset to sunrise), and by 20(c) in restricted visibility by day. Day shapes are not in this release.",
+ "relations": {
+  "includes": "import another entry's lights only, never its predicate",
+  "conditional_includes": "import lights when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks one",
+  "in_lieu_of": "this entry's lights replace the referenced entries' lights",
+  "excludes": "the referenced entries must not be shown at the same time",
+  "exempts": "the referenced entries are not required"
+ },
+ "modalities": {
+  "shall": "mandatory",
+  "may": "permitted alternative",
+  "shall-if-practicable": "mandatory where practicable, with a stated fallback",
+  "conditional": "modality depends on facts; see modality_by",
+  "exempt": "the entry relieves a requirement rather than imposing one"
+ },
+ "known_omissions": [
+  {
+   "cite": "24(d)",
+   "what": "A power-driven vessel to which 24(a) or (c) applies shall also comply with 23(a)(ii) — the second masthead light.",
+   "why": "Not an entry in the settled table; 24a-m2/24a-m3 carry in_lieu_of against 23a1 and 23a2 instead. Recorded here rather than added unilaterally."
+  },
+  {
+   "cite": "24(f), 24(g), 24(h), 24(i)",
+   "what": "Vessels pushed or towed in a group; inconspicuous partly submerged tows; impracticability fallbacks.",
+   "why": "Outside the settled table. Rule text is present in rules.json."
+  },
+  {
+   "cite": "27(c)",
+   "what": "Towing operation that severely restricts the tow's ability to deviate: Rule 24(a) lights plus the 27(b)(i)/(ii) RAM display.",
+   "why": "Outside the settled table; expressible as activity=towing plus activity=ram."
+  },
+  {
+   "cite": "27(g)",
+   "what": "Vessels under 12 m, except when diving, need not exhibit the Rule 27 lights and shapes.",
+   "why": "A cross-cutting exemption over the whole 27 family; no entry in the table."
+  },
+  {
+   "cite": "31",
+   "what": "Seaplanes and WIG craft show the closest practicable equivalent.",
+   "why": "Not expressible as a light set."
+  }
+ ],
+ "entries": [
+  {
+   "id": "23a1",
+   "ruleset": "international",
+   "cite": "23(a)(i)",
+   "when": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway"
+   },
+   "lights": [
+    {
+     "light": "masthead",
+     "position": "forward",
+     "count": 1
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_23_a.png"
+   ]
+  },
+  {
+   "id": "23a2",
+   "ruleset": "international",
+   "cite": "23(a)(ii)",
+   "when": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway"
+   },
+   "lights": [
+    {
+     "light": "masthead",
+     "position": "abaft and higher than the forward one",
+     "count": 1
+    }
+   ],
+   "modality": "conditional",
+   "modality_by": [
+    {
+     "when": {
+      "length_m": {
+       "gte": 50
+      }
+     },
+     "modality": "shall"
+    },
+    {
+     "when": {
+      "length_m": {
+       "lt": 50
+      }
+     },
+     "modality": "may"
+    }
+   ],
+   "images": [
+    "NRHB_23_aii.png"
+   ]
+  },
+  {
+   "id": "23a34",
+   "ruleset": "international",
+   "cite": "23(a)(iii)-(iv)",
+   "when": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway"
+   },
+   "lights": [
+    {
+     "light": "sidelights"
+    },
+    {
+     "light": "sternlight"
+    }
+   ],
+   "modality": "shall"
+  },
+  {
+   "id": "23b",
+   "ruleset": "international",
+   "cite": "23(b)",
+   "when": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "non_displacement": true
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "yellow",
+     "character": "flashing",
+     "count": 1
+    }
+   ],
+   "includes": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_23_b.png"
+   ],
+   "notes": "Air-cushion vessel operating in non-displacement mode; in addition to 23(a)."
+  },
+  {
+   "id": "23c",
+   "ruleset": "international",
+   "cite": "23(c)",
+   "when": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "wig": true
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "character": "flashing",
+     "intensity": "high",
+     "count": 1
+    }
+   ],
+   "includes": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "modality": "shall",
+   "notes": "Only when taking off, landing and in flight near the surface."
+  },
+  {
+   "id": "23d1",
+   "ruleset": "international",
+   "cite": "23(d)(i)",
+   "when": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": {
+     "lt": 12
+    }
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1
+    },
+    {
+     "light": "sidelights"
+    }
+   ],
+   "in_lieu_of": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "modality": "may",
+   "images": [
+    "NRHB_23_di.png"
+   ]
+  },
+  {
+   "id": "23d2",
+   "ruleset": "international",
+   "cite": "23(d)(ii)",
+   "when": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "length_m": {
+     "lt": 7
+    },
+    "max_speed_kn": {
+     "lte": 7
+    }
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1
+    },
+    {
+     "light": "sidelights",
+     "modality": "shall-if-practicable"
+    }
+   ],
+   "in_lieu_of": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "modality": "may",
+   "images": [
+    "NRHB_23_Intl_dii.png"
+   ],
+   "notes": "The all-round white light is 'may'; the sidelights are 'shall, if practicable' — one paragraph, two modalities."
+  },
+  {
+   "id": "24a-m2",
+   "ruleset": "international",
+   "cite": "24(a)(i)",
+   "when": {
+    "activity": "towing",
+    "tow_length_m": {
+     "lte": 200
+    }
+   },
+   "lights": [
+    {
+     "light": "masthead",
+     "count": 2,
+     "arrangement": "vertical"
+    }
+   ],
+   "in_lieu_of": [
+    "23a1",
+    "23a2"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_24_a.png"
+   ]
+  },
+  {
+   "id": "24a-m3",
+   "ruleset": "international",
+   "cite": "24(a)(i)",
+   "when": {
+    "activity": "towing",
+    "tow_length_m": {
+     "gt": 200
+    }
+   },
+   "lights": [
+    {
+     "light": "masthead",
+     "count": 3,
+     "arrangement": "vertical"
+    }
+   ],
+   "in_lieu_of": [
+    "23a1",
+    "23a2"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_24_a.png"
+   ]
+  },
+  {
+   "id": "24a-rest",
+   "ruleset": "international",
+   "cite": "24(a)(ii)-(iv)",
+   "when": {
+    "activity": "towing"
+   },
+   "lights": [
+    {
+     "light": "towing",
+     "position": "in a vertical line above the sternlight",
+     "count": 1
+    }
+   ],
+   "includes": [
+    "23a34"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_24_a.png"
+   ]
+  },
+  {
+   "id": "24b",
+   "ruleset": "international",
+   "cite": "24(b)",
+   "when": {
+    "activity": "pushing",
+    "composite_unit": true
+   },
+   "lights": [],
+   "includes": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_23_a.png"
+   ],
+   "notes": "A composite unit is regarded as a power-driven vessel."
+  },
+  {
+   "id": "24c",
+   "ruleset": "international",
+   "cite": "24(c)",
+   "when": {
+    "activity": "pushing",
+    "composite_unit": false
+   },
+   "lights": [
+    {
+     "light": "masthead",
+     "count": 2,
+     "arrangement": "vertical"
+    }
+   ],
+   "includes": [
+    "23a34"
+   ],
+   "in_lieu_of": [
+    "23a1",
+    "23a2"
+   ],
+   "modality": "shall",
+   "notes": "Also covers towing alongside (towed_alongside=true)."
+  },
+  {
+   "id": "24e",
+   "ruleset": "international",
+   "cite": "24(e)",
+   "when": {
+    "activity": "being_towed"
+   },
+   "lights": [
+    {
+     "light": "sidelights"
+    },
+    {
+     "light": "sternlight"
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_24_e.png"
+   ],
+   "notes": "Other than the inconspicuous, partly submerged objects of 24(g)."
+  },
+  {
+   "id": "25a",
+   "ruleset": "international",
+   "cite": "25(a)",
+   "when": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "underway"
+   },
+   "lights": [
+    {
+     "light": "sidelights"
+    },
+    {
+     "light": "sternlight"
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_25_a.png"
+   ]
+  },
+  {
+   "id": "25b",
+   "ruleset": "international",
+   "cite": "25(b)",
+   "when": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "underway",
+    "length_m": {
+     "lt": 20
+    }
+   },
+   "lights": [
+    {
+     "light": "sidelights",
+     "combined": true,
+     "position": "at or near the top of the mast"
+    },
+    {
+     "light": "sternlight",
+     "combined": true,
+     "position": "at or near the top of the mast"
+    }
+   ],
+   "in_lieu_of": [
+    "25a"
+   ],
+   "excludes": [
+    "25c"
+   ],
+   "modality": "may",
+   "images": [
+    "NRHB_25_b.png"
+   ],
+   "notes": "The tricolor: 25(a)'s lights combined in one lantern."
+  },
+  {
+   "id": "25c",
+   "ruleset": "international",
+   "cite": "25(c)",
+   "when": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "underway"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 1,
+     "position": "upper, at or near the top of the mast"
+    },
+    {
+     "light": "all_round",
+     "color": "green",
+     "count": 1,
+     "position": "lower, at or near the top of the mast"
+    }
+   ],
+   "includes": [
+    "25a"
+   ],
+   "excludes": [
+    "25b"
+   ],
+   "modality": "may",
+   "images": [
+    "NRHB_25_c.png"
+   ]
+  },
+  {
+   "id": "25d1",
+   "ruleset": "international",
+   "cite": "25(d)(i)",
+   "when": {
+    "propulsion": "sail",
+    "activity": "none",
+    "position": "underway",
+    "length_m": {
+     "lt": 7
+    }
+   },
+   "lights": [
+    {
+     "light": "torch",
+     "color": "white",
+     "count": 1,
+     "note": "an electric torch or lighted lantern shown in sufficient time to prevent collision"
+    }
+   ],
+   "in_lieu_of": [
+    "25a",
+    "25b"
+   ],
+   "modality": "shall-if-practicable",
+   "images": [
+    "NRHB_25_d.png"
+   ],
+   "notes": "25(a) or (b) shall be shown if practicable; the torch is the fallback."
+  },
+  {
+   "id": "25d2",
+   "ruleset": "international",
+   "cite": "25(d)(ii)",
+   "when": {
+    "propulsion": "oars"
+   },
+   "lights": [
+    {
+     "light": "torch",
+     "color": "white",
+     "count": 1,
+     "note": "an electric torch or lighted lantern shown in sufficient time to prevent collision"
+    }
+   ],
+   "conditional_includes": [
+    {
+     "one_of": [
+      "25a",
+      "25b"
+     ]
+    }
+   ],
+   "modality": "may",
+   "images": [
+    "NRHB_25_dii.png"
+   ],
+   "notes": "No length gate at all: a vessel under oars of any length may show only the torch, where a sailing vessel of 10 m may not."
+  },
+  {
+   "id": "26b-id",
+   "ruleset": "international",
+   "cite": "26(b)(i)",
+   "when": {
+    "activity": "trawling"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "green",
+     "count": 1,
+     "position": "upper"
+    },
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "lower"
+    }
+   ],
+   "excludes": [
+    "30a",
+    "30b"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_26_b.png"
+   ],
+   "notes": "Rule 26(a): a vessel engaged in fishing shall exhibit only the lights of Rule 26, whether underway or at anchor — hence the exclusion of Rule 30."
+  },
+  {
+   "id": "26b-mast",
+   "ruleset": "international",
+   "cite": "26(b)(ii)",
+   "when": {
+    "activity": "trawling"
+   },
+   "lights": [
+    {
+     "light": "masthead",
+     "position": "abaft of and higher than the all-round green light",
+     "count": 1
+    }
+   ],
+   "modality": "conditional",
+   "modality_by": [
+    {
+     "when": {
+      "length_m": {
+       "gte": 50
+      }
+     },
+     "modality": "shall"
+    },
+    {
+     "when": {
+      "length_m": {
+       "lt": 50
+      }
+     },
+     "modality": "may"
+    }
+   ]
+  },
+  {
+   "id": "26b-mw",
+   "ruleset": "international",
+   "cite": "26(b)(iii)",
+   "when": {
+    "activity": "trawling",
+    "making_way": true
+   },
+   "lights": [],
+   "includes": [
+    "23a34"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_26_biii.png"
+   ]
+  },
+  {
+   "id": "26c-id",
+   "ruleset": "international",
+   "cite": "26(c)(i)",
+   "when": {
+    "activity": "fishing"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 1,
+     "position": "upper"
+    },
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "lower"
+    }
+   ],
+   "excludes": [
+    "30a",
+    "30b"
+   ],
+   "modality": "shall"
+  },
+  {
+   "id": "26c-gear",
+   "ruleset": "international",
+   "cite": "26(c)(ii)",
+   "when": {
+    "activity": "fishing",
+    "gear_extent_m": {
+     "gt": 150
+    }
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "in the direction of the gear"
+    }
+   ],
+   "modality": "shall"
+  },
+  {
+   "id": "26c-mw",
+   "ruleset": "international",
+   "cite": "26(c)(iii)",
+   "when": {
+    "activity": "fishing",
+    "making_way": true
+   },
+   "lights": [],
+   "includes": [
+    "23a34"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_26_ciii.png"
+   ]
+  },
+  {
+   "id": "27a-id",
+   "ruleset": "international",
+   "cite": "27(a)(i)",
+   "when": {
+    "activity": "nuc",
+    "position": "underway"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 2,
+     "arrangement": "vertical"
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_27_a.png"
+   ]
+  },
+  {
+   "id": "27a-mw",
+   "ruleset": "international",
+   "cite": "27(a)(iii)",
+   "when": {
+    "activity": "nuc",
+    "making_way": true
+   },
+   "lights": [],
+   "includes": [
+    "23a34"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_27_aiii.png"
+   ]
+  },
+  {
+   "id": "27b-id",
+   "ruleset": "international",
+   "cite": "27(b)(i)",
+   "when": {
+    "activity": "ram"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 1,
+     "position": "upper"
+    },
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "middle"
+    },
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 1,
+     "position": "lower"
+    }
+   ],
+   "modality": "shall",
+   "notes": "Except a vessel engaged in mine clearance operations (27(f))."
+  },
+  {
+   "id": "27b-mw",
+   "ruleset": "international",
+   "cite": "27(b)(iii)",
+   "when": {
+    "activity": "ram",
+    "making_way": true
+   },
+   "lights": [],
+   "includes": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_27_biii.png"
+   ]
+  },
+  {
+   "id": "27b-anc",
+   "ruleset": "international",
+   "cite": "27(b)(iv)",
+   "when": {
+    "activity": "ram",
+    "position": "anchored"
+   },
+   "lights": [],
+   "conditional_includes": [
+    {
+     "one_of": [
+      "30a",
+      "30b"
+     ]
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_27_biv.png"
+   ]
+  },
+  {
+   "id": "27d",
+   "ruleset": "international",
+   "cite": "27(d)",
+   "when": {
+    "activity": "ram_underwater",
+    "obstruction_exists": true
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 2,
+     "arrangement": "vertical",
+     "position": "on the side on which the obstruction exists"
+    },
+    {
+     "light": "all_round",
+     "color": "green",
+     "count": 2,
+     "arrangement": "vertical",
+     "position": "on the side on which another vessel may pass"
+    }
+   ],
+   "includes": [
+    "27b-id"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_27_d.png"
+   ],
+   "notes": "27(d)(iii): when at anchor these lights are shown instead of Rule 30's."
+  },
+  {
+   "id": "27e",
+   "ruleset": "international",
+   "cite": "27(e)(i)",
+   "when": {
+    "activity": "diving"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 1,
+     "position": "upper"
+    },
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "middle"
+    },
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 1,
+     "position": "lower"
+    }
+   ],
+   "in_lieu_of": [
+    "27d"
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_27_ei.png"
+   ],
+   "notes": "Only when the vessel's size makes the full 27(d) display impracticable."
+  },
+  {
+   "id": "27f",
+   "ruleset": "international",
+   "cite": "27(f)",
+   "when": {
+    "activity": "mine"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "green",
+     "count": 3,
+     "position": "one near the foremast head and one at each end of the fore yard"
+    }
+   ],
+   "includes": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "conditional_includes": [
+    {
+     "when": {
+      "position": "anchored"
+     },
+     "one_of": [
+      "30a",
+      "30b"
+     ]
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_27_f.png"
+   ]
+  },
+  {
+   "id": "28",
+   "ruleset": "international",
+   "cite": "28",
+   "when": {
+    "activity": "cbd"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 3,
+     "arrangement": "vertical"
+    }
+   ],
+   "includes": [
+    "23a1",
+    "23a2",
+    "23a34"
+   ],
+   "modality": "may",
+   "images": [
+    "NRHB_28.png"
+   ],
+   "notes": "The Rule 23(a) lights are 'shall' (she is a power-driven vessel underway); the three red lights are 'may'. International Rules only."
+  },
+  {
+   "id": "29a",
+   "ruleset": "international",
+   "cite": "29(a)",
+   "when": {
+    "activity": "pilot"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "upper, at or near the masthead"
+    },
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 1,
+     "position": "lower, at or near the masthead"
+    }
+   ],
+   "conditional_includes": [
+    {
+     "when": {
+      "position": "underway"
+     },
+     "includes": [
+      "23a34"
+     ],
+     "cite": "29(a)(ii)"
+    },
+    {
+     "when": {
+      "position": "anchored"
+     },
+     "one_of": [
+      "30a",
+      "30b"
+     ],
+     "cite": "29(a)(iii)"
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_29_a.png",
+    "NRHB_29_aiii.png"
+   ]
+  },
+  {
+   "id": "30a",
+   "ruleset": "international",
+   "cite": "30(a)",
+   "when": {
+    "position": "anchored"
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "in the fore part"
+    },
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "at or near the stern, at a lower level than the fore one"
+    }
+   ],
+   "modality": "shall",
+   "images": [
+    "NRHB_30_a.png"
+   ]
+  },
+  {
+   "id": "30b",
+   "ruleset": "international",
+   "cite": "30(b)",
+   "when": {
+    "position": "anchored",
+    "length_m": {
+     "lt": 50
+    }
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "white",
+     "count": 1,
+     "position": "where it can best be seen"
+    }
+   ],
+   "in_lieu_of": [
+    "30a"
+   ],
+   "modality": "may"
+  },
+  {
+   "id": "30c",
+   "ruleset": "international",
+   "cite": "30(c)",
+   "when": {
+    "position": "anchored"
+   },
+   "lights": [
+    {
+     "light": "deck_lights",
+     "note": "available working or equivalent lights to illuminate her decks"
+    }
+   ],
+   "modality": "conditional",
+   "modality_by": [
+    {
+     "when": {
+      "length_m": {
+       "gte": 100
+      }
+     },
+     "modality": "shall"
+    },
+    {
+     "when": {
+      "length_m": {
+       "lt": 100
+      }
+     },
+     "modality": "may"
+    }
+   ]
+  },
+  {
+   "id": "30d",
+   "ruleset": "international",
+   "cite": "30(d)",
+   "when": {
+    "position": "aground",
+    "length_m": {
+     "gte": 12
+    }
+   },
+   "lights": [
+    {
+     "light": "all_round",
+     "color": "red",
+     "count": 2,
+     "arrangement": "vertical"
+    }
+   ],
+   "conditional_includes": [
+    {
+     "one_of": [
+      "30a",
+      "30b"
+     ]
+    }
+   ],
+   "modality": "shall-if-practicable",
+   "images": [
+    "NRHB_30_d.png"
+   ],
+   "notes": "The Rule 30(a)/(b) anchor lights are 'shall'; the two red lights are 'shall, if practicable'. 30(f) exempts vessels under 12 m from the red lights."
+  },
+  {
+   "id": "30e",
+   "ruleset": "international",
+   "cite": "30(e)",
+   "when": {
+    "position": "anchored",
+    "length_m": {
+     "lt": 7
+    },
+    "near_channel": false
+   },
+   "lights": [],
+   "exempts": [
+    "30a",
+    "30b"
+   ],
+   "modality": "exempt"
+  }
+ ]
+}
