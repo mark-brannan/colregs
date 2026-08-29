@@ -8,7 +8,7 @@ reconcile, paraphrase, or pick a side. Where the two reviewers disagree
 (see "Fallback policy" below), both positions are presented in full and
 unresolved — that debate belongs on the PR, not in this file.
 
-Labels: **Reviewer C** = doc 01 (general i18n critique). **Reviewer G** =
+Labels: **Reviewer G** = doc 01 (general i18n critique). **Reviewer C** =
 doc 02 (detailed ADR-0003 review).
 
 Not posted anywhere yet.
@@ -17,7 +17,7 @@ Not posted anywhere yet.
 
 ## Topic: Locale vs. jurisdiction
 
-**Reviewer C** (§1, "Conflating Language Localization with Jurisdictional Variance"):
+**Reviewer G** (§1, "Conflating Language Localization with Jurisdictional Variance"):
 
 > A common failure mode in regulatory data modeling is treating national or regional regulatory variations as mere "language translations."
 >
@@ -37,7 +37,7 @@ Not posted anywhere yet.
 > }
 > ```
 
-**Reviewer G** (§1, "The biggest issue: 'language' is doing several different jobs"):
+**Reviewer C** (§1, "The biggest issue: 'language' is doing several different jobs"):
 
 > The ADR says language is a dimension orthogonal to jurisdiction, which is correct, but then collapses several concepts into a single BCP 47 language tag:
 >
@@ -95,7 +95,7 @@ Not posted anywhere yet.
 
 ## Topic: Invariant machine identifiers vs. display strings
 
-**Reviewer C** (§2, "Machine-Readable Keys vs. Localized Display Strings"):
+**Reviewer G** (§2, "Machine-Readable Keys vs. Localized Display Strings"):
 
 > Hardcoding localized strings into structured rule logic (e.g., placing localized names directly inside condition objects or enumerated values).
 >
@@ -120,7 +120,7 @@ Not posted anywhere yet.
 > }
 > ```
 
-**Reviewer G** (§4, "The 'skeleton' isn't actually entirely language-neutral"):
+**Reviewer C** (§4, "The 'skeleton' isn't actually entirely language-neutral"):
 
 > The ADR says:
 >
@@ -174,7 +174,7 @@ Not posted anywhere yet.
 
 ## Topic: Translation/corpus provenance and authority tiers
 
-**Reviewer C** (§3, "Translation Provenance, Authority & Legal Disclaimers"):
+**Reviewer G** (§3, "Translation Provenance, Authority & Legal Disclaimers"):
 
 > Treating all language translations as equally authoritative without tracking their origin.
 >
@@ -186,7 +186,7 @@ Not posted anywhere yet.
 > * `source_url`: Link to official gazette or IMO publication.
 > * Mandatory legal disclaimers stating whether the data is suitable for navigation or restricted to training/education.
 
-**Reviewer G** (§5, "You're missing a formal concept of translation provenance"):
+**Reviewer C** (§5, "You're missing a formal concept of translation provenance"):
 
 > This is probably the biggest omission in the actual i18n model.
 >
@@ -230,7 +230,7 @@ Not posted anywhere yet.
 >
 > Not necessarily the full legal-corpus provenance model, but enough to establish accountability.
 
-**Reviewer G** (§6, "'Community translation' and 'community corpus' aren't quite the same thing"):
+**Reviewer C** (§6, "'Community translation' and 'community corpus' aren't quite the same thing"):
 
 > REQ-LANG-8 says:
 >
@@ -263,7 +263,7 @@ Not posted anywhere yet.
 >
 > Because "community" currently mixes legal authority and translation provenance.
 
-**Reviewer G** (§11, "'Authentic' is a legal claim and deserves a stricter definition"):
+**Reviewer C** (§11, "'Authentic' is a legal claim and deserves a stricter definition"):
 
 > The tier taxonomy is useful:
 >
@@ -294,7 +294,7 @@ Not posted anywhere yet.
 
 ## Topic: Centralized terminology / glossary
 
-**Reviewer C** (§4, "Nautical Terminology & Centralized Concept Dictionary") — no corresponding section in Reviewer G:
+**Reviewer G** (§4, "Nautical Terminology & Centralized Concept Dictionary") — no corresponding section in Reviewer C:
 
 > Translating rule text piecemeal without a shared domain glossary/lexicon.
 >
@@ -311,7 +311,7 @@ Not posted anywhere yet.
 
 ## Topic: Interpolation / message formatting
 
-**Reviewer C** (§5, "String Concatenation & Dynamic Interpolation"):
+**Reviewer G** (§5, "String Concatenation & Dynamic Interpolation"):
 
 > Constructing localized descriptions by concatenating string fragments (e.g., `"Rule " + rule.number + ": " + rule.title + " applies to " + vessel.type`).
 >
@@ -326,7 +326,7 @@ Not posted anywhere yet.
 > }
 > ```
 
-**Reviewer G** (§17, "Display catalogs need plural/select support—or an explicit statement that they don't"):
+**Reviewer C** (§17, "Display catalogs need plural/select support—or an explicit statement that they don't"):
 
 > The current catalog idea is basically:
 >
@@ -364,7 +364,7 @@ Not posted anywhere yet.
 
 ## Topic: Units, numbers, and localized formatting
 
-**Reviewer C** (§6, "Numeric Values, Units & Spatial Formatting"):
+**Reviewer G** (§6, "Numeric Values, Units & Spatial Formatting"):
 
 > Hardcoding unit strings (e.g., `"2 nautical miles"`, `"22.5 degrees"`, `"6 seconds"`) into translatable text fields.
 >
@@ -387,7 +387,7 @@ Not posted anywhere yet.
 > }
 > ```
 
-**Reviewer G** (§18, "Locale-specific typography isn't necessarily a legal-text concern, but numeric data is"):
+**Reviewer C** (§18, "Locale-specific typography isn't necessarily a legal-text concern, but numeric data is"):
 
 > There is an interesting boundary here.
 >
@@ -419,7 +419,7 @@ Not posted anywhere yet.
 
 ## Topic: RTL / bidi / script support and Unicode verbatim-ness
 
-**Reviewer C** (§7, "Bi-directional (RTL) & Script Support (Arabic)"):
+**Reviewer G** (§7, "Bi-directional (RTL) & Script Support (Arabic)"):
 
 > Assuming all text flows Left-to-Right (LTR).
 >
@@ -428,7 +428,7 @@ Not posted anywhere yet.
 > * Ensure JSON string encodings strictly enforce **UTF-8**.
 > * Include text directionality metadata (`dir: "ltr" | "rtl"`) at the locale package level.
 
-**Reviewer G** (§14, "RTL is more than 'JSON carries it fine'"):
+**Reviewer C** (§14, "RTL is more than 'JSON carries it fine'"):
 
 > The ADR correctly notes that JSON strings can carry Arabic and that rendering is a consumer concern.
 >
@@ -453,7 +453,7 @@ Not posted anywhere yet.
 >
 > That keeps the corpus genuinely verbatim.
 
-**Reviewer G** (§15, "Unicode normalization deserves a decision") — no corresponding section in Reviewer C:
+**Reviewer C** (§15, "Unicode normalization deserves a decision") — no corresponding section in Reviewer G:
 
 > Related to the above: if the package promises verbatim text, what does that mean at the byte/code-point level?
 >
@@ -476,7 +476,7 @@ Not posted anywhere yet.
 
 ## Topic: Fallback policy — REVIEWERS DISAGREE, unresolved here
 
-**Reviewer C** (§8, "Fallback Chains & Packaging Strategy") — argues the package *should* define a fallback chain:
+**Reviewer G** (§8, "Fallback Chains & Packaging Strategy") — argues the package *should* define a fallback chain:
 
 > Either bundling all languages into a single giant JSON file or lacking a deterministic fallback policy for incomplete translations.
 >
@@ -492,7 +492,7 @@ Not posted anywhere yet.
 >
 > 3. **Type Safety:** Provide generated TypeScript definitions or JSON Schemas that enforce full coverage or mark fallback properties clearly.
 
-**Reviewer G** (§8, "Fallback being entirely the consumer's responsibility may be too strict") — argues against the package prescribing a fallback chain, while still wanting more than nothing:
+**Reviewer C** (§8, "Fallback being entirely the consumer's responsibility may be too strict") — argues against the package prescribing a fallback chain, while still wanting more than nothing:
 
 > I agree with the principle that the data package shouldn't silently choose a legal text.
 >
@@ -537,7 +537,7 @@ Not posted anywhere yet.
 >
 > That's stronger and more precise than simply saying "fallback is the consumer's call."
 
-**Reviewer G** (§9, "The design needs an explicit rule for mixing languages") — related, no corresponding section in Reviewer C:
+**Reviewer C** (§9, "The design needs an explicit rule for mixing languages") — related, no corresponding section in Reviewer G:
 
 > This is a particularly important downstream question.
 >
@@ -580,7 +580,7 @@ Not posted anywhere yet.
 
 ## Topic: Corpus identity, legal versioning, and paragraph-path stability
 
-No corresponding sections in Reviewer C. Reviewer G only:
+No corresponding sections in Reviewer G. Reviewer C only:
 
 **§2, "'Corpus per jurisdiction × language × source' is probably underspecified":**
 
@@ -738,7 +738,7 @@ No corresponding sections in Reviewer C. Reviewer G only:
 
 ## Topic: Licensing and source-identity structure
 
-No corresponding sections in Reviewer C. Reviewer G only:
+No corresponding sections in Reviewer G. Reviewer C only:
 
 **§12, "Source identity should probably be machine-readable, not just prose metadata":**
 
@@ -788,7 +788,7 @@ No corresponding sections in Reviewer C. Reviewer G only:
 
 ## Topic: Terminology, filenames, and other smaller inconsistencies
 
-No corresponding sections in Reviewer C. Reviewer G only:
+No corresponding sections in Reviewer G. Reviewer C only:
 
 **"A few smaller inconsistencies":**
 
@@ -824,7 +824,7 @@ No corresponding sections in Reviewer C. Reviewer G only:
 
 ---
 
-## Reviewer G's own architectural proposal (not a critique of a specific section — stands alone)
+## Reviewer C's own architectural proposal (not a critique of a specific section — stands alone)
 
 **"One architectural change I'd seriously consider":**
 
@@ -863,7 +863,7 @@ No corresponding sections in Reviewer C. Reviewer G only:
 
 ---
 
-## Reviewer C's checklist (stands alone)
+## Reviewer G's checklist (stands alone)
 
 **"Actionable Checklist for PR Review":**
 
@@ -877,7 +877,7 @@ No corresponding sections in Reviewer C. Reviewer G only:
 | **Package Size** | Can consumers import individual locales on-demand (tree-shaking/split JSON)? |
 | **Fallbacks** | Is there a defined resolution chain when a locale string is missing? |
 
-## Reviewer G's priority ranking (stands alone)
+## Reviewer C's priority ranking (stands alone)
 
 **"My priority ranking":**
 
@@ -905,7 +905,7 @@ No corresponding sections in Reviewer C. Reviewer G only:
 > maintainer note fields
 > numeric/units localization policy
 
-## Reviewer G's "what's already good" and bottom line (stands alone)
+## Reviewer C's "what's already good" and bottom line (stands alone)
 
 > There are several decisions I'd preserve.
 >

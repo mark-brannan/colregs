@@ -1,6 +1,6 @@
 # External critique 1: general i18n design gaps
 
-Source: pasted by Mark, external reviewer (unattributed), 2026-08-29.
+Source: pasted by Mark, Gemini, 2026-08-29.
 Context: review of [PR #4](https://github.com/mark-brannan/colregs/pull/4)
 (ADR 0003 / REQ-LANG), unsolicited — not a GitHub comment on the PR itself.
 Landed verbatim for triage; not yet synthesized or endorsed.
