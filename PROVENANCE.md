@@ -33,7 +33,7 @@ Two of the 38 (`NRHB_25_b.png`, `NRHB_27_ei.png`) are served by the USCG but
 not linked from the page; they were fetched by name. Two more
 (`NRHB_23_e.png`, `NRHB_24_j.png`) illustrate Great Lakes and Western Rivers
 paragraphs and are unmapped in this international-only release — they are kept
-because the inland ruleset will want them.
+because the `us/inland` jurisdiction will want them.
 
 ### The `NR_*` / `NRHB_*` prefix question, resolved
 

@@ -42,6 +42,48 @@ test('fixtures: every fact record selects exactly the expected entries', () => {
   }
 })
 
+// --- drift (REQ-VERIFY-2) --------------------------------------------------
+// Forward direction: fact record -> lights, via `applying`/`matches` above.
+// Reverse direction: a set of lights already shown -> which other entries
+// *could* have produced them. The two directions must not silently disagree:
+// if some other entry's entire light output is already present in what a
+// fixture shows, that entry must be absent from the fixture either because
+// its own predicate rules out the fixture's facts (the forward direction
+// correctly ruled it out) or because the data explicitly declares it related
+// to an entry that IS shown (a declared alternative, not a silent gap).
+function lightSig(e) {
+  return (e.lights ?? []).map((l) => JSON.stringify(l)).sort()
+}
+const relatedIds = new Map(appl.entries.map((e) => [e.id, new Set()]))
+const relate = (a, b) => { relatedIds.get(a)?.add(b); relatedIds.get(b)?.add(a) }
+for (const e of appl.entries) {
+  for (const r of e.includes ?? []) relate(e.id, r)
+  for (const r of e.in_lieu_of ?? []) relate(e.id, r)
+  for (const r of e.excludes ?? []) relate(e.id, r)
+  for (const r of e.exempts ?? []) relate(e.id, r)
+  for (const c of e.conditional_includes ?? []) {
+    for (const r of c.includes ?? []) relate(e.id, r)
+    for (const r of c.one_of ?? []) relate(e.id, r)
+  }
+}
+
+test('drift: lights already shown never silently admit an undeclared candidate entry', () => {
+  for (const c of fixtures.cases) {
+    const shownIds = new Set(c.expect)
+    const shown = new Set(appl.entries.filter((e) => shownIds.has(e.id)).flatMap(lightSig))
+    for (const e of appl.entries) {
+      if (shownIds.has(e.id)) continue
+      const sig = lightSig(e)
+      if (sig.length === 0 || !sig.every((s) => shown.has(s))) continue
+      const excludedByFacts = !matches(e.when, c.facts)
+      const declared = [...shownIds].some((id) => relatedIds.get(e.id)?.has(id))
+      assert.ok(excludedByFacts || declared,
+        `${c.name}: ${e.id}'s lights are already fully shown but it is neither ` +
+        `ruled out by facts nor a declared relation of {${[...shownIds].join(',')}}`)
+    }
+  }
+})
+
 // --- integrity -----------------------------------------------------------
 test('every entry cites a paragraph that exists in rules.json', () => {
   for (const e of appl.entries) {

@@ -1,5 +1,5 @@
 {
- "ruleset": "international",
+ "jurisdiction": "intl",
  "conditions": "night (Rule 20(b): sunset to sunrise), and by 20(c) in restricted visibility by day. Day shapes are not in this release.",
  "relations": {
   "includes": "import another entry's lights only, never its predicate",
@@ -45,7 +45,7 @@
  "entries": [
   {
    "id": "23a1",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "23(a)(i)",
    "when": {
     "propulsion": "power",
@@ -66,7 +66,7 @@
   },
   {
    "id": "23a2",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "23(a)(ii)",
    "when": {
     "propulsion": "power",
@@ -105,7 +105,7 @@
   },
   {
    "id": "23a34",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "23(a)(iii)-(iv)",
    "when": {
     "propulsion": "power",
@@ -124,7 +124,7 @@
   },
   {
    "id": "23b",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "23(b)",
    "when": {
     "propulsion": "power",
@@ -153,7 +153,7 @@
   },
   {
    "id": "23c",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "23(c)",
    "when": {
     "propulsion": "power",
@@ -180,7 +180,7 @@
   },
   {
    "id": "23d1",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "23(d)(i)",
    "when": {
     "propulsion": "power",
@@ -212,7 +212,7 @@
   },
   {
    "id": "23d2",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "23(d)(ii)",
    "when": {
     "propulsion": "power",
@@ -249,7 +249,7 @@
   },
   {
    "id": "24a-m2",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "24(a)(i)",
    "when": {
     "activity": "towing",
@@ -275,7 +275,7 @@
   },
   {
    "id": "24a-m3",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "24(a)(i)",
    "when": {
     "activity": "towing",
@@ -301,7 +301,7 @@
   },
   {
    "id": "24a-rest",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "24(a)(ii)-(iv)",
    "when": {
     "activity": "towing"
@@ -323,7 +323,7 @@
   },
   {
    "id": "24b",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "24(b)",
    "when": {
     "activity": "pushing",
@@ -343,7 +343,7 @@
   },
   {
    "id": "24c",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "24(c)",
    "when": {
     "activity": "pushing",
@@ -368,7 +368,7 @@
   },
   {
    "id": "24e",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "24(e)",
    "when": {
     "activity": "being_towed"
@@ -389,7 +389,7 @@
   },
   {
    "id": "25a",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "25(a)",
    "when": {
     "propulsion": "sail",
@@ -411,7 +411,7 @@
   },
   {
    "id": "25b",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "25(b)",
    "when": {
     "propulsion": "sail",
@@ -447,7 +447,7 @@
   },
   {
    "id": "25c",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "25(c)",
    "when": {
     "propulsion": "sail",
@@ -481,7 +481,7 @@
   },
   {
    "id": "25d1",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "25(d)(i)",
    "when": {
     "propulsion": "sail",
@@ -511,7 +511,7 @@
   },
   {
    "id": "25d2",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "25(d)(ii)",
    "when": {
     "propulsion": "oars"
@@ -540,7 +540,7 @@
   },
   {
    "id": "26b-id",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "26(b)(i)",
    "when": {
     "activity": "trawling"
@@ -571,7 +571,7 @@
   },
   {
    "id": "26b-mast",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "26(b)(ii)",
    "when": {
     "activity": "trawling"
@@ -605,7 +605,7 @@
   },
   {
    "id": "26b-mw",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "26(b)(iii)",
    "when": {
     "activity": "trawling",
@@ -622,7 +622,7 @@
   },
   {
    "id": "26c-id",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "26(c)(i)",
    "when": {
     "activity": "fishing"
@@ -649,7 +649,7 @@
   },
   {
    "id": "26c-gear",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "26(c)(ii)",
    "when": {
     "activity": "fishing",
@@ -669,7 +669,7 @@
   },
   {
    "id": "26c-mw",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "26(c)(iii)",
    "when": {
     "activity": "fishing",
@@ -686,7 +686,7 @@
   },
   {
    "id": "27a-id",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(a)(i)",
    "when": {
     "activity": "nuc",
@@ -707,7 +707,7 @@
   },
   {
    "id": "27a-mw",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(a)(iii)",
    "when": {
     "activity": "nuc",
@@ -724,7 +724,7 @@
   },
   {
    "id": "27b-id",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(b)(i)",
    "when": {
     "activity": "ram"
@@ -754,7 +754,7 @@
   },
   {
    "id": "27b-mw",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(b)(iii)",
    "when": {
     "activity": "ram",
@@ -773,7 +773,7 @@
   },
   {
    "id": "27b-anc",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(b)(iv)",
    "when": {
     "activity": "ram",
@@ -795,7 +795,7 @@
   },
   {
    "id": "27d",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(d)",
    "when": {
     "activity": "ram_underwater",
@@ -828,7 +828,7 @@
   },
   {
    "id": "27e",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(e)(i)",
    "when": {
     "activity": "diving"
@@ -864,7 +864,7 @@
   },
   {
    "id": "27f",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "27(f)",
    "when": {
     "activity": "mine"
@@ -900,7 +900,7 @@
   },
   {
    "id": "28",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "28",
    "when": {
     "activity": "cbd"
@@ -926,7 +926,7 @@
   },
   {
    "id": "29a",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "29(a)",
    "when": {
     "activity": "pilot"
@@ -974,7 +974,7 @@
   },
   {
    "id": "30a",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "30(a)",
    "when": {
     "position": "anchored"
@@ -1000,7 +1000,7 @@
   },
   {
    "id": "30b",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "30(b)",
    "when": {
     "position": "anchored",
@@ -1023,7 +1023,7 @@
   },
   {
    "id": "30c",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "30(c)",
    "when": {
     "position": "anchored"
@@ -1056,7 +1056,7 @@
   },
   {
    "id": "30d",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "30(d)",
    "when": {
     "position": "aground",
@@ -1088,7 +1088,7 @@
   },
   {
    "id": "30e",
-   "ruleset": "international",
+   "jurisdiction": "intl",
    "cite": "30(e)",
    "when": {
     "position": "anchored",

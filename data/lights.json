@@ -1,5 +1,5 @@
 {
- "ruleset": "international",
+ "jurisdiction": "intl",
  "bearing_convention": {
   "zero": "right ahead",
   "direction": "clockwise (0 bow, 90 starboard beam, 180 right aft)",
