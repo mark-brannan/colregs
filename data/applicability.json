@@ -1,5 +1,4 @@
 {
- "jurisdiction": "intl",
  "conditions": "night (Rule 20(b): sunset to sunrise), and by 20(c) in restricted visibility by day. Day shapes are not in this release.",
  "relations": {
   "includes": "import another entry's lights only, never its predicate",
@@ -1056,7 +1055,26 @@
    ]
   },
   {
-   "id": "30d",
+   "id": "30d-anchor",
+   "jurisdiction": "intl",
+   "cite": "30(d)",
+   "when": {
+    "position": "aground"
+   },
+   "lights": [],
+   "conditional_includes": [
+    {
+     "one_of": [
+      "30a",
+      "30b"
+     ]
+    }
+   ],
+   "modality": "shall",
+   "notes": "30(d)'s lead-in requires the 30(a)/(b) anchor lights unconditionally, with no length gate; only the two red lights below (30(d)(i)-(ii)) are subject to the 30(f) exemption."
+  },
+  {
+   "id": "30d-red",
    "jurisdiction": "intl",
    "cite": "30(d)",
    "when": {
@@ -1073,19 +1091,11 @@
      "arrangement": "vertical"
     }
    ],
-   "conditional_includes": [
-    {
-     "one_of": [
-      "30a",
-      "30b"
-     ]
-    }
-   ],
    "modality": "shall-if-practicable",
    "images": [
     "NRHB_30_d.png"
    ],
-   "notes": "The Rule 30(a)/(b) anchor lights are 'shall'; the two red lights are 'shall, if practicable'. 30(f) exempts vessels under 12 m from the red lights."
+   "notes": "The two red lights are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them; it does not exempt the 30(a)/(b) anchor lights, see 30d-anchor."
   },
   {
    "id": "30e",

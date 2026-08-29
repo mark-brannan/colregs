@@ -174,18 +174,21 @@
     "length_m": 15
    },
    "expect": [
-    "30d"
+    "30d-anchor",
+    "30d-red"
    ]
   },
   {
-   "name": "aground, 10 m (30(f) relief)",
+   "name": "aground, 10 m (30(f) relief from the red lights only, not the anchor lights)",
    "facts": {
     "propulsion": "power",
     "activity": "none",
     "position": "aground",
     "length_m": 10
    },
-   "expect": []
+   "expect": [
+    "30d-anchor"
+   ]
   },
   {
    "name": "trawler 30 m making way",
@@ -588,7 +591,9 @@
     "position": "aground",
     "length_m": 11.9
    },
-   "expect": []
+   "expect": [
+    "30d-anchor"
+   ]
   },
   {
    "name": "30d boundary: aground, 12.0 m",
@@ -597,7 +602,8 @@
     "length_m": 12.0
    },
    "expect": [
-    "30d"
+    "30d-anchor",
+    "30d-red"
    ]
   },
   {
