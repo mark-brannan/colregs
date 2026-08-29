@@ -1,7 +1,9 @@
 # colregs
 
 The COLREGS 72 navigation *light* rules as language-neutral JSON, plus the
-USCG's own diagrams and enough geometry to draw the lights yourself.
+USCG's own diagrams and enough geometry to draw the lights yourself. Built as
+the base other countries' national amalgamations hang off of, not scoped to
+one country's rulebook.
 
 Data only. No runtime, no dependencies, no inference.
 
