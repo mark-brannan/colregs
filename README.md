@@ -31,6 +31,34 @@ images/                  38 USCG diagrams + 5 arc GIFs
 fixtures/                fact records and the entries that apply to them
 ```
 
+## The four layers
+
+**Rule text.** Keyed by *paragraph path*, like `27(a)(i)` or `25(d)(ii)`,
+because the paragraph is the unit you actually cite. The text is verbatim
+International text; Inland-only inserts were stripped rather than paraphrased.
+
+**Light definitions.** This layer is Rule 21. Each light carries its colour,
+its arc as a bearing range, and its minimum visible range by length band from
+Rule 22. Bearings run in degrees clockwise from right ahead, and an arc whose
+`from_deg` exceeds its `to_deg` wraps through the bow. So the masthead light
+is 247.5° to 112.5°, which is 225° of arc.
+
+**Facts.** Three orthogonal axes (`propulsion`, `activity`, `position`), a
+`making_way` modifier that refines `underway`, and scalars such as `length_m`
+and `tow_length_m`. There is deliberately no vessel-class field. Under COLREGS
+what a vessel *is* follows from what it is *doing*, so classification falls
+out of the axes on its own.
+
+SignalK's `navigation.state` flattens all of that into one enum. `facts.json`
+therefore carries a decode table, the enum values it can't decode, and the
+five places where the flattening loses information. Fishing at anchor and
+making-way are the two of those that matter in practice.
+
+**Applicability entries.** Each entry is a predicate over facts, a set of
+lights or references to other entries, a modality, a citation, and a
+jurisdiction. Every entry has an id (`25b`, `27a-mw`) that both consumers can
+point at.
+
 ## Design
 
 This repo is requirements-first. Coding sessions work against numbered
@@ -80,6 +108,11 @@ add to Rule 23 rather than replacing it. Relations between them:
 | `in_lieu_of` | this entry's lights replace the referenced entries' lights |
 | `excludes` | must not be shown together (25(c) and the tricolor) |
 | `exempts` | the referenced requirement does not apply (30(e)) |
+
+Where the rules permit a choice, the data keeps every lawful option instead of
+picking one. A 12 m sloop under sail has three legal displays: 25(a), the
+25(b) tricolor, or 25(a) plus the 25(c) red-over-green. Which one a given boat
+shows depends on what's installed, and that decision belongs to the consumer.
 
 Modality is `shall`, `may`, `shall-if-practicable`, or `conditional` with a
 `modality_by` table when it turns on a fact (23(a)(ii) is `shall` at 50 m and
