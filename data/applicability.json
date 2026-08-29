@@ -159,7 +159,8 @@
     "propulsion": "power",
     "activity": "none",
     "position": "underway",
-    "wig": true
+    "wig": true,
+    "wig_near_surface": true
    },
    "lights": [
     {

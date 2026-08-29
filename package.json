@@ -18,5 +18,5 @@
     "navigation-lights"
   ],
   "scripts": { "test": "node --test test/*.mjs" },
-  "files": ["data", "images", "fixtures", "PROVENANCE.md"]
+  "files": ["data", "images", "fixtures", "docs", "PROVENANCE.md"]
 }

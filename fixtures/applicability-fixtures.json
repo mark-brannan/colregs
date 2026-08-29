@@ -685,6 +685,7 @@
     "activity": "none",
     "position": "underway",
     "wig": true,
+    "wig_near_surface": true,
     "length_m": 25
    },
    "expect": [
@@ -692,6 +693,22 @@
     "23a2",
     "23a34",
     "23c"
+   ]
+  },
+  {
+   "name": "wing-in-ground craft cruising, not near the surface, 25 m",
+   "facts": {
+    "propulsion": "power",
+    "activity": "none",
+    "position": "underway",
+    "wig": true,
+    "wig_near_surface": false,
+    "length_m": 25
+   },
+   "expect": [
+    "23a1",
+    "23a2",
+    "23a34"
    ]
   },
   {

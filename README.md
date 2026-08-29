@@ -20,7 +20,7 @@ Data only. No runtime, no dependencies, no inference.
 
 Coverage is stated because silence must not imply it (REQ-SCOPE-6).
 
-```
+```text
 data/rules.json          verbatim rule text, keyed by paragraph path and jurisdiction
 data/lights.json         the six Rule 21 lights: colour, arc, Rule 22 range
 data/facts.json          the fact record, and how to decode SignalK navigation.state
