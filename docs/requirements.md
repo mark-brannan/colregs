@@ -138,38 +138,71 @@ COLREGS 72 is multi-lingual at the source: English and French are equally
 authentic treaty texts, Spanish and Russian official translations were
 deposited with the original, Arabic and Chinese texts exist through IMO's
 official languages, and many states gazette their own legally binding
-translation. See ADR 0003.
+translation. (Recalled, not yet verified against the primary sources — Q-6.)
+See ADR 0003.
 
 - **REQ-LANG-1** — Language MUST be a dimension orthogonal to jurisdiction,
   identified by BCP 47 tags. Which body of rules applies and which text of
   them is displayed are independent questions; neither MUST ever be inferred
-  from the other.
+  from the other, and no property beyond the language of the text — not
+  source, audience, nor legal applicability — MUST be inferred from a tag.
 - **REQ-LANG-2** — Identifiers — entry ids, fact values, light ids,
   paragraph paths, relation names — MUST be language-neutral and MUST NOT
   be localized. Translations attach to identifiers; they never replace them.
+  Identifiers are schema keywords, not display strings: each vocabulary
+  distinguishes machine identifier, display label (catalog), and definition,
+  and renaming an identifier is a breaking change (REQ-PKG-4).
 - **REQ-LANG-3** — Rule text MUST be storable as a **corpus** per
-  (jurisdiction × language × source), keyed by paragraph path, with
-  corpus-level provenance and one declared status tier:
-  `authentic` / `official` / `national` / `community`. Tier is a property of
-  the source, not the language. REQ-MODEL-1's verbatim rule applies per
-  corpus, against that corpus's own source.
+  (jurisdiction × language × source), keyed by paragraph path, holding at
+  most one text per path, with corpus-level provenance and one declared
+  status tier:
+  - `authentic` — identified by the governing instrument itself as an
+    equally authentic text (a claim of the instrument, never this repo's
+    assessment);
+  - `official` — an official translation published or deposited through the
+    instrument's depositary organization;
+  - `national` — a state's legally binding published text;
+  - `community` — informational, no legal standing.
+  Tier is a property of the source, not the language. REQ-MODEL-1's verbatim
+  rule applies per corpus, against that corpus's own source.
 - **REQ-LANG-4** — Adding a language MUST be additive: no schema change, no
   edits to existing corpora or catalogs (the language mirror of REQ-SCOPE-4).
 - **REQ-LANG-5** — Corpora MAY be partial. Coverage MUST be declared in
   machine-readable form, and CI MUST fail on a corpus key that does not
-  resolve to a known paragraph path. Silence MUST NOT imply coverage (the
+  resolve to a known paragraph path, and on a corpus filename that disagrees
+  with the file's internal metadata. Silence MUST NOT imply coverage (the
   language mirror of REQ-SCOPE-6).
 - **REQ-LANG-6** — Display strings for the identifier vocabularies (light
   names, fact-value labels, modality labels, image captions) MUST be
   addressable via stable string keys with per-language catalogs, separate
-  from legal corpora. Maintainer notes inside structural files are working
-  documentation, not display strings, and stay untranslated.
-- **REQ-LANG-7** — The package MUST NOT encode a language fallback policy.
-  It declares what exists; the consumer chooses what to show and how to
-  fall back (the language mirror of REQ-CONS-3).
+  from legal corpora. Catalog entries are static strings: no interpolation,
+  plural or gender grammar — message composition belongs to the consumer's
+  i18n system, and this package MUST NOT grow one. Each catalog MUST carry
+  lightweight provenance: contributors, reviewers, review date, licence.
+  Maintainer notes inside structural files are working documentation, not
+  display strings, not part of the localization surface, and stay
+  untranslated.
+- **REQ-LANG-7** — The package MUST NOT encode a language fallback policy,
+  and MUST NOT silently substitute one corpus for another. Text is only
+  addressable inside a corpus, so every textual unit a consumer retrieves is
+  attributable to its corpus; package documentation MUST state that a
+  mixed-corpus rendering is never a single authoritative edition. Choice and
+  fallback beyond that are the consumer's (the language mirror of
+  REQ-CONS-3).
 - **REQ-LANG-8** — A `community`-tier corpus MUST record who produced and
   who reviewed it. Machine translation without named human review MUST NOT
   be accepted.
+- **REQ-LANG-9** — Verbatim (REQ-MODEL-1) is defined at the Unicode level:
+  each corpus MUST declare the normalization form applied to its text (NFC
+  unless declared otherwise) and MUST NOT insert or strip bidi control
+  characters, localize numerals, punctuation, units or quotation marks, or
+  otherwise "fix" the source text. Rendering direction is a consumer
+  concern and MUST stay out of the data.
+- **REQ-LANG-10** — The structural skeleton MUST declare, as data, the
+  amendment state it consolidates (e.g. "COLREGS 72 as amended through
+  …"). Every corpus MUST declare the amendment state its source reflects.
+  The two MAY differ — a corpus transcribed from an older consolidation is
+  legitimate — but the difference MUST be machine-visible, never silent.
 
 ---
 
@@ -187,6 +220,14 @@ translation. See ADR 0003.
 - **REQ-PROV-5** — Images MUST be addressable as data: an image record per file,
   naming what it illustrates by entry id or paragraph path. Unexplained filename
   prefixes are a provenance defect.
+- **REQ-PROV-6** — Source identity MUST be structured data — publisher, title,
+  edition, publication and effective dates, URL, retrieval date — not a prose
+  string. Rights MUST be recorded separately for the source text, for the
+  basis on which this package redistributes it, and for the licence the
+  package distributes under; one flat `licence` field MUST NOT stand in for
+  all three. A translation MAY carry translator rights even where the
+  underlying instrument is public domain, and that check is part of
+  REQ-PROV-2.
 
 ---
 

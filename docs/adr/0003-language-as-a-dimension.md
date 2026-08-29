@@ -48,45 +48,79 @@ with BCP 47 codes, structured as three layers:
 2. **Rule-text corpora (legal text).** One corpus per
    (jurisdiction × language × source), keyed by the same paragraph paths as
    the skeleton, carrying `text` and `rule_title` plus corpus-level
-   provenance. Every corpus declares a **status tier**:
+   provenance. "Corpus" is the term, not "translation": a corpus may be an
+   original text, an official translation, or an independently promulgated
+   national instrument — where one is in fact a translation of another,
+   that is recorded as explicit `translation_of` metadata. `rule_title` is
+   verbatim source material like `text`, not a UI string. Every corpus declares a **status tier**:
 
    | tier | meaning | examples |
    |---|---|---|
-   | `authentic` | equally authentic treaty text | en and fr per the Convention |
-   | `official` | translation deposited by / published through IMO | es, ru, ar, zh |
+   | `authentic` | identified by the governing instrument *itself* as an equally authentic text — the instrument's claim, never this repo's assessment | en and fr per the Convention |
+   | `official` | official translation published or deposited through the instrument's depositary organization | es, ru, ar, zh |
    | `national` | a state's legally binding published text | USCG amalgamation, Finlex, BOE |
    | `community` | informational translation, no legal standing | contributed |
 
    Tier is a property of the *source*, not the language — today's English
    text is `national` (USCG), and an `authentic` English corpus from the
-   UNTS original can be added later beside it. REQ-MODEL-1's verbatim rule
-   applies per corpus: text is verbatim from *its* source; a `community`
-   corpus must record who produced and reviewed it, and machine output
-   without named human review is not accepted.
+   UNTS original can be added later beside it. The tier deliberately ranks
+   *legal authority*; translation provenance (who translated, reviewed,
+   from what) is separate structured metadata on the corpus, not folded
+   into the tier. A corpus holds at most one text per paragraph path.
+   REQ-MODEL-1's verbatim rule applies per corpus: text is verbatim from
+   *its* source at the Unicode level (declared normalization form, no bidi
+   control insertion, no localized numerals or punctuation — REQ-LANG-9);
+   a `community` corpus must record who produced and reviewed it, and
+   machine output without named human review is not accepted.
+
+   **Amendment state, not a temporal model.** COLREGS has been amended
+   repeatedly (Rule 23(c)'s WIG craft arrived in 2001), and national texts
+   consolidate on their own schedules. The package models the *current
+   consolidated state*: the skeleton declares, as data, the amendment state
+   it consolidates, and every corpus declares the amendment state its
+   source reflects (REQ-LANG-10). A mismatch is legitimate but
+   machine-visible — declared staleness, never silence. Historical states
+   are prior package versions, not an in-data version dimension; a
+   renumbering amendment is a breaking change under REQ-PKG-4, the same as
+   any entry-id change.
 
 3. **Display catalogs (UI strings, not law).** Per-language message
    catalogs keyed by stable string keys for the identifier vocabularies:
    light names, fact-axis value labels, modality labels, image captions.
    These are what a demo app renders in its UI; they deliberately do *not*
    share a file with legal corpora, because a UI label needs review for
-   idiom, while legal text needs provenance and verbatimness. Maintainer
-   `note` fields inside structural files remain untranslated working
-   documentation, not display strings.
+   idiom, while legal text needs provenance and verbatimness. Catalog
+   entries are **static strings** — no interpolation, plurals or gender
+   grammar; message composition belongs to the consumer's i18n system
+   (ICU, gettext, whatever), and this package will not grow a homemade
+   one. Catalogs carry lightweight provenance (contributors, reviewers,
+   review date, licence): maritime terminology is load-bearing even in a
+   UI label, and a translation of a public-domain instrument still has a
+   translator holding rights. Maintainer `note` fields inside structural
+   files remain untranslated working documentation — not display strings,
+   not part of the localization surface.
 
 Corpora and catalogs are **additive**: adding a language changes no schema
-and touches no existing file (the mirror of REQ-SCOPE-4 for jurisdictions).
+and does not edit existing corpora or catalogs (the mirror of REQ-SCOPE-4
+for jurisdictions); required coverage manifests and release documentation
+update as needed.
 Coverage is declared machine-readably — a manifest of which paragraph paths
 each corpus contains — and CI checks every corpus key resolves to a
 skeleton path. Partial corpora are legal and expected; silence never implies
 coverage (the language analogue of REQ-SCOPE-6).
 
-The package declares what exists and **never encodes a fallback policy**.
-Which language to show, and what to do when a paragraph is missing from the
-chosen corpus, is the consumer's call (the spirit of REQ-CONS-3).
+The package declares what exists and **never encodes a fallback policy,
+and never silently substitutes one corpus for another**. Text is only
+addressable inside a corpus, so anything a consumer retrieves is
+attributable; a consumer may assemble a mixed-corpus view (Finnish where it
+exists, English where it doesn't), but a mixed view is never a single
+authoritative edition, and the docs say so. Which language to show, and
+what to do when a paragraph is missing from the chosen corpus, is the
+consumer's call (the spirit of REQ-CONS-3).
 
 ### Sketch (illustrative, not binding on filenames)
 
-```
+```text
 data/rules.json                     # skeleton: paths, rule numbers, gaps
 data/text/intl.en-US.uscg.json      # today's text, relabeled for what it is
 data/text/intl.fr.unts.json         # authentic French, when licensed+landed
@@ -95,8 +129,14 @@ data/i18n/en.json                   # display catalog
 data/i18n/fi.json
 ```
 
-Authoritative metadata (jurisdiction, lang, tier, source, retrieved,
-licence) lives *inside* each corpus file; the filename is a convenience.
+Authoritative metadata lives *inside* each corpus file; the filename is a
+convenience, and CI checks the two agree. Source identity is structured
+(publisher, title, edition, publication/effective dates, URL, retrieved —
+REQ-PROV-6), with rights recorded separately for the source text, the basis
+for redistribution, and the package's own distribution licence. The BCP 47
+tag carries the language of the text and nothing else — `en-US` on the
+USCG corpus means US-spelled English, not "US law" and not "for US users";
+provenance and legal applicability live in the metadata, never in the tag.
 
 ## Sequencing
 
@@ -125,5 +165,43 @@ Nothing lands with this ADR. The order later:
   sequencing lands; the split is a breaking change to the published file
   layout and versions accordingly (REQ-PKG-4).
 - Arabic makes the corpora bidirectional-text-bearing. Plain JSON strings
-  carry RTL text fine; rendering direction is a consumer concern and stays
-  out of the data.
+  carry RTL text fine; the data layer never inserts or strips bidi control
+  characters (REQ-LANG-9), and rendering direction is a consumer concern
+  that stays out of the data.
+
+## Considered and declined (external review, 2026-08-29)
+
+Two external reviews (PR #4 comments) shaped the revision above. What they
+changed: tag-carries-language-only, tier definitions as legal claims,
+amendment-state declaration, one-text-per-path, static catalogs with
+provenance, Unicode-level verbatimness, structured source identity with the
+three-rights split, no-silent-substitution phrasing, filename/metadata CI
+check. What was declined, and why — recorded so it isn't re-argued:
+
+- **A CI-enforced terminology glossary for translations.** For legal
+  corpora it contradicts verbatimness: the source says what it says, and
+  if a national text uses inconsistent terms, so does our copy. A glossary
+  as *contributor guidance* for display catalogs may come with the
+  contribution docs; it is not schema and not CI.
+- **ICU MessageFormat / interpolation in catalogs.** This is a data
+  package, not an i18n runtime. Static labels only; a homegrown message
+  system incompatible with real i18n libraries is the failure mode, not
+  the feature.
+- **A package-encoded fallback chain** (e.g. `es-MX → es → en`). Encoding
+  a preferred substitute for legal text is exactly the preference-taking
+  REQ-CONS-3 forbids elsewhere. The stronger, narrower rule replaced it:
+  no silent substitution, full attributability, consumer decides.
+- **Splitting `paragraph_id` from `citation_path`.** The paragraph path
+  *is* the shared citation across the treaty languages and the harmonised
+  national texts (ADR 0001); a second synthetic id would double every
+  cross-reference for a renumbering event that is rare and already a major
+  version under REQ-PKG-4. Accepted risk, revisit only when a real
+  renumbering lands.
+- **A full temporal/legal-version model** (instrument → edition → corpus as
+  first-class layers). The package models current consolidated law;
+  history lives in package versions. The cheap 80% — declared amendment
+  state on skeleton and corpus, machine-visible mismatch — is adopted
+  instead. If a jurisdiction ever requires multiple concurrent editions,
+  that is a new ADR.
+- **`dir: ltr|rtl` metadata per language.** Derivable from the language
+  tag via CLDR by any consumer that needs it; storing it invites drift.
