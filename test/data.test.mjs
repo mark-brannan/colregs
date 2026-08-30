@@ -186,10 +186,19 @@ test('every enumerated fact value a predicate names is declared in facts.json', 
 
 test('every relation an entry uses is declared in applicability.json', () => {
   const declared = new Set(Object.keys(appl.relations))
-  for (const e of appl.entries) {
-    for (const k of Object.keys(e)) {
+  // Both levels: a conditional_includes object carries its own `rel:includes`,
+  // and refsOf reads that nested key by name — a typo there drops the reference
+  // out of cross-reference and drift evaluation without failing anything else.
+  const checkKeys = (where, obj) => {
+    for (const k of Object.keys(obj)) {
       if (!k.startsWith('rel:')) continue
-      assert.ok(declared.has(k), `${e.id} uses undeclared relation ${k}`)
+      assert.ok(declared.has(k), `${where} uses undeclared relation ${k}`)
+    }
+  }
+  for (const e of appl.entries) {
+    checkKeys(e.id, e)
+    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+      checkKeys(`${e.id} rel:conditional_includes[${i}]`, c)
     }
   }
 })
@@ -305,11 +314,46 @@ test('REQ-GATE-3: tagging 1.0 is blocked until every 1.0-gated gate is re-taken'
 // Editing the pin below is still possible; it is just no longer silent.
 const BASELINE_RE = /\*\*Immutability baseline: `([^`]+)`\.\*\*/g
 
+// Scoped to REQ-MODEL-10's own section: a baseline moved out of the requirement
+// and re-stated somewhere with no normative force would otherwise still count.
+const reqModel10Section = () => {
+  const start = requirementsText.indexOf('- **REQ-MODEL-10**')
+  assert.notEqual(start, -1, 'REQ-MODEL-10 is missing from docs/requirements.md')
+  const end = requirementsText.indexOf('- **REQ-MODEL-11**', start)
+  assert.notEqual(end, -1, 'REQ-MODEL-11 is missing; cannot bound REQ-MODEL-10')
+  return requirementsText.slice(start, end)
+}
+
 test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1.1', () => {
-  const found = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1])
+  const whole = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1])
+  const found = [...reqModel10Section().matchAll(BASELINE_RE)].map((m) => m[1])
+  assert.deepEqual(whole, found,
+    'an immutability baseline is stated outside REQ-MODEL-10; the baseline is ' +
+    'normative only where the requirement itself states it.')
   assert.equal(found.length, 1,
     `REQ-MODEL-10 declares ${found.length} immutability baselines (${found.join(', ')}); ` +
     'it is settable exactly once. A second baseline is the escape hatch the requirement forbids.')
   assert.equal(found[0], '0.1.1',
     'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
+})
+
+test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares', () => {
+  // Finding-1 recurrence guard: the requirement enumerates the three axes'
+  // values, so it drifts silently every time an axis gains or renames one.
+  const start = requirementsText.indexOf('- **REQ-MODEL-3**')
+  const end = requirementsText.indexOf('- **REQ-MODEL-4**', start)
+  assert.ok(start !== -1 && end !== -1, 'REQ-MODEL-3/4 missing from requirements')
+  const section = requirementsText.slice(start, end)
+  const listed = [...section.matchAll(/`([a-z_]+:[a-z_]+)`/g)].map((m) => m[1])
+  for (const [axis, rec] of Object.entries(facts.axes)) {
+    for (const v of rec.values) {
+      assert.ok(listed.includes(v), `REQ-MODEL-3 omits ${axis} value ${v}`)
+    }
+  }
+  const prefixes = new Set(Object.values(facts.axes).flatMap((r) => r.values).map((v) => v.split(':')[0]))
+  const declared = new Set(Object.values(facts.axes).flatMap((r) => r.values))
+  for (const m of section.matchAll(/`([a-z_]+:[a-z_]+)`/g)) {
+    if (!prefixes.has(m[1].split(':')[0])) continue
+    assert.ok(declared.has(m[1]), `REQ-MODEL-3 names undeclared axis value ${m[1]}`)
+  }
 })

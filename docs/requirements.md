@@ -118,10 +118,15 @@ Four layers, each independently addressable.
   add definitions (e.g. the US special flashing light, Inland 21(g)).
 - **REQ-MODEL-3** — **Facts**: the input vocabulary. Three orthogonal axes MUST
   be used, never a single flattened status enum:
-  - `fact:propulsion` ∈ power / sail / oars
-  - `fact:activity` ∈ none / fishing / trawling / towing / pushing /
-    being-towed / nuc / ram / cbd / mine / pilot / diving
-  - `fact:position` ∈ underway / anchored / aground / moored
+  - `fact:propulsion` ∈ `propulsion:power` / `propulsion:sail` /
+    `propulsion:oars`
+  - `fact:activity` ∈ `activity:none` / `activity:fishing` /
+    `activity:trawling` / `activity:towing` / `activity:pushing` /
+    `activity:being_towed` / `activity:nuc` / `activity:ram` /
+    `activity:ram_underwater` / `activity:cbd` / `activity:mine` /
+    `activity:pilot` / `activity:diving`
+  - `fact:position` ∈ `position:underway` / `position:anchored` /
+    `position:aground` / `position:moored`
   plus `fact:making_way` as a boolean refining `fact:position=position:underway`,
   and numeric and boolean facts (`fact:length_m`, `fact:tow_length_m`,
   `fact:max_speed_kn`, `fact:composite_unit`, and the education-only facts).
