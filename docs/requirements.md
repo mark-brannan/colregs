@@ -355,14 +355,24 @@ Each gate names the declined design, the closing event, and the trigger.
   one — a national amalgamation whose paragraph structure diverges from
   `intl` below rule level. The second is checkable today and
   is the real test of this gate (Q-8).
+  *Note*: this gate is open on **timing**, not on outcome. REQ-MODEL-10
+  forbids repointing and forbids reuse, so a genuine renumbering leaves no
+  third option — the split is the only exit, and the gate resolves to
+  *adopt* the moment its trigger fires. What is still open is whether the
+  trigger ever fires, and whether the split lands pre-emptively or on
+  demand.
   *Re-take required before 1.0* (REQ-GATE-3), and re-checked before the
   second jurisdiction lands, whichever comes first.
 
 - **GATE-2 — instrument → edition → corpus as first-class layers**
   (ADR 0003, declined; the adopted 80% is REQ-LANG-10).
-  *Closing event*: the second corpus of any one jurisdiction. With a
-  single corpus, re-homing it under an edition parent is one file move.
-  The cost scales with corpora × languages thereafter.
+  *Closing event*: the second corpus of any one jurisdiction — which,
+  read against ADR 0003's sequencing, means **the first non-English
+  corpus**, not a distant milestone. A French or Finnish text of `intl`
+  is a second corpus of `intl`. With one corpus, re-homing it under an
+  edition parent is a single file move; the cost scales with
+  corpora × languages immediately thereafter. Treat this as due before
+  translation #1, on the same footing as GATE-1's 1.0 deadline.
   *Trigger*: a jurisdiction publishing two editions in force
   concurrently — an old and a new text running in parallel through a
   transition period. REQ-LANG-10's declared amendment state makes such a
@@ -395,6 +405,23 @@ Each gate names the declined design, the closing event, and the trigger.
   existing at all.
   *Trigger*: none. A glossary contradicting a verbatim source is a defect
   in the glossary.
+
+- **GATE-6 — the compilation's outbound licence**
+  (no ADR; changed MIT → Apache-2.0 in `2669e2a` on `main`, with the
+  rationale in the commit body only. REQ-PROV-4.)
+  *Closing event*: the **first merged outside contribution**. Until then
+  the copyright holder is one person and the licence can be changed at
+  will. After it, relicensing needs every contributor's consent — and
+  soliciting translations is the express purpose of the language work, so
+  this door closes early and hard.
+  *Trigger*: already fired, in the sense that the decision is taken and
+  undocumented. What is unresolved is narrower: whether a **data**
+  compilation is best served by a code licence at all. REQ-PROV-4 holds
+  code licence and data licence apart; CC0 and CC BY 4.0 are the
+  conventional choices for the data side and were never argued against.
+  *Required before the contribution path opens*: either an ADR recording
+  why Apache-2.0 covers both, or a separate data licence. A CLA or DCO
+  decision belongs with it — that is the other half of the same door.
 
 Gates whose closing event is "none" are recorded because a future reader
 will otherwise re-ask whether they were merely deferred. They were not.
@@ -456,3 +483,10 @@ Tracked here until resolved; each becomes an ADR.
     *inserted* 23(c) rather than renumbering around it — but 50 quiet
     years is not a guarantee about the next amendment. Worth a check
     against the IMO amendment resolutions, not worth blocking on.
+- **Q-9** — Is Apache-2.0 the right outbound licence for a *data*
+  compilation, or should the data carry CC0 / CC BY 4.0 separately from
+  the code (REQ-PROV-4)? Undecided rather than decided-against: the
+  MIT → Apache-2.0 change was made for family consistency, and the data
+  question was not put. Blocks GATE-6; must be settled before the
+  contribution path opens, together with whether contributions need a CLA
+  or DCO.
