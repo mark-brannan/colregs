@@ -477,6 +477,12 @@ Tracked here until resolved; each becomes an ADR.
   deposited translations, ar/zh via IMO official languages) are recalled, not
   verified. Verify against the Convention's final clauses and IMO's current
   practice before the first non-English corpus lands.
+  **Verified 2026-08-30** against the UNTS deposit (Vol. 1050, I-15824,
+  Article IX) — en/fr authentic and es/ru deposited translations both
+  confirmed verbatim; ar/zh confirmed as a mechanism (IMO's six official
+  languages) with a catalogued Chinese edition, Arabic edition indicated but
+  not independently re-fetched. See
+  [docs/verification/2026-08-30-q6-q8.md](verification/2026-08-30-q6-q8.md#claim-3-q-6--verified-arabic-component-partially).
 - **Q-7** — Reproduction terms per language corpus are unverified, and this —
   not translation effort — sequences the work. IMO's consolidated
   six-language editions are sold publications and probably NOT reproducible;
@@ -506,6 +512,21 @@ Tracked here until resolved; each becomes an ADR.
     *inserted* 23(c) rather than renumbering around it — but 50 quiet
     years is not a guarantee about the next amendment. Worth a check
     against the IMO amendment resolutions, not worth blocking on.
+
+  **Verified 2026-08-30**, both parts, against primary sources — see
+  [docs/verification/2026-08-30-q6-q8.md](verification/2026-08-30-q6-q8.md).
+  Primary claim (33 CFR 83 vs `data/rules.json`): of 90 Part C paths, 15
+  are same-spelling-different-text mutations (`22(a)/(b)/(c)`, `24(c)`,
+  `24(d)`, `24(f)`, `24(g)`, `24(i)`, `25(d)(i)`, `25(d)(ii)`, `25(e)`,
+  `26(d)`, `30(e)`), plus one structural path-mismatch (`23(d)(i)` — the
+  Inland equivalent sits at bare `23(d)`, not `23(d)(i)`), one whole-rule
+  clean absence (`28`, "[Reserved]" in Inland), and two clean intl-only
+  absences. Secondary claim (amendment history): also refuted — the WIG
+  amendment (A.910(22), 2001) explicitly renumbers, displacing the
+  pre-existing `23(c)` (small-vessel alternative lights) to `23(d)`; a 1981
+  amendment (A.464(XII)) separately relettered `24(g)`→`24(h)` and
+  `27(d)(iv)`→`27(d)(iii)`. Both findings feed the GATE-1 re-take, not
+  decided here.
 - **Q-9** — Is Apache-2.0 the right outbound licence for a *data*
   compilation, or should the data carry CC0 / CC BY 4.0 separately from
   the code (REQ-PROV-4)? ADR 0004 settles the code licence and leaves this
