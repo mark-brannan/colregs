@@ -404,14 +404,23 @@ Each gate names the declined design, the closing event, and the trigger.
     (2001) displaced the old `23(c)` to `23(d)` when WIG lighting took its
     path, and A.464(XII) (1981) relettered `24(g)`→`24(h)` and
     `27(d)(iv)`→`(iii)`. Two of seven amendments renumbered Part C.
-  - **National-amalgamation divergence — verified present, but mostly not
-    this gate's trigger.** The 15 same-path-different-text rows in the
-    33 CFR 83 diff are the *jurisdiction dimension working as designed*
-    (REQ-MODEL-1 stores both texts, keyed by jurisdiction) — the effective
-    identifier is (jurisdiction, path), so they are not REQ-MODEL-10
-    mutations. The residue that is genuinely structural — `23(d)(i)`
-    having no Inland counterpart path, Rule 28 "[Reserved]" — is a
-    delta-model problem (Q-11), not a repoint.
+  - **Cross-jurisdiction divergence — verified present, and NOT this
+    gate's trigger.** The 15 same-path-different-text rows in the 33 CFR 83
+    diff are the *jurisdiction dimension working as designed* (REQ-MODEL-1
+    stores both texts, keyed by jurisdiction) — the effective identifier is
+    (jurisdiction, path), so they are not REQ-MODEL-10 mutations. This
+    route is retired, not merely dormant: divergence between two
+    jurisdictions at one point in time can never fire the trigger. The
+    residue that is genuinely structural — `23(d)(i)` having no Inland
+    counterpart path, Rule 28 "[Reserved]" — is a delta-model problem
+    (Q-11), not a repoint.
+  - **National renumbering across releases — live, and the second real
+    route.** A national body renumbering its own amalgamation is the same
+    within-jurisdiction repoint as an IMO amendment: if `us/inland 24(c)`
+    denotes different text in vN+1 than it did in vN, that is a mutation
+    REQ-MODEL-10 forbids, jurisdiction dimension or not. The trigger is
+    *within one jurisdiction across releases*, on either route — not
+    between jurisdictions at one moment.
   *Ruling, 2026-08-30*: the gate does not flip on today's data — no
   published path has changed denotation. But with the "rare, believed
   never" premise gone (real base rate: twice in seven amendments), the
@@ -432,8 +441,9 @@ Each gate names the declined design, the closing event, and the trigger.
     the seed of that mapping and exists for this reason.
   What remains open is only whether the trigger ever fires, and whether
   the split lands pre-emptively or on demand.
-  *Re-take required before 1.0* (REQ-GATE-3), and re-checked before the
-  second jurisdiction lands, whichever comes first.
+  *Re-take required before 1.0* (REQ-GATE-3), and re-checked in the
+  second-jurisdiction bundle — justified by Q-11 and GATE-2, no longer by
+  a cross-jurisdiction trigger route.
 
 - **GATE-2 — instrument → edition → corpus as first-class layers**
   (ADR 0003, declined; the adopted 80% is REQ-LANG-10).
@@ -600,8 +610,8 @@ Tracked here until resolved; each becomes an ADR.
   it names each behaviour and lets a schema validate the shape, at the cost
   of a sixth and seventh relation verb in a vocabulary CLAUDE.md already
   warns is easy to confuse. A discriminant key is cheaper and keeps the
-  verb count down. Neither is urgent: the trigger is the second jurisdiction, which is
-  the same trigger as GATE-2 and Q-8, so the three should be decided
+  verb count down. Neither is urgent: the trigger is the second
+  jurisdiction, the same as GATE-2 and Q-8, so the three should be decided
   together rather than one at a time.
 - **Q-9** — Is Apache-2.0 the right outbound licence for a *data*
   compilation, or should the data carry CC0 / CC BY 4.0 separately from
