@@ -7,6 +7,15 @@ Requirement IDs are stable and never reused. If a requirement is dropped it is
 struck through and kept, not deleted — a spec whose IDs shift silently cannot
 be cited by a test.
 
+A requirement marked **(unimplemented)** is specified but not yet built, and
+nothing in the repository satisfies it today; **(unimplemented in part)**
+names the clause that is outstanding. Either way it is still binding; the
+marker exists so the document cannot be read as a description of what ships.
+Requirements that are pure prohibitions, or constraints on a future addition
+that has not happened, carry no marker — there is nothing to
+implement until something tries to violate them. Gate status is not marked in
+prose at all: it is data, in `docs/gates.json`.
+
 Language: **MUST** / **SHOULD** / **MAY** in the RFC 2119 sense.
 
 ---
@@ -171,11 +180,12 @@ Four layers, each independently addressable.
   is a **new identifier plus a deprecation**, never a repoint. Renaming or
   removing an identifier is a major version (REQ-PKG-4); repointing one is
   not a version event at all, because it is not permitted.
-- **REQ-MODEL-11** — Deprecated identifiers MUST be recorded as data — a
-  registry naming each retired identifier, what it denoted, the version
-  that deprecated it, and its replacement where one exists. Prose in a
-  changelog MUST NOT stand in for it: a consumer pinned to an old version
-  needs to resolve a stale identifier mechanically.
+- **REQ-MODEL-11** **(unimplemented — no registry file exists)** — Deprecated
+  identifiers MUST be recorded as data — a registry naming each retired
+  identifier, what it denoted, the version that deprecated it, and its
+  replacement where one exists. Prose in a changelog MUST NOT stand in for it:
+  a consumer pinned to an old version needs to resolve a stale identifier
+  mechanically.
 
 ---
 
@@ -188,7 +198,8 @@ official languages, and many states gazette their own legally binding
 translation. (Recalled, not yet verified against the primary sources — Q-6.)
 See ADR 0003.
 
-- **REQ-LANG-1** — Language MUST be a dimension orthogonal to jurisdiction,
+- **REQ-LANG-1** **(unimplemented — no language dimension exists in the
+  data)** — Language MUST be a dimension orthogonal to jurisdiction,
   identified by BCP 47 tags. Which body of rules applies and which text of
   them is displayed are independent questions; neither MUST ever be inferred
   from the other, and no property beyond the language of the text — not
@@ -201,10 +212,11 @@ See ADR 0003.
   and renaming an identifier is a breaking change (REQ-PKG-4). Immutability
   itself is REQ-MODEL-10; this requirement adds only that identifiers are
   never localized.
-- **REQ-LANG-3** — Rule text MUST be storable as a **corpus** per
-  (jurisdiction × language × source), keyed by paragraph path, holding at
-  most one text per path, with corpus-level provenance and one declared
-  status tier:
+- **REQ-LANG-3** **(unimplemented — rule text is one untagged ruleset, not a
+  corpus per jurisdiction × language × source)** — Rule text MUST be storable
+  as a **corpus** per (jurisdiction × language × source), keyed by paragraph
+  path, holding at most one text per path, with corpus-level provenance and
+  one declared status tier:
   - `authentic` — identified by the governing instrument itself as an
     equally authentic text (a claim of the instrument, never this repo's
     assessment);
@@ -216,42 +228,47 @@ See ADR 0003.
   rule applies per corpus, against that corpus's own source.
 - **REQ-LANG-4** — Adding a language MUST be additive: no schema change, no
   edits to existing corpora or catalogs (the language mirror of REQ-SCOPE-4).
-- **REQ-LANG-5** — Corpora MAY be partial. Coverage MUST be declared in
+- **REQ-LANG-5** **(unimplemented — no coverage declaration, and the CI checks
+  are unwritten)** — Corpora MAY be partial. Coverage MUST be declared in
   machine-readable form, and CI MUST fail on a corpus key that does not
   resolve to a known paragraph path, and on a corpus filename that disagrees
   with the file's internal metadata. Silence MUST NOT imply coverage (the
   language mirror of REQ-SCOPE-6).
-- **REQ-LANG-6** — Display strings for the identifier vocabularies (light
-  names, fact-value labels, modality labels, image captions) MUST be
-  addressable via stable string keys with per-language catalogs, separate
-  from legal corpora. Catalog entries are static strings: no interpolation,
-  plural or gender grammar — message composition belongs to the consumer's
-  i18n system, and this package MUST NOT grow one. Each catalog MUST carry
-  lightweight provenance: contributors, reviewers, review date, licence.
-  Maintainer notes inside structural files are working documentation, not
-  display strings, not part of the localization surface, and stay
-  untranslated.
-- **REQ-LANG-7** — The package MUST NOT encode a language fallback policy,
-  and MUST NOT silently substitute one corpus for another. Text is only
-  addressable inside a corpus, so every textual unit a consumer retrieves is
-  attributable to its corpus; package documentation MUST state that a
-  mixed-corpus rendering is never a single authoritative edition. Choice and
-  fallback beyond that are the consumer's (the language mirror of
-  REQ-CONS-3).
+- **REQ-LANG-6** **(unimplemented — no display catalogs exist)** — Display
+  strings for the identifier vocabularies (light names, fact-value labels,
+  modality labels, image captions) MUST be addressable via stable string keys
+  with per-language catalogs, separate from legal corpora. Catalog entries are
+  static strings: no interpolation, plural or gender grammar — message
+  composition belongs to the consumer's i18n system, and this package MUST NOT
+  grow one. Each catalog MUST carry lightweight provenance: contributors,
+  reviewers, review date, licence. Maintainer notes inside structural files
+  are working documentation, not display strings, not part of the localization
+  surface, and stay untranslated.
+- **REQ-LANG-7** **(unimplemented in part — no fallback policy is encoded, but
+  the mixed-corpus statement is missing from the package documentation)** — The
+  package MUST NOT encode a language fallback policy, and MUST NOT silently
+  substitute one corpus for another. Text is only addressable inside a corpus,
+  so every textual unit a consumer retrieves is attributable to its corpus;
+  package documentation MUST state that a mixed-corpus rendering is never a
+  single authoritative edition. Choice and fallback beyond that are the
+  consumer's (the language mirror of REQ-CONS-3).
 - **REQ-LANG-8** — A `community`-tier corpus MUST record who produced and
   who reviewed it. Machine translation without named human review MUST NOT
   be accepted.
-- **REQ-LANG-9** — Verbatim (REQ-MODEL-1) is defined at the Unicode level:
-  each corpus MUST declare the normalization form applied to its text (NFC
-  unless declared otherwise) and MUST NOT insert or strip bidi control
-  characters, localize numerals, punctuation, units or quotation marks, or
-  otherwise "fix" the source text. Rendering direction is a consumer
-  concern and MUST stay out of the data.
-- **REQ-LANG-10** — The structural skeleton MUST declare, as data, the
-  amendment state it consolidates (e.g. "COLREGS 72 as amended through
-  …"). Every corpus MUST declare the amendment state its source reflects.
-  The two MAY differ — a corpus transcribed from an older consolidation is
-  legitimate — but the difference MUST be machine-visible, never silent.
+- **REQ-LANG-9** **(unimplemented — the shipped text declares no normalization
+  form)** — Verbatim (REQ-MODEL-1) is defined at the Unicode level: each
+  corpus MUST declare the normalization form applied to its text (NFC unless
+  declared otherwise) and MUST NOT insert or strip bidi control characters,
+  localize numerals, punctuation, units or quotation marks, or otherwise "fix"
+  the source text. Rendering direction is a consumer concern and MUST stay out
+  of the data.
+- **REQ-LANG-10** **(unimplemented — neither the skeleton nor the ruleset
+  declares an amendment state)** — The structural skeleton MUST declare, as
+  data, the amendment state it consolidates (e.g. "COLREGS 72 as amended
+  through …"). Every corpus MUST declare the amendment state its source
+  reflects. The two MAY differ — a corpus transcribed from an older
+  consolidation is legitimate — but the difference MUST be machine-visible,
+  never silent.
 
 ---
 
@@ -269,13 +286,14 @@ See ADR 0003.
 - **REQ-PROV-5** — Images MUST be addressable as data: an image record per file,
   naming what it illustrates by entry id or paragraph path. Unexplained filename
   prefixes are a provenance defect.
-- **REQ-PROV-6** — Source identity MUST be structured data — publisher, title,
-  edition, publication and effective dates, URL, retrieval date — not a prose
-  string. Rights MUST be recorded separately for the source text, for the
-  basis on which this package redistributes it, and for the licence the
-  package distributes under; one flat `licence` field MUST NOT stand in for
-  all three. A translation MAY carry translator rights even where the
-  underlying instrument is public domain, and that check is part of
+- **REQ-PROV-6** **(unimplemented — source identity is a prose string and
+  rights are one flat field)** — Source identity MUST be structured data —
+  publisher, title, edition, publication and effective dates, URL, retrieval
+  date — not a prose string. Rights MUST be recorded separately for the source
+  text, for the basis on which this package redistributes it, and for the
+  licence the package distributes under; one flat `licence` field MUST NOT
+  stand in for all three. A translation MAY carry translator rights even where
+  the underlying instrument is public domain, and that check is part of
   REQ-PROV-2.
 - **REQ-PROV-7** — An external contribution MUST NOT be merged from a
   contributor who has not agreed to the contribution terms in
@@ -303,12 +321,13 @@ See ADR 0003.
   gate MUST have fixtures immediately either side of the threshold.
 - **REQ-VERIFY-6** — CI MUST fail on a fixture that references an entry id, a
   light definition or a paragraph path that does not exist.
-- **REQ-VERIFY-7** — CI MUST fail on an identifier present in the
-  deprecation registry (REQ-MODEL-11) that has reappeared in the live data
-  with a different denotation, and on a registry entry whose replacement
-  does not resolve. Immutability (REQ-MODEL-10) is otherwise a
-  cross-version property no single build can check; the registry is what
-  makes the checkable part checkable.
+- **REQ-VERIFY-7** **(unimplemented — the check is unwritten; it depends on
+  REQ-MODEL-11)** — CI MUST fail on an identifier present in the deprecation
+  registry (REQ-MODEL-11) that has reappeared in the live data with a
+  different denotation, and on a registry entry whose replacement does not
+  resolve. Immutability (REQ-MODEL-10) is otherwise a cross-version property
+  no single build can check; the registry is what makes the checkable part
+  checkable.
 
 ---
 
@@ -484,6 +503,19 @@ Each gate names the declined design, the closing event, and the trigger.
 
 Gates whose closing event is "none" are recorded because a future reader
 will otherwise re-ask whether they were merely deferred. They were not.
+
+### Gate status is data
+
+The gates above are mirrored in **`docs/gates.json`** — id, closing event,
+trigger, status (`open` / `re-taken` / `adopted` / `declined-permanently`),
+and the ADR that settled it where one exists. That file, not this prose, is
+what REQ-GATE-3 is enforced against: `test/data.test.mjs` fails the build if
+`package.json`'s major version is 1 or higher while any gate whose closing
+event is the 1.0 tag is still `open` or cites no ADR. There is no environment
+variable, skip flag, or warning-only path — undoing the block means editing
+the registry in a pull request, which is the deliberate re-take REQ-GATE-3
+asks for. The test also fails on a gate that appears in one place and not the
+other, so the prose and the registry cannot drift apart.
 
 ---
 

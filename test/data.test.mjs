@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, readdirSync } from 'node:fs'
+import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
@@ -172,5 +172,61 @@ test('light arcs cover the span they claim', () => {
     if (!l.arc || l.arc_deg == null) continue
     const span = (l.arc.to_deg - l.arc.from_deg + 360) % 360 || 360
     assert.equal(Math.round(span * 10) / 10, l.arc_deg, `${id} arc span`)
+  }
+})
+
+// --- reversibility gates (REQ-GATE-1..4) -----------------------------------
+// docs/gates.json is the machine-readable status of the §10 gates. It is what
+// blocks a 1.0 tag; requirements.md prose cannot, and did not.
+const gates = load('docs/gates.json')
+const pkg = load('package.json')
+const requirementsText = readFileSync(new URL('../docs/requirements.md', import.meta.url), 'utf8')
+const fileExists = (p) => existsSync(new URL(`../${p}`, import.meta.url))
+
+test('gates: the registry is well-formed and mirrors requirements.md §10', () => {
+  const ids = gates.gates.map((g) => g.id)
+  assert.equal(new Set(ids).size, ids.length, 'gate ids are unique')
+
+  for (const g of gates.gates) {
+    assert.ok(g.closing_event in gates.closing_events, `${g.id}: unknown closing_event ${g.closing_event}`)
+    assert.ok(g.status in gates.statuses, `${g.id}: unknown status ${g.status}`)
+    assert.ok(fileExists(g.declined_in), `${g.id}: declined_in does not resolve: ${g.declined_in}`)
+    if (g.settled_by !== null) {
+      assert.ok(fileExists(g.settled_by), `${g.id}: settled_by does not resolve: ${g.settled_by}`)
+    }
+    if (g.status !== 'open') {
+      assert.notEqual(g.settled_by, null, `${g.id}: a non-open gate must cite the ADR that settled it (REQ-GATE-4)`)
+    }
+    assert.match(requirementsText, new RegExp(`\\*\\*${g.id} —`), `${g.id}: not documented in requirements.md §10`)
+  }
+
+  // Both directions: a gate added to the prose but not the registry would be
+  // invisible to the 1.0 block below, which is the failure this test exists for.
+  for (const [, id] of requirementsText.matchAll(/\*\*(GATE-\d+) —/g)) {
+    assert.ok(ids.includes(id), `${id} is in requirements.md §10 but not in docs/gates.json`)
+  }
+})
+
+test('REQ-GATE-3: tagging 1.0 is blocked until every 1.0-gated gate is re-taken', () => {
+  const major = Number(String(pkg.version).split('.')[0])
+  assert.ok(Number.isInteger(major), `package.json version is unparseable: ${pkg.version}`)
+
+  const gatedOn10 = gates.gates.filter((g) => g.closing_event === '1.0-tag')
+  if (major < 1) {
+    // Pre-1.0 the gates may stand open; nothing to assert beyond well-formedness.
+    return
+  }
+  assert.ok(gatedOn10.length > 0, 'no gate is closed by the 1.0 tag — registry looks empty, failing closed')
+  for (const g of gatedOn10) {
+    assert.notEqual(
+      g.status,
+      'open',
+      `${g.id} (${g.title}) is still open and its closing event is the 1.0 tag. ` +
+        'REQ-GATE-3: re-take it in an ADR — confirm or adopt — and update docs/gates.json before releasing 1.0.'
+    )
+    assert.ok(
+      typeof g.settled_by === 'string' && fileExists(g.settled_by),
+      `${g.id}: REQ-GATE-3 requires the re-take to cite a resolvable ADR; settled_by is ${JSON.stringify(g.settled_by)}`
+    )
   }
 })

@@ -1,0 +1,79 @@
+{
+ "note": "Machine-readable mirror of the reversibility gates in docs/requirements.md §10. Governance metadata about this repository, not COLREGS data — it deliberately lives in docs/ rather than data/, which is the consumer-facing model. REQ-GATE-3 is enforced against this file by test/data.test.mjs; the prose section is authoritative for the reasoning, this file is authoritative for status.",
+ "requirements": ["REQ-GATE-1", "REQ-GATE-2", "REQ-GATE-3", "REQ-GATE-4"],
+ "closing_events": {
+  "1.0-tag": "the 1.0 version tag — REQ-GATE-3 blocks it until every gate carrying this closing event has been re-taken",
+  "first-non-english-corpus": "the second corpus of any one jurisdiction, which in practice is the first non-English text",
+  "first-community-translation-of-national-corpus": "the first `community`-tier translation of a `national`-tier corpus",
+  "first-external-contribution": "the first merged contribution from someone other than the copyright holder",
+  "none": "the decline does not get cheaper or dearer with time; recorded so it is not re-read as merely deferred"
+ },
+ "statuses": {
+  "open": "declined for now, not re-taken; adoption still possible at the stated cost",
+  "re-taken": "reconsidered deliberately and confirmed as declined, in the cited ADR",
+  "adopted": "the declined design was subsequently adopted, in the cited ADR",
+  "declined-permanently": "declined on grounds that do not decay; no closing event exists"
+ },
+ "gates": [
+  {
+   "id": "GATE-1",
+   "title": "`paragraph_id` split from `citation_path`",
+   "declined_in": "docs/adr/0003-language-as-a-dimension.md",
+   "closing_event": "1.0-tag",
+   "trigger": "a paragraph path that keeps its spelling while changing what text it denotes — an upstream renumbering, or (the near-term case, Q-8) a national amalgamation whose paragraph structure diverges from `intl` below rule level",
+   "status": "open",
+   "settled_by": null,
+   "note": "Open on timing, not outcome: if the trigger fires the split is forced and lands as a major version. Also re-checked before the second jurisdiction, whichever comes first."
+  },
+  {
+   "id": "GATE-2",
+   "title": "instrument → edition → corpus as first-class layers",
+   "declined_in": "docs/adr/0003-language-as-a-dimension.md",
+   "closing_event": "first-non-english-corpus",
+   "trigger": "a jurisdiction publishing two editions in force concurrently",
+   "status": "open",
+   "settled_by": null,
+   "note": "Due at translation #1, not at 1.0."
+  },
+  {
+   "id": "GATE-3",
+   "title": "legal-status × translation-status as two enums",
+   "declined_in": "docs/adr/0003-language-as-a-dimension.md",
+   "closing_event": "first-community-translation-of-national-corpus",
+   "trigger": "a real corpus whose legal tier and translation tier disagree in a way a consumer must filter on and cannot from the metadata as structured",
+   "status": "open",
+   "settled_by": null,
+   "note": "Half-adopted: one tier for legal authority (REQ-LANG-3), translation provenance as structured metadata (REQ-LANG-8, REQ-PROV-6)."
+  },
+  {
+   "id": "GATE-4",
+   "title": "a package-encoded language fallback chain",
+   "declined_in": "docs/adr/0003-language-as-a-dimension.md",
+   "closing_event": "none",
+   "trigger": null,
+   "status": "declined-permanently",
+   "settled_by": "docs/adr/0003-language-as-a-dimension.md",
+   "note": "The door opens outward: loosening REQ-LANG-7 later is additive, tightening it later would break consumers. Recorded so the asymmetry is not re-discovered as an argument for adopting early."
+  },
+  {
+   "id": "GATE-5",
+   "title": "a CI-enforced terminology glossary",
+   "declined_in": "docs/adr/0003-language-as-a-dimension.md",
+   "closing_event": "none",
+   "trigger": null,
+   "status": "declined-permanently",
+   "settled_by": "docs/adr/0003-language-as-a-dimension.md",
+   "note": "Declined for legal corpora — it follows from verbatimness (REQ-MODEL-1) and does not decay. For display catalogs it is contributor guidance, gated on contribution docs existing at all."
+  },
+  {
+   "id": "GATE-6",
+   "title": "the compilation's outbound licence",
+   "declined_in": "docs/adr/0004-licence-layering.md",
+   "closing_event": "first-external-contribution",
+   "trigger": "deciding the data side wants CC0 or CC BY 4.0 separately from the code (REQ-PROV-4, Q-9)",
+   "status": "open",
+   "settled_by": null,
+   "note": "ADR 0004 settles the code licence (MIT → Apache-2.0) and leaves the data licence open. Already-published npm versions stay under the licence they shipped with; the gate governs future releases only, and may be held open deliberately with a DCO or CLA."
+  }
+ ]
+}
