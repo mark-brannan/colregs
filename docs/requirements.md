@@ -47,6 +47,7 @@ Neither consumer lives in this repo.
 | **modality** | `shall` / `may` / `shall-if-practicable`. |
 | **jurisdiction** | A body of rules: `intl`, `us/inland`, `ca/inland`, … |
 | **delta** | A jurisdiction's departures from the international text. |
+| **identifier** | Any name the data is addressed by: entry id, paragraph path, light id, fact key, fact value, relation name. |
 
 ---
 
@@ -129,6 +130,32 @@ Four layers, each independently addressable.
 - **REQ-MODEL-9** — A decode table from SignalK `navigation.state` to the three
   axes MUST ship with the package. Its lossy cases MUST be enumerated in data,
   not prose — at minimum, the flat enum cannot express fishing-at-anchor.
+- **REQ-MODEL-10** — **Identifiers are immutable once published.** An
+  identifier (§2) that has shipped in a released version MUST NOT be
+  renamed, reused, or repointed. Specifically:
+  - **Adding** an identifier is always permitted, at any version.
+  - **Deprecating** one is permitted: it MUST keep denoting what it always
+    denoted, MUST be marked deprecated in data with the version that
+    deprecated it, and MUST NOT be removed in the same major version.
+  - **Mutating** one is forbidden. This covers the obvious case (renaming
+    `25b`) and the dangerous quiet one: an identifier keeping its spelling
+    while changing what it denotes — a paragraph path repointed at
+    different text, a fact value narrowed, a light id reassigned. A
+    consumer cannot detect this, and every stored citation becomes silently
+    wrong.
+  - **Reuse after removal** is forbidden outright. A retired identifier is
+    retired permanently; its spelling MUST NOT be reissued with a new
+    meaning in any later version.
+
+  Where a renumbering upstream forces a genuine collision, the resolution
+  is a **new identifier plus a deprecation**, never a repoint. Renaming or
+  removing an identifier is a major version (REQ-PKG-4); repointing one is
+  not a version event at all, because it is not permitted.
+- **REQ-MODEL-11** — Deprecated identifiers MUST be recorded as data — a
+  registry naming each retired identifier, what it denoted, the version
+  that deprecated it, and its replacement where one exists. Prose in a
+  changelog MUST NOT stand in for it: a consumer pinned to an old version
+  needs to resolve a stale identifier mechanically.
 
 ---
 
@@ -151,7 +178,9 @@ See ADR 0003.
   be localized. Translations attach to identifiers; they never replace them.
   Identifiers are schema keywords, not display strings: each vocabulary
   distinguishes machine identifier, display label (catalog), and definition,
-  and renaming an identifier is a breaking change (REQ-PKG-4).
+  and renaming an identifier is a breaking change (REQ-PKG-4). Immutability
+  itself is REQ-MODEL-10; this requirement adds only that identifiers are
+  never localized.
 - **REQ-LANG-3** — Rule text MUST be storable as a **corpus** per
   (jurisdiction × language × source), keyed by paragraph path, holding at
   most one text per path, with corpus-level provenance and one declared
@@ -246,6 +275,12 @@ See ADR 0003.
   gate MUST have fixtures immediately either side of the threshold.
 - **REQ-VERIFY-6** — CI MUST fail on a fixture that references an entry id, a
   light definition or a paragraph path that does not exist.
+- **REQ-VERIFY-7** — CI MUST fail on an identifier present in the
+  deprecation registry (REQ-MODEL-11) that has reappeared in the live data
+  with a different denotation, and on a registry entry whose replacement
+  does not resolve. Immutability (REQ-MODEL-10) is otherwise a
+  cross-version property no single build can check; the registry is what
+  makes the checkable part checkable.
 
 ---
 
@@ -313,10 +348,12 @@ Each gate names the declined design, the closing event, and the trigger.
   mechanical rewrite of cross-references in a package with no stable-API
   promise. After it, every consumer's lookup path breaks.
   *Trigger*: any paragraph path that keeps its spelling while changing what
-  text it denotes. Two ways that happens: an amendment renumbering a
-  Part C paragraph (believed never since 1972, recalled not verified), or
-  — the near-term one — a national amalgamation whose paragraph structure
-  diverges from `intl` below rule level. The second is checkable today and
+  text it denotes — the mutation REQ-MODEL-10 forbids outright, which is
+  why the collision has to be resolved in the schema rather than absorbed.
+  Two ways that happens: an amendment renumbering a Part C paragraph
+  (believed never since 1972, recalled not verified), or — the near-term
+  one — a national amalgamation whose paragraph structure diverges from
+  `intl` below rule level. The second is checkable today and
   is the real test of this gate (Q-8).
   *Re-take required before 1.0* (REQ-GATE-3), and re-checked before the
   second jurisdiction lands, whichever comes first.
@@ -399,17 +436,17 @@ Tracked here until resolved; each becomes an ADR.
   not only as a whole: clearing one candidate source unblocks that corpus
   alone, which is the cheap path when a demo needs a specific language
   early.
-- **Q-8** — Does the paragraph path survive the first national
-  amalgamation? GATE-1's accepted risk rests on paragraph paths being
-  near-immutable — adding and deprecating are fine, but a path that keeps
-  its spelling while changing what text it points at breaks every citation
-  and every `cite` in `applicability.json`. The threat is not primarily a
-  future amendment. It is the **second jurisdiction**: while `intl` is the
-  only populated one, path and citation are trivially identical, and the
-  question cannot fail. The US Inland rules deliberately parallel COLREGS
-  rule numbering but are known to diverge below rule level (Rules 9, 15,
-  24 and 34 are the usual examples). Check 33 CFR 83 against `rules.json`
-  paragraph by paragraph **before `us/inland` lands**, not at 1.0.
+- **Q-8** — Does the paragraph path survive the first national amalgamation?
+  GATE-1's accepted risk rests on paragraph paths being immutable
+  (REQ-MODEL-10) — adding and deprecating are fine, but a path that keeps its
+  spelling while changing what text it points at breaks every citation and
+  every `cite` in `applicability.json`. The threat is not primarily a future
+  amendment. It is the **second jurisdiction**: while `intl` is the only
+  populated one, path and citation are trivially identical, and the question
+  cannot fail. The US Inland rules deliberately parallel COLREGS rule
+  numbering but are known to diverge below rule level (Rules 9, 15, 24 and
+  34 are the usual examples). Check 33 CFR 83 against `rules.json` paragraph
+  by paragraph **before `us/inland` lands**, not at 1.0.
   - If paths survive, GATE-1's accepted risk is earned rather than
     assumed, and the 1.0 re-take is a confirmation.
   - If they do not, GATE-1 flips to *adopt*, and the split must land
