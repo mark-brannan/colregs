@@ -230,3 +230,20 @@ test('REQ-GATE-3: tagging 1.0 is blocked until every 1.0-gated gate is re-taken'
     )
   }
 })
+
+// --- identifier immutability baseline (REQ-MODEL-10) ------------------------
+// The baseline is the one exception to REQ-MODEL-10, and it is settable exactly
+// once. A build cannot read git history, so it cannot catch the literal being
+// edited in place — but the escape hatch REQ-MODEL-10 names is a *second*
+// baseline granted for the next convenient rename, and that this can refuse.
+// Editing the pin below is still possible; it is just no longer silent.
+const BASELINE_RE = /\*\*Immutability baseline: `([^`]+)`\.\*\*/g
+
+test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1.1', () => {
+  const found = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1])
+  assert.equal(found.length, 1,
+    `REQ-MODEL-10 declares ${found.length} immutability baselines (${found.join(', ')}); ` +
+    'it is settable exactly once. A second baseline is the escape hatch the requirement forbids.')
+  assert.equal(found[0], '0.1.1',
+    'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
+})

@@ -180,6 +180,56 @@ Four layers, each independently addressable.
   is a **new identifier plus a deprecation**, never a repoint. Renaming or
   removing an identifier is a major version (REQ-PKG-4); repointing one is
   not a version event at all, because it is not permitted.
+
+  **Immutability baseline: `0.1.1`.** The prohibitions above bind every
+  identifier present in the first version released *after* `colregs@0.1.1`,
+  and every identifier introduced from then on. Identifiers as they stood
+  in `0.1.1` and earlier are outside the baseline. The reason, recorded so
+  it is not mistaken for convenience later: `0.1.1` was published
+  2026-08-29, the day the package was seeded, before the identifier review
+  this requirement itself calls for had been done and before any consumer
+  existed. Read without a baseline, the requirement froze the vocabulary at
+  the moment of its first accidental publication and forbade the one review
+  it was written to make possible — including the vocabulary type-prefixing
+  that resolved a live namespace collision (`docs/identifiers.md`). That is
+  a defect in the requirement, not a licence to skip the review.
+
+  The baseline is **set exactly once**. It MUST NOT be moved, raised,
+  re-stated in a later version, or joined by a second baseline clause. This
+  clause is the whole of the exception; there is no mechanism for granting
+  another. Without that, "move the baseline" is a silent escape hatch from
+  REQ-MODEL-10 and the exception becomes the pattern — a specification that
+  can suspend its own prohibition by editing one number is advisory, not
+  normative. One recorded exception is a correction; a second is a policy.
+
+  `test/data.test.mjs` pins the baseline literal and asserts it is stated
+  exactly once. A build has no access to git history, so it cannot see the
+  number being *edited* in place; a test that reconstructed history to
+  check would cost more than it is worth and would still pass on a rewritten
+  history. What it can refuse is a **second** baseline clause, which is the
+  form the escape hatch actually takes — nobody deletes the recorded reason
+  for the first exception in order to grant themselves a second. Editing
+  the pinned literal is possible, but it is no longer silent: it fails the
+  suite and must be done deliberately, in a reviewable diff.
+
+  **Recorded review — identifier audit, 2026-08-30.** REQ-MODEL-10 binds a
+  vocabulary that had never been reviewed as a vocabulary. The audit that
+  the baseline authorises is that review; `docs/identifiers.md` states what
+  it changed. What it examined and deliberately did **not** change is
+  recorded here so it is not re-opened as an oversight:
+  - **The entry-id suffix taxonomy** — `23a1`, `24a-m2`, `24a-rest`,
+    `26b-mw`, `30d-red`. The suffixes are not drawn from one scheme
+    (ordinal, masthead count, fact abbreviation, colour) because the
+    paragraphs they disambiguate do not divide on one axis. A uniform
+    scheme would have to be ordinal, which would make every id opaque to
+    the reader who has the rule text in front of them, for no gain to a
+    machine that only ever compares them for equality. Kept as they are.
+  - **`24a-m2` / `24a-m3`** — the two-or-three masthead split. The
+    cardinality is stated in 24(a)(i) itself ("two masthead lights … three
+    such lights" by tow length), so the suffix names something the law
+    names, not a modelling convenience of this package.
+  - **`nuc`, `cbd`, `ram`, `ram_underwater`** — kept unspelled as terms of
+    art; see `docs/identifiers.md` for the reasoning and the trap in `ram`.
 - **REQ-MODEL-11** **(unimplemented — no registry file exists)** — Deprecated
   identifiers MUST be recorded as data — a registry naming each retired
   identifier, what it denoted, the version that deprecated it, and its
@@ -624,6 +674,15 @@ Tracked here until resolved; each becomes an ADR.
   taxonomy, `24a-m2`/`24a-m3` whose cardinality is stated in 24(a)(i)
   itself) — is REQ-MODEL-10's recorded review of the identifiers it binds,
   and is on PR #4.
+
+  **Resolved 2026-08-30.** REQ-MODEL-10 now states the baseline (`0.1.1`,
+  outside it, with the reason) and the hardening that makes the exception
+  safe: the baseline is set exactly once and MUST NOT be moved, raised,
+  re-stated, or joined by a second clause. `test/data.test.mjs` pins the
+  literal and asserts a single statement; the requirement records why the
+  cross-version half is not asserted. The three accepted findings are
+  written up as REQ-MODEL-10's recorded review rather than left on a pull
+  request, and the changed one is `docs/identifiers.md`.
 - **Q-10** — Split `conditional_includes`, or add a discriminant?
   REQ-MODEL-12 records the overload; this is the unresolved half. Splitting
   it names each behaviour and lets a schema validate the shape, at the cost
