@@ -54,7 +54,7 @@ jobs:
       # trigger is deliberately gone (below) rather than relied on for the
       # tag this token now unlocks -- the manual dispatch stays the one path
       # to publish, so an App-token tag can't race it.
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@v3
         id: app-token
         with:
           client-id: ${{ secrets.RELEASE_PLEASE_APP_CLIENT_ID }}
