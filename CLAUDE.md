@@ -13,6 +13,9 @@ fact record supplied by the consumer.
 requirement IDs (`REQ-SCOPE-2`, `REQ-VERIFY-5`, …) are stable and cited by
 tests. `docs/adr/` records decisions so they aren't re-argued. Read both
 before making a design change — don't infer intent from the data alone.
+`docs/identifiers.md` states the naming scheme: citation-derived identifiers
+are bare, vocabulary identifiers carry a type prefix. Read it before adding
+a light, a fact or a relation.
 
 ## Commands
 
