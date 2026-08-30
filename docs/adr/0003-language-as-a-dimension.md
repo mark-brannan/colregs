@@ -80,9 +80,12 @@ with BCP 47 codes, structured as three layers:
    it consolidates, and every corpus declares the amendment state its
    source reflects (REQ-LANG-10). A mismatch is legitimate but
    machine-visible — declared staleness, never silence. Historical states
-   are prior package versions, not an in-data version dimension; a
-   renumbering amendment is a breaking change under REQ-PKG-4, the same as
-   any entry-id change.
+   are prior package versions, not an in-data version dimension. A
+   renumbering amendment is a major version under REQ-PKG-4 — but it is
+   resolved by *issuing new paragraph paths and deprecating the old ones*
+   (REQ-MODEL-10/11), never by repointing an existing path at different
+   text. Repointing is forbidden outright: no version signal expresses it,
+   so a consumer cannot detect it.
 
 3. **Display catalogs (UI strings, not law).** Per-language message
    catalogs keyed by stable string keys for the identifier vocabularies:
@@ -195,9 +198,11 @@ check. What was declined, and why — recorded so it isn't re-argued:
 - **Splitting `paragraph_id` from `citation_path`.** (GATE-1) The paragraph
   path *is* the shared citation across the treaty languages and the
   harmonised national texts (ADR 0001); a second synthetic id would double
-  every cross-reference for a renumbering event that is rare and already a
-  major version under REQ-PKG-4. Accepted risk, revisit only when a real
-  renumbering lands.
+  every cross-reference for a renumbering event that is rare, already a
+  major version under REQ-PKG-4, and resolvable by deprecation rather than
+  repointing (REQ-MODEL-10). Accepted risk, revisit only when a real
+  renumbering lands — or when Q-8's check of the first national
+  amalgamation shows paragraph paths do not survive it.
 - **A full temporal/legal-version model** (instrument → edition → corpus as
   first-class layers; GATE-2). The package models current consolidated law;
   history lives in package versions. The cheap 80% — declared amendment
