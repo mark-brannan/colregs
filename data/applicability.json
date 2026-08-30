@@ -1,11 +1,11 @@
 {
  "conditions": "night (Rule 20(b): sunset to sunrise), and by 20(c) in restricted visibility by day. Day shapes are not in this release.",
  "relations": {
-  "includes": "import another entry's lights only, never its predicate",
-  "conditional_includes": "import lights when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks one",
-  "in_lieu_of": "this entry's lights replace the referenced entries' lights",
-  "excludes": "the referenced entries must not be shown at the same time",
-  "exempts": "the referenced entries are not required"
+  "rel:includes": "import another entry's lights only, never its predicate",
+  "rel:conditional_includes": "import lights when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks one",
+  "rel:in_lieu_of": "this entry's lights replace the referenced entries' lights",
+  "rel:excludes": "the referenced entries must not be shown at the same time",
+  "rel:exempts": "the referenced entries are not required"
  },
  "modalities": {
   "shall": "mandatory",
@@ -47,13 +47,13 @@
    "jurisdiction": "intl",
    "cite": "23(a)(i)",
    "when": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway"
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway"
    },
    "lights": [
     {
-     "light": "masthead",
+     "light": "light:masthead",
      "position": "forward",
      "count": 1
     }
@@ -68,13 +68,13 @@
    "jurisdiction": "intl",
    "cite": "23(a)(ii)",
    "when": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway"
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway"
    },
    "lights": [
     {
-     "light": "masthead",
+     "light": "light:masthead",
      "position": "abaft and higher than the forward one",
      "count": 1
     }
@@ -83,7 +83,7 @@
    "modality_by": [
     {
      "when": {
-      "length_m": {
+      "fact:length_m": {
        "gte": 50
       }
      },
@@ -91,7 +91,7 @@
     },
     {
      "when": {
-      "length_m": {
+      "fact:length_m": {
        "lt": 50
       }
      },
@@ -107,16 +107,16 @@
    "jurisdiction": "intl",
    "cite": "23(a)(iii)-(iv)",
    "when": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway"
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway"
    },
    "lights": [
     {
-     "light": "sidelights"
+     "light": "light:sidelights"
     },
     {
-     "light": "sternlight"
+     "light": "light:sternlight"
     }
    ],
    "modality": "shall"
@@ -126,20 +126,20 @@
    "jurisdiction": "intl",
    "cite": "23(b)",
    "when": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "non_displacement": true
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:non_displacement": true
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "yellow",
      "character": "flashing",
      "count": 1
     }
    ],
-   "includes": [
+   "rel:includes": [
     "23a1",
     "23a2",
     "23a34"
@@ -155,22 +155,22 @@
    "jurisdiction": "intl",
    "cite": "23(c)",
    "when": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "wig": true,
-    "wig_near_surface": true
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:wig": true,
+    "fact:wig_near_surface": true
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "character": "flashing",
      "intensity": "high",
      "count": 1
     }
    ],
-   "includes": [
+   "rel:includes": [
     "23a1",
     "23a2",
     "23a34"
@@ -183,24 +183,24 @@
    "jurisdiction": "intl",
    "cite": "23(d)(i)",
    "when": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": {
      "lt": 12
     }
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1
     },
     {
-     "light": "sidelights"
+     "light": "light:sidelights"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "23a1",
     "23a2",
     "23a34"
@@ -215,28 +215,28 @@
    "jurisdiction": "intl",
    "cite": "23(d)(ii)",
    "when": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": {
      "lt": 7
     },
-    "max_speed_kn": {
+    "fact:max_speed_kn": {
      "lte": 7
     }
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1
     },
     {
-     "light": "sidelights",
+     "light": "light:sidelights",
      "modality": "shall-if-practicable"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "23a1",
     "23a2",
     "23a34"
@@ -252,19 +252,19 @@
    "jurisdiction": "intl",
    "cite": "24(a)(i)",
    "when": {
-    "activity": "towing",
-    "tow_length_m": {
+    "fact:activity": "activity:towing",
+    "fact:tow_length_m": {
      "lte": 200
     }
    },
    "lights": [
     {
-     "light": "masthead",
+     "light": "light:masthead",
      "count": 2,
      "arrangement": "vertical"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "23a1",
     "23a2"
    ],
@@ -278,19 +278,19 @@
    "jurisdiction": "intl",
    "cite": "24(a)(i)",
    "when": {
-    "activity": "towing",
-    "tow_length_m": {
+    "fact:activity": "activity:towing",
+    "fact:tow_length_m": {
      "gt": 200
     }
    },
    "lights": [
     {
-     "light": "masthead",
+     "light": "light:masthead",
      "count": 3,
      "arrangement": "vertical"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "23a1",
     "23a2"
    ],
@@ -304,16 +304,16 @@
    "jurisdiction": "intl",
    "cite": "24(a)(ii)-(iv)",
    "when": {
-    "activity": "towing"
+    "fact:activity": "activity:towing"
    },
    "lights": [
     {
-     "light": "towing",
+     "light": "light:towing",
      "position": "in a vertical line above the sternlight",
      "count": 1
     }
    ],
-   "includes": [
+   "rel:includes": [
     "23a34"
    ],
    "modality": "shall",
@@ -326,11 +326,11 @@
    "jurisdiction": "intl",
    "cite": "24(b)",
    "when": {
-    "activity": "pushing",
-    "composite_unit": true
+    "fact:activity": "activity:pushing",
+    "fact:composite_unit": true
    },
    "lights": [],
-   "includes": [
+   "rel:includes": [
     "23a1",
     "23a2",
     "23a34"
@@ -346,20 +346,20 @@
    "jurisdiction": "intl",
    "cite": "24(c)",
    "when": {
-    "activity": "pushing",
-    "composite_unit": false
+    "fact:activity": "activity:pushing",
+    "fact:composite_unit": false
    },
    "lights": [
     {
-     "light": "masthead",
+     "light": "light:masthead",
      "count": 2,
      "arrangement": "vertical"
     }
    ],
-   "includes": [
+   "rel:includes": [
     "23a34"
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "23a1",
     "23a2"
    ],
@@ -371,14 +371,14 @@
    "jurisdiction": "intl",
    "cite": "24(e)",
    "when": {
-    "activity": "being_towed"
+    "fact:activity": "activity:being_towed"
    },
    "lights": [
     {
-     "light": "sidelights"
+     "light": "light:sidelights"
     },
     {
-     "light": "sternlight"
+     "light": "light:sternlight"
     }
    ],
    "modality": "shall",
@@ -392,16 +392,16 @@
    "jurisdiction": "intl",
    "cite": "25(a)",
    "when": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway"
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway"
    },
    "lights": [
     {
-     "light": "sidelights"
+     "light": "light:sidelights"
     },
     {
-     "light": "sternlight"
+     "light": "light:sternlight"
     }
    ],
    "modality": "shall",
@@ -414,29 +414,29 @@
    "jurisdiction": "intl",
    "cite": "25(b)",
    "when": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": {
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": {
      "lt": 20
     }
    },
    "lights": [
     {
-     "light": "sidelights",
+     "light": "light:sidelights",
      "combined": true,
      "position": "at or near the top of the mast"
     },
     {
-     "light": "sternlight",
+     "light": "light:sternlight",
      "combined": true,
      "position": "at or near the top of the mast"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "25a"
    ],
-   "excludes": [
+   "rel:excludes": [
     "25c"
    ],
    "modality": "may",
@@ -450,28 +450,28 @@
    "jurisdiction": "intl",
    "cite": "25(c)",
    "when": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway"
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 1,
      "position": "upper, at or near the top of the mast"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "green",
      "count": 1,
      "position": "lower, at or near the top of the mast"
     }
    ],
-   "includes": [
+   "rel:includes": [
     "25a"
    ],
-   "excludes": [
+   "rel:excludes": [
     "25b"
    ],
    "modality": "may",
@@ -484,22 +484,22 @@
    "jurisdiction": "intl",
    "cite": "25(d)(i)",
    "when": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": {
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": {
      "lt": 7
     }
    },
    "lights": [
     {
-     "light": "torch",
+     "light": "light:torch",
      "color": "white",
      "count": 1,
      "note": "an electric torch or lighted lantern shown in sufficient time to prevent collision"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "25a",
     "25b"
    ],
@@ -514,17 +514,17 @@
    "jurisdiction": "intl",
    "cite": "25(d)(ii)",
    "when": {
-    "propulsion": "oars"
+    "fact:propulsion": "propulsion:oars"
    },
    "lights": [
     {
-     "light": "torch",
+     "light": "light:torch",
      "color": "white",
      "count": 1,
      "note": "an electric torch or lighted lantern shown in sufficient time to prevent collision"
     }
    ],
-   "conditional_includes": [
+   "rel:conditional_includes": [
     {
      "one_of": [
       "25a",
@@ -543,23 +543,23 @@
    "jurisdiction": "intl",
    "cite": "26(b)(i)",
    "when": {
-    "activity": "trawling"
+    "fact:activity": "activity:trawling"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "green",
      "count": 1,
      "position": "upper"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "lower"
     }
    ],
-   "excludes": [
+   "rel:excludes": [
     "30a",
     "30b"
    ],
@@ -574,11 +574,11 @@
    "jurisdiction": "intl",
    "cite": "26(b)(ii)",
    "when": {
-    "activity": "trawling"
+    "fact:activity": "activity:trawling"
    },
    "lights": [
     {
-     "light": "masthead",
+     "light": "light:masthead",
      "position": "abaft of and higher than the all-round green light",
      "count": 1
     }
@@ -587,7 +587,7 @@
    "modality_by": [
     {
      "when": {
-      "length_m": {
+      "fact:length_m": {
        "gte": 50
       }
      },
@@ -595,7 +595,7 @@
     },
     {
      "when": {
-      "length_m": {
+      "fact:length_m": {
        "lt": 50
       }
      },
@@ -608,11 +608,11 @@
    "jurisdiction": "intl",
    "cite": "26(b)(iii)",
    "when": {
-    "activity": "trawling",
-    "making_way": true
+    "fact:activity": "activity:trawling",
+    "fact:making_way": true
    },
    "lights": [],
-   "includes": [
+   "rel:includes": [
     "23a34"
    ],
    "modality": "shall",
@@ -625,23 +625,23 @@
    "jurisdiction": "intl",
    "cite": "26(c)(i)",
    "when": {
-    "activity": "fishing"
+    "fact:activity": "activity:fishing"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 1,
      "position": "upper"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "lower"
     }
    ],
-   "excludes": [
+   "rel:excludes": [
     "30a",
     "30b"
    ],
@@ -652,14 +652,14 @@
    "jurisdiction": "intl",
    "cite": "26(c)(ii)",
    "when": {
-    "activity": "fishing",
-    "gear_extent_m": {
+    "fact:activity": "activity:fishing",
+    "fact:gear_extent_m": {
      "gt": 150
     }
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "in the direction of the gear"
@@ -672,11 +672,11 @@
    "jurisdiction": "intl",
    "cite": "26(c)(iii)",
    "when": {
-    "activity": "fishing",
-    "making_way": true
+    "fact:activity": "activity:fishing",
+    "fact:making_way": true
    },
    "lights": [],
-   "includes": [
+   "rel:includes": [
     "23a34"
    ],
    "modality": "shall",
@@ -689,12 +689,12 @@
    "jurisdiction": "intl",
    "cite": "27(a)(i)",
    "when": {
-    "activity": "nuc",
-    "position": "underway"
+    "fact:activity": "activity:nuc",
+    "fact:position": "position:underway"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 2,
      "arrangement": "vertical"
@@ -710,11 +710,11 @@
    "jurisdiction": "intl",
    "cite": "27(a)(iii)",
    "when": {
-    "activity": "nuc",
-    "making_way": true
+    "fact:activity": "activity:nuc",
+    "fact:making_way": true
    },
    "lights": [],
-   "includes": [
+   "rel:includes": [
     "23a34"
    ],
    "modality": "shall",
@@ -727,23 +727,23 @@
    "jurisdiction": "intl",
    "cite": "27(b)(i)",
    "when": {
-    "activity": "ram"
+    "fact:activity": "activity:ram"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 1,
      "position": "upper"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "middle"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 1,
      "position": "lower"
@@ -757,11 +757,11 @@
    "jurisdiction": "intl",
    "cite": "27(b)(iii)",
    "when": {
-    "activity": "ram",
-    "making_way": true
+    "fact:activity": "activity:ram",
+    "fact:making_way": true
    },
    "lights": [],
-   "includes": [
+   "rel:includes": [
     "23a1",
     "23a2",
     "23a34"
@@ -776,11 +776,11 @@
    "jurisdiction": "intl",
    "cite": "27(b)(iv)",
    "when": {
-    "activity": "ram",
-    "position": "anchored"
+    "fact:activity": "activity:ram",
+    "fact:position": "position:anchored"
    },
    "lights": [],
-   "conditional_includes": [
+   "rel:conditional_includes": [
     {
      "one_of": [
       "30a",
@@ -798,26 +798,26 @@
    "jurisdiction": "intl",
    "cite": "27(d)",
    "when": {
-    "activity": "ram_underwater",
-    "obstruction_exists": true
+    "fact:activity": "activity:ram_underwater",
+    "fact:obstruction_exists": true
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 2,
      "arrangement": "vertical",
      "position": "on the side on which the obstruction exists"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "green",
      "count": 2,
      "arrangement": "vertical",
      "position": "on the side on which another vessel may pass"
     }
    ],
-   "includes": [
+   "rel:includes": [
     "27b-id"
    ],
    "modality": "shall",
@@ -831,29 +831,29 @@
    "jurisdiction": "intl",
    "cite": "27(e)(i)",
    "when": {
-    "activity": "diving"
+    "fact:activity": "activity:diving"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 1,
      "position": "upper"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "middle"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 1,
      "position": "lower"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "27d"
    ],
    "modality": "shall",
@@ -867,25 +867,25 @@
    "jurisdiction": "intl",
    "cite": "27(f)",
    "when": {
-    "activity": "mine"
+    "fact:activity": "activity:mine"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "green",
      "count": 3,
      "position": "one near the foremast head and one at each end of the fore yard"
     }
    ],
-   "includes": [
+   "rel:includes": [
     "23a1",
     "23a2",
     "23a34"
    ],
-   "conditional_includes": [
+   "rel:conditional_includes": [
     {
      "when": {
-      "position": "anchored"
+      "fact:position": "position:anchored"
      },
      "one_of": [
       "30a",
@@ -903,17 +903,17 @@
    "jurisdiction": "intl",
    "cite": "28",
    "when": {
-    "activity": "cbd"
+    "fact:activity": "activity:cbd"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 3,
      "arrangement": "vertical"
     }
    ],
-   "includes": [
+   "rel:includes": [
     "23a1",
     "23a2",
     "23a34"
@@ -929,35 +929,35 @@
    "jurisdiction": "intl",
    "cite": "29(a)",
    "when": {
-    "activity": "pilot"
+    "fact:activity": "activity:pilot"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "upper, at or near the masthead"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 1,
      "position": "lower, at or near the masthead"
     }
    ],
-   "conditional_includes": [
+   "rel:conditional_includes": [
     {
      "when": {
-      "position": "underway"
+      "fact:position": "position:underway"
      },
-     "includes": [
+     "rel:includes": [
       "23a34"
      ],
      "cite": "29(a)(ii)"
     },
     {
      "when": {
-      "position": "anchored"
+      "fact:position": "position:anchored"
      },
      "one_of": [
       "30a",
@@ -977,17 +977,17 @@
    "jurisdiction": "intl",
    "cite": "30(a)",
    "when": {
-    "position": "anchored"
+    "fact:position": "position:anchored"
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "in the fore part"
     },
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "at or near the stern, at a lower level than the fore one"
@@ -1003,20 +1003,20 @@
    "jurisdiction": "intl",
    "cite": "30(b)",
    "when": {
-    "position": "anchored",
-    "length_m": {
+    "fact:position": "position:anchored",
+    "fact:length_m": {
      "lt": 50
     }
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "white",
      "count": 1,
      "position": "where it can best be seen"
     }
    ],
-   "in_lieu_of": [
+   "rel:in_lieu_of": [
     "30a"
    ],
    "modality": "may"
@@ -1026,11 +1026,11 @@
    "jurisdiction": "intl",
    "cite": "30(c)",
    "when": {
-    "position": "anchored"
+    "fact:position": "position:anchored"
    },
    "lights": [
     {
-     "light": "deck_lights",
+     "light": "light:deck_lights",
      "note": "available working or equivalent lights to illuminate her decks"
     }
    ],
@@ -1038,7 +1038,7 @@
    "modality_by": [
     {
      "when": {
-      "length_m": {
+      "fact:length_m": {
        "gte": 100
       }
      },
@@ -1046,7 +1046,7 @@
     },
     {
      "when": {
-      "length_m": {
+      "fact:length_m": {
        "lt": 100
       }
      },
@@ -1059,10 +1059,10 @@
    "jurisdiction": "intl",
    "cite": "30(d)",
    "when": {
-    "position": "aground"
+    "fact:position": "position:aground"
    },
    "lights": [],
-   "conditional_includes": [
+   "rel:conditional_includes": [
     {
      "one_of": [
       "30a",
@@ -1078,14 +1078,14 @@
    "jurisdiction": "intl",
    "cite": "30(d)",
    "when": {
-    "position": "aground",
-    "length_m": {
+    "fact:position": "position:aground",
+    "fact:length_m": {
      "gte": 12
     }
    },
    "lights": [
     {
-     "light": "all_round",
+     "light": "light:all_round",
      "color": "red",
      "count": 2,
      "arrangement": "vertical"
@@ -1102,14 +1102,14 @@
    "jurisdiction": "intl",
    "cite": "30(e)",
    "when": {
-    "position": "anchored",
-    "length_m": {
+    "fact:position": "position:anchored",
+    "fact:length_m": {
      "lt": 7
     },
-    "near_channel": false
+    "fact:near_channel": false
    },
    "lights": [],
-   "exempts": [
+   "rel:exempts": [
     "30a",
     "30b"
    ],

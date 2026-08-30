@@ -118,33 +118,41 @@ Four layers, each independently addressable.
   add definitions (e.g. the US special flashing light, Inland 21(g)).
 - **REQ-MODEL-3** — **Facts**: the input vocabulary. Three orthogonal axes MUST
   be used, never a single flattened status enum:
-  - `propulsion` ∈ power / sail / oars
-  - `activity` ∈ none / fishing / trawling / towing / pushing / being-towed /
-    nuc / ram / cbd / mine / pilot / diving
-  - `position` ∈ underway / anchored / aground / moored
-  plus `making_way` as a boolean refining `position=underway`, and numeric and
-  boolean facts (`length_m`, `tow_length_m`, `max_speed_kn`, `composite_unit`,
-  and the education-only facts).
+  - `fact:propulsion` ∈ `propulsion:power` / `propulsion:sail` /
+    `propulsion:oars`
+  - `fact:activity` ∈ `activity:none` / `activity:fishing` /
+    `activity:trawling` / `activity:towing` / `activity:pushing` /
+    `activity:being_towed` / `activity:nuc` / `activity:ram` /
+    `activity:ram_underwater` / `activity:cbd` / `activity:mine` /
+    `activity:pilot` / `activity:diving`
+  - `fact:position` ∈ `position:underway` / `position:anchored` /
+    `position:aground` / `position:moored`
+  plus `fact:making_way` as a boolean refining `fact:position=position:underway`,
+  and numeric and boolean facts (`fact:length_m`, `fact:tow_length_m`,
+  `fact:max_speed_kn`, `fact:composite_unit`, and the education-only facts).
+  Fact keys, and the values of the enumerated facts, carry a type prefix;
+  `docs/identifiers.md` states the scheme and why citation-derived
+  identifiers do not.
 - **REQ-MODEL-4** — **Applicability entries**: `when` (predicate over facts) →
   lights or refs → modality → citation → jurisdiction. Every entry MUST have a
   stable id derived from its paragraph path (`25b`, `25d1`).
 - **REQ-MODEL-5** — Gates MUST be expressed as predicates over facts
-  (`length_m < 7`), never as pre-enumerated tuples or configuration counts. Any
+  (`fact:length_m < 7`), never as pre-enumerated tuples or configuration counts. Any
   count of "configurations" is an output of evaluation, never an input to the
   data.
 - **REQ-MODEL-6** — Entries MUST compose. Multiple entries applying to one fact
   record is the normal case, not an error (Rule 28 is "in addition to" Rule 23).
 - **REQ-MODEL-7** — Five relations MUST be supported:
-  - `includes` — import another entry's **lights only**, never its predicate;
-  - `in_lieu_of` — legal alternatives for the same fact record;
-  - `excludes` — mutual exclusion, including across rules;
-  - `exempts` — one entry lifting another's obligation;
-  - `conditional_includes` — import or alternatives, gated on a predicate.
+  - `rel:includes` — import another entry's **lights only**, never its predicate;
+  - `rel:in_lieu_of` — legal alternatives for the same fact record;
+  - `rel:excludes` — mutual exclusion, including across rules;
+  - `rel:exempts` — one entry lifting another's obligation;
+  - `rel:conditional_includes` — import or alternatives, gated on a predicate.
   The five are not interchangeable; README.md holds the working semantics.
-- **REQ-MODEL-12** — `conditional_includes` currently carries three
+- **REQ-MODEL-12** — `rel:conditional_includes` currently carries three
   distinct shapes under one relation name: a bare `one_of` alternative set
   (`25d2`), a gated alternative set (`when` + `one_of`, `27f`), and a gated
-  import with its own citation (`when` + `includes` + `cite`, `29a`). Which
+  import with its own citation (`when` + `rel:includes` + `cite`, `29a`). Which
   behaviour applies is inferred from which keys are present. This is a
   **soft** requirement — the data is correct today and the tests cover it,
   so nothing is broken. It is recorded because a third jurisdiction adding
@@ -180,6 +188,56 @@ Four layers, each independently addressable.
   is a **new identifier plus a deprecation**, never a repoint. Renaming or
   removing an identifier is a major version (REQ-PKG-4); repointing one is
   not a version event at all, because it is not permitted.
+
+  **Immutability baseline: `0.1.1`.** The prohibitions above bind every
+  identifier present in the first version released *after* `colregs@0.1.1`,
+  and every identifier introduced from then on. Identifiers as they stood
+  in `0.1.1` and earlier are outside the baseline. The reason, recorded so
+  it is not mistaken for convenience later: `0.1.1` was published
+  2026-08-29, the day the package was seeded, before the identifier review
+  this requirement itself calls for had been done and before any consumer
+  existed. Read without a baseline, the requirement froze the vocabulary at
+  the moment of its first accidental publication and forbade the one review
+  it was written to make possible — including the vocabulary type-prefixing
+  that resolved a live namespace collision (`docs/identifiers.md`). That is
+  a defect in the requirement, not a licence to skip the review.
+
+  The baseline is **set exactly once**. It MUST NOT be moved, raised,
+  re-stated in a later version, or joined by a second baseline clause. This
+  clause is the whole of the exception; there is no mechanism for granting
+  another. Without that, "move the baseline" is a silent escape hatch from
+  REQ-MODEL-10 and the exception becomes the pattern — a specification that
+  can suspend its own prohibition by editing one number is advisory, not
+  normative. One recorded exception is a correction; a second is a policy.
+
+  `test/data.test.mjs` pins the baseline literal and asserts it is stated
+  exactly once. A build has no access to git history, so it cannot see the
+  number being *edited* in place; a test that reconstructed history to
+  check would cost more than it is worth and would still pass on a rewritten
+  history. What it can refuse is a **second** baseline clause, which is the
+  form the escape hatch actually takes — nobody deletes the recorded reason
+  for the first exception in order to grant themselves a second. Editing
+  the pinned literal is possible, but it is no longer silent: it fails the
+  suite and must be done deliberately, in a reviewable diff.
+
+  **Recorded review — identifier audit, 2026-08-30.** REQ-MODEL-10 binds a
+  vocabulary that had never been reviewed as a vocabulary. The audit that
+  the baseline authorises is that review; `docs/identifiers.md` states what
+  it changed. What it examined and deliberately did **not** change is
+  recorded here so it is not re-opened as an oversight:
+  - **The entry-id suffix taxonomy** — `23a1`, `24a-m2`, `24a-rest`,
+    `26b-mw`, `30d-red`. The suffixes are not drawn from one scheme
+    (ordinal, masthead count, fact abbreviation, colour) because the
+    paragraphs they disambiguate do not divide on one axis. A uniform
+    scheme would have to be ordinal, which would make every id opaque to
+    the reader who has the rule text in front of them, for no gain to a
+    machine that only ever compares them for equality. Kept as they are.
+  - **`24a-m2` / `24a-m3`** — the two-or-three masthead split. The
+    cardinality is stated in 24(a)(i) itself ("two masthead lights … three
+    such lights" by tow length), so the suffix names something the law
+    names, not a modelling convenience of this package.
+  - **`nuc`, `cbd`, `ram`, `ram_underwater`** — kept unspelled as terms of
+    art; see `docs/identifiers.md` for the reasoning and the trap in `ram`.
 - **REQ-MODEL-11** **(unimplemented — no registry file exists)** — Deprecated
   identifiers MUST be recorded as data — a registry naming each retired
   identifier, what it denoted, the version that deprecated it, and its
@@ -315,7 +373,7 @@ See ADR 0003.
   candidate fact records), so the two cannot silently disagree.
 - **REQ-VERIFY-3** — Every applicability entry MUST be covered by at least one
   fixture that exercises it, and at least one that excludes it.
-- **REQ-VERIFY-4** — Every `in_lieu_of` and `excludes` relation MUST have a
+- **REQ-VERIFY-4** — Every `rel:in_lieu_of` and `rel:excludes` relation MUST have a
   fixture demonstrating it.
 - **REQ-VERIFY-5** — Predicates MUST be tested at their boundaries. Every numeric
   gate MUST have fixtures immediately either side of the threshold.
@@ -544,7 +602,7 @@ Tracked here until resolved; each becomes an ADR.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
 - **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
-  Three gates (`23a2`, `26b-mast`, `30c`'s `length_m` thresholds) live only in
+  Three gates (`23a2`, `26b-mast`, `30c`'s `fact:length_m` thresholds) live only in
   `modality_by`, not in the entry's `when` — they flip `shall` to `may`, not
   which entries apply. The fixture format only asserts applying entry ids, not
   expected modality, so there is no way to fixture these three without
@@ -624,7 +682,16 @@ Tracked here until resolved; each becomes an ADR.
   taxonomy, `24a-m2`/`24a-m3` whose cardinality is stated in 24(a)(i)
   itself) — is REQ-MODEL-10's recorded review of the identifiers it binds,
   and is on PR #4.
-- **Q-10** — Split `conditional_includes`, or add a discriminant?
+
+  **Resolved 2026-08-30.** REQ-MODEL-10 now states the baseline (`0.1.1`,
+  outside it, with the reason) and the hardening that makes the exception
+  safe: the baseline is set exactly once and MUST NOT be moved, raised,
+  re-stated, or joined by a second clause. `test/data.test.mjs` pins the
+  literal and asserts a single statement; the requirement records why the
+  cross-version half is not asserted. The three accepted findings are
+  written up as REQ-MODEL-10's recorded review rather than left on a pull
+  request, and the changed one is `docs/identifiers.md`.
+- **Q-10** — Split `rel:conditional_includes`, or add a discriminant?
   REQ-MODEL-12 records the overload; this is the unresolved half. Splitting
   it names each behaviour and lets a schema validate the shape, at the cost
   of a sixth and seventh relation verb in a vocabulary CLAUDE.md already

@@ -40,9 +40,10 @@ Rule 22. Bearings run in degrees clockwise from right ahead, and an arc whose
 `from_deg` exceeds its `to_deg` wraps through the bow. So the masthead light
 is 247.5° to 112.5°, which is 225° of arc.
 
-**Facts.** Three orthogonal axes (`propulsion`, `activity`, `position`), a
-`making_way` modifier that refines `underway`, and scalars such as `length_m`
-and `tow_length_m`. There is deliberately no vessel-class field. Under COLREGS
+**Facts.** Three orthogonal axes (`fact:propulsion`, `fact:activity`,
+`fact:position`), a `fact:making_way` modifier that refines
+`position:underway`, and scalars such as `fact:length_m` and
+`fact:tow_length_m`. There is deliberately no vessel-class field. Under COLREGS
 what a vessel *is* follows from what it is *doing*, so classification falls
 out of the axes on its own.
 
@@ -55,6 +56,12 @@ making-way are the two of those that matter in practice.
 lights or references to other entries, a modality, a citation, and a
 jurisdiction. Every entry has an id (`25b`, `27a-mw`) that both consumers can
 point at.
+
+**Identifiers.** Two classes, with opposite requirements. Citation-derived ids
+— paragraph paths and the entry ids built from them — carry no prefix, because
+the path *is* the citation. Vocabulary ids do: `light:masthead`,
+`fact:activity`, `activity:nuc`, `rel:in_lieu_of`. See
+[`docs/identifiers.md`](docs/identifiers.md).
 
 ## Design
 
@@ -79,7 +86,7 @@ delta on `intl`; entries it doesn't override are inherited, not restated
 (Great Lakes, Western Rivers) is an ordinary fact a predicate reads, not a
 jurisdiction of its own (REQ-SCOPE-5).
 
-**Predicates, not enumerations.** Gates are `length_m < 7`, never a pre-built
+**Predicates, not enumerations.** Gates are `fact:length_m < 7`, never a pre-built
 list of configurations. Enumerated tables are where prior art silently loses
 rules; a predicate cannot omit a case it was never asked about.
 
@@ -93,18 +100,19 @@ Selection belongs to the consumer.
 An entry applies when **every** constraint in its `when` is satisfied. An
 absent fact never satisfies a constraint. Numeric constraints are
 `{gte, gt, lte, lt}`; a list means membership; anything else is equality.
-`activity: "ram"` also matches `ram_underwater`, which is a refinement of it.
+`fact:activity: "activity:ram"` also matches `activity:ram_underwater`, which
+is a refinement of it.
 
 Entries **compose**: several apply to one fact record, and Rule 28 or Rule 26
 add to Rule 23 rather than replacing it. Relations between them:
 
 | relation | meaning |
 |---|---|
-| `includes` | import the referenced entry's **lights only**, never its predicate |
-| `conditional_includes` | import lights when the stated `when` holds; `one_of` is a set of legal alternatives |
-| `in_lieu_of` | this entry's lights replace the referenced entries' lights |
-| `excludes` | must not be shown together (25(c) and the tricolor) |
-| `exempts` | the referenced requirement does not apply (30(e)) |
+| `rel:includes` | import the referenced entry's **lights only**, never its predicate |
+| `rel:conditional_includes` | import lights when the stated `when` holds; `one_of` is a set of legal alternatives |
+| `rel:in_lieu_of` | this entry's lights replace the referenced entries' lights |
+| `rel:excludes` | must not be shown together (25(c) and the tricolor) |
+| `rel:exempts` | the referenced requirement does not apply (30(e)) |
 
 Where the rules permit a choice, the data keeps every lawful option instead of
 picking one. A 12 m sloop under sail has three legal displays: 25(a), the
@@ -138,8 +146,8 @@ declared.
 A **drift test** (REQ-VERIFY-2) cross-checks two directions: forward, fact
 record to lights, and reverse, lights already shown to which other entries
 could explain them. It fails on any collision the data doesn't already
-declare through `includes`/`in_lieu_of`/`excludes`/`exempts`/
-`conditional_includes`.
+declare through `rel:includes`/`rel:in_lieu_of`/`rel:excludes`/
+`rel:exempts`/`rel:conditional_includes`.
 
 Every numeric gate that affects *which entries apply* has fixtures immediately
 either side of its threshold (REQ-VERIFY-5), and every entry is exercised by

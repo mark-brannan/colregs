@@ -5,10 +5,10 @@
   {
    "name": "sailing yacht 11.6 m under sail",
    "facts": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 11.6
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 11.6
    },
    "expect": [
     "25a",
@@ -19,10 +19,10 @@
   {
    "name": "same yacht motoring",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 11.6
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 11.6
    },
    "expect": [
     "23a1",
@@ -34,10 +34,10 @@
   {
    "name": "power vessel 15 m underway",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 15
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 15
    },
    "expect": [
     "23a1",
@@ -48,10 +48,10 @@
   {
    "name": "power vessel 55 m underway",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 55
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 55
    },
    "expect": [
     "23a1",
@@ -62,11 +62,11 @@
   {
    "name": "6 m outboard, max speed 6 kn",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 6,
-    "max_speed_kn": 6
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 6,
+    "fact:max_speed_kn": 6
    },
    "expect": [
     "23a1",
@@ -79,11 +79,11 @@
   {
    "name": "6 m outboard, max speed 20 kn",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 6,
-    "max_speed_kn": 20
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 6,
+    "fact:max_speed_kn": 20
    },
    "expect": [
     "23a1",
@@ -95,10 +95,10 @@
   {
    "name": "dinghy under sail, 3.5 m",
    "facts": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 3.5
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 3.5
    },
    "expect": [
     "25a",
@@ -110,10 +110,10 @@
   {
    "name": "10 m vessel under oars",
    "facts": {
-    "propulsion": "oars",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 10
+    "fact:propulsion": "propulsion:oars",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 10
    },
    "expect": [
     "25d2"
@@ -122,11 +122,11 @@
   {
    "name": "motoring but drifting in neutral, 11.6 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "making_way": false,
-    "length_m": 11.6
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:making_way": false,
+    "fact:length_m": 11.6
    },
    "expect": [
     "23a1",
@@ -138,10 +138,10 @@
   {
    "name": "anchored, 11.6 m",
    "facts": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "anchored",
-    "length_m": 11.6
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:anchored",
+    "fact:length_m": 11.6
    },
    "expect": [
     "30a",
@@ -152,11 +152,11 @@
   {
    "name": "anchored, 6 m, clear of the channel",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "anchored",
-    "length_m": 6,
-    "near_channel": false
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:anchored",
+    "fact:length_m": 6,
+    "fact:near_channel": false
    },
    "expect": [
     "30a",
@@ -168,10 +168,10 @@
   {
    "name": "aground, 15 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "aground",
-    "length_m": 15
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:aground",
+    "fact:length_m": 15
    },
    "expect": [
     "30d-anchor",
@@ -181,10 +181,10 @@
   {
    "name": "aground, 10 m (30(f) relief from the red lights only, not the anchor lights)",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "aground",
-    "length_m": 10
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:aground",
+    "fact:length_m": 10
    },
    "expect": [
     "30d-anchor"
@@ -193,11 +193,11 @@
   {
    "name": "trawler 30 m making way",
    "facts": {
-    "propulsion": "power",
-    "activity": "trawling",
-    "position": "underway",
-    "making_way": true,
-    "length_m": 30
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 30
    },
    "expect": [
     "26b-id",
@@ -208,11 +208,11 @@
   {
    "name": "trawler 30 m drifting",
    "facts": {
-    "propulsion": "power",
-    "activity": "trawling",
-    "position": "underway",
-    "making_way": false,
-    "length_m": 30
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway",
+    "fact:making_way": false,
+    "fact:length_m": 30
    },
    "expect": [
     "26b-id",
@@ -222,12 +222,12 @@
   {
    "name": "fishing other than trawling, gear out 200 m, not making way",
    "facts": {
-    "propulsion": "power",
-    "activity": "fishing",
-    "position": "underway",
-    "making_way": false,
-    "length_m": 12,
-    "gear_extent_m": 200
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway",
+    "fact:making_way": false,
+    "fact:length_m": 12,
+    "fact:gear_extent_m": 200
    },
    "expect": [
     "26c-id",
@@ -237,11 +237,11 @@
   {
    "name": "not under command, making way",
    "facts": {
-    "propulsion": "power",
-    "activity": "nuc",
-    "position": "underway",
-    "making_way": true,
-    "length_m": 40
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:nuc",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 40
    },
    "expect": [
     "27a-id",
@@ -251,11 +251,11 @@
   {
    "name": "not under command, drifting",
    "facts": {
-    "propulsion": "power",
-    "activity": "nuc",
-    "position": "underway",
-    "making_way": false,
-    "length_m": 40
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:nuc",
+    "fact:position": "position:underway",
+    "fact:making_way": false,
+    "fact:length_m": 40
    },
    "expect": [
     "27a-id"
@@ -264,10 +264,10 @@
   {
    "name": "restricted in ability to maneuver, at anchor",
    "facts": {
-    "propulsion": "power",
-    "activity": "ram",
-    "position": "anchored",
-    "length_m": 60
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:ram",
+    "fact:position": "position:anchored",
+    "fact:length_m": 60
    },
    "expect": [
     "27b-id",
@@ -279,13 +279,13 @@
   {
    "name": "dredger, restricted, obstruction to port, making way",
    "facts": {
-    "propulsion": "power",
-    "activity": "ram_underwater",
-    "position": "underway",
-    "making_way": true,
-    "length_m": 45,
-    "obstruction_exists": true,
-    "obstruction_side": "port"
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:ram_underwater",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 45,
+    "fact:obstruction_exists": true,
+    "fact:obstruction_side": "obstruction_side:port"
    },
    "expect": [
     "27b-id",
@@ -296,11 +296,11 @@
   {
    "name": "towing astern, tow 150 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "towing",
-    "position": "underway",
-    "length_m": 40,
-    "tow_length_m": 150
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:length_m": 40,
+    "fact:tow_length_m": 150
    },
    "expect": [
     "24a-m2",
@@ -310,11 +310,11 @@
   {
    "name": "towing astern, tow 300 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "towing",
-    "position": "underway",
-    "length_m": 40,
-    "tow_length_m": 300
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:length_m": 40,
+    "fact:tow_length_m": 300
    },
    "expect": [
     "24a-m3",
@@ -324,11 +324,11 @@
   {
    "name": "pushing ahead, composite unit",
    "facts": {
-    "propulsion": "power",
-    "activity": "pushing",
-    "position": "underway",
-    "length_m": 30,
-    "composite_unit": true
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:composite_unit": true
    },
    "expect": [
     "24b"
@@ -337,11 +337,11 @@
   {
    "name": "pushing ahead, not a composite unit",
    "facts": {
-    "propulsion": "power",
-    "activity": "pushing",
-    "position": "underway",
-    "length_m": 30,
-    "composite_unit": false
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:composite_unit": false
    },
    "expect": [
     "24c"
@@ -350,10 +350,10 @@
   {
    "name": "constrained by draft",
    "facts": {
-    "propulsion": "power",
-    "activity": "cbd",
-    "position": "underway",
-    "length_m": 200
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:underway",
+    "fact:length_m": 200
    },
    "expect": [
     "28"
@@ -362,10 +362,10 @@
   {
    "name": "on pilotage duty, underway",
    "facts": {
-    "propulsion": "power",
-    "activity": "pilot",
-    "position": "underway",
-    "length_m": 20
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pilot",
+    "fact:position": "position:underway",
+    "fact:length_m": 20
    },
    "expect": [
     "29a"
@@ -374,10 +374,10 @@
   {
    "name": "mine clearance, underway",
    "facts": {
-    "propulsion": "power",
-    "activity": "mine",
-    "position": "underway",
-    "length_m": 60
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:mine",
+    "fact:position": "position:underway",
+    "fact:length_m": 60
    },
    "expect": [
     "27f"
@@ -386,10 +386,10 @@
   {
    "name": "diving operations from a small vessel",
    "facts": {
-    "propulsion": "power",
-    "activity": "diving",
-    "position": "underway",
-    "length_m": 9
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:diving",
+    "fact:position": "position:underway",
+    "fact:length_m": 9
    },
    "expect": [
     "27e"
@@ -398,11 +398,11 @@
   {
    "name": "air-cushion vessel in non-displacement mode",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 25,
-    "non_displacement": true
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 25,
+    "fact:non_displacement": true
    },
    "expect": [
     "23a1",
@@ -414,10 +414,10 @@
   {
    "name": "23d1 boundary: 11.9 m power vessel underway",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 11.9
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 11.9
    },
    "expect": [
     "23a1",
@@ -429,10 +429,10 @@
   {
    "name": "23d1 boundary: 12.0 m power vessel underway",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 12.0
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 12.0
    },
    "expect": [
     "23a1",
@@ -443,11 +443,11 @@
   {
    "name": "23d2 length boundary: 6.9 m power vessel, max speed 7 kn",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 6.9,
-    "max_speed_kn": 7
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 6.9,
+    "fact:max_speed_kn": 7
    },
    "expect": [
     "23a1",
@@ -460,11 +460,11 @@
   {
    "name": "23d2 length boundary: 7.0 m power vessel, max speed 7 kn",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 7.0,
-    "max_speed_kn": 7
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 7.0,
+    "fact:max_speed_kn": 7
    },
    "expect": [
     "23a1",
@@ -476,11 +476,11 @@
   {
    "name": "23d2 speed boundary: 6.9 m power vessel, max speed 7.0 kn",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 6.9,
-    "max_speed_kn": 7.0
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 6.9,
+    "fact:max_speed_kn": 7.0
    },
    "expect": [
     "23a1",
@@ -493,11 +493,11 @@
   {
    "name": "23d2 speed boundary: 6.9 m power vessel, max speed 7.1 kn",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 6.9,
-    "max_speed_kn": 7.1
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 6.9,
+    "fact:max_speed_kn": 7.1
    },
    "expect": [
     "23a1",
@@ -509,10 +509,10 @@
   {
    "name": "25b boundary: 19.9 m sailing vessel underway",
    "facts": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 19.9
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 19.9
    },
    "expect": [
     "25a",
@@ -523,10 +523,10 @@
   {
    "name": "25b boundary: 20.0 m sailing vessel underway",
    "facts": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 20.0
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 20.0
    },
    "expect": [
     "25a",
@@ -536,10 +536,10 @@
   {
    "name": "25d1 boundary: 6.9 m sailing vessel underway",
    "facts": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 6.9
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 6.9
    },
    "expect": [
     "25a",
@@ -551,10 +551,10 @@
   {
    "name": "25d1 boundary: 7.0 m sailing vessel underway",
    "facts": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway",
-    "length_m": 7.0
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 7.0
    },
    "expect": [
     "25a",
@@ -565,8 +565,8 @@
   {
    "name": "30b boundary: anchored, 49.9 m",
    "facts": {
-    "position": "anchored",
-    "length_m": 49.9
+    "fact:position": "position:anchored",
+    "fact:length_m": 49.9
    },
    "expect": [
     "30a",
@@ -577,8 +577,8 @@
   {
    "name": "30b boundary: anchored, 50.0 m",
    "facts": {
-    "position": "anchored",
-    "length_m": 50.0
+    "fact:position": "position:anchored",
+    "fact:length_m": 50.0
    },
    "expect": [
     "30a",
@@ -588,8 +588,8 @@
   {
    "name": "30d boundary: aground, 11.9 m",
    "facts": {
-    "position": "aground",
-    "length_m": 11.9
+    "fact:position": "position:aground",
+    "fact:length_m": 11.9
    },
    "expect": [
     "30d-anchor"
@@ -598,8 +598,8 @@
   {
    "name": "30d boundary: aground, 12.0 m",
    "facts": {
-    "position": "aground",
-    "length_m": 12.0
+    "fact:position": "position:aground",
+    "fact:length_m": 12.0
    },
    "expect": [
     "30d-anchor",
@@ -609,9 +609,9 @@
   {
    "name": "30e boundary: anchored, clear of channel, 6.9 m",
    "facts": {
-    "position": "anchored",
-    "near_channel": false,
-    "length_m": 6.9
+    "fact:position": "position:anchored",
+    "fact:near_channel": false,
+    "fact:length_m": 6.9
    },
    "expect": [
     "30a",
@@ -623,9 +623,9 @@
   {
    "name": "30e boundary: anchored, clear of channel, 7.0 m",
    "facts": {
-    "position": "anchored",
-    "near_channel": false,
-    "length_m": 7.0
+    "fact:position": "position:anchored",
+    "fact:near_channel": false,
+    "fact:length_m": 7.0
    },
    "expect": [
     "30a",
@@ -636,11 +636,11 @@
   {
    "name": "24a tow-length boundary: towing 200.0 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "towing",
-    "position": "underway",
-    "length_m": 20,
-    "tow_length_m": 200.0
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:length_m": 20,
+    "fact:tow_length_m": 200.0
    },
    "expect": [
     "24a-m2",
@@ -650,11 +650,11 @@
   {
    "name": "24a tow-length boundary: towing 200.1 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "towing",
-    "position": "underway",
-    "length_m": 20,
-    "tow_length_m": 200.1
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:length_m": 20,
+    "fact:tow_length_m": 200.1
    },
    "expect": [
     "24a-m3",
@@ -664,9 +664,9 @@
   {
    "name": "26c-gear boundary: fishing, gear extent 150.0 m",
    "facts": {
-    "activity": "fishing",
-    "position": "underway",
-    "gear_extent_m": 150.0
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway",
+    "fact:gear_extent_m": 150.0
    },
    "expect": [
     "26c-id"
@@ -675,9 +675,9 @@
   {
    "name": "26c-gear boundary: fishing, gear extent 150.1 m",
    "facts": {
-    "activity": "fishing",
-    "position": "underway",
-    "gear_extent_m": 150.1
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway",
+    "fact:gear_extent_m": 150.1
    },
    "expect": [
     "26c-gear",
@@ -687,12 +687,12 @@
   {
    "name": "wing-in-ground craft near the surface, 25 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "wig": true,
-    "wig_near_surface": true,
-    "length_m": 25
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:wig": true,
+    "fact:wig_near_surface": true,
+    "fact:length_m": 25
    },
    "expect": [
     "23a1",
@@ -704,12 +704,12 @@
   {
    "name": "wing-in-ground craft cruising, not near the surface, 25 m",
    "facts": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway",
-    "wig": true,
-    "wig_near_surface": false,
-    "length_m": 25
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:wig": true,
+    "fact:wig_near_surface": false,
+    "fact:length_m": 25
    },
    "expect": [
     "23a1",
@@ -720,9 +720,9 @@
   {
    "name": "vessel or object being towed astern",
    "facts": {
-    "activity": "being_towed",
-    "position": "underway",
-    "length_m": 15
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 15
    },
    "expect": [
     "24e"
@@ -731,10 +731,10 @@
   {
    "name": "fishing other than trawling, making way",
    "facts": {
-    "activity": "fishing",
-    "position": "underway",
-    "making_way": true,
-    "length_m": 12
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 12
    },
    "expect": [
     "26c-id",

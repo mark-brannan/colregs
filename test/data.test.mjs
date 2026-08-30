@@ -21,8 +21,9 @@ function matches(when, f) {
   return Object.entries(when).every(([k, want]) => {
     let have = f[k]
     if (have === undefined) return false
-    // 'ram_underwater' is a refinement of 'ram': predicates for ram read it too.
-    if (k === 'activity' && want === 'ram' && have === 'ram_underwater') return true
+    // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
+    // written for ram read it too.
+    if (k === 'fact:activity' && want === 'activity:ram' && have === 'activity:ram_underwater') return true
     if (Array.isArray(want)) return want.includes(have)
     if (want !== null && typeof want === 'object') {
       if ('gte' in want && !(have >= want.gte)) return false
@@ -57,12 +58,12 @@ function lightSig(e) {
 const relatedIds = new Map(appl.entries.map((e) => [e.id, new Set()]))
 const relate = (a, b) => { relatedIds.get(a)?.add(b); relatedIds.get(b)?.add(a) }
 for (const e of appl.entries) {
-  for (const r of e.includes ?? []) relate(e.id, r)
-  for (const r of e.in_lieu_of ?? []) relate(e.id, r)
-  for (const r of e.excludes ?? []) relate(e.id, r)
-  for (const r of e.exempts ?? []) relate(e.id, r)
-  for (const c of e.conditional_includes ?? []) {
-    for (const r of c.includes ?? []) relate(e.id, r)
+  for (const r of e['rel:includes'] ?? []) relate(e.id, r)
+  for (const r of e['rel:in_lieu_of'] ?? []) relate(e.id, r)
+  for (const r of e['rel:excludes'] ?? []) relate(e.id, r)
+  for (const r of e['rel:exempts'] ?? []) relate(e.id, r)
+  for (const c of e['rel:conditional_includes'] ?? []) {
+    for (const r of c['rel:includes'] ?? []) relate(e.id, r)
     for (const r of c.one_of ?? []) relate(e.id, r)
   }
 }
@@ -94,9 +95,10 @@ test('every entry cites a paragraph that exists in rules.json', () => {
 
 test('every cross-reference resolves to an entry id', () => {
   const refsOf = (e) => [
-    ...(e.includes ?? []), ...(e.in_lieu_of ?? []),
-    ...(e.excludes ?? []), ...(e.exempts ?? []),
-    ...(e.conditional_includes ?? []).flatMap((c) => [...(c.includes ?? []), ...(c.one_of ?? [])]),
+    ...(e['rel:includes'] ?? []), ...(e['rel:in_lieu_of'] ?? []),
+    ...(e['rel:excludes'] ?? []), ...(e['rel:exempts'] ?? []),
+    ...(e['rel:conditional_includes'] ?? [])
+      .flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])]),
   ]
   for (const e of appl.entries) {
     for (const r of refsOf(e)) assert.ok(byId.has(r), `${e.id} references unknown entry ${r}`)
@@ -131,12 +133,14 @@ test('images: on disk, catalogued, and unchanged', () => {
 test('navigation.state decodes only to values the axes define', () => {
   const axes = facts.axes
   for (const [state, d] of Object.entries(facts.signalk_navigation_state.decode)) {
-    for (const axis of ['propulsion', 'activity', 'position']) {
+    for (const axis of ['fact:propulsion', 'fact:activity', 'fact:position']) {
       if (d[axis] === undefined) continue
       assert.ok(axes[axis].values.includes(d[axis]), `${state}: bad ${axis} ${d[axis]}`)
     }
+    // `also_activity` is a shape key of the decode table, not a fact key; the
+    // value inside it is still an activity identifier.
     if (d.also_activity !== undefined) {
-      assert.ok(axes.activity.values.includes(d.also_activity), `${state}: bad also_activity`)
+      assert.ok(axes['fact:activity'].values.includes(d.also_activity), `${state}: bad also_activity`)
     }
   }
 })
@@ -151,6 +155,77 @@ test('every fact a predicate reads is declared in facts.json', () => {
     for (const k of Object.keys(e.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
     for (const m of e.modality_by ?? []) {
       for (const k of Object.keys(m.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
+    }
+  }
+})
+
+test('every enumerated fact value a predicate names is declared in facts.json', () => {
+  // The value namespace of an enumerated fact is the fact's own bare name
+  // (`fact:activity` takes `activity:*`), so a missed prefix on either side
+  // shows up here rather than as an entry that silently never matches.
+  const valuesOf = new Map(
+    [...Object.entries(facts.axes), ...Object.entries(facts.enums)]
+      .map(([k, v]) => [k, new Set(v.values)])
+  )
+  const check = (where, w) => {
+    for (const [k, want] of Object.entries(w)) {
+      const allowed = valuesOf.get(k)
+      if (!allowed) continue
+      for (const v of Array.isArray(want) ? want : [want]) {
+        assert.ok(allowed.has(v), `${where}: ${k} names undeclared value ${JSON.stringify(v)}`)
+      }
+    }
+  }
+  for (const e of appl.entries) {
+    check(e.id, e.when)
+    for (const m of e.modality_by ?? []) check(e.id, m.when)
+    for (const c of e['rel:conditional_includes'] ?? []) check(e.id, c.when ?? {})
+  }
+  for (const c of fixtures.cases) check(c.name, c.facts)
+})
+
+test('every relation an entry uses is declared in applicability.json', () => {
+  const declared = new Set(Object.keys(appl.relations))
+  // Both levels: a conditional_includes object carries its own `rel:includes`,
+  // and refsOf reads that nested key by name — a typo there drops the reference
+  // out of cross-reference and drift evaluation without failing anything else.
+  const checkKeys = (where, obj) => {
+    for (const k of Object.keys(obj)) {
+      if (!k.startsWith('rel:')) continue
+      assert.ok(declared.has(k), `${where} uses undeclared relation ${k}`)
+    }
+  }
+  for (const e of appl.entries) {
+    checkKeys(e.id, e)
+    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+      checkKeys(`${e.id} rel:conditional_includes[${i}]`, c)
+    }
+  }
+})
+
+test('every light id outside applicability.json resolves too', () => {
+  // Rule 22 range tables and the Annex I geometry records both key on light
+  // ids; nothing else asserted they resolve, so a rename could half-land.
+  for (const [id, rec] of Object.entries(lights.lights)) {
+    for (const c of rec.components ?? []) {
+      assert.ok(lights.lights[c], `${id} has undefined component ${c}`)
+    }
+    if (rec.same_characteristics_as) {
+      assert.ok(lights.lights[rec.same_characteristics_as],
+        `${id} refers to undefined light ${rec.same_characteristics_as}`)
+    }
+  }
+  for (const b of lights.visibility.bands) {
+    for (const k of [...Object.keys(b.ranges_nm ?? {}), ...Object.keys(b.overrides_nm ?? {})]) {
+      assert.ok(lights.lights[k], `Rule ${b.cite} gives a range for undefined light ${k}`)
+    }
+  }
+  const groups = [geometry.vertical_positioning, geometry.horizontal_positioning,
+                  geometry.direction_indicating]
+  for (const g of groups) {
+    for (const c of g) {
+      if (!c.light) continue
+      assert.ok(lights.lights[c.light], `${c.cite} positions undefined light ${c.light}`)
     }
   }
 })
@@ -228,5 +303,57 @@ test('REQ-GATE-3: tagging 1.0 is blocked until every 1.0-gated gate is re-taken'
       typeof g.settled_by === 'string' && fileExists(g.settled_by),
       `${g.id}: REQ-GATE-3 requires the re-take to cite a resolvable ADR; settled_by is ${JSON.stringify(g.settled_by)}`
     )
+  }
+})
+
+// --- identifier immutability baseline (REQ-MODEL-10) ------------------------
+// The baseline is the one exception to REQ-MODEL-10, and it is settable exactly
+// once. A build cannot read git history, so it cannot catch the literal being
+// edited in place — but the escape hatch REQ-MODEL-10 names is a *second*
+// baseline granted for the next convenient rename, and that this can refuse.
+// Editing the pin below is still possible; it is just no longer silent.
+const BASELINE_RE = /\*\*Immutability baseline: `([^`]+)`\.\*\*/g
+
+// Scoped to REQ-MODEL-10's own section: a baseline moved out of the requirement
+// and re-stated somewhere with no normative force would otherwise still count.
+const reqModel10Section = () => {
+  const start = requirementsText.indexOf('- **REQ-MODEL-10**')
+  assert.notEqual(start, -1, 'REQ-MODEL-10 is missing from docs/requirements.md')
+  const end = requirementsText.indexOf('- **REQ-MODEL-11**', start)
+  assert.notEqual(end, -1, 'REQ-MODEL-11 is missing; cannot bound REQ-MODEL-10')
+  return requirementsText.slice(start, end)
+}
+
+test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1.1', () => {
+  const whole = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1])
+  const found = [...reqModel10Section().matchAll(BASELINE_RE)].map((m) => m[1])
+  assert.deepEqual(whole, found,
+    'an immutability baseline is stated outside REQ-MODEL-10; the baseline is ' +
+    'normative only where the requirement itself states it.')
+  assert.equal(found.length, 1,
+    `REQ-MODEL-10 declares ${found.length} immutability baselines (${found.join(', ')}); ` +
+    'it is settable exactly once. A second baseline is the escape hatch the requirement forbids.')
+  assert.equal(found[0], '0.1.1',
+    'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
+})
+
+test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares', () => {
+  // Finding-1 recurrence guard: the requirement enumerates the three axes'
+  // values, so it drifts silently every time an axis gains or renames one.
+  const start = requirementsText.indexOf('- **REQ-MODEL-3**')
+  const end = requirementsText.indexOf('- **REQ-MODEL-4**', start)
+  assert.ok(start !== -1 && end !== -1, 'REQ-MODEL-3/4 missing from requirements')
+  const section = requirementsText.slice(start, end)
+  const listed = [...section.matchAll(/`([a-z_]+:[a-z_]+)`/g)].map((m) => m[1])
+  for (const [axis, rec] of Object.entries(facts.axes)) {
+    for (const v of rec.values) {
+      assert.ok(listed.includes(v), `REQ-MODEL-3 omits ${axis} value ${v}`)
+    }
+  }
+  const prefixes = new Set(Object.values(facts.axes).flatMap((r) => r.values).map((v) => v.split(':')[0]))
+  const declared = new Set(Object.values(facts.axes).flatMap((r) => r.values))
+  for (const m of section.matchAll(/`([a-z_]+:[a-z_]+)`/g)) {
+    if (!prefixes.has(m[1].split(':')[0])) continue
+    assert.ok(declared.has(m[1]), `REQ-MODEL-3 names undeclared axis value ${m[1]}`)
   }
 })

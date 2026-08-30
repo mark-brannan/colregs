@@ -13,6 +13,9 @@ fact record supplied by the consumer.
 requirement IDs (`REQ-SCOPE-2`, `REQ-VERIFY-5`, …) are stable and cited by
 tests. `docs/adr/` records decisions so they aren't re-argued. Read both
 before making a design change — don't infer intent from the data alone.
+`docs/identifiers.md` states the naming scheme: citation-derived identifiers
+are bare, vocabulary identifiers carry a type prefix. Read it before adding
+a light, a fact or a relation.
 
 ## Commands
 
@@ -33,16 +36,16 @@ these files, which `test/data.test.mjs` enforces exhaustively:
 - **`data/rules.json`** — verbatim rule text keyed by **paragraph path**
   (`27(a)(i)`, not "Rule 27") — the citation unit everything else points at.
 - **`data/lights.json`** — the Rule 21 lights: colour, bearing arc, Rule 22
-  range. Referenced by id (`masthead`, `sidelight_starboard`, …) from
+  range. Referenced by id (`light:masthead`, `light:sidelight_starboard`, …) from
   applicability entries.
 - **`data/applicability.json`** — the core table: `entries[]`, each
   `when` (predicate over facts) → `lights` → `modality` → `cite`
   (paragraph path) → `jurisdiction`. Entries cross-reference each other by
-  id via `includes` / `conditional_includes` / `in_lieu_of` / `excludes` /
-  `exempts` (semantics in README.md — **read it before editing an entry's
+  id via `rel:includes` / `rel:conditional_includes` / `rel:in_lieu_of` /
+  `rel:excludes` / `rel:exempts` (semantics in README.md — **read it before editing an entry's
   relations**, the five verbs are not interchangeable).
 - **`data/facts.json`** — the input vocabulary: three orthogonal axes
-  (`propulsion`, `activity`, `position`) plus scalar facts, and the
+  (`fact:propulsion`, `fact:activity`, `fact:position`) plus scalar facts, and the
   `navigation.state` (SignalK) → axes decode table.
 - **`data/geometry.json`** — Annex I: heights, spacings, colour, intensity;
   `applies_to_entries` references back into `applicability.json`.
@@ -73,7 +76,8 @@ these files, which `test/data.test.mjs` enforces exhaustively:
 Beyond fixture replay, the suite runs a **drift test** (REQ-VERIFY-2): for
 every fixture, any other entry whose entire light output is already shown
 must be absent either because its own predicate rules it out, or because a
-relation (`includes`/`in_lieu_of`/`excludes`/`exempts`/`conditional_includes`)
+relation (`rel:includes`/`rel:in_lieu_of`/`rel:excludes`/`rel:exempts`/
+`rel:conditional_includes`)
 explicitly declares it related to something shown — an undeclared silent
 collision between forward and reverse evaluation fails the build. Plus
 integrity checks: every citation resolves to `rules.json`, every
