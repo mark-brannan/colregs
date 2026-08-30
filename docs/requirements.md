@@ -613,7 +613,10 @@ Tracked here until resolved; each becomes an ADR.
   cleared for change (type-prefixing the vocabulary class:
   `light:masthead`, `activity:nuc`). Fix by naming the baseline:
   immutability binds from a stated version forward, with 0.1.1 explicitly
-  outside it and the reason recorded. This is a defect in the requirement,
+  outside it and the reason recorded. The baseline itself MUST be
+  immutable: stated exactly once, never moved. A movable baseline is the
+  quiet escape hatch from REQ-MODEL-10 — one recorded exception is a
+  correction; a second is a pattern. This is a defect in the requirement,
   not a reason to skip the rename; it must land in the same pre-1.0 PR as
   the rename it authorises, and before that PR renames anything. The audit
   itself — six findings, all verified against `data/*.json`, three kept
