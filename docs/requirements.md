@@ -120,10 +120,25 @@ Four layers, each independently addressable.
   data.
 - **REQ-MODEL-6** — Entries MUST compose. Multiple entries applying to one fact
   record is the normal case, not an error (Rule 28 is "in addition to" Rule 23).
-- **REQ-MODEL-7** — Three relations MUST be supported:
+- **REQ-MODEL-7** — Five relations MUST be supported:
   - `includes` — import another entry's **lights only**, never its predicate;
   - `in_lieu_of` — legal alternatives for the same fact record;
-  - `excludes` — mutual exclusion, including across rules.
+  - `excludes` — mutual exclusion, including across rules;
+  - `exempts` — one entry lifting another's obligation;
+  - `conditional_includes` — import or alternatives, gated on a predicate.
+  The five are not interchangeable; README.md holds the working semantics.
+- **REQ-MODEL-12** — `conditional_includes` currently carries three
+  distinct shapes under one relation name: a bare `one_of` alternative set
+  (`25d2`), a gated alternative set (`when` + `one_of`, `27f`), and a gated
+  import with its own citation (`when` + `includes` + `cite`, `29a`). Which
+  behaviour applies is inferred from which keys are present. This is a
+  **soft** requirement — the data is correct today and the tests cover it,
+  so nothing is broken. It is recorded because a third jurisdiction adding
+  a fourth shape is how the inference stops being obvious, and because a
+  relation whose semantics depend on key presence cannot be validated by
+  schema. Before a non-`intl` jurisdiction lands, either split the relation
+  or add an explicit discriminant. Recorded as accepted risk until then
+  (Q-10).
 - **REQ-MODEL-8** — Alternatives MUST be first-class. Where the rules permit a
   choice, the data MUST express all lawful options with their differing
   modalities and gates, and MUST NOT pick one.
@@ -527,6 +542,14 @@ Tracked here until resolved; each becomes an ADR.
   amendment (A.464(XII)) separately relettered `24(g)`→`24(h)` and
   `27(d)(iv)`→`27(d)(iii)`. Both findings feed the GATE-1 re-take, not
   decided here.
+- **Q-10** — Split `conditional_includes`, or add a discriminant?
+  REQ-MODEL-12 records the overload; this is the unresolved half. Splitting
+  it names each behaviour and lets a schema validate the shape, at the cost
+  of a sixth and seventh relation verb in a vocabulary CLAUDE.md already
+  warns is easy to confuse. A discriminant key is cheaper and keeps the
+  verb count down. Neither is urgent: the trigger is the second jurisdiction, which is
+  the same trigger as GATE-2 and Q-8, so the three should be decided
+  together rather than one at a time.
 - **Q-9** — Is Apache-2.0 the right outbound licence for a *data*
   compilation, or should the data carry CC0 / CC BY 4.0 separately from
   the code (REQ-PROV-4)? ADR 0004 settles the code licence and leaves this
