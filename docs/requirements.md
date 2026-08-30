@@ -312,12 +312,14 @@ Each gate names the declined design, the closing event, and the trigger.
   *Closing event*: the 1.0 tag. Before it, splitting the two is a
   mechanical rewrite of cross-references in a package with no stable-API
   promise. After it, every consumer's lookup path breaks.
-  *Trigger*: any amendment that renumbers a Part C paragraph, in any
-  jurisdiction modelled here. Part C numbering is believed not to have
-  moved since 1972 — the WIG amendment *inserted* 23(c) rather than
-  renumbering around it — so this is an accepted risk, not an expectation.
-  (Recalled, not verified against the amendment record — Q-8.)
-  *Re-take required before 1.0* (REQ-GATE-3).
+  *Trigger*: any paragraph path that keeps its spelling while changing what
+  text it denotes. Two ways that happens: an amendment renumbering a
+  Part C paragraph (believed never since 1972, recalled not verified), or
+  — the near-term one — a national amalgamation whose paragraph structure
+  diverges from `intl` below rule level. The second is checkable today and
+  is the real test of this gate (Q-8).
+  *Re-take required before 1.0* (REQ-GATE-3), and re-checked before the
+  second jurisdiction lands, whichever comes first.
 
 - **GATE-2 — instrument → edition → corpus as first-class layers**
   (ADR 0003, declined; the adopted 80% is REQ-LANG-10).
@@ -397,9 +399,23 @@ Tracked here until resolved; each becomes an ADR.
   not only as a whole: clearing one candidate source unblocks that corpus
   alone, which is the cheap path when a demo needs a specific language
   early.
-- **Q-8** — Whether any COLREGS amendment has ever renumbered a Part C
-  paragraph is **recalled, not verified**. GATE-1 treats renumbering as
-  rare, and that belief is the whole basis for the accepted risk. Verify
-  against the amendment record (IMO resolutions amending the 1972
-  Convention) before the 1.0 re-take REQ-GATE-3 requires; a single
-  counter-example moves GATE-1 from accepted risk to adopt.
+- **Q-8** — Does the paragraph path survive the first national
+  amalgamation? GATE-1's accepted risk rests on paragraph paths being
+  near-immutable — adding and deprecating are fine, but a path that keeps
+  its spelling while changing what text it points at breaks every citation
+  and every `cite` in `applicability.json`. The threat is not primarily a
+  future amendment. It is the **second jurisdiction**: while `intl` is the
+  only populated one, path and citation are trivially identical, and the
+  question cannot fail. The US Inland rules deliberately parallel COLREGS
+  rule numbering but are known to diverge below rule level (Rules 9, 15,
+  24 and 34 are the usual examples). Check 33 CFR 83 against `rules.json`
+  paragraph by paragraph **before `us/inland` lands**, not at 1.0.
+  - If paths survive, GATE-1's accepted risk is earned rather than
+    assumed, and the 1.0 re-take is a confirmation.
+  - If they do not, GATE-1 flips to *adopt*, and the split must land
+    before the second jurisdiction rather than after.
+  - Secondary, and much weaker: whether any COLREGS amendment has ever
+    renumbered a Part C paragraph. Recalled as never — the WIG amendment
+    *inserted* 23(c) rather than renumbering around it — but 50 quiet
+    years is not a guarantee about the next amendment. Worth a check
+    against the IMO amendment resolutions, not worth blocking on.
