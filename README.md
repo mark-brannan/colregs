@@ -155,7 +155,7 @@ implementation in any language should reproduce those entry sets exactly.
 
 Rule text and `NRHB_*` diagrams are USCG publications, public domain. The five
 `*arc.gif` files came from an older repo and their provenance is unresolved;
-see [PROVENANCE.md](PROVENANCE.md). The compilation is MIT.
+see [PROVENANCE.md](PROVENANCE.md). The compilation is Apache-2.0.
 
 Not authoritative, not endorsed by the Coast Guard. Navigate by the published
 rules.
