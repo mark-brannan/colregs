@@ -257,6 +257,14 @@ See ADR 0003.
   all three. A translation MAY carry translator rights even where the
   underlying instrument is public domain, and that check is part of
   REQ-PROV-2.
+- **REQ-PROV-7** — An external contribution MUST NOT be merged from a
+  contributor who has not agreed to the contribution terms in
+  `CONTRIBUTING.md`, which state that opening a pull request constitutes
+  agreement. Those terms MUST include both (a) a DCO-style certification
+  that the contributor has the right to submit the work, and (b) a licence
+  grant to the maintainer sufficient to relicense the compilation. (b) is
+  what holds GATE-6 open; a bare DCO certifies origin and grants nothing,
+  so it does not.
 
 ---
 
@@ -428,10 +436,12 @@ Each gate names the declined design, the closing event, and the trigger.
   Two refinements the gate carries:
   - Already-published npm versions are irreversibly under the licence they
     shipped with. The gate governs future releases only.
-  - The gate MAY be **held open deliberately**: a DCO or CLA adopted before
-    the first external PR preserves the ability to relicense. Whether that
-    is worth the friction is part of this gate's re-take, not a separate
-    decision.
+  - The gate is **held open deliberately**, by the mechanism adopted in
+    REQ-PROV-7: `CONTRIBUTING.md` terms, agreed by opening a pull request,
+    carrying a DCO-style certification *and* a licence grant sufficient to
+    relicense. The grant is the part that holds the gate open. Implied
+    assent is weaker than recorded assent; a CLA-assistant bot is the
+    upgrade path if contributors arrive (ADR 0004).
   *Expected to stay open indefinitely* — external contributors are
   unlikely short of major success. Recorded regardless: "unlikely" is not
   a closing event (REQ-GATE-1).
@@ -500,5 +510,5 @@ Tracked here until resolved; each becomes an ADR.
   compilation, or should the data carry CC0 / CC BY 4.0 separately from
   the code (REQ-PROV-4)? ADR 0004 settles the code licence and leaves this
   open deliberately — the data question was never put. GATE-6's trigger;
-  must be settled before the contribution path opens, together with
-  whether contributions need a CLA or DCO.
+  must be settled before the contribution path opens. The CLA/DCO half of
+  that question is now answered by REQ-PROV-7.

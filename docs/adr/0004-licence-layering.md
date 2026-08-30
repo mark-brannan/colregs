@@ -41,7 +41,9 @@ still dual-license store builds.
 where MIT's is ambiguous. And ecosystem fit: signalk-server and the
 prominent community plugins are Apache-2.0, and the planned switching
 plugin loads in-process into that Apache-2.0 host, so every layer it
-consumes has to stay permissive regardless.
+consumes has to stay permissive regardless. Sampled 2026-08-30, 19 of the
+top 20 SignalK-ecosystem projects by stars are Apache-2.0 — table in
+<https://github.com/mark-brannan/colregs/pull/4#issuecomment-5467185331>.
 
 **npm timing is deliberate.** The change was committed as `chore:` so
 release-please cuts no discrete version for it. npm stays `colregs@0.1.1`
@@ -56,10 +58,17 @@ applies from the next release forward, never retroactively.
   contributor's consent.
 - Already-published npm versions are irreversibly under their shipped
   licence. The gate governs future releases only.
-- The gate can be **held open deliberately**: a DCO or CLA adopted before
-  the first external PR preserves the ability to relicense. Whether that is
-  worth the friction is part of the gate's re-take, not a separate
-  decision.
+- The gate is **held open deliberately**, by REQ-PROV-7: `CONTRIBUTING.md`
+  states that opening a pull request agrees to a DCO-style certification
+  *and* a licence grant to the maintainer sufficient to relicense. The
+  grant is the part that holds the gate open; a bare DCO certifies origin
+  and grants nothing, so it would not.
+- Honestly: implied assent is weaker than recorded assent. Nothing records
+  that a given contributor read the terms — only that they opened a PR
+  against a repo containing them. That is the cost of keeping the
+  contribution path frictionless while contributors are hypothetical. The
+  upgrade path, if they actually arrive, is a CLA-assistant bot that takes
+  and stores an explicit per-contributor signature.
 - The data-side question is *not* settled by this ADR. REQ-PROV-4 holds
   code licence and data licence apart, and whether the data wants CC0 or
   CC BY 4.0 separately is GATE-6's trigger, tracked as Q-9.
