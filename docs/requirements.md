@@ -316,8 +316,7 @@ Each gate names the declined design, the closing event, and the trigger.
   jurisdiction modelled here. Part C numbering is believed not to have
   moved since 1972 — the WIG amendment *inserted* 23(c) rather than
   renumbering around it — so this is an accepted risk, not an expectation.
-  (Recalled, not verified against the amendment record; the same caveat as
-  Q-6.)
+  (Recalled, not verified against the amendment record — Q-8.)
   *Re-take required before 1.0* (REQ-GATE-3).
 
 - **GATE-2 — instrument → edition → corpus as first-class layers**
@@ -394,4 +393,13 @@ Tracked here until resolved; each becomes an ADR.
   six-language editions are sold publications and probably NOT reproducible;
   the UNTS deposit (en/fr authentic texts) and national gazettes (Finlex,
   BOE, …) are the likely lawful sources. REQ-PROV-2 blocks each corpus until
-  its source's terms are checked and recorded.
+  its source's terms are checked and recorded. Answerable **per language**,
+  not only as a whole: clearing one candidate source unblocks that corpus
+  alone, which is the cheap path when a demo needs a specific language
+  early.
+- **Q-8** — Whether any COLREGS amendment has ever renumbered a Part C
+  paragraph is **recalled, not verified**. GATE-1 treats renumbering as
+  rare, and that belief is the whole basis for the accepted risk. Verify
+  against the amendment record (IMO resolutions amending the 1972
+  Convention) before the 1.0 re-take REQ-GATE-3 requires; a single
+  counter-example moves GATE-1 from accepted risk to adopt.
