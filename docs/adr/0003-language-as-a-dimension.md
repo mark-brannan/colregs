@@ -178,7 +178,7 @@ provenance, Unicode-level verbatimness, structured source identity with the
 three-rights split, no-silent-substitution phrasing, filename/metadata CI
 check. What was declined, and why — recorded so it isn't re-argued:
 
-- **A CI-enforced terminology glossary for translations.** For legal
+- **A CI-enforced terminology glossary for translations.** (GATE-5) For legal
   corpora it contradicts verbatimness: the source says what it says, and
   if a national text uses inconsistent terms, so does our copy. A glossary
   as *contributor guidance* for display catalogs may come with the
@@ -187,21 +187,29 @@ check. What was declined, and why — recorded so it isn't re-argued:
   package, not an i18n runtime. Static labels only; a homegrown message
   system incompatible with real i18n libraries is the failure mode, not
   the feature.
-- **A package-encoded fallback chain** (e.g. `es-MX → es → en`). Encoding
-  a preferred substitute for legal text is exactly the preference-taking
-  REQ-CONS-3 forbids elsewhere. The stronger, narrower rule replaced it:
-  no silent substitution, full attributability, consumer decides.
-- **Splitting `paragraph_id` from `citation_path`.** The paragraph path
-  *is* the shared citation across the treaty languages and the harmonised
-  national texts (ADR 0001); a second synthetic id would double every
-  cross-reference for a renumbering event that is rare and already a major
-  version under REQ-PKG-4. Accepted risk, revisit only when a real
+- **A package-encoded fallback chain** (e.g. `es-MX → es → en`; GATE-4).
+  Encoding a preferred substitute for legal text is exactly the
+  preference-taking REQ-CONS-3 forbids elsewhere. The stronger, narrower
+  rule replaced it: no silent substitution, full attributability, consumer
+  decides.
+- **Splitting `paragraph_id` from `citation_path`.** (GATE-1) The paragraph
+  path *is* the shared citation across the treaty languages and the
+  harmonised national texts (ADR 0001); a second synthetic id would double
+  every cross-reference for a renumbering event that is rare and already a
+  major version under REQ-PKG-4. Accepted risk, revisit only when a real
   renumbering lands.
 - **A full temporal/legal-version model** (instrument → edition → corpus as
-  first-class layers). The package models current consolidated law;
+  first-class layers; GATE-2). The package models current consolidated law;
   history lives in package versions. The cheap 80% — declared amendment
   state on skeleton and corpus, machine-visible mismatch — is adopted
   instead. If a jurisdiction ever requires multiple concurrent editions,
   that is a new ADR.
 - **`dir: ltr|rtl` metadata per language.** Derivable from the language
   tag via CLDR by any consumer that needs it; storing it invites drift.
+
+Four of these are declined *for now* rather than on principle, and the
+difference matters: each is recorded in requirements §10 as a timed gate,
+with the event that ends its cheap reversibility and the fact that would
+reopen it. GATE-1 (the `paragraph_id` split) is the one that must be
+re-taken deliberately before 1.0; GATE-3 covers the half-adopted
+legal-status × translation-status split.

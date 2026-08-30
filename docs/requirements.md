@@ -279,7 +279,91 @@ See ADR 0003.
 
 ---
 
-## 10. Open questions
+## 10. Reversibility gates
+
+A pre-1.0 data package can decline a design and still adopt it later. That
+stops being true at a specific, nameable event — a version tag, a second
+corpus, a first consumer. A declined design whose cost rises over time is
+therefore not "closed"; it is **timed**, and the timing is part of the
+specification until 1.0.
+
+- **REQ-GATE-1** — Every design declined on the grounds that it can be
+  adopted later MUST be recorded as a gate below, naming the **closing
+  event** after which adoption stops being cheap, and the **reopening
+  trigger** — the observable fact that forces reconsideration. A decline
+  recorded without both is incomplete.
+- **REQ-GATE-2** — A gate MUST NOT be closed by the passage of time or by
+  a maintainer's judgement alone. It closes when its named event occurs, or
+  when its trigger fires and the decision is re-taken in a new ADR.
+- **REQ-GATE-3** — Tagging 1.0 MUST be blocked until every gate whose
+  closing event is *the 1.0 tag* has been re-taken deliberately: confirmed
+  in a new ADR, or adopted. Inheriting one by default is the failure this
+  section exists to prevent.
+- **REQ-GATE-4** — A gate that is adopted or confirmed MUST be struck
+  through here, not deleted, and MUST cite the ADR that settled it
+  (the gate mirror of the ID-stability rule in this document's preamble).
+
+### Open gates
+
+Each gate names the declined design, the closing event, and the trigger.
+
+- **GATE-1 — `paragraph_id` split from `citation_path`**
+  (ADR 0003, declined; REQ-LANG-3, REQ-PKG-4).
+  *Closing event*: the 1.0 tag. Before it, splitting the two is a
+  mechanical rewrite of cross-references in a package with no stable-API
+  promise. After it, every consumer's lookup path breaks.
+  *Trigger*: any amendment that renumbers a Part C paragraph, in any
+  jurisdiction modelled here. Part C numbering is believed not to have
+  moved since 1972 — the WIG amendment *inserted* 23(c) rather than
+  renumbering around it — so this is an accepted risk, not an expectation.
+  (Recalled, not verified against the amendment record; the same caveat as
+  Q-6.)
+  *Re-take required before 1.0* (REQ-GATE-3).
+
+- **GATE-2 — instrument → edition → corpus as first-class layers**
+  (ADR 0003, declined; the adopted 80% is REQ-LANG-10).
+  *Closing event*: the second corpus of any one jurisdiction. With a
+  single corpus, re-homing it under an edition parent is one file move.
+  The cost scales with corpora × languages thereafter.
+  *Trigger*: a jurisdiction publishing two editions in force
+  concurrently — an old and a new text running in parallel through a
+  transition period. REQ-LANG-10's declared amendment state makes such a
+  pair machine-visible, which is what gives this trigger a foothold.
+
+- **GATE-3 — legal-status × translation-status as two enums**
+  (ADR 0003, half-adopted: one tier for legal authority in REQ-LANG-3,
+  translation provenance as structured metadata in REQ-LANG-8/REQ-PROV-6).
+  *Closing event*: the first `community`-tier translation of a `national`
+  corpus. Until one exists, the four-way combination the split exists to
+  express is hypothetical.
+  *Trigger*: a real corpus whose legal tier and translation tier disagree
+  in a way a consumer must filter on, and cannot from the metadata as
+  structured.
+
+- **GATE-4 — a package-encoded language fallback chain**
+  (ADR 0003, declined; replaced by REQ-LANG-7's no-silent-substitution).
+  *Closing event*: none — this door opens outward. Loosening a strict rule
+  is additive; tightening one later breaks consumers. Recorded so the
+  asymmetry is not re-discovered as an argument for adopting it early.
+  *Trigger*: none anticipated. Consumer demand for a *documented,
+  non-normative* recommended chain, shipped outside the data, would not
+  reopen it.
+
+- **GATE-5 — a CI-enforced terminology glossary**
+  (ADR 0003, declined for legal corpora; REQ-MODEL-1).
+  *Closing event*: none for legal corpora — the decline follows from
+  verbatimness and does not get cheaper or dearer with time. For display
+  catalogs it is contributor guidance, gated on the contribution docs
+  existing at all.
+  *Trigger*: none. A glossary contradicting a verbatim source is a defect
+  in the glossary.
+
+Gates whose closing event is "none" are recorded because a future reader
+will otherwise re-ask whether they were merely deferred. They were not.
+
+---
+
+## 11. Open questions
 
 Tracked here until resolved; each becomes an ADR.
 
