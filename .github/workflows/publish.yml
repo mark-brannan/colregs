@@ -28,6 +28,12 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # workflow_dispatch can target a branch, not just a tag. A branch named
+    # to match package.json's version (e.g. "v0.1.1") would pass the tag
+    # check below despite not being an actual release tag -- npm trusted
+    # publishing doesn't restrict which ref a workflow_dispatch can run on.
+    # Refusing anything but a real tag closes that.
+    if: github.ref_type == 'tag'
     steps:
       - uses: actions/checkout@v7
 
