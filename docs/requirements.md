@@ -118,33 +118,36 @@ Four layers, each independently addressable.
   add definitions (e.g. the US special flashing light, Inland 21(g)).
 - **REQ-MODEL-3** — **Facts**: the input vocabulary. Three orthogonal axes MUST
   be used, never a single flattened status enum:
-  - `propulsion` ∈ power / sail / oars
-  - `activity` ∈ none / fishing / trawling / towing / pushing / being-towed /
-    nuc / ram / cbd / mine / pilot / diving
-  - `position` ∈ underway / anchored / aground / moored
-  plus `making_way` as a boolean refining `position=underway`, and numeric and
-  boolean facts (`length_m`, `tow_length_m`, `max_speed_kn`, `composite_unit`,
-  and the education-only facts).
+  - `fact:propulsion` ∈ power / sail / oars
+  - `fact:activity` ∈ none / fishing / trawling / towing / pushing /
+    being-towed / nuc / ram / cbd / mine / pilot / diving
+  - `fact:position` ∈ underway / anchored / aground / moored
+  plus `fact:making_way` as a boolean refining `fact:position=position:underway`,
+  and numeric and boolean facts (`fact:length_m`, `fact:tow_length_m`,
+  `fact:max_speed_kn`, `fact:composite_unit`, and the education-only facts).
+  Fact keys, and the values of the enumerated facts, carry a type prefix;
+  `docs/identifiers.md` states the scheme and why citation-derived
+  identifiers do not.
 - **REQ-MODEL-4** — **Applicability entries**: `when` (predicate over facts) →
   lights or refs → modality → citation → jurisdiction. Every entry MUST have a
   stable id derived from its paragraph path (`25b`, `25d1`).
 - **REQ-MODEL-5** — Gates MUST be expressed as predicates over facts
-  (`length_m < 7`), never as pre-enumerated tuples or configuration counts. Any
+  (`fact:length_m < 7`), never as pre-enumerated tuples or configuration counts. Any
   count of "configurations" is an output of evaluation, never an input to the
   data.
 - **REQ-MODEL-6** — Entries MUST compose. Multiple entries applying to one fact
   record is the normal case, not an error (Rule 28 is "in addition to" Rule 23).
 - **REQ-MODEL-7** — Five relations MUST be supported:
-  - `includes` — import another entry's **lights only**, never its predicate;
-  - `in_lieu_of` — legal alternatives for the same fact record;
-  - `excludes` — mutual exclusion, including across rules;
-  - `exempts` — one entry lifting another's obligation;
-  - `conditional_includes` — import or alternatives, gated on a predicate.
+  - `rel:includes` — import another entry's **lights only**, never its predicate;
+  - `rel:in_lieu_of` — legal alternatives for the same fact record;
+  - `rel:excludes` — mutual exclusion, including across rules;
+  - `rel:exempts` — one entry lifting another's obligation;
+  - `rel:conditional_includes` — import or alternatives, gated on a predicate.
   The five are not interchangeable; README.md holds the working semantics.
-- **REQ-MODEL-12** — `conditional_includes` currently carries three
+- **REQ-MODEL-12** — `rel:conditional_includes` currently carries three
   distinct shapes under one relation name: a bare `one_of` alternative set
   (`25d2`), a gated alternative set (`when` + `one_of`, `27f`), and a gated
-  import with its own citation (`when` + `includes` + `cite`, `29a`). Which
+  import with its own citation (`when` + `rel:includes` + `cite`, `29a`). Which
   behaviour applies is inferred from which keys are present. This is a
   **soft** requirement — the data is correct today and the tests cover it,
   so nothing is broken. It is recorded because a third jurisdiction adding
@@ -365,7 +368,7 @@ See ADR 0003.
   candidate fact records), so the two cannot silently disagree.
 - **REQ-VERIFY-3** — Every applicability entry MUST be covered by at least one
   fixture that exercises it, and at least one that excludes it.
-- **REQ-VERIFY-4** — Every `in_lieu_of` and `excludes` relation MUST have a
+- **REQ-VERIFY-4** — Every `rel:in_lieu_of` and `rel:excludes` relation MUST have a
   fixture demonstrating it.
 - **REQ-VERIFY-5** — Predicates MUST be tested at their boundaries. Every numeric
   gate MUST have fixtures immediately either side of the threshold.
@@ -594,7 +597,7 @@ Tracked here until resolved; each becomes an ADR.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
 - **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
-  Three gates (`23a2`, `26b-mast`, `30c`'s `length_m` thresholds) live only in
+  Three gates (`23a2`, `26b-mast`, `30c`'s `fact:length_m` thresholds) live only in
   `modality_by`, not in the entry's `when` — they flip `shall` to `may`, not
   which entries apply. The fixture format only asserts applying entry ids, not
   expected modality, so there is no way to fixture these three without
@@ -683,7 +686,7 @@ Tracked here until resolved; each becomes an ADR.
   cross-version half is not asserted. The three accepted findings are
   written up as REQ-MODEL-10's recorded review rather than left on a pull
   request, and the changed one is `docs/identifiers.md`.
-- **Q-10** — Split `conditional_includes`, or add a discriminant?
+- **Q-10** — Split `rel:conditional_includes`, or add a discriminant?
   REQ-MODEL-12 records the overload; this is the unresolved half. Splitting
   it names each behaviour and lets a schema validate the shape, at the cost
   of a sixth and seventh relation verb in a vocabulary CLAUDE.md already

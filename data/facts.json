@@ -1,74 +1,74 @@
 {
  "note": "The fact record a consumer evaluates applicability predicates against. Three orthogonal axes plus scalars; there is no separate COLREGS vessel-class field, because under COLREGS what a vessel is follows from what it is doing.",
  "axes": {
-  "propulsion": {
+  "fact:propulsion": {
    "values": [
-    "power",
-    "sail",
-    "oars"
+    "propulsion:power",
+    "propulsion:sail",
+    "propulsion:oars"
    ],
    "cites": {
-    "power": "3(b)",
-    "sail": "3(c)",
-    "oars": "25(d)(ii)"
+    "propulsion:power": "3(b)",
+    "propulsion:sail": "3(c)",
+    "propulsion:oars": "25(d)(ii)"
    },
    "note": "A vessel under sail with propelling machinery in use is 'power' (Rule 3(c)); the 25(e) day shape is the only trace motorsailing leaves at night."
   },
-  "activity": {
+  "fact:activity": {
    "values": [
-    "none",
-    "fishing",
-    "trawling",
-    "towing",
-    "pushing",
-    "being_towed",
-    "nuc",
-    "ram",
-    "ram_underwater",
-    "cbd",
-    "mine",
-    "pilot",
-    "diving"
+    "activity:none",
+    "activity:fishing",
+    "activity:trawling",
+    "activity:towing",
+    "activity:pushing",
+    "activity:being_towed",
+    "activity:nuc",
+    "activity:ram",
+    "activity:ram_underwater",
+    "activity:cbd",
+    "activity:mine",
+    "activity:pilot",
+    "activity:diving"
    ],
    "cites": {
-    "fishing": "3(d)",
-    "trawling": "26(b)",
-    "nuc": "3(f)",
-    "ram": "3(g)",
-    "ram_underwater": "27(d)",
-    "cbd": "3(h)",
-    "mine": "27(f)",
-    "pilot": "29(a)",
-    "diving": "27(e)",
-    "towing": "24(a)",
-    "pushing": "24(b)",
-    "being_towed": "24(e)"
+    "activity:fishing": "3(d)",
+    "activity:trawling": "26(b)",
+    "activity:nuc": "3(f)",
+    "activity:ram": "3(g)",
+    "activity:ram_underwater": "27(d)",
+    "activity:cbd": "3(h)",
+    "activity:mine": "27(f)",
+    "activity:pilot": "29(a)",
+    "activity:diving": "27(e)",
+    "activity:towing": "24(a)",
+    "activity:pushing": "24(b)",
+    "activity:being_towed": "24(e)"
    },
    "note": "'ram_underwater' is a vessel restricted in her ability to maneuver that is dredging or engaged in underwater operations (27(d)); it is a refinement of 'ram', not a peer of it, and predicates written for 'ram' also read it."
   },
-  "position": {
+  "fact:position": {
    "values": [
-    "underway",
-    "anchored",
-    "aground",
-    "moored"
+    "position:underway",
+    "position:anchored",
+    "position:aground",
+    "position:moored"
    ],
    "cites": {
-    "underway": "3(i)"
+    "position:underway": "3(i)"
    },
    "note": "Rule 3(i): underway means not at anchor, not made fast to the shore, not aground."
   }
  },
  "modifiers": {
-  "making_way": {
+  "fact:making_way": {
    "type": "boolean",
-   "refines": "position=underway",
+   "refines": "fact:position=position:underway",
    "note": "Undefined in the Rules; it means moving through the water. Underway but not making way is free drifting. Only the 26/27-family predicates read it (26(b)(iii), 26(c)(iii), 27(a)(iii), 27(b)(iii)); Rules 23 and 25 gate on 'underway' alone, so a power-driven vessel drifting in neutral still shows full running lights.",
    "actuable": true
   }
  },
  "numerics": {
-  "length_m": {
+  "fact:length_m": {
    "type": "number",
    "unit": "m",
    "cite": "3(j)",
@@ -76,7 +76,7 @@
    "actuable": true,
    "signalk": "design.length.value.overall"
   },
-  "tow_length_m": {
+  "fact:tow_length_m": {
    "type": "number",
    "unit": "m",
    "cite": "24(a)(i)",
@@ -84,7 +84,7 @@
    "actuable": true,
    "signalk": null
   },
-  "max_speed_kn": {
+  "fact:max_speed_kn": {
    "type": "number",
    "unit": "kn",
    "cite": "23(d)(ii)",
@@ -92,14 +92,14 @@
    "actuable": true,
    "signalk": null
   },
-  "gear_extent_m": {
+  "fact:gear_extent_m": {
    "type": "number",
    "unit": "m",
    "cite": "26(c)(ii)",
    "actuable": false,
    "signalk": null
   },
-  "beam_m": {
+  "fact:beam_m": {
    "type": "number",
    "unit": "m",
    "cite": "24(g)",
@@ -108,48 +108,48 @@
   }
  },
  "booleans": {
-  "composite_unit": {
+  "fact:composite_unit": {
    "cite": "24(b)",
    "actuable": false
   },
-  "non_displacement": {
+  "fact:non_displacement": {
    "cite": "23(b)",
    "actuable": false,
    "note": "Air-cushion vessel operating in non-displacement mode."
   },
-  "wig": {
+  "fact:wig": {
    "cite": "23(c)",
    "actuable": false,
    "note": "The vessel is a wing-in-ground craft. Doesn't by itself mean 23(c) applies -- see wig_near_surface."
   },
-  "wig_near_surface": {
+  "fact:wig_near_surface": {
    "cite": "23(c)",
    "actuable": false,
    "note": "Taking off, landing, or in flight near the surface. 23(c) is scoped to this phase, not to being a WIG craft generally."
   },
-  "near_channel": {
+  "fact:near_channel": {
    "cite": "30(e)",
    "actuable": false,
    "note": "At anchor in or near a narrow channel, fairway, or where other vessels normally navigate."
   },
-  "inconspicuous_partly_submerged_tow": {
+  "fact:inconspicuous_partly_submerged_tow": {
    "cite": "24(g)",
    "actuable": false
   },
-  "towed_alongside": {
+  "fact:towed_alongside": {
    "cite": "24(c)",
    "actuable": false
   },
-  "obstruction_exists": {
+  "fact:obstruction_exists": {
    "cite": "27(d)",
    "actuable": false
   }
  },
  "enums": {
-  "obstruction_side": {
+  "fact:obstruction_side": {
    "values": [
-    "port",
-    "starboard"
+    "obstruction_side:port",
+    "obstruction_side:starboard"
    ],
    "cite": "27(d)(i)",
    "actuable": false
@@ -158,11 +158,11 @@
  "actuable_subset": {
   "note": "What a switching consumer needs and can get: the three axes (decodable from navigation.state), making_way, and length_m. Everything else is education-side.",
   "fields": [
-   "propulsion",
-   "activity",
-   "position",
-   "making_way",
-   "length_m"
+   "fact:propulsion",
+   "fact:activity",
+   "fact:position",
+   "fact:making_way",
+   "fact:length_m"
   ]
  },
  "signalk_navigation_state": {
@@ -170,108 +170,108 @@
   "verified": "2026-08-29",
   "decode": {
    "not under command": {
-    "activity": "nuc",
-    "position": "underway"
+    "fact:activity": "activity:nuc",
+    "fact:position": "position:underway"
    },
    "anchored": {
-    "activity": "none",
-    "position": "anchored"
+    "fact:activity": "activity:none",
+    "fact:position": "position:anchored"
    },
    "moored": {
-    "activity": "none",
-    "position": "moored"
+    "fact:activity": "activity:none",
+    "fact:position": "position:moored"
    },
    "sailing": {
-    "propulsion": "sail",
-    "activity": "none",
-    "position": "underway"
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway"
    },
    "motoring": {
-    "propulsion": "power",
-    "activity": "none",
-    "position": "underway"
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway"
    },
    "towing < 200m": {
-    "propulsion": "power",
-    "activity": "towing",
-    "position": "underway",
-    "tow_length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:tow_length_m": {
      "lte": 200
     }
    },
    "towing > 200m": {
-    "propulsion": "power",
-    "activity": "towing",
-    "position": "underway",
-    "tow_length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:tow_length_m": {
      "gt": 200
     }
    },
    "pushing": {
-    "propulsion": "power",
-    "activity": "pushing",
-    "position": "underway"
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:position": "position:underway"
    },
    "fishing": {
-    "activity": "fishing",
-    "position": "underway"
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway"
    },
    "fishing-hampered": {
-    "activity": "fishing",
-    "position": "underway",
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway",
     "annex_ii_signal": "purse_seine_hampered"
    },
    "trawling": {
-    "activity": "trawling",
-    "position": "underway"
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway"
    },
    "trawling-shooting": {
-    "activity": "trawling",
-    "position": "underway",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway",
     "annex_ii_signal": "shooting"
    },
    "trawling-hauling": {
-    "activity": "trawling",
-    "position": "underway",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway",
     "annex_ii_signal": "hauling"
    },
    "pilotage": {
-    "activity": "pilot"
+    "fact:activity": "activity:pilot"
    },
    "not-under-way": {},
    "aground": {
-    "activity": "none",
-    "position": "aground"
+    "fact:activity": "activity:none",
+    "fact:position": "position:aground"
    },
    "restricted manouverability": {
-    "activity": "ram"
+    "fact:activity": "activity:ram"
    },
    "restricted manouverability towing < 200m": {
-    "propulsion": "power",
-    "activity": "ram",
-    "also_activity": "towing",
-    "tow_length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:ram",
+    "also_activity": "activity:towing",
+    "fact:tow_length_m": {
      "lte": 200
     }
    },
    "restricted manouverability towing > 200m": {
-    "propulsion": "power",
-    "activity": "ram",
-    "also_activity": "towing",
-    "tow_length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:ram",
+    "also_activity": "activity:towing",
+    "fact:tow_length_m": {
      "gt": 200
     }
    },
    "restricted manouverability underwater operations": {
-    "activity": "ram_underwater"
+    "fact:activity": "activity:ram_underwater"
    },
    "constrained by draft": {
-    "propulsion": "power",
-    "activity": "cbd",
-    "position": "underway"
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:underway"
    },
    "mine clearance": {
-    "activity": "mine"
+    "fact:activity": "activity:mine"
    }
   },
   "undecodable": [

@@ -5,11 +5,11 @@
  "vertical_positioning": [
   {
    "cite": "AnxI.2(a)(i)",
-   "light": "masthead",
+   "light": "light:masthead",
    "which": "forward (or the only one)",
    "when": {
-    "propulsion": "power",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:length_m": {
      "gte": 20
     }
    },
@@ -21,11 +21,11 @@
   },
   {
    "cite": "AnxI.2(a)(ii)",
-   "light": "masthead",
+   "light": "light:masthead",
    "which": "after",
    "when": {
-    "propulsion": "power",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:length_m": {
      "gte": 20
     }
    },
@@ -35,16 +35,16 @@
   },
   {
    "cite": "AnxI.2(b)",
-   "light": "masthead",
+   "light": "light:masthead",
    "constraint": "separation",
    "text": "The vertical separation of the masthead lights of power-driven vessels shall be such that in all normal conditions of trim the after light will be seen over and separate from the forward light at a distance of 1000 meters from the stem when viewed from sea level."
   },
   {
    "cite": "AnxI.2(c)",
-   "light": "masthead",
+   "light": "light:masthead",
    "when": {
-    "propulsion": "power",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:length_m": {
      "gte": 12,
      "lt": 20
     }
@@ -55,10 +55,10 @@
   },
   {
    "cite": "AnxI.2(d)",
-   "light": "masthead",
+   "light": "light:masthead",
    "when": {
-    "propulsion": "power",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:length_m": {
      "lt": 12
     }
    },
@@ -71,11 +71,11 @@
   },
   {
    "cite": "AnxI.2(e)",
-   "light": "masthead",
+   "light": "light:masthead",
    "when": {
-    "activity": [
-     "towing",
-     "pushing"
+    "fact:activity": [
+     "activity:towing",
+     "activity:pushing"
     ]
    },
    "datum": "forward masthead light",
@@ -84,13 +84,13 @@
   },
   {
    "cite": "AnxI.2(f)(i)",
-   "light": "masthead",
+   "light": "light:masthead",
    "constraint": "clearance",
    "text": "The masthead lights or lights prescribed in Rule 23(a) shall be so placed as to be above and clear of all other lights and obstructions except as described in paragraph (f)(ii)."
   },
   {
    "cite": "AnxI.2(f)(ii)",
-   "light": "all_round",
+   "light": "light:all_round",
    "applies_to_entries": [
     "27b-id",
     "28"
@@ -99,9 +99,9 @@
   },
   {
    "cite": "AnxI.2(g)",
-   "light": "sidelights",
+   "light": "light:sidelights",
    "when": {
-    "propulsion": "power"
+    "fact:propulsion": "propulsion:power"
    },
    "datum": "forward masthead light",
    "max_fraction_of_masthead_height": 0.75,
@@ -109,11 +109,11 @@
   },
   {
    "cite": "AnxI.2(h)",
-   "light": "sidelights",
+   "light": "light:sidelights",
    "combined": true,
    "when": {
-    "propulsion": "power",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:length_m": {
      "lt": 20
     }
    },
@@ -125,7 +125,7 @@
    "cite": "AnxI.2(i)(i)",
    "constraint": "vertical line spacing",
    "when": {
-    "length_m": {
+    "fact:length_m": {
      "gte": 20
     }
    },
@@ -141,7 +141,7 @@
    "cite": "AnxI.2(i)(ii)",
    "constraint": "vertical line spacing",
    "when": {
-    "length_m": {
+    "fact:length_m": {
      "lt": 20
     }
    },
@@ -178,7 +178,7 @@
    "min_m": 4.5,
    "also": {
     "when": {
-     "length_m": {
+     "fact:length_m": {
       "gte": 50
      }
     },
@@ -191,7 +191,7 @@
  "horizontal_positioning": [
   {
    "cite": "AnxI.3(a)",
-   "light": "masthead",
+   "light": "light:masthead",
    "constraint": "separation",
    "min_fraction_of_length": 0.25,
    "need_not_exceed_m": 50,
@@ -200,10 +200,10 @@
   },
   {
    "cite": "AnxI.3(b)",
-   "light": "sidelights",
+   "light": "light:sidelights",
    "when": {
-    "propulsion": "power",
-    "length_m": {
+    "fact:propulsion": "propulsion:power",
+    "fact:length_m": {
      "gte": 20
     }
    },
@@ -219,7 +219,7 @@
   },
   {
    "cite": "AnxI.3(d)",
-   "light": "masthead",
+   "light": "light:masthead",
    "text": "When only one masthead light is prescribed for a power-driven vessel, this light shall be exhibited forward of amidships. For a vessel of less than 20 meters in length, the vessel shall exhibit one masthead light as far forward as is practicable."
   }
  ],
@@ -272,7 +272,7 @@
   "vertical_spacing_min_m": 1.5,
   "small_vessel_relief": {
    "when": {
-    "length_m": {
+    "fact:length_m": {
      "lt": 20
     }
    },

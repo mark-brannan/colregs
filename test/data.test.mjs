@@ -21,8 +21,9 @@ function matches(when, f) {
   return Object.entries(when).every(([k, want]) => {
     let have = f[k]
     if (have === undefined) return false
-    // 'ram_underwater' is a refinement of 'ram': predicates for ram read it too.
-    if (k === 'activity' && want === 'ram' && have === 'ram_underwater') return true
+    // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
+    // written for ram read it too.
+    if (k === 'fact:activity' && want === 'activity:ram' && have === 'activity:ram_underwater') return true
     if (Array.isArray(want)) return want.includes(have)
     if (want !== null && typeof want === 'object') {
       if ('gte' in want && !(have >= want.gte)) return false
@@ -57,12 +58,12 @@ function lightSig(e) {
 const relatedIds = new Map(appl.entries.map((e) => [e.id, new Set()]))
 const relate = (a, b) => { relatedIds.get(a)?.add(b); relatedIds.get(b)?.add(a) }
 for (const e of appl.entries) {
-  for (const r of e.includes ?? []) relate(e.id, r)
-  for (const r of e.in_lieu_of ?? []) relate(e.id, r)
-  for (const r of e.excludes ?? []) relate(e.id, r)
-  for (const r of e.exempts ?? []) relate(e.id, r)
-  for (const c of e.conditional_includes ?? []) {
-    for (const r of c.includes ?? []) relate(e.id, r)
+  for (const r of e['rel:includes'] ?? []) relate(e.id, r)
+  for (const r of e['rel:in_lieu_of'] ?? []) relate(e.id, r)
+  for (const r of e['rel:excludes'] ?? []) relate(e.id, r)
+  for (const r of e['rel:exempts'] ?? []) relate(e.id, r)
+  for (const c of e['rel:conditional_includes'] ?? []) {
+    for (const r of c['rel:includes'] ?? []) relate(e.id, r)
     for (const r of c.one_of ?? []) relate(e.id, r)
   }
 }
@@ -94,9 +95,10 @@ test('every entry cites a paragraph that exists in rules.json', () => {
 
 test('every cross-reference resolves to an entry id', () => {
   const refsOf = (e) => [
-    ...(e.includes ?? []), ...(e.in_lieu_of ?? []),
-    ...(e.excludes ?? []), ...(e.exempts ?? []),
-    ...(e.conditional_includes ?? []).flatMap((c) => [...(c.includes ?? []), ...(c.one_of ?? [])]),
+    ...(e['rel:includes'] ?? []), ...(e['rel:in_lieu_of'] ?? []),
+    ...(e['rel:excludes'] ?? []), ...(e['rel:exempts'] ?? []),
+    ...(e['rel:conditional_includes'] ?? [])
+      .flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])]),
   ]
   for (const e of appl.entries) {
     for (const r of refsOf(e)) assert.ok(byId.has(r), `${e.id} references unknown entry ${r}`)
@@ -131,12 +133,14 @@ test('images: on disk, catalogued, and unchanged', () => {
 test('navigation.state decodes only to values the axes define', () => {
   const axes = facts.axes
   for (const [state, d] of Object.entries(facts.signalk_navigation_state.decode)) {
-    for (const axis of ['propulsion', 'activity', 'position']) {
+    for (const axis of ['fact:propulsion', 'fact:activity', 'fact:position']) {
       if (d[axis] === undefined) continue
       assert.ok(axes[axis].values.includes(d[axis]), `${state}: bad ${axis} ${d[axis]}`)
     }
+    // `also_activity` is a shape key of the decode table, not a fact key; the
+    // value inside it is still an activity identifier.
     if (d.also_activity !== undefined) {
-      assert.ok(axes.activity.values.includes(d.also_activity), `${state}: bad also_activity`)
+      assert.ok(axes['fact:activity'].values.includes(d.also_activity), `${state}: bad also_activity`)
     }
   }
 })
@@ -151,6 +155,68 @@ test('every fact a predicate reads is declared in facts.json', () => {
     for (const k of Object.keys(e.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
     for (const m of e.modality_by ?? []) {
       for (const k of Object.keys(m.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
+    }
+  }
+})
+
+test('every enumerated fact value a predicate names is declared in facts.json', () => {
+  // The value namespace of an enumerated fact is the fact's own bare name
+  // (`fact:activity` takes `activity:*`), so a missed prefix on either side
+  // shows up here rather than as an entry that silently never matches.
+  const valuesOf = new Map(
+    [...Object.entries(facts.axes), ...Object.entries(facts.enums)]
+      .map(([k, v]) => [k, new Set(v.values)])
+  )
+  const check = (where, w) => {
+    for (const [k, want] of Object.entries(w)) {
+      const allowed = valuesOf.get(k)
+      if (!allowed) continue
+      for (const v of Array.isArray(want) ? want : [want]) {
+        assert.ok(allowed.has(v), `${where}: ${k} names undeclared value ${JSON.stringify(v)}`)
+      }
+    }
+  }
+  for (const e of appl.entries) {
+    check(e.id, e.when)
+    for (const m of e.modality_by ?? []) check(e.id, m.when)
+    for (const c of e['rel:conditional_includes'] ?? []) check(e.id, c.when ?? {})
+  }
+  for (const c of fixtures.cases) check(c.name, c.facts)
+})
+
+test('every relation an entry uses is declared in applicability.json', () => {
+  const declared = new Set(Object.keys(appl.relations))
+  for (const e of appl.entries) {
+    for (const k of Object.keys(e)) {
+      if (!k.startsWith('rel:')) continue
+      assert.ok(declared.has(k), `${e.id} uses undeclared relation ${k}`)
+    }
+  }
+})
+
+test('every light id outside applicability.json resolves too', () => {
+  // Rule 22 range tables and the Annex I geometry records both key on light
+  // ids; nothing else asserted they resolve, so a rename could half-land.
+  for (const [id, rec] of Object.entries(lights.lights)) {
+    for (const c of rec.components ?? []) {
+      assert.ok(lights.lights[c], `${id} has undefined component ${c}`)
+    }
+    if (rec.same_characteristics_as) {
+      assert.ok(lights.lights[rec.same_characteristics_as],
+        `${id} refers to undefined light ${rec.same_characteristics_as}`)
+    }
+  }
+  for (const b of lights.visibility.bands) {
+    for (const k of [...Object.keys(b.ranges_nm ?? {}), ...Object.keys(b.overrides_nm ?? {})]) {
+      assert.ok(lights.lights[k], `Rule ${b.cite} gives a range for undefined light ${k}`)
+    }
+  }
+  const groups = [geometry.vertical_positioning, geometry.horizontal_positioning,
+                  geometry.direction_indicating]
+  for (const g of groups) {
+    for (const c of g) {
+      if (!c.light) continue
+      assert.ok(lights.lights[c.light], `${c.cite} positions undefined light ${c.light}`)
     }
   }
 })
