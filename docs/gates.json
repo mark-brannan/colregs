@@ -78,7 +78,7 @@
       "trigger": "deciding the data side wants CC0 or CC BY 4.0 separately from the code (REQ-PROV-4, Q-9)",
       "status": "open",
       "settled_by": null,
-      "note": "ADR 0004 settles the code licence (MIT \u2192 Apache-2.0) and leaves the data licence open. Already-published npm versions stay under the licence they shipped with; the gate governs future releases only, and may be held open deliberately with a DCO or CLA."
+      "note": "ADR 0004 settles the code licence (MIT \u2192 Apache-2.0) and leaves the data licence open. Already-published npm versions stay under the licence they shipped with; the gate governs future releases only, and is held open deliberately by REQ-PROV-7's CONTRIBUTING.md terms (DCO-style certification plus a relicensing grant); a CLA-assistant bot is the upgrade path if contributors arrive."
     }
   ]
 }
