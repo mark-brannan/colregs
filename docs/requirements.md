@@ -62,7 +62,12 @@ Neither consumer lives in this repo.
   `ca/inland`, `de/binnen`, `eu/cevni`.
 - **REQ-SCOPE-3** — A jurisdiction MUST be expressible as a *delta*: entries
   absent from a jurisdiction's data inherit from `intl`. A jurisdiction MUST
-  NOT require restating the whole body of rules.
+  NOT require restating the whole body of rules. Inheritance is "unless
+  suppressed", not unconditional — see Q-11: verified Inland structure
+  (Rule 28 "[Reserved]") means silence-means-inherit would apply
+  international law where the national body deliberately has none, so no
+  non-`intl` jurisdiction lands before an explicit suppression mechanism
+  exists.
 - **REQ-SCOPE-4** — Adding a jurisdiction MUST be additive. It MUST NOT require
   a schema change or edits to existing `intl` entries.
 - **REQ-SCOPE-5** — Geography that gates a rule (Great Lakes, Western Rivers,
@@ -373,11 +378,27 @@ Each gate names the declined design, the closing event, and the trigger.
   *Trigger*: any paragraph path that keeps its spelling while changing what
   text it denotes — the mutation REQ-MODEL-10 forbids outright, which is
   why the collision has to be resolved in the schema rather than absorbed.
-  Two ways that happens: an amendment renumbering a Part C paragraph
-  (believed never since 1972, recalled not verified), or — the near-term
-  one — a national amalgamation whose paragraph structure diverges from
-  `intl` below rule level. The second is checkable today and is the real
-  test of this gate (Q-8).
+  Two ways that happens, both now checked against primary sources
+  ([verification](verification/2026-08-30-q6-q8.md)):
+  - **Amendment renumbering — verified real, not hypothetical.** The
+    original "believed never since 1972" premise is refuted: A.910(22)
+    (2001) displaced the old `23(c)` to `23(d)` when WIG lighting took its
+    path, and A.464(XII) (1981) relettered `24(g)`→`24(h)` and
+    `27(d)(iv)`→`(iii)`. Two of seven amendments renumbered Part C.
+  - **National-amalgamation divergence — verified present, but mostly not
+    this gate's trigger.** The 15 same-path-different-text rows in the
+    33 CFR 83 diff are the *jurisdiction dimension working as designed*
+    (REQ-MODEL-1 stores both texts, keyed by jurisdiction) — the effective
+    identifier is (jurisdiction, path), so they are not REQ-MODEL-10
+    mutations. The residue that is genuinely structural — `23(d)(i)`
+    having no Inland counterpart path, Rule 28 "[Reserved]" — is a
+    delta-model problem (Q-11), not a repoint.
+  *Ruling, 2026-08-30*: the gate does not flip on today's data — no
+  published path has changed denotation. But with the "rare, believed
+  never" premise gone (real base rate: twice in seven amendments), the
+  pre-1.0 re-take **leans adopt**, decided in the second-jurisdiction
+  bundle alongside GATE-2 and Q-10. Final call is the maintainer's at that
+  point.
   *This gate is open on timing, not on outcome.* A real-world respelling —
   a citation keeping its spelling while denoting different text —
   **forces** the split: REQ-MODEL-10 forbids repointing and forbids reuse,
@@ -556,3 +577,18 @@ Tracked here until resolved; each becomes an ADR.
   open deliberately — the data question was never put. GATE-6's trigger;
   must be settled before the contribution path opens. The CLA/DCO half of
   that question is now answered by REQ-PROV-7.
+- **Q-11** — What is the delta suppression mechanism? REQ-SCOPE-3's
+  inheritance-by-absence is verified unsafe as stated: 33 CFR 83 leaves
+  Rule 28 "[Reserved]" and has no counterpart for `23(d)(ii)`/`(iii)`
+  ([verification](verification/2026-08-30-q6-q8.md), Claim 1), so a
+  `us/inland` delta that is merely silent there would inherit the `intl`
+  entries and assert international obligations on inland waters. A delta
+  needs explicit suppression records (tombstones) alongside overrides —
+  "this path/entry deliberately does not exist here", distinguishable from
+  "not yet transcribed". Decide the mechanism in the second-jurisdiction
+  bundle (GATE-1 re-take, GATE-2, Q-10); until then no non-`intl`
+  jurisdiction lands.
+  Also from the same verification pass, tracked on the global board rather
+  than here: four transcription defects in `data/rules.json` itself
+  (`21(a)`, `21(b)`, `23(b)`, `29(b)`) — a data fix, not a design
+  question.
