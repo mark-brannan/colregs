@@ -605,6 +605,22 @@ Tracked here until resolved; each becomes an ADR.
   amendment (A.464(XII)) separately relettered `24(g)`→`24(h)` and
   `27(d)(iv)`→`27(d)(iii)`. Both findings feed the GATE-1 re-take, not
   decided here.
+- **Q-12** — REQ-MODEL-10 has a **baseline off-by-one**, recorded here
+  because the requirement as written forbids work already approved. It
+  binds any identifier that "has shipped in a released version";
+  `colregs@0.1.1` was published 2026-08-29, so every identifier in it is
+  already bound — including the ones the identifier audit reviewed and
+  cleared for change (type-prefixing the vocabulary class:
+  `light:masthead`, `activity:nuc`). Fix by naming the baseline:
+  immutability binds from a stated version forward, with 0.1.1 explicitly
+  outside it and the reason recorded. This is a defect in the requirement,
+  not a reason to skip the rename; it must land in the same pre-1.0 PR as
+  the rename it authorises, and before that PR renames anything. The audit
+  itself — six findings, all verified against `data/*.json`, three kept
+  with rationale (`nuc`/`cbd`/`ram` as terms of art, the entry-id suffix
+  taxonomy, `24a-m2`/`24a-m3` whose cardinality is stated in 24(a)(i)
+  itself) — is REQ-MODEL-10's recorded review of the identifiers it binds,
+  and is on PR #4.
 - **Q-10** — Split `conditional_includes`, or add a discriminant?
   REQ-MODEL-12 records the overload; this is the unresolved half. Splitting
   it names each behaviour and lets a schema validate the shape, at the cost
