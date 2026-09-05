@@ -25,12 +25,32 @@
             "lt": { "type": "number" }
           }
         },
-        { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" },
+        { "type": "string", "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$" },
         { "type": "boolean" },
         {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" }
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$" }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["not"],
+          "properties": {
+            "not": { "$ref": "#/$defs/predicateValue" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["any_of"],
+          "properties": {
+            "any_of": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/predicateValue" }
+            }
+          }
         }
       ]
     },
@@ -38,6 +58,13 @@
       "type": "object",
       "minProperties": 1,
       "additionalProperties": false,
+      "properties": {
+        "any_of": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/when" }
+        }
+      },
       "patternProperties": {
         "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
       }
@@ -45,6 +72,13 @@
     "situationWhen": {
       "type": "object",
       "additionalProperties": false,
+      "properties": {
+        "any_of": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/situationWhen" }
+        }
+      },
       "patternProperties": {
         "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
         "^(own|other):(fact|kin|geo|hist):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
@@ -252,6 +286,19 @@
           "cite": { "type": "string", "minLength": 1 },
           "category": { "type": "string", "enum": ["care", "meta"] },
           "note": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "retired_entry_ids": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ids"],
+      "properties": {
+        "note": { "type": "string" },
+        "ids": {
+          "type": "object",
+          "propertyNames": { "$ref": "#/$defs/entryId" },
+          "additionalProperties": { "type": "string", "minLength": 1 }
         }
       }
     },

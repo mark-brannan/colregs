@@ -168,6 +168,29 @@ requires of a pencil change.
   produces no lights produces instead. `effect` is that, written up in
   `docs/identifiers.md` §"Effects" and required by `REQ-CAT-8`.
 
+- **2026-09-04, PR #25 — the predicate language grows `not` and `any_of`.**
+  `Q-33`. ADR 0005 says nothing about the predicate language because it did not
+  expect to need to; the first two-subject data found that a conjunction of
+  equalities cannot say "any vessel other than …" (18(d)(i)) or "under 20 m or
+  a sailing vessel" (9(b), 10(j)). Both constructs live in `satisfies` and one
+  shared walker, so both evaluators get them. The absent-fact rule is extended
+  rather than excepted: `not` over an absent fact is unsatisfied, so a
+  predicate never fires on silence. `9b-small`/`9b-sail` and
+  `10j-small`/`10j-sail` collapse to `9b` and `10j`; the four suffixed ids are
+  retired and recorded in `retired_entry_ids`, and never reused
+  (`REQ-MODEL-10`). Nothing has shipped a Part B entry, so retirement is free
+  once and will not be again.
+- **2026-09-04, PR #25 — a fact may be derived.** `Q-32`. §2 says the
+  per-vessel fact record does not change, and it does not: `fact:rule18_class`
+  is a new key in a new `derived` section, computed by this package from the
+  record rather than supplied with it, with a decode table as its definition in
+  the style `signalk_navigation_state` already set. It is the answer to the
+  largest strain the first two-subject data found — that `fact:activity` is a
+  display axis and Rule 18's rank is not the same thing — and it is what lets a
+  `precedence` entry stop enumerating activity values it must be edited to keep
+  correct. One new boolean, `fact:tow_restricts_deviation` (27(c)), because the
+  rank genuinely needs a fact the record did not carry.
+
 Seven things the model could not express are recorded as `Q-31`–`Q-39` in
 `docs/requirements.md` §11 rather than bent into the data. The largest is
 `Q-32`: `fact:activity` is a display axis, and a vessel's rank under Rule 18

@@ -252,6 +252,27 @@ the two-or-three masthead split is stated in 24(a)(i) itself — the
 cardinality is in the law, not a modelling convenience of this package, and
 the suffix names something the reader can go and find.
 
+## Derived facts
+
+A derived fact is one this package computes from the fact record rather than
+asking a consumer for. It is an identifier like any other and takes the same
+two forms as everything above: `fact:<key>` for the key, `<key>:<value>` for
+its values. `fact:rule18_class` therefore takes `rule18_class:nuc`,
+`rule18_class:sail` and so on — **not** `class:nuc`. The bare-fact-name rule
+is what makes a value readable on its own: `class:nuc` would say which
+namespace a reader is in only if they already knew, and `class` is exactly the
+kind of word that a second derived fact would want too. The verbosity is the
+price of the value being self-identifying, which is the same trade the whole
+scheme makes.
+
+Being derived is a property of the fact, not of its name. There is no `derived:`
+prefix and no naming convention that marks one, because whether a consumer
+supplies a fact or an evaluator computes it is a question about the pipeline
+rather than about what the name denotes — and a fact that becomes derivable
+later must not have to be renamed for it, which is exactly what `REQ-MODEL-10`
+forbids. `facts.json` says so in a field instead: `derived: true`, beside a
+decode table that is the definition.
+
 ## Terms of art kept unspelled
 
 Four `activity` values are abbreviations rather than words, and stay that
@@ -288,11 +309,16 @@ implemented in the reference evaluator and asserted by the fixtures.
   `conditional`, `exempt`) and **jurisdiction values** (`intl`,
   `us/inland`) are their own closed vocabularies, defined in §2 of the
   requirements and not part of the identifier space REQ-MODEL-10 binds.
-- **Shape keys** — `when`, `one_of`, `cite`, `lights`, and the SignalK
-  decode table's `also_activity` and `annex_ii_signal` — are JSON structure,
-  not names the data is addressed by. Only the values inside them can be
-  identifiers, and where they are (`also_activity` holds an activity value)
-  they are prefixed.
+- **Shape keys** — `when`, `one_of`, `cite`, `lights`, the predicate
+  language's `not` and `any_of`, and the SignalK decode table's
+  `also_activity` and `annex_ii_signal` — are JSON structure, not names the
+  data is addressed by. Only the values inside them can be identifiers, and
+  where they are (`also_activity` holds an activity value) they are prefixed.
+  `not` and `any_of` are the second pair of words reserved at the head of an
+  identifier space, after `own`/`other`/`pair`: they appear where a fact key
+  appears, so no fact may ever be named either. The cost is the same and as
+  cheap — every fact key carries a class prefix (`fact:`, `geo:`, `kin:`,
+  `hist:`, `env:`) and neither word could be one.
 - **Prose fields** — `geometry.json`'s `datum` ("hull", "gunwale",
   "forward masthead light") describes where a measurement is taken from in
   words. It is deliberately not a light reference and does not resolve to

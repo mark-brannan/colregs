@@ -104,6 +104,41 @@ absent fact never satisfies a constraint. Numeric constraints are
 `fact:activity: "activity:ram"` also matches `activity:ram_underwater`, which
 is a refinement of it.
 
+A `when` is a conjunction, and two constructs open it up. `{"not": C}` is a
+constraint satisfied when the fact does *not* satisfy `C`; `any_of` is
+disjunction, holding sub-predicates as a key of a `when` and constraints as the
+value of a fact. **`not` over an absent fact is unsatisfied**, like every other
+constraint over an absent fact — so `{"not": C}` and `C` are both false on a
+record that never mentions the fact, and the two are not complements there. That
+is deliberate: predicates stay conservative, and a duty is never laid on a vessel
+because a consumer left a field out. It also means `not` is a constraint on one
+fact and never a key of a `when` — a predicate-level negation would be satisfied
+by silence, which is the one thing the absent-fact rule is there to forbid. Where
+a paragraph really does mean "any vessel other than …", the negation goes on the
+fact the paragraph names, and the fact has to be present for the entry to apply.
+
+| form | where | means |
+|---|---|---|
+| `{"gte": n}` … `{"lt": n}` | a fact's constraint | numeric comparison |
+| `["a", "b"]` | a fact's constraint | membership |
+| `"a"` / `true` / `12` | a fact's constraint | equality |
+| `{"not": C}` | a fact's constraint | the fact is present and does not satisfy `C` |
+| `{"any_of": [C, …]}` | a fact's constraint | the fact satisfies at least one `C` |
+| `"any_of": [W, …]` | a key of a `when` | at least one sub-predicate `W` holds |
+
+A list and `{"any_of": […]}` are not quite interchangeable: the
+`ram`/`ram_underwater` refinement fires on a scalar constraint, so it carries
+through `any_of`'s disjuncts and not through list membership.
+
+Some facts are **derived** rather than supplied. `facts.json`'s `derived`
+section holds them, each with a decode table that is its definition — an ordered
+list of predicate/value rows, first match wins — read the same way as the
+SignalK `navigation.state` table. `fact:rule18_class` is the one that exists: a
+vessel's rank under Rule 18, decoded from her propulsion, her activity and the
+27(c) and WIG booleans, because Rule 18 ranks vessels by the Rule 3 terms of art
+and `fact:activity` answers a different question — what she *shows*. A consumer
+never supplies a derived fact.
+
 Entries **compose**: several apply to one fact record, and Rule 28 or Rule 26
 add to Rule 23 rather than replacing it. Relations between them:
 
@@ -128,7 +163,7 @@ on a fact (23(a)(ii) is `shall` at 50 m and above, `may` below).
 Most entries read one vessel and produce lights. A few read **two** — a
 situation, not a fact record — and produce an `effect` instead: Rules 4, 11
 and 19(a) say which section of Part B governs, and Rule 18 says which vessel
-gives way. Those carry `category` and `subjects: 2`, and address each vessel
+gives way, reading `fact:rule18_class` rather than re-listing the activity axis. Those carry `category` and `subjects: 2`, and address each vessel
 through a subject segment: `own:fact:activity`, `other:fact:propulsion`,
 `pair:geo:in_sight`. A key with no subject means `own:`, so nothing above
 changes. `docs/identifiers.md` has the namespace and the effect vocabulary;
