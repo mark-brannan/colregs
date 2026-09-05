@@ -13,9 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Full history and tags: the identifier-diff test (ADR 0005) compares
+          # HEAD against the last release tag, and the default shallow, tagless
+          # checkout would starve it of a baseline.
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 22
+      - run: npm ci
       - run: npm test
 
   # The single required status check, shared across repositories: the

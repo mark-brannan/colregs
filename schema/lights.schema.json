@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/lights.schema.json",
+  "title": "data/lights.json",
+  "description": "The Rule 21 lights and Rule 22 visibility ranges. Structure only -- see docs/adr/0005-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jurisdiction", "lights"],
+  "$defs": {
+    "predicateValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "gte": { "type": "number" },
+            "gt": { "type": "number" },
+            "lte": { "type": "number" },
+            "lt": { "type": "number" }
+          }
+        },
+        { "type": "string" },
+        { "type": "boolean" },
+        { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      ]
+    },
+    "when": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
+      }
+    }
+  },
+  "properties": {
+    "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+    "bearing_convention": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "zero": { "type": "string" },
+        "direction": { "type": "string" },
+        "units": { "type": "string" },
+        "wrap": { "type": "string" }
+      }
+    },
+    "lights": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^light:[a-z_]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "colregs_term", "cite", "character", "rule21"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "colregs_term": { "type": "string", "minLength": 1 },
+            "cite": { "type": "string", "minLength": 1 },
+            "color": { "type": ["string", "null"] },
+            "color_note": { "type": "string" },
+            "character": { "type": "string", "minLength": 1 },
+            "arc_deg": { "type": ["number", "null"] },
+            "arc": {
+              "type": ["object", "null"],
+              "additionalProperties": false,
+              "required": ["from_deg", "to_deg"],
+              "properties": {
+                "from_deg": { "type": "number", "minimum": 0, "maximum": 360 },
+                "to_deg": { "type": "number", "minimum": 0, "maximum": 360 }
+              }
+            },
+            "placement": { "type": "string" },
+            "side": { "type": "string", "enum": ["port", "starboard"] },
+            "composite": { "type": "boolean" },
+            "components": {
+              "type": "array",
+              "items": { "type": "string", "pattern": "^light:[a-z_]+$" },
+              "minItems": 1
+            },
+            "combined_lantern_max_length_m": { "type": "number" },
+            "same_characteristics_as": { "type": "string", "pattern": "^light:[a-z_]+$" },
+            "flashes_per_minute_min": { "type": "number" },
+            "note": { "type": "string" },
+            "rule21": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "visibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cite": { "type": "string" },
+        "note": { "type": "string" },
+        "bands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["cite"],
+            "properties": {
+              "cite": { "type": "string", "minLength": 1 },
+              "when": { "$ref": "#/$defs/when" },
+              "refines": { "type": "string" },
+              "ranges_nm": {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^light:[a-z_]+$": { "type": "number", "exclusiveMinimum": 0 }
+                }
+              },
+              "overrides_nm": {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^light:[a-z_]+$": { "type": "number", "exclusiveMinimum": 0 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "colregs_vocabulary": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
