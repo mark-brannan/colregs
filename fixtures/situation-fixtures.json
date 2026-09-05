@@ -1871,7 +1871,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:confined_to_channel": true
      }
     },
     "pair": {
@@ -1917,7 +1918,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:confined_to_channel": true
      }
     },
     "pair": {
@@ -1963,7 +1965,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:following_traffic_lane": true
      }
     },
     "pair": {
@@ -2005,7 +2008,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:following_traffic_lane": true
      }
     },
     "pair": {
@@ -2047,7 +2051,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:confined_to_channel": true
      }
     },
     "pair": {
@@ -2127,7 +2132,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:following_traffic_lane": true
      }
     },
     "pair": {
@@ -2204,6 +2210,84 @@
       "fact:position": "position:underway",
       "fact:making_way": true,
       "fact:length_m": 14
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
+  },
+  {
+   "name": "9(b) does not apply: the other vessel is not confined to the channel (Q-34)",
+   "status": "binding",
+   "narrative": "REQ-VERIFY-5's twin for a boolean gate rather than a threshold: same subjects and channel as the first 9(b) fixture, but the other vessel is not the paragraph's protected vessel, so `other:fact:confined_to_channel` alone decides and 9(b) does not fire.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40,
+      "fact:confined_to_channel": false
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": true,
+      "env:traffic_lane": false
+     }
+    }
+   }
+  },
+  {
+   "name": "10(j) does not apply: the other vessel is not following the lane (Q-34)",
+   "status": "binding",
+   "narrative": "The traffic-lane twin of the 9(b) case above: same subjects and scheme as the 10(j) fixture, but the other vessel is not following it, so `other:fact:following_traffic_lane` alone decides.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40,
+      "fact:following_traffic_lane": false
      }
     },
     "pair": {

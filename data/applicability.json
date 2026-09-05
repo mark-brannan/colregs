@@ -1672,7 +1672,8 @@
      }
     ],
     "own:fact:position": "position:underway",
-    "other:fact:position": "position:underway"
+    "other:fact:position": "position:underway",
+    "other:fact:confined_to_channel": true
    },
    "modality": "shall-not-impede",
    "effect": {
@@ -1682,8 +1683,7 @@
    "rel:overrides": [
     "18a4"
    ],
-   "gap": "The vessel whose passage is not to be impeded is identified by the paragraph as one 'which can safely navigate only within a narrow channel or fairway'. That is a property of the other vessel against the water, and no fact carries it. This entry therefore asserts a duty toward `other` whenever the encounter is in a narrow channel, which may be a duty toward a third vessel instead. Recorded rather than narrowed.",
-   "note": "9(b)'s subject is disjunctive -- 'a vessel of less than 20 metres in length or a sailing vessel' -- and used to take two entries, `9b-small` and `9b-sail`, because a `when` was a conjunction. `any_of` is that disjunction (Q-33), so the paragraph is one entry again and the entry id is the plain citation-derived one. The two suffixed ids are retired and not reused (REQ-MODEL-10). The gate is `fact:propulsion` and not `rule18_class:sail`: 9(b)'s subject is a sailing vessel in the ordinary sense and 9(c) covers fishing vessels separately, so borrowing Rule 18's rank here would quietly move a fishing vessel under sail from one paragraph to the other."
+   "note": "9(b)'s subject is disjunctive -- 'a vessel of less than 20 metres in length or a sailing vessel' -- and used to take two entries, `9b-small` and `9b-sail`, because a `when` was a conjunction. `any_of` is that disjunction (Q-33), so the paragraph is one entry again and the entry id is the plain citation-derived one. The two suffixed ids are retired and not reused (REQ-MODEL-10). The gate is `fact:propulsion` and not `rule18_class:sail`: 9(b)'s subject is a sailing vessel in the ordinary sense and 9(c) covers fishing vessels separately, so borrowing Rule 18's rank here would quietly move a fishing vessel under sail from one paragraph to the other. `other:fact:confined_to_channel` closes Q-34: the entry now reads which vessel the paragraph protects instead of assuming it from the encounter being in a channel at all."
   },
   {
    "id": "9c",
@@ -1718,7 +1718,8 @@
     "pair:env:traffic_lane": true,
     "own:fact:rule18_class": "rule18_class:fishing",
     "own:fact:position": "position:underway",
-    "other:fact:position": "position:underway"
+    "other:fact:position": "position:underway",
+    "other:fact:following_traffic_lane": true
    },
    "modality": "shall-not-impede",
    "effect": {
@@ -1729,7 +1730,7 @@
     "18a3",
     "18b3"
    ],
-   "gap": "'any vessel following a traffic lane' is unmodelled for the other vessel; `pair:env:traffic_lane` says the encounter is in a lane, not that the other vessel is following it."
+   "note": "`other:fact:following_traffic_lane` closes Q-34: the entry now reads which vessel the paragraph protects instead of assuming it from the encounter being in a lane at all."
   },
   {
    "id": "10j",
@@ -1751,7 +1752,8 @@
     ],
     "own:fact:position": "position:underway",
     "other:fact:propulsion": "propulsion:power",
-    "other:fact:position": "position:underway"
+    "other:fact:position": "position:underway",
+    "other:fact:following_traffic_lane": true
    },
    "modality": "shall-not-impede",
    "effect": {
@@ -1761,8 +1763,7 @@
    "rel:overrides": [
     "18a4"
    ],
-   "gap": "'any vessel following a traffic lane' is unmodelled for the other vessel; `pair:env:traffic_lane` says the encounter is in a lane, not that the other vessel is following it.",
-   "note": "The same collapse as 9b, and the same disjunctive subject. 10(j)'s object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read. `10j-small` and `10j-sail` are retired and not reused."
+   "note": "The same collapse as 9b, and the same disjunctive subject. 10(j)'s object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read. `10j-small` and `10j-sail` are retired and not reused. `other:fact:following_traffic_lane` closes Q-34, same as 10i."
   },
   {
    "id": "7d1",
