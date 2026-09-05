@@ -106,13 +106,13 @@
   {
    "name": "narrow channel: head-on round a bend, bank 100 m to starboard",
    "status": "binding",
-   "narrative": "The R1 illustration of ADR 0005 sec. 5 and the proposal's sec. 4. Own keeps to the starboard side of a narrow channel per Rule 9(a); a vessel cuts the bend and is head-on at 800 m. Rule 14(a) requires each to alter to starboard, and the bank is 100 m to starboard of own. Every compliant plan grounds or collides; a port alteration passes starboard-to-starboard and breaches 14(a). The value of the case here is not the region finding, which belongs to colregs-engine -- it is that the situation record can carry it at all. Binding now: `pair:env:narrow_channel` is the fact the recorded gap asked for and 14a is the classification. Neither 9(b) nor 9(c) applies from own's side -- she is 24 m and power-driven -- so the narrow channel changes no entry here and is stated because it is true, not to select one. Recast on a steady bearing when the consistency check landed (Q-48): the other now bears 357 relative, three degrees on own's port bow, and has own 3.6 degrees on her own starboard bow, which at 12 and 10 knots is a collision course. The 3/8 starboard-to-starboard pair the case opened with passed at 74 m with the bearing changing four and a half degrees a minute, and no positive speeds make it steady -- two vessels each with the other to starboard are never on a collision course. The dilemma is unchanged: a starboard alteration is into the bank.",
+   "narrative": "The R1 illustration of ADR 0005 sec. 5 and the proposal's sec. 4. Own keeps to the starboard side of a narrow channel per Rule 9(a); a vessel cuts the bend and is head-on at 800 m. Rule 14(a) requires each to alter to starboard, and the bank is 100 m to starboard of own. Every compliant plan grounds or collides; a port alteration passes starboard-to-starboard and breaches 14(a). The value of the case here is not the region finding, which belongs to colregs-engine -- it is that the situation record can carry it at all. Binding now: `pair:env:narrow_channel` is the fact the recorded gap asked for and 14b is the classification. Neither 9(b) nor 9(c) applies from own's side -- she is 24 m and power-driven -- so the narrow channel changes no entry here and is stated because it is true, not to select one. Recast on a steady bearing when the consistency check landed (Q-48): the other now bears 357 relative, three degrees on own's port bow, and has own 3.6 degrees on her own starboard bow, which at 12 and 10 knots is a collision course. The 3/8 starboard-to-starboard pair the case opened with passed at 74 m with the bearing changing four and a half degrees a minute, and no positive speeds make it steady -- two vessels each with the other to starboard are never on a collision course. The dilemma is unchanged: a starboard alteration is into the bank.",
    "expect": [
     "4",
     "11",
     "7d1",
     "8f3",
-    "14a"
+    "14b"
    ],
    "situation": {
     "own": {
@@ -2466,7 +2466,7 @@
   {
    "name": "13(b) edge: own bears exactly 247.5 from the other, the mirror of the same edge",
    "status": "binding",
-   "narrative": "The port-quarter edge, 112.5 degrees the other way round. Not overtaking, so a crossing; and the other bears 010 relative from own, on her starboard bow, so own is the give-way vessel. Own is inside the head-on cone and the other is not, which is why 14a does not apply: 14(b) is a statement about both aspects, and the `any_of` that negates it needs only one of them outside.",
+   "narrative": "The port-quarter edge, 112.5 degrees the other way round. Not overtaking, so a crossing; and the other bears 010 relative from own, on her starboard bow, so own is the give-way vessel. Own is inside the head-on cone and the other is not, which is why 14b does not apply: 14(b) is a statement about both aspects, and the `any_of` that negates it needs only one of them outside.",
    "expect": [
     "4",
     "11",
@@ -2678,7 +2678,7 @@
     "11",
     "7d1",
     "8f3",
-    "14a"
+    "14b"
    ],
    "situation": {
     "own": {
@@ -2740,7 +2740,7 @@
   {
    "name": "14 edge: one twentieth of a degree wider, and the same situation is a crossing",
    "status": "binding",
-   "narrative": "Own's bearing of the other moves from 11.25 to 11.3 and nothing else changes. The head-on cone no longer holds on both subjects, so 14a is gone and 15a-crossing takes it -- the residual, with no bearing left unclassified between the two fixtures. Own has the other on her starboard side, so she is give-way.",
+   "narrative": "Own's bearing of the other moves from 11.25 to 11.3 and nothing else changes. The head-on cone no longer holds on both subjects, so 14b is gone and 15a-crossing takes it -- the residual, with no bearing left unclassified between the two fixtures. Own has the other on her starboard side, so she is give-way.",
    "expect": [
     "4",
     "11",
