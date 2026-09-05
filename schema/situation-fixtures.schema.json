@@ -1,0 +1,299 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/situation-fixtures.schema.json",
+  "title": "fixtures/situation-fixtures.json",
+  "description": "Two-subject situation fixtures (ADR 0005, REQ-CAT-5). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md. Namespace resolution (every kin:/geo:/hist: key declared in facts.json) stays in the tests.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "jurisdiction",
+    "case_status",
+    "cases"
+  ],
+  "$defs": {
+    "entryId": {
+      "type": "string",
+      "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)?$"
+    },
+    "modality": {
+      "type": "string",
+      "enum": [
+        "shall",
+        "may",
+        "shall-if-practicable",
+        "conditional",
+        "exempt"
+      ]
+    },
+    "expectItem": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/entryId"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "entry",
+            "modality"
+          ],
+          "properties": {
+            "entry": {
+              "$ref": "#/$defs/entryId"
+            },
+            "modality": {
+              "$ref": "#/$defs/modality"
+            }
+          }
+        }
+      ]
+    },
+    "scalar": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-z_]+:[a-z0-9_]+$"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "latitude",
+            "longitude"
+          ],
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            }
+          }
+        }
+      ]
+    },
+    "factRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^fact:[a-z0-9_]+$": {
+          "$ref": "#/$defs/scalar"
+        }
+      }
+    },
+    "kinRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^kin:[a-z0-9_]+$": {
+          "$ref": "#/$defs/scalar"
+        }
+      }
+    },
+    "geoRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^geo:[a-z0-9_]+$": {
+          "$ref": "#/$defs/scalar"
+        }
+      }
+    },
+    "histRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^hist:[a-z0-9_]+$": {
+          "$ref": "#/$defs/scalar"
+        }
+      }
+    },
+    "vessel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact"
+      ],
+      "properties": {
+        "fact": {
+          "$ref": "#/$defs/factRecord"
+        },
+        "kin": {
+          "$ref": "#/$defs/kinRecord"
+        },
+        "geo": {
+          "$ref": "#/$defs/geoRecord"
+        },
+        "hist": {
+          "$ref": "#/$defs/histRecord"
+        }
+      }
+    }
+  },
+  "properties": {
+    "note": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string",
+      "const": "situation/1"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ink",
+        "pencil",
+        "open"
+      ]
+    },
+    "adr": {
+      "type": "string",
+      "pattern": "^[0-9]{4}$"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^REQ-[A-Z]+-[0-9]+$"
+      }
+    },
+    "jurisdiction": {
+      "type": "string",
+      "pattern": "^[a-z]+(/[a-z]+)*$"
+    },
+    "expect_form": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "bare": {
+          "$ref": "#/$defs/entryId"
+        },
+        "with_modality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "entry",
+            "modality"
+          ],
+          "properties": {
+            "entry": {
+              "$ref": "#/$defs/entryId"
+            },
+            "modality": {
+              "$ref": "#/$defs/modality"
+            }
+          }
+        }
+      }
+    },
+    "case_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "values"
+      ],
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "illustrative",
+              "binding"
+            ]
+          }
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "status",
+          "expect",
+          "situation"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "illustrative",
+              "binding"
+            ]
+          },
+          "narrative": {
+            "type": "string"
+          },
+          "gap": {
+            "type": "string"
+          },
+          "expect_when_modelled": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expect": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expectItem"
+            }
+          },
+          "situation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "own"
+            ],
+            "properties": {
+              "own": {
+                "$ref": "#/$defs/vessel"
+              },
+              "other": {
+                "$ref": "#/$defs/vessel"
+              },
+              "pair": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "geo": {
+                    "$ref": "#/$defs/geoRecord"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

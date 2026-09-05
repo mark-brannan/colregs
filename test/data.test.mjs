@@ -2,6 +2,8 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
+import Ajv2020 from 'ajv/dist/2020.js'
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
 const rules = load('data/rules.json')
@@ -17,29 +19,59 @@ const byId = new Map(appl.entries.map((e) => [e.id, e]))
 // --- reference evaluator -------------------------------------------------
 // An entry applies when every constraint in its `when` is satisfied by the
 // fact record. A fact that is absent never satisfies a constraint.
+// One constraint. `k` is the fact key with any subject segment already
+// stripped, so the two-subject evaluator below shares these semantics exactly
+// rather than reimplementing them.
+function satisfies(k, want, have) {
+  if (have === undefined) return false
+  // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
+  // written for ram read it too.
+  if (k === 'fact:activity' && want === 'activity:ram' && have === 'activity:ram_underwater') return true
+  if (Array.isArray(want)) return want.includes(have)
+  if (want !== null && typeof want === 'object') {
+    if ('gte' in want && !(have >= want.gte)) return false
+    if ('gt' in want && !(have > want.gt)) return false
+    if ('lte' in want && !(have <= want.lte)) return false
+    if ('lt' in want && !(have < want.lt)) return false
+    return true
+  }
+  return have === want
+}
 function matches(when, f) {
-  return Object.entries(when).every(([k, want]) => {
-    let have = f[k]
-    if (have === undefined) return false
-    // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
-    // written for ram read it too.
-    if (k === 'fact:activity' && want === 'activity:ram' && have === 'activity:ram_underwater') return true
-    if (Array.isArray(want)) return want.includes(have)
-    if (want !== null && typeof want === 'object') {
-      if ('gte' in want && !(have >= want.gte)) return false
-      if ('gt' in want && !(have > want.gt)) return false
-      if ('lte' in want && !(have <= want.lte)) return false
-      if ('lt' in want && !(have < want.lt)) return false
-      return true
-    }
-    return have === want
-  })
+  return Object.entries(when).every(([k, want]) => satisfies(k, want, f[k]))
 }
 const applying = (f) => appl.entries.filter((e) => matches(e.when, f)).map((e) => e.id)
 
 test('fixtures: every fact record selects exactly the expected entries', () => {
   for (const c of fixtures.cases) {
     assert.deepEqual(applying(c.facts).sort(), [...c.expect].sort(), c.name)
+  }
+})
+
+// --- schema (ADR 0006) ------------------------------------------------------
+// Structure only: required keys, types, additionalProperties:false, id
+// patterns, the closed modality/relation enums, and the shape of a predicate
+// or a light reference. Cross-file references (cite -> rules.json, light id
+// -> lights.json, etc.) are NOT the schema's job; they stay in the tests
+// above and below. See docs/adr/0006-json-schema-and-identifier-diff.md.
+const loadSchema = (p) => JSON.parse(readFileSync(new URL(`../schema/${p}`, import.meta.url)))
+const schemaTargets = [
+  ['data/rules.json', rules, loadSchema('rules.schema.json')],
+  ['data/lights.json', lights, loadSchema('lights.schema.json')],
+  ['data/facts.json', facts, loadSchema('facts.schema.json')],
+  ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
+  ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
+  ['data/images.json', images, loadSchema('images.schema.json')],
+  ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
+  ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
+]
+
+test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
+  const ajv = new Ajv2020({ allErrors: true, strict: true })
+  for (const [file, data, schema] of schemaTargets) {
+    const validate = ajv.compile(schema)
+    const ok = validate(data)
+    assert.ok(ok, `${file} fails ${schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
   }
 })
 
@@ -337,6 +369,77 @@ test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1
     'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
 })
 
+// --- identifier diff against the last release (ADR 0006, REQ-PKG-4) --------
+// Version discipline comes from an identifier diff, not the schema: a schema
+// diff would miss nearly every real break (REQ-PKG-4 defines a breaking
+// change as removal of an entry id, a fact vocabulary value, or a change in
+// relation semantics -- all data changes the schema doesn't see). This test
+// extracts every published identifier from the last release tag and compares
+// it with HEAD; any removal not accompanied by a deprecation marker fails.
+// No registry exists yet for deprecation markers (REQ-MODEL-11 is
+// unimplemented), so today every removal fails outright -- that is the
+// correct, conservative behavior until the registry lands.
+function extractIdentifiers({ rules, lights, facts, appl }) {
+  const ids = new Set()
+  // Keys in lights.json already carry their `light:` prefix (docs/identifiers.md).
+  for (const id of Object.keys(lights.lights ?? {})) ids.add(id)
+  for (const path of Object.keys(rules.paragraphs ?? {})) ids.add(`paragraph:${path}`)
+  for (const e of appl.entries ?? []) ids.add(`entry:${e.id}`)
+  for (const k of Object.keys(appl.relations ?? {})) ids.add(`rel:${k}`)
+  const factGroups = [facts.axes, facts.modifiers, facts.numerics, facts.booleans, facts.enums]
+  for (const group of factGroups) {
+    for (const [k, v] of Object.entries(group ?? {})) {
+      ids.add(`fact-key:${k}`)
+      for (const val of v.values ?? []) ids.add(`fact-value:${val}`)
+    }
+  }
+  // facts.situation (kin:/geo:/hist:) is pencil (docs/conventions.md): ADR 0005
+  // allows it to break in v0.x, so it is deliberately not diffed until inked.
+  return ids
+}
+
+function latestReleaseTag() {
+  let out
+  try {
+    out = execFileSync('git', ['tag', '--list', 'v*.*.*'], { encoding: 'utf8' })
+  } catch (err) {
+    assert.fail(`identifier diff: could not list git tags (${err.message}); a missing baseline must fail loudly, not skip`)
+  }
+  const tags = out.split('\n').map((s) => s.trim()).filter(Boolean)
+  assert.ok(tags.length > 0,
+    'identifier diff: no release tag (v*.*.*) found. In CI, fetch tags first (`git fetch --tags`); ' +
+    'locally, this needs at least one release tag present. Refusing to skip.')
+  const parts = (t) => t.slice(1).split('.').map(Number)
+  tags.sort((a, b) => {
+    const pa = parts(a), pb = parts(b)
+    for (let i = 0; i < 3; i++) if (pa[i] !== pb[i]) return pa[i] - pb[i]
+    return 0
+  })
+  return tags[tags.length - 1]
+}
+
+function loadAtTag(tag, path) {
+  const text = execFileSync('git', ['show', `${tag}:${path}`], { encoding: 'utf8' })
+  return JSON.parse(text)
+}
+
+test('identifier diff: no identifier published in the last release is silently removed', () => {
+  const tag = latestReleaseTag()
+  const before = extractIdentifiers({
+    rules: loadAtTag(tag, 'data/rules.json'),
+    lights: loadAtTag(tag, 'data/lights.json'),
+    facts: loadAtTag(tag, 'data/facts.json'),
+    appl: loadAtTag(tag, 'data/applicability.json'),
+  })
+  const after = extractIdentifiers({ rules, lights, facts, appl })
+  const deprecatedPath = 'docs/deprecated-identifiers.json'
+  const deprecated = fileExists(deprecatedPath) ? new Set(Object.keys(load(deprecatedPath))) : new Set()
+  const removed = [...before].filter((id) => !after.has(id) && !deprecated.has(id))
+  assert.deepEqual(removed, [],
+    `identifier(s) removed since ${tag} with no deprecation marker (REQ-MODEL-10/REQ-PKG-4): ${removed.join(', ')}. ` +
+    'Add the identifier back, or deprecate it in docs/deprecated-identifiers.json before removing it.')
+})
+
 test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares', () => {
   // Finding-1 recurrence guard: the requirement enumerates the three axes'
   // values, so it drifts silently every time an axis gains or renames one.
@@ -356,4 +459,177 @@ test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares',
     if (!prefixes.has(m[1].split(':')[0])) continue
     assert.ok(declared.has(m[1]), `REQ-MODEL-3 names undeclared axis value ${m[1]}`)
   }
+})
+
+// --- two-subject evaluator (ADR 0005, REQ-CAT-4/5) -------------------------
+// A situation predicate addresses a fact as `<subject>:<class>:<key>` --
+// `own:fact:activity`, `other:geo:rel_bearing_deg`, `pair:geo:in_sight` --
+// and a key with no subject segment means `own:`, which is what keeps every
+// one-subject entry and every published fixture valid unedited. The namespace
+// is docs/identifiers.md, section 'Two subjects'; the fact classes it names
+// are declared in facts.json's `situation` section.
+const situationFixtures = load('fixtures/situation-fixtures.json')
+const sit = facts.situation
+const SUBJECTS = new Set(Object.keys(sit.namespace.subjects))
+const CLASSES = new Set(Object.keys(sit.namespace.classes))
+// `pair` carries only what is symmetric between the two vessels.
+const PAIR_CLASSES = new Set(['geo'])
+
+function parseKey(key) {
+  const seg = key.split(':')
+  const subject = SUBJECTS.has(seg[0]) ? seg.shift() : 'own'
+  return { subject, cls: seg[0], local: seg.join(':') }
+}
+
+// Absent is absent: an unresolvable key yields undefined, and `satisfies`
+// fails it, exactly as a missing fact does in the one-subject evaluator.
+function resolve(key, situation) {
+  const { subject, cls, local } = parseKey(key)
+  return situation?.[subject]?.[cls]?.[local]
+}
+
+function matchesSituation(when, situation) {
+  return Object.entries(when).every(([k, want]) =>
+    satisfies(parseKey(k).local, want, resolve(k, situation)))
+}
+
+// The fact classes the situation section declares, per class, as bare keys.
+const situationDeclared = {
+  fact: new Set([
+    ...Object.keys(facts.axes), ...Object.keys(facts.modifiers),
+    ...Object.keys(facts.numerics), ...Object.keys(facts.booleans),
+    ...Object.keys(facts.enums),
+  ]),
+  kin: new Set(Object.keys(sit.kinematics).filter((k) => k.startsWith('kin:'))),
+  // Directional geometry is stated per vessel subject, symmetric geometry
+  // once under `pair`; the two sets are kept apart so a key placed under the
+  // wrong subject fails rather than passing on class membership alone.
+  geo: {
+    own: new Set(Object.keys(sit.geometry.directional)),
+    other: new Set(Object.keys(sit.geometry.directional)),
+    pair: new Set(Object.keys(sit.geometry.symmetric)),
+  },
+  hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
+}
+
+test('REQ-CAT-4: the situation section declares the classes the namespace names', () => {
+  assert.deepEqual([...SUBJECTS].sort(), ['other', 'own', 'pair'])
+  assert.deepEqual([...CLASSES].sort(), ['fact', 'geo', 'hist', 'kin'])
+  // The fact record is reachable unchanged: `own:fact:*` must resolve to the
+  // very keys facts.json already declares, not to a renamed copy of them.
+  for (const k of situationDeclared.fact) {
+    assert.equal(parseKey(`own:${k}`).local, k, `${k} does not survive the subject prefix`)
+  }
+  // Every new fact carries the numeric-fact shape the rest of the file uses.
+  const shaped = [
+    ...Object.entries(sit.kinematics).filter(([k]) => k.startsWith('kin:')),
+    ...Object.entries(sit.geometry.directional),
+    ...Object.entries(sit.geometry.symmetric),
+    ...Object.entries(sit.history).filter(([k]) => k.startsWith('hist:')),
+  ]
+  assert.ok(shaped.length > 0)
+  for (const [k, rec] of shaped) {
+    assert.ok('type' in rec, `${k}: no type`)
+    assert.ok('cite' in rec, `${k}: no cite`)
+    assert.ok(typeof rec.actuable === 'boolean', `${k}: no actuable`)
+    assert.ok('signalk' in rec, `${k}: no signalk`)
+    // Rules 1-19 are not transcribed, so `cite_pending` names the paragraph a
+    // null cite is waiting on -- or is explicitly null where no paragraph will
+    // ever justify it (kin:dynamics is not a COLREGS concept). Silence is the
+    // one thing it may not be: an absent key is an unanswered question.
+    if (rec.cite === null) assert.ok('cite_pending' in rec, `${k}: null cite with no cite_pending`)
+    else assert.ok(rules.paragraphs[rec.cite], `${k}: cite ${rec.cite} not in rules.json`)
+    if (rec.type === 'enum') {
+      const prefix = k.split(':').pop()
+      for (const v of rec.values) {
+        assert.equal(v.split(':')[0], prefix, `${k}: value ${v} is not in its own fact's namespace`)
+      }
+    }
+  }
+})
+
+test('REQ-CAT-4: an existing one-subject predicate is a valid situation predicate unedited', () => {
+  // The backward-compatibility claim of docs/identifiers.md, asserted rather
+  // than described: a bare key means `own:`, so every published fixture is a
+  // one-subject situation and every entry still selects exactly the same ids.
+  for (const c of fixtures.cases) {
+    const asSituation = { own: { fact: c.facts } }
+    const viaSituation = appl.entries.filter((e) => matchesSituation(e.when, asSituation)).map((e) => e.id)
+    assert.deepEqual(viaSituation.sort(), applying(c.facts).sort(), c.name)
+  }
+})
+
+test('REQ-CAT-5: situation fixtures are well-formed and resolve in the namespace', () => {
+  assert.equal(situationFixtures.schema, 'situation/1')
+  const names = new Set()
+  for (const c of situationFixtures.cases) {
+    assert.ok(c.name && !names.has(c.name), `duplicate or missing case name: ${c.name}`)
+    names.add(c.name)
+    assert.ok(situationFixtures.case_status.values.includes(c.status), `${c.name}: bad status`)
+    for (const [subject, classes] of Object.entries(c.situation)) {
+      assert.ok(SUBJECTS.has(subject), `${c.name}: unknown subject ${subject}`)
+      for (const [cls, record] of Object.entries(classes)) {
+        assert.ok(CLASSES.has(cls), `${c.name}: unknown class ${cls}`)
+        if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${c.name}: pair:${cls} is not symmetric`)
+        for (const k of Object.keys(record)) {
+          const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls]
+          assert.ok(declared.has(k), `${c.name}: undeclared ${cls} fact ${k} under ${subject}`)
+          // Round-trip: the fully-qualified key must resolve back to the value.
+          assert.equal(resolve(`${subject}:${k}`, c.situation), record[k], `${c.name}: ${subject}:${k} does not resolve`)
+        }
+      }
+    }
+    // Nothing in Part B is modelled, so an illustrative case asserts no
+    // entries. A binding one joins the replay and every id it names must exist.
+    if (c.status === 'illustrative') assert.deepEqual(c.expect, [], `${c.name}: illustrative cases assert nothing yet`)
+    for (const x of c.expect) {
+      const id = typeof x === 'string' ? x : x.entry
+      assert.ok(byId.has(id), `${c.name}: unknown entry ${id}`)
+      // Q-5: the optional per-entry modality. A bare id asserts nothing.
+      if (typeof x !== 'string') assert.ok(x.modality in appl.modalities, `${c.name}: unknown modality ${x.modality}`)
+    }
+  }
+  assert.ok(situationFixtures.cases.length >= 2)
+  // Q-5's extension, asserted through the schema's own worked example, since
+  // no case uses the object form yet: an `expect` element is a bare entry id
+  // or {entry, modality}, and both must resolve.
+  const ex = situationFixtures.expect_form
+  assert.ok(byId.has(ex.bare))
+  assert.ok(byId.has(ex.with_modality.entry))
+  assert.ok(ex.with_modality.modality in appl.modalities)
+})
+
+test('REQ-CAT-4: subject and class resolution is exact, and aspect is a subject swap', () => {
+  const c = situationFixtures.cases.find((x) => x.name.startsWith('crossing:'))
+  assert.ok(c, 'the crossing fixture is the one this asserts against')
+  // The same key under the two subjects reads two different vessels: relative
+  // bearing under `own`, aspect under `other`. That is the whole point of the
+  // namespace, so it gets an assertion rather than a paragraph.
+  assert.equal(resolve('own:geo:rel_bearing_deg', c.situation), 40)
+  assert.equal(resolve('other:geo:rel_bearing_deg', c.situation), 280)
+  assert.notEqual(
+    resolve('own:geo:rel_bearing_deg', c.situation),
+    resolve('other:geo:rel_bearing_deg', c.situation))
+  // A bare key is `own:`, and a pair fact is reachable from neither vessel.
+  assert.equal(resolve('fact:length_m', c.situation), resolve('own:fact:length_m', c.situation))
+  assert.equal(resolve('pair:geo:in_sight', c.situation), true)
+  assert.equal(resolve('own:geo:in_sight', c.situation), undefined)
+  // Absent is absent, and an absent fact never satisfies a constraint.
+  assert.equal(matchesSituation({ 'own:geo:in_sight': true }, c.situation), false)
+  assert.equal(matchesSituation({ 'pair:geo:in_sight': true }, c.situation), true)
+  // A two-subject predicate reads both vessels at once.
+  assert.equal(matchesSituation({
+    'own:fact:propulsion': 'propulsion:power',
+    'other:fact:propulsion': 'propulsion:power',
+    'pair:geo:in_sight': true,
+    'own:geo:rel_bearing_deg': { gt: 0, lt: 112.5 },
+  }, c.situation), true, 'other on own\'s starboard bow')
+  // Rule 13(b)'s overtaking sector, written once in the rule's own units.
+  const overtaking = { 'other:geo:rel_bearing_deg': { gt: 112.5, lt: 247.5 } }
+  assert.equal(matchesSituation(overtaking, c.situation), false)
+  const latched = situationFixtures.cases.find((x) => x.name.startsWith('13(d)'))
+  assert.equal(matchesSituation(overtaking, latched.situation), false,
+    'the bearing has drawn out past the sector, which is why 13(d) exists')
+  assert.equal(matchesSituation({ 'own:hist:was_overtaking': true }, latched.situation), true)
+  assert.equal(matchesSituation({ 'other:hist:was_overtaking': true }, latched.situation), false)
 })

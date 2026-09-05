@@ -100,9 +100,15 @@ the rest without redesign.
   representable by the same entry model. Where they are not — signals are
   event-triggered rather than state-derived — the divergence MUST be recorded
   as an ADR before any Part D data is written.
-- **REQ-PART-4** — Steering and sailing rules (Part B) are OUT of v1 scope and
+- **REQ-PART-4** — ~~Steering and sailing rules (Part B) are OUT of v1 scope and
   MAY never be modelled; they govern conduct between two vessels, not the
-  appearance of one, and the fact record is single-vessel by construction.
+  appearance of one, and the fact record is single-vessel by construction.~~
+  **Superseded by ADR 0005** (2026-09-04), and kept here rather than deleted
+  per the preamble's ID-stability rule. Part B remains out of v1 scope —
+  REQ-PART-1 still orders Part C first, and no Part B data lands with the
+  ADR — but "MAY never be modelled" does not survive: the obstacle it named,
+  a single-vessel fact record, is met by the situation record of REQ-CAT-4
+  without changing that record. Replaced by REQ-CAT-1..5 (§4.1).
 
 ---
 
@@ -244,6 +250,73 @@ Four layers, each independently addressable.
   replacement where one exists. Prose in a changelog MUST NOT stand in for it:
   a consumer pinned to an old version needs to resolve a stale identifier
   mechanically.
+
+### 4.1 Rule categories and the situation record
+
+ADR 0005. Everything in this subsection is **pencil** (`docs/conventions.md`):
+any session may change it for a better idea, logging the change. It is
+recorded as a requirement because it is what the package has decided to build
+towards, not because the shape is settled.
+
+- **REQ-CAT-1** **(unimplemented — no rule record carries a category)** —
+  Every rule paragraph record MUST carry exactly one `category` from the
+  closed set `scope`, `definition`, `standard`, `display`,
+  `classification`, `precedence`, `conduct`, `care`, `meta`. The field
+  defaults to `display`, so existing entries are correct unedited. CI MUST
+  fail on a value outside the set. Where a paragraph plays a second role,
+  that role MUST be expressed as a relation (REQ-CAT-3), never as a second
+  category.
+- **REQ-CAT-2** **(unimplemented — no registry file exists)** — `care` and
+  `meta` paragraphs (Rules 2(a) and 2(b)) MUST NOT be applicability entries.
+  They MUST be recorded in a registry sibling to `known_omissions`, stating
+  that the package represents them and evaluates neither. CI MUST fail on a
+  `care` or `meta` paragraph that appears as an entry.
+- **REQ-CAT-3** **(unimplemented — the vocabularies are not widened yet)** —
+  The modality vocabulary MUST admit `shall-not` and `shall-not-impede`
+  alongside `shall`, `may`, `shall-if-practicable`, `conditional` and
+  `exempt`, and the relation vocabulary MUST admit `rel:overrides` as a
+  sixth verb beside REQ-MODEL-7's five. Both remain closed sets; CI MUST
+  fail on a value outside them, and on a cycle in `rel:overrides`.
+- **REQ-CAT-4** — A two-subject rule MUST read a **situation record**:
+  two per-vessel fact records, a kinematic state per vessel, relative
+  geometry, and history. The per-vessel fact record MUST NOT change to accommodate it, and kinematic
+  state MUST be a distinct fact class — a consumer that reads only `display`
+  entries MUST NOT be required to supply one. Adding the situation record
+  MUST leave every existing fixture valid unedited.
+- **REQ-CAT-5** — A situation MUST NOT be expressible in the current
+  single-vessel fixture format. Before any two-subject entry lands, the fixture schema MUST be
+  extended to carry a situation and to name each subject unambiguously, and
+  the extension MUST be backward-compatible with the fixtures published
+  today (REQ-VERIFY-1).
+- **REQ-CAT-6** — The situation record MUST be declared in
+  `data/facts.json` under `situation`, and MUST address each vessel's facts
+  through the subject namespace of `docs/identifiers.md`:
+  `<subject>:<class>:<key>`, subject from `own`/`other`/`pair`, class from
+  `fact`/`kin`/`geo`/`hist`. A key with no subject segment MUST mean `own:`,
+  so that every predicate and fixture published today is a valid situation
+  predicate unedited. `own:fact:*` and `other:fact:*` MUST resolve to the
+  per-vessel fact record key for key, with no key renamed or copied.
+  `pair` MUST carry only classes whose facts are symmetric between the two
+  vessels. Every fact in the `kin`, `geo` and `hist` classes MUST carry
+  `type`, `cite`, `actuable` and `signalk` like the existing scalars, and a
+  `null` `cite` MUST carry `cite_pending` naming the paragraph it awaits, or
+  an explicit `null` where no paragraph will ever justify it. CI MUST fail
+  on a subject or class outside the declared sets, on a `pair` class that is
+  not symmetric, and on a fact record key that does not survive the subject
+  prefix.
+- **REQ-CAT-7** — Situation fixtures MUST live in a file separate from
+  `fixtures/applicability-fixtures.json`, which MUST remain byte-identical
+  (REQ-VERIFY-1). Each case MUST carry a `situation` whose every key
+  resolves in the namespace of REQ-CAT-6 to a fact declared in
+  `data/facts.json`, and a `status` from a closed set. An element of
+  `expect` MUST be either a bare entry id — the published one-subject form,
+  asserting nothing about modality — or `{entry, modality}` naming the
+  modality that entry is expected to carry, which is what Q-5 needs. A case
+  whose `status` is `illustrative` MUST assert no entries and MUST NOT join
+  the fixture replay; it fixes the shape and the namespace before the
+  entries exist. CI MUST fail on an undeclared fact, an unresolvable key, an
+  unknown entry id, an unknown modality, and on an `illustrative` case that
+  names an entry.
 
 ---
 
@@ -609,6 +682,16 @@ Tracked here until resolved; each becomes an ADR.
   extending the schema to carry expected modality per entry. Not done
   speculatively; blocks a clean REQ-VERIFY-5 pass on these three gates until
   decided.
+  **Decided in pencil 2026-09-04** (PR #22), as part of the situation
+  fixture schema: an element of `expect` is either a bare entry id, exactly as
+  today, or `{entry, modality}`. The two forms are interchangeable and a bare
+  id asserts nothing, so `applicability-fixtures.json` stays byte-identical
+  and needs no migration; REQ-CAT-7 states the rule and
+  `fixtures/situation-fixtures.json` carries the worked example. What is left
+  is not a decision but the work: writing the boundary fixtures for `23a2`,
+  `26b-mast` and `30c` in the new form. Pencil, so a session that finds a
+  better shape may change it, logging the change; settled for good by those
+  three fixtures actually landing.
 - **Q-6** — The treaty-language facts behind §5 (en/fr authentic, es/ru
   deposited translations, ar/zh via IMO official languages) are recalled, not
   verified. Verify against the Convention's final clauses and IMO's current
@@ -720,3 +803,83 @@ Tracked here until resolved; each becomes an ADR.
   than here: four transcription defects in `data/rules.json` itself
   (`21(a)`, `21(b)`, `23(b)`, `29(b)`) — a data fix, not a design
   question.
+
+### From ADR 0005 (pencilled items)
+
+Every item ADR 0005 records is pencil (`docs/conventions.md`), and each
+pencilled item in the proposal behind it names what would settle it. They are
+listed here, one line each, because the ADR is what makes them live. Most are
+`colregs-engine`'s to settle rather than this package's; they are marked
+*(engine)* where so, and this package's own are the ones that gate data.
+
+- **Q-13** — Is `category` the right word for the field (against kind, type,
+  flavour, charge)? Settled by Mark, before REQ-CAT-1's field name ships.
+- **Q-14** — Which category does each paragraph take? The proposal's table is
+  a first cut; settled paragraph by paragraph as Rules 1–19 are transcribed.
+- **Q-15** — Which verification tool discharges each category (Alloy, Z3, TLA+,
+  STL, Rocq)? Settled by building one proof per category, not by argument.
+  *(engine)*
+- **Q-16** — Are the invariant levels right as hard / safe / rule-level, and
+  are procedural and physical levels needed? Settled by the first level-3
+  invariant that does not fit. *(engine)*
+- **Q-17** — What separation distance *d* defines the "safe" level? Fixed to
+  one value to start; settled by the sensitivity matrix of Q-22. *(engine)*
+- **Q-18** — What is the dynamics model, and what is the list of dynamics
+  classes (tanker, ferry, yacht, …)? Settled by the first two-vessel
+  computation; the class list is a data question once it stabilises.
+  A first-cut class list now exists in data as `kin:dynamics`
+  (PR #22) so the situation record has something to carry; it is
+  pencil and the question is unchanged. `dynamics:unknown` stays in the set
+  whatever the list becomes.
+- **Q-19** — What are the game's parameters — horizon *T*, terminal condition,
+  action cadence Δt, the admissible set *A*, the information assumption?
+  Settled by the sensitivity matrix, which is owed before the ontology moves
+  out of pencil. *(engine)*
+- **Q-20** — Is the adversary rule-compliant, arbitrary within physics, or
+  both, and does the horizon hide the region behind it? Settled by computing
+  both and comparing. *(engine)*
+- **Q-21** — Can the hybrid, partial-information game be encoded soundly in
+  UPPAAL TIGA/STRATEGO or KeYmaera X at all? Settled by a benchmark with
+  certified bounds, not by reading the tools' documentation. *(engine)*
+- **Q-22** — Is the region computed offline per dynamics-class pair, or does
+  it have to be computed at runtime? Settled by the first two-vessel
+  computation's cost. *(engine)*
+- **Q-23** — Is Rule 2(b) a duty where departure is necessary, and does the
+  departing vessel bear the burden? Settled by reading the cases (*The Bywell
+  Castle*, *Boy Andrew v St Rognvald*, both unverified), not by advocacy.
+- **Q-24** — Are the four worked illustrations (R0, R1, R2,
+  `inconclusive-in-model`) actually in the regions they are said to be in?
+  They fix meanings, not numbers; settled by computing them. *(engine)*
+- **Q-25** — Is the tractability tiering (findable under duress / with time /
+  likely missed) a real axis, and do its proxies measure it? Settled by
+  bridge-simulator or human-reliability evidence, not by the model. *(engine)*
+- **Q-26** — How large is the relative-frame state space? The 10⁴–10⁶ figure
+  is a back-of-envelope guess; settled by a worksheet. *(engine)*
+- **Q-27** — What are the field names for `category`, `subjects`, `when`,
+  `effect` and the widened `modality`? Settled when the first non-`display`
+  entry lands, and cheap to change until then.
+  Unchanged by PR #22, which names none of those five. The names it
+  does fix — `situation`, the four classes, the three subjects — are
+  REQ-CAT-6's and are equally pencil.
+- **Q-28** — What namespace distinguishes the two subjects of a two-subject
+  entry (`own:` / `other:` is the working proposal)? No such segment exists in
+  `docs/identifiers.md`; settled before Rule 18 lands, and it is an
+  identifier decision under REQ-MODEL-10.
+  **Decided in pencil 2026-09-04** (PR #22): `<subject>:<class>:<key>`
+  with subject `own`/`other`/`pair` and class `fact`/`kin`/`geo`/`hist`, and a
+  bare key meaning `own:`. Written up in `docs/identifiers.md` §"Two
+  subjects", required by REQ-CAT-6, and exercised by
+  `fixtures/situation-fixtures.json`. Three things the working proposal did
+  not have: a third subject, because range and in-sight belong to the
+  encounter and not to either vessel; a class segment, so kinematics and
+  history are new classes rather than new fact keys; and the bare-key default,
+  which is what makes the whole thing additive under REQ-MODEL-10 — no
+  existing identifier is renamed or repointed, and `own`/`other`/`pair` become
+  reserved at the head of the identifier space, which is the only cost.
+  Settled for good by Rule 18 being written against it.
+- **Q-29** — What are the file names and schemas for the invariants file and
+  the region grid, and how does a level-3 invariant carry `jurisdiction`?
+  Settled when the first invariant is written down.
+- **Q-30** — What does the `care`/`meta` registry look like as a file — its
+  name, its schema, and its relationship to `known_omissions`? Settled by
+  REQ-CAT-2's implementation, which is the next data change after this ADR.
