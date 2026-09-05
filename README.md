@@ -125,6 +125,15 @@ Modality is `shall`, `may`, `shall-if-practicable`, `shall-not`,
 `shall-not-impede`, or `conditional` with a `modality_by` table when it turns
 on a fact (23(a)(ii) is `shall` at 50 m and above, `may` below).
 
+Most entries read one vessel and produce lights. A few read **two** — a
+situation, not a fact record — and produce an `effect` instead: Rules 4, 11
+and 19(a) say which section of Part B governs, and Rule 18 says which vessel
+gives way. Those carry `category` and `subjects: 2`, and address each vessel
+through a subject segment: `own:fact:activity`, `other:fact:propulsion`,
+`pair:geo:in_sight`. A key with no subject means `own:`, so nothing above
+changes. `docs/identifiers.md` has the namespace and the effect vocabulary;
+`fixtures/situation-fixtures.json` is their contract.
+
 ## What this package does not do
 
 It does not infer anything. It is a pure function of the fact record. Deciding

@@ -249,6 +249,1973 @@
      }
     }
    }
+  },
+  {
+   "name": "18 matrix: own power-driven, other power-driven, in sight",
+   "status": "binding",
+   "narrative": "Own is power-driven; the other vessel is power-driven. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own power-driven, other sailing, in sight",
+   "status": "binding",
+   "narrative": "Own is power-driven; the other vessel is sailing. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a4",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own power-driven, other fishing (power), in sight",
+   "status": "binding",
+   "narrative": "Own is power-driven; the other vessel is fishing (power). Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a3",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own power-driven, other not under command, in sight",
+   "status": "binding",
+   "narrative": "Own is power-driven; the other vessel is not under command. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a1",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own power-driven, other restricted in her ability to manoeuvre, in sight",
+   "status": "binding",
+   "narrative": "Own is power-driven; the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a2",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own power-driven, other constrained by her draught, in sight",
+   "status": "binding",
+   "narrative": "Own is power-driven; the other vessel is constrained by her draught. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    {
+     "entry": "18d1",
+     "modality": "shall-not-impede"
+    },
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own sailing, other power-driven, in sight",
+   "status": "binding",
+   "narrative": "Own is sailing; the other vessel is power-driven. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own sailing, other sailing, in sight",
+   "status": "binding",
+   "narrative": "Own is sailing; the other vessel is sailing. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own sailing, other fishing (power), in sight",
+   "status": "binding",
+   "narrative": "Own is sailing; the other vessel is fishing (power). Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18b3",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own sailing, other not under command, in sight",
+   "status": "binding",
+   "narrative": "Own is sailing; the other vessel is not under command. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18b1",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own sailing, other restricted in her ability to manoeuvre, in sight",
+   "status": "binding",
+   "narrative": "Own is sailing; the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18b2",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own sailing, other constrained by her draught, in sight",
+   "status": "binding",
+   "narrative": "Own is sailing; the other vessel is constrained by her draught. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    {
+     "entry": "18d1",
+     "modality": "shall-not-impede"
+    },
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing (power), other power-driven, in sight",
+   "status": "binding",
+   "narrative": "Own is fishing (power); the other vessel is power-driven. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing (power), other sailing, in sight",
+   "status": "binding",
+   "narrative": "Own is fishing (power); the other vessel is sailing. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing (power), other fishing (power), in sight",
+   "status": "binding",
+   "narrative": "Own is fishing (power); the other vessel is fishing (power). Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing (power), other not under command, in sight",
+   "status": "binding",
+   "narrative": "Own is fishing (power); the other vessel is not under command. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    {
+     "entry": "18c1",
+     "modality": "shall-if-practicable"
+    },
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing (power), other restricted in her ability to manoeuvre, in sight",
+   "status": "binding",
+   "narrative": "Own is fishing (power); the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    {
+     "entry": "18c2",
+     "modality": "shall-if-practicable"
+    },
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing (power), other constrained by her draught, in sight",
+   "status": "binding",
+   "narrative": "Own is fishing (power); the other vessel is constrained by her draught. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    {
+     "entry": "18d1",
+     "modality": "shall-not-impede"
+    },
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own not under command, other power-driven, in sight",
+   "status": "binding",
+   "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own not under command, other sailing, in sight",
+   "status": "binding",
+   "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own not under command, other fishing (power), in sight",
+   "status": "binding",
+   "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own not under command, other not under command, in sight",
+   "status": "binding",
+   "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own not under command, other restricted in her ability to manoeuvre, in sight",
+   "status": "binding",
+   "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own not under command, other constrained by her draught, in sight",
+   "status": "binding",
+   "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own restricted in her ability to manoeuvre, other power-driven, in sight",
+   "status": "binding",
+   "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own restricted in her ability to manoeuvre, other sailing, in sight",
+   "status": "binding",
+   "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own restricted in her ability to manoeuvre, other fishing (power), in sight",
+   "status": "binding",
+   "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own restricted in her ability to manoeuvre, other not under command, in sight",
+   "status": "binding",
+   "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own restricted in her ability to manoeuvre, other restricted in her ability to manoeuvre, in sight",
+   "status": "binding",
+   "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own restricted in her ability to manoeuvre, other constrained by her draught, in sight",
+   "status": "binding",
+   "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own constrained by her draught, other power-driven, in sight",
+   "status": "binding",
+   "narrative": "Own is constrained by her draught; the other vessel is power-driven. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own constrained by her draught, other sailing, in sight",
+   "status": "binding",
+   "narrative": "Own is constrained by her draught; the other vessel is sailing. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a4",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own constrained by her draught, other fishing (power), in sight",
+   "status": "binding",
+   "narrative": "Own is constrained by her draught; the other vessel is fishing (power). Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a3",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own constrained by her draught, other not under command, in sight",
+   "status": "binding",
+   "narrative": "Own is constrained by her draught; the other vessel is not under command. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a1",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own constrained by her draught, other restricted in her ability to manoeuvre, in sight",
+   "status": "binding",
+   "narrative": "Own is constrained by her draught; the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    "18a2",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own constrained by her draught, other constrained by her draught, in sight",
+   "status": "binding",
+   "narrative": "Own is constrained by her draught; the other vessel is constrained by her draught. Both underway and in sight of one another.",
+   "expect": [
+    "11",
+    {
+     "entry": "18d1",
+     "modality": "shall-not-impede"
+    },
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing under sail, other not under command, in sight",
+   "status": "binding",
+   "narrative": "18(c) does not distinguish propulsion: a fishing vessel under sail is ranked by 18(c)(i), not by 18(b)(i), and both would otherwise match. This is the case that makes own's activity list, not her propulsion, the discriminator.",
+   "expect": [
+    "11",
+    {
+     "entry": "18c1",
+     "modality": "shall-if-practicable"
+    },
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 16
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18 matrix: own fishing under sail, other power-driven, in sight",
+   "status": "binding",
+   "narrative": "A fishing vessel under sail against an ordinary power-driven vessel: 18(a)(iii) gives the duty to the other vessel, so own carries none. The mirror of this case is the power-driven row.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 16
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "scope: own power-driven, other not under command, NOT in sight",
+   "status": "binding",
+   "narrative": "The same facts as the in-sight matrix cell, with `pair:geo:in_sight` false. Section II falls away entirely -- 18(a)(i) does not apply -- and Rule 19 takes its place. This is the scope gate, asserted rather than described.",
+   "expect": [
+    "19a",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": false,
+      "fact:length_m": 60
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": false
+     }
+    }
+   }
+  },
+  {
+   "name": "scope: own power-driven, other sailing, NOT in sight",
+   "status": "binding",
+   "narrative": "Section II is gated off; a sailing vessel gets no Rule 18 privilege from a vessel that cannot see her.",
+   "expect": [
+    "19a",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": false
+     }
+    }
+   }
+  },
+  {
+   "name": "scope: own fishing, other restricted in her ability to manoeuvre, NOT in sight",
+   "status": "binding",
+   "narrative": "18(c)(ii) is Section II and falls away with it.",
+   "expect": [
+    "19a",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": false
+     }
+    }
+   }
+  },
+  {
+   "name": "8(f)(iii): risk of collision exists, and Rules 4-10 apply in any visibility",
+   "status": "binding",
+   "narrative": "Not in sight, so Section II is gone, but Rule 4 keeps Rules 4-10 alive and 8(f)(iii) is one of them. It confers no role on either subject, which is its whole content.",
+   "expect": [
+    "19a",
+    "4",
+    "8f3"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:cbd",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 220
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": false,
+      "geo:risk_of_collision": true
+     }
+    }
+   }
+  },
+  {
+   "name": "13(a) overrides 18(a)(iv): own sailing and overtaking a power-driven vessel",
+   "status": "binding",
+   "narrative": "Own is a sailing vessel that came up on a power-driven vessel from abaft her beam, so `own:hist:was_overtaking` is latched. Read from own's side 13(a) makes her give-way. Read from the other vessel's side -- the swapped situation -- 18(a)(iv) would make the power-driven vessel give-way to a sailing vessel, and 13(a)'s rel:overrides is what resolves the pair. The conflict is only visible across the swap, because a two-subject entry is evaluated from own's side alone.",
+   "expect": [
+    "11",
+    "13a",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     },
+     "hist": {
+      "hist:was_overtaking": true,
+      "hist:latched_at_s": 300
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18(f)(i): a WIG craft near the surface keeps clear of a power-driven vessel",
+   "status": "binding",
+   "narrative": "A WIG craft near the surface satisfies 18(a)'s predicate too -- she is a power-driven vessel underway -- and against an ordinary power-driven vessel no 18(a) entry fires, so 18(f)(i) stands alone.",
+   "expect": [
+    "11",
+    "18f1",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30,
+      "fact:wig": true,
+      "fact:wig_near_surface": true
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "18(f)(i) overrides 18(a)(iv): a WIG craft near the surface and a sailing vessel",
+   "status": "binding",
+   "narrative": "Here both fire from own's side: 18(a)(iv) would make her give-way, 18(f)(i) makes her keep clear of all vessels. 18f1's rel:overrides against 18a4 is what stops that being two different roles for one subject in one situation.",
+   "expect": [
+    "11",
+    "18a4",
+    "18f1",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30,
+      "fact:wig": true,
+      "fact:wig_near_surface": true
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "9(b) overrides 18(a)(iv): a sailing vessel in a narrow channel",
+   "status": "binding",
+   "narrative": "Outside a channel a power-driven vessel keeps out of the way of a sailing vessel. Inside one 9(b) reverses it: the sailing vessel shall not impede. Both halves of 9(b)'s disjunctive subject fire here because the vessel is also under 20 m.",
+   "expect": [
+    "11",
+    "4",
+    {
+     "entry": "9b-sail",
+     "modality": "shall-not-impede"
+    },
+    {
+     "entry": "9b-small",
+     "modality": "shall-not-impede"
+    }
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": true,
+      "env:traffic_lane": false
+     }
+    }
+   }
+  },
+  {
+   "name": "9(c) overrides 18(a)(iii): a fishing vessel in a narrow channel",
+   "status": "binding",
+   "narrative": "18(a)(iii) would make the power-driven vessel keep out of the way; 9(c) makes the fishing vessel not impede her. Read from the fishing vessel's side.",
+   "expect": [
+    "11",
+    "4",
+    {
+     "entry": "9b-small",
+     "modality": "shall-not-impede"
+    },
+    {
+     "entry": "9c",
+     "modality": "shall-not-impede"
+    }
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": true,
+      "env:traffic_lane": false
+     }
+    }
+   }
+  },
+  {
+   "name": "10(i) overrides 18(a)(iii): a fishing vessel in a traffic separation scheme",
+   "status": "binding",
+   "narrative": "The traffic-lane twin of 9(c). `pair:env:traffic_lane` is the only fact that separates them.",
+   "expect": [
+    {
+     "entry": "10i",
+     "modality": "shall-not-impede"
+    },
+    {
+     "entry": "10j-small",
+     "modality": "shall-not-impede"
+    },
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
+  },
+  {
+   "name": "10(j) overrides 18(a)(iv): a sailing vessel under 20 m in a traffic separation scheme",
+   "status": "binding",
+   "narrative": "10(j)'s object is narrower than 9(b)'s -- a power-driven vessel following a traffic lane -- so `other:fact:propulsion` is read. Both halves of the disjunctive subject fire.",
+   "expect": [
+    {
+     "entry": "10j-sail",
+     "modality": "shall-not-impede"
+    },
+    {
+     "entry": "10j-small",
+     "modality": "shall-not-impede"
+    },
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
+  },
+  {
+   "name": "9(b) length boundary: 19.9 m power-driven vessel in a narrow channel",
+   "status": "binding",
+   "narrative": "REQ-VERIFY-5: the `own:fact:length_m: {lt: 20}` gate on 9b-small, isolated from 9b-sail and 18a4 by keeping both vessels power-driven -- neither entry's other predicates fire, so only the length gate decides.",
+   "expect": [
+    "11",
+    "4",
+    {
+     "entry": "9b-small",
+     "modality": "shall-not-impede"
+    }
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 19.9
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": true,
+      "env:traffic_lane": false
+     }
+    }
+   }
+  },
+  {
+   "name": "9(b) length boundary: 20.0 m power-driven vessel in a narrow channel",
+   "status": "binding",
+   "narrative": "The other side of the same gate: at exactly 20 m, 9b-small no longer applies, and nothing else in this situation does either.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 20
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": true,
+      "env:traffic_lane": false
+     }
+    }
+   }
+  },
+  {
+   "name": "10(j) length boundary: 19.9 m power-driven vessel in a traffic separation scheme",
+   "status": "binding",
+   "narrative": "REQ-VERIFY-5: the twin gate on 10j-small. Both vessels power-driven, other following the lane, so only the length gate decides.",
+   "expect": [
+    "11",
+    "4",
+    {
+     "entry": "10j-small",
+     "modality": "shall-not-impede"
+    }
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 19.9
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
+  },
+  {
+   "name": "10(j) length boundary: 20.0 m power-driven vessel in a traffic separation scheme",
+   "status": "binding",
+   "narrative": "The other side of the same gate: at exactly 20 m, 10j-small no longer applies.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 20
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
+  },
+  {
+   "name": "10(j) does not apply: a sailing vessel and another sailing vessel in a scheme",
+   "status": "binding",
+   "narrative": "The negative case for 10(j)'s `other:fact:propulsion` gate: the other vessel is not power-driven, so neither 10(j) entry fires and Rule 18 says nothing between two sailing vessels either. Rule 12 would, and is not modelled.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 14
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
   }
- ]
+ ],
+ "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",
+ "expect_scope": "`expect` names the non-`display` entries a situation selects -- `scope`, `precedence` and, when they land, `classification`. Display entries are deliberately out of scope here: a situation carries `own.fact`, so every Part C entry that matches that vessel would otherwise have to be repeated in every Part B fixture, and fixtures/applicability-fixtures.json is already the contract for those. A situation fixture asserts what the pair produces, not what own shows."
 }

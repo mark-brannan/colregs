@@ -332,7 +332,8 @@
     "fact": "the per-vessel fact record above, unchanged and unprefixed inside the record. `own` and `other` only.",
     "kin": "kinematic state: where a vessel is, where it is pointing, how fast it is going and turning, and what it handles like. `own` and `other` only.",
     "geo": "relative geometry. Under `own`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
-    "hist": "what has already been true of this encounter and latches. `own` and `other` only; directional."
+    "hist": "what has already been true of this encounter and latches. `own` and `other` only; directional.",
+    "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed."
    },
    "bare_key": "A key with no subject segment means `own:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
    "directional_note": "Swapping `own` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `own:geo:rel_bearing_deg` is the bearing of the other vessel off own's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing."
@@ -450,6 +451,14 @@
      "note": "Rule 3(k): vessels are deemed to be in sight of one another only when one can be observed visually from the other. Symmetric because the rule defines it that way, not because visibility is. This is the `scope` gate that selects Section II over Section III, and it is a fact of the pair, never of one vessel.",
      "actuable": false,
      "signalk": null
+    },
+    "geo:risk_of_collision": {
+     "type": "boolean",
+     "cite": "7(a)",
+     "cite_pending": null,
+     "note": "Risk of collision exists between the two vessels. Rule 7 is the whole apparatus for determining it and Rule 7(a) makes it a judgement on all available means, so this is supplied by the consumer rather than derived here from a bearing-change threshold this package declines to fix. Read by 8(f)(iii), and by every Section II conduct rule when those land.",
+     "actuable": false,
+     "signalk": null
     }
    }
   },
@@ -489,8 +498,28 @@
      "hist": "<history>"
     },
     "pair": {
-     "geo": "<symmetric geometry>"
+     "geo": "<symmetric geometry>",
+     "env": "<environment>"
     }
+   }
+  },
+  "environment": {
+   "note": "Where the encounter is happening. `pair` only, and symmetric by construction: both vessels are in the same channel or the same scheme. Declared because Rules 9 and 10 are scoped to places, and a place is neither a vessel's fact nor the pair's geometry. These are booleans a consumer sets from a chart or an ENC; nothing here derives them from a position.",
+   "env:narrow_channel": {
+    "type": "boolean",
+    "cite": "9(a)",
+    "cite_pending": null,
+    "note": "The encounter is in or near a narrow channel or fairway. Does not say which vessel can safely navigate only within it -- that is a further fact Rule 9(b) and 9(d) need and this package does not yet carry.",
+    "actuable": false,
+    "signalk": null
+   },
+   "env:traffic_lane": {
+    "type": "boolean",
+    "cite": "10(a)",
+    "cite_pending": null,
+    "note": "The encounter is within a traffic separation scheme adopted by the Organization. Does not say which vessel is following a lane, which Rules 10(i) and 10(j) need.",
+    "actuable": false,
+    "signalk": null
    }
   }
  }

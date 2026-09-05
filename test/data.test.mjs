@@ -41,7 +41,14 @@ function satisfies(k, want, have) {
 function matches(when, f) {
   return Object.entries(when).every(([k, want]) => satisfies(k, want, f[k]))
 }
-const applying = (f) => appl.entries.filter((e) => matches(e.when, f)).map((e) => e.id)
+// `applying` is the *display* evaluator: it answers 'what does this one vessel
+// show'. A `scope` or `precedence` entry reads a situation, not a fact record,
+// and Rule 4's predicate is empty because 'any condition of visibility' is the
+// absence of a condition -- so an unfiltered evaluator would select it for
+// every fact record in applicability-fixtures.json. REQ-CAT-1's `display`
+// default is what makes the filter well-defined for the entries that predate it.
+const isDisplay = (e) => (e.category ?? 'display') === 'display'
+const applying = (f) => appl.entries.filter((e) => isDisplay(e) && matches(e.when, f)).map((e) => e.id)
 
 test('fixtures: every fact record selects exactly the expected entries', () => {
   for (const c of fixtures.cases) {
@@ -131,6 +138,7 @@ test('every cross-reference resolves to an entry id', () => {
   const refsOf = (e) => [
     ...(e['rel:includes'] ?? []), ...(e['rel:in_lieu_of'] ?? []),
     ...(e['rel:excludes'] ?? []), ...(e['rel:exempts'] ?? []),
+    ...(e['rel:overrides'] ?? []),
     ...(e['rel:conditional_includes'] ?? [])
       .flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])]),
   ]
@@ -218,7 +226,9 @@ test('every fact a predicate reads is declared in facts.json', () => {
     ...Object.keys(facts.numerics), ...Object.keys(facts.booleans),
     ...Object.keys(facts.enums),
   ])
-  for (const e of appl.entries) {
+  // Two-subject entries address a fact through the subject namespace and are
+  // checked against the situation's own class declarations further down.
+  for (const e of appl.entries.filter((x) => (x.subjects ?? 1) === 1)) {
     for (const k of Object.keys(e.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
     for (const m of e.modality_by ?? []) {
       for (const k of Object.keys(m.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
@@ -235,7 +245,10 @@ test('every enumerated fact value a predicate names is declared in facts.json', 
       .map(([k, v]) => [k, new Set(v.values)])
   )
   const check = (where, w) => {
-    for (const [k, want] of Object.entries(w)) {
+    for (const [k0, want] of Object.entries(w)) {
+      // `own:fact:activity` and `fact:activity` name the same value namespace;
+      // without the strip a two-subject predicate's values go unchecked.
+      const k = k0.replace(/^(own|other|pair):/, '')
       const allowed = valuesOf.get(k)
       if (!allowed) continue
       for (const v of Array.isArray(want) ? want : [want]) {
@@ -512,7 +525,9 @@ const sit = facts.situation
 const SUBJECTS = new Set(Object.keys(sit.namespace.subjects))
 const CLASSES = new Set(Object.keys(sit.namespace.classes))
 // `pair` carries only what is symmetric between the two vessels.
-const PAIR_CLASSES = new Set(['geo'])
+// `pair` carries what is symmetric between the two vessels: their relative
+// geometry, and where the encounter is happening.
+const PAIR_CLASSES = new Set(['geo', 'env'])
 
 function parseKey(key) {
   const seg = key.split(':')
@@ -549,11 +564,12 @@ const situationDeclared = {
     pair: new Set(Object.keys(sit.geometry.symmetric)),
   },
   hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
+  env: new Set(Object.keys(sit.environment).filter((k) => k.startsWith('env:'))),
 }
 
 test('REQ-CAT-4: the situation section declares the classes the namespace names', () => {
   assert.deepEqual([...SUBJECTS].sort(), ['other', 'own', 'pair'])
-  assert.deepEqual([...CLASSES].sort(), ['fact', 'geo', 'hist', 'kin'])
+  assert.deepEqual([...CLASSES].sort(), ['env', 'fact', 'geo', 'hist', 'kin'])
   // The fact record is reachable unchanged: `own:fact:*` must resolve to the
   // very keys facts.json already declares, not to a renamed copy of them.
   for (const k of situationDeclared.fact) {
@@ -565,6 +581,7 @@ test('REQ-CAT-4: the situation section declares the classes the namespace names'
     ...Object.entries(sit.geometry.directional),
     ...Object.entries(sit.geometry.symmetric),
     ...Object.entries(sit.history).filter(([k]) => k.startsWith('hist:')),
+    ...Object.entries(sit.environment).filter(([k]) => k.startsWith('env:')),
   ]
   assert.ok(shaped.length > 0)
   for (const [k, rec] of shaped) {
@@ -598,7 +615,7 @@ test('REQ-CAT-4: an existing one-subject predicate is a valid situation predicat
   // one-subject situation and every entry still selects exactly the same ids.
   for (const c of fixtures.cases) {
     const asSituation = { own: { fact: c.facts } }
-    const viaSituation = appl.entries.filter((e) => matchesSituation(e.when, asSituation)).map((e) => e.id)
+    const viaSituation = appl.entries.filter((e) => isDisplay(e) && matchesSituation(e.when, asSituation)).map((e) => e.id)
     assert.deepEqual(viaSituation.sort(), applying(c.facts).sort(), c.name)
   }
 })
@@ -676,4 +693,238 @@ test('REQ-CAT-4: subject and class resolution is exact, and aspect is a subject 
     'the bearing has drawn out past the sector, which is why 13(d) exists')
   assert.equal(matchesSituation({ 'own:hist:was_overtaking': true }, latched.situation), true)
   assert.equal(matchesSituation({ 'other:hist:was_overtaking': true }, latched.situation), false)
+})
+
+// --- two-subject entries: scope and precedence (ADR 0005, REQ-CAT-1/3/6) ----
+// The first data written against the situation record. Everything below either
+// checks the shape of the new entries or replays the situation fixtures through
+// `matchesSituation` above -- the same evaluator, not a second one.
+const twoSubject = appl.entries.filter((e) => (e.subjects ?? 1) > 1)
+const precedence = appl.entries.filter((e) => e.category === 'precedence')
+
+test('REQ-CAT-1: every entry category is one of the nine, and display is the default', () => {
+  const names = new Set(Object.keys(appl.categories))
+  for (const e of appl.entries) {
+    assert.ok(names.has(e.category ?? 'display'), `${e.id}: unknown category ${e.category}`)
+  }
+  assert.ok(twoSubject.length > 0, 'no two-subject entry exists; this file is meant to be checking some')
+  for (const e of twoSubject) {
+    assert.ok(['scope', 'precedence', 'classification'].includes(e.category),
+      `${e.id}: subjects > 1 with category ${e.category}`)
+    assert.equal(e.subjects, 2, `${e.id}: only 1 and 2 subjects are modelled`)
+    assert.ok(!('lights' in e), `${e.id}: a two-subject entry produces an effect, never lights`)
+  }
+})
+
+test('REQ-CAT-6: every fact a two-subject predicate reads resolves in the situation namespace', () => {
+  for (const e of twoSubject) {
+    for (const k of Object.keys(e.when)) {
+      const { subject, cls, local } = parseKey(k)
+      assert.ok(SUBJECTS.has(subject), `${e.id}: unknown subject in ${k}`)
+      assert.ok(CLASSES.has(cls), `${e.id}: unknown class in ${k}`)
+      if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${e.id}: pair:${cls} is not symmetric`)
+      else assert.ok(cls !== 'env', `${e.id}: env is a fact of the pair, never of a vessel`)
+      const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls]
+      assert.ok(declared.has(local), `${e.id}: undeclared ${cls} fact ${local} in ${k}`)
+    }
+  }
+})
+
+test('every effect is shaped for its category and names declared roles', () => {
+  const roles = new Set(Object.keys(appl.effects.roles))
+  for (const e of twoSubject) {
+    assert.ok(e.effect, `${e.id}: a two-subject entry must state an effect`)
+    if (e.category === 'precedence') {
+      assert.deepEqual(Object.keys(e.effect).sort(), ['other', 'own'], `${e.id}: precedence effect shape`)
+      for (const [subject, role] of Object.entries(e.effect)) {
+        assert.ok(roles.has(role), `${e.id}: ${subject} takes undeclared role ${role}`)
+      }
+      // `stand-on` is Rule 17, which attaches only where the counterpart is to
+      // keep out of the way. A shall-not-impede duty confers nothing (8(f)(iii)).
+      if (e.effect.other === 'stand-on') {
+        assert.equal(e.effect.own, 'give-way',
+          `${e.id}: the counterpart of stand-on is give-way; 8(f)(iii) is why shall-not-impede pairs with none`)
+      }
+      if (e.effect.own === 'shall-not-impede') {
+        assert.equal(e.effect.other, 'none',
+          `${e.id}: shall-not-impede confers no role on the other vessel (8(f)(iii))`)
+      }
+    } else {
+      assert.deepEqual(Object.keys(e.effect).sort(), ['applies_rules', 'part', 'section'], `${e.id}: scope effect shape`)
+      for (const r of e.effect.applies_rules) {
+        assert.ok(Object.values(rules.paragraphs).some((p) => p.rule === r),
+          `${e.id}: scope effect names Rule ${r}, which rules.json does not have`)
+      }
+    }
+  }
+})
+
+test('REQ-CAT-3: every rel:overrides resolves to an entry id, and the relation is acyclic', () => {
+  const over = new Map(appl.entries.map((e) => [e.id, e['rel:overrides'] ?? []]))
+  for (const [id, targets] of over) {
+    for (const t of targets) {
+      assert.ok(byId.has(t), `${id}: rel:overrides references unknown entry ${t}`)
+      assert.notEqual(t, id, `${id}: overrides itself`)
+      // Superiority between norms is only meaningful between norms.
+      assert.equal(byId.get(t).category, byId.get(id).category,
+        `${id} overrides ${t}, which is a ${byId.get(t).category} entry`)
+    }
+  }
+  const seen = new Map()
+  const walk = (id, stack) => {
+    if (stack.includes(id)) assert.fail(`rel:overrides cycle: ${[...stack, id].join(' -> ')}`)
+    if (seen.get(id)) return
+    seen.set(id, true)
+    for (const t of over.get(id) ?? []) walk(t, [...stack, id])
+  }
+  for (const id of over.keys()) walk(id, [])
+})
+
+// --- situation fixture replay (REQ-VERIFY-1 for two-subject data) -----------
+// A situation fixture asserts the non-`display` entries the pair selects. It
+// asserts applicability, not resolution: an entry a rel:overrides displaces is
+// still expected, and the precedence properties below are what resolve it.
+const applyingSituation = (s) =>
+  appl.entries.filter((e) => !isDisplay(e) && matchesSituation(e.when, s)).map((e) => e.id)
+const bindingCases = situationFixtures.cases.filter((c) => c.status === 'binding')
+
+test('situation fixtures: every situation selects exactly the expected entries', () => {
+  assert.ok(bindingCases.length > 0, 'no binding situation fixture; the replay would assert nothing')
+  for (const c of bindingCases) {
+    const want = c.expect.map((x) => (typeof x === 'string' ? x : x.entry)).sort()
+    assert.deepEqual(applyingSituation(c.situation).sort(), want, c.name)
+  }
+})
+
+test('situation fixtures: an expected modality is the modality the entry carries', () => {
+  for (const c of bindingCases) {
+    for (const x of c.expect) {
+      if (typeof x === 'string') continue
+      assert.equal(byId.get(x.entry).modality, x.modality, `${c.name}: ${x.entry} modality`)
+    }
+  }
+})
+
+test('REQ-VERIFY-3: every two-subject entry is exercised by a fixture and excluded by another', () => {
+  const selected = bindingCases.map((c) => new Set(applyingSituation(c.situation)))
+  for (const e of twoSubject) {
+    assert.ok(selected.some((s) => s.has(e.id)), `${e.id} is never selected by a situation fixture`)
+    // Rule 4's predicate is empty on purpose -- Part B Section I is ungated --
+    // so there is no fact record that excludes it and no fixture can show one.
+    if (Object.keys(e.when).length === 0) continue
+    assert.ok(selected.some((s) => !s.has(e.id)), `${e.id} is selected by every situation fixture`)
+  }
+})
+
+// --- precedence sanity (ADR 0005 sec. 4: "never both stand-on") ------------
+// A two-subject entry is evaluated from own's side only, so a conflict between
+// the two vessels' roles is invisible in one direction: 13(a) applies to the
+// overtaking vessel and 18(a)(iv) applies to the other one, in the *swapped*
+// situation. So every property below is checked over the pooled roles of the
+// situation and its swap, after rel:overrides has resolved what it can.
+const swap = (s) => ({ own: s.other ?? {}, other: s.own ?? {}, pair: s.pair ?? {} })
+const FORCEFUL = new Set(['shall', 'shall-if-practicable', 'shall-not-impede', 'shall-not'])
+
+// Roles the applying entries assign, keyed by the subject of the *original*
+// situation: 'A' is own as the fixture wrote it, 'B' is the other vessel.
+function pooledRoles(situation) {
+  const out = []
+  for (const [s, mine, theirs] of [[situation, 'A', 'B'], [swap(situation), 'B', 'A']]) {
+    for (const e of precedence) {
+      if (!matchesSituation(e.when, s)) continue
+      out.push({ entry: e, [mine]: e.effect.own, [theirs]: e.effect.other })
+    }
+  }
+  return out
+}
+
+// An entry is resolved away when another entry in the same pool overrides it.
+function resolve_(pool) {
+  const ids = new Set(pool.map((r) => r.entry.id))
+  const beaten = new Set(pool.flatMap((r) => (r.entry['rel:overrides'] ?? []).filter((t) => ids.has(t))))
+  return pool.filter((r) => !beaten.has(r.entry.id))
+}
+
+// The three roles that say where a vessel puts her helm. `shall-not-impede` is
+// deliberately not one of them: 18(d) really does lay it on a vessel that is
+// simultaneously stand-on under 18(a), and the test below pins that rather than
+// asserting it away.
+const HELM_ROLES = new Set(['give-way', 'stand-on', 'keep-clear'])
+
+function rolesFor(c, subject) {
+  const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
+  const roles = new Map()
+  for (const r of pool) {
+    if (!r[subject] || r[subject] === 'none') continue
+    roles.set(r[subject], [...(roles.get(r[subject]) ?? []), r.entry.id])
+  }
+  return roles
+}
+
+test('precedence: no subject is given two conflicting helm roles once rel:overrides has resolved', () => {
+  for (const c of bindingCases) {
+    for (const subject of ['A', 'B']) {
+      const helm = [...rolesFor(c, subject)].filter(([role]) => HELM_ROLES.has(role))
+      assert.ok(helm.length <= 1,
+        `${c.name}: ${subject} holds ${helm.map(([r]) => r).join(' and ')} at once ` +
+        `(${helm.flatMap(([, ids]) => ids).join(', ')}) with no rel:overrides between them`)
+    }
+  }
+})
+
+test('precedence: 18(d) lays shall-not-impede on a vessel Rule 18 also makes stand-on', () => {
+  // A finding, pinned rather than hidden. A vessel constrained by her draught
+  // is a power-driven vessel, so 18(a)(iv) makes her give way to a sailing
+  // vessel while 18(d)(i) makes that same sailing vessel avoid impeding her.
+  // Both paragraphs are in force and neither overrides the other; 8(f)(ii) is
+  // the Rules' own answer, and it is a `conduct` duty, not a role. The model
+  // records the pair honestly and declines to pick.
+  const c = bindingCases.find((x) => x.name === '18 matrix: own sailing, other constrained by her draught, in sight')
+  assert.ok(c, 'the sail-vs-CBD matrix cell is the one this asserts against')
+  assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r).sort(), ['shall-not-impede', 'stand-on'])
+  assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r).sort(), ['give-way'])
+  // ...and the same pair read from the other side is the same finding, not a
+  // second one: the entries are symmetric under the swap.
+  const d = bindingCases.find((x) => x.name === '18 matrix: own constrained by her draught, other sailing, in sight')
+  assert.deepEqual([...rolesFor(d, 'B')].map(([r]) => r).sort(), ['shall-not-impede', 'stand-on'])
+})
+
+test('precedence: never both give-way, never both stand-on', () => {
+  for (const c of bindingCases) {
+    const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
+    for (const role of ['give-way', 'stand-on']) {
+      const a = pool.some((r) => r.A === role)
+      const b = pool.some((r) => r.B === role)
+      assert.ok(!(a && b), `${c.name}: both vessels are ${role}`)
+    }
+  }
+})
+
+test('precedence: Rule 18 is a partial order — NUC and RAM are unordered', () => {
+  // The property the matrix exists to pin down: neither a vessel not under
+  // command nor one restricted in her ability to manoeuvre takes an obligation
+  // under Rule 18, against each other or against anyone.
+  const HIGH = new Set(['activity:nuc', 'activity:ram', 'activity:ram_underwater'])
+  for (const c of bindingCases) {
+    const own = c.situation.own?.fact ?? {}
+    if (!HIGH.has(own['fact:activity'])) continue
+    const r18 = applyingSituation(c.situation).filter((id) => byId.get(id).cite.startsWith('18'))
+    assert.deepEqual(r18, [], `${c.name}: Rule 18 obliges a ${own['fact:activity']} vessel via ${r18.join(', ')}`)
+  }
+})
+
+test('scope: a situation selects exactly one Part B section, and it tracks in-sight', () => {
+  for (const c of bindingCases) {
+    const sections = appl.entries
+      .filter((e) => e.category === 'scope' && matchesSituation(e.when, c.situation))
+      .map((e) => e.effect.section)
+    assert.ok(sections.includes('I'), `${c.name}: Section I is ungated and must always apply`)
+    const inSight = c.situation.pair?.geo?.['geo:in_sight']
+    assert.deepEqual(sections.sort(), inSight ? ['I', 'II'] : ['I', 'III'], `${c.name}: sections`)
+    // And Section II's paragraphs must be absent when Section II is.
+    if (!inSight) {
+      const s2 = applyingSituation(c.situation).filter((id) => /^(1[1-8])/.test(byId.get(id).cite))
+      assert.deepEqual(s2, [], `${c.name}: not in sight, but ${s2.join(', ')} applies`)
+    }
+  }
 })
