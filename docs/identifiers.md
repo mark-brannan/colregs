@@ -256,6 +256,16 @@ The category is `Q-14`'s to settle paragraph by paragraph and this is two more
 of them; the departure from the table is recorded in ADR 0005's pencil log and
 in `Q-40`.
 
+**Who governs over Rule 12.** 12(a)'s subjects are "two sailing vessels",
+which is 3(c), so `12a1`–`12a3` gate on `fact:propulsion` and not on the Rule
+18 rank — a fishing vessel under sail is a sailing vessel. Where Rule 18 also
+ranks the pair, its entry displaces Rule 12's: `18b1`–`18b3` and `18c1`–`18c2`
+carry `rel:overrides` against all three, because Rule 18's opening words
+except Rules 9, 10 and 13 and nothing else. `13a` overrides them for the same
+reason it overrides Rule 18 — 13(a) is "notwithstanding" the rest of Sections
+I and II. The test that pins the relation asserts both reasons from
+`rules.json`, so the data cannot keep an override after losing the words.
+
 **The effect names both subjects, and that is the point.** A `precedence`
 entry is evaluated from own's side, so 18(a)(i) says own gives way *and* the
 other vessel stands on. Writing only own's half would lose Rule 17, which
