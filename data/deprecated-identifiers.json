@@ -1,7 +1,7 @@
 {
  "entry:14a": {
   "denoted": "The head-on classification: encounter head-on when each vessel has the other ahead or nearly ahead, cited to 14(a). Renamed when the cite moved to 14(b), the deeming paragraph the entry actually reads (Q-45); the predicate and effect are unchanged.",
-  "deprecated_in": "0.1.4",
+  "deprecated_in": "0.2.0",
   "replacement": "entry:14b"
  }
 }
