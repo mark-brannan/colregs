@@ -572,12 +572,17 @@ test('REQ-CAT-4: the situation section declares the classes the namespace names'
     assert.ok('cite' in rec, `${k}: no cite`)
     assert.ok(typeof rec.actuable === 'boolean', `${k}: no actuable`)
     assert.ok('signalk' in rec, `${k}: no signalk`)
-    // Rules 1-19 are not transcribed, so `cite_pending` names the paragraph a
-    // null cite is waiting on -- or is explicitly null where no paragraph will
-    // ever justify it (kin:dynamics is not a COLREGS concept). Silence is the
-    // one thing it may not be: an absent key is an unanswered question.
-    if (rec.cite === null) assert.ok('cite_pending' in rec, `${k}: null cite with no cite_pending`)
-    else assert.ok(rules.paragraphs[rec.cite], `${k}: cite ${rec.cite} not in rules.json`)
+    // A null cite is only allowed when `cite_pending` is explicitly null too --
+    // meaning no COLREGS paragraph will ever justify it (kin:dynamics is not a
+    // COLREGS concept). Now that Rules 1-19 are transcribed there is no more
+    // "waiting on transcription": a fact naming a pending paragraph but never
+    // resolving to it is a fact nobody finished citing.
+    if (rec.cite === null) {
+      assert.ok('cite_pending' in rec, `${k}: null cite with no cite_pending`)
+      assert.equal(rec.cite_pending, null, `${k}: null cite must have cite_pending explicitly null`)
+    } else {
+      assert.ok(rules.paragraphs[rec.cite], `${k}: cite ${rec.cite} not in rules.json`)
+    }
     if (rec.type === 'enum') {
       const prefix = k.split(':').pop()
       for (const v of rec.values) {
