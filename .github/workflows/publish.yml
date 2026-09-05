@@ -36,6 +36,10 @@ jobs:
     if: github.ref_type == 'tag'
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Full history and tags, for the same reason as ci.yml: the
+          # identifier-diff test (ADR 0006) needs the last release tag.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v7
         with:
@@ -55,8 +59,9 @@ jobs:
             exit 1
           fi
 
-      # No install step: the package has zero runtime dependencies and
-      # test/data.test.mjs runs on node:test alone.
+      # The published package has zero runtime dependencies (REQ-PKG-1); the
+      # test suite itself now needs ajv as a devDependency (ADR 0006).
+      - run: npm ci
       - run: npm test
 
       # No NODE_AUTH_TOKEN. Authentication is the OIDC identity above.

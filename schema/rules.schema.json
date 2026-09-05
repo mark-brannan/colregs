@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/rules.schema.json",
+  "title": "data/rules.json",
+  "description": "Verbatim rule text keyed by paragraph path. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source", "paragraphs"],
+  "properties": {
+    "source": { "type": "string", "minLength": 1 },
+    "source_url": { "type": "string", "minLength": 1 },
+    "retrieved": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "note": { "type": "string" },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "reason"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "paragraphs": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "rule", "rule_title", "jurisdiction", "text"],
+          "properties": {
+            "path": { "type": "string", "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$" },
+            "rule": { "type": "string", "pattern": "^[0-9]+$" },
+            "rule_title": { "type": "string", "minLength": 1 },
+            "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+            "text": { "type": "string", "minLength": 1 },
+            "images": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "minItems": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

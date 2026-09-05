@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/geometry.schema.json",
+  "title": "data/geometry.json",
+  "description": "Annex I positioning, shapes, colour and intensity. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jurisdiction", "vertical_positioning", "horizontal_positioning", "shapes", "colors", "intensity"],
+  "$defs": {
+    "predicateValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "gte": { "type": "number" },
+            "gt": { "type": "number" },
+            "lte": { "type": "number" },
+            "lt": { "type": "number" }
+          }
+        },
+        { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" },
+        { "type": "boolean" },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" }
+        }
+      ]
+    },
+    "when": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
+      }
+    },
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "positioningEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cite", "text"],
+      "properties": {
+        "cite": { "type": "string", "minLength": 1 },
+        "light": { "type": "string", "pattern": "^light:[a-z_]+$" },
+        "which": { "type": "string" },
+        "when": { "$ref": "#/$defs/when" },
+        "datum": { "type": "string" },
+        "datum_secondary": { "type": "string" },
+        "constraint": { "type": "string" },
+        "combined": { "type": "boolean" },
+        "equal_spacing": { "type": "boolean" },
+        "min_m": { "type": ["number", "null"] },
+        "max_m": { "type": "number" },
+        "min_above_sidelights_m": { "type": "number" },
+        "min_below_m": { "type": "number" },
+        "min_spacing_m": { "type": "number" },
+        "min_multiple_of_pair_spacing": { "type": "number" },
+        "max_fraction_of_masthead_height": { "type": "number" },
+        "min_fraction_of_length": { "type": "number" },
+        "need_not_exceed_m": { "type": "number" },
+        "forward_light_max_fraction_of_length_from_stem": { "type": "number" },
+        "min_offset_from_centerline_m": { "type": "number" },
+        "also": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "when": { "$ref": "#/$defs/when" },
+                "datum": { "type": "string" },
+                "min_m": { "type": "number" }
+              }
+            }
+          ]
+        },
+        "lowest_light": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "datum": { "type": "string" },
+            "min_m": { "type": "number" },
+            "except": { "type": "string" }
+          }
+        },
+        "applies_to_entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "text": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "properties": {
+    "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+    "source": { "type": "string" },
+    "note": { "type": "string" },
+    "vertical_positioning": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/positioningEntry" }
+    },
+    "horizontal_positioning": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/positioningEntry" }
+    },
+    "direction_indicating": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["cite", "text"],
+        "properties": {
+          "cite": { "type": "string", "minLength": 1 },
+          "applies_to_entries": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "horizontal_from_identity_lights_m": { "$ref": "#/$defs/range" },
+          "horizontal_from_ram_lights_m": { "$ref": "#/$defs/range" },
+          "vertical": { "type": "string" },
+          "text": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "shapes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cite", "color"],
+      "properties": {
+        "cite": { "type": "string" },
+        "color": { "type": "string" },
+        "ball": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min_diameter_m": { "type": "number" },
+            "cite": { "type": "string" }
+          }
+        },
+        "cone": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min_base_diameter_m": { "type": "number" },
+            "height_equals_diameter": { "type": "boolean" },
+            "cite": { "type": "string" }
+          }
+        },
+        "cylinder": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min_diameter_m": { "type": "number" },
+            "height_multiple_of_diameter": { "type": "number" },
+            "cite": { "type": "string" }
+          }
+        },
+        "diamond": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "composition": { "type": "string" },
+            "cite": { "type": "string" }
+          }
+        },
+        "vertical_spacing_min_m": { "type": "number" },
+        "small_vessel_relief": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "when": { "$ref": "#/$defs/when" },
+            "text": { "type": "string" }
+          }
+        }
+      }
+    },
+    "colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cite", "standard", "chromaticity_corners"],
+      "properties": {
+        "cite": { "type": "string" },
+        "standard": { "type": "string" },
+        "chromaticity_corners": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["x", "y"],
+            "properties": {
+              "x": { "type": "array", "items": { "type": "number" }, "minItems": 3 },
+              "y": { "type": "array", "items": { "type": "number" }, "minItems": 3 }
+            }
+          }
+        }
+      }
+    },
+    "intensity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cite", "formula", "terms", "table_cd_by_range_nm"],
+      "properties": {
+        "cite": { "type": "string" },
+        "formula": { "type": "string" },
+        "terms": { "type": "object", "additionalProperties": { "type": "string" } },
+        "table_cd_by_range_nm": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        }
+      }
+    },
+    "sectors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cite": { "type": "string" },
+        "horizontal": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    }
+  }
+}
