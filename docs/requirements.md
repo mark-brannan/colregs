@@ -1101,7 +1101,10 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   between them. Narrowed deliberately and recorded on each entry. Settled with
   the rest of `Q-14`, and by deciding whether Rule 18 overrides Rules 12–15 the
   way Rules 9, 10 and 13 override Rule 18 — a `rel:overrides` nobody has yet
-  written down.
+  written down. *Which mechanism* is settled: REQ-MODEL-13 makes it a
+  relation, not a gate, because Rule 12 and Rule 15 do apply to the vessel and
+  Rule 18 only displaces the role. *Writing it down* is the Rule 12 and Rule 15
+  override PRs, which close this question when they land.
 - **Q-41** — **13(c) and 14(c) invert the absent-fact rule.** "When a vessel is
   in any doubt as to whether she is overtaking, she shall assume that this is
   the case" is a duty that fires on the *absence* of knowledge, and the
