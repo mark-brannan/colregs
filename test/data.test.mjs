@@ -21,12 +21,18 @@ const byId = new Map(appl.entries.map((e) => [e.id, e]))
 // stripped, so the two-subject evaluator below shares these semantics exactly
 // rather than reimplementing them.
 function satisfies(k, want, have) {
+  // Absent is absent, and it is absent for `not` too: an absent fact never
+  // satisfies a constraint, negated or not, so a norm is never attached to a
+  // vessel on the strength of a fact the consumer did not supply.
   if (have === undefined) return false
   // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
   // written for ram read it too.
   if (k === 'fact:activity' && want === 'activity:ram' && have === 'activity:ram_underwater') return true
   if (Array.isArray(want)) return want.includes(have)
   if (want !== null && typeof want === 'object') {
+    // `not` negates the constraint, never the presence of the fact.
+    if ('not' in want) return !satisfies(k, want.not, have)
+    if ('any_of' in want) return want.any_of.some((w) => satisfies(k, w, have))
     if ('gte' in want && !(have >= want.gte)) return false
     if ('gt' in want && !(have > want.gt)) return false
     if ('lte' in want && !(have <= want.lte)) return false
@@ -35,9 +41,45 @@ function satisfies(k, want, have) {
   }
   return have === want
 }
-function matches(when, f) {
-  return Object.entries(when).every(([k, want]) => satisfies(k, want, f[k]))
+// One walker for both evaluators, so `any_of` is written once rather than
+// twice. `local` strips a key's subject segment for the refinement rule above;
+// `read` maps a key to the value it denotes. `any_of` is the only key of a
+// `when` that is not a fact -- every fact key carries a class prefix
+// (`fact:`, `geo:`, ...), so the name is reserved without ambiguity.
+function holds(when, local, read) {
+  return Object.entries(when).every(([k, want]) =>
+    k === 'any_of'
+      ? want.some((sub) => holds(sub, local, read))
+      : satisfies(local(k), want, read(k)))
 }
+function matches(when, f) {
+  return holds(when, (k) => k, (k) => f[k])
+}
+// --- derived facts (facts.json `derived`) ----------------------------------
+// A derived fact is one this package computes from the fact record instead of
+// asking a consumer for. Its decode table *is* its definition -- the shape
+// `signalk_navigation_state` already uses -- so this reads the table rather
+// than restating it: an ordered list of rows, the first whose `when` matches
+// wins, and no row matching leaves the fact absent.
+const derivedFacts = Object.entries(facts.derived).filter(([k]) => k.startsWith('fact:'))
+function derive(record) {
+  const out = { ...(record ?? {}) }
+  for (const [key, spec] of derivedFacts) {
+    const row = spec.decode.find((r) => matches(r.when, out))
+    if (row) out[key] = row.value
+  }
+  return out
+}
+// A situation's per-vessel records, with the derived facts filled in. `pair`
+// has none: a derived fact is derived from one vessel's record.
+function withDerived(s) {
+  const out = { ...s }
+  for (const subject of ['own', 'other']) {
+    if (out[subject]) out[subject] = { ...out[subject], fact: derive(out[subject].fact) }
+  }
+  return out
+}
+
 // `applying` is the *display* evaluator: it answers 'what does this one vessel
 // show'. A `scope` or `precedence` entry reads a situation, not a fact record,
 // and Rule 4's predicate is empty because 'any condition of visibility' is the
@@ -50,6 +92,186 @@ const applying = (f) => appl.entries.filter((e) => isDisplay(e) && matches(e.whe
 test('fixtures: every fact record selects exactly the expected entries', () => {
   for (const c of fixtures.cases) {
     assert.deepEqual(applying(c.facts).sort(), [...c.expect].sort(), c.name)
+  }
+})
+
+// --- the predicate language (README.md, 'Predicate semantics') -------------
+// `not` and `any_of` are the two constructs Q-33 asked for. Their semantics are
+// asserted here rather than only exercised through the data, because the
+// absent-fact half of `not` is the part a reimplementation gets wrong.
+
+test('predicate language: `not` negates the constraint, never the presence of the fact', () => {
+  const has = { 'fact:activity': 'activity:nuc', 'fact:length_m': 15 }
+  assert.equal(matches({ 'fact:activity': { not: 'activity:nuc' } }, has), false)
+  assert.equal(matches({ 'fact:activity': { not: 'activity:ram' } }, has), true)
+  assert.equal(matches({ 'fact:activity': { not: ['activity:nuc', 'activity:ram'] } }, has), false)
+  assert.equal(matches({ 'fact:activity': { not: ['activity:fishing'] } }, has), true)
+  assert.equal(matches({ 'fact:length_m': { not: { lt: 20 } } }, has), false)
+  assert.equal(matches({ 'fact:length_m': { not: { gte: 20 } } }, has), true)
+
+  // The rule this file exists to pin: an absent fact never satisfies a
+  // constraint, negated or not. `not` over silence is unsatisfied, so a norm
+  // is never attached to a vessel on the strength of a fact nobody supplied.
+  // The consequence is deliberate and is the reason it gets its own assertion:
+  // `{not: X}` and `X` are BOTH false for an absent fact, so they are not
+  // complements over the empty record and the language is not classical there.
+  assert.equal(matches({ 'fact:activity': { not: 'activity:nuc' } }, {}), false)
+  assert.equal(matches({ 'fact:activity': 'activity:nuc' }, {}), false)
+  // Double negation is still absent-conservative, and is otherwise involutive.
+  assert.equal(matches({ 'fact:activity': { not: { not: 'activity:nuc' } } }, {}), false)
+  assert.equal(matches({ 'fact:activity': { not: { not: 'activity:nuc' } } }, has), true)
+  // The ram -> ram_underwater refinement is part of the constraint, so `not`
+  // negates the refined reading too rather than sneaking underneath it.
+  const dredger = { 'fact:activity': 'activity:ram_underwater' }
+  assert.equal(matches({ 'fact:activity': 'activity:ram' }, dredger), true)
+  assert.equal(matches({ 'fact:activity': { not: 'activity:ram' } }, dredger), false)
+})
+
+test('predicate language: `any_of` is disjunction, at both levels, and stays conservative', () => {
+  const small = { 'fact:length_m': 12, 'fact:propulsion': 'propulsion:power' }
+  const sail = { 'fact:length_m': 30, 'fact:propulsion': 'propulsion:sail' }
+  const big = { 'fact:length_m': 30, 'fact:propulsion': 'propulsion:power' }
+  // 9(b)'s subject: a vessel of less than 20 m in length OR a sailing vessel.
+  // The two disjuncts read different facts, which is why `any_of` is a key of
+  // the `when` and not a constraint on one fact.
+  const nineB = { any_of: [{ 'fact:length_m': { lt: 20 } }, { 'fact:propulsion': 'propulsion:sail' }] }
+  assert.equal(matches(nineB, small), true)
+  assert.equal(matches(nineB, sail), true)
+  assert.equal(matches(nineB, big), false)
+  assert.equal(matches(nineB, {}), false)
+  // A `when` is still a conjunction; `any_of` sits inside it as one conjunct.
+  assert.equal(matches({ ...nineB, 'fact:propulsion': 'propulsion:power' }, small), true)
+  assert.equal(matches({ ...nineB, 'fact:propulsion': 'propulsion:power' }, sail), false)
+  // A sub-predicate is a full predicate: conjunctions and nesting both work.
+  assert.equal(matches({ any_of: [{ any_of: [{ 'fact:length_m': { lt: 20 } }] }] }, small), true)
+  assert.equal(matches({ any_of: [{ 'fact:length_m': { lt: 20 }, 'fact:propulsion': 'propulsion:sail' }] }, small), false)
+  // An empty `any_of` is unsatisfiable, which is what a disjunction of nothing
+  // means -- and is why no entry writes one.
+  assert.equal(matches({ any_of: [] }, small), false)
+  // As a constraint on one fact it is a disjunction of constraints.
+  assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, sail), true)
+  assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 40 }] } }, sail), false)
+  assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, {}), false)
+})
+
+test('predicate language: both evaluators share it, and `any_of` reads two subjects', () => {
+  // The whole point of implementing this in `satisfies`/`holds` rather than in
+  // one evaluator: the situation evaluator gets it without a second copy.
+  const s = { own: { fact: { 'fact:propulsion': 'propulsion:sail' } }, other: { fact: { 'fact:length_m': 12 } } }
+  assert.equal(matchesSituation({ 'own:fact:propulsion': { not: 'propulsion:power' } }, s), true)
+  assert.equal(matchesSituation({ 'other:fact:propulsion': { not: 'propulsion:power' } }, s), false,
+    "other's propulsion is absent, and `not` over an absent fact is unsatisfied")
+  assert.equal(matchesSituation({
+    any_of: [{ 'own:fact:length_m': { lt: 20 } }, { 'other:fact:length_m': { lt: 20 } }],
+  }, s), true)
+  assert.equal(matchesSituation({
+    any_of: [{ 'own:fact:length_m': { lt: 20 } }, { 'other:fact:length_m': { lt: 5 } }],
+  }, s), false)
+})
+
+test('predicate language: `not` and `any_of` are exclusive of the other constraint forms', () => {
+  // A constraint object carrying `not` or `any_of` carries nothing else: the
+  // two return early, so a `{not: ..., lt: ...}` would silently drop the `lt`.
+  // Checked over the data rather than left to review.
+  const walk = (where, when) => {
+    for (const [k, want] of Object.entries(when)) {
+      if (k === 'any_of') { for (const sub of want) walk(where, sub); continue }
+      const check = (w) => {
+        if (w === null || typeof w !== 'object' || Array.isArray(w)) return
+        const keys = Object.keys(w)
+        for (const special of ['not', 'any_of']) {
+          if (!keys.includes(special)) continue
+          assert.deepEqual(keys, [special], `${where}: ${k} mixes ${special} with ${keys.join(', ')}`)
+        }
+        if (keys.includes('not')) check(w.not)
+        if (keys.includes('any_of')) for (const sub of w.any_of) check(sub)
+      }
+      check(want)
+    }
+  }
+  for (const e of appl.entries) {
+    walk(e.id, e.when)
+    for (const m of e.modality_by ?? []) walk(e.id, m.when)
+    for (const c of e['rel:conditional_includes'] ?? []) walk(e.id, c.when ?? {})
+  }
+  for (const [key, spec] of derivedFacts) {
+    for (const [i, row] of spec.decode.entries()) walk(`${key} decode[${i}]`, row.when)
+  }
+})
+
+// --- derived facts: fact:rule18_class (Q-32) -------------------------------
+
+test('fact:rule18_class: the decode table is the definition, and it is total where it claims to be', () => {
+  const spec = facts.derived['fact:rule18_class']
+  assert.equal(spec.derived, true)
+  const values = new Set(spec.values)
+  // Every declared value is produced by some row, and every row's value and
+  // cite are declared -- so a value cannot rot into one nothing decodes to.
+  assert.deepEqual([...new Set(spec.decode.map((r) => r.value))].sort(), [...values].sort())
+  for (const v of values) assert.ok(spec.cites[v], `${v} has no cite`)
+  for (const [v, c] of Object.entries(spec.cites)) {
+    assert.ok(values.has(v), `cites names undeclared value ${v}`)
+    assert.ok(rules.paragraphs[c], `${v} cites missing paragraph ${c}`)
+  }
+  for (const r of spec.decode) assert.ok(rules.paragraphs[r.cite], `decode row cites missing ${r.cite}`)
+
+  const cls = (f) => derive(f)['fact:rule18_class']
+  const power = { 'fact:propulsion': 'propulsion:power', 'fact:position': 'position:underway' }
+  const sail = { 'fact:propulsion': 'propulsion:sail', 'fact:position': 'position:underway' }
+  // The rank, not the lights: this is the divergence Q-32 recorded.
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:none' }), 'rule18_class:power')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:nuc' }), 'rule18_class:nuc')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:ram' }), 'rule18_class:ram')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:ram_underwater' }), 'rule18_class:ram')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:mine' }), 'rule18_class:ram', '3(g) enumerates mine clearance')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:diving' }), 'rule18_class:ram', '3(g) enumerates diving')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:trawling' }), 'rule18_class:fishing')
+  assert.equal(cls({ ...sail, 'fact:activity': 'activity:fishing' }), 'rule18_class:fishing',
+    '18(c) does not distinguish propulsion: a fishing vessel under sail is fishing, not sail')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:cbd' }), 'rule18_class:cbd')
+  assert.equal(cls({ ...sail, 'fact:activity': 'activity:none' }), 'rule18_class:sail')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:pilot' }), 'rule18_class:power')
+  // 27(c): the case Q-32 said the old hand-written lists could not catch.
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:towing' }), 'rule18_class:power')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:towing', 'fact:tow_restricts_deviation': false }),
+    'rule18_class:power')
+  assert.equal(cls({ ...power, 'fact:activity': 'activity:towing', 'fact:tow_restricts_deviation': true }),
+    'rule18_class:ram', '27(c): a tow that severely restricts the pair is RAM')
+  // 18(f): the phase, not the craft. A WIG on the surface is 18(f)(ii)'s
+  // power-driven vessel, which is what known_omissions says this table says.
+  const wig = { ...power, 'fact:activity': 'activity:none', 'fact:wig': true }
+  assert.equal(cls({ ...wig, 'fact:wig_near_surface': true }), 'rule18_class:wig')
+  assert.equal(cls({ ...wig, 'fact:wig_near_surface': false }), 'rule18_class:power')
+  // ...but a WIG that cannot manoeuvre is ranked by that, not by her phase.
+  assert.equal(cls({ ...wig, 'fact:wig_near_surface': true, 'fact:activity': 'activity:nuc' }), 'rule18_class:nuc')
+
+  // What the table deliberately does not classify, asserted so that it stays a
+  // decision rather than becoming an oversight. Every case is in `undecodable`.
+  assert.equal(cls({ 'fact:propulsion': 'propulsion:oars', 'fact:activity': 'activity:none' }), undefined,
+    'Rule 18 does not rank a vessel under oars; 25(d)(ii) is a lights permission')
+  assert.equal(cls({}), undefined)
+  assert.equal(cls({ 'fact:activity': 'activity:none' }), undefined)
+  assert.ok(!values.has('rule18_class:seaplane'), '18(e) has no fact behind it; known_omissions records it')
+  assert.ok(spec.undecodable.length >= 3)
+  for (const u of spec.undecodable) assert.ok(u.case && u.why)
+
+  // A derived fact is never asked of a consumer, so it is not actuable and is
+  // not in the switching subset.
+  assert.equal(spec.actuable, false)
+  assert.ok(!facts.actuable_subset.fields.includes('fact:rule18_class'))
+})
+
+test('fact:rule18_class: no precedence entry hand-lists an activity value any more (Q-32)', () => {
+  // The strain this fact was added to remove: Rule 18's rank was written out as
+  // an enumeration of display-axis values in eleven predicates, each of which
+  // had to be edited whenever the axis grew, with nothing failing if one was
+  // missed. If a precedence entry reads `fact:activity` again, either the class
+  // is wrong or the entry is -- and this is where that argument happens.
+  for (const e of precedence) {
+    for (const k of factKeys(e.when)) {
+      assert.ok(!k.endsWith('fact:activity'),
+        `${e.id} reads ${k}; Rule 18's rank is fact:rule18_class, and fact:activity is a display axis`)
+    }
   }
 })
 
@@ -193,14 +415,24 @@ test('every fact a predicate reads is declared in facts.json', () => {
   const declared = new Set([
     ...Object.keys(facts.axes), ...Object.keys(facts.modifiers),
     ...Object.keys(facts.numerics), ...Object.keys(facts.booleans),
-    ...Object.keys(facts.enums),
+    ...Object.keys(facts.enums), ...derivedFacts.map(([k]) => k),
   ])
   // Two-subject entries address a fact through the subject namespace and are
   // checked against the situation's own class declarations further down.
+  // `any_of` holds sub-predicates rather than a constraint, so the keys are
+  // collected recursively; it is the only key of a `when` that is not a fact.
+  const keysOf = (when) => Object.entries(when).flatMap(([k, want]) =>
+    k === 'any_of' ? want.flatMap(keysOf) : [k])
   for (const e of appl.entries.filter((x) => (x.subjects ?? 1) === 1)) {
-    for (const k of Object.keys(e.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
+    for (const k of keysOf(e.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
     for (const m of e.modality_by ?? []) {
-      for (const k of Object.keys(m.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
+      for (const k of keysOf(m.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
+    }
+  }
+  // A derived fact's decode table reads facts too, and they must be declared.
+  for (const [key, spec] of derivedFacts) {
+    for (const [i, row] of spec.decode.entries()) {
+      for (const k of keysOf(row.when)) assert.ok(declared.has(k), `${key} decode[${i}]: undeclared fact ${k}`)
     }
   }
 })
@@ -210,17 +442,30 @@ test('every enumerated fact value a predicate names is declared in facts.json', 
   // (`fact:activity` takes `activity:*`), so a missed prefix on either side
   // shows up here rather than as an entry that silently never matches.
   const valuesOf = new Map(
-    [...Object.entries(facts.axes), ...Object.entries(facts.enums)]
+    [...Object.entries(facts.axes), ...Object.entries(facts.enums), ...derivedFacts]
       .map(([k, v]) => [k, new Set(v.values)])
   )
+  // `not` and `any_of` nest, so the enumerated values a constraint names are
+  // collected recursively; a numeric constraint names none.
+  const valuesIn = (want) => {
+    if (Array.isArray(want)) return want
+    if (want !== null && typeof want === 'object') {
+      if ('not' in want) return valuesIn(want.not)
+      if ('any_of' in want) return want.any_of.flatMap(valuesIn)
+      return []
+    }
+    return [want]
+  }
   const check = (where, w) => {
     for (const [k0, want] of Object.entries(w)) {
+      // A `when`-level `any_of` holds sub-predicates, not a constraint.
+      if (k0 === 'any_of') { for (const sub of want) check(where, sub); continue }
       // `own:fact:activity` and `fact:activity` name the same value namespace;
       // without the strip a two-subject predicate's values go unchecked.
       const k = k0.replace(/^(own|other|pair):/, '')
       const allowed = valuesOf.get(k)
       if (!allowed) continue
-      for (const v of Array.isArray(want) ? want : [want]) {
+      for (const v of valuesIn(want)) {
         assert.ok(allowed.has(v), `${where}: ${k} names undeclared value ${JSON.stringify(v)}`)
       }
     }
@@ -231,6 +476,14 @@ test('every enumerated fact value a predicate names is declared in facts.json', 
     for (const c of e['rel:conditional_includes'] ?? []) check(e.id, c.when ?? {})
   }
   for (const c of fixtures.cases) check(c.name, c.facts)
+  // A derived fact's decode table is a predicate too, and its rows produce
+  // values that must be declared on the fact they decode to.
+  for (const [key, spec] of derivedFacts) {
+    for (const [i, row] of spec.decode.entries()) {
+      check(`${key} decode[${i}]`, row.when)
+      assert.ok(valuesOf.get(key).has(row.value), `${key} decode[${i}] produces undeclared ${row.value}`)
+    }
+  }
 })
 
 test('every relation an entry uses is declared in applicability.json', () => {
@@ -444,8 +697,7 @@ function resolve(key, situation) {
 }
 
 function matchesSituation(when, situation) {
-  return Object.entries(when).every(([k, want]) =>
-    satisfies(parseKey(k).local, want, resolve(k, situation)))
+  return holds(when, (k) => parseKey(k).local, (k) => resolve(k, situation))
 }
 
 // The fact classes the situation section declares, per class, as bare keys.
@@ -453,7 +705,7 @@ const situationDeclared = {
   fact: new Set([
     ...Object.keys(facts.axes), ...Object.keys(facts.modifiers),
     ...Object.keys(facts.numerics), ...Object.keys(facts.booleans),
-    ...Object.keys(facts.enums),
+    ...Object.keys(facts.enums), ...derivedFacts.map(([k]) => k),
   ]),
   kin: new Set(Object.keys(sit.kinematics).filter((k) => k.startsWith('kin:'))),
   geo: new Set([
@@ -607,9 +859,16 @@ test('REQ-CAT-1: every entry category is one of the nine, and display is the def
   }
 })
 
+// Every fact key a predicate reads, at any depth: `any_of` holds sub-predicates
+// and is the one key of a `when` that is not a fact.
+function factKeys(when) {
+  return Object.entries(when).flatMap(([k, want]) =>
+    k === 'any_of' ? want.flatMap(factKeys) : [k])
+}
+
 test('REQ-CAT-6: every fact a two-subject predicate reads resolves in the situation namespace', () => {
   for (const e of twoSubject) {
-    for (const k of Object.keys(e.when)) {
+    for (const k of factKeys(e.when)) {
       const { subject, cls, local } = parseKey(k)
       assert.ok(SUBJECTS.has(subject), `${e.id}: unknown subject in ${k}`)
       assert.ok(CLASSES.has(cls), `${e.id}: unknown class in ${k}`)
@@ -674,8 +933,10 @@ test('REQ-CAT-3: every rel:overrides resolves to an entry id, and the relation i
 // A situation fixture asserts the non-`display` entries the pair selects. It
 // asserts applicability, not resolution: an entry a rel:overrides displaces is
 // still expected, and the precedence properties below are what resolve it.
-const applyingSituation = (s) =>
-  appl.entries.filter((e) => !isDisplay(e) && matchesSituation(e.when, s)).map((e) => e.id)
+const applyingSituation = (s0) => {
+  const s = withDerived(s0)
+  return appl.entries.filter((e) => !isDisplay(e) && matchesSituation(e.when, s)).map((e) => e.id)
+}
 const bindingCases = situationFixtures.cases.filter((c) => c.status === 'binding')
 
 test('situation fixtures: every situation selects exactly the expected entries', () => {
@@ -717,7 +978,8 @@ const FORCEFUL = new Set(['shall', 'shall-if-practicable', 'shall-not-impede', '
 
 // Roles the applying entries assign, keyed by the subject of the *original*
 // situation: 'A' is own as the fixture wrote it, 'B' is the other vessel.
-function pooledRoles(situation) {
+function pooledRoles(situation0) {
+  const situation = withDerived(situation0)
   const out = []
   for (const [s, mine, theirs] of [[situation, 'A', 'B'], [swap(situation), 'B', 'A']]) {
     for (const e of precedence) {
