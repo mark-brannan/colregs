@@ -247,6 +247,20 @@ is not the same thing as the lights she shows.
   alteration to starboard — and 14(b) is the deeming test, which is what a
   `classification` entry evaluates, as 13(b) is for overtaking. Entry `14a` is
   retired and `14b` cites the paragraph it reads. `Q-45`.
+- **2026-09-05, PR #46 — Rule 18 overrides Rule 15, and Rule 15 reads 3(b).**
+  The other half of the same question. `15a-give-way` kept the four Rule 18
+  ranks — NUC, RAM, fishing and WIG — out of Rule 15 by negating them on both
+  subjects in its own predicate. That is the sixth relation written as a gate:
+  it produced the right roles wherever Rule 18 spoke, and the wrong ones where
+  Rule 18 is silent, because two vessels engaged in fishing under power, or a
+  NUC and a RAM under power, took no helm role from any entry at all. The gate
+  is gone; `18a1`–`18a3`, `18c1`–`18c2` and `18f1` carry `rel:overrides`
+  against `15a-give-way`. Where Rule 18 does not order the pair, Rule 15 now
+  does — including onto a vessel that may be unable to discharge the duty,
+  which is §5's Rule 2 region and is recorded rather than gated. `13a` needs no
+  override here: `15a-give-way` excludes every overtaking by the `hist`
+  latch and by 13(b)'s sector, and a test pins that so the absence stays a
+  reason rather than an oversight. `Q-40`.
 
 ## What is unchanged
 

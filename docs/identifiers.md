@@ -266,6 +266,17 @@ reason it overrides Rule 18 — 13(a) is "notwithstanding" the rest of Sections
 I and II. The test that pins the relation asserts both reasons from
 `rules.json`, so the data cannot keep an override after losing the words.
 
+**And over Rule 15, the same way.** 15(a)'s subjects are "two power-driven
+vessels", which is 3(b), so `15a-give-way` gates on `fact:propulsion` and on
+no Rule 18 rank either — a vessel engaged in fishing, or not under command,
+whose machinery is in use is a power-driven vessel. It used to negate the four
+ranks in its own predicate, which said the same thing in the one place a test
+could not see the reason; `18a1`–`18a3`, `18c1`–`18c2` and `18f1` now carry
+`rel:overrides` against it instead. The derived half of the test is what makes
+that checkable: a Rule 18 entry meets Rule 15 when it assigns a helm role and
+neither subject is gated to a sailing vessel, and every such entry must carry
+the override, so a Rule 18 paragraph added later cannot join Rule 15 silently.
+
 **The effect names both subjects, and that is the point.** A `precedence`
 entry is evaluated from own's side, so 18(a)(i) says own gives way *and* the
 other vessel stands on. Writing only own's half would lose Rule 17, which
