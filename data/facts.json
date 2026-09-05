@@ -310,5 +310,188 @@
     "cite": "24(e), 27(e)"
    }
   ]
+ },
+ "situation": {
+  "note": "The input a two-subject rule reads (ADR 0005, REQ-CAT-4). A situation wraps two per-vessel fact records without changing either: `own.fact` and `other.fact` are exactly the record above, key for key. Beside them sit three new fact classes -- kinematic state (`kin:`), relative geometry (`geo:`) and history (`hist:`) -- which no `display` entry reads, so a consumer that only shows lights never constructs a situation and never supplies one of these.",
+  "status": "pencil",
+  "adr": "0005",
+  "requirements": [
+   "REQ-CAT-4",
+   "REQ-CAT-6"
+  ],
+  "pencil": "Everything in this section is pencil (docs/conventions.md): ADR 0005 puts the whole shape there and v0.x allows the break. Settled by the first two-subject entry -- Rule 18 -- actually being written against it.",
+  "namespace": {
+   "form": "<subject>:<class>:<key>",
+   "doc": "docs/identifiers.md, section 'Two subjects'",
+   "subjects": {
+    "own": "the vessel the rule addresses -- the subject of every one-subject entry in applicability.json today",
+    "other": "the vessel own is in an encounter with",
+    "pair": "the encounter itself. Only facts that are symmetric between the two vessels live here."
+   },
+   "classes": {
+    "fact": "the per-vessel fact record above, unchanged and unprefixed inside the record. `own` and `other` only.",
+    "kin": "kinematic state: where a vessel is, where it is pointing, how fast it is going and turning, and what it handles like. `own` and `other` only.",
+    "geo": "relative geometry. Under `own`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
+    "hist": "what has already been true of this encounter and latches. `own` and `other` only; directional."
+   },
+   "bare_key": "A key with no subject segment means `own:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
+   "directional_note": "Swapping `own` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `own:geo:rel_bearing_deg` is the bearing of the other vessel off own's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing."
+  },
+  "kinematics": {
+   "note": "A new fact class, not an extension of the fact record (ADR 0005 sec. 2). Absolute quantities, in the world frame, one set per vessel. Cites are `null` because the paragraphs that would justify them (Rules 6, 7, 13) are not transcribed yet -- `cite_pending` names the paragraph each is expected to hang off, so a later transcription pass can resolve them rather than invent them.",
+   "kin:position": {
+    "type": "position",
+    "unit": "deg",
+    "cite": null,
+    "cite_pending": "7(b)",
+    "note": "WGS84 latitude/longitude as {\"latitude\": <deg>, \"longitude\": <deg>}. Range and bearing are derived from the pair of positions; a predicate never reads a position directly.",
+    "actuable": true,
+    "signalk": "navigation.position.value"
+   },
+   "kin:heading_deg": {
+    "type": "number",
+    "unit": "deg",
+    "cite": null,
+    "cite_pending": "13(b)",
+    "note": "True heading, 0-360, clockwise from true north. Heading, not course over ground: Rule 13(b)'s overtaking sector and Rule 14's 'reciprocal or nearly reciprocal courses' are both about where the vessel is pointing. SignalK publishes radians.",
+    "actuable": true,
+    "signalk": "navigation.headingTrue.value"
+   },
+   "kin:sog_kn": {
+    "type": "number",
+    "unit": "kn",
+    "cite": null,
+    "cite_pending": "13(a)",
+    "note": "Speed over ground. Rule 13(a) overtaking is 'coming up with' another vessel, which is a speed comparison; Rule 6 safe speed reads it too.",
+    "actuable": true,
+    "signalk": "navigation.speedOverGround.value"
+   },
+   "kin:rot_deg_min": {
+    "type": "number",
+    "unit": "deg/min",
+    "cite": null,
+    "cite_pending": "8(b)",
+    "note": "Rate of turn, positive to starboard. Read by a `conduct` monitor rather than by a predicate at a point: Rule 8(b)'s 'readily apparent' alteration is a property of a trace.",
+    "actuable": true,
+    "signalk": "navigation.rateOfTurn.value"
+   },
+   "kin:dynamics": {
+    "type": "enum",
+    "values": [
+     "dynamics:tanker",
+     "dynamics:cargo",
+     "dynamics:ferry",
+     "dynamics:fishing",
+     "dynamics:yacht",
+     "dynamics:rib",
+     "dynamics:unknown"
+    ],
+    "cite": null,
+    "cite_pending": null,
+    "note": "What the vessel handles like -- the manoeuvring envelope a solver bounds own's actions by. Not a COLREGS concept and deliberately not derivable from the three axes: two power-driven vessels underway have identical facts and unrelated turning circles. The value list is a first cut and is Q-18; `dynamics:unknown` is the honest default and must stay in the set.",
+    "actuable": false,
+    "signalk": null
+   }
+  },
+  "geometry": {
+   "note": "Relative geometry. Directional facts are stated once per subject and mean 'measured from this subject'; symmetric facts are stated once, under `pair`. All of these are computable from the two kinematic states, and are declared as facts anyway because a consumer that has them from radar or ARPA should not be forced to round-trip through positions it does not trust.",
+   "directional": {
+    "geo:rel_bearing_deg": {
+     "type": "number",
+     "unit": "deg",
+     "cite": null,
+     "cite_pending": "13(b)",
+     "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's own heading. Under `own` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- own is more than 22.5 degrees abaft the other vessel's beam.",
+     "actuable": false,
+     "signalk": null
+    }
+   },
+   "symmetric": {
+    "geo:range_m": {
+     "type": "number",
+     "unit": "m",
+     "cite": null,
+     "cite_pending": "7(a)",
+     "note": "Distance between the two vessels. Symmetric by construction.",
+     "actuable": false,
+     "signalk": null
+    },
+    "geo:bearing_change_deg_min": {
+     "type": "number",
+     "unit": "deg/min",
+     "cite": null,
+     "cite_pending": "7(d)(i)",
+     "note": "Rate of change of the compass bearing between the two vessels. Rule 7(d)(i): a bearing that does not appreciably change means risk of collision exists. The threshold is not stated in the Rules and is not fixed here.",
+     "actuable": false,
+     "signalk": null
+    },
+    "geo:cpa_m": {
+     "type": "number",
+     "unit": "m",
+     "cite": null,
+     "cite_pending": "7(a)",
+     "note": "Closest point of approach on present courses and speeds. Derived, and declared so a consumer with an ARPA solution can supply it directly.",
+     "actuable": false,
+     "signalk": null
+    },
+    "geo:tcpa_s": {
+     "type": "number",
+     "unit": "s",
+     "cite": null,
+     "cite_pending": "7(a)",
+     "note": "Time to closest point of approach on present courses and speeds. Negative once the CPA is past.",
+     "actuable": false,
+     "signalk": null
+    },
+    "geo:in_sight": {
+     "type": "boolean",
+     "cite": null,
+     "cite_pending": "3(k)",
+     "note": "Rule 3(k): vessels are deemed to be in sight of one another only when one can be observed visually from the other. Symmetric because the rule defines it that way, not because visibility is. This is the `scope` gate that selects Section II over Section III, and it is a fact of the pair, never of one vessel.",
+     "actuable": false,
+     "signalk": null
+    }
+   }
+  },
+  "history": {
+   "note": "The situation is not memoryless: Rule 13(d) latches a classification that the instantaneous geometry would later contradict. History is directional -- it is own that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
+   "hist:was_overtaking": {
+    "type": "boolean",
+    "cite": null,
+    "cite_pending": "13(d)",
+    "note": "This subject was, at some earlier point in this encounter, an overtaking vessel with respect to the other. Rule 13(d): any subsequent alteration of the bearing shall not make the overtaking vessel a crossing vessel, nor relieve her of the duty of keeping clear until finally past and clear. Without this fact the geometry alone reclassifies an overtaking as a crossing and hands the duty to the wrong vessel -- which is the exact error the paragraph exists to forbid.",
+    "actuable": false,
+    "signalk": null
+   },
+   "hist:latched_at_s": {
+    "type": "number",
+    "unit": "s",
+    "cite": null,
+    "cite_pending": "13(d)",
+    "note": "Seconds since the latched classification first held, or null if nothing has latched. Carried so a `conduct` monitor can say when the duty attached; a predicate at a point does not read it.",
+    "actuable": false,
+    "signalk": null
+   }
+  },
+  "record": {
+   "note": "The shape, as an illustration rather than a schema. `own.fact` and `other.fact` hold the fact record defined above, verbatim. `own` and `other` carry directional geometry; `pair` carries only the symmetric geometry. Absent is absent: a missing key never satisfies a constraint, exactly as in the one-subject evaluator.",
+   "shape": {
+    "own": {
+     "fact": "<the fact record above>",
+     "kin": "<kinematics>",
+     "geo": "<directional geometry>",
+     "hist": "<history>"
+    },
+    "other": {
+     "fact": "<the fact record above>",
+     "kin": "<kinematics>",
+     "geo": "<directional geometry>",
+     "hist": "<history>"
+    },
+    "pair": {
+     "geo": "<symmetric geometry>"
+    }
+   }
+  }
  }
 }
