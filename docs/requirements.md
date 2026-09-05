@@ -260,7 +260,9 @@ any session may change it for a better idea, logging the change. It is
 recorded as a requirement because it is what the package has decided to build
 towards, not because the shape is settled.
 
-- **REQ-CAT-1** **(unimplemented — no rule record carries a category)** —
+- **REQ-CAT-1** **(unimplemented in part — `category` is carried by the
+  two-subject entries and defaulted for the rest; no record in `rules.json`
+  carries one, so a paragraph with no entry is uncategorised)** —
   Every rule paragraph record MUST carry exactly one `category` from the
   closed set `scope`, `definition`, `standard`, `display`,
   `classification`, `precedence`, `conduct`, `care`, `meta`. The field
@@ -273,13 +275,12 @@ towards, not because the shape is settled.
   `known_omissions`, stating that the package represents them and evaluates
   neither. CI MUST fail on a `care` or `meta` paragraph that appears as an
   entry.
-- **REQ-CAT-3** **(unimplemented in part — no entry uses `rel:overrides` yet,
-  so its cycle check is unbuilt)** — The modality vocabulary MUST admit
-  `shall-not` and `shall-not-impede` alongside `shall`, `may`,
-  `shall-if-practicable`, `conditional` and `exempt`, and the relation
-  vocabulary MUST admit `rel:overrides` as a sixth verb beside REQ-MODEL-7's
-  five. Both remain closed sets; CI MUST fail on a value outside them, and on
-  a cycle in `rel:overrides`.
+- **REQ-CAT-3** **(unimplemented in part — `shall-not` has no entry yet)** —
+  The modality vocabulary MUST admit `shall-not` and `shall-not-impede`
+  alongside `shall`, `may`, `shall-if-practicable`, `conditional` and
+  `exempt`, and the relation vocabulary MUST admit `rel:overrides` as a
+  sixth verb beside REQ-MODEL-7's five. Both remain closed sets; CI MUST
+  fail on a value outside them, and on a cycle in `rel:overrides`.
 - **REQ-CAT-4** — A two-subject rule MUST read a **situation record**:
   two per-vessel fact records, a kinematic state per vessel, relative
   geometry, and history. The per-vessel fact record MUST NOT change to accommodate it, and kinematic
@@ -295,12 +296,13 @@ towards, not because the shape is settled.
   `data/facts.json` under `situation`, and MUST address each vessel's facts
   through the subject namespace of `docs/identifiers.md`:
   `<subject>:<class>:<key>`, subject from `own`/`other`/`pair`, class from
-  `fact`/`kin`/`geo`/`hist`. A key with no subject segment MUST mean `own:`,
+  `fact`/`kin`/`geo`/`hist`/`env`. A key with no subject segment MUST mean `own:`,
   so that every predicate and fixture published today is a valid situation
   predicate unedited. `own:fact:*` and `other:fact:*` MUST resolve to the
   per-vessel fact record key for key, with no key renamed or copied.
   `pair` MUST carry only classes whose facts are symmetric between the two
-  vessels. Every fact in the `kin`, `geo` and `hist` classes MUST carry
+  vessels; `env` — where the encounter is happening — is `pair`-only for that
+  reason and MUST NOT appear under a vessel. Every fact in the `kin`, `geo` and `hist` classes MUST carry
   `type`, `cite`, `actuable` and `signalk` like the existing scalars, and a
   `null` `cite` MUST carry `cite_pending` naming the paragraph it awaits, or
   an explicit `null` where no paragraph will ever justify it. CI MUST fail
@@ -320,6 +322,17 @@ towards, not because the shape is settled.
   entries exist. CI MUST fail on an undeclared fact, an unresolvable key, an
   unknown entry id, an unknown modality, and on an `illustrative` case that
   names an entry.
+
+- **REQ-CAT-8** — A two-subject entry MUST state an `effect` and MUST NOT
+  state `lights`. For a `precedence` entry the effect MUST be a role per
+  subject, `{own, other}`, from the closed set `give-way`, `stand-on`,
+  `shall-not-impede`, `keep-clear`, `none`; for a `scope` entry it MUST name
+  the part, the section and the rules that section governs. `stand-on` MUST
+  appear only as the counterpart of `give-way`, and the counterpart of
+  `shall-not-impede` MUST be `none` — Rule 8(f)(iii) is why. CI MUST fail on a
+  role outside the set, on an effect whose shape does not match its category,
+  and on a `rel:overrides` that resolves to no entry, points at an entry of a
+  different category, or closes a cycle. `✎` pencil, with the rest of §4.1.
 
 ---
 
@@ -819,6 +832,8 @@ listed here, one line each, because the ADR is what makes them live. Most are
   flavour, charge)? Settled by Mark, before REQ-CAT-1's field name ships.
 - **Q-14** — Which category does each paragraph take? The proposal's table is
   a first cut; settled paragraph by paragraph as Rules 1–19 are transcribed.
+  PR #24 settles the first sixteen and departs from the table once: 13(a) is
+  `precedence`, not `classification` (`Q-37`).
 - **Q-15** — Which verification tool discharges each category (Alloy, Z3, TLA+,
   STL, Rocq)? Settled by building one proof per category, not by argument.
   *(engine)*
@@ -895,3 +910,90 @@ listed here, one line each, because the ADR is what makes them live. Most are
   and evaluated by nothing here, never a predicate. Holds the `2(a)` and
   `2(b)` records this PR adds. `✎` under `docs/conventions.md`: the file
   name and schema stay open to a better idea, logged when changed.
+
+### From the first two-subject data (PR #24)
+
+Rules 4, 11, 19(a) and 18(a)–(f) are the first entries written against ADR
+0005's model. What the model expressed, and what it could not, is recorded
+here rather than in a commit message. All pencil.
+
+**Decided in pencil 2026-09-04 (PR #24)**, answering the data half of `Q-27`:
+the field names are `category`, `subjects` and `effect`, and `effect` is
+`{own, other}` roles for a `precedence` entry and `{part, section,
+applies_rules}` for a `scope` one. Written up in `docs/identifiers.md`
+§"Effects", required by `REQ-CAT-8`, and exercised by
+`fixtures/situation-fixtures.json`. `Q-28`'s namespace is settled for good by
+the same PR — Rule 18 is written against it and it held, with one addition:
+a fifth class `env`, `pair`-only, because a narrow channel and a traffic
+separation scheme are properties of the water and belong to neither vessel
+nor to the pair's geometry. `fixtures/situation-fixtures.json` had already
+named that gap before the class existed.
+
+- **Q-31** — `modality` is a single closed value, and 18(c), 18(d)(i) and 9(a)
+  each carry two deontic qualifications at once: a practicability caveat
+  ("so far as possible", "if the circumstances of the case admit") *and* the
+  duty itself. 18(c) is expressible because `shall-if-practicable` already
+  exists; 18(d)(i) is not, and its caveat is dropped with a `gap` note on the
+  entry. Settled by deciding whether practicability is a second field beside
+  `modality` rather than a value inside it — which is the same question
+  `modality_by` answers for the light rules, and should probably be answered
+  the same way.
+- **Q-32** — `fact:activity` is a *display* axis: it says what lights a vessel
+  shows, not what her rank is under Rule 18. The two disagree. `activity:mine`
+  (27(f)) and `activity:diving` (27(e)) are vessels restricted in their ability
+  to manoeuvre under Rule 3(g) and are listed by hand in 18(a)(ii)'s
+  predicate; `activity:trawling` is a fishing vessel and is listed by hand in
+  18(a)(iii)'s, because the evaluator's one refinement rule covers only
+  `activity:ram` → `activity:ram_underwater`. A towing operation that severely
+  restricts the tow's ability to deviate is RAM by 27(c) and is *not* caught,
+  because `activity:towing` alone does not say whether it does. Settled by
+  deciding whether Rule 18's rank is a derived fact, a second refinement
+  table, or a per-value attribute on the activity axis.
+- **Q-33** — A `when` is a conjunction with no negation and no disjunction, and
+  Rule 18 needs both. Negation: "any vessel other than a vessel not under
+  command or a vessel restricted in her ability to manoeuvre" (18(d)(i)) and
+  the implicit "a power-driven vessel that is not herself ranked" (18(a)) are
+  both written as positive enumerations of `fact:activity`, which must be
+  edited every time the axis gains a value — a silent-drift risk with no test
+  behind it. Disjunction: 9(b) and 10(j) each have a disjunctive subject
+  ("under 20 m **or** a sailing vessel") and take two entries apiece. Settled
+  by deciding whether the predicate language grows `not`/`any_of`, or whether
+  the enumerations get a generated-and-checked complement.
+- **Q-34** — A `shall-not-impede` entry names a duty toward `other`, but the
+  paragraphs identify the protected vessel by a property this package does not
+  carry: "a vessel which can safely navigate only within a narrow channel"
+  (9(b), 9(d)), "any vessel following a traffic lane" (10(i), 10(j)), and a
+  CBD vessel "exhibiting the signals in Rule 28" (18(d)(i)). `pair:env:*` says
+  where the encounter is, not which vessel is confined to it, so those entries
+  are wider than their paragraphs and could assert a duty owed to a third
+  vessel. Settled by deciding whether the protected-vessel property is a
+  per-vessel fact, and whether it is a fact at all or a consumer's judgement.
+- **Q-35** — 8(f)(iii)'s antecedent is "a vessel, the passage of which is not to
+  be impeded" — the *output* of another norm, not a fact. A precedence
+  predicate reads only facts, so entry `8f3` reads the risk-of-collision half
+  alone and applies to every pair with risk of collision. Settled by deciding
+  whether a norm may read another norm's effect, which is the same question a
+  `conduct` monitor will ask about role and phase.
+- **Q-36** — Rule 18(a)(iv) and 18(d)(i) are both in force between a sailing
+  vessel and a vessel constrained by her draught: the CBD vessel gives way, and
+  the sailing vessel must not impede her. Neither overrides the other and the
+  model records both, so one subject holds `stand-on` and `shall-not-impede`
+  at once. The test suite pins it as a finding rather than asserting it away.
+  Settled by reading 8(f)(ii) against the cases, not by picking a role.
+- **Q-37** — 13(a) is `classification` in ADR 0005 §1 and in the proposal's
+  first-cut table, but it is the one paragraph of Rule 13 that assigns a role
+  and a `classification` entry has nowhere to put one. Entry `13a` is
+  `precedence` here, with 13(b)'s sector test left for the `classification`
+  entry that would set the `hist:was_overtaking` latch. Settled with the rest
+  of `Q-14`, paragraph by paragraph.
+- **Q-38** — 9(d), 18(d)(ii), 18(e), 18(f)(ii), 1(a)–(e) and 20(b)–(c) are
+  recorded in `known_omissions` rather than modelled: 9(d) needs the channel's
+  axis, 18(e) needs a fact for being a seaplane, 20(b)–(c) need time of day,
+  and 1(a)–(e) are addressed to an authority rather than to a vessel. Settled
+  one at a time as the facts they need land; none blocks the rest of Part B.
+- **Q-39** — Rule 4's `scope` entry has an empty `when`, because "any condition
+  of visibility" is the absence of a condition. That makes it unfalsifiable —
+  `REQ-VERIFY-3`'s "excluded by at least one fixture" half cannot be satisfied
+  and the test exempts it explicitly. Settled by deciding whether an ungated
+  norm should be a registry record like `represented_paragraphs` rather than an
+  entry with a vacuous predicate.

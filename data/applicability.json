@@ -28,6 +28,16 @@
   "care": "reads anything; produces residual responsibility; represented, never independently evaluated",
   "meta": "reads the region state; produces a banner and advisories; computed by a solver, reviewed by humans"
  },
+ "effects": {
+  "note": "What a two-subject entry produces, as a role per subject: `effect` is {\"own\": <role>, \"other\": <role>} for a `precedence` entry, and {\"part\", \"section\", \"applies_rules\"} for a `scope` entry. A `display` entry has no `effect`; its output is `lights`. The roles are a closed vocabulary and are not identifiers (docs/identifiers.md, 'What is not an identifier'). Pencil: ADR 0005 and docs/identifiers.md.",
+  "roles": {
+   "give-way": "this subject shall keep out of the way of the other; Rule 16 governs the action",
+   "stand-on": "this subject shall keep her course and speed; Rule 17 governs, including 17(a)(ii) and 17(b)",
+   "shall-not-impede": "this subject shall not impede the other's passage or safe passage; Rule 8(f) governs, and by 8(f)(iii) it confers nothing on the other",
+   "keep-clear": "this subject shall keep well clear of the other and avoid impeding her navigation, outside the give-way/stand-on pairing (18(e), 18(f)(i))",
+   "none": "this paragraph confers no role on this subject. Recorded rather than omitted: `none` on the counterpart of a shall-not-impede duty is the content of 8(f)(iii), and `none` on both sides of a NUC/RAM pair is the content of Rule 18's partial order."
+  }
+ },
  "known_omissions": [
   {
    "cite": "24(d)",
@@ -53,6 +63,31 @@
    "cite": "31",
    "what": "Seaplanes and WIG craft show the closest practicable equivalent.",
    "why": "Not expressible as a light set."
+  },
+  {
+   "cite": "9(d)",
+   "what": "A vessel shall not cross a narrow channel or fairway if such crossing impedes the passage of a vessel which can safely navigate only within that channel.",
+   "why": "The duty is conditioned on own crossing the channel, which is a relation between own's heading and the channel's axis. Neither the channel's axis nor 'crossing it' is a fact this package carries, and `pair:env:narrow_channel` is a boolean about the place, not a geometry. No entry rather than an entry whose predicate is not the paragraph's."
+  },
+  {
+   "cite": "18(d)(ii)",
+   "what": "A vessel constrained by her draft shall navigate with particular caution having full regard to her special condition.",
+   "why": "`conduct`, not `precedence`: it prescribes a manner of navigating rather than a role in a pair, and conduct is monitored over a trace rather than evaluated at a point (ADR 0005 sec. 1). No conduct entry shape exists yet."
+  },
+  {
+   "cite": "18(e)",
+   "what": "A seaplane on the water shall in general keep well clear of all vessels and avoid impeding their navigation; where risk of collision exists she shall comply with Rules 4-19.",
+   "why": "There is no fact for being a seaplane. `fact:propulsion` has power, sail and oars, and Rule 3(a) makes a seaplane a vessel without giving the fact record anywhere to say so. The effect vocabulary has `keep-clear` for it; the predicate does not exist."
+  },
+  {
+   "cite": "18(f)(ii)",
+   "what": "A WIG craft operating on the water surface shall comply with Rules 4-19 as a power-driven vessel.",
+   "why": "Not a precedence norm: it maps a WIG on the surface onto `propulsion:power` for the rest of Part B, which is a classification or a decode-table statement rather than a role in a pair. 18(f)(i) -- the phase that does change the roles -- is entry 18f1."
+  },
+  {
+   "cite": "1(a), 1(b), 1(c), 1(d), 1(e), 20(b), 20(c)",
+   "what": "The remaining `scope` paragraphs: the waters the Rules apply to, special rules made by an authority, the adoption of traffic separation schemes, the special-construction determination, and the sunset-to-sunrise and restricted-visibility gates on the light rules.",
+   "why": "None of them reads a fact this package declares. 1(a) needs a fact about the waters; 1(b)/(c)/(e) are about an authority's determination, which is closer to the jurisdiction dimension of ADR 0001 than to a predicate; 1(d) is not addressed to a vessel at all; 20(b)/(c) need time of day and visibility, and applicability.json's `conditions` note already records that night is assumed rather than gated. Deferred to a later PR with 4, 11 and 19(a) landing first."
   }
  ],
  "represented_paragraphs": [
@@ -1144,6 +1179,605 @@
     "30b"
    ],
    "modality": "exempt"
+  },
+  {
+   "id": "4",
+   "jurisdiction": "intl",
+   "cite": "4",
+   "category": "scope",
+   "subjects": 2,
+   "when": {},
+   "modality": "shall",
+   "effect": {
+    "part": "B",
+    "section": "I",
+    "applies_rules": [
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "10"
+    ]
+   },
+   "note": "Part B Section I is ungated: the predicate is empty because 'any condition of visibility' is the absence of a condition, not a fact. A scope entry is never a display entry, so an empty `when` selects no lights."
+  },
+  {
+   "id": "11",
+   "jurisdiction": "intl",
+   "cite": "11",
+   "category": "scope",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "part": "B",
+    "section": "II",
+    "applies_rules": [
+     "11",
+     "12",
+     "13",
+     "14",
+     "15",
+     "16",
+     "17",
+     "18"
+    ]
+   },
+   "note": "Rule 3(k)'s in-sight test is a fact of the pair, so Section II is gated on `pair:geo:in_sight` and every Rule 18 entry below repeats that gate rather than relying on the engine to apply this one."
+  },
+  {
+   "id": "19a",
+   "jurisdiction": "intl",
+   "cite": "19(a)",
+   "category": "scope",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": false
+   },
+   "modality": "shall",
+   "effect": {
+    "part": "B",
+    "section": "III",
+    "applies_rules": [
+     "19"
+    ]
+   },
+   "gap": "19(a) is 'not in sight of one another AND navigating in or near an area of restricted visibility'. Only the first conjunct is a fact; there is no fact for being in or near an area of restricted visibility, and it is a property of the water rather than of either vessel or of the pair's geometry. This entry is therefore wider than the paragraph: it selects Section III for any pair not in sight. Recorded rather than silently narrowed.",
+   "note": "The complement of 11. Rule 3(l) defines restricted visibility; nothing in facts.json carries it."
+  },
+  {
+   "id": "18a1",
+   "jurisdiction": "intl",
+   "cite": "18(a)(i)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:propulsion": "propulsion:power",
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:nuc"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "Own's activity is listed positively because the predicate language has no negation: a power-driven vessel that is herself NUC, RAM or fishing is ranked by 18(c) or by nothing, not by 18(a). `activity:cbd` is in the list deliberately -- 18(d) protects a CBD vessel, it does not rank her."
+  },
+  {
+   "id": "18a2",
+   "jurisdiction": "intl",
+   "cite": "18(a)(ii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:propulsion": "propulsion:power",
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:ram",
+     "activity:ram_underwater",
+     "activity:mine",
+     "activity:diving"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "`activity:mine` (27(f)) and `activity:diving` (27(e)) are listed alongside `activity:ram` because Rule 3(g) enumerates mine clearance and underwater operations as restricted-in-ability-to-manoeuvre. `activity:ram_underwater` is matched by `activity:ram` under the refinement rule and is listed only for readability."
+  },
+  {
+   "id": "18a3",
+   "jurisdiction": "intl",
+   "cite": "18(a)(iii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:propulsion": "propulsion:power",
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:fishing",
+     "activity:trawling"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "`activity:trawling` is listed beside `activity:fishing`: the evaluator refines only ram -> ram_underwater, so a predicate written for `activity:fishing` does not otherwise reach a trawler."
+  },
+  {
+   "id": "18a4",
+   "jurisdiction": "intl",
+   "cite": "18(a)(iv)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:propulsion": "propulsion:power",
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "other:fact:propulsion": "propulsion:sail",
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "A sailing vessel that is also fishing is ranked by 18(a)(iii), so own's counterpart here is restricted to the ordinary activities."
+  },
+  {
+   "id": "18b1",
+   "jurisdiction": "intl",
+   "cite": "18(b)(i)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:propulsion": "propulsion:sail",
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:nuc"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   }
+  },
+  {
+   "id": "18b2",
+   "jurisdiction": "intl",
+   "cite": "18(b)(ii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:propulsion": "propulsion:sail",
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:ram",
+     "activity:ram_underwater",
+     "activity:mine",
+     "activity:diving"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   }
+  },
+  {
+   "id": "18b3",
+   "jurisdiction": "intl",
+   "cite": "18(b)(iii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:propulsion": "propulsion:sail",
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:fishing",
+     "activity:trawling"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   }
+  },
+  {
+   "id": "18c1",
+   "jurisdiction": "intl",
+   "cite": "18(c)(i)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:activity": [
+     "activity:fishing",
+     "activity:trawling"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:nuc"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall-if-practicable",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "'so far as possible' is the practicability qualifier, so the modality is shall-if-practicable. 18(c) does not distinguish propulsion: a fishing vessel under sail is ranked here, not by 18(b)."
+  },
+  {
+   "id": "18c2",
+   "jurisdiction": "intl",
+   "cite": "18(c)(ii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:activity": [
+     "activity:fishing",
+     "activity:trawling"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:ram",
+     "activity:ram_underwater",
+     "activity:mine",
+     "activity:diving"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall-if-practicable",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   }
+  },
+  {
+   "id": "18d1",
+   "jurisdiction": "intl",
+   "cite": "18(d)(i)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:activity": [
+     "activity:none",
+     "activity:towing",
+     "activity:pushing",
+     "activity:being_towed",
+     "activity:cbd",
+     "activity:pilot",
+     "activity:fishing",
+     "activity:trawling"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "other:fact:activity": [
+     "activity:cbd"
+    ],
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall-not-impede",
+   "effect": {
+    "own": "shall-not-impede",
+    "other": "none"
+   },
+   "note": "`other` is `none` and not `stand-on`: 18(d) confers no stand-on role, which is the point 8(f)(iii) makes explicit. Own's list is 'any vessel other than a vessel not under command or a vessel restricted in her ability to manoeuvre', written positively for want of negation.",
+   "gap": "18(d)(i) reads 'shall, if the circumstances of the case admit, avoid impeding'. That is two deontic qualifications at once -- a practicability caveat and a shall-not-impede duty -- and `modality` is a single closed value. shall-not-impede is kept because it is the distinctive one; the 'if the circumstances of the case admit' half is lost. The paragraph also conditions on the CBD vessel 'exhibiting the signals in Rule 28', which is a display fact of the other vessel and is not read here."
+  },
+  {
+   "id": "18f1",
+   "jurisdiction": "intl",
+   "cite": "18(f)(i)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "own:fact:wig": true,
+    "own:fact:wig_near_surface": true,
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "pair:geo:in_sight": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "keep-clear",
+    "other": "none"
+   },
+   "rel:overrides": [
+    "18a1",
+    "18a2",
+    "18a3",
+    "18a4",
+    "18d1"
+   ],
+   "note": "A WIG craft near the surface also satisfies 18(a)'s predicate (she is a power-driven vessel underway), so 18(f)(i) carries rel:overrides against the 18(a) family and 18(d)(i). `keep-clear` is one effect for the paragraph's two duties -- keep well clear, and avoid impeding navigation -- which the effect vocabulary cannot separate."
+  },
+  {
+   "id": "8f3",
+   "jurisdiction": "intl",
+   "cite": "8(f)(iii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:geo:risk_of_collision": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "none",
+    "other": "none"
+   },
+   "note": "Recorded as a precedence norm rather than as a rel:overrides. It is not a superiority relation: 8(f)(ii) keeps the impeding vessel's duty alive, so nothing is displaced. What 8(f)(iii) does is deny the not-to-be-impeded vessel any role -- `none` on both sides -- so that shall-not-impede is never read as conferring stand-on.",
+   "gap": "The paragraph's antecedent is 'a vessel, the passage of which is not to be impeded'. That is the output of another norm, not a fact, and a precedence predicate reads only facts. The `when` is therefore the risk-of-collision half alone, which makes this entry wider than the paragraph: it applies to any pair with risk of collision. Kept wide and recorded rather than narrowed by inventing a fact.",
+   "no_gate_note": "No in-sight gate: Rule 4 puts Rules 4-10 in any condition of visibility."
+  },
+  {
+   "id": "13a",
+   "jurisdiction": "intl",
+   "cite": "13(a)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "own:hist:was_overtaking": true,
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "rel:overrides": [
+    "18a1",
+    "18a2",
+    "18a3",
+    "18a4",
+    "18b1",
+    "18b2",
+    "18b3",
+    "18c1",
+    "18c2",
+    "18d1",
+    "18f1"
+   ],
+   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them.",
+   "gap": "The predicate reads `own:hist:was_overtaking` alone, so the instantaneous 13(b) sector test -- `other:geo:rel_bearing_deg` in (112.5, 247.5) -- is not modelled here. A `classification` entry for 13(b) is what would set the latch, and none exists yet; a consumer must set the fact itself. Written this way because a `when` has no disjunction, so 'in the sector OR latched' cannot be one entry, and the latched form is the one 13(d) makes load-bearing."
+  },
+  {
+   "id": "9b-small",
+   "jurisdiction": "intl",
+   "cite": "9(b)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:env:narrow_channel": true,
+    "own:fact:length_m": {
+     "lt": 20
+    },
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall-not-impede",
+   "effect": {
+    "own": "shall-not-impede",
+    "other": "none"
+   },
+   "rel:overrides": [
+    "18a4"
+   ],
+   "gap": "The vessel whose passage is not to be impeded is identified by the paragraph as one 'which can safely navigate only within a narrow channel or fairway'. That is a property of the other vessel against the water, and no fact carries it. This entry therefore asserts a duty toward `other` whenever the encounter is in a narrow channel, which may be a duty toward a third vessel instead. Recorded rather than narrowed.",
+   "note": "9(b) has a disjunctive subject -- under 20 m OR a sailing vessel -- and a `when` is a conjunction, so the paragraph takes two entries. This is the length half."
+  },
+  {
+   "id": "9b-sail",
+   "jurisdiction": "intl",
+   "cite": "9(b)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:env:narrow_channel": true,
+    "own:fact:propulsion": "propulsion:sail",
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall-not-impede",
+   "effect": {
+    "own": "shall-not-impede",
+    "other": "none"
+   },
+   "rel:overrides": [
+    "18a4"
+   ],
+   "gap": "The vessel whose passage is not to be impeded is identified by the paragraph as one 'which can safely navigate only within a narrow channel or fairway'. That is a property of the other vessel against the water, and no fact carries it. This entry therefore asserts a duty toward `other` whenever the encounter is in a narrow channel, which may be a duty toward a third vessel instead. Recorded rather than narrowed.",
+   "note": "The sailing half of 9(b). Its rel:overrides against 18(a)(iv) is the substantive one: outside a channel a power-driven vessel keeps out of the way of a sailing vessel, and inside one the sailing vessel must not impede her."
+  },
+  {
+   "id": "9c",
+   "jurisdiction": "intl",
+   "cite": "9(c)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:env:narrow_channel": true,
+    "own:fact:activity": [
+     "activity:fishing",
+     "activity:trawling"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall-not-impede",
+   "effect": {
+    "own": "shall-not-impede",
+    "other": "none"
+   },
+   "rel:overrides": [
+    "18a3",
+    "18b3"
+   ],
+   "note": "Reverses 18(a)(iii) and 18(b)(iii) inside a narrow channel: 9(c)'s object is 'any other vessel navigating within a narrow channel or fairway', so unlike 9(b) it needs no further fact about the other vessel."
+  },
+  {
+   "id": "10i",
+   "jurisdiction": "intl",
+   "cite": "10(i)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:env:traffic_lane": true,
+    "own:fact:activity": [
+     "activity:fishing",
+     "activity:trawling"
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall-not-impede",
+   "effect": {
+    "own": "shall-not-impede",
+    "other": "none"
+   },
+   "rel:overrides": [
+    "18a3",
+    "18b3"
+   ],
+   "gap": "'any vessel following a traffic lane' is unmodelled for the other vessel; `pair:env:traffic_lane` says the encounter is in a lane, not that the other vessel is following it."
+  },
+  {
+   "id": "10j-small",
+   "jurisdiction": "intl",
+   "cite": "10(j)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:env:traffic_lane": true,
+    "own:fact:length_m": {
+     "lt": 20
+    },
+    "own:fact:position": "position:underway",
+    "other:fact:propulsion": "propulsion:power",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall-not-impede",
+   "effect": {
+    "own": "shall-not-impede",
+    "other": "none"
+   },
+   "rel:overrides": [
+    "18a4"
+   ],
+   "note": "The length half of 10(j)'s disjunctive subject; the object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read."
+  },
+  {
+   "id": "10j-sail",
+   "jurisdiction": "intl",
+   "cite": "10(j)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:env:traffic_lane": true,
+    "own:fact:propulsion": "propulsion:sail",
+    "own:fact:position": "position:underway",
+    "other:fact:propulsion": "propulsion:power",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall-not-impede",
+   "effect": {
+    "own": "shall-not-impede",
+    "other": "none"
+   },
+   "rel:overrides": [
+    "18a4"
+   ],
+   "note": "The sailing half of 10(j)."
   }
  ]
 }
