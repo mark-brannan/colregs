@@ -12,6 +12,7 @@ const facts = load('data/facts.json')
 const appl = load('data/applicability.json')
 const images = load('data/images.json')
 const geometry = load('data/geometry.json')
+const deprecated = load('data/deprecated-identifiers.json')
 const fixtures = load('fixtures/applicability-fixtures.json')
 
 const byId = new Map(appl.entries.map((e) => [e.id, e]))
@@ -62,6 +63,7 @@ const schemaTargets = [
   ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
   ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
   ['data/images.json', images, loadSchema('images.schema.json')],
+  ['data/deprecated-identifiers.json', deprecated, loadSchema('deprecated-identifiers.schema.json')],
   ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
   ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
 ]
@@ -375,10 +377,8 @@ test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1
 // change as removal of an entry id, a fact vocabulary value, or a change in
 // relation semantics -- all data changes the schema doesn't see). This test
 // extracts every published identifier from the last release tag and compares
-// it with HEAD; any removal not accompanied by a deprecation marker fails.
-// No registry exists yet for deprecation markers (REQ-MODEL-11 is
-// unimplemented), so today every removal fails outright -- that is the
-// correct, conservative behavior until the registry lands.
+// it with HEAD; any removal not accompanied by a deprecation marker in
+// data/deprecated-identifiers.json (REQ-MODEL-11) fails.
 function extractIdentifiers({ rules, lights, facts, appl }) {
   const ids = new Set()
   // Keys in lights.json already carry their `light:` prefix (docs/identifiers.md).
@@ -432,12 +432,11 @@ test('identifier diff: no identifier published in the last release is silently r
     appl: loadAtTag(tag, 'data/applicability.json'),
   })
   const after = extractIdentifiers({ rules, lights, facts, appl })
-  const deprecatedPath = 'docs/deprecated-identifiers.json'
-  const deprecated = fileExists(deprecatedPath) ? new Set(Object.keys(load(deprecatedPath))) : new Set()
-  const removed = [...before].filter((id) => !after.has(id) && !deprecated.has(id))
+  const deprecatedIds = new Set(Object.keys(deprecated))
+  const removed = [...before].filter((id) => !after.has(id) && !deprecatedIds.has(id))
   assert.deepEqual(removed, [],
     `identifier(s) removed since ${tag} with no deprecation marker (REQ-MODEL-10/REQ-PKG-4): ${removed.join(', ')}. ` +
-    'Add the identifier back, or deprecate it in docs/deprecated-identifiers.json before removing it.')
+    'Add the identifier back, or deprecate it in data/deprecated-identifiers.json before removing it.')
 })
 
 test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares', () => {
