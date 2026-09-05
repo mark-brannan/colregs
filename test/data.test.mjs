@@ -421,9 +421,17 @@ test('drift: lights already shown never silently admit an undeclared candidate e
 
 // --- integrity -----------------------------------------------------------
 test('every entry cites a paragraph that exists in rules.json', () => {
+  const check = (where, cite) => {
+    const head = cite.split('-')[0].trim()
+    assert.ok(rules.paragraphs[head], `${where} cites missing paragraph ${head}`)
+  }
   for (const e of appl.entries) {
-    const head = e.cite.split('-')[0].trim()
-    assert.ok(rules.paragraphs[head], `${e.id} cites missing paragraph ${head}`)
+    check(e.id, e.cite)
+    // A conditional_includes branch may carry its own cite (29a's (ii)/(iii),
+    // 27f's two branches); it is a citation like any other and must resolve.
+    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+      if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite)
+    }
   }
 })
 
