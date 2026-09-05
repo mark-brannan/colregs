@@ -1457,11 +1457,11 @@ function sweepTemplate(latchOwn = false, latchOther = false) {
 // so this is the same object the predicates read. With own's heading as the
 // datum the other's heading is own's bearing plus 180 less the aspect, and her
 // position is that bearing and the range from the origin.
-function aim(s, ownRel, aspect) {
+function aim(s, ownRel, aspect, range_m = SWEEP_RANGE_M) {
   s.own.geo['geo:rel_bearing_deg'] = ownRel
   s.other.geo['geo:rel_bearing_deg'] = aspect
   s.other.kin['kin:heading_deg'] = norm360(ownRel + 180 - aspect)
-  s.other.kin['kin:position'] = destination(SWEEP_ORIGIN, ownRel, SWEEP_RANGE_M)
+  s.other.kin['kin:position'] = destination(SWEEP_ORIGIN, ownRel, range_m)
   return s
 }
 const sweepSituation = ({ ownRel, aspect, latchOwn = false, latchOther = false }) =>
@@ -1704,7 +1704,7 @@ function steadyBearingHeadings({ ownRel, ownSog, otherSog }) {
 // Own heads north at the origin; everything else follows from the arguments.
 function statedSituation({ ownRel, otherHeading, ownSog, otherSog, range_m = SWEEP_RANGE_M, risk = true, own = {}, other = {} }) {
   const s = sweepTemplate()
-  aim(s, ownRel, norm360(ownRel + 180 - otherHeading))
+  aim(s, ownRel, norm360(ownRel + 180 - otherHeading), range_m)
   Object.assign(s.own.kin, { 'kin:sog_kn': ownSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' }, own.kin)
   Object.assign(s.other.kin, { 'kin:sog_kn': otherSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' }, other.kin)
   const m = relativeMotion({ range_m, ownRel, ownHeading: 0, otherHeading, ownSog, otherSog })
