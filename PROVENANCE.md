@@ -7,8 +7,10 @@ publications. Nothing here is authoritative: consult the published rules.
 
 - **Source:** USCG Navigation Center, *Navigation Rules, International —
   Inland* (amalgamated), <https://www.navcen.uscg.gov/navigation-rules-amalgamated>
-- **Retrieved:** 2026-08-29
-- **Scope:** the **International** text only. The amalgamated page marks
+- **Retrieved:** 2026-09-04 (re-fetched to add Rules 1-19; originally 2026-08-29
+  for Part C)
+- **Scope:** the **International** text only, now covering Parts A and B
+  (Rules 1-19) and Part C (Rules 20-31). The amalgamated page marks
   inland-only inserts and international-only variants inline; inland text was
   removed and international variants kept. Nothing was paraphrased.
 - **Rights:** a work of the US Government, not subject to copyright in the
@@ -17,6 +19,10 @@ publications. Nothing here is authoritative: consult the published rules.
   reconstruct it from memory, `rules.json` records it under `gaps` and the
   paragraph is omitted. 24(g) covers inconspicuous, partly submerged tows and
   is outside the applicability table in this release.
+- **Known quirks kept verbatim:** the source's own text of Rule 1(c) repeats
+  "special rules ... special rules made" and Rule 13(b) reads "coming up with
+  a another vessel" (sic). Both are transcribed exactly as the source has
+  them rather than silently corrected.
 
 ## Diagrams — `images/NRHB_*.png`
 

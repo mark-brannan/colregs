@@ -1,8 +1,8 @@
 {
  "source": "USCG Navigation Rules, amalgamated (International text only)",
  "source_url": "https://www.navcen.uscg.gov/navigation-rules-amalgamated",
- "retrieved": "2026-08-29",
- "note": "Verbatim text of COLREGS 72 Part C (Lights and Shapes) plus the Rule 3 definitions those paragraphs depend on. Paragraph path is the citation unit. Inland-only text is not included in this ruleset.",
+ "retrieved": "2026-09-04",
+ "note": "Verbatim International text of COLREGS 72 Parts A and B (Rules 1-19) and Part C (Lights and Shapes, Rules 20-31), plus the Rule 3 definitions those paragraphs depend on. Paragraph path is the citation unit. Inland-only text is not included in this ruleset.",
  "gaps": [
   {
    "path": "24(g)(i)",
@@ -10,6 +10,62 @@
   }
  ],
  "paragraphs": {
+  "1(a)": {
+   "path": "1(a)",
+   "rule": "1",
+   "rule_title": "Application",
+   "jurisdiction": "intl",
+   "text": "These Rules shall apply to all vessels upon the high seas and in all waters connected therewith navigable by seagoing vessels."
+  },
+  "1(b)": {
+   "path": "1(b)",
+   "rule": "1",
+   "rule_title": "Application",
+   "jurisdiction": "intl",
+   "text": "Nothing in these Rules shall interfere with the operation of special rules made by an appropriate authority for roadsteads, harbors, rivers, lakes, or inland waterways connected with the high seas and navigable by seagoing vessels. Such special rules shall conform as closely as possible to these Rules."
+  },
+  "1(c)": {
+   "path": "1(c)",
+   "rule": "1",
+   "rule_title": "Application",
+   "jurisdiction": "intl",
+   "text": "Nothing in these Rules shall interfere with the operation of any special rules made by the Government of any State with respect to special rules with respect to additional station and signal lights and shapes or whistle signals for ships of war and vessels proceeding under convoy, or with respect to additional station or signal lights or shapes for fishing vessels engaged in fishing as a fleet. These additional stations or signal lights, shapes or whistle signals shall, so far as possible, be such that they cannot be mistaken for any light, shape, or signal authorized elsewhere under these Rules."
+  },
+  "1(d)": {
+   "path": "1(d)",
+   "rule": "1",
+   "rule_title": "Application",
+   "jurisdiction": "intl",
+   "text": "Traffic separation schemes may be adopted by the Organization for the purposes of these Rules."
+  },
+  "1(e)": {
+   "path": "1(e)",
+   "rule": "1",
+   "rule_title": "Application",
+   "jurisdiction": "intl",
+   "text": "Whenever the Government concerned shall have determined that a vessel of special construction or purpose cannot comply fully with the provisions of any of these Rules with respect to number, position, range or arc of visibility of lights or shapes, as well as to the disposition and characteristics of sound-signaling appliances, such vessel shall comply with such other provisions in regard to number, position, range or arc of visibility of lights or shapes, as well as to the disposition and characteristics of sound-signaling appliances, as the Government shall have determined to be the closest possible compliance with these Rules in respect to that vessel."
+  },
+  "2(a)": {
+   "path": "2(a)",
+   "rule": "2",
+   "rule_title": "Responsibility",
+   "jurisdiction": "intl",
+   "text": "Nothing in these Rules shall exonerate any vessel, or the owner, master, or crew thereof, from the consequences of any neglect to comply with these Rules or of the neglect of any precaution which may be required by the ordinary practice of seamen, or by the special circumstances of the case."
+  },
+  "2(b)": {
+   "path": "2(b)",
+   "rule": "2",
+   "rule_title": "Responsibility",
+   "jurisdiction": "intl",
+   "text": "In construing and complying with these Rules due regard shall be had to all dangers of navigation and collision and to any special circumstances, including the limitations of the vessels involved, which may make a departure from these Rules necessary to avoid immediate danger."
+  },
+  "3(a)": {
+   "path": "3(a)",
+   "rule": "3",
+   "rule_title": "General Definitions",
+   "jurisdiction": "intl",
+   "text": "The word \"vessel\" includes every description of watercraft, including non-displacement craft, WIG craft, and seaplanes, used or capable of being used as a means of transportation on water."
+  },
   "3(b)": {
    "path": "3(b)",
    "rule": "3",
@@ -73,12 +129,740 @@
    "jurisdiction": "intl",
    "text": "The words \"length\" and \"breadth\" of a vessel mean her length overall and greatest breadth."
   },
+  "3(k)": {
+   "path": "3(k)",
+   "rule": "3",
+   "rule_title": "General Definitions",
+   "jurisdiction": "intl",
+   "text": "Vessels shall be deemed to be in sight of one another only when one can be observed visually from the other."
+  },
+  "3(l)": {
+   "path": "3(l)",
+   "rule": "3",
+   "rule_title": "General Definitions",
+   "jurisdiction": "intl",
+   "text": "The term “restricted visibility” means any condition in which visibility is restricted by fog, mist, falling snow, heavy rainstorms, sandstorms, or any other similar causes."
+  },
   "3(m)": {
    "path": "3(m)",
    "rule": "3",
    "rule_title": "General Definitions",
    "jurisdiction": "intl",
    "text": "The term \"Wing-In-Ground (WIG) craft\" means a multimodal craft which, in its main operational mode, flies in close proximity to the surface by utilizing surface-effect action."
+  },
+  "4": {
+   "path": "4",
+   "rule": "4",
+   "rule_title": "Application",
+   "jurisdiction": "intl",
+   "text": "Rules 4-10 apply in any condition of visibility."
+  },
+  "5": {
+   "path": "5",
+   "rule": "5",
+   "rule_title": "Lookout",
+   "jurisdiction": "intl",
+   "text": "Every vessel shall at all times maintain a proper look-out by sight and hearing as well as by all available means appropriate in the prevailing circumstances and conditions so as to make a full appraisal of the situation and of the risk of collision."
+  },
+  "6": {
+   "path": "6",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "Every vessel shall at all times proceed at a safe speed so that she can take proper and effective action to avoid collision and be stopped within a distance appropriate to the prevailing circumstances and conditions. In determining a safe speed the following factors shall be among those taken into account:"
+  },
+  "6(a)": {
+   "path": "6(a)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "By all vessels:"
+  },
+  "6(a)(i)": {
+   "path": "6(a)(i)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The state of visibility;"
+  },
+  "6(a)(ii)": {
+   "path": "6(a)(ii)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The traffic density including concentrations of fishing vessels or any other vessels;"
+  },
+  "6(a)(iii)": {
+   "path": "6(a)(iii)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The maneuverability of the vessel with special reference to stopping distance and turning ability in the prevailing conditions;"
+  },
+  "6(a)(iv)": {
+   "path": "6(a)(iv)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "At night, the presence of background light such as from shore lights or from back scatter from her own lights;"
+  },
+  "6(a)(v)": {
+   "path": "6(a)(v)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The state of wind, sea and current, and the proximity of navigational hazards;"
+  },
+  "6(a)(vi)": {
+   "path": "6(a)(vi)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The draft in relation to the available depth of water."
+  },
+  "6(b)": {
+   "path": "6(b)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "Additionally, by vessels with operational radar:"
+  },
+  "6(b)(i)": {
+   "path": "6(b)(i)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The characteristics, efficiency and limitations of the radar equipment;"
+  },
+  "6(b)(ii)": {
+   "path": "6(b)(ii)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "Any constraints imposed by the radar range scale in use;"
+  },
+  "6(b)(iii)": {
+   "path": "6(b)(iii)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The effect on radar detection of the sea state, weather and other sources of interference;"
+  },
+  "6(b)(iv)": {
+   "path": "6(b)(iv)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The possibility that small vessels, ice and other floating objects may not be detected by radar at an adequate range;"
+  },
+  "6(b)(v)": {
+   "path": "6(b)(v)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The number, location and movement of vessels detected by radar;"
+  },
+  "6(b)(vi)": {
+   "path": "6(b)(vi)",
+   "rule": "6",
+   "rule_title": "Safe Speed",
+   "jurisdiction": "intl",
+   "text": "The more exact assessment of the visibility that may be possible when radar is used to determine the range of vessels or other objects in the vicinity."
+  },
+  "7(a)": {
+   "path": "7(a)",
+   "rule": "7",
+   "rule_title": "Risk of Collision",
+   "jurisdiction": "intl",
+   "text": "Every vessel shall use all available means appropriate to the prevailing circumstances and conditions to determine if risk of collision exists. If there is any doubt such risk shall be deemed to exist."
+  },
+  "7(b)": {
+   "path": "7(b)",
+   "rule": "7",
+   "rule_title": "Risk of Collision",
+   "jurisdiction": "intl",
+   "text": "Proper use shall be made of radar equipment if fitted and operational, including long-range scanning to obtain early warning of risk of collision and radar plotting or equivalent systematic observation of detected objects."
+  },
+  "7(c)": {
+   "path": "7(c)",
+   "rule": "7",
+   "rule_title": "Risk of Collision",
+   "jurisdiction": "intl",
+   "text": "Assumptions shall not be made on the basis of scanty information, especially scanty radar information."
+  },
+  "7(d)": {
+   "path": "7(d)",
+   "rule": "7",
+   "rule_title": "Risk of Collision",
+   "jurisdiction": "intl",
+   "text": "In determining if risk of collision exists the following considerations shall be among those taken into account:"
+  },
+  "7(d)(i)": {
+   "path": "7(d)(i)",
+   "rule": "7",
+   "rule_title": "Risk of Collision",
+   "jurisdiction": "intl",
+   "text": "Such risk shall be deemed to exist if the compass bearing of an approaching vessel does not appreciably change."
+  },
+  "7(d)(ii)": {
+   "path": "7(d)(ii)",
+   "rule": "7",
+   "rule_title": "Risk of Collision",
+   "jurisdiction": "intl",
+   "text": "Such risk may sometimes exist even when an appreciable bearing change is evident, particularly when approaching a very large vessel or a tow or when approaching a vessel at close range."
+  },
+  "8(a)": {
+   "path": "8(a)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "Any action taken to avoid collision shall be taken in accordance with Rules 4-19, and shall if the circumstances of the case admit, be positive, made in ample time and with due regard to the observance of good seamanship."
+  },
+  "8(b)": {
+   "path": "8(b)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "Any alteration of course and/or speed to avoid collision shall, if the circumstances of the case admit, be large enough to be readily apparent to another vessel observing visually or by radar; a succession of small alterations of course and/or speed should be avoided."
+  },
+  "8(c)": {
+   "path": "8(c)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "If there is sufficient sea room, alteration of course alone may be the most effective action to avoid a close-quarters situation provided that it is made in good time, is substantial and does not result in another close-quarters situation."
+  },
+  "8(d)": {
+   "path": "8(d)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "Action taken to avoid collision with another vessel shall be such as to result in passing at a safe distance. The effectiveness of the action shall be carefully checked until the other vessel is finally past and clear."
+  },
+  "8(e)": {
+   "path": "8(e)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "If necessary to avoid collision or allow more time to assess the situation, a vessel shall slacken her speed or take all way off by stopping or reversing her means of propulsion."
+  },
+  "8(f)(i)": {
+   "path": "8(f)(i)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "A vessel which, by any of these Rules, is required not to impede the passage or safe passage of another vessel shall, when required by the circumstances of the case, take early action to allow sufficient sea room for the safe passage of the other vessel."
+  },
+  "8(f)(ii)": {
+   "path": "8(f)(ii)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "A vessel required not to impede the passage or safe passage of another vessel is not relieved of this obligation if approaching the other vessel so as to involve risk of collision and shall, when taking action, have full regard to the action which may be required by Rules 4-19."
+  },
+  "8(f)(iii)": {
+   "path": "8(f)(iii)",
+   "rule": "8",
+   "rule_title": "Action to Avoid Collision",
+   "jurisdiction": "intl",
+   "text": "A vessel, the passage of which is not to be impeded remains fully obliged to comply with Rules 4-19 when the two vessels are approaching one another so as to involve risk of collision."
+  },
+  "9(a)": {
+   "path": "9(a)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "A vessel proceeding along the course of a narrow channel or fairway shall keep as near to the outer limit of the channel or fairway which lies on her starboard side as is safe and practicable."
+  },
+  "9(b)": {
+   "path": "9(b)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "A vessel of less than 20 meters in length or a sailing vessel shall not impede the passage of a vessel which can safely navigate only within a narrow channel or fairway."
+  },
+  "9(c)": {
+   "path": "9(c)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "A vessel engaged in fishing shall not impede the passage of any other vessel navigating within a narrow channel or fairway."
+  },
+  "9(d)": {
+   "path": "9(d)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "A vessel shall not cross a narrow channel or fairway if such crossing impedes the passage of a vessel which can safely navigate only within that channel or fairway. The latter vessel may use the signal prescribed in Rule 34(d) if in doubt as to the intention of the crossing vessel."
+  },
+  "9(e)(i)": {
+   "path": "9(e)(i)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "In a narrow channel or fairway when overtaking can take place only if the vessel to be overtaken has to take action to permit safe passing, the vessel intending to overtake shall indicate her intention by sounding the appropriate signal prescribed in Rule 34(c)(i). The vessel to be overtaken shall, if in agreement, sound the appropriate signal prescribed in Rule 34(c)(ii) and take steps to permit safe passing. If in doubt she may sound the signals prescribed in Rule 34(d)."
+  },
+  "9(e)(ii)": {
+   "path": "9(e)(ii)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "This rule does not relieve the overtaking vessel of her obligation under Rule 13."
+  },
+  "9(f)": {
+   "path": "9(f)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "A vessel nearing a bend or an area of a narrow channel or fairway where other vessels may be obscured by an intervening obstruction shall navigate with particular alertness and caution and shall sound the appropriate signal prescribed in Rule 34(e)."
+  },
+  "9(g)": {
+   "path": "9(g)",
+   "rule": "9",
+   "rule_title": "Narrow Channels",
+   "jurisdiction": "intl",
+   "text": "Any vessel shall, if the circumstances of the case admit, avoid anchoring in a narrow channel."
+  },
+  "10(a)": {
+   "path": "10(a)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "This Rule applies to traffic separation schemes adopted by the Organization and does not relieve any vessel of her obligation under any other rule."
+  },
+  "10(b)": {
+   "path": "10(b)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel using a traffic separation scheme shall:"
+  },
+  "10(b)(i)": {
+   "path": "10(b)(i)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "Proceed in the appropriate traffic lane in the general direction of traffic flow for that lane."
+  },
+  "10(b)(ii)": {
+   "path": "10(b)(ii)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "So far as is practicable keep clear of a traffic separation line or separation zone."
+  },
+  "10(b)(iii)": {
+   "path": "10(b)(iii)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "Normally join or leave a traffic lane at the termination of the lane, but when joining or leaving from either side shall do so at as small an angle to the general direction of traffic flow as practicable."
+  },
+  "10(c)": {
+   "path": "10(c)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel, shall so far as practicable, avoid crossing traffic lanes but if obliged to do so shall cross on a heading as nearly as practicable at right angles to the general direction of traffic flow."
+  },
+  "10(d)(i)": {
+   "path": "10(d)(i)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel shall not use an inshore traffic zone when she can safely use the appropriate traffic lane within the adjacent traffic separation scheme. However, vessels of less than 20 meters in length, sailing vessels and vessels engaged in fishing may use the inshore traffic zone."
+  },
+  "10(d)(ii)": {
+   "path": "10(d)(ii)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "Notwithstanding Rule 10(d)(i), a vessel may use an inshore traffic zone when en route to or from a port, offshore installation or structure, pilot station or any other place situated within the inshore traffic zone, or to avoid immediate danger."
+  },
+  "10(e)": {
+   "path": "10(e)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel, other than a crossing vessel or a vessel joining or leaving a lane shall not normally enter a separation zone or cross a separation line except:"
+  },
+  "10(e)(i)": {
+   "path": "10(e)(i)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "In cases of emergency to avoid immediate danger;"
+  },
+  "10(e)(ii)": {
+   "path": "10(e)(ii)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "To engage in fishing within a separation zone."
+  },
+  "10(f)": {
+   "path": "10(f)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel navigating in areas near the terminations of traffic separation schemes shall do so with particular caution."
+  },
+  "10(g)": {
+   "path": "10(g)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel shall so far as practicable avoid anchoring in a traffic separation scheme or in areas near its terminations."
+  },
+  "10(h)": {
+   "path": "10(h)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel not using a traffic separating scheme shall avoid it by as wide a margin as is practicable."
+  },
+  "10(i)": {
+   "path": "10(i)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel engaged in fishing shall not impede the passage of any vessel following a traffic lane."
+  },
+  "10(j)": {
+   "path": "10(j)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel of less than 20 meters in length or a sailing vessel shall not impede the safe passage of a power-driven vessel following a traffic lane."
+  },
+  "10(k)": {
+   "path": "10(k)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel restricted in her ability to maneuver when engaged in an operation for the maintenance of safety of navigation in a traffic separation scheme is exempted from complying with this Rule to the extent necessary to carry out the operation."
+  },
+  "10(l)": {
+   "path": "10(l)",
+   "rule": "10",
+   "rule_title": "Traffic Separation Schemes",
+   "jurisdiction": "intl",
+   "text": "A vessel restricted in her ability to maneuver when engaged in an operation for the laying, servicing or picking up of a submarine cable, within a traffic separation scheme, is exempted from complying with this Rule to the extent necessary to carry out the operation."
+  },
+  "11": {
+   "path": "11",
+   "rule": "11",
+   "rule_title": "Application",
+   "jurisdiction": "intl",
+   "text": "Rules 11-18 apply to vessels in sight of one another."
+  },
+  "12(a)": {
+   "path": "12(a)",
+   "rule": "12",
+   "rule_title": "Sailing Vessels",
+   "jurisdiction": "intl",
+   "text": "When two sailing vessels are approaching one another, so as to involve risk of collision, one of them shall keep out of the way of the other as follows:"
+  },
+  "12(a)(i)": {
+   "path": "12(a)(i)",
+   "rule": "12",
+   "rule_title": "Sailing Vessels",
+   "jurisdiction": "intl",
+   "text": "when each has the wind on a different side, the vessel which has the wind on the port side shall keep out of the way of the other;"
+  },
+  "12(a)(ii)": {
+   "path": "12(a)(ii)",
+   "rule": "12",
+   "rule_title": "Sailing Vessels",
+   "jurisdiction": "intl",
+   "text": "when both have the wind on the same side, the vessel which is to windward shall keep out of the way of the vessel which is to leeward;"
+  },
+  "12(a)(iii)": {
+   "path": "12(a)(iii)",
+   "rule": "12",
+   "rule_title": "Sailing Vessels",
+   "jurisdiction": "intl",
+   "text": "if a vessel with the wind on the port side sees a vessel to windward and cannot determine with certainty whether the other vessel has the wind on the port or on the starboard side, she shall keep out of the way of the other."
+  },
+  "12(b)": {
+   "path": "12(b)",
+   "rule": "12",
+   "rule_title": "Sailing Vessels",
+   "jurisdiction": "intl",
+   "text": "For the purposes of this Rule, the windward side shall be deemed to be the side opposite that on which the mainsail is carried or, in the case of a square-rigged vessel, the side opposite to that on which the largest fore-and-aft sail is carried."
+  },
+  "13(a)": {
+   "path": "13(a)",
+   "rule": "13",
+   "rule_title": "Overtaking",
+   "jurisdiction": "intl",
+   "text": "Notwithstanding anything contained in the Rules 4-18, any vessel overtaking any other shall keep out of the way of the vessel being overtaken."
+  },
+  "13(b)": {
+   "path": "13(b)",
+   "rule": "13",
+   "rule_title": "Overtaking",
+   "jurisdiction": "intl",
+   "text": "A vessel shall be deemed to be overtaking when coming up with a another vessel from a direction more than 22.5 degrees abaft her beam, that is, in such a position with reference to the vessel she is overtaking, that at night she would be able to see only the sternlight of that vessel but neither of her sidelights."
+  },
+  "13(c)": {
+   "path": "13(c)",
+   "rule": "13",
+   "rule_title": "Overtaking",
+   "jurisdiction": "intl",
+   "text": "When a vessel is in any doubt as to whether she is overtaking another, she shall assume that this is the case and act accordingly."
+  },
+  "13(d)": {
+   "path": "13(d)",
+   "rule": "13",
+   "rule_title": "Overtaking",
+   "jurisdiction": "intl",
+   "text": "Any subsequent alteration of the bearing between the two vessels shall not make the overtaking vessel a crossing vessel within the meaning of these Rules or relieve her of the duty of keeping clear of the overtaken vessel until she is finally past and clear."
+  },
+  "14(a)": {
+   "path": "14(a)",
+   "rule": "14",
+   "rule_title": "Head-on Situation",
+   "jurisdiction": "intl",
+   "text": "When two power-driven vessels are meeting on reciprocal or nearly reciprocal courses so as to involve risk of collision each shall alter her course to starboard so that each shall pass on the port side of the other."
+  },
+  "14(b)": {
+   "path": "14(b)",
+   "rule": "14",
+   "rule_title": "Head-on Situation",
+   "jurisdiction": "intl",
+   "text": "Such a situation shall be deemed to exist when a vessel sees the other ahead or nearly ahead and by night she could see the masthead lights of the other in a line or nearly in a line and/or both sidelights and by day she observes the corresponding aspect of the other vessel."
+  },
+  "14(c)": {
+   "path": "14(c)",
+   "rule": "14",
+   "rule_title": "Head-on Situation",
+   "jurisdiction": "intl",
+   "text": "When a vessel is in any doubt as to whether such a situation exists she shall assume that it does exist and act accordingly."
+  },
+  "15(a)": {
+   "path": "15(a)",
+   "rule": "15",
+   "rule_title": "Crossing Situation",
+   "jurisdiction": "intl",
+   "text": "When two power-driven vessels are crossing so as to involve risk of collision, the vessel which has the other on her own starboard side shall keep out of the way and shall, if the circumstances of the case admit, avoid crossing ahead of the other vessel."
+  },
+  "16": {
+   "path": "16",
+   "rule": "16",
+   "rule_title": "Action by Give-way Vessel",
+   "jurisdiction": "intl",
+   "text": "Every vessel which is directed to keep out of the way of another vessel shall, so far as possible, take early and substantial action to keep well clear."
+  },
+  "17(a)(i)": {
+   "path": "17(a)(i)",
+   "rule": "17",
+   "rule_title": "Action by Stand-on Vessel",
+   "jurisdiction": "intl",
+   "text": "Where one of two vessels is to keep out of the way, the other shall keep her course and speed."
+  },
+  "17(a)(ii)": {
+   "path": "17(a)(ii)",
+   "rule": "17",
+   "rule_title": "Action by Stand-on Vessel",
+   "jurisdiction": "intl",
+   "text": "The latter vessel may, however, take action to avoid collision by her maneuver alone, as soon as it becomes apparent to her that the vessel required to keep out of the way is not taking appropriate action in compliance with these Rules."
+  },
+  "17(b)": {
+   "path": "17(b)",
+   "rule": "17",
+   "rule_title": "Action by Stand-on Vessel",
+   "jurisdiction": "intl",
+   "text": "When, from any cause, the vessel required to keep her course and speed finds herself so close that collision cannot be avoided by the action of the give-way vessel alone, she shall take such action as will best aid to avoid collision."
+  },
+  "17(c)": {
+   "path": "17(c)",
+   "rule": "17",
+   "rule_title": "Action by Stand-on Vessel",
+   "jurisdiction": "intl",
+   "text": "A power-driven vessel which takes action in a crossing situation in accordance with Rule 17(a)(ii) to avoid collision with another power-driven vessel shall, if the circumstances of the case admit, not alter course to port for a vessel on her own port side."
+  },
+  "17(d)": {
+   "path": "17(d)",
+   "rule": "17",
+   "rule_title": "Action by Stand-on Vessel",
+   "jurisdiction": "intl",
+   "text": "This Rule does not relieve the give-way vessel of her obligation to keep out of the way."
+  },
+  "18": {
+   "path": "18",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "Except where Rules 9, 10, and 13 otherwise require:"
+  },
+  "18(a)": {
+   "path": "18(a)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "A power-driven vessel underway shall keep out of the way of:"
+  },
+  "18(a)(i)": {
+   "path": "18(a)(i)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel not under command;"
+  },
+  "18(a)(ii)": {
+   "path": "18(a)(ii)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel restricted in her ability to maneuver;"
+  },
+  "18(a)(iii)": {
+   "path": "18(a)(iii)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel engaged in fishing;"
+  },
+  "18(a)(iv)": {
+   "path": "18(a)(iv)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a sailing vessel."
+  },
+  "18(b)": {
+   "path": "18(b)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "A sailing vessel underway shall keep out of the way of:"
+  },
+  "18(b)(i)": {
+   "path": "18(b)(i)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel not under command;"
+  },
+  "18(b)(ii)": {
+   "path": "18(b)(ii)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel restricted in her ability to maneuver;"
+  },
+  "18(b)(iii)": {
+   "path": "18(b)(iii)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel engaged in fishing."
+  },
+  "18(c)": {
+   "path": "18(c)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "A vessel engaged in fishing when underway shall, so far as possible, keep out of the way of:"
+  },
+  "18(c)(i)": {
+   "path": "18(c)(i)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel not under command;"
+  },
+  "18(c)(ii)": {
+   "path": "18(c)(ii)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a vessel restricted in her ability to maneuver."
+  },
+  "18(d)(i)": {
+   "path": "18(d)(i)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "Any vessel other than a vessel not under command or a vessel restricted in her ability to maneuver shall, if the circumstances of the case admit, avoid impeding the safe passage of a vessel constrained by her draft, exhibiting the signals in Rule 28."
+  },
+  "18(d)(ii)": {
+   "path": "18(d)(ii)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "A vessel constrained by her draft shall navigate with particular caution having full regard to her special condition."
+  },
+  "18(e)": {
+   "path": "18(e)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "A seaplane on the water shall, in general, keep well clear of all vessels and avoid impeding their navigation. In circumstances, however, where risk of collision exists, she shall comply with Rules 4-19."
+  },
+  "18(f)(i)": {
+   "path": "18(f)(i)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "A WIG craft shall, when taking off, landing and in flight near the surface, keep well clear of all other vessels and avoid impeding their navigation;"
+  },
+  "18(f)(ii)": {
+   "path": "18(f)(ii)",
+   "rule": "18",
+   "rule_title": "Responsibilities Between Vessels",
+   "jurisdiction": "intl",
+   "text": "a WIG craft operating on the water surface shall comply with Rules 4-19 as a power-driven vessel."
+  },
+  "19(a)": {
+   "path": "19(a)",
+   "rule": "19",
+   "rule_title": "Conduct of Vessels in Restricted Visibility",
+   "jurisdiction": "intl",
+   "text": "This Rule applies to vessels not in sight of one another when navigating in or near an area of restricted visibility."
+  },
+  "19(b)": {
+   "path": "19(b)",
+   "rule": "19",
+   "rule_title": "Conduct of Vessels in Restricted Visibility",
+   "jurisdiction": "intl",
+   "text": "Every vessel shall proceed at a safe speed adapted to the prevailing circumstances and conditions of restricted visibility. A power-driven vessel shall have her engines ready for immediate maneuver."
+  },
+  "19(c)": {
+   "path": "19(c)",
+   "rule": "19",
+   "rule_title": "Conduct of Vessels in Restricted Visibility",
+   "jurisdiction": "intl",
+   "text": "Every vessel shall have due regard to the prevailing circumstances and conditions of restricted visibility when complying with Rules 4-10."
+  },
+  "19(d)": {
+   "path": "19(d)",
+   "rule": "19",
+   "rule_title": "Conduct of Vessels in Restricted Visibility",
+   "jurisdiction": "intl",
+   "text": "A vessel which detects by radar alone the presence of another vessel shall determine if a close-quarters situation is developing and/or risk of collision exists. If so, she shall take avoiding action in ample time, provided that when such action consists of an alteration in course, so far as possible the following shall be avoided:"
+  },
+  "19(d)(i)": {
+   "path": "19(d)(i)",
+   "rule": "19",
+   "rule_title": "Conduct of Vessels in Restricted Visibility",
+   "jurisdiction": "intl",
+   "text": "An alteration of course to port for a vessel forward of the beam, other than for a vessel being overtaken;"
+  },
+  "19(d)(ii)": {
+   "path": "19(d)(ii)",
+   "rule": "19",
+   "rule_title": "Conduct of Vessels in Restricted Visibility",
+   "jurisdiction": "intl",
+   "text": "An alteration of course toward a vessel abeam or abaft the beam."
+  },
+  "19(e)": {
+   "path": "19(e)",
+   "rule": "19",
+   "rule_title": "Conduct of Vessels in Restricted Visibility",
+   "jurisdiction": "intl",
+   "text": "Except where it has been determined that a risk of collision does not exist, every vessel which hears apparently forward of her beam the fog signal of another vessel, or which cannot avoid a close-quarters situation with another vessel forward of her beam, shall reduce her speed to be the minimum at which she can be kept on her course. She shall if necessary take all her way off and in any event navigate with extreme caution until danger of collision is over."
   },
   "20(a)": {
    "path": "20(a)",
