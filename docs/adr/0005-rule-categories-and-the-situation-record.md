@@ -191,7 +191,46 @@ requires of a pencil change.
   correct. One new boolean, `fact:tow_restricts_deviation` (27(c)), because the
   rank genuinely needs a fact the record did not carry.
 
-Seven things the model could not express are recorded as `Q-31`–`Q-39` in
+- **2026-09-04, PR #26 — a `classification` effect has two shapes, and Rule 12
+  is not one of them.** §1 gives `classification` two outputs at once —
+  "encounter type, risk of collision" — and §4 says nothing about what a
+  classification entry produces. It produces an `effect` with exactly one key:
+  `{"encounter": "head-on"|"crossing"|"overtaking"|"none"}` for Rules 13, 14 and
+  15, or `{"risk_of_collision": true}` for 7(d)(i). Two shapes rather than one
+  merged shape, because a merged one would have made every encounter entry state
+  a risk it does not decide. There is no `false`: 7(a) deems risk to exist in
+  any doubt, so an entry may add a ground for risk and nothing here may deny
+  one. Written up in `docs/identifiers.md` §"Effects" and required by
+  `REQ-CAT-8`.
+  **Rule 12 departs from §1's table** the way 13(a) did in PR #24 and for the
+  same reason: 12(a) assigns a role, and a classification effect has nowhere to
+  put one. `12a1`–`12a3` are `precedence`; 12(b) is a `definition` and is the
+  cite on the new `kin:wind_side` fact rather than an entry. `Q-40`.
+- **2026-09-04, PR #26 — the partition is a property of the data, not of the
+  engine.** The proposal's verification column gives `classification` an "Alloy
+  partition". The data-level half of it is asserted here: 13(b)'s sector is one
+  constraint object, Rule 15's crossing is `not` over that same object, and Rule
+  14's cone is negated the same way inside an `any_of`, so no crossing sector is
+  enumerated and the three encounter types cannot overlap or leave a gap unless
+  someone edits one of two constraints without the other. The suite sweeps both
+  subjects' bearings in half-degree steps over all 518 400 points. Recorded as
+  `REQ-CAT-9`, which also requires that a threshold the Rules do not state be
+  declared once in `data/facts.json` under `situation.constants` and read from
+  there — `appreciable_bearing_change_deg_min` (pencil, 1.0 °/min) and
+  `head_on_half_angle_deg` (pencil, 11.25° — one point of the compass, the same
+  angular vocabulary 13(b)'s two points come from) are the two that were
+  invented; the two `overtaking_sector_*_deg` are ink, because 13(b) states
+  them.
+- **2026-09-04, PR #26 — the `ram` refinement was a special case and is now a
+  property of the value.** Not a design decision so much as a defect PR #25
+  recorded and this one repaid: `activity:ram_underwater` matched a predicate
+  written for `activity:ram` under scalar equality and, silently, not under list
+  membership. The `fact:rule18_class` decode carried an `any_of` written to work
+  around it. The refinement now expands the value once, so equality, membership
+  and each `any_of` disjunct read it alike, `not` still negates the refined
+  reading, and the decode row is a bare list again.
+
+Sixteen things the model could not express are recorded as `Q-31`–`Q-48` in
 `docs/requirements.md` §11 rather than bent into the data. The largest is
 `Q-32`: `fact:activity` is a display axis, and a vessel's rank under Rule 18
 is not the same thing as the lights she shows.

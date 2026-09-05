@@ -29,9 +29,14 @@ function satisfies(k, want, have) {
   // vessel on the strength of a fact the consumer did not supply.
   if (have === undefined) return false
   // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
-  // written for ram read it too.
-  if (k === 'fact:activity' && want === 'activity:ram' && have === 'activity:ram_underwater') return true
-  if (Array.isArray(want)) return want.includes(have)
+  // written for ram read it too. The refinement belongs to the *value*, not to
+  // one constraint form, so it is expanded once here and every form that
+  // compares a value -- equality, list membership, and each `any_of` disjunct
+  // through the recursion below -- sees the same reading. It used to be a
+  // special case ahead of the array branch, which meant a list constraint
+  // silently missed the refinement while a scalar caught it; the decode table
+  // in facts.json carried an `any_of` written to work around exactly that.
+  if (Array.isArray(want)) return want.includes(have) || readsAs(k, have).some((v) => want.includes(v))
   if (want !== null && typeof want === 'object') {
     // `not` negates the constraint, never the presence of the fact.
     if ('not' in want) return !satisfies(k, want.not, have)
@@ -42,7 +47,17 @@ function satisfies(k, want, have) {
     if ('lt' in want && !(have < want.lt)) return false
     return true
   }
-  return have === want
+  return have === want || readsAs(k, have).includes(want)
+}
+// The refinement table: a fact value that a predicate written for a coarser
+// value also matches. Data rather than a branch, so that adding the next one
+// is a line here and not a new special case in `satisfies`.
+const REFINEMENTS = { 'fact:activity': { 'activity:ram_underwater': ['activity:ram'] } }
+const NO_REFINEMENT = []
+const readsAs = (k, have) => {
+  const table = REFINEMENTS[k]
+  if (table === undefined) return NO_REFINEMENT
+  return table[have] ?? NO_REFINEMENT
 }
 // One walker for both evaluators, so `any_of` is written once rather than
 // twice. `local` strips a key's subject segment for the refinement rule above;
@@ -50,10 +65,13 @@ function satisfies(k, want, have) {
 // `when` that is not a fact -- every fact key carries a class prefix
 // (`fact:`, `geo:`, ...), so the name is reserved without ambiguity.
 function holds(when, local, read) {
-  return Object.entries(when).every(([k, want]) =>
-    k === 'any_of'
-      ? want.some((sub) => holds(sub, local, read))
-      : satisfies(local(k), want, read(k)))
+  for (const k in when) {
+    const want = when[k]
+    if (k === 'any_of') {
+      if (!want.some((sub) => holds(sub, local, read))) return false
+    } else if (!satisfies(local(k), want, read(k))) return false
+  }
+  return true
 }
 function matches(when, f) {
   return holds(when, (k) => k, (k) => f[k])
@@ -183,6 +201,59 @@ test('predicate language: `any_of` is disjunction, at both levels, and stays con
   assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, sail), true)
   assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 40 }] } }, sail), false)
   assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, {}), false)
+})
+
+test('predicate language: the ram refinement applies to equality, membership and `any_of` alike', () => {
+  // The latent bug PR #25 recorded: the refinement used to be a special case
+  // ahead of the array branch, so `activity:ram` caught a dredger and
+  // `["activity:ram", "activity:nuc"]` did not. A reader cannot see that from
+  // the data, and the workaround it forced -- an `any_of` in the
+  // fact:rule18_class decode table where a list would read better -- was the
+  // only sign of it. Fixed by expanding the value once, so every constraint
+  // form that compares a value sees the same reading.
+  const dredger = { 'fact:activity': 'activity:ram_underwater' }
+  const ram = { 'fact:activity': 'activity:ram' }
+  const nuc = { 'fact:activity': 'activity:nuc' }
+  const k = 'fact:activity'
+  // Equality, as before.
+  assert.equal(matches({ [k]: 'activity:ram' }, dredger), true)
+  // List membership: the case that was wrong.
+  assert.equal(matches({ [k]: ['activity:ram', 'activity:nuc'] }, dredger), true)
+  assert.equal(matches({ [k]: ['activity:nuc', 'activity:fishing'] }, dredger), false)
+  assert.equal(matches({ [k]: ['activity:ram_underwater'] }, dredger), true)
+  // `any_of`, over both scalars and lists.
+  assert.equal(matches({ [k]: { any_of: ['activity:ram', 'activity:nuc'] } }, dredger), true)
+  assert.equal(matches({ [k]: { any_of: [['activity:ram', 'activity:nuc']] } }, dredger), true)
+  assert.equal(matches({ [k]: { any_of: [['activity:nuc']] } }, dredger), false)
+  // `not` still negates the refined reading rather than sneaking underneath it,
+  // in every form.
+  assert.equal(matches({ [k]: { not: ['activity:ram'] } }, dredger), false)
+  assert.equal(matches({ [k]: { not: { any_of: ['activity:ram'] } } }, dredger), false)
+  assert.equal(matches({ [k]: { not: ['activity:nuc'] } }, dredger), true)
+  // The refinement is one-way: a predicate for the finer value does not read
+  // the coarser one, and no other value gains a reading.
+  assert.equal(matches({ [k]: 'activity:ram_underwater' }, ram), false)
+  assert.equal(matches({ [k]: ['activity:ram_underwater'] }, ram), false)
+  assert.equal(matches({ [k]: ['activity:ram'] }, nuc), false)
+  // It is scoped to the fact that declares it: no other key refines.
+  assert.equal(matches({ 'fact:propulsion': ['activity:ram'] }, { 'fact:propulsion': 'activity:ram_underwater' }), false)
+  // ...and it reaches the two-subject evaluator through the same `local`,
+  // whichever subject the key names.
+  const s = { own: { fact: dredger }, other: { fact: ram } }
+  assert.equal(matchesSituation({ 'own:fact:activity': ['activity:ram'] }, s), true)
+  assert.equal(matchesSituation({ 'other:fact:activity': ['activity:ram_underwater'] }, s), false)
+})
+
+test('the fact:rule18_class decode reads the ram refinement through a bare list', () => {
+  // The workaround removed: the 3(g) row is a list again, and the refinement is
+  // what makes it right. If the fix regressed, a dredger would decode to
+  // nothing here rather than to `rule18_class:ram`.
+  const row = facts.derived['fact:rule18_class'].decode.find((r) => r.cite === '3(g)')
+  assert.ok(Array.isArray(row.when['fact:activity']), '3(g) decode row should be a bare list')
+  assert.ok(!row.when['fact:activity'].includes('activity:ram_underwater'),
+    'the refinement carries it; spelling it out would hide the next one')
+  assert.equal(derive({ 'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:ram_underwater' })['fact:rule18_class'],
+    'rule18_class:ram')
 })
 
 test('predicate language: both evaluators share it, and `any_of` reads two subjects', () => {
@@ -802,21 +873,32 @@ const CLASSES = new Set(Object.keys(sit.namespace.classes))
 // geometry, and where the encounter is happening.
 const PAIR_CLASSES = new Set(['geo', 'env'])
 
+// Memoised: a situation predicate is evaluated once per entry per situation and
+// the partition sweep below runs a million of them, so splitting the same dozen
+// key strings over and over is the whole cost of the test suite.
+const parsedKeys = new Map()
 function parseKey(key) {
-  const seg = key.split(':')
-  const subject = SUBJECTS.has(seg[0]) ? seg.shift() : 'own'
-  return { subject, cls: seg[0], local: seg.join(':') }
+  let hit = parsedKeys.get(key)
+  if (hit === undefined) {
+    const seg = key.split(':')
+    const subject = SUBJECTS.has(seg[0]) ? seg.shift() : 'own'
+    hit = { subject, cls: seg[0], local: seg.join(':') }
+    parsedKeys.set(key, hit)
+  }
+  return hit
 }
 
 // Absent is absent: an unresolvable key yields undefined, and `satisfies`
 // fails it, exactly as a missing fact does in the one-subject evaluator.
 function resolve(key, situation) {
   const { subject, cls, local } = parseKey(key)
-  return situation?.[subject]?.[cls]?.[local]
+  const held = situation?.[subject]?.[cls]
+  return held === undefined ? undefined : held[local]
 }
 
+const localOf = (k) => parseKey(k).local
 function matchesSituation(when, situation) {
-  return holds(when, (k) => parseKey(k).local, (k) => resolve(k, situation))
+  return holds(when, localOf, (k) => resolve(k, situation))
 }
 
 // The fact classes the situation section declares, per class, as bare keys.
@@ -1028,6 +1110,21 @@ test('every effect is shaped for its category and names declared roles', () => {
         assert.equal(e.effect.other, 'none',
           `${e.id}: shall-not-impede confers no role on the other vessel (8(f)(iii))`)
       }
+    } else if (e.category === 'classification') {
+      // Two shapes under one category, and exactly one key either way: Rule
+      // 7(d) answers whether risk exists and Rules 13-15 answer what kind of
+      // encounter this is. A merged shape would have made every encounter
+      // entry state a risk it does not decide.
+      const keys = Object.keys(e.effect)
+      assert.equal(keys.length, 1, `${e.id}: a classification effect carries exactly one key`)
+      if (keys[0] === 'encounter') {
+        assert.ok(e.effect.encounter in appl.effects.encounters,
+          `${e.id}: undeclared encounter ${e.effect.encounter}`)
+      } else {
+        assert.equal(keys[0], 'risk_of_collision', `${e.id}: unknown classification effect key ${keys[0]}`)
+        assert.equal(e.effect.risk_of_collision, true,
+          `${e.id}: risk_of_collision is asserted or the entry does not exist; there is no false`)
+      }
     } else {
       assert.deepEqual(Object.keys(e.effect).sort(), ['applies_rules', 'part', 'section'], `${e.id}: scope effect shape`)
       for (const r of e.effect.applies_rules) {
@@ -1208,5 +1305,204 @@ test('scope: a situation selects exactly one Part B section, and it tracks in-si
       const s2 = applyingSituation(c.situation).filter((id) => /^(1[1-8])/.test(byId.get(id).cite))
       assert.deepEqual(s2, [], `${c.name}: not in sight, but ${s2.join(', ')} applies`)
     }
+  }
+})
+
+// --- the encounter partition (epic P2.2, at the data level) ----------------
+// Head-on, crossing and overtaking must partition relative bearing: no bearing
+// in two sectors, none in neither. The Alloy version of this property lives in
+// colregs-engine; this is the same property asserted directly over the data, so
+// that an edit to one sector's constraint that forgets the other's fails here
+// first. The sweep is two-dimensional because the encounter type is a function
+// of both subjects' bearings -- own's, and the aspect -- and reading one alone
+// is the mistake 13b-overtaken exists to prevent.
+const classification = appl.entries.filter((e) => e.category === 'classification')
+const encounterEntries = classification.filter((e) => 'encounter' in e.effect)
+const CONSTANTS = facts.situation.constants
+const FROM = CONSTANTS.overtaking_sector_from_deg.value
+const TO = CONSTANTS.overtaking_sector_to_deg.value
+const HALF = CONSTANTS.head_on_half_angle_deg.value
+
+// A pair the three encounter rules all reach: in sight, risk of collision,
+// two ordinary power-driven vessels underway, closing, nothing latched.
+function sweepTemplate(latchOwn = false, latchOther = false) {
+  const v = (rel, latched) => ({
+    fact: {
+      'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:none',
+      'fact:position': 'position:underway', 'fact:making_way': true, 'fact:length_m': 30,
+    },
+    geo: { 'geo:rel_bearing_deg': rel },
+    hist: { 'hist:was_overtaking': latched, 'hist:latched_at_s': latched ? 300 : null },
+  })
+  // Derived once: the fact records do not change across a sweep, and deriving
+  // them half a million times is the difference between a suite that runs in a
+  // second and one nobody waits for.
+  return withDerived({
+    own: v(0, latchOwn),
+    other: v(0, latchOther),
+    pair: {
+      geo: {
+        'geo:in_sight': true, 'geo:risk_of_collision': true, 'geo:range_m': 2000,
+        'geo:bearing_change_deg_min': 0.2, 'geo:cpa_m': 100, 'geo:tcpa_s': 400,
+      },
+    },
+  })
+}
+// The sweep mutates the two bearings in place on one template rather than
+// rebuilding the situation each step; `geo` is carried by reference through
+// `withDerived`, so this is the same object the predicates read.
+function aim(s, ownRel, aspect) {
+  s.own.geo['geo:rel_bearing_deg'] = ownRel
+  s.other.geo['geo:rel_bearing_deg'] = aspect
+  return s
+}
+const sweepSituation = ({ ownRel, aspect, latchOwn = false, latchOther = false }) =>
+  aim(sweepTemplate(latchOwn, latchOther), ownRel, aspect)
+const encountersFor = (s) =>
+  new Set(encounterEntries.filter((e) => matchesSituation(e.when, s)).map((e) => e.effect.encounter))
+
+test('classification: head-on, crossing and overtaking partition relative bearing', () => {
+  // The declared sector edges are 22.5 degrees abaft each beam, which is what
+  // 13(b) says and what Rule 21(c)'s sternlight arc is cut to. Asserted against
+  // the arithmetic rather than against the literal, so that a typo in either
+  // constant is caught before the sweep interprets it.
+  assert.equal(FROM, 90 + 22.5)
+  assert.equal(TO, 270 - 22.5)
+  assert.equal(CONSTANTS.overtaking_sector_from_deg.status, 'ink')
+  assert.equal(CONSTANTS.head_on_half_angle_deg.status, 'pencil')
+  // 13(b) says the sector in two ways -- an angle abaft the beam, and 'at night
+  // she would be able to see only the sternlight of that vessel'. The two must
+  // be the same arc, and they are already both in the data.
+  const stern = lights.lights['light:sternlight'].arc
+  assert.equal(stern.from_deg, FROM)
+  assert.equal(stern.to_deg, TO)
+
+  const inSector = (b) => b > FROM && b < TO
+  const inCone = (b) => b <= HALF || b >= 360 - HALF
+  let checked = 0
+  const bad = []
+  const s = sweepTemplate()
+  for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
+    for (let aspect = 0; aspect < 360; aspect += 0.5) {
+      const got = encountersFor(aim(s, ownRel, aspect))
+      checked++
+      if (got.size !== 1) { bad.push(`${ownRel}/${aspect}: ${[...got].join(',') || 'nothing'}`); continue }
+      // ...and it is the right one, computed from the constants rather than
+      // read back off the data.
+      const want = inSector(ownRel) || inSector(aspect) ? 'overtaking'
+        : inCone(ownRel) && inCone(aspect) ? 'head-on' : 'crossing'
+      if (!got.has(want)) bad.push(`${ownRel}/${aspect}: ${[...got]} not ${want}`)
+    }
+  }
+  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} of ${checked} bearings are in two sectors or none`)
+  assert.equal(checked, 720 * 720)
+})
+
+test('classification: the 112.5 and 22.5-abaft edges land exactly where 13(b) puts them', () => {
+  // 'More than 22.5 degrees abaft her beam' is strict, so the edge itself is
+  // not an overtaking. One tenth of a degree is enough to move it, and the
+  // fixtures either side of each edge are the data-level record of the same
+  // fact.
+  const at = (ownRel, aspect) => [...encountersFor(sweepSituation({ ownRel, aspect }))]
+  assert.deepEqual(at(300, FROM), ['crossing'], 'exactly 22.5 abaft the beam is not yet overtaking')
+  assert.deepEqual(at(350, FROM + 0.1), ['overtaking'])
+  assert.deepEqual(at(10, TO), ['crossing'], 'the mirror edge, and equally exclusive')
+  assert.deepEqual(at(10, TO - 0.1), ['overtaking'])
+  // The same edge read on own's bearing, which is the overtaken vessel's side.
+  assert.deepEqual(at(FROM, 5), ['crossing'])
+  assert.deepEqual(at(FROM + 0.1, 5), ['overtaking'])
+  // The head-on cone is closed at its edge and one twentieth of a degree wide
+  // of it is a crossing -- and it takes both subjects, which is 14(b).
+  assert.deepEqual(at(HALF, 360 - HALF), ['head-on'])
+  assert.deepEqual(at(HALF + 0.05, 360 - HALF), ['crossing'])
+  assert.deepEqual(at(HALF, 360 - HALF - 0.05), ['crossing'])
+  assert.deepEqual(at(0, 0), ['head-on'], 'dead ahead of each other')
+  assert.deepEqual(at(180, 180), ['overtaking'], 'dead astern is the middle of the sector')
+})
+
+test('classification: 13(d) holds the encounter at overtaking however the bearing drifts', () => {
+  // The latch, swept: with `hist:was_overtaking` set on either subject, every
+  // bearing in the circle classifies as an overtaking and as nothing else.
+  // Without it the same bearings would produce a crossing or a head-on, which
+  // is the reclassification 13(d) forbids in so many words.
+  for (const [latchOwn, latchOther] of [[true, false], [false, true], [true, true]]) {
+    const bad = []
+    const s = sweepTemplate(latchOwn, latchOther)
+    for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
+      for (let aspect = 0; aspect < 360; aspect += 0.5) {
+        const got = encountersFor(aim(s, ownRel, aspect))
+        if (got.size !== 1 || !got.has('overtaking')) bad.push(`${ownRel}/${aspect}: ${[...got]}`)
+      }
+    }
+    assert.deepEqual(bad.slice(0, 8), [], `${bad.length} bearings escape the 13(d) latch`)
+  }
+  // The case the latch was written for, and the one the fixture illustrates:
+  // a bearing that has drawn out of the sector entirely.
+  const drifted = sweepSituation({ ownRel: 90, aspect: 250, latchOwn: true })
+  assert.deepEqual([...encountersFor(drifted)], ['overtaking'])
+  assert.equal(matchesSituation(byId.get('13b-overtaking').when, drifted), false,
+    'the sector test no longer holds, which is exactly when 13(d) is load-bearing')
+  assert.equal(matchesSituation(byId.get('13a').when, drifted), true,
+    'and the duty stays with the overtaking vessel')
+  // Absent history is not false history: a situation that omits the latch is
+  // classified as no encounter at all rather than as a crossing. Conservative,
+  // and silent, which is Q-43.
+  const noHistory = { ...drifted, own: { ...drifted.own, hist: {} }, other: { ...drifted.other, hist: {} } }
+  assert.deepEqual([...encountersFor(noHistory)], [])
+})
+
+test('classification: 15(a) gives way exactly where the crossing has the other to starboard', () => {
+  // 15a-give-way writes own's bearing as the starboard half of the
+  // non-overtaking sector, which is a shorthand for two constraints the
+  // predicate language cannot put on one key. The sweep is what makes the
+  // shorthand checkable: the entry must select exactly the crossings in which
+  // the other bears between 0 and 180 relative, and nothing else.
+  const crossing = byId.get('15a-crossing')
+  const giveWay = byId.get('15a-give-way')
+  const bad = []
+  const t = sweepTemplate()
+  for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
+    for (let aspect = 0; aspect < 360; aspect += 0.5) {
+      const s = aim(t, ownRel, aspect)
+      const want = matchesSituation(crossing.when, s) && ownRel > 0 && ownRel < 180
+      if (matchesSituation(giveWay.when, s) !== want) bad.push(`${ownRel}/${aspect}`)
+    }
+  }
+  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} bearings where give-way and crossing disagree`)
+})
+
+test('the declared constants are the numbers the entries actually read', () => {
+  // A constant declared in facts.json and a literal written into a predicate
+  // are two places for one number, which is one too many. Every entry that
+  // thresholds one of the three is reconstructed here from the declaration and
+  // compared, so the two cannot drift.
+  const sector = { gt: FROM, lt: TO }
+  const cone = { any_of: [{ lte: HALF }, { gte: 360 - HALF }] }
+  const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value
+  assert.deepEqual(byId.get('7d1').when['pair:geo:bearing_change_deg_min'],
+    { gt: -appreciable, lt: appreciable })
+  assert.deepEqual(byId.get('13b-overtaking').when['other:geo:rel_bearing_deg'], sector)
+  assert.deepEqual(byId.get('13b-overtaken').when['own:geo:rel_bearing_deg'], sector)
+  assert.deepEqual(byId.get('14a').when['own:geo:rel_bearing_deg'], cone)
+  assert.deepEqual(byId.get('14a').when['other:geo:rel_bearing_deg'], cone)
+  // The residual is `not` over the very same objects, which is the whole
+  // reason the partition above cannot be broken by editing one side only.
+  const c = byId.get('15a-crossing').when
+  assert.deepEqual(c['own:geo:rel_bearing_deg'], { not: sector })
+  assert.deepEqual(c['other:geo:rel_bearing_deg'], { not: sector })
+  assert.deepEqual(c.any_of, [
+    { 'own:geo:rel_bearing_deg': { not: cone } },
+    { 'other:geo:rel_bearing_deg': { not: cone } },
+  ])
+  assert.deepEqual(byId.get('15a-give-way').when['own:geo:rel_bearing_deg'], { gt: 0, lte: FROM })
+  // Every constant says who may change it and, where it is pencil, what would.
+  for (const [k, spec] of Object.entries(CONSTANTS)) {
+    if (k === 'note') continue
+    assert.ok(['ink', 'pencil'].includes(spec.status), `${k}: bad status`)
+    assert.ok(typeof spec.value === 'number', `${k}: no value`)
+    assert.ok('cite' in spec, `${k}: no cite`)
+    if (spec.cite === null) assert.ok(spec.cite_pending, `${k}: null cite with no cite_pending`)
+    else assert.ok(rules.paragraphs[spec.cite], `${k}: cites missing paragraph ${spec.cite}`)
+    if (spec.status === 'pencil') assert.ok(spec.settled_by, `${k}: pencil with no settled_by`)
   }
 })

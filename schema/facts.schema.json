@@ -484,6 +484,59 @@
         "note": {
           "type": "string"
         },
+        "constants": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "note": {
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^(?!note$)[a-z][a-z0-9_]*$": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "value",
+                "fact",
+                "status",
+                "cite",
+                "cite_pending"
+              ],
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "fact": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "ink",
+                    "pencil",
+                    "open"
+                  ]
+                },
+                "cite": {
+                  "type": ["string", "null"]
+                },
+                "cite_pending": {
+                  "type": ["string", "null"]
+                },
+                "note": {
+                  "type": "string"
+                },
+                "settled_by": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
         "status": {
           "type": "string",
           "enum": [

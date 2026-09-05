@@ -29,14 +29,21 @@
   "meta": "reads the region state; produces a banner and advisories; computed by a solver, reviewed by humans"
  },
  "effects": {
-  "note": "What a two-subject entry produces, as a role per subject: `effect` is {\"own\": <role>, \"other\": <role>} for a `precedence` entry, and {\"part\", \"section\", \"applies_rules\"} for a `scope` entry. A `display` entry has no `effect`; its output is `lights`. The roles are a closed vocabulary and are not identifiers (docs/identifiers.md, 'What is not an identifier'). Pencil: ADR 0005 and docs/identifiers.md.",
+  "note": "What a two-subject entry produces. `effect` is {\"own\": <role>, \"other\": <role>} for a `precedence` entry, {\"part\", \"section\", \"applies_rules\"} for a `scope` entry, and for a `classification` entry exactly one of {\"encounter\": <encounter>} or {\"risk_of_collision\": true}. A `display` entry has no `effect`; its output is `lights`. Roles and encounters are closed vocabularies and are not identifiers (docs/identifiers.md, 'What is not an identifier'). Pencil: ADR 0005 and docs/identifiers.md.",
   "roles": {
    "give-way": "this subject shall keep out of the way of the other; Rule 16 governs the action",
    "stand-on": "this subject shall keep her course and speed; Rule 17 governs, including 17(a)(ii) and 17(b)",
    "shall-not-impede": "this subject shall not impede the other's passage or safe passage; Rule 8(f) governs, and by 8(f)(iii) it confers nothing on the other",
    "keep-clear": "this subject shall keep well clear of the other and avoid impeding her navigation, outside the give-way/stand-on pairing (18(e), 18(f)(i))",
    "none": "this paragraph confers no role on this subject. Recorded rather than omitted: `none` on the counterpart of a shall-not-impede duty is the content of 8(f)(iii), and `none` on both sides of a NUC/RAM pair is the content of Rule 18's partial order."
-  }
+  },
+  "encounters": {
+   "head-on": "Rule 14: two power-driven vessels meeting on reciprocal or nearly reciprocal courses",
+   "crossing": "Rule 15: two power-driven vessels crossing. The residual of the other three, derived with `not` rather than written as its own sector, so the four cannot drift apart",
+   "overtaking": "Rule 13: one vessel coming up with another from more than 22.5 degrees abaft her beam, or latched there by 13(d)",
+   "none": "no encounter of Section II's three types. Declared for completeness of the vocabulary; no entry produces it, because an encounter type is asserted by a paragraph and the absence of one is the absence of an entry, not an entry with a null value"
+  },
+  "classification_shape": "A classification effect carries exactly one key: `encounter`, whose value is one of `encounters` above, or `risk_of_collision`, whose value is `true`. Two shapes rather than one because Rule 7(d) and Rules 13-15 answer two different questions -- does risk exist, and what kind of encounter is this -- and ADR 0005 gives both to `classification`. A single merged shape would have made every encounter entry state a risk it does not decide."
  },
  "known_omissions": [
   {
@@ -88,6 +95,16 @@
    "cite": "1(a), 1(b), 1(c), 1(d), 1(e), 20(b), 20(c)",
    "what": "The remaining `scope` paragraphs: the waters the Rules apply to, special rules made by an authority, the adoption of traffic separation schemes, the special-construction determination, and the sunset-to-sunrise and restricted-visibility gates on the light rules.",
    "why": "None of them reads a fact this package declares. 1(a) needs a fact about the waters; 1(b)/(c)/(e) are about an authority's determination, which is closer to the jurisdiction dimension of ADR 0001 than to a predicate; 1(d) is not addressed to a vessel at all; 20(b)/(c) need time of day and visibility, and applicability.json's `conditions` note already records that night is assumed rather than gated. Deferred to a later PR with 4, 11 and 19(a) landing first."
+  },
+  {
+   "cite": "7(d)(ii)",
+   "what": "Risk of collision may sometimes exist even when an appreciable bearing change is evident, particularly when approaching a very large vessel or a tow or when approaching a vessel at close range.",
+   "why": "Three limbs and no fact behind two of them: 'very large vessel' has no length threshold anywhere in the Rules, and 'close range' has none either, so both would have to be numbers this package invented -- unlike 7(d)(i)'s, which at least thresholds a quantity the paragraph names. The third limb, a tow, is `fact:activity: activity:towing` and could be written. It is not written alone, because the paragraph's modality is the real obstacle: 'may sometimes exist' is neither a deeming rule nor a permission, it is an instruction to the mariner's judgement, and the modality vocabulary has no value for it. Recorded whole rather than modelled in thirds. Q-42."
+  },
+  {
+   "cite": "13(c), 14(c)",
+   "what": "When a vessel is in any doubt as to whether she is overtaking, or whether a head-on situation exists, she shall assume that it is the case and act accordingly.",
+   "why": "Doubt is a state of the observer, not a fact of the situation, and the one thing the predicate language will not do is fire on an absent fact -- which is the nearest thing to doubt it has. Modelling these would mean either a `doubt` boolean, which asks a consumer to report a mental state, or reading absence as assertion, which reverses the rule the whole language is built on. 12(a)(iii) is the same shape and is modelled, only because 12(b) makes the uncertainty a value of a fact that is present. Q-41."
   }
  ],
  "represented_paragraphs": [
@@ -1541,7 +1558,20 @@
    "subjects": 2,
    "when": {
     "pair:geo:in_sight": true,
-    "own:hist:was_overtaking": true,
+    "any_of": [
+     {
+      "other:geo:rel_bearing_deg": {
+       "gt": 112.5,
+       "lt": 247.5
+      },
+      "pair:geo:tcpa_s": {
+       "gt": 0
+      }
+     },
+     {
+      "own:hist:was_overtaking": true
+     }
+    ],
     "other:fact:position": "position:underway"
    },
    "modality": "shall",
@@ -1562,8 +1592,8 @@
     "18d1",
     "18f1"
    ],
-   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them.",
-   "gap": "The predicate reads `own:hist:was_overtaking` alone, so the instantaneous 13(b) sector test -- `other:geo:rel_bearing_deg` in (112.5, 247.5) -- is not modelled here. A `classification` entry for 13(b) is what would set the latch, and none exists yet; a consumer must set the fact itself. Written this way because a `when` has no disjunction, so 'in the sector OR latched' cannot be one entry, and the latched form is the one 13(d) makes load-bearing."
+   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them. The predicate now carries both halves of 'any vessel overtaking any other': the 13(b) sector, which 13b-overtaking classifies, and the 13(d) latch, which 13d classifies. They are a disjunction, which is what the entry could not write before the predicate language grew `any_of` (Q-33).",
+   "gap": "Only own's side. 13(a) lays the duty on the overtaking vessel, so this entry is directional by design and the overtaken vessel's stand-on role comes from the same entry read on the swapped situation. What it still cannot say is 13(c) -- a vessel in any doubt as to whether she is overtaking shall assume that she is -- because doubt is a state of the observer and no fact carries it; and it inherits 13b-overtaking's speed-comparison gap. Q-41, Q-46."
   },
   {
    "id": "9b",
@@ -1675,6 +1705,375 @@
    ],
    "gap": "'any vessel following a traffic lane' is unmodelled for the other vessel; `pair:env:traffic_lane` says the encounter is in a lane, not that the other vessel is following it.",
    "note": "The same collapse as 9b, and the same disjunctive subject. 10(j)'s object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read. `10j-small` and `10j-sail` are retired and not reused."
+  },
+  {
+   "id": "7d1",
+   "jurisdiction": "intl",
+   "cite": "7(d)(i)",
+   "category": "classification",
+   "subjects": 2,
+   "when": {
+    "pair:geo:bearing_change_deg_min": {
+     "gt": -1.0,
+     "lt": 1.0
+    },
+    "pair:geo:tcpa_s": {
+     "gt": 0
+    }
+   },
+   "modality": "shall",
+   "effect": {
+    "risk_of_collision": true
+   },
+   "note": "7(d)(i) is a deeming rule, not a judgement: if the compass bearing of an approaching vessel does not appreciably change, risk shall be deemed to exist. `appreciably` is a number the Rules do not give, so it is declared once in facts.json `situation.constants.appreciable_bearing_change_deg_min` and read from there; the interval is open on both sides of zero because the paragraph asks whether the bearing changes, not which way. `approaching` is `pair:geo:tcpa_s` positive -- the closest point of approach is still ahead -- which is the nearest thing in the fact vocabulary to a vessel coming on.",
+   "gap": "This entry can only add risk, never deny it. 7(a) makes risk a judgement on all available means and says that in any doubt it shall be deemed to exist, so `pair:geo:risk_of_collision` stays a supplied fact and this entry's effect is a second, independent ground for the same conclusion. Nothing here writes the fact back: whether a norm may read another norm's effect is Q-35, unresolved.",
+   "no_gate_note": "No in-sight gate: Rule 4 puts Rules 4-10 in any condition of visibility."
+  },
+  {
+   "id": "12a1",
+   "jurisdiction": "intl",
+   "cite": "12(a)(i)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:geo:risk_of_collision": true,
+    "own:fact:rule18_class": "rule18_class:sail",
+    "other:fact:rule18_class": "rule18_class:sail",
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "own:kin:wind_side": "wind_side:port",
+    "other:kin:wind_side": "wind_side:starboard"
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "Each has the wind on a different side, so the vessel with the wind on the port side keeps out of the way. Evaluated from own's side, so the mirror case -- own on starboard, other on port -- is this same entry read on the swapped situation, and it is what makes the other vessel stand-on.",
+   "gap": "12(a) says 'two sailing vessels', which is 3(c)'s definition and would be `fact:propulsion: propulsion:sail`. This entry reads `rule18_class:sail` instead, which is narrower: a vessel engaged in fishing under sail is a sailing vessel by 3(c) but is ranked as fishing by 18(c), and letting Rule 12 hand her a give-way duty would contradict 18(b)(iii) with no override between them. Narrowed deliberately and recorded rather than left to collide; Q-40."
+  },
+  {
+   "id": "12a2",
+   "jurisdiction": "intl",
+   "cite": "12(a)(ii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:geo:risk_of_collision": true,
+    "own:fact:rule18_class": "rule18_class:sail",
+    "other:fact:rule18_class": "rule18_class:sail",
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "own:geo:windward": true,
+    "any_of": [
+     {
+      "own:kin:wind_side": "wind_side:port",
+      "other:kin:wind_side": "wind_side:port"
+     },
+     {
+      "own:kin:wind_side": "wind_side:starboard",
+      "other:kin:wind_side": "wind_side:starboard"
+     }
+    ]
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "Both have the wind on the same side, so the windward vessel keeps clear. 'The same side' is a comparison between two facts and the predicate language compares a fact to a constant, so the disjunction is written out over the two values the comparison can take -- which is why `wind_side:unknown` on either subject falls through to 12(a)(iii) rather than into this entry.",
+   "gap": "12(a) says 'two sailing vessels', which is 3(c)'s definition and would be `fact:propulsion: propulsion:sail`. This entry reads `rule18_class:sail` instead, which is narrower: a vessel engaged in fishing under sail is a sailing vessel by 3(c) but is ranked as fishing by 18(c), and letting Rule 12 hand her a give-way duty would contradict 18(b)(iii) with no override between them. Narrowed deliberately and recorded rather than left to collide; Q-40."
+  },
+  {
+   "id": "12a3",
+   "jurisdiction": "intl",
+   "cite": "12(a)(iii)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:geo:risk_of_collision": true,
+    "own:fact:rule18_class": "rule18_class:sail",
+    "other:fact:rule18_class": "rule18_class:sail",
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "own:kin:wind_side": "wind_side:port",
+    "other:kin:wind_side": "wind_side:unknown",
+    "other:geo:windward": true
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "The doubt case, and the one paragraph of Rule 12 that is expressible only because uncertainty is a declared value of the fact rather than the fact's absence. `wind_side:unknown` on the other subject is 'cannot determine with certainty', and an absent fact would have been the wrong model for it: absent satisfies nothing, so silence would have relieved own of a duty the paragraph imposes. This is the shape 13(c) and 14(c) would need and do not have -- Q-41.",
+   "gap": "12(a) says 'two sailing vessels', which is 3(c)'s definition and would be `fact:propulsion: propulsion:sail`. This entry reads `rule18_class:sail` instead, which is narrower: a vessel engaged in fishing under sail is a sailing vessel by 3(c) but is ranked as fishing by 18(c), and letting Rule 12 hand her a give-way duty would contradict 18(b)(iii) with no override between them. Narrowed deliberately and recorded rather than left to collide; Q-40."
+  },
+  {
+   "id": "13b-overtaking",
+   "jurisdiction": "intl",
+   "cite": "13(b)",
+   "category": "classification",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "other:geo:rel_bearing_deg": {
+     "gt": 112.5,
+     "lt": 247.5
+    },
+    "pair:geo:tcpa_s": {
+     "gt": 0
+    },
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall",
+   "effect": {
+    "encounter": "overtaking"
+   },
+   "note": "own is the overtaking vessel: own bears in the other's stern sector. 13(b) is the deeming paragraph and therefore the classification, which is the half of Q-37 PR #24 left open. It is written twice, once per subject, because the encounter type is a property of the pair and not of one vessel: a vessel being overtaken is in an overtaking, and reading only `other:geo:rel_bearing_deg` would have classified her side of the same encounter as a crossing. Which vessel carries the duty is 13(a)'s question, not this one's.",
+   "gap": "'Coming up with' is a comparison of the two vessels' speeds, and a predicate compares a fact to a constant, never one fact to another. `pair:geo:tcpa_s` positive stands in for it: the closest point of approach is still ahead, so the pair is closing, and closing from abaft the beam is coming up. A vessel drawing away astern is excluded, which is the case that mattered; a pair closing because the vessel ahead has stopped is not, and is classified as an overtaking. Q-46."
+  },
+  {
+   "id": "13b-overtaken",
+   "jurisdiction": "intl",
+   "cite": "13(b)",
+   "category": "classification",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "own:geo:rel_bearing_deg": {
+     "gt": 112.5,
+     "lt": 247.5
+    },
+    "pair:geo:tcpa_s": {
+     "gt": 0
+    },
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall",
+   "effect": {
+    "encounter": "overtaking"
+   },
+   "note": "own is the vessel being overtaken: the other bears in own's stern sector. 13(b) is the deeming paragraph and therefore the classification, which is the half of Q-37 PR #24 left open. It is written twice, once per subject, because the encounter type is a property of the pair and not of one vessel: a vessel being overtaken is in an overtaking, and reading only `other:geo:rel_bearing_deg` would have classified her side of the same encounter as a crossing. Which vessel carries the duty is 13(a)'s question, not this one's.",
+   "gap": "'Coming up with' is a comparison of the two vessels' speeds, and a predicate compares a fact to a constant, never one fact to another. `pair:geo:tcpa_s` positive stands in for it: the closest point of approach is still ahead, so the pair is closing, and closing from abaft the beam is coming up. A vessel drawing away astern is excluded, which is the case that mattered; a pair closing because the vessel ahead has stopped is not, and is classified as an overtaking. Q-46."
+  },
+  {
+   "id": "13d",
+   "jurisdiction": "intl",
+   "cite": "13(d)",
+   "category": "classification",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "any_of": [
+     {
+      "own:hist:was_overtaking": true
+     },
+     {
+      "other:hist:was_overtaking": true
+     }
+    ],
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway"
+   },
+   "modality": "shall",
+   "effect": {
+    "encounter": "overtaking"
+   },
+   "note": "The latch, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on 14a and 15a-crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids.",
+   "gap": "'Until she is finally past and clear' is the paragraph's own end condition and nothing in the fact vocabulary carries it, so in this model the latch never clears. A consumer sets and clears `hist:was_overtaking` itself. Recorded rather than approximated with a range or a bearing: past and clear is a seamanship judgement, and inventing a threshold for it would be the kind of number Q-40's neighbours are about. Q-47."
+  },
+  {
+   "id": "14a",
+   "jurisdiction": "intl",
+   "cite": "14(a)",
+   "category": "classification",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:geo:risk_of_collision": true,
+    "own:fact:propulsion": "propulsion:power",
+    "other:fact:propulsion": "propulsion:power",
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "own:hist:was_overtaking": false,
+    "other:hist:was_overtaking": false,
+    "own:geo:rel_bearing_deg": {
+     "any_of": [
+      {
+       "lte": 11.25
+      },
+      {
+       "gte": 348.75
+      }
+     ]
+    },
+    "other:geo:rel_bearing_deg": {
+     "any_of": [
+      {
+       "lte": 11.25
+      },
+      {
+       "gte": 348.75
+      }
+     ]
+    }
+   },
+   "modality": "shall",
+   "effect": {
+    "encounter": "head-on"
+   },
+   "note": "Both vessels see the other ahead or nearly ahead, which is 14(b)'s deeming test and the geometry behind 14(a)'s 'reciprocal or nearly reciprocal courses'. Both bearings are read, not one: a single vessel with the other fine on the bow is not a head-on situation unless she is also fine on the other's bow, and reading one bearing alone would have swallowed part of the crossing sector. The half-angle is declared once in facts.json `situation.constants.head_on_half_angle_deg`. 14(a)'s own requirement -- each shall alter her course to starboard -- is `conduct` and is not modelled here; this entry classifies the situation and stops.",
+   "gap": "The predicate spans two paragraphs: 14(a) states the situation and 14(b) fixes the geometry that deems it to exist. The paragraph is supposed to be the unit (ADR 0001), and 13(a)/13(b) split the same way into two entries because 13(a) also produces a role. Here there is nothing for a second entry to produce, so one entry cites 14(a) and reads 14(b). Q-45. The history gates are the other departure: they are 13(d)'s, not Rule 14's, and they are what keeps the three encounter types a partition -- their price is that a situation which omits `hist:was_overtaking` is classified as no encounter at all rather than as a head-on. Q-43."
+  },
+  {
+   "id": "15a-crossing",
+   "jurisdiction": "intl",
+   "cite": "15(a)",
+   "category": "classification",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:geo:risk_of_collision": true,
+    "own:fact:propulsion": "propulsion:power",
+    "other:fact:propulsion": "propulsion:power",
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "own:hist:was_overtaking": false,
+    "other:hist:was_overtaking": false,
+    "own:geo:rel_bearing_deg": {
+     "not": {
+      "gt": 112.5,
+      "lt": 247.5
+     }
+    },
+    "other:geo:rel_bearing_deg": {
+     "not": {
+      "gt": 112.5,
+      "lt": 247.5
+     }
+    },
+    "any_of": [
+     {
+      "own:geo:rel_bearing_deg": {
+       "not": {
+        "any_of": [
+         {
+          "lte": 11.25
+         },
+         {
+          "gte": 348.75
+         }
+        ]
+       }
+      }
+     },
+     {
+      "other:geo:rel_bearing_deg": {
+       "not": {
+        "any_of": [
+         {
+          "lte": 11.25
+         },
+         {
+          "gte": 348.75
+         }
+        ]
+       }
+      }
+     }
+    ]
+   },
+   "modality": "shall",
+   "effect": {
+    "encounter": "crossing"
+   },
+   "note": "The residual, and derived rather than written as its own sector. Not overtaking is `not` over the very constraint 13b-overtaking uses, on both subjects, so the sector and its complement cannot drift apart and the 112.5 edge lands in exactly one of them. Not head-on is `not` over 14a's cone, on either subject -- the negation of a conjunction, which is why it is an `any_of` and not two constraints. Nothing here enumerates a crossing sector, and that is the point: the only way for the three encounter types to overlap or to leave a bearing unclassified is for someone to edit one of the two constraints without editing the other, and there is only one of each.",
+   "gap": "15(a) says 'two power-driven vessels', which this reads as 3(b)'s definition and nothing more, so a vessel not under command is inside it -- she is power-driven. That is deliberate for the classification: the encounter really is a crossing. The rank gate lives on 15a-give-way instead, because it is the role and not the geometry that Rule 18 displaces."
+  },
+  {
+   "id": "15a-give-way",
+   "jurisdiction": "intl",
+   "cite": "15(a)",
+   "category": "precedence",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:geo:risk_of_collision": true,
+    "own:fact:propulsion": "propulsion:power",
+    "other:fact:propulsion": "propulsion:power",
+    "own:fact:position": "position:underway",
+    "other:fact:position": "position:underway",
+    "own:hist:was_overtaking": false,
+    "other:hist:was_overtaking": false,
+    "own:geo:rel_bearing_deg": {
+     "gt": 0,
+     "lte": 112.5
+    },
+    "other:geo:rel_bearing_deg": {
+     "not": {
+      "gt": 112.5,
+      "lt": 247.5
+     }
+    },
+    "own:fact:rule18_class": {
+     "not": [
+      "rule18_class:nuc",
+      "rule18_class:ram",
+      "rule18_class:fishing",
+      "rule18_class:wig"
+     ]
+    },
+    "other:fact:rule18_class": {
+     "not": [
+      "rule18_class:nuc",
+      "rule18_class:ram",
+      "rule18_class:fishing",
+      "rule18_class:wig"
+     ]
+    },
+    "any_of": [
+     {
+      "own:geo:rel_bearing_deg": {
+       "not": {
+        "any_of": [
+         {
+          "lte": 11.25
+         },
+         {
+          "gte": 348.75
+         }
+        ]
+       }
+      }
+     },
+     {
+      "other:geo:rel_bearing_deg": {
+       "not": {
+        "any_of": [
+         {
+          "lte": 11.25
+         },
+         {
+          "gte": 348.75
+         }
+        ]
+       }
+      }
+     }
+    ]
+   },
+   "modality": "shall",
+   "effect": {
+    "own": "give-way",
+    "other": "stand-on"
+   },
+   "note": "The role half of 15(a): the vessel which has the other on her own starboard side keeps out of the way. Own's bearing constraint is the starboard half of the non-overtaking sector, and its upper edge is the same declared constant 13b reads, so it is not a hand-listed sector either; the partition test asserts that this entry selects exactly the crossings in which the other bears between 0 and 180 relative, which is what makes the shorthand checkable rather than trusted. The rank negation is 18(a)'s, written the way 18a1 writes it: an ordinary power-driven vessel, which still includes a vessel constrained by her draught, because 18(d) protects her without exempting her. A WIG craft is excluded as well as the three of 18(a), because 18(f)(i) makes her keep clear of everything and two helm roles at once is what that would produce.",
+   "gap": "15(a)'s second duty -- 'shall, if the circumstances of the case admit, avoid crossing ahead of the other vessel' -- is `conduct` with a practicability caveat, and neither half fits a precedence entry. It is dropped here, which is Q-31's shape again: the caveat has no field to move into unless the duty happens to be a role, and this one is an action."
   }
  ]
 }

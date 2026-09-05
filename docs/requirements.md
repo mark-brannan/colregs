@@ -327,12 +327,30 @@ towards, not because the shape is settled.
   state `lights`. For a `precedence` entry the effect MUST be a role per
   subject, `{own, other}`, from the closed set `give-way`, `stand-on`,
   `shall-not-impede`, `keep-clear`, `none`; for a `scope` entry it MUST name
-  the part, the section and the rules that section governs. `stand-on` MUST
+  the part, the section and the rules that section governs; for a
+  `classification` entry it MUST carry exactly one key, either `encounter`
+  from the closed set `head-on`, `crossing`, `overtaking`, `none`, or
+  `risk_of_collision`, whose only value is `true`. `stand-on` MUST
   appear only as the counterpart of `give-way`, and the counterpart of
   `shall-not-impede` MUST be `none` — Rule 8(f)(iii) is why. CI MUST fail on a
-  role outside the set, on an effect whose shape does not match its category,
-  and on a `rel:overrides` that resolves to no entry, points at an entry of a
-  different category, or closes a cycle. `✎` pencil, with the rest of §4.1.
+  role or an encounter outside its set, on an effect whose shape does not match
+  its category, and on a `rel:overrides` that resolves to no entry, points at an
+  entry of a different category, or closes a cycle. `✎` pencil, with the rest of
+  §4.1.
+- **REQ-CAT-9** — The `classification` entries for Rules 13, 14 and 15 MUST
+  **partition** the pair's relative geometry: for any situation those entries
+  all reach, exactly one encounter type MUST apply — never two, never none.
+  The crossing sector MUST NOT be enumerated; it MUST be derived, as the
+  negation of the other two, so that a single constraint object states each
+  sector and its complement. Any numeric threshold a Part B predicate needs
+  which the Rules do not state MUST be declared once in `data/facts.json`
+  under `situation.constants`, with its status under `docs/conventions.md`
+  and, where pencilled, what would settle it; an entry MUST read the declared
+  constant rather than repeat the literal. CI MUST sweep both subjects'
+  relative bearings and fail on any bearing in two encounter types or in none,
+  on either edge of 13(b)'s sector falling on the wrong side, and on any entry
+  whose threshold does not match the declared constant. `✎` pencil, with the
+  rest of §4.1.
 
 ---
 
@@ -1013,6 +1031,18 @@ named that gap before the class existed.
   `precedence` here, with 13(b)'s sector test left for the `classification`
   entry that would set the `hist:was_overtaking` latch. Settled with the rest
   of `Q-14`, paragraph by paragraph.
+
+  **Closed in pencil 2026-09-04 (PR #26).** 13(b) is now written, as *two*
+  `classification` entries rather than one — `13b-overtaking` and
+  `13b-overtaken` — because the encounter type belongs to the pair and reading
+  aspect alone classified the overtaken vessel's side of the same encounter as
+  a crossing. 13(a) stays `precedence`, and its predicate now carries both
+  halves of "any vessel overtaking any other": the 13(b) sector and the 13(d)
+  latch, as an `any_of`, which closes the gap the entry recorded. 13(d) is a
+  third `classification` entry, reading history and no geometry at all. The
+  split confirms the thing ADR 0005 §1 was really defending — one category per
+  paragraph — and costs one paragraph two entries, which the entry-id suffix
+  scheme was already built for.
 - **Q-38** — 9(d), 18(d)(ii), 18(e), 18(f)(ii), 1(a)–(e) and 20(b)–(c) are
   recorded in `known_omissions` rather than modelled: 9(d) needs the channel's
   axis, 18(e) needs a fact for being a seaplane, 20(b)–(c) need time of day,
@@ -1024,3 +1054,119 @@ named that gap before the class existed.
   and the test exempts it explicitly. Settled by deciding whether an ungated
   norm should be a registry record like `represented_paragraphs` rather than an
   entry with a vacuous predicate.
+
+### From the classification norms (PR #26)
+
+Rules 7(d), 12, 13(b)–(d), 14 and 15 are the first `classification` entries and
+the second family of `precedence` ones. All pencil. What the model expressed is
+written up in `docs/identifiers.md` §"Effects"; what it could not is here.
+
+- **Q-40** — **Rule 12 is `precedence`, not `classification`.** ADR 0005 §1 and
+  the proposal's table both file it under `classification`; it produces a role
+  — "one of them shall keep out of the way of the other" — and a
+  classification effect has nowhere to put one, which is `Q-37`'s argument
+  applied a second time. Two sailing vessels are still in a head-on, a crossing
+  or an overtaking; Rule 12 says which of them gives way, not what kind of
+  meeting it is. 12(b) is a `definition` and is the cite on `kin:wind_side`
+  rather than an entry. The second half of the question is narrower and worse:
+  12(a) says "two sailing vessels", which is 3(c), but entries `12a1`–`12a3`
+  read `rule18_class:sail` instead, so a vessel engaged in fishing under sail
+  falls out of Rule 12 — because letting her in would have given her a give-way
+  duty under 12(a) and a stand-on role under 18(b)(iii) with no override
+  between them. Narrowed deliberately and recorded on each entry. Settled with
+  the rest of `Q-14`, and by deciding whether Rule 18 overrides Rules 12–15 the
+  way Rules 9, 10 and 13 override Rule 18 — a `rel:overrides` nobody has yet
+  written down.
+- **Q-41** — **13(c) and 14(c) invert the absent-fact rule.** "When a vessel is
+  in any doubt as to whether she is overtaking, she shall assume that this is
+  the case" is a duty that fires on the *absence* of knowledge, and the
+  predicate language's one firm commitment is that an absent fact satisfies
+  nothing (`Q-33`). Modelling either paragraph means a `doubt` boolean, which
+  asks a consumer to report a mental state, or reading absence as assertion,
+  which reverses the rule the language is built on. Both are in
+  `known_omissions`. 12(a)(iii) is the same shape and *is* modelled, only
+  because 12(b) makes the uncertainty a declared value of a fact that is
+  present — `wind_side:unknown`. Settled by deciding whether "in doubt" is a
+  fact of the situation at all; if it is, it is one fact and it closes three
+  paragraphs.
+- **Q-42** — **7(d)(ii) is recorded, not modelled.** "Risk may sometimes exist
+  even when an appreciable bearing change is evident, particularly when
+  approaching a very large vessel or a tow or when approaching a vessel at
+  close range." Two of the three limbs have no fact behind them — the Rules
+  give no length for "very large" and no distance for "close range", so both
+  would be numbers this package invented rather than thresholds on a quantity a
+  paragraph names, which is what saves 7(d)(i)'s constant. The third limb, a
+  tow, is expressible. It is not written alone because the modality is the real
+  obstacle: "may sometimes exist" is neither a deeming rule nor a permission,
+  and the vocabulary has no value for an instruction to the mariner's
+  judgement. Settled by deciding whether the vocabulary gains one — `Q-31`'s
+  neighbour, not its duplicate.
+- **Q-43** — **The partition needs history to be present, and says nothing when
+  it is absent.** `14a` and `15a-crossing` are gated on `hist:was_overtaking`
+  being `false` on both subjects, which is 13(d)'s requirement and the only way
+  the three encounter types stay disjoint once the latch is set. Because absent
+  is absent, a situation that omits the fact is classified as *no encounter at
+  all* rather than as a head-on or a crossing. That is conservative in the
+  right direction and completely silent, which is the wrong way to be
+  conservative: a consumer who forgets one boolean gets an empty answer that
+  looks like a lawful one. The neighbouring finding: two sailing vessels get no
+  encounter type either, because Rules 14 and 15 are gated on two power-driven
+  vessels and Rule 12 has no deeming paragraph — that one is a property of the
+  Rules rather than of the model. Settled by deciding whether an engine may
+  distinguish "no encounter" from "cannot say", which is the status alphabet of
+  ADR 0005 §5 and belongs to `colregs-engine`.
+- **Q-44** — **`kin:wind_side` is not kinematics.** Rule 12 needs to know which
+  side each vessel has the wind on. It is a per-vessel Part B fact, so it
+  cannot go in the fact record (`REQ-CAT-4`: the record does not change, and a
+  display consumer must never be asked for it) and it cannot go in `pair` (it
+  is not symmetric), which leaves `kin` — a class whose declared meaning is
+  where a vessel is, where she is pointing, how fast she is going and turning,
+  and what she handles like. A sailing vessel's tack is none of those. Filed
+  there rather than fixed by widening the class note, because widening it would
+  make `kin` mean "per-vessel and not in the fact record", which is a
+  description of the leftovers and not of a class. Settled by the second
+  per-vessel Part B fact that is not kinematics: one is an awkwardness, two is
+  a missing class.
+- **Q-45** — **One entry, two paragraphs.** `14a` cites 14(a), which states the
+  situation, and reads 14(b), which fixes the geometry that deems it to exist.
+  The paragraph is supposed to be the unit (ADR 0001), and Rule 13 splits the
+  same way into two entries only because 13(a) also produces a role. Here there
+  is nothing for a second entry to produce. Settled by deciding whether a
+  deeming paragraph that produces no effect of its own gets an entry anyway —
+  the same question `Q-39` asks about an ungated norm, from the other end.
+- **Q-46** — **"Coming up with" is a comparison of two facts.** 13(b) deems a
+  vessel to be overtaking when *coming up with* another from more than 22.5°
+  abaft her beam. That is `own:kin:sog_kn` against `other:kin:sog_kn`, and the
+  predicate language compares a fact to a constant and never one fact to
+  another — the same wall `12a2` hits on "both have the wind on the same side",
+  which it gets over only because that comparison has two values to enumerate
+  and this one has infinitely many. `pair:geo:tcpa_s > 0` stands in: the pair
+  is closing, and closing from abaft the beam is coming up. It excludes the
+  vessel drawing away astern, which is the case that mattered, and admits a
+  pair closing because the vessel ahead has stopped, which is not an overtaking
+  in seamanship and is one here. Settled by deciding whether the language gains
+  fact-to-fact comparison — a bigger change than `not` and `any_of` were, and
+  not one to make for a single paragraph.
+- **Q-47** — **13(d)'s latch never clears.** The paragraph runs "until she is
+  finally past and clear", nothing in the fact vocabulary carries that, and so
+  in this model `hist:was_overtaking` is set by a consumer and cleared by a
+  consumer while entry `13d` classifies an overtaking for as long as it stands.
+  Not approximated with a range or a bearing: past and clear is a seamanship
+  judgement of the same kind as risk of collision, and a threshold for it would
+  be a number invented rather than declared. Settled by whatever settles the
+  `conduct` monitors, which are the things that watch a duty end rather than
+  begin.
+- **Q-48** — **Nothing checks that a situation is geometrically possible.**
+  `own:geo:rel_bearing_deg`, `other:geo:rel_bearing_deg`, the two
+  `kin:heading_deg` and the two `kin:sog_kn` are six facts related by two
+  equations, and the situation record enforces neither. A consumer — or a
+  fixture — can state a pair of bearings that no two headings produce, and the
+  entries will classify it without complaint. It bites in one visible place:
+  where both vessels have the other on the starboard side, which cannot happen
+  on a collision course, `15a-give-way` applies to both of them and the "never
+  both give-way" property fails. The fixtures added here are built from a
+  heading and a bearing so that they are consistent by construction, and the
+  file says so; the model is not. Settled by deciding whether the record gains
+  a consistency check, whether the relative quantities become derived facts
+  like `fact:rule18_class` — computed from the two kinematic states rather than
+  supplied beside them — or whether it is the consumer's problem and says so.
