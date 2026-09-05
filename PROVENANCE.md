@@ -67,18 +67,27 @@ diagrams the USCG now serves as `NRHB_25_b.png` and `NRHB_27_ei.png` — an
 older filename for the same images, not a different source. This package uses
 the current USCG names throughout.
 
-## Arc diagrams — `images/*arc.gif` — **unresolved**
+## Arc diagrams — `images/*arc.gif`
 
-`mastheadarc.gif`, `portarc.gif`, `stbdarc.gif`, `sternarc.gif` and
-`towingarc.gif` were carried over from `signalk-auto-nav-lights`. They are
-believed to be USCG illustrations, but the page that served them no longer
-exists and no archived original has been located, so their provenance and
-rights are **unverified**. `data/images.json` marks them
-`"provenance_status": "unresolved"`.
+- **Source:** USCG Navigation Center, *Navigation Rules Arcs of Visibility*,
+  <https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility>, which
+  serves the five files at
+  `https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/<name>`
+  as the rollover states of its Rule 21/22 diagram.
+- **Retrieved:** 2026-09-05 — fetched from the live USCG server and compared
+  byte-for-byte (`cmp` and SHA-256) against the copies carried over from
+  `signalk-auto-nav-lights`: identical, all five.
+- **Rights:** US Government work, public domain (17 U.S.C. 105).
+- Captions are the page's own image-map `alt` text; each file is mapped to
+  the Rule 21 definition it illustrates (`21(a)` masthead, `21(b)`
+  sidelights, `21(c)` sternlight, `21(d)` towing light, plus `24(a)(iv)`
+  for the towing light's placement).
 
-They are decorative here: the arcs themselves are data, in `data/lights.json`
-under each light's `arc`. If provenance cannot be established, delete the GIFs;
-nothing in the package depends on them.
+The same filenames existed on the pre-Drupal site under
+`navcen.uscg.gov/mwv/navrules/` (Wayback has `mastheadarc.gif` from
+2004-10-15), which is why an earlier release could not locate the page and
+recorded them as unresolved. They remain decorative: the arcs themselves are
+data, in `data/lights.json` under each light's `arc`.
 
 ## SignalK paths
 
