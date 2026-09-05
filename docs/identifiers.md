@@ -139,6 +139,15 @@ Swapping `own` and `other` throughout a predicate reverses the encounter,
 which is exactly the operation a `precedence` rule needs and the reason to
 prefer a subject namespace over two parallel vocabularies.
 
+The directional and the pair geometry are redundant with `kin:` wherever both
+are stated, and a record can state a set no two vessels can occupy — two
+bearings no pair of headings produces, a CPA the speeds do not give.
+`facts.json` declares the equations that relate them under
+`situation.geometry.consistency`, and the suite enforces them on every fixture
+and on every situation it constructs (`REQ-VERIFY-8`, `Q-48`). That makes them
+checked, not derived: a consumer with an ARPA solution still supplies them,
+and a record that omits the kinematics is unchecked rather than wrong.
+
 `kin:` is the kinematic class ADR 0005 introduces — `kin:position`,
 `kin:heading_deg`, `kin:sog_kn`, `kin:rot_deg_min`, `kin:dynamics`. It takes
 `own`/`other` only; there is no kinematic state of a pair. `kin:dynamics`

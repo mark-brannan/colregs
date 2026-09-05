@@ -188,6 +188,17 @@ Rules do not state — what counts as an appreciable bearing change, how wide
 "nearly reciprocal" is — are declared once in `facts.json` under
 `situation.constants`, marked pencil, and read from there by every entry.
 
+A situation can state geometry no two vessels can occupy, so the suite checks
+every fixture that states its kinematics against them (REQ-VERIFY-8): the two
+relative bearings must be two readings of one line of sight, positions must
+reproduce range and bearing, and CPA, TCPA and bearing rate must be the ones
+the headings and speeds give. The equations and tolerances are declared once in
+`facts.json` under `situation.geometry.consistency`. The sweeps construct
+situations that pass the same check, and the property that no two vessels are
+both give-way is asserted over a sweep of steady-bearing geometries — where it
+is a theorem — with the both-starboard geometry that breaks it pinned as one
+the check rejects.
+
 ## What this package does not do
 
 It does not infer anything. It is a pure function of the fact record. Deciding
