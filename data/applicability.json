@@ -135,7 +135,7 @@
    "9b-sail": "Collapsed into `9b`, same reason.",
    "10j-small": "Collapsed into `10j`, same reason.",
    "10j-sail": "Collapsed into `10j`, same reason.",
-   "14a": "Renamed `14b` when the head-on classification moved its cite from 14(a) to 14(b), the deeming paragraph it reads; 14(a) is conduct and is in known_omissions. Never shipped. Q-45."
+   "14a": "Renamed `14b` when the head-on classification moved its cite from 14(a) to 14(b), the deeming paragraph it reads; 14(a) is conduct and is in known_omissions. Shipped in v0.1.3, so it is the first record in data/deprecated-identifiers.json (REQ-MODEL-11). Q-45."
   }
  },
  "entries": [
