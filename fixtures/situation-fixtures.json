@@ -3370,6 +3370,144 @@
      }
     }
    }
+  },
+  {
+   "name": "15 between two fishing vessels: both under power, the other on own's starboard side",
+   "status": "binding",
+   "narrative": "Two vessels engaged in fishing, both propelled by machinery, crossing in sight on a steady bearing at 1500 m. Rule 18 orders neither of them: 18(a) speaks for a power-driven vessel that is not herself ranked by Rule 18, and 18(c) ranks a fishing vessel only against a vessel not under command and one restricted in her ability to manoeuvre. So no Rule 18 norm is in force between this pair. 15(a)'s \"two power-driven vessels\" is 3(b), and a vessel engaged in fishing whose machinery is in use is a power-driven vessel, so Rule 15 is the only norm that assigns a role here: own has the other on her own starboard side and keeps out of the way, the other stands on. Before this PR `15a-give-way` negated the four Rule 18 ranks on both subjects, so neither vessel took a helm role and the pair was ungoverned -- which is the finding this fixture was written to record.",
+   "expect": [
+    "4",
+    "11",
+    "7d1",
+    "8f3",
+    "15a-crossing",
+    "15a-give-way"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 26.0
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 6.0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:fishing"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 45.0
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 22.0
+     },
+     "kin": {
+      "kin:heading_deg": 285.0,
+      "kin:sog_kn": 4.9,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:fishing"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 300.0
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 1500,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 436,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true
+     }
+    }
+   }
+  },
+  {
+   "name": "15 between NUC and RAM: both under power, and Rule 18 does not order them",
+   "status": "binding",
+   "narrative": "The same crossing with own not under command and the other restricted in her ability to manoeuvre, both propelled by machinery. Rule 18 is a partial order and these two are its unordered pair -- neither 18(a), whose subject is a vessel Rule 18 does not rank, nor 18(c), whose subject is a fishing vessel, reaches them -- which the partial-order test already pins. Both are power-driven vessels by 3(b), so 15(a) applies and own, having the other on her own starboard side, is the give-way vessel. That lays a helm duty on a vessel which by 3(f) is unable to manoeuvre as the Rules require, and the model records it rather than gating it away: Rule 2 is what answers it (ADR 0005 sec. 5), the same position `12a1` takes for two sailing vessels Rule 18 leaves unordered. Q-40.",
+   "expect": [
+    "4",
+    "11",
+    "7d1",
+    "8f3",
+    "15a-crossing",
+    "15a-give-way"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 80.0
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 6.0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 45.0
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:ram",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 65.0
+     },
+     "kin": {
+      "kin:heading_deg": 285.0,
+      "kin:sog_kn": 4.9,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 300.0
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 1500,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 436,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true
+     }
+    }
+   }
   }
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",
