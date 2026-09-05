@@ -1,0 +1,254 @@
+{
+ "note": "Situations and the applicability entry ids that apply to each, under the International rules. The two-subject sibling of applicability-fixtures.json, which is untouched and stays the one-subject contract (REQ-VERIFY-1, REQ-CAT-5). A situation addresses each vessel's facts through the subject namespace of docs/identifiers.md: <subject>:<class>:<key>, subject in {own, other, pair}.",
+ "schema": "situation/1",
+ "status": "pencil",
+ "adr": "0005",
+ "requirements": [
+  "REQ-CAT-4",
+  "REQ-CAT-5",
+  "REQ-CAT-6",
+  "REQ-CAT-7"
+ ],
+ "jurisdiction": "intl",
+ "expect_form": {
+  "note": "An element of `expect` is either a bare entry id, exactly as in applicability-fixtures.json, or an object {\"entry\": <id>, \"modality\": <modality>} naming the modality that entry is expected to carry for this situation. The two forms are interchangeable and a bare id asserts nothing about modality, so the published one-subject fixtures remain valid unedited while Q-5's three modality-only gates (23a2, 26b-mast, 30c) become fixturable.",
+  "bare": "23a1",
+  "with_modality": {
+   "entry": "23a2",
+   "modality": "may"
+  }
+ },
+ "case_status": {
+  "note": "`status` says whether a case asserts anything. `illustrative` cases fix the shape of the situation record and the namespace before any two-subject entry exists; nothing in Part B is modelled yet, so their `expect` is empty and the test suite checks their shape and namespace resolution only. A case becomes `binding` when the entries it names exist, and only then does it join the fixture replay.",
+  "values": [
+   "illustrative",
+   "binding"
+  ]
+ },
+ "cases": [
+  {
+   "name": "crossing: own power-driven, other fine on the starboard bow",
+   "status": "illustrative",
+   "narrative": "Two power-driven vessels in sight of one another, other bearing 040 relative at 3 nm on a steady bearing and crossing right to left ahead. Own has the other on her own starboard side, so own is the give-way vessel under Rule 15 and Rule 16 governs the action; the other is stand-on under Rule 17. Rule 15 is not transcribed yet, so this asserts nothing.",
+   "expect_when_modelled": [
+    "15 (own give-way)",
+    "16 (own)",
+    "17 (other)",
+    "7(d)(i) risk of collision from the steady bearing"
+   ],
+   "expect": [],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 15
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50.0,
+       "longitude": -1.4
+      },
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 12,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:yacht"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 40
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50.0383,
+       "longitude": -1.35
+      },
+      "kin:heading_deg": 300,
+      "kin:sog_kn": 10,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 280
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 5556,
+      "geo:bearing_change_deg_min": 0.1,
+      "geo:cpa_m": 120,
+      "geo:tcpa_s": 800,
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "narrow channel: head-on round a bend, bank 100 m to starboard",
+   "status": "illustrative",
+   "narrative": "The R1 illustration of ADR 0005 sec. 5 and the proposal's sec. 4. Own keeps to the starboard side of a narrow channel per Rule 9(a); a vessel cuts the bend and is head-on at 800 m. Rule 14(a) requires each to alter to starboard, and the bank is 100 m to starboard of own. Every compliant plan grounds or collides; a port alteration passes starboard-to-starboard and breaches 14(a). The value of the case here is not the region finding, which belongs to colregs-engine -- it is that the situation record can carry it at all.",
+   "expect_when_modelled": [
+    "9(a) (own)",
+    "14(a) (both)",
+    "2(b) region, computed in colregs-engine and never an entry here"
+   ],
+   "expect": [],
+   "gap": "There is no fact for 'in a narrow channel or fairway', because Rule 9 is not transcribed and no scope fact class exists yet. When one lands it is a scope fact of the situation, not of either vessel, and belongs beside pair.geo rather than in either fact record. Recorded here so the omission is visible rather than inferred.",
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 24
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50.0,
+       "longitude": -1.4
+      },
+      "kin:heading_deg": 90,
+      "kin:sog_kn": 12,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:ferry"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 3
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 18
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 49.99962,
+       "longitude": -1.38883
+      },
+      "kin:heading_deg": 265,
+      "kin:sog_kn": 10,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:unknown"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 8
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 800,
+      "geo:bearing_change_deg_min": 0.3,
+      "geo:cpa_m": 40,
+      "geo:tcpa_s": 71,
+      "geo:in_sight": true
+     }
+    }
+   }
+  },
+  {
+   "name": "13(d) latch: an overtaking whose bearing has drawn out to a crossing",
+   "status": "illustrative",
+   "narrative": "Own came up on the other vessel from abaft her beam and is overtaking. The bearing has since drawn out: own now bears 250 relative from the other, just outside Rule 13(b)'s 112.5-247.5 sector, so the instantaneous geometry alone would reclassify this as a crossing with the other vessel give-way. Rule 13(d) forbids exactly that, and own:hist:was_overtaking is the fact that carries it. This is the case that makes history a class rather than a note.",
+   "expect_when_modelled": [
+    "13(a) (own keeps out of the way)",
+    "13(d) (the classification does not flip)",
+    "not 15"
+   ],
+   "expect": [],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50.0,
+       "longitude": -1.4
+      },
+      "kin:heading_deg": 20,
+      "kin:sog_kn": 14,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 90
+     },
+     "hist": {
+      "hist:was_overtaking": true,
+      "hist:latched_at_s": 420
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 22
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 49.99877,
+       "longitude": -1.39475
+      },
+      "kin:heading_deg": 40,
+      "kin:sog_kn": 9,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:fishing"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 250
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 400,
+      "geo:bearing_change_deg_min": 0.6,
+      "geo:cpa_m": 150,
+      "geo:tcpa_s": 300,
+      "geo:in_sight": true
+     }
+    }
+   }
+  }
+ ]
+}
