@@ -244,12 +244,14 @@ Four layers, each independently addressable.
     names, not a modelling convenience of this package.
   - **`nuc`, `cbd`, `ram`, `ram_underwater`** — kept unspelled as terms of
     art; see `docs/identifiers.md` for the reasoning and the trap in `ram`.
-- **REQ-MODEL-11** **(unimplemented — no registry file exists)** — Deprecated
-  identifiers MUST be recorded as data — a registry naming each retired
-  identifier, what it denoted, the version that deprecated it, and its
-  replacement where one exists. Prose in a changelog MUST NOT stand in for it:
-  a consumer pinned to an old version needs to resolve a stale identifier
-  mechanically.
+- **REQ-MODEL-11** — Deprecated identifiers MUST be recorded as data — a
+  registry naming each retired identifier, what it denoted, the version that
+  deprecated it, and its replacement where one exists. Prose in a changelog
+  MUST NOT stand in for it: a consumer pinned to an old version needs to
+  resolve a stale identifier mechanically. The registry is
+  `data/deprecated-identifiers.json`, schema-validated
+  (`schema/deprecated-identifiers.schema.json`, ADR 0006); it ships empty
+  until the first identifier is retired.
 
 ### 4.1 Rule categories and the situation record
 

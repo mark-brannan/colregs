@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/deprecated-identifiers.schema.json",
+  "title": "data/deprecated-identifiers.json",
+  "description": "REQ-MODEL-11's deprecation registry: every retired identifier, what it denoted, the version that deprecated it, and its replacement where one exists. Keys are the same prefixed forms the identifier diff compares (test/data.test.mjs's extractIdentifiers) -- e.g. 'entry:25d2', 'paragraph:27(a)(i)', 'light:masthead', 'fact-key:activity', 'fact-value:activity:nuc', 'rel:includes'. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["denoted", "deprecated_in"],
+    "properties": {
+      "denoted": {
+        "type": "string",
+        "minLength": 1,
+        "description": "What the identifier meant, so a consumer pinned to an old version can resolve a stale reference without the identifier itself."
+      },
+      "deprecated_in": {
+        "type": "string",
+        "pattern": "^\\d+\\.\\d+\\.\\d+$",
+        "description": "The released version that deprecated this identifier (REQ-MODEL-10)."
+      },
+      "replacement": {
+        "type": ["string", "null"],
+        "minLength": 1,
+        "description": "The identifier that replaces this one, in the same prefixed form, or null where nothing replaces it."
+      }
+    }
+  }
+}
