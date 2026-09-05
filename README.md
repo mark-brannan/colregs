@@ -155,6 +155,12 @@ add to Rule 23 rather than replacing it. Relations between them:
 | `rel:exempts` | the referenced requirement does not apply (30(e)) |
 | `rel:overrides` | the superiority relation: this paragraph's requirement prevails over the referenced one's when both apply (Rule 18's "except where Rules 9, 10 and 13 otherwise require") |
 
+A condition on whether a paragraph applies to the vessel at all goes in the
+predicate; a condition on which of two applicable paragraphs prevails is a
+relation. Delete the other paragraph: if this one is still true of the vessel,
+it is a relation. Rule 28 at anchor is a predicate; Rule 18 displacing Rule 15's
+role is `rel:overrides` (REQ-MODEL-13, ADR 0005 §4).
+
 Where the rules permit a choice, the data keeps every lawful option instead of
 picking one. A 12 m sloop under sail has three legal displays: 25(a), the
 25(b) tricolor, or 25(a) plus the 25(c) red-over-green. Which one a given boat
