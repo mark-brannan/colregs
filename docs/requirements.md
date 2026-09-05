@@ -1188,6 +1188,22 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   is nothing for a second entry to produce. Settled by deciding whether a
   deeming paragraph that produces no effect of its own gets an entry anyway —
   the same question `Q-39` asks about an ungated norm, from the other end.
+
+  **Decided in pencil 2026-09-05 (PR #36): the head-on classification cites
+  14(b), and 14(a) is `conduct`.** The question assumed 14(b) produced no
+  effect of its own. It produces the only effect the entry has: "such a
+  situation shall be deemed to exist when…" is the deeming test, and
+  `{"encounter": "head-on"}` is what a deeming test yields — exactly as
+  `13b-overtaking` and `13b-overtaken` cite 13(b), the deeming paragraph,
+  and not 13(a). 14(a) states the situation in words ("reciprocal or nearly
+  reciprocal courses") and imposes the duty ("each shall alter her course to
+  starboard"); the duty is `conduct`, and the words are what 14(b) makes
+  checkable. So the entry is `14b`, cites 14(b), and reads nothing 14(b) does
+  not fix; 14(a) joins `known_omissions` as conduct beside 18(d)(ii), and
+  `14a` is retired in `retired_entry_ids` — nothing has shipped it. The
+  general question — whether a paragraph with no effect of its own gets an
+  entry — is `Q-39`'s and is untouched; this paragraph turned out not to be an
+  instance of it.
 - **Q-46** — **"Coming up with" is a comparison of two facts.** 13(b) deems a
   vessel to be overtaking when *coming up with* another from more than 22.5°
   abaft her beam. That is `own:kin:sog_kn` against `other:kin:sog_kn`, and the
