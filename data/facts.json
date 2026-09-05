@@ -148,6 +148,16 @@
    "cite": "27(c)",
    "actuable": false,
    "note": "The towing operation severely restricts the towing vessel and her tow in their ability to deviate from their course. Rule 27(c) makes such a pair restricted in her ability to manoeuvre; `activity:towing` alone does not, because most tows are not. Read only by the fact:rule18_class decode table, which is where Q-32's missing 27(c) case lives."
+  },
+  "fact:confined_to_channel": {
+   "cite": "9(b)",
+   "actuable": false,
+   "note": "A vessel which can safely navigate only within the narrow channel or fairway -- 9(b)'s and 9(d)'s protected vessel, read of whichever vessel it is asked of rather than assumed from `pair:env:narrow_channel`. Closes Q-34's 9(b)/9(d) half: a consumer sets this from the vessel's draft and the channel, the same judgement `pair:env:narrow_channel` already asks of a chart or an ENC."
+  },
+  "fact:following_traffic_lane": {
+   "cite": "10(i)",
+   "actuable": false,
+   "note": "Following a traffic lane of a scheme adopted by the Organization -- 10(i)'s and 10(j)'s protected vessel, read of whichever vessel it is asked of rather than assumed from `pair:env:traffic_lane`. Closes Q-34's 10(i)/10(j) half."
   }
  },
  "enums": {
@@ -677,7 +687,7 @@
     "type": "boolean",
     "cite": "9(a)",
     "cite_pending": null,
-    "note": "The encounter is in or near a narrow channel or fairway. Does not say which vessel can safely navigate only within it -- that is a further fact Rule 9(b) and 9(d) need and this package does not yet carry.",
+    "note": "The encounter is in or near a narrow channel or fairway. Does not say which vessel can safely navigate only within it -- that further fact is `fact:confined_to_channel`, read per vessel (Q-34).",
     "actuable": false,
     "signalk": null
    },
@@ -685,7 +695,7 @@
     "type": "boolean",
     "cite": "10(a)",
     "cite_pending": null,
-    "note": "The encounter is within a traffic separation scheme adopted by the Organization. Does not say which vessel is following a lane, which Rules 10(i) and 10(j) need.",
+    "note": "The encounter is within a traffic separation scheme adopted by the Organization. Does not say which vessel is following a lane -- that further fact is `fact:following_traffic_lane`, read per vessel (Q-34).",
     "actuable": false,
     "signalk": null
    }
