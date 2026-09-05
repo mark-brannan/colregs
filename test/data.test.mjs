@@ -962,8 +962,9 @@ function inconsistencies(s) {
     const gap = angleApart(ro + ho + 180, rt + ht)
     if (gap > TOL.bearing_deg) out.push(`headings: own ${ro} on ${ho} and other ${rt} on ${ht} are ${gap.toFixed(2)} deg off one line of sight`)
   }
-  if (po && pt) {
-    const fwd = greatCircle(po, pt), back = greatCircle(pt, po)
+  const fwd = po && pt ? greatCircle(po, pt) : undefined
+  if (fwd) {
+    const back = greatCircle(pt, po)
     if (isNum(pg['geo:range_m']) && !within(fwd.range_m, pg['geo:range_m'], TOL.range_m, TOL.range_fraction)) {
       out.push(`positions: range ${fwd.range_m.toFixed(0)} m, stated ${pg['geo:range_m']}`)
     }
@@ -974,9 +975,16 @@ function inconsistencies(s) {
       out.push(`positions: other:geo:rel_bearing_deg ${norm360(back.bearing_deg - ht).toFixed(2)}, stated ${rt}`)
     }
   }
+  // The motion tier needs a range and own's relative bearing. Stated values
+  // are read first; positions supply either one the record leaves out, so a
+  // record that states positions, headings and speeds has its CPA, TCPA and
+  // bearing rate checked whether or not it restates the range and bearing
+  // the positions already fix.
   const uo = own.kin?.['kin:sog_kn'], ut = other.kin?.['kin:sog_kn']
-  if (isNum(ro) && isNum(ho) && isNum(ht) && isNum(uo) && isNum(ut) && isNum(pg['geo:range_m'])) {
-    const m = relativeMotion({ range_m: pg['geo:range_m'], ownRel: ro, ownHeading: ho, otherHeading: ht, ownSog: uo, otherSog: ut })
+  const range = isNum(pg['geo:range_m']) ? pg['geo:range_m'] : fwd?.range_m
+  const ownRel = isNum(ro) ? ro : fwd && isNum(ho) ? norm360(fwd.bearing_deg - ho) : undefined
+  if (isNum(ownRel) && isNum(ho) && isNum(ht) && isNum(uo) && isNum(ut) && isNum(range)) {
+    const m = relativeMotion({ range_m: range, ownRel, ownHeading: ho, otherHeading: ht, ownSog: uo, otherSog: ut })
     const check = (key, floor, fraction) => {
       const want = pg[`geo:${key}`]
       if (isNum(want) && !within(m[key], want, floor, fraction)) out.push(`motion: ${key} ${m[key].toFixed(2)}, stated ${want}`)
@@ -1624,6 +1632,13 @@ test('REQ-VERIFY-8: the consistency check rejects each kind of impossible record
   assert.ok(edit((s) => { s.pair.geo['geo:range_m'] *= 1.1 }).some((m) => m.startsWith('positions: range')))
   assert.ok(only(edit((s) => { s.own.kin['kin:sog_kn'] *= 1.5 }), 'motion:'))
   assert.ok(only(edit((s) => { s.pair.geo['geo:tcpa_s'] = -s.pair.geo['geo:tcpa_s'] }), 'motion: tcpa_s'))
+  // Positions fix the range and own's bearing, so leaving those two out of
+  // the record does not switch the motion tier off: a wrong TCPA still fires.
+  assert.deepEqual(edit((s) => { delete s.pair.geo['geo:range_m']; delete s.own.geo['geo:rel_bearing_deg'] }), [])
+  assert.ok(only(edit((s) => {
+    delete s.pair.geo['geo:range_m']; delete s.own.geo['geo:rel_bearing_deg']
+    s.pair.geo['geo:tcpa_s'] = -s.pair.geo['geo:tcpa_s']
+  }), 'motion: tcpa_s'), 'motion is checked from positions when range and bearing are not stated')
   // Sparse is unchecked, not wrong: drop the kinematics and nothing can fire.
   assert.deepEqual(edit((s) => { delete s.own.kin; delete s.other.kin }), [])
   assert.deepEqual(edit((s) => { delete s.own.kin['kin:position']; delete s.other.kin['kin:position'] }), [])
@@ -1636,11 +1651,12 @@ test('REQ-VERIFY-8: the consistency check rejects each kind of impossible record
 })
 
 test('REQ-VERIFY-8: every situation fixture that states its kinematics is consistent with them', () => {
+  // Every fixture goes through the check: a sparse record returns nothing,
+  // so skipping is never needed and would hide a case the check should see.
   let checked = 0
   for (const c of situationFixtures.cases) {
-    if (!isNum(c.situation.own?.kin?.['kin:heading_deg'])) continue
-    checked++
     assert.deepEqual(inconsistencies(c.situation), [], c.name)
+    if (isNum(c.situation.own?.kin?.['kin:heading_deg'])) checked++
   }
   assert.ok(checked >= 16, `only ${checked} fixtures carry kinematics; the check would be near-vacuous`)
 })
