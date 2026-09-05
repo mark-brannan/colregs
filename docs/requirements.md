@@ -937,28 +937,55 @@ named that gap before the class existed.
   entry. Settled by deciding whether practicability is a second field beside
   `modality` rather than a value inside it — which is the same question
   `modality_by` answers for the light rules, and should probably be answered
-  the same way.
-- **Q-32** — `fact:activity` is a *display* axis: it says what lights a vessel
-  shows, not what her rank is under Rule 18. The two disagree. `activity:mine`
-  (27(f)) and `activity:diving` (27(e)) are vessels restricted in their ability
-  to manoeuvre under Rule 3(g) and are listed by hand in 18(a)(ii)'s
-  predicate; `activity:trawling` is a fishing vessel and is listed by hand in
-  18(a)(iii)'s, because the evaluator's one refinement rule covers only
-  `activity:ram` → `activity:ram_underwater`. A towing operation that severely
-  restricts the tow's ability to deviate is RAM by 27(c) and is *not* caught,
-  because `activity:towing` alone does not say whether it does. Settled by
-  deciding whether Rule 18's rank is a derived fact, a second refinement
-  table, or a per-value attribute on the activity axis.
-- **Q-33** — A `when` is a conjunction with no negation and no disjunction, and
-  Rule 18 needs both. Negation: "any vessel other than a vessel not under
-  command or a vessel restricted in her ability to manoeuvre" (18(d)(i)) and
-  the implicit "a power-driven vessel that is not herself ranked" (18(a)) are
-  both written as positive enumerations of `fact:activity`, which must be
-  edited every time the axis gains a value — a silent-drift risk with no test
-  behind it. Disjunction: 9(b) and 10(j) each have a disjunctive subject
-  ("under 20 m **or** a sailing vessel") and take two entries apiece. Settled
-  by deciding whether the predicate language grows `not`/`any_of`, or whether
-  the enumerations get a generated-and-checked complement.
+  the same way. **Narrowed, not settled, 2026-09-04 (PR #25):** 18(d)(i) is now
+  `shall-if-practicable` with `effect.own: shall-not-impede`, so the two
+  qualifications sit in two fields and neither is dropped. That works only
+  because this duty happens to be a *role*, which `effect` already carries;
+  9(a)'s "if the circumstances of the case admit" has no second field to move
+  into, and the general question is untouched.
+- **Q-32** — **decided in pencil 2026-09-04 (PR #25): a derived fact.**
+  `fact:activity` is a *display* axis: it says what lights a vessel shows, not
+  what her rank is under Rule 18, and the two disagree. `fact:rule18_class` is
+  the rank, declared in a new `derived` section of `data/facts.json` with a
+  decode table that is its definition, in the same style as the SignalK
+  `navigation.state` table. Seven values — `rule18_class:nuc`, `:ram`,
+  `:fishing`, `:wig`, `:cbd`, `:sail`, `:power` — each cited to the Rule 3
+  paragraph that defines it. The three cases this question named are decoded
+  rather than hand-listed: `activity:mine` (27(f)) and `activity:diving`
+  (27(e)) to `rule18_class:ram` by 3(g), `activity:trawling` to
+  `rule18_class:fishing` by 3(d), and the 27(c) tow that severely restricts the
+  pair — the one the old predicates could not catch at all — to
+  `rule18_class:ram`, via a new boolean `fact:tow_restricts_deviation`. Every
+  Rule 18, 9 and 10 entry reads the class; no `precedence` entry reads
+  `fact:activity` any more, and a test enforces that. `fact:activity` itself is
+  unchanged and no entry that reads it was touched. What is *not* settled: the
+  eighth rank Rule 18 distinguishes is the seaplane of 3(e), and it has no
+  value here because there is no fact for being a seaplane — 18(e) stays in
+  `known_omissions`. A vessel under oars decodes to nothing, deliberately: Rule
+  18 does not rank her, and 25(d)(ii) is a lights permission rather than a
+  rank. Both are recorded in the fact's own `undecodable` list. The
+  alternatives — a second refinement table, or a per-value attribute on the
+  activity axis — were declined because both would have put the rank back
+  inside the display axis, which is the thing this question says is the
+  mistake.
+- **Q-33** — **decided in pencil 2026-09-04 (PR #25): the predicate language
+  grows `not` and `any_of`.** A `when` was a conjunction with no negation and
+  no disjunction, and Rule 18 needed both. `{"not": C}` is a constraint on one
+  fact; `any_of` is disjunction, holding sub-predicates as a key of a `when`
+  and constraints as the value of a fact. Both are implemented in `satisfies`
+  and one shared walker, so the one-subject and two-subject evaluators get them
+  without a second copy. **`not` over an absent fact is unsatisfied**, like
+  every constraint over an absent fact, so `{"not": C}` and `C` are both false
+  where the fact is missing and the language is not classical there — the point
+  being that a duty is never laid on a vessel because a consumer left a field
+  out. That is also why `not` is a constraint and never a key of a `when`: a
+  predicate-level negation would be satisfied by silence. 18(d)(i) and the
+  18(a) family are now written as the negations their paragraphs state, over
+  `fact:rule18_class` rather than over the activity axis; 9(b) and 10(j) each
+  collapse from two entries to one with `any_of`. The generated-complement
+  alternative was declined: it would have produced a predicate no reader could
+  check against the rule text, to avoid a language feature the rules themselves
+  use in plain words.
 - **Q-34** — A `shall-not-impede` entry names a duty toward `other`, but the
   paragraphs identify the protected vessel by a property this package does not
   carry: "a vessel which can safely navigate only within a narrow channel"

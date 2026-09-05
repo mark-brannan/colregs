@@ -9,7 +9,7 @@
   "$defs": {
     "factValue": {
       "oneOf": [
-        { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" },
+        { "type": "string", "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$" },
         { "type": "number" },
         { "type": "boolean" }
       ]

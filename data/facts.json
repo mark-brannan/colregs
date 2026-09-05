@@ -143,6 +143,11 @@
   "fact:obstruction_exists": {
    "cite": "27(d)",
    "actuable": false
+  },
+  "fact:tow_restricts_deviation": {
+   "cite": "27(c)",
+   "actuable": false,
+   "note": "The towing operation severely restricts the towing vessel and her tow in their ability to deviate from their course. Rule 27(c) makes such a pair restricted in her ability to manoeuvre; `activity:towing` alone does not, because most tows are not. Read only by the fact:rule18_class decode table, which is where Q-32's missing 27(c) case lives."
   }
  },
  "enums": {
@@ -153,6 +158,128 @@
    ],
    "cite": "27(d)(i)",
    "actuable": false
+  }
+ },
+ "derived": {
+  "note": "Facts this package computes from the fact record rather than asking a consumer for. A derived fact carries `derived: true` and a decode table that *is* its definition, in the same style as `signalk_navigation_state` below: an ordered list of {when, value} rows read top to bottom, first match wins, and no row a match means the fact is absent. `when` is the ordinary predicate language of README.md 'Predicate semantics', so the decode is checkable by the same evaluator the entries use rather than by a second one. A consumer never supplies a derived fact and is never asked to; an evaluator computes it before matching.",
+  "fact:rule18_class": {
+   "type": "enum",
+   "derived": true,
+   "cite": "18",
+   "values": [
+    "rule18_class:nuc",
+    "rule18_class:ram",
+    "rule18_class:fishing",
+    "rule18_class:wig",
+    "rule18_class:cbd",
+    "rule18_class:sail",
+    "rule18_class:power"
+   ],
+   "cites": {
+    "rule18_class:nuc": "3(f)",
+    "rule18_class:ram": "3(g)",
+    "rule18_class:fishing": "3(d)",
+    "rule18_class:wig": "3(m)",
+    "rule18_class:cbd": "3(h)",
+    "rule18_class:sail": "3(c)",
+    "rule18_class:power": "3(b)"
+   },
+   "actuable": false,
+   "signalk": null,
+   "note": "A vessel's rank under Rule 18, which is not the same thing as the lights she shows. `fact:activity` is a *display* axis -- it answers what a vessel exhibits -- and Rule 18 ranks vessels by the Rule 3 terms of art instead, which cut across it: mine clearance (27(f)) and diving (27(e)) are restricted in their ability to manoeuvre by 3(g), trawling is fishing by 3(d), and a towing operation is RAM by 27(c) only when it severely restricts the pair. Before this fact each precedence entry re-listed those correspondences by hand and had to be edited every time the activity axis gained a value, with no test behind the omission. This is Q-32's answer: the rank is a derived fact, decoded once here, and a precedence entry reads the rank. `fact:activity` is unchanged and no entry that reads it was touched.",
+   "decode": [
+    {
+     "when": {
+      "fact:activity": "activity:nuc"
+     },
+     "value": "rule18_class:nuc",
+     "cite": "3(f)"
+    },
+    {
+     "when": {
+      "fact:activity": {
+       "any_of": [
+        "activity:ram",
+        "activity:mine",
+        "activity:diving"
+       ]
+      }
+     },
+     "value": "rule18_class:ram",
+     "cite": "3(g)",
+     "note": "`any_of` and not a bare list, and the difference is load-bearing: the ram -> ram_underwater refinement fires on a scalar constraint and not on list membership, so a list would have had to spell `activity:ram_underwater` out beside `activity:ram` and would silently miss the next refinement anyone adds. `any_of` is a disjunction of constraints, so each disjunct is evaluated as the scalar it is and the refinement carries. Mine clearance and diving are here because 3(g) enumerates them as restricted in their ability to manoeuvre while 27(e)/(f) give them their own lights -- the exact display/rank divergence this fact exists for."
+    },
+    {
+     "when": {
+      "fact:activity": {
+       "any_of": [
+        "activity:towing",
+        "activity:being_towed"
+       ]
+      },
+      "fact:tow_restricts_deviation": true
+     },
+     "value": "rule18_class:ram",
+     "cite": "27(c)",
+     "note": "The case Q-32 recorded as uncaught. 3(g)(vi) names \"the towing vessel and her tow\" together, so both sides of a severely-restricted tow rank as RAM here -- each from her own fact record, since a consumer supplies `fact:tow_restricts_deviation` per vessel and this decode never looks at the other subject. `any_of` for the same reason as the row above: a bare list would still work today, but a scalar disjunct keeps this open to a future refinement the way 3(g)'s row is. A tow that does not severely restrict the pair falls through to her propulsion, which is right: most tows are ordinary power-driven vessels under Rule 18."
+    },
+    {
+     "when": {
+      "fact:activity": [
+       "activity:fishing",
+       "activity:trawling"
+      ]
+     },
+     "value": "rule18_class:fishing",
+     "cite": "3(d)",
+     "note": "Ranked by activity and not by propulsion: 18(c) does not distinguish, so a fishing vessel under sail is fishing here and not sail."
+    },
+    {
+     "when": {
+      "fact:wig": true,
+      "fact:wig_near_surface": true
+     },
+     "value": "rule18_class:wig",
+     "cite": "3(m)",
+     "note": "18(f)(i) is scoped to the phase, not to being a WIG craft. A WIG on the water surface falls through to `rule18_class:power`, which is 18(f)(ii) -- recorded in known_omissions as a decode-table statement rather than a precedence norm, and this is that table."
+    },
+    {
+     "when": {
+      "fact:activity": "activity:cbd"
+     },
+     "value": "rule18_class:cbd",
+     "cite": "3(h)",
+     "note": "3(h) makes a vessel constrained by her draught a power-driven vessel, so `rule18_class:cbd` is a refinement of `rule18_class:power` and not a peer of it. Rule 18 does not rank her above anyone: 18(d) protects her, and 18(a) still obliges her, which is why the 18(a) entries gate on `fact:propulsion` rather than on this class."
+    },
+    {
+     "when": {
+      "fact:propulsion": "propulsion:sail"
+     },
+     "value": "rule18_class:sail",
+     "cite": "3(c)"
+    },
+    {
+     "when": {
+      "fact:propulsion": "propulsion:power"
+     },
+     "value": "rule18_class:power",
+     "cite": "3(b)"
+    }
+   ],
+   "undecodable": [
+    {
+     "case": "fact:propulsion = propulsion:oars, with no ranking activity",
+     "why": "Rule 3 has no term for a vessel under oars and Rule 18 does not rank her. 25(d)(ii) lets her show a sailing vessel's lights, which is a permission about lights and not a statement about rank, so decoding her to `rule18_class:sail` would put a display fact back into the rank this fact exists to separate from display. She decodes to nothing, and a predicate reading the class never matches her -- conservative, and visible here rather than silent."
+    },
+    {
+     "case": "a seaplane (3(e))",
+     "why": "The eighth term Rule 18 distinguishes, and the one value this fact does not carry: 18(e) needs a fact for being a seaplane and none exists, which known_omissions already records. A value with no row and no fact behind it would be a promise the data cannot keep, so it is absent rather than unreachable."
+    },
+    {
+     "case": "a fact record with no fact:propulsion",
+     "why": "Absent is absent. No row matches, the derived fact is absent, and every constraint over it is unsatisfied -- including a negated one."
+    }
+   ]
   }
  },
  "actuable_subset": {

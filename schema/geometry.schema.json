@@ -20,12 +20,12 @@
             "lt": { "type": "number" }
           }
         },
-        { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" },
+        { "type": "string", "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$" },
         { "type": "boolean" },
         {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" }
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$" }
         }
       ]
     },

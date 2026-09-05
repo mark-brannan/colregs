@@ -432,7 +432,7 @@
     "11",
     {
      "entry": "18d1",
-     "modality": "shall-not-impede"
+     "modality": "shall-if-practicable"
     },
     "4"
    ],
@@ -643,7 +643,7 @@
     "11",
     {
      "entry": "18d1",
-     "modality": "shall-not-impede"
+     "modality": "shall-if-practicable"
     },
     "4"
    ],
@@ -859,7 +859,7 @@
     "11",
     {
      "entry": "18d1",
-     "modality": "shall-not-impede"
+     "modality": "shall-if-practicable"
     },
     "4"
    ],
@@ -1479,7 +1479,7 @@
     "11",
     {
      "entry": "18d1",
-     "modality": "shall-not-impede"
+     "modality": "shall-if-practicable"
     },
     "4"
    ],
@@ -1841,11 +1841,7 @@
     "11",
     "4",
     {
-     "entry": "9b-sail",
-     "modality": "shall-not-impede"
-    },
-    {
-     "entry": "9b-small",
+     "entry": "9b",
      "modality": "shall-not-impede"
     }
    ],
@@ -1887,7 +1883,7 @@
     "11",
     "4",
     {
-     "entry": "9b-small",
+     "entry": "9b",
      "modality": "shall-not-impede"
     },
     {
@@ -1935,7 +1931,7 @@
      "modality": "shall-not-impede"
     },
     {
-     "entry": "10j-small",
+     "entry": "10j",
      "modality": "shall-not-impede"
     },
     "11",
@@ -1977,11 +1973,7 @@
    "narrative": "10(j)'s object is narrower than 9(b)'s -- a power-driven vessel following a traffic lane -- so `other:fact:propulsion` is read. Both halves of the disjunctive subject fire.",
    "expect": [
     {
-     "entry": "10j-sail",
-     "modality": "shall-not-impede"
-    },
-    {
-     "entry": "10j-small",
+     "entry": "10j",
      "modality": "shall-not-impede"
     },
     "11",
@@ -2020,12 +2012,12 @@
   {
    "name": "9(b) length boundary: 19.9 m power-driven vessel in a narrow channel",
    "status": "binding",
-   "narrative": "REQ-VERIFY-5: the `own:fact:length_m: {lt: 20}` gate on 9b-small, isolated from 9b-sail and 18a4 by keeping both vessels power-driven -- neither entry's other predicates fire, so only the length gate decides.",
+   "narrative": "REQ-VERIFY-5: the `own:fact:length_m: {lt: 20}` disjunct of 9b's `any_of` subject, isolated from the `propulsion:sail` disjunct and from 18a4 by keeping both vessels power-driven -- no other predicate fires, so only the length gate decides.",
    "expect": [
     "11",
     "4",
     {
-     "entry": "9b-small",
+     "entry": "9b",
      "modality": "shall-not-impede"
     }
    ],
@@ -2062,7 +2054,7 @@
   {
    "name": "9(b) length boundary: 20.0 m power-driven vessel in a narrow channel",
    "status": "binding",
-   "narrative": "The other side of the same gate: at exactly 20 m, 9b-small no longer applies, and nothing else in this situation does either.",
+   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct of 9b's subject holds, so 9b no longer applies and nothing else in this situation does either.",
    "expect": [
     "11",
     "4"
@@ -2100,12 +2092,12 @@
   {
    "name": "10(j) length boundary: 19.9 m power-driven vessel in a traffic separation scheme",
    "status": "binding",
-   "narrative": "REQ-VERIFY-5: the twin gate on 10j-small. Both vessels power-driven, other following the lane, so only the length gate decides.",
+   "narrative": "REQ-VERIFY-5: the twin gate, on 10j's `any_of` subject. Both vessels power-driven, other following the lane, so only the length disjunct decides.",
    "expect": [
     "11",
     "4",
     {
-     "entry": "10j-small",
+     "entry": "10j",
      "modality": "shall-not-impede"
     }
    ],
@@ -2142,7 +2134,7 @@
   {
    "name": "10(j) length boundary: 20.0 m power-driven vessel in a traffic separation scheme",
    "status": "binding",
-   "narrative": "The other side of the same gate: at exactly 20 m, 10j-small no longer applies.",
+   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct holds and 10j no longer applies.",
    "expect": [
     "11",
     "4"
@@ -2180,7 +2172,7 @@
   {
    "name": "10(j) does not apply: a sailing vessel and another sailing vessel in a scheme",
    "status": "binding",
-   "narrative": "The negative case for 10(j)'s `other:fact:propulsion` gate: the other vessel is not power-driven, so neither 10(j) entry fires and Rule 18 says nothing between two sailing vessels either. Rule 12 would, and is not modelled.",
+   "narrative": "The negative case for 10(j)'s `other:fact:propulsion` gate: the other vessel is not power-driven, so 10(j) does not fire and Rule 18 says nothing between two sailing vessels either. Rule 12 would, and is not modelled.",
    "expect": [
     "11",
     "4"
@@ -2214,8 +2206,118 @@
      }
     }
    }
+  },
+  {
+   "name": "27(c): other is towing in a way that severely restricts the pair, in sight",
+   "status": "binding",
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:towing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 60,
+      "fact:tow_length_m": 300,
+      "fact:tow_restricts_deviation": true
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   },
+   "expect": [
+    "11",
+    "18a2",
+    "4"
+   ],
+   "narrative": "The case Q-32 recorded as uncaught: a towing operation that severely restricts the towing vessel and her tow is restricted in her ability to manoeuvre by 27(c), so 18(a)(ii) applies -- but her `fact:activity` is `activity:towing` and no enumeration of the display axis reached her. `fact:rule18_class` decodes her to `rule18_class:ram` and the entry finds her."
+  },
+  {
+   "name": "27(c): other is towing ordinarily, and Rule 18 does not rank her, in sight",
+   "status": "binding",
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:towing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 60,
+      "fact:tow_length_m": 300,
+      "fact:tow_restricts_deviation": false
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   },
+   "expect": [
+    "11",
+    "4"
+   ],
+   "narrative": "The other side of the same boolean, and the reason 27(c) needs one: most tows do not severely restrict the pair, and a tow that does not is an ordinary power-driven vessel under Rule 18. Without `fact:tow_restricts_deviation` the decode would have to choose one reading for every tow and would be wrong about most of them."
+  },
+  {
+   "name": "27(c): other is being towed in a way that severely restricts the pair, in sight",
+   "status": "binding",
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:being_towed",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 60,
+      "fact:tow_restricts_deviation": true
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   },
+   "expect": [
+    "11",
+    "18a2",
+    "4"
+   ],
+   "narrative": "3(g)(vi) names \"the towing vessel and her tow\" together, and the tow carries her own fact record -- so this side of the pair needs its own fixture: `activity:being_towed` plus `fact:tow_restricts_deviation` on her own record decodes her to `rule18_class:ram` exactly as the towing vessel's does. Before this fixture the decode row only matched `activity:towing`, and the tow herself fell through to her propulsion undetected."
   }
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",
- "expect_scope": "`expect` names the non-`display` entries a situation selects -- `scope`, `precedence` and, when they land, `classification`. Display entries are deliberately out of scope here: a situation carries `own.fact`, so every Part C entry that matches that vessel would otherwise have to be repeated in every Part B fixture, and fixtures/applicability-fixtures.json is already the contract for those. A situation fixture asserts what the pair produces, not what own shows."
+ "expect_scope": "`expect` names the non-`display` entries a situation selects -- `scope`, `precedence` and, when they land, `classification`. Display entries are deliberately out of scope here: a situation carries `own.fact`, so every Part C entry that matches that vessel would otherwise have to be repeated in every Part B fixture, and fixtures/applicability-fixtures.json is already the contract for those. A situation fixture asserts what the pair produces, not what own shows.",
+ "collapse_note": "Four expected ids changed in the PR that gave the predicate language `any_of` and `not`: `9b-small`/`9b-sail` collapsed to `9b` and `10j-small`/`10j-sail` to `10j`, because 9(b)'s and 10(j)'s disjunctive subjects no longer need an entry apiece. Every other expected id is unchanged. `18d1`'s expected modality moved from `shall-not-impede` to `shall-if-practicable`: the duty now lives in `effect.own` and the modality carries the 'if the circumstances of the case admit' caveat the entry used to drop."
 }
