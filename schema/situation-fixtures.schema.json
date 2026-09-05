@@ -14,7 +14,7 @@
   "$defs": {
     "entryId": {
       "type": "string",
-      "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)?$"
+      "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$"
     },
     "modality": {
       "type": "string",
@@ -316,6 +316,9 @@
       }
     },
     "collapse_note": {
+      "type": "string"
+    },
+    "geometry_note": {
       "type": "string"
     }
   }

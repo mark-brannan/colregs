@@ -7,7 +7,7 @@
   "additionalProperties": false,
   "required": ["entries"],
   "$defs": {
-    "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)?$" },
+    "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$" },
     "modality": {
       "type": "string",
       "enum": ["shall", "may", "shall-if-practicable", "conditional", "exempt", "shall-not", "shall-not-impede"]
@@ -112,6 +112,25 @@
           "properties": {
             "own": { "$ref": "#/$defs/effectRole" },
             "other": { "$ref": "#/$defs/effectRole" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["encounter"],
+          "properties": {
+            "encounter": {
+              "type": "string",
+              "enum": ["head-on", "crossing", "overtaking", "none"]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["risk_of_collision"],
+          "properties": {
+            "risk_of_collision": { "const": true }
           }
         }
       ]
@@ -258,7 +277,19 @@
             "keep-clear": { "type": "string" },
             "none": { "type": "string" }
           }
-        }
+        },
+        "encounters": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["head-on", "crossing", "overtaking", "none"],
+          "properties": {
+            "head-on": { "type": "string" },
+            "crossing": { "type": "string" },
+            "overtaking": { "type": "string" },
+            "none": { "type": "string" }
+          }
+        },
+        "classification_shape": { "type": "string" }
       }
     },
     "known_omissions": {

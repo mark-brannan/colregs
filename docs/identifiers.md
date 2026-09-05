@@ -172,8 +172,12 @@ keys would have broken.
 
 **Pencil** (`docs/conventions.md`): ADR 0005 puts the whole two-subject shape
 there. What would settle it: a second family of `precedence` paragraphs —
-Rules 12, 14 and 15 — written against it. This section answers the data half
-of `Q-27` and is required by `REQ-CAT-8`.
+Rules 12, 14 and 15 — written against it. **Written, and it held with one
+addition**: Rules 7(d) and 13–15 are the first `classification` entries, and a
+classification produces neither a role nor a section, so the table below grows
+a third row. Rule 12 turned out to be `precedence` and not `classification`
+(below). This section answers the data half of `Q-27` and is required by
+`REQ-CAT-8`.
 
 A `display` entry produces `lights`. A `scope` or `precedence` entry produces
 an **effect**, and the shape of the effect is fixed by the category:
@@ -182,12 +186,66 @@ an **effect**, and the shape of the effect is fixed by the category:
 |---|---|
 | `scope` | `{"part", "section", "applies_rules"}` — which section of which Part governs, and the rules it contains |
 | `precedence` | `{"own": <role>, "other": <role>}` — one role per subject |
+| `classification` | `{"encounter": <encounter>}` **or** `{"risk_of_collision": true}` — exactly one key |
 
 Five roles, a closed set: `give-way`, `stand-on`, `shall-not-impede`,
 `keep-clear`, `none`. They are declared in `data/applicability.json` under
 `effects`, and they are **not identifiers** — like modality and jurisdiction
 values they are a closed vocabulary of their own, outside what `REQ-MODEL-10`
 binds.
+
+### Encounters, and why a classification effect has two shapes
+
+Four encounters, a closed set like the roles: `head-on` (Rule 14), `crossing`
+(Rule 15), `overtaking` (Rule 13) and `none`. They are declared in
+`data/applicability.json` under `effects.encounters` and, like the roles, they
+are not identifiers.
+
+A `classification` effect carries **exactly one key**, and which key it is
+depends on which question the paragraph answers. Rule 7(d)(i) answers *does
+risk of collision exist* and produces `{"risk_of_collision": true}`; Rules 13,
+14 and 15 answer *what kind of encounter is this* and produce an `encounter`.
+ADR 0005 gives both questions to `classification` — "relative geometry,
+history → encounter type, risk of collision" — and the two do not merge. A
+single shape would have made every encounter entry state a risk it does not
+decide, and 15(a)'s crossing test reads `pair:geo:risk_of_collision` as an
+input rather than producing it.
+
+There is no `{"risk_of_collision": false}` and there never will be. 7(a) makes
+risk a judgement on all available means and deems it to exist in any doubt, so
+an entry can add a ground for risk and nothing in this package can deny one.
+`none` is declared as an encounter for the completeness of the vocabulary and
+no entry produces it: an encounter type is asserted by a paragraph, and the
+absence of one is the absence of an entry rather than an entry with a null
+value.
+
+**The three encounter types partition relative bearing, and the data is
+written so that they cannot stop.** 13(b)'s sector is one constraint object,
+`{"gt": 112.5, "lt": 247.5}`; 15(a)'s residual is `not` over that same object,
+and 14(a)'s cone is negated the same way inside an `any_of`. Nothing writes a
+crossing sector. The consequence is that the only way to put a bearing in two
+encounters or in none is to edit one of two constraints and not the other, and
+there is exactly one of each to edit. `test/data.test.mjs` sweeps both
+subjects' bearings in half-degree steps and asserts exactly one encounter at
+each of the 518 400 points; the Alloy version of the same property lives in
+`colregs-engine`.
+
+### Rule 12 is `precedence`, not `classification`
+
+ADR 0005 §1 and the proposal's first-cut table file Rule 12 under
+`classification`. It is `precedence` here, for the reason `Q-37` gives for
+13(a): **12(a) produces a role, and a classification effect has nowhere to put
+one.** "One of them shall keep out of the way of the other" is give-way and
+stand-on in the effect vocabulary that already exists, and it is not an
+encounter type — two sailing vessels meeting are still in a head-on, a
+crossing or an overtaking, and Rule 12 says which of them gives way rather
+than which kind of meeting it is. Rule 12 has no deeming paragraph at all:
+12(b) defines the windward side and is a `definition`, so it is the cite on the
+`kin:wind_side` fact rather than an entry.
+
+The category is `Q-14`'s to settle paragraph by paragraph and this is two more
+of them; the departure from the table is recorded in ADR 0005's pencil log and
+in `Q-40`.
 
 **The effect names both subjects, and that is the point.** A `precedence`
 entry is evaluated from own's side, so 18(a)(i) says own gives way *and* the
@@ -308,7 +366,16 @@ implemented in the reference evaluator and asserted by the fixtures.
 - **Modality values** (`shall`, `may`, `shall-if-practicable`,
   `conditional`, `exempt`) and **jurisdiction values** (`intl`,
   `us/inland`) are their own closed vocabularies, defined in §2 of the
-  requirements and not part of the identifier space REQ-MODEL-10 binds.
+  requirements and not part of the identifier space REQ-MODEL-10 binds. So are
+  the **role** and **encounter** values of an effect.
+- **Constants** — `situation.constants` in `data/facts.json`: the numbers a
+  Part B predicate needs and the Rules do not always give
+  (`appreciable_bearing_change_deg_min`, `head_on_half_angle_deg`, the two
+  `overtaking_sector_*_deg`). They are values, like a modality, and they are
+  named rather than written into a predicate so that the number appears once
+  and a test can assert that every entry reads it. Each carries its status
+  under `docs/conventions.md`, and a pencilled one carries what would settle
+  it.
 - **Shape keys** — `when`, `one_of`, `cite`, `lights`, the predicate
   language's `not` and `any_of`, and the SignalK decode table's
   `also_activity` and `annex_ii_signal` — are JSON structure, not names the

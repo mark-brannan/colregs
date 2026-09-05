@@ -126,9 +126,12 @@ fact the paragraph names, and the fact has to be present for the entry to apply.
 | `{"any_of": [C, …]}` | a fact's constraint | the fact satisfies at least one `C` |
 | `"any_of": [W, …]` | a key of a `when` | at least one sub-predicate `W` holds |
 
-A list and `{"any_of": […]}` are not quite interchangeable: the
-`ram`/`ram_underwater` refinement fires on a scalar constraint, so it carries
-through `any_of`'s disjuncts and not through list membership.
+The `ram`/`ram_underwater` refinement belongs to the *value*, not to one
+constraint form: it applies to equality, to list membership and to each
+`any_of` disjunct alike, and `{"not": C}` negates the refined reading rather
+than sneaking underneath it. It used to fire on a scalar constraint only, so a
+list quietly missed it; that is fixed, and a list and `{"any_of": […]}` are now
+interchangeable wherever both are legal.
 
 Some facts are **derived** rather than supplied. `facts.json`'s `derived`
 section holds them, each with a decode table that is its definition — an ordered
@@ -161,13 +164,28 @@ Modality is `shall`, `may`, `shall-if-practicable`, `shall-not`,
 on a fact (23(a)(ii) is `shall` at 50 m and above, `may` below).
 
 Most entries read one vessel and produce lights. A few read **two** — a
-situation, not a fact record — and produce an `effect` instead: Rules 4, 11
-and 19(a) say which section of Part B governs, and Rule 18 says which vessel
-gives way, reading `fact:rule18_class` rather than re-listing the activity axis. Those carry `category` and `subjects: 2`, and address each vessel
+situation, not a fact record — and produce an `effect` instead. Rules 4, 11
+and 19(a) say which section of Part B governs; Rules 18, 9, 10, 12 and 15 say
+which vessel gives way, reading `fact:rule18_class` rather than re-listing the
+activity axis; and Rules 7(d), 13, 14 and 15 say what kind of encounter it is —
+`head-on`, `crossing` or `overtaking` — or that risk of collision exists.
+Those carry `category` and `subjects: 2`, and address each vessel
 through a subject segment: `own:fact:activity`, `other:fact:propulsion`,
 `pair:geo:in_sight`. A key with no subject means `own:`, so nothing above
 changes. `docs/identifiers.md` has the namespace and the effect vocabulary;
 `fixtures/situation-fixtures.json` is their contract.
+
+The three encounter types **partition** relative bearing. 13(b)'s overtaking
+sector is written once, as one constraint; Rule 15's crossing is `not` over
+that same constraint and `not` over Rule 14's head-on cone, so no crossing
+sector is enumerated anywhere and none can drift out of step. The suite sweeps
+both vessels' bearings in half-degree steps and asserts that exactly one
+encounter applies at every point, that 13(b)'s 22.5°-abaft-the-beam edge is
+exclusive on both sides, and that Rule 13(d)'s latch holds the classification
+at `overtaking` however far the bearing afterwards draws out. The numbers the
+Rules do not state — what counts as an appreciable bearing change, how wide
+"nearly reciprocal" is — are declared once in `facts.json` under
+`situation.constants`, marked pencil, and read from there by every entry.
 
 ## What this package does not do
 
