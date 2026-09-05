@@ -79,7 +79,7 @@
        "longitude": -1.35
       },
       "kin:heading_deg": 300,
-      "kin:sog_kn": 10,
+      "kin:sog_kn": 7.83,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
@@ -94,9 +94,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 5556,
-      "geo:bearing_change_deg_min": 0.1,
-      "geo:cpa_m": 120,
-      "geo:tcpa_s": 800,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 1,
+      "geo:tcpa_s": 1023,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -106,7 +106,7 @@
   {
    "name": "narrow channel: head-on round a bend, bank 100 m to starboard",
    "status": "binding",
-   "narrative": "The R1 illustration of ADR 0005 sec. 5 and the proposal's sec. 4. Own keeps to the starboard side of a narrow channel per Rule 9(a); a vessel cuts the bend and is head-on at 800 m. Rule 14(a) requires each to alter to starboard, and the bank is 100 m to starboard of own. Every compliant plan grounds or collides; a port alteration passes starboard-to-starboard and breaches 14(a). The value of the case here is not the region finding, which belongs to colregs-engine -- it is that the situation record can carry it at all. Binding now: `pair:env:narrow_channel` is the fact the recorded gap asked for and 14a is the classification. Neither 9(b) nor 9(c) applies from own's side -- she is 24 m and power-driven -- so the narrow channel changes no entry here and is stated because it is true, not to select one.",
+   "narrative": "The R1 illustration of ADR 0005 sec. 5 and the proposal's sec. 4. Own keeps to the starboard side of a narrow channel per Rule 9(a); a vessel cuts the bend and is head-on at 800 m. Rule 14(a) requires each to alter to starboard, and the bank is 100 m to starboard of own. Every compliant plan grounds or collides; a port alteration passes starboard-to-starboard and breaches 14(a). The value of the case here is not the region finding, which belongs to colregs-engine -- it is that the situation record can carry it at all. Binding now: `pair:env:narrow_channel` is the fact the recorded gap asked for and 14a is the classification. Neither 9(b) nor 9(c) applies from own's side -- she is 24 m and power-driven -- so the narrow channel changes no entry here and is stated because it is true, not to select one. Recast on a steady bearing when the consistency check landed (Q-48): the other now bears 357 relative, three degrees on own's port bow, and has own 3.6 degrees on her own starboard bow, which at 12 and 10 knots is a collision course. The 3/8 starboard-to-starboard pair the case opened with passed at 74 m with the bearing changing four and a half degrees a minute, and no positive speeds make it steady -- two vessels each with the other to starboard are never on a collision course. The dilemma is unchanged: a starboard alteration is into the bank.",
    "expect": [
     "4",
     "11",
@@ -134,7 +134,7 @@
       "kin:dynamics": "dynamics:ferry"
      },
      "geo": {
-      "geo:rel_bearing_deg": 3
+      "geo:rel_bearing_deg": 357.0
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -151,16 +151,16 @@
      },
      "kin": {
       "kin:position": {
-       "latitude": 49.99962,
-       "longitude": -1.38883
+       "latitude": 50.00038,
+       "longitude": -1.38882
       },
-      "kin:heading_deg": 265,
+      "kin:heading_deg": 263.4,
       "kin:sog_kn": 10,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:unknown"
      },
      "geo": {
-      "geo:rel_bearing_deg": 8
+      "geo:rel_bearing_deg": 3.6
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -170,8 +170,8 @@
     "pair": {
      "geo": {
       "geo:range_m": 800,
-      "geo:bearing_change_deg_min": 0.3,
-      "geo:cpa_m": 40,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
       "geo:tcpa_s": 71,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
@@ -186,11 +186,10 @@
   {
    "name": "13(d) latch: an overtaking whose bearing has drawn out to a crossing",
    "status": "binding",
-   "narrative": "Own came up on the other vessel from abaft her beam and is overtaking. The bearing has since drawn out: own now bears 250 relative from the other, just outside Rule 13(b)'s 112.5-247.5 sector, so the instantaneous geometry alone would reclassify this as a crossing with the other vessel give-way. Rule 13(d) forbids exactly that, and own:hist:was_overtaking is the fact that carries it. This is the case that makes history a class rather than a note. Binding: 13d holds the classification at overtaking on the strength of the latch alone, and 15a-crossing is absent -- not because the geometry excludes it, which it does not, but because its `own:hist:was_overtaking: false` gate does. That absence is the whole content of 13(d).",
+   "narrative": "Own came up on the other vessel from abaft her beam and is overtaking. The bearing has since drawn out: own now bears 250 relative from the other, just outside Rule 13(b)'s 112.5-247.5 sector, so the instantaneous geometry alone would reclassify this as a crossing with the other vessel give-way. Rule 13(d) forbids exactly that, and own:hist:was_overtaking is the fact that carries it. This is the case that makes history a class rather than a note. Binding: 13d holds the classification at overtaking on the strength of the latch alone, and 15a-crossing is absent -- not because the geometry excludes it, which it does not, but because its `own:hist:was_overtaking: false` gate does. That absence is the whole content of 13(d). The pair numbers were re-derived from the kinematics when the consistency check landed (Q-48): at 400 m abeam with five knots between them the bearing is changing at 24 degrees a minute and the closest approach is already past, so 7(d)(i)'s steady-bearing ground is not available and `7d1` left the expectation. `geo:risk_of_collision` is a supplied judgement and stays true -- nothing in this package may deny a risk, and 13(d) does not read one.",
    "expect": [
     "4",
     "11",
-    "7d1",
     "8f3",
     "13a",
     "13d"
@@ -251,9 +250,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 400,
-      "geo:bearing_change_deg_min": 0.6,
-      "geo:cpa_m": 150,
-      "geo:tcpa_s": 300,
+      "geo:bearing_change_deg_min": 24.51,
+      "geo:cpa_m": 350,
+      "geo:tcpa_s": -60,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2386,9 +2385,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 2000,
-      "geo:bearing_change_deg_min": 0.1,
-      "geo:cpa_m": 150,
-      "geo:tcpa_s": 420,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 2,
+      "geo:tcpa_s": 2294,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2455,9 +2454,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1200,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 80,
-      "geo:tcpa_s": 300,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 183,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2524,9 +2523,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1200,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 80,
-      "geo:tcpa_s": 300,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 183,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2593,9 +2592,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1200,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 80,
-      "geo:tcpa_s": 300,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 183,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2661,9 +2660,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 900,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 60,
-      "geo:tcpa_s": 240,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 196,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2729,9 +2728,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.1,
-      "geo:cpa_m": 60,
-      "geo:tcpa_s": 220,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 124,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2798,9 +2797,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.1,
-      "geo:cpa_m": 60,
-      "geo:tcpa_s": 220,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 124,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2851,7 +2850,7 @@
      },
      "kin": {
       "kin:heading_deg": 300.0,
-      "kin:sog_kn": 7.83,
+      "kin:sog_kn": 18.2,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
@@ -2866,9 +2865,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 6000,
-      "geo:bearing_change_deg_min": 3.0,
-      "geo:cpa_m": 900,
-      "geo:tcpa_s": 1200,
+      "geo:bearing_change_deg_min": -3.01,
+      "geo:cpa_m": 3823,
+      "geo:tcpa_s": 561,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -2916,7 +2915,7 @@
      },
      "kin": {
       "kin:heading_deg": 300.0,
-      "kin:sog_kn": 7.83,
+      "kin:sog_kn": 18.2,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
@@ -2931,9 +2930,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 6000,
-      "geo:bearing_change_deg_min": 3.0,
-      "geo:cpa_m": 900,
-      "geo:tcpa_s": 1200,
+      "geo:bearing_change_deg_min": -3.01,
+      "geo:cpa_m": 3823,
+      "geo:tcpa_s": 561,
       "geo:in_sight": true,
       "geo:risk_of_collision": false
      }
@@ -3003,9 +3002,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 80,
-      "geo:tcpa_s": 400,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 436,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3075,9 +3074,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 80,
-      "geo:tcpa_s": 400,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 436,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3147,9 +3146,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 80,
-      "geo:tcpa_s": 400,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 436,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3218,9 +3217,9 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.2,
-      "geo:cpa_m": 80,
-      "geo:tcpa_s": 400,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 436,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3231,5 +3230,5 @@
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",
  "expect_scope": "`expect` names the non-`display` entries a situation selects -- `scope`, `precedence` and `classification`. Display entries are deliberately out of scope here: a situation carries `own.fact`, so every Part C entry that matches that vessel would otherwise have to be repeated in every Part B fixture, and fixtures/applicability-fixtures.json is already the contract for those. A situation fixture asserts what the pair produces, not what own shows.",
  "collapse_note": "Four expected ids changed in the PR that gave the predicate language `any_of` and `not`: `9b-small`/`9b-sail` collapsed to `9b` and `10j-small`/`10j-sail` to `10j`, because 9(b)'s and 10(j)'s disjunctive subjects no longer need an entry apiece. Every other expected id is unchanged. `18d1`'s expected modality moved from `shall-not-impede` to `shall-if-practicable`: the duty now lives in `effect.own` and the modality carries the 'if the circumstances of the case admit' caveat the entry used to drop.",
- "geometry_note": "The bearings, headings and speeds of the Part B cases are a consistent set: with own's heading as the datum, the other's heading is own's relative bearing plus 180 less the aspect, and where the case is a steady-bearing approach the speed ratio is the one that keeps it steady. Nothing in the situation record enforces that -- `own:geo:rel_bearing_deg`, `other:geo:rel_bearing_deg` and the two headings are four independent facts and a consumer may state a set that cannot occur -- so it is done by hand here and recorded as Q-48. Positions are omitted from the cases added with Rules 12-15: range and bearing are given directly and inventing a latitude to derive them from would assert more than the case knows."
+ "geometry_note": "The bearings, headings and speeds of every case that states its kinematics are a consistent set, and since the consistency check landed (Q-48, REQ-VERIFY-8) the suite enforces that rather than trusting the author. The two relative bearings are two readings of one line of sight, so own's bearing plus own's heading plus 180 equals the aspect plus the other's heading, modulo 360; where positions are stated they reproduce the range and both bearings; and the pair's cpa, tcpa and bearing rate are the ones the two headings and speeds produce, to the tolerances `data/facts.json` declares under `situation.geometry.consistency`. Positions are still omitted from the cases added with Rules 12-15: range and bearing are given directly, inventing a latitude to derive them from would assert more than the case knows, and the heading equation checks what the case does state. When the check landed every case that stated speeds failed the motion equations -- the pair numbers had been placeholders -- and they were re-derived; the head-on case was recast on a steady bearing and the 13(d) latch case lost `7d1`, both recorded in their narratives. Everything else, and every other expected id, is unchanged."
 }
