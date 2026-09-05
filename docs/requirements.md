@@ -1090,6 +1090,33 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   the rest of `Q-14`, and by deciding whether Rule 18 overrides Rules 12–15 the
   way Rules 9, 10 and 13 override Rule 18 — a `rel:overrides` nobody has yet
   written down.
+
+  **Decided in pencil 2026-09-05 (PR #35): Rule 12 reads 3(c), and Rules 13
+  and 18 override it.** The three Rule 12 entries gate both subjects on
+  `fact:propulsion: propulsion:sail`, which is 3(c)'s sailing vessel, and no
+  longer on `rule18_class:sail`; a vessel engaged in fishing under sail, or
+  not under command under sail, is inside Rule 12 as the paragraph says. The
+  conflict the narrowing was avoiding is resolved the way the Rules resolve
+  it: Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so every
+  Rule 18 norm that can be in force between two sailing vessels — 18(b)(i)–(iii)
+  from the ordinary sailing vessel's side, 18(c)(i)–(ii) from the fishing
+  vessel's — carries `rel:overrides` against `12a1`–`12a3`. 13(a), being
+  "notwithstanding" the whole of Sections I and II, overrides them too, which
+  it had to: two sailing vessels in an overtaking held 13(a)'s and 12(a)(ii)'s
+  roles at once and nothing had noticed. Two fixtures and a sweep over sailing
+  fleets — every tack and windward combination, plain and with one vessel
+  ranked by Rule 18 — assert never both give-way, never both stand-on, and no
+  two helm roles after resolution. What it leaves: between two sailing vessels
+  Rule 18 does not order — one not under command, one restricted in her
+  ability to manoeuvre — Rule 12 is now the only norm in force, and it lays a
+  helm duty on a vessel that may be unable to discharge it; that is Rule 2's
+  region (ADR 0005 §5) and is recorded, not gated. And `15a-give-way` still
+  keeps the Rule 18 ranks out by a gate in its own predicate rather than by
+  overrides from the Rule 18 entries — the same question answered the other
+  way for Rule 15. The fixtures file's `override_note` argues for overrides;
+  converting it changes a reviewed entry, so it waits for that decision. The
+  category half — Rule 12 as `precedence` — is unchanged and stays with
+  `Q-14`.
 - **Q-41** — **13(c) and 14(c) invert the absent-fact rule.** "When a vessel is
   in any doubt as to whether she is overtaking, she shall assume that this is
   the case" is a duty that fires on the *absence* of knowledge, and the
