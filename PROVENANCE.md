@@ -21,13 +21,16 @@ publications. Nothing here is authoritative: consult the published rules.
   is outside the applicability table in this release.
 - **Known quirks kept verbatim:** the source's own text of Rule 1(c) repeats
   "special rules ... special rules made" and Rule 13(b) reads "coming up with
-  a another vessel" (sic). Rule 3(l) uses curly quotes ("restricted
-  visibility") where every other quoted term in the source uses straight
-  quotes, and Rule 10(c) reads "A vessel, shall so far as practicable, avoid
-  crossing traffic lanes" — comma placement that doesn't match the official
-  COLREGS text. All four are transcribed exactly as the source HTML has them
-  rather than silently corrected; confirmed by re-fetching and grepping the
-  raw source HTML directly (not the rendered page) on 2026-09-05.
+  a another vessel" (sic), and Rule 10(c) reads "A vessel, shall so far as
+  practicable, avoid crossing traffic lanes" — comma placement that doesn't
+  match the official COLREGS text. All three are transcribed exactly as the
+  source HTML has them rather than silently corrected; confirmed by
+  re-fetching and grepping the raw source HTML directly (not the rendered
+  page) on 2026-09-05. Rule 3(l)'s quoted term ("restricted visibility") is
+  also curly in the source and transcribed as such — that part of this note
+  previously and incorrectly claimed it was the only curly-quoted term in the
+  corpus; Rule 3(m) is another (pre-existing, outside this PR's diff — see
+  the open card for it).
 
 ## Diagrams — `images/NRHB_*.png`
 
