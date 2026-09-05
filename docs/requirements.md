@@ -884,7 +884,7 @@ listed here, one line each, because the ADR is what makes them live. Most are
   name, its schema, and its relationship to `known_omissions`? Settled by
   REQ-CAT-2's implementation, which is the next data change after this ADR.
 
-  **Decided in pencil, PR TBD.** The registry is `represented_paragraphs`,
+  **Decided in pencil, PR #23.** The registry is `represented_paragraphs`,
   a sibling array to `known_omissions` in `data/applicability.json`. Each
   record: `id` (paragraph-derived, e.g. `2a`), `jurisdiction`, `cite`,
   `category` (`care` or `meta`), and a one-sentence `note`; no `when`, no
