@@ -290,6 +290,35 @@ towards, not because the shape is settled.
   extended to carry a situation and to name each subject unambiguously, and
   the extension MUST be backward-compatible with the fixtures published
   today (REQ-VERIFY-1).
+- **REQ-CAT-6** — The situation record MUST be declared in
+  `data/facts.json` under `situation`, and MUST address each vessel's facts
+  through the subject namespace of `docs/identifiers.md`:
+  `<subject>:<class>:<key>`, subject from `own`/`other`/`pair`, class from
+  `fact`/`kin`/`geo`/`hist`. A key with no subject segment MUST mean `own:`,
+  so that every predicate and fixture published today is a valid situation
+  predicate unedited. `own:fact:*` and `other:fact:*` MUST resolve to the
+  per-vessel fact record key for key, with no key renamed or copied.
+  `pair` MUST carry only classes whose facts are symmetric between the two
+  vessels. Every fact in the `kin`, `geo` and `hist` classes MUST carry
+  `type`, `cite`, `actuable` and `signalk` like the existing scalars, and a
+  `null` `cite` MUST carry `cite_pending` naming the paragraph it awaits, or
+  an explicit `null` where no paragraph will ever justify it. CI MUST fail
+  on a subject or class outside the declared sets, on a `pair` class that is
+  not symmetric, and on a fact record key that does not survive the subject
+  prefix.
+- **REQ-CAT-7** — Situation fixtures MUST live in a file separate from
+  `fixtures/applicability-fixtures.json`, which MUST remain byte-identical
+  (REQ-VERIFY-1). Each case MUST carry a `situation` whose every key
+  resolves in the namespace of REQ-CAT-6 to a fact declared in
+  `data/facts.json`, and a `status` from a closed set. An element of
+  `expect` MUST be either a bare entry id — the published one-subject form,
+  asserting nothing about modality — or `{entry, modality}` naming the
+  modality that entry is expected to carry, which is what Q-5 needs. A case
+  whose `status` is `illustrative` MUST assert no entries and MUST NOT join
+  the fixture replay; it fixes the shape and the namespace before the
+  entries exist. CI MUST fail on an undeclared fact, an unresolvable key, an
+  unknown entry id, an unknown modality, and on an `illustrative` case that
+  names an entry.
 
 ---
 
@@ -655,6 +684,16 @@ Tracked here until resolved; each becomes an ADR.
   extending the schema to carry expected modality per entry. Not done
   speculatively; blocks a clean REQ-VERIFY-5 pass on these three gates until
   decided.
+  **Decided in pencil 2026-09-04** (PR #22), as part of the situation
+  fixture schema: an element of `expect` is either a bare entry id, exactly as
+  today, or `{entry, modality}`. The two forms are interchangeable and a bare
+  id asserts nothing, so `applicability-fixtures.json` stays byte-identical
+  and needs no migration; REQ-CAT-7 states the rule and
+  `fixtures/situation-fixtures.json` carries the worked example. What is left
+  is not a decision but the work: writing the boundary fixtures for `23a2`,
+  `26b-mast` and `30c` in the new form. Pencil, so a session that finds a
+  better shape may change it, logging the change; settled for good by those
+  three fixtures actually landing.
 - **Q-6** — The treaty-language facts behind §5 (en/fr authentic, es/ru
   deposited translations, ar/zh via IMO official languages) are recalled, not
   verified. Verify against the Convention's final clauses and IMO's current
@@ -790,6 +829,10 @@ listed here, one line each, because the ADR is what makes them live. Most are
 - **Q-18** — What is the dynamics model, and what is the list of dynamics
   classes (tanker, ferry, yacht, …)? Settled by the first two-vessel
   computation; the class list is a data question once it stabilises.
+  A first-cut class list now exists in data as `kin:dynamics`
+  (PR #22) so the situation record has something to carry; it is
+  pencil and the question is unchanged. `dynamics:unknown` stays in the set
+  whatever the list becomes.
 - **Q-19** — What are the game's parameters — horizon *T*, terminal condition,
   action cadence Δt, the admissible set *A*, the information assumption?
   Settled by the sensitivity matrix, which is owed before the ontology moves
@@ -817,10 +860,25 @@ listed here, one line each, because the ADR is what makes them live. Most are
 - **Q-27** — What are the field names for `category`, `subjects`, `when`,
   `effect` and the widened `modality`? Settled when the first non-`display`
   entry lands, and cheap to change until then.
+  Unchanged by PR #22, which names none of those five. The names it
+  does fix — `situation`, the four classes, the three subjects — are
+  REQ-CAT-6's and are equally pencil.
 - **Q-28** — What namespace distinguishes the two subjects of a two-subject
   entry (`own:` / `other:` is the working proposal)? No such segment exists in
   `docs/identifiers.md`; settled before Rule 18 lands, and it is an
   identifier decision under REQ-MODEL-10.
+  **Decided in pencil 2026-09-04** (PR #22): `<subject>:<class>:<key>`
+  with subject `own`/`other`/`pair` and class `fact`/`kin`/`geo`/`hist`, and a
+  bare key meaning `own:`. Written up in `docs/identifiers.md` §"Two
+  subjects", required by REQ-CAT-6, and exercised by
+  `fixtures/situation-fixtures.json`. Three things the working proposal did
+  not have: a third subject, because range and in-sight belong to the
+  encounter and not to either vessel; a class segment, so kinematics and
+  history are new classes rather than new fact keys; and the bare-key default,
+  which is what makes the whole thing additive under REQ-MODEL-10 — no
+  existing identifier is renamed or repointed, and `own`/`other`/`pair` become
+  reserved at the head of the identifier space, which is the only cost.
+  Settled for good by Rule 18 being written against it.
 - **Q-29** — What are the file names and schemas for the invariants file and
   the region grid, and how does a level-3 invariant carry `jurisdiction`?
   Settled when the first invariant is written down.
