@@ -375,9 +375,11 @@ test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1
 // No registry exists yet for deprecation markers (REQ-MODEL-11 is
 // unimplemented), so today every removal fails outright -- that is the
 // correct, conservative behavior until the registry lands.
-function extractIdentifiers({ lights, facts, appl }) {
+function extractIdentifiers({ rules, lights, facts, appl }) {
   const ids = new Set()
-  for (const id of Object.keys(lights.lights ?? {})) ids.add(`light:${id}`)
+  // Keys in lights.json already carry their `light:` prefix (docs/identifiers.md).
+  for (const id of Object.keys(lights.lights ?? {})) ids.add(id)
+  for (const path of Object.keys(rules.paragraphs ?? {})) ids.add(`paragraph:${path}`)
   for (const e of appl.entries ?? []) ids.add(`entry:${e.id}`)
   for (const k of Object.keys(appl.relations ?? {})) ids.add(`rel:${k}`)
   const factGroups = [facts.axes, facts.modifiers, facts.numerics, facts.booleans, facts.enums]
@@ -418,11 +420,12 @@ function loadAtTag(tag, path) {
 test('identifier diff: no identifier published in the last release is silently removed', () => {
   const tag = latestReleaseTag()
   const before = extractIdentifiers({
+    rules: loadAtTag(tag, 'data/rules.json'),
     lights: loadAtTag(tag, 'data/lights.json'),
     facts: loadAtTag(tag, 'data/facts.json'),
     appl: loadAtTag(tag, 'data/applicability.json'),
   })
-  const after = extractIdentifiers({ lights, facts, appl })
+  const after = extractIdentifiers({ rules, lights, facts, appl })
   const deprecatedPath = 'docs/deprecated-identifiers.json'
   const deprecated = fileExists(deprecatedPath) ? new Set(Object.keys(load(deprecatedPath))) : new Set()
   const removed = [...before].filter((id) => !after.has(id) && !deprecated.has(id))
