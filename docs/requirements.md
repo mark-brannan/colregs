@@ -1126,7 +1126,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   helm duty on a vessel that may be unable to discharge it; that is Rule 2's
   region (ADR 0005 §5) and is recorded, not gated.
 
-  **Decided in pencil 2026-09-05 (PR #36): Rule 15 reads 3(b), and Rule 18
+  **Decided in pencil 2026-09-05 (PR #46): Rule 15 reads 3(b), and Rule 18
   overrides it too.** The same question answered the other way for Rule 15.
   `15a-give-way` kept the four Rule 18 ranks — NUC, RAM, fishing and WIG —
   out of Rule 15 by negating them on both subjects in its own predicate; the
