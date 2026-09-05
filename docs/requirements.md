@@ -883,3 +883,12 @@ listed here, one line each, because the ADR is what makes them live. Most are
 - **Q-30** — What does the `care`/`meta` registry look like as a file — its
   name, its schema, and its relationship to `known_omissions`? Settled by
   REQ-CAT-2's implementation, which is the next data change after this ADR.
+
+  **Decided in pencil, PR TBD.** The registry is `represented_paragraphs`,
+  a sibling array to `known_omissions` in `data/applicability.json`. Each
+  record: `id` (paragraph-derived, e.g. `2a`), `jurisdiction`, `cite`,
+  `category` (`care` or `meta`), and a one-sentence `note`; no `when`, no
+  `lights` — a registry record states that the paragraph is represented
+  and evaluated by nothing here, never a predicate. Holds the `2(a)` and
+  `2(b)` records this PR adds. `✎` under `docs/conventions.md`: the file
+  name and schema stay open to a better idea, logged when changed.
