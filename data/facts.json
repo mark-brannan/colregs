@@ -606,6 +606,28 @@
      "actuable": false,
      "signalk": null
     }
+   },
+   "consistency": {
+    "status": "pencil",
+    "note": "The relative geometry is redundant with the kinematic state, and a record may state a set that no two vessels can occupy (Q-48). A situation is geometrically consistent when every quantity it states agrees with every other under the equations below; a quantity the record does not state constrains nothing, so a record with bearings and no headings is not inconsistent, only unchecked. The suite enforces this on every situation fixture and on every situation its sweeps construct (REQ-VERIFY-8). This block is the definition, so that an engine applying the same check before it classifies applies this one and not a private one.",
+    "equations": {
+     "headings": "own:geo:rel_bearing_deg + own:kin:heading_deg + 180 == other:geo:rel_bearing_deg + other:kin:heading_deg (mod 360). Both bearings are of the same line of sight, read from its two ends, so this needs no positions.",
+     "positions": "The great-circle range and the initial bearings between the two kin:position values reproduce pair:geo:range_m and, less each subject's heading, both geo:rel_bearing_deg.",
+     "motion": "With each vessel moving along her heading at her kin:sog_kn, the relative velocity in own's frame reproduces pair:geo:cpa_m, pair:geo:tcpa_s and pair:geo:bearing_change_deg_min, the last positive when the compass bearing of the other from own is increasing. Course over ground is taken as heading: the record carries no set or drift.",
+     "steady_bearing": "A consequence of `motion` worth stating because Rule 15 rests on it: on a steady bearing with both vessels making way, own's speed times the sine of her relative bearing equals minus the other's speed times the sine of the aspect, so the two bearings lie on opposite sides. Two vessels each with the other on her starboard side are never on a collision course, which is why 15(a) never lays give-way on both -- and the suite asserts that over a sweep of steady-bearing geometries rather than over free bearings."
+    },
+    "tolerances": {
+     "bearing_deg": 1.0,
+     "range_m": 15,
+     "range_fraction": 0.01,
+     "cpa_m": 10,
+     "cpa_fraction": 0.05,
+     "tcpa_s": 5,
+     "tcpa_fraction": 0.05,
+     "bearing_change_deg_min": 0.1
+    },
+    "tolerance_note": "A position stated to five decimal places is about a metre; to four, about ten. The absolute floors are for close ranges, where a fraction of the range is smaller than the position is stated to; the fractions are for long ranges, where the floor is tighter than a bearing rounded to a tenth of a degree. A stated quantity is compared to the computed one within the larger of the two.",
+    "settled_by": "Whether the relative quantities become derived facts computed from the two kinematic states -- in which case these equations become the decode and the check goes with them -- or stay supplied and checked, for the consumer with an ARPA solution and no positions it trusts. Q-48 names both; this block is the second, done."
    }
   },
   "history": {

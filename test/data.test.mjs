@@ -901,6 +901,94 @@ function matchesSituation(when, situation) {
   return holds(when, localOf, (k) => resolve(k, situation))
 }
 
+// --- geometric consistency (Q-48, REQ-VERIFY-8) -----------------------------
+// The relative geometry a situation states is redundant with its kinematic
+// state, and a record can state a set no two vessels can occupy. facts.json
+// declares the equations under situation.geometry.consistency; this is the
+// same check, written once and applied to every fixture and to every
+// situation a sweep below constructs. A quantity the record does not state
+// constrains nothing: a sparse record is unchecked, never inconsistent.
+const CONSISTENCY = sit.geometry.consistency
+const TOL = CONSISTENCY.tolerances
+const KN_MS = 0.514444
+const EARTH_R_M = 6371000
+const rad = (d) => d * Math.PI / 180
+const deg = (r) => r * 180 / Math.PI
+const norm360 = (d) => ((d % 360) + 360) % 360
+const angleApart = (a, b) => Math.abs(norm360(a - b + 180) - 180)
+const within = (got, want, floor, fraction = 0) =>
+  Math.abs(got - want) <= Math.max(floor, Math.abs(want) * fraction)
+const isNum = (v) => typeof v === 'number' && Number.isFinite(v)
+
+function greatCircle(a, b) {
+  const la1 = rad(a.latitude), la2 = rad(b.latitude), dlo = rad(b.longitude - a.longitude)
+  const h = Math.sin((la2 - la1) / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dlo / 2) ** 2
+  const y = Math.sin(dlo) * Math.cos(la2)
+  const x = Math.cos(la1) * Math.sin(la2) - Math.sin(la1) * Math.cos(la2) * Math.cos(dlo)
+  return { range_m: 2 * EARTH_R_M * Math.asin(Math.sqrt(h)), bearing_deg: norm360(deg(Math.atan2(y, x))) }
+}
+function destination(from, bearing_deg, range_m) {
+  const la1 = rad(from.latitude), lo1 = rad(from.longitude), d = range_m / EARTH_R_M, b = rad(bearing_deg)
+  const la2 = Math.asin(Math.sin(la1) * Math.cos(d) + Math.cos(la1) * Math.sin(d) * Math.cos(b))
+  const lo2 = lo1 + Math.atan2(Math.sin(b) * Math.sin(d) * Math.cos(la1), Math.cos(d) - Math.sin(la1) * Math.sin(la2))
+  return { latitude: deg(la2), longitude: deg(lo2) }
+}
+
+// Relative motion in own's frame -- x to starboard, y ahead -- with each vessel
+// moving along her heading at her speed over the ground. The bearing rate is
+// positive when the compass bearing of the other from own is increasing.
+function relativeMotion({ range_m, ownRel, ownHeading, otherHeading, ownSog, otherSog }) {
+  const x = range_m * Math.sin(rad(ownRel)), y = range_m * Math.cos(rad(ownRel))
+  const u = ownSog * KN_MS, v = otherSog * KN_MS, rel = rad(otherHeading - ownHeading)
+  const vx = v * Math.sin(rel), vy = v * Math.cos(rel) - u
+  const vv = vx * vx + vy * vy
+  const cross = x * vy - y * vx
+  return {
+    cpa_m: vv === 0 ? range_m : Math.abs(cross) / Math.sqrt(vv),
+    tcpa_s: vv === 0 ? Infinity : -(x * vx + y * vy) / vv,
+    bearing_change_deg_min: -deg(cross / (range_m * range_m)) * 60,
+  }
+}
+
+// Every disagreement between what a situation states and what its other stated
+// quantities imply, as strings. Empty means consistent.
+function inconsistencies(s) {
+  const out = []
+  const own = s.own ?? {}, other = s.other ?? {}, pg = s.pair?.geo ?? {}
+  const ro = own.geo?.['geo:rel_bearing_deg'], rt = other.geo?.['geo:rel_bearing_deg']
+  const ho = own.kin?.['kin:heading_deg'], ht = other.kin?.['kin:heading_deg']
+  const po = own.kin?.['kin:position'], pt = other.kin?.['kin:position']
+  if (isNum(ro) && isNum(rt) && isNum(ho) && isNum(ht)) {
+    const gap = angleApart(ro + ho + 180, rt + ht)
+    if (gap > TOL.bearing_deg) out.push(`headings: own ${ro} on ${ho} and other ${rt} on ${ht} are ${gap.toFixed(2)} deg off one line of sight`)
+  }
+  if (po && pt) {
+    const fwd = greatCircle(po, pt), back = greatCircle(pt, po)
+    if (isNum(pg['geo:range_m']) && !within(fwd.range_m, pg['geo:range_m'], TOL.range_m, TOL.range_fraction)) {
+      out.push(`positions: range ${fwd.range_m.toFixed(0)} m, stated ${pg['geo:range_m']}`)
+    }
+    if (isNum(ro) && isNum(ho) && angleApart(fwd.bearing_deg - ho, ro) > TOL.bearing_deg) {
+      out.push(`positions: own:geo:rel_bearing_deg ${norm360(fwd.bearing_deg - ho).toFixed(2)}, stated ${ro}`)
+    }
+    if (isNum(rt) && isNum(ht) && angleApart(back.bearing_deg - ht, rt) > TOL.bearing_deg) {
+      out.push(`positions: other:geo:rel_bearing_deg ${norm360(back.bearing_deg - ht).toFixed(2)}, stated ${rt}`)
+    }
+  }
+  const uo = own.kin?.['kin:sog_kn'], ut = other.kin?.['kin:sog_kn']
+  if (isNum(ro) && isNum(ho) && isNum(ht) && isNum(uo) && isNum(ut) && isNum(pg['geo:range_m'])) {
+    const m = relativeMotion({ range_m: pg['geo:range_m'], ownRel: ro, ownHeading: ho, otherHeading: ht, ownSog: uo, otherSog: ut })
+    const check = (key, floor, fraction) => {
+      const want = pg[`geo:${key}`]
+      if (isNum(want) && !within(m[key], want, floor, fraction)) out.push(`motion: ${key} ${m[key].toFixed(2)}, stated ${want}`)
+    }
+    check('cpa_m', TOL.cpa_m, TOL.cpa_fraction)
+    check('tcpa_s', TOL.tcpa_s, TOL.tcpa_fraction)
+    check('bearing_change_deg_min', TOL.bearing_change_deg_min)
+  }
+  return out
+}
+const consistent = (s) => inconsistencies(s).length === 0
+
 // The fact classes the situation section declares, per class, as bare keys.
 const situationDeclared = {
   fact: new Set([
@@ -1324,36 +1412,48 @@ const TO = CONSTANTS.overtaking_sector_to_deg.value
 const HALF = CONSTANTS.head_on_half_angle_deg.value
 
 // A pair the three encounter rules all reach: in sight, risk of collision,
-// two ordinary power-driven vessels underway, closing, nothing latched.
+// two ordinary power-driven vessels underway, closing, nothing latched. Own
+// heads north from a fixed origin; `aim` places the other and points her so
+// that the record is geometrically consistent at every point of a sweep (Q-48)
+// -- the partition is a property of bearings alone, so no speeds are stated
+// here and the motion equations have nothing to check; the steady-bearing
+// sweep further down states everything.
+const SWEEP_RANGE_M = 2000
+const SWEEP_ORIGIN = { latitude: 50.0, longitude: -1.4 }
 function sweepTemplate(latchOwn = false, latchOther = false) {
-  const v = (rel, latched) => ({
+  const v = (latched) => ({
     fact: {
       'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:none',
       'fact:position': 'position:underway', 'fact:making_way': true, 'fact:length_m': 30,
     },
-    geo: { 'geo:rel_bearing_deg': rel },
+    kin: { 'kin:position': SWEEP_ORIGIN, 'kin:heading_deg': 0 },
+    geo: { 'geo:rel_bearing_deg': 0 },
     hist: { 'hist:was_overtaking': latched, 'hist:latched_at_s': latched ? 300 : null },
   })
   // Derived once: the fact records do not change across a sweep, and deriving
   // them half a million times is the difference between a suite that runs in a
   // second and one nobody waits for.
   return withDerived({
-    own: v(0, latchOwn),
-    other: v(0, latchOther),
+    own: v(latchOwn),
+    other: v(latchOther),
     pair: {
       geo: {
-        'geo:in_sight': true, 'geo:risk_of_collision': true, 'geo:range_m': 2000,
+        'geo:in_sight': true, 'geo:risk_of_collision': true, 'geo:range_m': SWEEP_RANGE_M,
         'geo:bearing_change_deg_min': 0.2, 'geo:cpa_m': 100, 'geo:tcpa_s': 400,
       },
     },
   })
 }
-// The sweep mutates the two bearings in place on one template rather than
-// rebuilding the situation each step; `geo` is carried by reference through
-// `withDerived`, so this is the same object the predicates read.
+// The sweep mutates one template in place rather than rebuilding the situation
+// each step; `geo` and `kin` are carried by reference through `withDerived`,
+// so this is the same object the predicates read. With own's heading as the
+// datum the other's heading is own's bearing plus 180 less the aspect, and her
+// position is that bearing and the range from the origin.
 function aim(s, ownRel, aspect) {
   s.own.geo['geo:rel_bearing_deg'] = ownRel
   s.other.geo['geo:rel_bearing_deg'] = aspect
+  s.other.kin['kin:heading_deg'] = norm360(ownRel + 180 - aspect)
+  s.other.kin['kin:position'] = destination(SWEEP_ORIGIN, ownRel, SWEEP_RANGE_M)
   return s
 }
 const sweepSituation = ({ ownRel, aspect, latchOwn = false, latchOther = false }) =>
@@ -1505,4 +1605,181 @@ test('the declared constants are the numbers the entries actually read', () => {
     else assert.ok(rules.paragraphs[spec.cite], `${k}: cites missing paragraph ${spec.cite}`)
     if (spec.status === 'pencil') assert.ok(spec.settled_by, `${k}: pencil with no settled_by`)
   }
+})
+
+// --- geometric consistency, enforced (Q-48, REQ-VERIFY-8) -------------------
+test('REQ-VERIFY-8: the consistency check rejects each kind of impossible record, and only those', () => {
+  // The first fixture, then one thing wrong at a time. Each equation must be
+  // the one that fires, so a future edit cannot quietly disable a tier.
+  const base = structuredClone(situationFixtures.cases[0].situation)
+  assert.deepEqual(inconsistencies(base), [])
+  const edit = (f) => { const s = structuredClone(base); f(s); return inconsistencies(s) }
+  const only = (found, tier) => found.length > 0 && found.every((m) => m.startsWith(tier))
+  assert.ok(only(edit((s) => { s.other.kin['kin:heading_deg'] += 5 }), 'headings') === false,
+    'a heading moved 5 degrees breaks the line-of-sight equation and the position bearing both')
+  assert.ok(edit((s) => { s.other.kin['kin:heading_deg'] += 5 }).some((m) => m.startsWith('headings:')))
+  assert.ok(edit((s) => { s.other.kin['kin:heading_deg'] += 5 }).some((m) => m.startsWith('positions: other')))
+  // A range moved 10% disagrees with the positions -- and with the motion,
+  // whose CPA and TCPA scale with it.
+  assert.ok(edit((s) => { s.pair.geo['geo:range_m'] *= 1.1 }).some((m) => m.startsWith('positions: range')))
+  assert.ok(only(edit((s) => { s.own.kin['kin:sog_kn'] *= 1.5 }), 'motion:'))
+  assert.ok(only(edit((s) => { s.pair.geo['geo:tcpa_s'] = -s.pair.geo['geo:tcpa_s'] }), 'motion: tcpa_s'))
+  // Sparse is unchecked, not wrong: drop the kinematics and nothing can fire.
+  assert.deepEqual(edit((s) => { delete s.own.kin; delete s.other.kin }), [])
+  assert.deepEqual(edit((s) => { delete s.own.kin['kin:position']; delete s.other.kin['kin:position'] }), [])
+  // The tolerances are read from the declaration, not from this file.
+  for (const k of ['bearing_deg', 'range_m', 'range_fraction', 'cpa_m', 'cpa_fraction', 'tcpa_s', 'tcpa_fraction', 'bearing_change_deg_min']) {
+    assert.ok(isNum(TOL[k]) && TOL[k] > 0, `tolerance ${k} is not declared`)
+  }
+  assert.equal(CONSISTENCY.status, 'pencil')
+  assert.ok(CONSISTENCY.settled_by, 'pencil with no settled_by')
+})
+
+test('REQ-VERIFY-8: every situation fixture that states its kinematics is consistent with them', () => {
+  let checked = 0
+  for (const c of situationFixtures.cases) {
+    if (!isNum(c.situation.own?.kin?.['kin:heading_deg'])) continue
+    checked++
+    assert.deepEqual(inconsistencies(c.situation), [], c.name)
+  }
+  assert.ok(checked >= 16, `only ${checked} fixtures carry kinematics; the check would be near-vacuous`)
+})
+
+test('REQ-VERIFY-8: the partition sweep is geometrically consistent at every point it visits', () => {
+  // Coarser than the partition sweep itself -- the great-circle arithmetic is
+  // what costs -- but on the same template and through the same `aim`, so a
+  // template edit that breaks the construction fails here.
+  const s = sweepTemplate()
+  const bad = []
+  for (let ownRel = 0; ownRel < 360; ownRel += 2.5) {
+    for (let aspect = 0; aspect < 360; aspect += 2.5) {
+      const found = inconsistencies(aim(s, ownRel, aspect))
+      if (found.length) bad.push(`${ownRel}/${aspect}: ${found.join('; ')}`)
+    }
+  }
+  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} sweep points are inconsistent`)
+  // ...and the edges the edge test reads, exactly.
+  for (const [ownRel, aspect] of [[300, FROM], [350, FROM + 0.1], [10, TO], [HALF, 360 - HALF], [0, 0], [180, 180]]) {
+    assert.deepEqual(inconsistencies(aim(s, ownRel, aspect)), [], `${ownRel}/${aspect}`)
+  }
+})
+
+// --- the steady-bearing sweep (Q-48) ----------------------------------------
+// The "never both give-way" property is not true of arbitrary bearings: two
+// vessels each with the other on her starboard side satisfy 15(a) from both
+// sides. It is true of collision courses, because on a steady bearing the
+// components of the two velocities across the line of sight are equal --
+// u sin(own bearing) = -v sin(aspect) -- so the two bearings lie on opposite
+// sides. This sweep constructs those geometries: for own's bearing of the other
+// and a pair of speeds, the other's heading is solved for a relative velocity
+// pointing straight down the line of sight, and there are up to two solutions
+// -- the intercept from ahead and the one from astern.
+function steadyBearingHeadings({ ownRel, ownSog, otherSog }) {
+  const u = ownSog, v = otherSog, th = rad(ownRel)
+  const disc = v * v - (u * Math.sin(th)) ** 2
+  if (disc < 0) return []
+  const roots = [u * Math.cos(th) + Math.sqrt(disc), u * Math.cos(th) - Math.sqrt(disc)]
+  return roots.filter((k, i) => k > 1e-9 && (i === 0 || Math.abs(k - roots[0]) > 1e-9))
+    .map((k) => norm360(deg(Math.atan2(-k * Math.sin(th), u - k * Math.cos(th)))))
+}
+
+// A fully stated situation -- positions, headings, speeds, and the pair motion
+// the kinematics produce -- so the motion equations have something to check.
+// Own heads north at the origin; everything else follows from the arguments.
+function statedSituation({ ownRel, otherHeading, ownSog, otherSog, range_m = SWEEP_RANGE_M, risk = true, own = {}, other = {} }) {
+  const s = sweepTemplate()
+  aim(s, ownRel, norm360(ownRel + 180 - otherHeading))
+  Object.assign(s.own.kin, { 'kin:sog_kn': ownSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' }, own.kin)
+  Object.assign(s.other.kin, { 'kin:sog_kn': otherSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' }, other.kin)
+  const m = relativeMotion({ range_m, ownRel, ownHeading: 0, otherHeading, ownSog, otherSog })
+  s.pair.geo = {
+    'geo:in_sight': true, 'geo:risk_of_collision': risk, 'geo:range_m': range_m,
+    'geo:bearing_change_deg_min': m.bearing_change_deg_min, 'geo:cpa_m': m.cpa_m, 'geo:tcpa_s': m.tcpa_s,
+  }
+  return s
+}
+
+const forcefulPool = (s) => resolve_(pooledRoles(s)).filter((r) => FORCEFUL.has(r.entry.modality))
+const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r) => r.B === role)
+
+test('precedence: never both give-way, never both stand-on, on every steady bearing (Q-48)', () => {
+  const speeds = [3, 6, 12, 20]
+  let checked = 0, gaveWayA = 0, gaveWayB = 0
+  const bad = []
+  for (const ownSog of speeds) {
+    for (const otherSog of speeds) {
+      for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
+        for (const otherHeading of steadyBearingHeadings({ ownRel, ownSog, otherSog })) {
+          const s = statedSituation({ ownRel, otherHeading, ownSog, otherSog })
+          const found = inconsistencies(s)
+          if (found.length) { bad.push(`${ownRel} @ ${ownSog}/${otherSog}: ${found.join('; ')}`); continue }
+          // The construction really is a collision course, not merely a
+          // consistent record of some motion.
+          const pg = s.pair.geo
+          if (!(pg['geo:cpa_m'] < 1 && pg['geo:tcpa_s'] > 0 && Math.abs(pg['geo:bearing_change_deg_min']) < 1e-6)) {
+            bad.push(`${ownRel} @ ${ownSog}/${otherSog}: not a steady bearing (cpa ${pg['geo:cpa_m'].toFixed(1)})`); continue
+          }
+          // The theorem itself, which is why the property below can hold.
+          const aspect = s.other.geo['geo:rel_bearing_deg']
+          const side = (b) => (b > 0 && b < 180 ? 'starboard' : b > 180 ? 'port' : 'ahead-or-astern')
+          if (side(ownRel) !== 'ahead-or-astern' && side(ownRel) === side(aspect)) {
+            bad.push(`${ownRel} @ ${ownSog}/${otherSog}: both bearings to ${side(ownRel)} on a steady bearing`); continue
+          }
+          const pool = forcefulPool(s)
+          for (const role of ['give-way', 'stand-on']) {
+            if (bothHold(pool, role)) bad.push(`${ownRel} @ ${ownSog}/${otherSog} (other heading ${otherHeading.toFixed(1)}): both ${role}`)
+          }
+          gaveWayA += pool.some((r) => r.A === 'give-way'); gaveWayB += pool.some((r) => r.B === 'give-way')
+          checked++
+        }
+      }
+    }
+  }
+  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} of ${checked} steady bearings break the property`)
+  // Sixteen speed pairs by 720 bearings, less the bearings a slower vessel
+  // cannot intercept from: several thousand, and never fewer than this.
+  assert.ok(checked > 5000, `only ${checked} steady bearings swept`)
+  // Not vacuous: each vessel is the give-way vessel somewhere in the sweep.
+  assert.ok(gaveWayA > 0 && gaveWayB > 0, `give-way fell on A ${gaveWayA} times and on B ${gaveWayB}`)
+})
+
+test('Q-48: the both-starboard crossing that breaks the property is a record the check rejects', () => {
+  // The failure Q-48 describes, stated as a consumer might state it: each has
+  // the other 45 degrees on the starboard bow, a steady bearing is claimed,
+  // risk of collision is claimed. 15(a) then names both vessels.
+  const s = statedSituation({ ownRel: 45, otherHeading: norm360(45 + 180 - 45), ownSog: 12, otherSog: 10 })
+  Object.assign(s.pair.geo, { 'geo:bearing_change_deg_min': 0, 'geo:cpa_m': 0, 'geo:tcpa_s': 400 })
+  assert.ok(bothHold(forcefulPool(s), 'give-way'), 'the counterexample no longer reproduces; is 15a-give-way still two-sided?')
+  // ...and no positive speeds produce that steady bearing, so the record is
+  // one the motion equations refuse, whatever speeds it claims.
+  const found = inconsistencies(s)
+  assert.ok(found.some((m) => m.startsWith('motion:')), `expected the motion tier to fire, got ${JSON.stringify(found)}`)
+  for (const ownSog of [1, 3, 6, 12, 20, 40]) {
+    for (const otherSog of [1, 3, 6, 12, 20, 40]) {
+      for (const h of steadyBearingHeadings({ ownRel: 45, ownSog, otherSog })) {
+        const aspect = norm360(45 + 180 - h)
+        assert.ok(aspect > 180, `a steady bearing at ${ownSog}/${otherSog} puts own at ${aspect.toFixed(1)} from the other -- starboard`)
+      }
+    }
+  }
+})
+
+test('Q-48 residual: 7(d)(i)\'s tolerance admits a slow starboard-to-starboard passing on which both give way', () => {
+  // The theorem is exact at a bearing rate of zero. Rule 7(d)(i)'s pencilled
+  // 1 deg/min is not zero, and two slow vessels 2000 m apart, each with the
+  // other fine on the starboard bow just outside the head-on cone, pass at
+  // several hundred metres with the bearing changing more slowly than that.
+  // The record is consistent, 7(d)(i) deems risk, 15(a) names both. That is
+  // 14(c)'s doubt case -- "shall assume that it does exist and act
+  // accordingly" -- and is Q-41's to settle, not this check's. Pinned so the
+  // day it changes is noticed.
+  const s = statedSituation({ ownRel: 15, otherHeading: norm360(15 + 180 - 5), ownSog: 3, otherSog: 3 })
+  assert.deepEqual(inconsistencies(s), [])
+  assert.equal(s.other.geo['geo:rel_bearing_deg'], 5)
+  const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value
+  assert.ok(Math.abs(s.pair.geo['geo:bearing_change_deg_min']) < appreciable, 'the bearing rate is inside 7(d)(i)')
+  assert.ok(s.pair.geo['geo:cpa_m'] > 100, 'and yet they pass clear')
+  assert.ok(matchesSituation(byId.get('7d1').when, s), '7(d)(i) deems risk')
+  assert.deepEqual([...encountersFor(s)], ['crossing'])
+  assert.ok(bothHold(forcefulPool(s), 'give-way'), 'both vessels are give-way -- the residual this test pins')
 })
