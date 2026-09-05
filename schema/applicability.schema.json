@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/applicability.schema.json",
+  "title": "data/applicability.json",
+  "description": "predicate -> lights, per entry, with modality, citation and jurisdiction. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["entries"],
+  "$defs": {
+    "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)?$" },
+    "modality": {
+      "type": "string",
+      "enum": ["shall", "may", "shall-if-practicable", "conditional", "exempt"]
+    },
+    "predicateValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "gte": { "type": "number" },
+            "gt": { "type": "number" },
+            "lte": { "type": "number" },
+            "lt": { "type": "number" }
+          }
+        },
+        { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" },
+        { "type": "boolean" },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" }
+        }
+      ]
+    },
+    "when": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
+      }
+    },
+    "lightRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["light"],
+      "properties": {
+        "light": { "type": "string", "pattern": "^light:[a-z_]+$" },
+        "position": { "type": "string" },
+        "count": { "type": "integer", "minimum": 1 },
+        "color": { "type": "string" },
+        "character": { "type": "string" },
+        "intensity": { "type": "string" },
+        "arrangement": { "type": "string", "enum": ["vertical"] },
+        "combined": { "type": "boolean" },
+        "note": { "type": "string" },
+        "modality": { "$ref": "#/$defs/modality" }
+      }
+    },
+    "modalityBy": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["when", "modality"],
+        "properties": {
+          "when": { "$ref": "#/$defs/when" },
+          "modality": { "$ref": "#/$defs/modality" }
+        }
+      }
+    },
+    "conditionalInclude": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "when": { "$ref": "#/$defs/when" },
+        "one_of": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/entryId" }
+        },
+        "rel:includes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/entryId" }
+        },
+        "cite": { "type": "string", "minLength": 1 }
+      }
+    },
+    "entryIdList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entryId" }
+    }
+  },
+  "properties": {
+    "conditions": { "type": "string" },
+    "relations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rel:includes",
+        "rel:conditional_includes",
+        "rel:in_lieu_of",
+        "rel:excludes",
+        "rel:exempts"
+      ],
+      "properties": {
+        "rel:includes": { "type": "string" },
+        "rel:conditional_includes": { "type": "string" },
+        "rel:in_lieu_of": { "type": "string" },
+        "rel:excludes": { "type": "string" },
+        "rel:exempts": { "type": "string" }
+      }
+    },
+    "modalities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shall", "may", "shall-if-practicable", "conditional", "exempt"],
+      "properties": {
+        "shall": { "type": "string" },
+        "may": { "type": "string" },
+        "shall-if-practicable": { "type": "string" },
+        "conditional": { "type": "string" },
+        "exempt": { "type": "string" }
+      }
+    },
+    "known_omissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["cite", "what", "why"],
+        "properties": {
+          "cite": { "type": "string", "minLength": 1 },
+          "what": { "type": "string", "minLength": 1 },
+          "why": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "jurisdiction", "cite", "when", "lights", "modality"],
+        "properties": {
+          "id": { "$ref": "#/$defs/entryId" },
+          "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+          "cite": { "type": "string", "minLength": 1 },
+          "when": { "$ref": "#/$defs/when" },
+          "lights": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/lightRef" }
+          },
+          "modality": { "$ref": "#/$defs/modality" },
+          "modality_by": { "$ref": "#/$defs/modalityBy" },
+          "images": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "notes": { "type": "string" },
+          "rel:includes": { "$ref": "#/$defs/entryIdList" },
+          "rel:conditional_includes": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/conditionalInclude" }
+          },
+          "rel:in_lieu_of": { "$ref": "#/$defs/entryIdList" },
+          "rel:excludes": { "$ref": "#/$defs/entryIdList" },
+          "rel:exempts": { "$ref": "#/$defs/entryIdList" }
+        }
+      }
+    }
+  }
+}

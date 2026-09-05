@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/applicability-fixtures.schema.json",
+  "title": "fixtures/applicability-fixtures.json",
+  "description": "The cross-implementation contract: fact record -> expected entry ids. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jurisdiction", "cases"],
+  "$defs": {
+    "factValue": {
+      "oneOf": [
+        { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" },
+        { "type": "number" },
+        { "type": "boolean" }
+      ]
+    },
+    "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)?$" }
+  },
+  "properties": {
+    "note": { "type": "string" },
+    "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "facts", "expect"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "facts": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "patternProperties": {
+              "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/factValue" }
+            }
+          },
+          "expect": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/entryId" }
+          }
+        }
+      }
+    }
+  }
+}

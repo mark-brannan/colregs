@@ -2,6 +2,8 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
+import Ajv2020 from 'ajv/dist/2020.js'
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
 const rules = load('data/rules.json')
@@ -43,6 +45,33 @@ const applying = (f) => appl.entries.filter((e) => matches(e.when, f)).map((e) =
 test('fixtures: every fact record selects exactly the expected entries', () => {
   for (const c of fixtures.cases) {
     assert.deepEqual(applying(c.facts).sort(), [...c.expect].sort(), c.name)
+  }
+})
+
+// --- schema (ADR 0006) ------------------------------------------------------
+// Structure only: required keys, types, additionalProperties:false, id
+// patterns, the closed modality/relation enums, and the shape of a predicate
+// or a light reference. Cross-file references (cite -> rules.json, light id
+// -> lights.json, etc.) are NOT the schema's job; they stay in the tests
+// above and below. See docs/adr/0006-json-schema-and-identifier-diff.md.
+const loadSchema = (p) => JSON.parse(readFileSync(new URL(`../schema/${p}`, import.meta.url)))
+const schemaTargets = [
+  ['data/rules.json', rules, loadSchema('rules.schema.json')],
+  ['data/lights.json', lights, loadSchema('lights.schema.json')],
+  ['data/facts.json', facts, loadSchema('facts.schema.json')],
+  ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
+  ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
+  ['data/images.json', images, loadSchema('images.schema.json')],
+  ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
+  ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
+]
+
+test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
+  const ajv = new Ajv2020({ allErrors: true, strict: true })
+  for (const [file, data, schema] of schemaTargets) {
+    const validate = ajv.compile(schema)
+    const ok = validate(data)
+    assert.ok(ok, `${file} fails ${schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
   }
 })
 
@@ -338,6 +367,77 @@ test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1
     'it is settable exactly once. A second baseline is the escape hatch the requirement forbids.')
   assert.equal(found[0], '0.1.1',
     'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
+})
+
+// --- identifier diff against the last release (ADR 0006, REQ-PKG-4) --------
+// Version discipline comes from an identifier diff, not the schema: a schema
+// diff would miss nearly every real break (REQ-PKG-4 defines a breaking
+// change as removal of an entry id, a fact vocabulary value, or a change in
+// relation semantics -- all data changes the schema doesn't see). This test
+// extracts every published identifier from the last release tag and compares
+// it with HEAD; any removal not accompanied by a deprecation marker fails.
+// No registry exists yet for deprecation markers (REQ-MODEL-11 is
+// unimplemented), so today every removal fails outright -- that is the
+// correct, conservative behavior until the registry lands.
+function extractIdentifiers({ rules, lights, facts, appl }) {
+  const ids = new Set()
+  // Keys in lights.json already carry their `light:` prefix (docs/identifiers.md).
+  for (const id of Object.keys(lights.lights ?? {})) ids.add(id)
+  for (const path of Object.keys(rules.paragraphs ?? {})) ids.add(`paragraph:${path}`)
+  for (const e of appl.entries ?? []) ids.add(`entry:${e.id}`)
+  for (const k of Object.keys(appl.relations ?? {})) ids.add(`rel:${k}`)
+  const factGroups = [facts.axes, facts.modifiers, facts.numerics, facts.booleans, facts.enums]
+  for (const group of factGroups) {
+    for (const [k, v] of Object.entries(group ?? {})) {
+      ids.add(`fact-key:${k}`)
+      for (const val of v.values ?? []) ids.add(`fact-value:${val}`)
+    }
+  }
+  // facts.situation (kin:/geo:/hist:) is pencil (docs/conventions.md): ADR 0005
+  // allows it to break in v0.x, so it is deliberately not diffed until inked.
+  return ids
+}
+
+function latestReleaseTag() {
+  let out
+  try {
+    out = execFileSync('git', ['tag', '--list', 'v*.*.*'], { encoding: 'utf8' })
+  } catch (err) {
+    assert.fail(`identifier diff: could not list git tags (${err.message}); a missing baseline must fail loudly, not skip`)
+  }
+  const tags = out.split('\n').map((s) => s.trim()).filter(Boolean)
+  assert.ok(tags.length > 0,
+    'identifier diff: no release tag (v*.*.*) found. In CI, fetch tags first (`git fetch --tags`); ' +
+    'locally, this needs at least one release tag present. Refusing to skip.')
+  const parts = (t) => t.slice(1).split('.').map(Number)
+  tags.sort((a, b) => {
+    const pa = parts(a), pb = parts(b)
+    for (let i = 0; i < 3; i++) if (pa[i] !== pb[i]) return pa[i] - pb[i]
+    return 0
+  })
+  return tags[tags.length - 1]
+}
+
+function loadAtTag(tag, path) {
+  const text = execFileSync('git', ['show', `${tag}:${path}`], { encoding: 'utf8' })
+  return JSON.parse(text)
+}
+
+test('identifier diff: no identifier published in the last release is silently removed', () => {
+  const tag = latestReleaseTag()
+  const before = extractIdentifiers({
+    rules: loadAtTag(tag, 'data/rules.json'),
+    lights: loadAtTag(tag, 'data/lights.json'),
+    facts: loadAtTag(tag, 'data/facts.json'),
+    appl: loadAtTag(tag, 'data/applicability.json'),
+  })
+  const after = extractIdentifiers({ rules, lights, facts, appl })
+  const deprecatedPath = 'docs/deprecated-identifiers.json'
+  const deprecated = fileExists(deprecatedPath) ? new Set(Object.keys(load(deprecatedPath))) : new Set()
+  const removed = [...before].filter((id) => !after.has(id) && !deprecated.has(id))
+  assert.deepEqual(removed, [],
+    `identifier(s) removed since ${tag} with no deprecation marker (REQ-MODEL-10/REQ-PKG-4): ${removed.join(', ')}. ` +
+    'Add the identifier back, or deprecate it in docs/deprecated-identifiers.json before removing it.')
 })
 
 test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares', () => {

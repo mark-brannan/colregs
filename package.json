@@ -25,6 +25,10 @@
     "images",
     "fixtures",
     "docs",
+    "schema",
     "PROVENANCE.md"
-  ]
+  ],
+  "devDependencies": {
+    "ajv": "^8.20.0"
+  }
 }
