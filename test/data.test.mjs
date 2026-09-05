@@ -113,6 +113,39 @@ test('every light named by an entry is defined in lights.json', () => {
   }
 })
 
+// --- represented_paragraphs (REQ-CAT-2): care/meta paragraphs, never entries ---
+test('every represented_paragraphs record cites a paragraph that exists in rules.json', () => {
+  for (const r of appl.represented_paragraphs ?? []) {
+    const head = r.cite.split('-')[0].trim()
+    assert.ok(rules.paragraphs[head], `${r.id} cites missing paragraph ${head}`)
+  }
+})
+
+test('no represented_paragraphs record carries a `when` or `lights`', () => {
+  for (const r of appl.represented_paragraphs ?? []) {
+    assert.ok(!('when' in r), `${r.id} carries a \`when\`; care/meta paragraphs are never evaluated as predicates`)
+    assert.ok(!('lights' in r), `${r.id} carries \`lights\`; care/meta paragraphs never produce a light output`)
+  }
+})
+
+test('every represented_paragraphs record has category care or meta', () => {
+  for (const r of appl.represented_paragraphs ?? []) {
+    assert.ok(['care', 'meta'].includes(r.category), `${r.id} has category ${r.category}, expected care or meta`)
+  }
+})
+
+test('no care or meta paragraph appears as an applicability entry (REQ-CAT-2)', () => {
+  const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite))
+  for (const e of appl.entries) {
+    assert.ok(!representedCites.has(e.cite), `${e.id} cites ${e.cite}, a care/meta paragraph; it must be in represented_paragraphs, not entries`)
+  }
+})
+
+test('categories vocabulary is a closed set of the nine ADR-0005 names', () => {
+  const expected = ['definition', 'standard', 'scope', 'display', 'classification', 'precedence', 'conduct', 'care', 'meta']
+  assert.deepEqual(Object.keys(appl.categories).sort(), expected.sort())
+})
+
 test('images: on disk, catalogued, and unchanged', () => {
   const dir = new URL('../images/', import.meta.url)
   const onDisk = new Set(readdirSync(dir))
@@ -200,6 +233,13 @@ test('every relation an entry uses is declared in applicability.json', () => {
     for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
       checkKeys(`${e.id} rel:conditional_includes[${i}]`, c)
     }
+  }
+})
+
+test('every entry modality is a value declared in applicability.json (REQ-CAT-3)', () => {
+  const declaredModalities = new Set(Object.keys(appl.modalities))
+  for (const e of appl.entries) {
+    assert.ok(declaredModalities.has(e.modality), `${e.id} uses undeclared modality ${e.modality}`)
   }
 })
 

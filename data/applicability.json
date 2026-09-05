@@ -5,14 +5,28 @@
   "rel:conditional_includes": "import lights when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks one",
   "rel:in_lieu_of": "this entry's lights replace the referenced entries' lights",
   "rel:excludes": "the referenced entries must not be shown at the same time",
-  "rel:exempts": "the referenced entries are not required"
+  "rel:exempts": "the referenced entries are not required",
+  "rel:overrides": "the superiority relation: the referencing norm's obligation displaces the referenced norm's when both apply"
  },
  "modalities": {
   "shall": "mandatory",
   "may": "permitted alternative",
   "shall-if-practicable": "mandatory where practicable, with a stated fallback",
   "conditional": "modality depends on facts; see modality_by",
-  "exempt": "the entry relieves a requirement rather than imposing one"
+  "exempt": "the entry relieves a requirement rather than imposing one",
+  "shall-not": "mandatory prohibition",
+  "shall-not-impede": "a distinct duty to avoid impeding another vessel, not a negated shall"
+ },
+ "categories": {
+  "definition": "produces vocabulary; not evaluated",
+  "standard": "produces technical values (ranges, heights); not evaluated",
+  "scope": "reads visibility, in-sight, jurisdiction; the engine derives which sections apply",
+  "display": "reads one vessel's facts; the engine derives signals and modality",
+  "classification": "reads relative geometry and history; the engine derives encounter type and risk of collision",
+  "precedence": "reads two vessels' facts plus encounter type; the engine derives give-way/stand-on/shall-not-impede/none",
+  "conduct": "reads encounter, role, phase, kinematics and observations; monitored over a trace, not evaluated at a point",
+  "care": "reads anything; produces residual responsibility; represented, never independently evaluated",
+  "meta": "reads the region state; produces a banner and advisories; computed by a solver, reviewed by humans"
  },
  "known_omissions": [
   {
@@ -39,6 +53,22 @@
    "cite": "31",
    "what": "Seaplanes and WIG craft show the closest practicable equivalent.",
    "why": "Not expressible as a light set."
+  }
+ ],
+ "represented_paragraphs": [
+  {
+   "id": "2a",
+   "jurisdiction": "intl",
+   "cite": "2(a)",
+   "category": "care",
+   "note": "Residual responsibility for every other paragraph; nothing in this package discharges it, so it is recorded rather than dropped from the model."
+  },
+  {
+   "id": "2b",
+   "jurisdiction": "intl",
+   "cite": "2(b)",
+   "category": "meta",
+   "note": "Names the region where a departure from the Rules may be necessary; scoped to level-1/2 invariant violations and computed offline by a solver as a region of situation space, never evaluated here as a predicate."
   }
  ],
  "entries": [
