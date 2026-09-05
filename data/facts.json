@@ -474,16 +474,18 @@
    }
   },
   "record": {
-   "note": "The shape, as an illustration rather than a schema. `own.fact` and `other.fact` hold the fact record defined above, verbatim. `pair` carries only the symmetric geometry. Absent is absent: a missing key never satisfies a constraint, exactly as in the one-subject evaluator.",
+   "note": "The shape, as an illustration rather than a schema. `own.fact` and `other.fact` hold the fact record defined above, verbatim. `own` and `other` carry directional geometry; `pair` carries only the symmetric geometry. Absent is absent: a missing key never satisfies a constraint, exactly as in the one-subject evaluator.",
    "shape": {
     "own": {
      "fact": "<the fact record above>",
      "kin": "<kinematics>",
+     "geo": "<directional geometry>",
      "hist": "<history>"
     },
     "other": {
      "fact": "<the fact record above>",
      "kin": "<kinematics>",
+     "geo": "<directional geometry>",
      "hist": "<history>"
     },
     "pair": {

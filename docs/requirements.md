@@ -277,16 +277,14 @@ towards, not because the shape is settled.
   `exempt`, and the relation vocabulary MUST admit `rel:overrides` as a
   sixth verb beside REQ-MODEL-7's five. Both remain closed sets; CI MUST
   fail on a value outside them, and on a cycle in `rel:overrides`.
-- **REQ-CAT-4** **(unimplemented — the situation record does not exist)** —
-  A two-subject rule MUST read a **situation record**: two per-vessel fact
-  records, a kinematic state per vessel, relative geometry, and history. The
-  per-vessel fact record MUST NOT change to accommodate it, and kinematic
+- **REQ-CAT-4** — A two-subject rule MUST read a **situation record**:
+  two per-vessel fact records, a kinematic state per vessel, relative
+  geometry, and history. The per-vessel fact record MUST NOT change to accommodate it, and kinematic
   state MUST be a distinct fact class — a consumer that reads only `display`
   entries MUST NOT be required to supply one. Adding the situation record
   MUST leave every existing fixture valid unedited.
-- **REQ-CAT-5** **(unimplemented — no two-subject data exists)** — A
-  situation MUST NOT be expressible in the current single-vessel fixture
-  format. Before any two-subject entry lands, the fixture schema MUST be
+- **REQ-CAT-5** — A situation MUST NOT be expressible in the current
+  single-vessel fixture format. Before any two-subject entry lands, the fixture schema MUST be
   extended to carry a situation and to name each subject unambiguously, and
   the extension MUST be backward-compatible with the fixtures published
   today (REQ-VERIFY-1).

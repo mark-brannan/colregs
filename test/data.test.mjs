@@ -401,10 +401,14 @@ const situationDeclared = {
     ...Object.keys(facts.enums),
   ]),
   kin: new Set(Object.keys(sit.kinematics).filter((k) => k.startsWith('kin:'))),
-  geo: new Set([
-    ...Object.keys(sit.geometry.directional),
-    ...Object.keys(sit.geometry.symmetric),
-  ]),
+  // Directional geometry is stated per vessel subject, symmetric geometry
+  // once under `pair`; the two sets are kept apart so a key placed under the
+  // wrong subject fails rather than passing on class membership alone.
+  geo: {
+    own: new Set(Object.keys(sit.geometry.directional)),
+    other: new Set(Object.keys(sit.geometry.directional)),
+    pair: new Set(Object.keys(sit.geometry.symmetric)),
+  },
   hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
 }
 
@@ -434,7 +438,7 @@ test('REQ-CAT-4: the situation section declares the classes the namespace names'
     // ever justify it (kin:dynamics is not a COLREGS concept). Silence is the
     // one thing it may not be: an absent key is an unanswered question.
     if (rec.cite === null) assert.ok('cite_pending' in rec, `${k}: null cite with no cite_pending`)
-    else assert.ok(rules.rules?.[rec.cite] ?? true)
+    else assert.ok(rules.paragraphs[rec.cite], `${k}: cite ${rec.cite} not in rules.json`)
     if (rec.type === 'enum') {
       const prefix = k.split(':').pop()
       for (const v of rec.values) {
@@ -468,7 +472,8 @@ test('REQ-CAT-5: situation fixtures are well-formed and resolve in the namespace
         assert.ok(CLASSES.has(cls), `${c.name}: unknown class ${cls}`)
         if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${c.name}: pair:${cls} is not symmetric`)
         for (const k of Object.keys(record)) {
-          assert.ok(situationDeclared[cls].has(k), `${c.name}: undeclared ${cls} fact ${k}`)
+          const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls]
+          assert.ok(declared.has(k), `${c.name}: undeclared ${cls} fact ${k} under ${subject}`)
           // Round-trip: the fully-qualified key must resolve back to the value.
           assert.equal(resolve(`${subject}:${k}`, c.situation), record[k], `${c.name}: ${subject}:${k} does not resolve`)
         }
