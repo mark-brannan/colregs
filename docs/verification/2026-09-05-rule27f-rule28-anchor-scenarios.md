@@ -91,7 +91,7 @@ corroborates the operational posture, not the signal.
 
 ### 1c. Practitioner/training material treats anchored MCM as a standard case
 
-eColregs (COLREGs training resource, EU-funded, ecolregs.com) carries four
+eColregs (COLREGs training resource, ecolregs.com) carries four
 dedicated entries specifically for the anchored case — "A vessel engaged in
 mine clearance operations at anchor — lights" and "— shapes", alongside the
 underway pair. The anchored-lights page renders three all-round green lights
@@ -139,11 +139,9 @@ well-founded; claiming it is commonly seen is not.
   (items 19, 23, 24; retrieved 2026-09-05).
 - A. N. Cockcroft & J. N. F. Lameijer, *A Guide to the Collision Avoidance
   Rules*, 6th ed. (Elsevier/Butterworth-Heinemann), commentary on Rules 3(g),
-  3(h), 3(i), 18(d), 27 and 28. Full text consulted via the copy at
-  `https://epdf.pub/guide-to-the-collision-avoidance-rules-sixth-edition.html`
-  (retrieved 2026-09-05) — note this is an unofficial mirror of a copyrighted
-  work; quotations should be re-checked against a licensed copy before being
-  relied on in a published artifact.
+  3(h), 3(i), 18(d), 27 and 28. Consulted 2026-09-05 from an unlicensed
+  online copy; excerpts below are kept short and should be re-checked against
+  a licensed edition before being quoted downstream.
 - USS *Guardian* (MCM-5) Command Operations Report 1993, Naval History and
   Heritage Command,
   `https://www.history.navy.mil/content/dam/nhhc/research/archives/command-operation-reports/ship-command-operation-reports/g/guardian-mcm-5-ii/pdf/1993.pdf`
@@ -171,17 +169,13 @@ which is merely a restatement of Rule 3(h).
 
 ### 2a. The standard commentary says so directly
 
-Cockcroft & Lameijer, comment on Rule 28, verbatim:
+Cockcroft & Lameijer, comment on Rule 28, after noting that the signal is
+optional and that without it the Rule 18 privilege does not apply:
 
-> "A vessel constrained by her draught is not required to exhibit the three
-> all-round lights in a vertical line, or the cylinder, as it is sometimes
-> difficult to know whether the restriction in ability to alter course is
-> sufficient to justify their use. If the signals are not shown the privilege
-> extended to such vessels by Rule 18 would not, of course, apply. **The three
-> red lights must be shown in conjunction with the lights for a power-driven
-> vessel under way.**"
+> "The three red lights must be shown in conjunction with the lights for a
+> power-driven vessel under way."
 
-That last sentence is the direct answer: the Rule 28 signal is defined only as
+That sentence is the direct answer: the Rule 28 signal is defined only as
 an addition to the *underway* power-driven light set. There is no anchored
 composite.
 
@@ -198,24 +192,13 @@ commentary, and the sentence is unambiguous. (Caveat as above on the copy used.)
 ### 2b. IMO's own approved guidance presupposes a vessel making way
 
 Two "guidance for the uniform application" items approved by the IMO Maritime
-Safety Committee, as reproduced in Cockcroft:
+Safety Committee, as reproduced in Cockcroft. The first (on Rule 3(h)) says
+navigable width as well as depth counts, and that a vessel with small underkeel
+clearance but adequate room to take avoiding action is not CBD. The second (on
+Rule 18(d)) says a CBD vessel
 
-> "Clarification of the definition 'Vessel constrained by her draught', Rule
-> 3(h). 'Not only the depth of water but also the available navigable water
-> width should be used as a factor to determine whether a vessel may be regarded
-> as constrained by her draught. When determining this, due account should also
-> be taken of the effect of a small underkeel clearance on the manœuvrability of
-> the vessel and thus her ability to deviate from the course she is following. A
-> vessel navigating in an area with a small underkeel clearance but with adequate
-> space to take avoiding action should not be regarded as a vessel constrained by
-> her draught.'"
-
-> "Clarification of the relation between Rule 18(d) and the Rules of Part B,
-> Sections II and III. A vessel constrained by her draught shall, when risk of
-> collision with another vessel in a crossing or head-on situation exists, apply
-> the relevant Steering and Sailing Rules as a power-driven vessel. **She should,
-> when showing the signals prescribed by Rule 28, have her engines ready for
-> immediate manœuvre and proceed at safe speed as required by Rule 6.**"
+> "should, when showing the signals prescribed by Rule 28, have her engines
+> ready for immediate manœuvre and proceed at safe speed as required by Rule 6."
 
 The second is decisive on its face: IMO's condition for *showing* the Rule 28
 signal is that the vessel proceed at a safe speed with engines ready — a
@@ -239,8 +222,10 @@ draught-based property a hull carries around with it. A ship at anchor has no
 "course she is following" to deviate from, and the amendment history shows IMO
 tightening rather than relaxing that reading.
 
-**Confidence: high** for the amendment fact (independently established in this
-repo's 2026-08-30 verification pass); **medium** for the inference drawn from it.
+**Confidence: high** for the resolution number and in-force date (confirmed in
+this repo's 2026-08-30 verification pass, CLAIM 2); **medium** for the specific
+wording change, which rests on Cockcroft alone; **medium** for the inference
+drawn from it.
 
 ### 2d. Structural: Annex I positions the Rule 28 lights relative to masthead lights
 
@@ -319,13 +304,13 @@ under-specified one.
 
 **Sources**:
 - Cockcroft & Lameijer, *A Guide to the Collision Avoidance Rules*, 6th ed.,
-  comments on Rules 3(g)–3(i), 18(d), 27, 28 (copy and caveat as cited in Q1).
+  comments on Rules 3(g)–3(i), 18(d), 27, 28 (caveat as cited in Q1).
 - IMCO resolution A.464(XII), 19 November 1981, items 38 and 44 (Annex I), via
   USCG NAVCEN, URL as cited in Q1.
 - Original 1972 COLREG text, CIL NUS, URL as cited in Q1 (Rule 3(h) pre-1987
   wording; Rule 28 unchanged since 1972).
-- IMO Assembly resolution A.626(15) — amendment history established in
-  `docs/verification/2026-08-30-q6-q8.md`, CLAIM 2.
+- IMO Assembly resolution A.626(15) — number and date confirmed in
+  `docs/verification/2026-08-30-q6-q8.md`, CLAIM 2; wording change per Cockcroft.
 - eColregs Rule 28 catalogue entries (items 89, 90, 91) and Rule 27/30 anchored
   entries (items 294, 360, 362), `https://www.ecolregs.com/`
   (retrieved 2026-09-05).
