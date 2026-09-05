@@ -242,6 +242,11 @@ is not the same thing as the lights she shows.
   `rel:overrides` against `12a1`–`12a3`, and `13a` does too. The Rule 12
   entries now read 3(c) rather than the Rule 18 rank, which is what made the
   relation necessary. `Q-40`.
+- **2026-09-05, PR #36 — the head-on classification cites 14(b).** §1 gives
+  each paragraph one category. 14(a) is `conduct` — it prescribes the
+  alteration to starboard — and 14(b) is the deeming test, which is what a
+  `classification` entry evaluates, as 13(b) is for overtaking. Entry `14a` is
+  retired and `14b` cites the paragraph it reads. `Q-45`.
 
 ## What is unchanged
 
