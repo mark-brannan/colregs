@@ -29,8 +29,10 @@ publications. Nothing here is authoritative: consult the published rules.
   page) on 2026-09-05. Rule 3(l)'s quoted term ("restricted visibility") is
   also curly in the source and transcribed as such — that part of this note
   previously and incorrectly claimed it was the only curly-quoted term in the
-  corpus; Rule 3(m) is another (pre-existing, outside this PR's diff — see
-  the open card for it).
+  corpus; Rule 3(m)'s quoted term (“Wing-In-Ground (WIG)”, with `craft`
+  outside the quotes) is the other, corrected to match the source on
+  2026-09-05 after having been transcribed with straight quotes and `craft`
+  inside the term.
 
 ## Diagrams — `images/NRHB_*.png`
 

@@ -339,21 +339,21 @@
    "directional_note": "Swapping `own` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `own:geo:rel_bearing_deg` is the bearing of the other vessel off own's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing."
   },
   "kinematics": {
-   "note": "A new fact class, not an extension of the fact record (ADR 0005 sec. 2). Absolute quantities, in the world frame, one set per vessel. Cites are `null` because the paragraphs that would justify them (Rules 6, 7, 13) are not transcribed yet -- `cite_pending` names the paragraph each is expected to hang off, so a later transcription pass can resolve them rather than invent them.",
+   "note": "A new fact class, not an extension of the fact record (ADR 0005 sec. 2). Absolute quantities, in the world frame, one set per vessel. `kin:dynamics` is the one exception left uncited -- it is not a COLREGS concept and no paragraph will ever justify it.",
    "kin:position": {
     "type": "position",
     "unit": "deg",
-    "cite": null,
-    "cite_pending": "7(b)",
-    "note": "WGS84 latitude/longitude as {\"latitude\": <deg>, \"longitude\": <deg>}. Range and bearing are derived from the pair of positions; a predicate never reads a position directly.",
+    "cite": "7(b)",
+    "cite_pending": null,
+    "note": "WGS84 latitude/longitude as {\"latitude\": <deg>, \"longitude\": <deg>}. Range and bearing are derived from the pair of positions; a predicate never reads a position directly. Rule 7(b)'s \"radar plotting or equivalent systematic observation of detected objects\" is the tracking of positions this fact supplies.",
     "actuable": true,
     "signalk": "navigation.position.value"
    },
    "kin:heading_deg": {
     "type": "number",
     "unit": "deg",
-    "cite": null,
-    "cite_pending": "13(b)",
+    "cite": "13(b)",
+    "cite_pending": null,
     "note": "True heading, 0-360, clockwise from true north. Heading, not course over ground: Rule 13(b)'s overtaking sector and Rule 14's 'reciprocal or nearly reciprocal courses' are both about where the vessel is pointing. SignalK publishes radians.",
     "actuable": true,
     "signalk": "navigation.headingTrue.value"
@@ -361,17 +361,17 @@
    "kin:sog_kn": {
     "type": "number",
     "unit": "kn",
-    "cite": null,
-    "cite_pending": "13(a)",
-    "note": "Speed over ground. Rule 13(a) overtaking is 'coming up with' another vessel, which is a speed comparison; Rule 6 safe speed reads it too.",
+    "cite": "6",
+    "cite_pending": null,
+    "note": "Speed over ground. Cited to Rule 6 ('every vessel shall at all times proceed at a safe speed'), not the originally-pending 13(a): 13(a) only states the overtaking vessel's duty and never mentions speed, and 13(b)'s overtaking test turns on relative bearing alone ('more than 22.5 degrees abaft her beam'), not on a speed comparison. Rule 6 is the paragraph that actually reads speed.",
     "actuable": true,
     "signalk": "navigation.speedOverGround.value"
    },
    "kin:rot_deg_min": {
     "type": "number",
     "unit": "deg/min",
-    "cite": null,
-    "cite_pending": "8(b)",
+    "cite": "8(b)",
+    "cite_pending": null,
     "note": "Rate of turn, positive to starboard. Read by a `conduct` monitor rather than by a predicate at a point: Rule 8(b)'s 'readily apparent' alteration is a property of a trace.",
     "actuable": true,
     "signalk": "navigation.rateOfTurn.value"
@@ -400,8 +400,8 @@
     "geo:rel_bearing_deg": {
      "type": "number",
      "unit": "deg",
-     "cite": null,
-     "cite_pending": "13(b)",
+     "cite": "13(b)",
+     "cite_pending": null,
      "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's own heading. Under `own` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- own is more than 22.5 degrees abaft the other vessel's beam.",
      "actuable": false,
      "signalk": null
@@ -411,17 +411,17 @@
     "geo:range_m": {
      "type": "number",
      "unit": "m",
-     "cite": null,
-     "cite_pending": "7(a)",
-     "note": "Distance between the two vessels. Symmetric by construction.",
+     "cite": "7(a)",
+     "cite_pending": null,
+     "note": "Distance between the two vessels. Symmetric by construction. Rule 7(a)'s 'all available means... to determine if risk of collision exists' is the duty this and the other derived-geometry facts (`geo:cpa_m`, `geo:tcpa_s`) exist to serve.",
      "actuable": false,
      "signalk": null
     },
     "geo:bearing_change_deg_min": {
      "type": "number",
      "unit": "deg/min",
-     "cite": null,
-     "cite_pending": "7(d)(i)",
+     "cite": "7(d)(i)",
+     "cite_pending": null,
      "note": "Rate of change of the compass bearing between the two vessels. Rule 7(d)(i): a bearing that does not appreciably change means risk of collision exists. The threshold is not stated in the Rules and is not fixed here.",
      "actuable": false,
      "signalk": null
@@ -429,25 +429,25 @@
     "geo:cpa_m": {
      "type": "number",
      "unit": "m",
-     "cite": null,
-     "cite_pending": "7(a)",
-     "note": "Closest point of approach on present courses and speeds. Derived, and declared so a consumer with an ARPA solution can supply it directly.",
+     "cite": "7(a)",
+     "cite_pending": null,
+     "note": "Closest point of approach on present courses and speeds. Derived, and declared so a consumer with an ARPA solution can supply it directly. See `geo:range_m` for why Rule 7(a) is the cite.",
      "actuable": false,
      "signalk": null
     },
     "geo:tcpa_s": {
      "type": "number",
      "unit": "s",
-     "cite": null,
-     "cite_pending": "7(a)",
-     "note": "Time to closest point of approach on present courses and speeds. Negative once the CPA is past.",
+     "cite": "7(a)",
+     "cite_pending": null,
+     "note": "Time to closest point of approach on present courses and speeds. Negative once the CPA is past. See `geo:range_m` for why Rule 7(a) is the cite.",
      "actuable": false,
      "signalk": null
     },
     "geo:in_sight": {
      "type": "boolean",
-     "cite": null,
-     "cite_pending": "3(k)",
+     "cite": "3(k)",
+     "cite_pending": null,
      "note": "Rule 3(k): vessels are deemed to be in sight of one another only when one can be observed visually from the other. Symmetric because the rule defines it that way, not because visibility is. This is the `scope` gate that selects Section II over Section III, and it is a fact of the pair, never of one vessel.",
      "actuable": false,
      "signalk": null
@@ -466,8 +466,8 @@
    "note": "The situation is not memoryless: Rule 13(d) latches a classification that the instantaneous geometry would later contradict. History is directional -- it is own that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
    "hist:was_overtaking": {
     "type": "boolean",
-    "cite": null,
-    "cite_pending": "13(d)",
+    "cite": "13(d)",
+    "cite_pending": null,
     "note": "This subject was, at some earlier point in this encounter, an overtaking vessel with respect to the other. Rule 13(d): any subsequent alteration of the bearing shall not make the overtaking vessel a crossing vessel, nor relieve her of the duty of keeping clear until finally past and clear. Without this fact the geometry alone reclassifies an overtaking as a crossing and hands the duty to the wrong vessel -- which is the exact error the paragraph exists to forbid.",
     "actuable": false,
     "signalk": null
@@ -475,8 +475,8 @@
    "hist:latched_at_s": {
     "type": "number",
     "unit": "s",
-    "cite": null,
-    "cite_pending": "13(d)",
+    "cite": "13(d)",
+    "cite_pending": null,
     "note": "Seconds since the latched classification first held, or null if nothing has latched. Carried so a `conduct` monitor can say when the duty attached; a predicate at a point does not read it.",
     "actuable": false,
     "signalk": null
