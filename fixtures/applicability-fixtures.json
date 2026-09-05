@@ -360,6 +360,19 @@
    ]
   },
   {
+   "name": "constrained by draft, at anchor (issue #14: Rule 28 is an underway-only signal, so Rule 30 alone)",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:anchored",
+    "fact:length_m": 200
+   },
+   "expect": [
+    "30a",
+    "30c"
+   ]
+  },
+  {
    "name": "on pilotage duty, underway",
    "facts": {
     "fact:propulsion": "propulsion:power",
@@ -381,6 +394,20 @@
    },
    "expect": [
     "27f"
+   ]
+  },
+  {
+   "name": "mine clearance, at anchor (issue #14: Rule 30 lights imported, not Rule 23)",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:mine",
+    "fact:position": "position:anchored",
+    "fact:length_m": 60
+   },
+   "expect": [
+    "27f",
+    "30a",
+    "30c"
    ]
   },
   {
