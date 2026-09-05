@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # Full history and tags: the identifier-diff test (ADR 0005) compares
+          # Full history and tags: the identifier-diff test (ADR 0006) compares
           # HEAD against the last release tag, and the default shallow, tagless
           # checkout would starve it of a baseline.
           fetch-depth: 0

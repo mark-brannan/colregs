@@ -1,4 +1,4 @@
-# ADR 0005 — JSON Schema for structural validation, identifier diff for version discipline
+# ADR 0006 — JSON Schema for structural validation, identifier diff for version discipline
 
 Date: 2026-09-04
 Status: accepted

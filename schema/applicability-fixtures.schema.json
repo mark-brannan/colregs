@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/applicability-fixtures.schema.json",
   "title": "fixtures/applicability-fixtures.json",
-  "description": "The cross-implementation contract: fact record -> expected entry ids. Structure only -- see docs/adr/0005-json-schema-and-identifier-diff.md.",
+  "description": "The cross-implementation contract: fact record -> expected entry ids. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
   "required": ["jurisdiction", "cases"],

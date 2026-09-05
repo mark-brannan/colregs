@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/images.schema.json",
   "title": "data/images.json",
-  "description": "Every catalogued image, its source and what it illustrates. Structure only -- see docs/adr/0005-json-schema-and-identifier-diff.md.",
+  "description": "Every catalogued image, its source and what it illustrates. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
   "required": ["count", "images"],

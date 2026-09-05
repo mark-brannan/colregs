@@ -2,27 +2,100 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/facts.schema.json",
   "title": "data/facts.json",
-  "description": "The input vocabulary a fact record is evaluated against. Structure only -- see docs/adr/0005-json-schema-and-identifier-diff.md.",
+  "description": "The input vocabulary a fact record is evaluated against. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["axes"],
+  "required": [
+    "axes"
+  ],
   "$defs": {
-    "factKey": { "type": "string", "pattern": "^fact:[a-z0-9_]+$" },
-    "factValue": { "type": "string", "pattern": "^[a-z_]+:[a-z0-9_]+$" },
+    "factKey": {
+      "type": "string",
+      "pattern": "^fact:[a-z0-9_]+$"
+    },
+    "factValue": {
+      "type": "string",
+      "pattern": "^[a-z_]+:[a-z0-9_]+$"
+    },
     "numericGate": {
       "type": "object",
       "additionalProperties": false,
       "minProperties": 1,
       "properties": {
-        "gte": { "type": "number" },
-        "gt": { "type": "number" },
-        "lte": { "type": "number" },
-        "lt": { "type": "number" }
+        "gte": {
+          "type": "number"
+        },
+        "gt": {
+          "type": "number"
+        },
+        "lte": {
+          "type": "number"
+        },
+        "lt": {
+          "type": "number"
+        }
+      }
+    },
+    "situationFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "cite",
+        "cite_pending",
+        "actuable"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "number",
+            "boolean",
+            "enum",
+            "position"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/factValue"
+          }
+        },
+        "cite": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cite_pending": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "note": {
+          "type": "string"
+        },
+        "actuable": {
+          "type": "boolean"
+        },
+        "signalk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     }
   },
   "properties": {
-    "note": { "type": "string" },
+    "note": {
+      "type": "string"
+    },
     "axes": {
       "type": "object",
       "additionalProperties": false,
@@ -30,18 +103,27 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["values"],
+          "required": [
+            "values"
+          ],
           "properties": {
             "values": {
               "type": "array",
               "minItems": 1,
-              "items": { "$ref": "#/$defs/factValue" }
+              "items": {
+                "$ref": "#/$defs/factValue"
+              }
             },
             "cites": {
               "type": "object",
-              "additionalProperties": { "type": "string", "minLength": 1 }
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 1
+              }
             },
-            "note": { "type": "string" }
+            "note": {
+              "type": "string"
+            }
           }
         }
       }
@@ -53,12 +135,27 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["type"],
+          "required": [
+            "type"
+          ],
           "properties": {
-            "type": { "type": "string", "enum": ["boolean", "number", "string"] },
-            "refines": { "type": "string" },
-            "note": { "type": "string" },
-            "actuable": { "type": "boolean" }
+            "type": {
+              "type": "string",
+              "enum": [
+                "boolean",
+                "number",
+                "string"
+              ]
+            },
+            "refines": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            },
+            "actuable": {
+              "type": "boolean"
+            }
           }
         }
       }
@@ -70,14 +167,34 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["type", "cite"],
+          "required": [
+            "type",
+            "cite"
+          ],
           "properties": {
-            "type": { "type": "string", "const": "number" },
-            "unit": { "type": "string" },
-            "cite": { "type": "string", "minLength": 1 },
-            "note": { "type": "string" },
-            "actuable": { "type": "boolean" },
-            "signalk": { "type": ["string", "null"] }
+            "type": {
+              "type": "string",
+              "const": "number"
+            },
+            "unit": {
+              "type": "string"
+            },
+            "cite": {
+              "type": "string",
+              "minLength": 1
+            },
+            "note": {
+              "type": "string"
+            },
+            "actuable": {
+              "type": "boolean"
+            },
+            "signalk": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
           }
         }
       }
@@ -89,11 +206,21 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["cite", "actuable"],
+          "required": [
+            "cite",
+            "actuable"
+          ],
           "properties": {
-            "cite": { "type": "string", "minLength": 1 },
-            "actuable": { "type": "boolean" },
-            "note": { "type": "string" }
+            "cite": {
+              "type": "string",
+              "minLength": 1
+            },
+            "actuable": {
+              "type": "boolean"
+            },
+            "note": {
+              "type": "string"
+            }
           }
         }
       }
@@ -105,15 +232,25 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["values", "cite"],
+          "required": [
+            "values",
+            "cite"
+          ],
           "properties": {
             "values": {
               "type": "array",
               "minItems": 1,
-              "items": { "$ref": "#/$defs/factValue" }
+              "items": {
+                "$ref": "#/$defs/factValue"
+              }
             },
-            "cite": { "type": "string", "minLength": 1 },
-            "actuable": { "type": "boolean" }
+            "cite": {
+              "type": "string",
+              "minLength": 1
+            },
+            "actuable": {
+              "type": "boolean"
+            }
           }
         }
       }
@@ -122,10 +259,14 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "note": { "type": "string" },
+        "note": {
+          "type": "string"
+        },
         "fields": {
           "type": "array",
-          "items": { "$ref": "#/$defs/factKey" }
+          "items": {
+            "$ref": "#/$defs/factKey"
+          }
         }
       }
     },
@@ -133,37 +274,307 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "source": { "type": "string" },
-        "verified": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "source": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
         "decode": {
           "type": "object",
           "additionalProperties": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "fact:propulsion": { "$ref": "#/$defs/factValue" },
-              "fact:activity": { "$ref": "#/$defs/factValue" },
-              "fact:position": { "$ref": "#/$defs/factValue" },
-              "fact:tow_length_m": { "$ref": "#/$defs/numericGate" },
-              "also_activity": { "$ref": "#/$defs/factValue" },
-              "annex_ii_signal": { "type": "string" }
+              "fact:propulsion": {
+                "$ref": "#/$defs/factValue"
+              },
+              "fact:activity": {
+                "$ref": "#/$defs/factValue"
+              },
+              "fact:position": {
+                "$ref": "#/$defs/factValue"
+              },
+              "fact:tow_length_m": {
+                "$ref": "#/$defs/numericGate"
+              },
+              "also_activity": {
+                "$ref": "#/$defs/factValue"
+              },
+              "annex_ii_signal": {
+                "type": "string"
+              }
             }
           }
         },
         "undecodable": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "lossy": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["what", "why"],
+            "required": [
+              "what",
+              "why"
+            ],
             "properties": {
-              "what": { "type": "string" },
-              "why": { "type": "string" },
-              "cite": { "type": "string" }
+              "what": {
+                "type": "string"
+              },
+              "why": {
+                "type": "string"
+              },
+              "cite": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "situation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "namespace",
+        "kinematics",
+        "geometry",
+        "history",
+        "record"
+      ],
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ink",
+            "pencil",
+            "open"
+          ]
+        },
+        "adr": {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^REQ-[A-Z]+-[0-9]+$"
+          }
+        },
+        "pencil": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "form",
+            "subjects",
+            "classes"
+          ],
+          "properties": {
+            "form": {
+              "type": "string"
+            },
+            "doc": {
+              "type": "string"
+            },
+            "subjects": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "own",
+                "other",
+                "pair"
+              ],
+              "properties": {
+                "own": {
+                  "type": "string"
+                },
+                "other": {
+                  "type": "string"
+                },
+                "pair": {
+                  "type": "string"
+                }
+              }
+            },
+            "classes": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "fact",
+                "kin",
+                "geo",
+                "hist"
+              ],
+              "properties": {
+                "fact": {
+                  "type": "string"
+                },
+                "kin": {
+                  "type": "string"
+                },
+                "geo": {
+                  "type": "string"
+                },
+                "hist": {
+                  "type": "string"
+                }
+              }
+            },
+            "bare_key": {
+              "type": "string"
+            },
+            "directional_note": {
+              "type": "string"
+            }
+          }
+        },
+        "kinematics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "note": {
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^kin:[a-z0-9_]+$": {
+              "$ref": "#/$defs/situationFact"
+            }
+          }
+        },
+        "geometry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "directional",
+            "symmetric"
+          ],
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "directional": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "note": {
+                  "type": "string"
+                }
+              },
+              "patternProperties": {
+                "^geo:[a-z0-9_]+$": {
+                  "$ref": "#/$defs/situationFact"
+                }
+              }
+            },
+            "symmetric": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "note": {
+                  "type": "string"
+                }
+              },
+              "patternProperties": {
+                "^geo:[a-z0-9_]+$": {
+                  "$ref": "#/$defs/situationFact"
+                }
+              }
+            }
+          }
+        },
+        "history": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "note": {
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^hist:[a-z0-9_]+$": {
+              "$ref": "#/$defs/situationFact"
+            }
+          }
+        },
+        "record": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "shape"
+          ],
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "shape": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "own",
+                "other",
+                "pair"
+              ],
+              "properties": {
+                "own": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "fact": {
+                      "type": "string"
+                    },
+                    "kin": {
+                      "type": "string"
+                    },
+                    "geo": {
+                      "type": "string"
+                    },
+                    "hist": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "other": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "fact": {
+                      "type": "string"
+                    },
+                    "kin": {
+                      "type": "string"
+                    },
+                    "geo": {
+                      "type": "string"
+                    },
+                    "hist": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "pair": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "geo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           }
         }

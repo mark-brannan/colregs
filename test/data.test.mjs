@@ -48,12 +48,12 @@ test('fixtures: every fact record selects exactly the expected entries', () => {
   }
 })
 
-// --- schema (ADR 0005) ------------------------------------------------------
+// --- schema (ADR 0006) ------------------------------------------------------
 // Structure only: required keys, types, additionalProperties:false, id
 // patterns, the closed modality/relation enums, and the shape of a predicate
 // or a light reference. Cross-file references (cite -> rules.json, light id
 // -> lights.json, etc.) are NOT the schema's job; they stay in the tests
-// above and below. See docs/adr/0005-json-schema-and-identifier-diff.md.
+// above and below. See docs/adr/0006-json-schema-and-identifier-diff.md.
 const loadSchema = (p) => JSON.parse(readFileSync(new URL(`../schema/${p}`, import.meta.url)))
 const schemaTargets = [
   ['data/rules.json', rules, loadSchema('rules.schema.json')],
@@ -63,6 +63,7 @@ const schemaTargets = [
   ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
   ['data/images.json', images, loadSchema('images.schema.json')],
   ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
+  ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
 ]
 
 test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
@@ -368,7 +369,7 @@ test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1
     'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
 })
 
-// --- identifier diff against the last release (ADR 0005, REQ-PKG-4) --------
+// --- identifier diff against the last release (ADR 0006, REQ-PKG-4) --------
 // Version discipline comes from an identifier diff, not the schema: a schema
 // diff would miss nearly every real break (REQ-PKG-4 defines a breaking
 // change as removal of an entry id, a fact vocabulary value, or a change in
@@ -392,6 +393,8 @@ function extractIdentifiers({ rules, lights, facts, appl }) {
       for (const val of v.values ?? []) ids.add(`fact-value:${val}`)
     }
   }
+  // facts.situation (kin:/geo:/hist:) is pencil (docs/conventions.md): ADR 0005
+  // allows it to break in v0.x, so it is deliberately not diffed until inked.
   return ids
 }
 

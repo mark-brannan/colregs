@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/geometry.schema.json",
   "title": "data/geometry.json",
-  "description": "Annex I positioning, shapes, colour and intensity. Structure only -- see docs/adr/0005-json-schema-and-identifier-diff.md.",
+  "description": "Annex I positioning, shapes, colour and intensity. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
   "required": ["jurisdiction", "vertical_positioning", "horizontal_positioning", "shapes", "colors", "intensity"],

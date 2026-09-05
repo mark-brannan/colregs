@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/rules.schema.json",
   "title": "data/rules.json",
-  "description": "Verbatim rule text keyed by paragraph path. Structure only -- see docs/adr/0005-json-schema-and-identifier-diff.md.",
+  "description": "Verbatim rule text keyed by paragraph path. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
   "required": ["source", "paragraphs"],
