@@ -168,6 +168,53 @@ identifier changes its spelling or its meaning, which is the property
 `REQ-MODEL-10` protects and the one an alternative that renamed the fact
 keys would have broken.
 
+## Effects `✎`
+
+**Pencil** (`docs/conventions.md`): ADR 0005 puts the whole two-subject shape
+there. What would settle it: a second family of `precedence` paragraphs —
+Rules 12, 14 and 15 — written against it. This section answers the data half
+of `Q-27` and is required by `REQ-CAT-8`.
+
+A `display` entry produces `lights`. A `scope` or `precedence` entry produces
+an **effect**, and the shape of the effect is fixed by the category:
+
+| category | effect |
+|---|---|
+| `scope` | `{"part", "section", "applies_rules"}` — which section of which Part governs, and the rules it contains |
+| `precedence` | `{"own": <role>, "other": <role>}` — one role per subject |
+
+Five roles, a closed set: `give-way`, `stand-on`, `shall-not-impede`,
+`keep-clear`, `none`. They are declared in `data/applicability.json` under
+`effects`, and they are **not identifiers** — like modality and jurisdiction
+values they are a closed vocabulary of their own, outside what `REQ-MODEL-10`
+binds.
+
+**The effect names both subjects, and that is the point.** A `precedence`
+entry is evaluated from own's side, so 18(a)(i) says own gives way *and* the
+other vessel stands on. Writing only own's half would lose Rule 17, which
+attaches to the counterpart of a give-way duty and to nothing else. So
+`stand-on` appears only opposite `give-way`, and the counterpart of
+`shall-not-impede` is always `none` — that is 8(f)(iii) in the data: a vessel
+whose passage is not to be impeded acquires no privilege by it. `none` is
+written rather than omitted, because a norm that confers nothing on a subject
+is a finding and not an absence: NUC against RAM is `none` on both sides, and
+that is Rule 18's partial order rather than a gap in the table.
+
+`keep-clear` is one role for the two duties 18(e) and 18(f)(i) impose together
+— keep well clear, and avoid impeding navigation. The vocabulary cannot
+separate them and does not pretend to.
+
+### Two-subject entry ids
+
+Entry ids stay citation-derived, exactly as below: `18a1` is 18(a)(i), `9c` is
+9(c), `8f3` is 8(f)(iii). Where a paragraph's subject is disjunctive — 9(b) is
+"a vessel of less than 20 metres in length **or** a sailing vessel", and a
+`when` is a conjunction — the paragraph takes two entries and the suffix names
+the half: `9b-small` and `9b-sail`, `10j-small` and `10j-sail`. That is the
+same rule the `-m2`/`-mw`/`-anc` suffixes below follow: name what
+distinguishes them, in terms a reader with the rule text in front of them can
+find.
+
 ## Entry ids
 
 An entry id is derived from the paragraph path its entry cites, lowercased

@@ -113,6 +113,7 @@ add to Rule 23 rather than replacing it. Relations between them:
 | `rel:in_lieu_of` | this entry's lights replace the referenced entries' lights |
 | `rel:excludes` | must not be shown together (25(c) and the tricolor) |
 | `rel:exempts` | the referenced requirement does not apply (30(e)) |
+| `rel:overrides` | this entry's requirement prevails over the referenced one's where both apply (13 over 18) |
 
 Where the rules permit a choice, the data keeps every lawful option instead of
 picking one. A 12 m sloop under sail has three legal displays: 25(a), the
@@ -122,6 +123,15 @@ shows depends on what's installed, and that decision belongs to the consumer.
 Modality is `shall`, `may`, `shall-if-practicable`, or `conditional` with a
 `modality_by` table when it turns on a fact (23(a)(ii) is `shall` at 50 m and
 above, `may` below).
+
+Most entries read one vessel and produce lights. A few read **two** — a
+situation, not a fact record — and produce an `effect` instead: Rules 4, 11
+and 19(a) say which section of Part B governs, and Rule 18 says which vessel
+gives way. Those carry `category` and `subjects: 2`, and address each vessel
+through a subject segment: `own:fact:activity`, `other:fact:propulsion`,
+`pair:geo:in_sight`. A key with no subject means `own:`, so nothing above
+changes. `docs/identifiers.md` has the namespace and the effect vocabulary;
+`fixtures/situation-fixtures.json` is their contract.
 
 ## What this package does not do
 

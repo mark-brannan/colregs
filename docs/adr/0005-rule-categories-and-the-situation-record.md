@@ -143,6 +143,36 @@ requirement is struck through in place and replaced by `REQ-CAT-1..5`, per
 the ID-stability rule in the requirements preamble. No requirement ID is
 reused.
 
+## Pencil changed since
+
+Logged here rather than left to a commit message, as `docs/conventions.md`
+requires of a pencil change.
+
+- **2026-09-04, PR #24 — 13(a) is `precedence`, not `classification`.** §1
+  above gives 13(a) to `classification` and says its effect on Rule 18 is a
+  relation. The relation part held: entry `13a` carries `rel:overrides`
+  against every Rule 18 entry. The category did not. 13(a) is the one
+  paragraph of Rule 13 that assigns a role — the overtaking vessel keeps out
+  of the way — and a `classification` entry produces an encounter type, with
+  nowhere to put a role. 13(b) is the classification: it is the sector test
+  that sets the `hist:was_overtaking` latch, and it is not yet written.
+  Tracked as `Q-37`; it does not disturb the one-category-per-paragraph rule,
+  which is what §1 was really defending.
+- **2026-09-04, PR #24 — a fifth fact class, `env`, `pair`-only.** §2 names
+  four classes. Rules 9 and 10 are scoped to *places*, and a narrow channel is
+  neither a vessel's fact nor the pair's geometry. `pair:env:narrow_channel`
+  and `pair:env:traffic_lane` are the addition; `fixtures/situation-fixtures.json`
+  had already recorded the gap before the class existed.
+- **2026-09-04, PR #24 — `effect` is the fourth new field.** §4 widens
+  `modality` and adds `rel:overrides`; it does not say what a norm that
+  produces no lights produces instead. `effect` is that, written up in
+  `docs/identifiers.md` §"Effects" and required by `REQ-CAT-8`.
+
+Seven things the model could not express are recorded as `Q-31`–`Q-39` in
+`docs/requirements.md` §11 rather than bent into the data. The largest is
+`Q-32`: `fact:activity` is a display axis, and a vessel's rank under Rule 18
+is not the same thing as the lights she shows.
+
 ## What is unchanged
 
 Stated plainly, because the value of the design above is mostly in what it
