@@ -42,6 +42,46 @@
         "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
       }
     },
+    "situationWhen": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
+        "^(own|other):(fact|kin|geo|hist):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
+        "^pair:(geo|env):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
+      }
+    },
+    "effectRole": {
+      "type": "string",
+      "enum": ["give-way", "stand-on", "shall-not-impede", "keep-clear", "none"]
+    },
+    "effect": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["part", "section", "applies_rules"],
+          "properties": {
+            "part": { "type": "string" },
+            "section": { "type": "string" },
+            "applies_rules": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["own", "other"],
+          "properties": {
+            "own": { "$ref": "#/$defs/effectRole" },
+            "other": { "$ref": "#/$defs/effectRole" }
+          }
+        }
+      ]
+    },
     "lightRef": {
       "type": "object",
       "additionalProperties": false,
@@ -167,6 +207,26 @@
         "meta": { "type": "string" }
       }
     },
+    "effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["roles"],
+      "properties": {
+        "note": { "type": "string" },
+        "roles": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["give-way", "stand-on", "shall-not-impede", "keep-clear", "none"],
+          "properties": {
+            "give-way": { "type": "string" },
+            "stand-on": { "type": "string" },
+            "shall-not-impede": { "type": "string" },
+            "keep-clear": { "type": "string" },
+            "none": { "type": "string" }
+          }
+        }
+      }
+    },
     "known_omissions": {
       "type": "array",
       "items": {
@@ -201,16 +261,22 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "jurisdiction", "cite", "when", "lights", "modality"],
+        "required": ["id", "jurisdiction", "cite", "when", "modality"],
         "properties": {
           "id": { "$ref": "#/$defs/entryId" },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "cite": { "type": "string", "minLength": 1 },
-          "when": { "$ref": "#/$defs/when" },
+          "category": {
+            "type": "string",
+            "enum": ["definition", "standard", "scope", "display", "classification", "precedence", "conduct", "care", "meta"]
+          },
+          "subjects": { "type": "integer", "const": 2 },
+          "when": { "$ref": "#/$defs/situationWhen" },
           "lights": {
             "type": "array",
             "items": { "$ref": "#/$defs/lightRef" }
           },
+          "effect": { "$ref": "#/$defs/effect" },
           "modality": { "$ref": "#/$defs/modality" },
           "modality_by": { "$ref": "#/$defs/modalityBy" },
           "images": {
@@ -219,6 +285,9 @@
             "items": { "type": "string", "minLength": 1 }
           },
           "notes": { "type": "string" },
+          "note": { "type": "string" },
+          "gap": { "type": "string", "minLength": 1 },
+          "no_gate_note": { "type": "string", "minLength": 1 },
           "rel:includes": { "$ref": "#/$defs/entryIdList" },
           "rel:conditional_includes": {
             "type": "array",
@@ -227,8 +296,27 @@
           },
           "rel:in_lieu_of": { "$ref": "#/$defs/entryIdList" },
           "rel:excludes": { "$ref": "#/$defs/entryIdList" },
-          "rel:exempts": { "$ref": "#/$defs/entryIdList" }
-        }
+          "rel:exempts": { "$ref": "#/$defs/entryIdList" },
+          "rel:overrides": { "$ref": "#/$defs/entryIdList" }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "subjects": { "const": 2 } },
+              "required": ["subjects"]
+            },
+            "then": {
+              "properties": { "category": {}, "effect": {} },
+              "required": ["category", "effect"],
+              "not": { "properties": { "lights": {} }, "required": ["lights"] }
+            },
+            "else": {
+              "properties": { "lights": {} },
+              "required": ["lights"],
+              "not": { "properties": { "effect": {} }, "required": ["effect"] }
+            }
+          }
+        ]
       }
     }
   }

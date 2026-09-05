@@ -719,7 +719,8 @@ test('REQ-CAT-6: every fact a two-subject predicate reads resolves in the situat
       assert.ok(CLASSES.has(cls), `${e.id}: unknown class in ${k}`)
       if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${e.id}: pair:${cls} is not symmetric`)
       else assert.ok(cls !== 'env', `${e.id}: env is a fact of the pair, never of a vessel`)
-      assert.ok(situationDeclared[cls].has(local), `${e.id}: undeclared ${cls} fact ${local} in ${k}`)
+      const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls]
+      assert.ok(declared.has(local), `${e.id}: undeclared ${cls} fact ${local} in ${k}`)
     }
   }
 })

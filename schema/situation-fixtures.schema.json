@@ -23,7 +23,9 @@
         "may",
         "shall-if-practicable",
         "conditional",
-        "exempt"
+        "exempt",
+        "shall-not",
+        "shall-not-impede"
       ]
     },
     "expectItem": {
@@ -122,6 +124,15 @@
         }
       }
     },
+    "envRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^env:[a-z0-9_]+$": {
+          "$ref": "#/$defs/scalar"
+        }
+      }
+    },
     "vessel": {
       "type": "object",
       "additionalProperties": false,
@@ -174,6 +185,12 @@
     "jurisdiction": {
       "type": "string",
       "pattern": "^[a-z]+(/[a-z]+)*$"
+    },
+    "override_note": {
+      "type": "string"
+    },
+    "expect_scope": {
+      "type": "string"
     },
     "expect_form": {
       "type": "object",
@@ -287,6 +304,9 @@
                 "properties": {
                   "geo": {
                     "$ref": "#/$defs/geoRecord"
+                  },
+                  "env": {
+                    "$ref": "#/$defs/envRecord"
                   }
                 }
               }

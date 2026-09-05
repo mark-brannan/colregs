@@ -2018,6 +2018,166 @@
    }
   },
   {
+   "name": "9(b) length boundary: 19.9 m power-driven vessel in a narrow channel",
+   "status": "binding",
+   "narrative": "REQ-VERIFY-5: the `own:fact:length_m: {lt: 20}` gate on 9b-small, isolated from 9b-sail and 18a4 by keeping both vessels power-driven -- neither entry's other predicates fire, so only the length gate decides.",
+   "expect": [
+    "11",
+    "4",
+    {
+     "entry": "9b-small",
+     "modality": "shall-not-impede"
+    }
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 19.9
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": true,
+      "env:traffic_lane": false
+     }
+    }
+   }
+  },
+  {
+   "name": "9(b) length boundary: 20.0 m power-driven vessel in a narrow channel",
+   "status": "binding",
+   "narrative": "The other side of the same gate: at exactly 20 m, 9b-small no longer applies, and nothing else in this situation does either.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 20
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": true,
+      "env:traffic_lane": false
+     }
+    }
+   }
+  },
+  {
+   "name": "10(j) length boundary: 19.9 m power-driven vessel in a traffic separation scheme",
+   "status": "binding",
+   "narrative": "REQ-VERIFY-5: the twin gate on 10j-small. Both vessels power-driven, other following the lane, so only the length gate decides.",
+   "expect": [
+    "11",
+    "4",
+    {
+     "entry": "10j-small",
+     "modality": "shall-not-impede"
+    }
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 19.9
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
+  },
+  {
+   "name": "10(j) length boundary: 20.0 m power-driven vessel in a traffic separation scheme",
+   "status": "binding",
+   "narrative": "The other side of the same gate: at exactly 20 m, 10j-small no longer applies.",
+   "expect": [
+    "11",
+    "4"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 20
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     },
+     "env": {
+      "env:narrow_channel": false,
+      "env:traffic_lane": true
+     }
+    }
+   }
+  },
+  {
    "name": "10(j) does not apply: a sailing vessel and another sailing vessel in a scheme",
    "status": "binding",
    "narrative": "The negative case for 10(j)'s `other:fact:propulsion` gate: the other vessel is not power-driven, so neither 10(j) entry fires and Rule 18 says nothing between two sailing vessels either. Rule 12 would, and is not modelled.",
