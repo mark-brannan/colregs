@@ -113,15 +113,16 @@ add to Rule 23 rather than replacing it. Relations between them:
 | `rel:in_lieu_of` | this entry's lights replace the referenced entries' lights |
 | `rel:excludes` | must not be shown together (25(c) and the tricolor) |
 | `rel:exempts` | the referenced requirement does not apply (30(e)) |
+| `rel:overrides` | the superiority relation: this paragraph's requirement prevails over the referenced one's when both apply (Rule 18's "except where Rules 9, 10 and 13 otherwise require") |
 
 Where the rules permit a choice, the data keeps every lawful option instead of
 picking one. A 12 m sloop under sail has three legal displays: 25(a), the
 25(b) tricolor, or 25(a) plus the 25(c) red-over-green. Which one a given boat
 shows depends on what's installed, and that decision belongs to the consumer.
 
-Modality is `shall`, `may`, `shall-if-practicable`, or `conditional` with a
-`modality_by` table when it turns on a fact (23(a)(ii) is `shall` at 50 m and
-above, `may` below).
+Modality is `shall`, `may`, `shall-if-practicable`, `shall-not`,
+`shall-not-impede`, or `conditional` with a `modality_by` table when it turns
+on a fact (23(a)(ii) is `shall` at 50 m and above, `may` below).
 
 ## What this package does not do
 

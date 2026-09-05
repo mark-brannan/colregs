@@ -266,17 +266,18 @@ towards, not because the shape is settled.
   fail on a value outside the set. Where a paragraph plays a second role,
   that role MUST be expressed as a relation (REQ-CAT-3), never as a second
   category.
-- **REQ-CAT-2** **(unimplemented — no registry file exists)** — `care` and
-  `meta` paragraphs (Rules 2(a) and 2(b)) MUST NOT be applicability entries.
-  They MUST be recorded in a registry sibling to `known_omissions`, stating
-  that the package represents them and evaluates neither. CI MUST fail on a
-  `care` or `meta` paragraph that appears as an entry.
-- **REQ-CAT-3** **(unimplemented — the vocabularies are not widened yet)** —
-  The modality vocabulary MUST admit `shall-not` and `shall-not-impede`
-  alongside `shall`, `may`, `shall-if-practicable`, `conditional` and
-  `exempt`, and the relation vocabulary MUST admit `rel:overrides` as a
-  sixth verb beside REQ-MODEL-7's five. Both remain closed sets; CI MUST
-  fail on a value outside them, and on a cycle in `rel:overrides`.
+- **REQ-CAT-2** — `care` and `meta` paragraphs (Rules 2(a) and 2(b)) MUST NOT
+  be applicability entries. They MUST be recorded in a registry sibling to
+  `known_omissions`, stating that the package represents them and evaluates
+  neither. CI MUST fail on a `care` or `meta` paragraph that appears as an
+  entry.
+- **REQ-CAT-3** **(unimplemented in part — no entry uses `rel:overrides` yet,
+  so its cycle check is unbuilt)** — The modality vocabulary MUST admit
+  `shall-not` and `shall-not-impede` alongside `shall`, `may`,
+  `shall-if-practicable`, `conditional` and `exempt`, and the relation
+  vocabulary MUST admit `rel:overrides` as a sixth verb beside REQ-MODEL-7's
+  five. Both remain closed sets; CI MUST fail on a value outside them, and on
+  a cycle in `rel:overrides`.
 - **REQ-CAT-4** — A two-subject rule MUST read a **situation record**:
   two per-vessel fact records, a kinematic state per vessel, relative
   geometry, and history. The per-vessel fact record MUST NOT change to accommodate it, and kinematic

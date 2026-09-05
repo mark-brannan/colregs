@@ -45,8 +45,8 @@ these files, which `test/data.test.mjs` enforces exhaustively:
   `when` (predicate over facts) → `lights` → `modality` → `cite`
   (paragraph path) → `jurisdiction`. Entries cross-reference each other by
   id via `rel:includes` / `rel:conditional_includes` / `rel:in_lieu_of` /
-  `rel:excludes` / `rel:exempts` (semantics in README.md — **read it before editing an entry's
-  relations**, the five verbs are not interchangeable).
+  `rel:excludes` / `rel:exempts` / `rel:overrides` (semantics in README.md — **read it before
+  editing an entry's relations**, the six verbs are not interchangeable).
 - **`data/facts.json`** — the input vocabulary: three orthogonal axes
   (`fact:propulsion`, `fact:activity`, `fact:position`) plus scalar facts, and the
   `navigation.state` (SignalK) → axes decode table.
