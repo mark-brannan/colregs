@@ -1156,7 +1156,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   judgement. Settled by deciding whether the vocabulary gains one — `Q-31`'s
   neighbour, not its duplicate.
 - **Q-43** — **The partition needs history to be present, and says nothing when
-  it is absent.** `14a` and `15a-crossing` are gated on `hist:was_overtaking`
+  it is absent.** `14b` and `15a-crossing` are gated on `hist:was_overtaking`
   being `false` on both subjects, which is 13(d)'s requirement and the only way
   the three encounter types stay disjoint once the latch is set. Because absent
   is absent, a situation that omits the fact is classified as *no encounter at

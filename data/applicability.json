@@ -105,6 +105,11 @@
    "cite": "13(c), 14(c)",
    "what": "When a vessel is in any doubt as to whether she is overtaking, or whether a head-on situation exists, she shall assume that it is the case and act accordingly.",
    "why": "Doubt is a state of the observer, not a fact of the situation, and the one thing the predicate language will not do is fire on an absent fact -- which is the nearest thing to doubt it has. Modelling these would mean either a `doubt` boolean, which asks a consumer to report a mental state, or reading absence as assertion, which reverses the rule the whole language is built on. 12(a)(iii) is the same shape and is modelled, only because 12(b) makes the uncertainty a value of a fact that is present. Q-41."
+  },
+  {
+   "cite": "14(a)",
+   "what": "When two power-driven vessels are meeting on reciprocal or nearly reciprocal courses so as to involve risk of collision each shall alter her course to starboard so that each shall pass on the port side of the other.",
+   "why": "`conduct`, not `classification`: the paragraph states the situation in words and prescribes the action, and 14(b) is the paragraph that deems the situation to exist -- entry 14b cites it. The action is monitored over a trace rather than evaluated at a point (ADR 0005 sec. 1), and no conduct entry shape exists yet. Q-45."
   }
  ],
  "represented_paragraphs": [
@@ -124,12 +129,13 @@
   }
  ],
  "retired_entry_ids": {
-  "note": "Entry ids that existed and no longer do. REQ-MODEL-10 makes an identifier immutable, which means a retired id is never reused for a different entry -- recorded here so that a later session cannot reuse one by accident. Nothing in this package has shipped a Part B entry, so retiring these four costs no consumer anything; that will not be true a second time.",
+  "note": "Entry ids that existed and no longer do. REQ-MODEL-10 makes an identifier immutable, which means a retired id is never reused for a different entry -- recorded here so that a later session cannot reuse one by accident. Nothing in this package has shipped a Part B entry, so retiring these costs no consumer anything; that will not be true a second time.",
   "ids": {
    "9b-small": "Collapsed into `9b` when `any_of` gave the predicate language a disjunction; 9(b)'s subject needed two entries only because a `when` was a conjunction.",
    "9b-sail": "Collapsed into `9b`, same reason.",
    "10j-small": "Collapsed into `10j`, same reason.",
-   "10j-sail": "Collapsed into `10j`, same reason."
+   "10j-sail": "Collapsed into `10j`, same reason.",
+   "14a": "Renamed `14b` when the head-on classification moved its cite from 14(a) to 14(b), the deeming paragraph it reads; 14(a) is conduct and is in known_omissions. Never shipped. Q-45."
   }
  },
  "entries": [
@@ -1912,13 +1918,13 @@
    "effect": {
     "encounter": "overtaking"
    },
-   "note": "The latch, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on 14a and 15a-crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids.",
+   "note": "The latch, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on 14b and 15a-crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids.",
    "gap": "'Until she is finally past and clear' is the paragraph's own end condition and nothing in the fact vocabulary carries it, so in this model the latch never clears. A consumer sets and clears `hist:was_overtaking` itself. Recorded rather than approximated with a range or a bearing: past and clear is a seamanship judgement, and inventing a threshold for it would be the kind of number Q-40's neighbours are about. Q-47."
   },
   {
-   "id": "14a",
+   "id": "14b",
    "jurisdiction": "intl",
-   "cite": "14(a)",
+   "cite": "14(b)",
    "category": "classification",
    "subjects": 2,
    "when": {
@@ -1955,8 +1961,8 @@
    "effect": {
     "encounter": "head-on"
    },
-   "note": "Both vessels see the other ahead or nearly ahead, which is 14(b)'s deeming test and the geometry behind 14(a)'s 'reciprocal or nearly reciprocal courses'. Both bearings are read, not one: a single vessel with the other fine on the bow is not a head-on situation unless she is also fine on the other's bow, and reading one bearing alone would have swallowed part of the crossing sector. The half-angle is declared once in facts.json `situation.constants.head_on_half_angle_deg`. 14(a)'s own requirement -- each shall alter her course to starboard -- is `conduct` and is not modelled here; this entry classifies the situation and stops.",
-   "gap": "The predicate spans two paragraphs: 14(a) states the situation and 14(b) fixes the geometry that deems it to exist. The paragraph is supposed to be the unit (ADR 0001), and 13(a)/13(b) split the same way into two entries because 13(a) also produces a role. Here there is nothing for a second entry to produce, so one entry cites 14(a) and reads 14(b). Q-45. The history gates are the other departure: they are 13(d)'s, not Rule 14's, and they are what keeps the three encounter types a partition -- their price is that a situation which omits `hist:was_overtaking` is classified as no encounter at all rather than as a head-on. Q-43."
+   "note": "14(b)'s deeming test: both vessels see the other ahead or nearly ahead. Both bearings are read, not one: a single vessel with the other fine on the bow is not a head-on situation unless she is also fine on the other's bow, and reading one bearing alone would have swallowed part of the crossing sector. The half-angle is declared once in facts.json `situation.constants.head_on_half_angle_deg`. Cites 14(b) and not 14(a) because the deeming paragraph is the classification, exactly as 13b-overtaking and 13b-overtaken cite 13(b): 14(a) states the situation in words -- 'reciprocal or nearly reciprocal courses' -- and imposes the duty, each shall alter her course to starboard, which is `conduct`, is not modelled, and is in known_omissions. Q-45.",
+   "gap": "The history gates are 13(d)'s, not Rule 14's, and they are what keeps the three encounter types a partition -- their price is that a situation which omits `hist:was_overtaking` is classified as no encounter at all rather than as a head-on. Q-43."
   },
   {
    "id": "15a-crossing",
@@ -2020,7 +2026,7 @@
    "effect": {
     "encounter": "crossing"
    },
-   "note": "The residual, and derived rather than written as its own sector. Not overtaking is `not` over the very constraint 13b-overtaking uses, on both subjects, so the sector and its complement cannot drift apart and the 112.5 edge lands in exactly one of them. Not head-on is `not` over 14a's cone, on either subject -- the negation of a conjunction, which is why it is an `any_of` and not two constraints. Nothing here enumerates a crossing sector, and that is the point: the only way for the three encounter types to overlap or to leave a bearing unclassified is for someone to edit one of the two constraints without editing the other, and there is only one of each.",
+   "note": "The residual, and derived rather than written as its own sector. Not overtaking is `not` over the very constraint 13b-overtaking uses, on both subjects, so the sector and its complement cannot drift apart and the 112.5 edge lands in exactly one of them. Not head-on is `not` over 14b's cone, on either subject -- the negation of a conjunction, which is why it is an `any_of` and not two constraints. Nothing here enumerates a crossing sector, and that is the point: the only way for the three encounter types to overlap or to leave a bearing unclassified is for someone to edit one of the two constraints without editing the other, and there is only one of each.",
    "gap": "15(a) says 'two power-driven vessels', which this reads as 3(b)'s definition and nothing more, so a vessel not under command is inside it -- she is power-driven. That is deliberate for the classification: the encounter really is a crossing. The rank gate lives on 15a-give-way instead, because it is the role and not the geometry that Rule 18 displaces."
   },
   {
