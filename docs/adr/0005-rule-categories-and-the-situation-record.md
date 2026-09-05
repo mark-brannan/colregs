@@ -262,6 +262,14 @@ is not the same thing as the lights she shows.
   latch and by 13(b)'s sector, and a test pins that so the absence stays a
   reason rather than an oversight. `Q-40`.
 
+  The line this draws, since it is the second time the question has come up:
+  a condition on whether a paragraph *applies at all* belongs in the
+  predicate, and a condition on which of two applicable paragraphs *wins*
+  belongs in a relation. Rule 15 does apply to a fishing vessel under power;
+  what Rule 18 does is displace the role it assigns. Writing that as a gate
+  did not merely put the reason somewhere a test could not read it — it lost
+  the cases where the displacing paragraph is silent.
+
 ## What is unchanged
 
 Stated plainly, because the value of the design above is mostly in what it
