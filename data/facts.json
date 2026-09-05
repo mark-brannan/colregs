@@ -454,8 +454,8 @@
     },
     "geo:risk_of_collision": {
      "type": "boolean",
-     "cite": null,
-     "cite_pending": "7(a)",
+     "cite": "7(a)",
+     "cite_pending": null,
      "note": "Risk of collision exists between the two vessels. Rule 7 is the whole apparatus for determining it and Rule 7(a) makes it a judgement on all available means, so this is supplied by the consumer rather than derived here from a bearing-change threshold this package declines to fix. Read by 8(f)(iii), and by every Section II conduct rule when those land.",
      "actuable": false,
      "signalk": null
@@ -507,16 +507,16 @@
    "note": "Where the encounter is happening. `pair` only, and symmetric by construction: both vessels are in the same channel or the same scheme. Declared because Rules 9 and 10 are scoped to places, and a place is neither a vessel's fact nor the pair's geometry. These are booleans a consumer sets from a chart or an ENC; nothing here derives them from a position.",
    "env:narrow_channel": {
     "type": "boolean",
-    "cite": null,
-    "cite_pending": "9(a)",
+    "cite": "9(a)",
+    "cite_pending": null,
     "note": "The encounter is in or near a narrow channel or fairway. Does not say which vessel can safely navigate only within it -- that is a further fact Rule 9(b) and 9(d) need and this package does not yet carry.",
     "actuable": false,
     "signalk": null
    },
    "env:traffic_lane": {
     "type": "boolean",
-    "cite": null,
-    "cite_pending": "10(a)",
+    "cite": "10(a)",
+    "cite_pending": null,
     "note": "The encounter is within a traffic separation scheme adopted by the Organization. Does not say which vessel is following a lane, which Rules 10(i) and 10(j) need.",
     "actuable": false,
     "signalk": null
