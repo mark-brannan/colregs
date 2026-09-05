@@ -10,7 +10,7 @@
     "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)?$" },
     "modality": {
       "type": "string",
-      "enum": ["shall", "may", "shall-if-practicable", "conditional", "exempt"]
+      "enum": ["shall", "may", "shall-if-practicable", "conditional", "exempt", "shall-not", "shall-not-impede"]
     },
     "predicateValue": {
       "oneOf": [
@@ -107,26 +107,64 @@
         "rel:conditional_includes",
         "rel:in_lieu_of",
         "rel:excludes",
-        "rel:exempts"
+        "rel:exempts",
+        "rel:overrides"
       ],
       "properties": {
         "rel:includes": { "type": "string" },
         "rel:conditional_includes": { "type": "string" },
         "rel:in_lieu_of": { "type": "string" },
         "rel:excludes": { "type": "string" },
-        "rel:exempts": { "type": "string" }
+        "rel:exempts": { "type": "string" },
+        "rel:overrides": { "type": "string" }
       }
     },
     "modalities": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["shall", "may", "shall-if-practicable", "conditional", "exempt"],
+      "required": [
+        "shall",
+        "may",
+        "shall-if-practicable",
+        "conditional",
+        "exempt",
+        "shall-not",
+        "shall-not-impede"
+      ],
       "properties": {
         "shall": { "type": "string" },
         "may": { "type": "string" },
         "shall-if-practicable": { "type": "string" },
         "conditional": { "type": "string" },
-        "exempt": { "type": "string" }
+        "exempt": { "type": "string" },
+        "shall-not": { "type": "string" },
+        "shall-not-impede": { "type": "string" }
+      }
+    },
+    "categories": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definition",
+        "standard",
+        "scope",
+        "display",
+        "classification",
+        "precedence",
+        "conduct",
+        "care",
+        "meta"
+      ],
+      "properties": {
+        "definition": { "type": "string" },
+        "standard": { "type": "string" },
+        "scope": { "type": "string" },
+        "display": { "type": "string" },
+        "classification": { "type": "string" },
+        "precedence": { "type": "string" },
+        "conduct": { "type": "string" },
+        "care": { "type": "string" },
+        "meta": { "type": "string" }
       }
     },
     "known_omissions": {
@@ -139,6 +177,21 @@
           "cite": { "type": "string", "minLength": 1 },
           "what": { "type": "string", "minLength": 1 },
           "why": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "represented_paragraphs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "jurisdiction", "cite", "category", "note"],
+        "properties": {
+          "id": { "$ref": "#/$defs/entryId" },
+          "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+          "cite": { "type": "string", "minLength": 1 },
+          "category": { "type": "string", "enum": ["care", "meta"] },
+          "note": { "type": "string", "minLength": 1 }
         }
       }
     },
