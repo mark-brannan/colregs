@@ -7,8 +7,10 @@ publications. Nothing here is authoritative: consult the published rules.
 
 - **Source:** USCG Navigation Center, *Navigation Rules, International —
   Inland* (amalgamated), <https://www.navcen.uscg.gov/navigation-rules-amalgamated>
-- **Retrieved:** 2026-08-29
-- **Scope:** the **International** text only. The amalgamated page marks
+- **Retrieved:** 2026-09-04 (re-fetched to add Rules 1-19; originally 2026-08-29
+  for Part C)
+- **Scope:** the **International** text only, now covering Parts A and B
+  (Rules 1-19) and Part C (Rules 20-31). The amalgamated page marks
   inland-only inserts and international-only variants inline; inland text was
   removed and international variants kept. Nothing was paraphrased.
 - **Rights:** a work of the US Government, not subject to copyright in the
@@ -17,6 +19,18 @@ publications. Nothing here is authoritative: consult the published rules.
   reconstruct it from memory, `rules.json` records it under `gaps` and the
   paragraph is omitted. 24(g) covers inconspicuous, partly submerged tows and
   is outside the applicability table in this release.
+- **Known quirks kept verbatim:** the source's own text of Rule 1(c) repeats
+  "special rules ... special rules made" and Rule 13(b) reads "coming up with
+  a another vessel" (sic), and Rule 10(c) reads "A vessel, shall so far as
+  practicable, avoid crossing traffic lanes" — comma placement that doesn't
+  match the official COLREGS text. All three are transcribed exactly as the
+  source HTML has them rather than silently corrected; confirmed by
+  re-fetching and grepping the raw source HTML directly (not the rendered
+  page) on 2026-09-05. Rule 3(l)'s quoted term ("restricted visibility") is
+  also curly in the source and transcribed as such — that part of this note
+  previously and incorrectly claimed it was the only curly-quoted term in the
+  corpus; Rule 3(m) is another (pre-existing, outside this PR's diff — see
+  the open card for it).
 
 ## Diagrams — `images/NRHB_*.png`
 
