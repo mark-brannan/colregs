@@ -810,11 +810,16 @@
     225,
     325
    ],
-   "source_url": null,
-   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
-   "retrieved": "2026-08-29",
-   "rights": "unverified - see PROVENANCE.md",
-   "provenance_status": "unresolved"
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/mastheadarc.gif",
+   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+   "retrieved": "2026-09-05",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Masthead Light"
+   ],
+   "paragraphs": [
+    "21(a)"
+   ]
   },
   "portarc.gif": {
    "file": "portarc.gif",
@@ -824,11 +829,16 @@
     225,
     325
    ],
-   "source_url": null,
-   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
-   "retrieved": "2026-08-29",
-   "rights": "unverified - see PROVENANCE.md",
-   "provenance_status": "unresolved"
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/portarc.gif",
+   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+   "retrieved": "2026-09-05",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Port SideLight"
+   ],
+   "paragraphs": [
+    "21(b)"
+   ]
   },
   "stbdarc.gif": {
    "file": "stbdarc.gif",
@@ -838,11 +848,16 @@
     225,
     325
    ],
-   "source_url": null,
-   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
-   "retrieved": "2026-08-29",
-   "rights": "unverified - see PROVENANCE.md",
-   "provenance_status": "unresolved"
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/stbdarc.gif",
+   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+   "retrieved": "2026-09-05",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Starboard SideLight"
+   ],
+   "paragraphs": [
+    "21(b)"
+   ]
   },
   "sternarc.gif": {
    "file": "sternarc.gif",
@@ -852,11 +867,16 @@
     225,
     325
    ],
-   "source_url": null,
-   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
-   "retrieved": "2026-08-29",
-   "rights": "unverified - see PROVENANCE.md",
-   "provenance_status": "unresolved"
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/sternarc.gif",
+   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+   "retrieved": "2026-09-05",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Stern Light"
+   ],
+   "paragraphs": [
+    "21(c)"
+   ]
   },
   "towingarc.gif": {
    "file": "towingarc.gif",
@@ -866,11 +886,17 @@
     225,
     325
    ],
-   "source_url": null,
-   "source": "carried over from mark-brannan/signalk-auto-nav-lights images/; believed USCG, original page not located",
-   "retrieved": "2026-08-29",
-   "rights": "unverified - see PROVENANCE.md",
-   "provenance_status": "unresolved"
+   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/towingarc.gif",
+   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+   "retrieved": "2026-09-05",
+   "rights": "US Government work, public domain (17 U.S.C. 105)",
+   "captions": [
+    "Towing Light"
+   ],
+   "paragraphs": [
+    "21(d)",
+    "24(a)(iv)"
+   ]
   }
  }
 }
