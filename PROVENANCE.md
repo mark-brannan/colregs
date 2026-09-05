@@ -33,6 +33,14 @@ publications. Nothing here is authoritative: consult the published rules.
   outside the quotes) is the other, corrected to match the source on
   2026-09-05 after having been transcribed with straight quotes and `craft`
   inside the term.
+- **Inland-only inserts deliberately absent:** the source marks Inland
+  text with `‹‹ ››`. Rule 21(a) and 21(b)'s "vessel of less than 12 meters
+  … as nearly as practicable to the fore and aft centerline" clauses and
+  Rule 23(b)'s "where it can best be seen" are such inserts and are not in
+  `rules.json`; Rule 29(b)'s "similar" is in the International text and is
+  kept. Verified 2026-09-05 against the raw source HTML, 33 CFR 83 (eCFR)
+  and the 1972 treaty text (UNTS Vol. 1050) — see
+  `docs/verification/2026-08-30-q6-q8.md`, Claim 1 correction.
 
 ## Diagrams — `images/NRHB_*.png`
 
