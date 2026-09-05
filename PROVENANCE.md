@@ -21,8 +21,13 @@ publications. Nothing here is authoritative: consult the published rules.
   is outside the applicability table in this release.
 - **Known quirks kept verbatim:** the source's own text of Rule 1(c) repeats
   "special rules ... special rules made" and Rule 13(b) reads "coming up with
-  a another vessel" (sic). Both are transcribed exactly as the source has
-  them rather than silently corrected.
+  a another vessel" (sic). Rule 3(l) uses curly quotes ("restricted
+  visibility") where every other quoted term in the source uses straight
+  quotes, and Rule 10(c) reads "A vessel, shall so far as practicable, avoid
+  crossing traffic lanes" — comma placement that doesn't match the official
+  COLREGS text. All four are transcribed exactly as the source HTML has them
+  rather than silently corrected; confirmed by re-fetching and grepping the
+  raw source HTML directly (not the rendered page) on 2026-09-05.
 
 ## Diagrams — `images/NRHB_*.png`
 
