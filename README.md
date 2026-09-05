@@ -17,6 +17,7 @@ data/facts.json          the fact record, and how to decode SignalK navigation.s
 data/applicability.json  predicate -> lights, each entry also carrying modality, citation, jurisdiction
 data/geometry.json       Annex I: heights, spacings, colour, intensity
 data/images.json         every image, its source, and what it illustrates
+data/deprecated-identifiers.json  retired identifiers: what they denoted, when, and their replacement
 images/                  38 USCG diagrams + 5 arc GIFs
 fixtures/                fact records and the entries that apply to them
 ```
