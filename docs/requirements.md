@@ -1200,7 +1200,9 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   starboard"); the duty is `conduct`, and the words are what 14(b) makes
   checkable. So the entry is `14b`, cites 14(b), and reads nothing 14(b) does
   not fix; 14(a) joins `known_omissions` as conduct beside 18(d)(ii), and
-  `14a` is retired in `retired_entry_ids` — nothing has shipped it. The
+  `14a` is retired in `retired_entry_ids` and, because v0.1.3 shipped it,
+  recorded in `data/deprecated-identifiers.json` with `14b` as its
+  replacement — the registry's first record (REQ-MODEL-11). The
   general question — whether a paragraph with no effect of its own gets an
   entry — is `Q-39`'s and is untouched; this paragraph turned out not to be an
   instance of it.
