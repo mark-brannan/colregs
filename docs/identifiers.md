@@ -57,6 +57,117 @@ Only enumerated facts have a value namespace. Numeric facts
 (`fact:length_m`) take numbers and booleans (`fact:composite_unit`) take
 `true`/`false`; there is nothing to prefix.
 
+A two-subject predicate prefixes a **subject** segment onto the forms above
+and adds three fact classes of its own (`kin:`, `geo:`, `hist:`). That is
+pencil and is the next section.
+
+## Two subjects `✎`
+
+**Pencil** (`docs/conventions.md`): ADR 0005 puts the whole two-subject shape
+in pencil and v0.x allows the break, so any session may change this section
+for a better idea, logging the change. What would settle it: the first
+two-subject entry — Rule 18 — actually being written against it. This
+section answers `Q-28`.
+
+A `display` entry reads one vessel. A `classification` or `precedence`
+entry reads two, and needs to say *whose* `fact:activity` it means. The form
+is three segments:
+
+```
+<subject>:<class>:<key>
+```
+
+| segment | values |
+|---|---|
+| subject | `own`, `other`, `pair` |
+| class | `fact`, `kin`, `geo`, `hist` |
+| key | the identifier as it already exists, or a new one in a new class |
+
+`own:fact:activity`, `other:kin:heading_deg`, `pair:geo:in_sight`,
+`own:hist:was_overtaking`.
+
+**A key with no subject segment means `own:`.** This is the whole of the
+backward-compatibility story and it is why the subject is a *prefix* rather
+than a change to the fact keys. `fact:activity` still spells `fact:activity`
+and still denotes what it always denoted, so every predicate in
+`data/applicability.json`, every fixture in
+`fixtures/applicability-fixtures.json` and every stored citation a consumer
+holds stays correct unedited — `REQ-MODEL-10` is satisfied by construction
+rather than by a migration. The alternative shapes were a suffix
+(`fact:activity:own`), which buries the thing you are scanning for at the
+end of a variable-length name, and per-subject fact keys
+(`fact:own_activity`), which would double the fact vocabulary and repoint
+nothing but would leave two names for one concept forever. Prefixing is the
+only one of the three where the existing vocabulary is a strict subset of
+the new one.
+
+The cost, stated so nobody rediscovers it: `own`, `other` and `pair` are now
+reserved at the head of the identifier space, and no fact, light or relation
+may ever be named one of them. That is the price of a subject segment that
+is not itself prefixed, and it is cheap — the three words are not candidate
+names for anything this package models.
+
+### The three subjects
+
+`own` is the vessel the rule addresses; `other` is the vessel it is in an
+encounter with. **`pair` is the encounter itself**, and it exists because
+some facts belong to neither vessel: range is one number, not own's number
+and the other's. Putting `geo:range_m` under both subjects would create two
+identifiers for one quantity and a class of bug — the two disagreeing —
+that has no meaning.
+
+### Relative geometry, and why aspect is not an identifier
+
+Geometry splits on whether the quantity is symmetric between the vessels:
+
+| fact | subject | |
+|---|---|---|
+| `geo:rel_bearing_deg` | `own` / `other` | bearing of the *other* subject, clockwise from this subject's heading |
+| `geo:range_m` | `pair` | |
+| `geo:bearing_change_deg_min` | `pair` | Rule 7(d)(i)'s steady bearing |
+| `geo:cpa_m`, `geo:tcpa_s` | `pair` | |
+| `geo:in_sight` | `pair` | Rule 3(k), symmetric because the rule defines it that way |
+
+The directional row is where the namespace earns its keep.
+`own:geo:rel_bearing_deg` is relative bearing — where the other vessel is
+off own's bow. `other:geo:rel_bearing_deg` is the same fact read from the
+other side, which is **aspect**. So aspect gets no identifier of its own: it
+is a subject swap, not a second fact. Rule 13(b)'s overtaking sector is then
+`other:geo:rel_bearing_deg` in (112.5, 247.5) — own more than 22.5° abaft
+the other vessel's beam — written once, in the units the rule itself uses.
+Swapping `own` and `other` throughout a predicate reverses the encounter,
+which is exactly the operation a `precedence` rule needs and the reason to
+prefer a subject namespace over two parallel vocabularies.
+
+`kin:` is the kinematic class ADR 0005 introduces — `kin:position`,
+`kin:heading_deg`, `kin:sog_kn`, `kin:rot_deg_min`, `kin:dynamics`. It takes
+`own`/`other` only; there is no kinematic state of a pair. `kin:dynamics`
+is an enumerated fact, so its values follow the bare-fact-name rule above:
+`dynamics:tanker`, not `kin:dynamics:tanker`.
+
+### History
+
+Rule 13(d) is the reason history is a class and not a note. Once a vessel is
+overtaking, a subsequent alteration of the bearing does not make her a
+crossing vessel; the instantaneous geometry, read alone, says otherwise and
+hands the duty to the wrong vessel. So the latch is a fact:
+
+- `own:hist:was_overtaking` — this subject was, earlier in this encounter,
+  an overtaking vessel with respect to the other.
+- `own:hist:latched_at_s` — how long ago that attached, for a `conduct`
+  monitor. A predicate at a point does not read it.
+
+History is directional — it is *own* that was overtaking — so it takes a
+subject segment like the fact record does, and never `pair`.
+
+### What this does not do
+
+It does not version an identifier, and it does not repoint one. Everything
+above is additive: new segments, new classes, new keys. No existing
+identifier changes its spelling or its meaning, which is the property
+`REQ-MODEL-10` protects and the one an alternative that renamed the fact
+keys would have broken.
+
 ## Entry ids
 
 An entry id is derived from the paragraph path its entry cites, lowercased
