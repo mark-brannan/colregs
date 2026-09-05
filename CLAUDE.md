@@ -16,6 +16,9 @@ before making a design change — don't infer intent from the data alone.
 `docs/identifiers.md` states the naming scheme: citation-derived identifiers
 are bare, vocabulary identifiers carry a type prefix. Read it before adding
 a light, a fact or a relation.
+`docs/conventions.md` states the ink/pencil convention: a `✎` marker is the
+rule for *who may change that item and on what grounds*, not a confidence
+note — read it before editing anything a design doc has marked.
 
 ## Commands
 
