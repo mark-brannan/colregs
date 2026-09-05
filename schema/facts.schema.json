@@ -682,6 +682,9 @@
                   "$ref": "#/$defs/situationFact"
                 }
               }
+            },
+            "consistency": {
+              "type": "object"
             }
           }
         },

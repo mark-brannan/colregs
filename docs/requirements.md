@@ -493,6 +493,19 @@ See ADR 0003.
   resolve. Immutability (REQ-MODEL-10) is otherwise a cross-version property
   no single build can check; the registry is what makes the checkable part
   checkable.
+- **REQ-VERIFY-8** — A situation record's relative geometry MUST be checkable
+  against its kinematic state. `data/facts.json` MUST declare, under
+  `situation.geometry.consistency`, the equations relating the two relative
+  bearings, the range, the CPA, the TCPA and the bearing rate to the two
+  positions, headings and speeds, with the tolerances a comparison uses. CI
+  MUST fail on a situation fixture that states quantities on both sides of one
+  of those equations and violates it, and every situation the suite constructs
+  for a sweep MUST satisfy the declaration. A property asserted over
+  constructed situations — REQ-CAT-9's partition, the precedence properties —
+  MUST be asserted over consistent situations only; where a property holds on
+  consistent situations and fails on an inconsistent one, the suite MUST pin
+  that situation as one the check rejects, so the exclusion is visible rather
+  than assumed. `✎` pencil, with `Q-48`.
 
 ---
 
@@ -1170,3 +1183,35 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   a consistency check, whether the relative quantities become derived facts
   like `fact:rule18_class` — computed from the two kinematic states rather than
   supplied beside them — or whether it is the consumer's problem and says so.
+
+  **Decided in pencil 2026-09-05: the record gains a consistency check,
+  declared in data and enforced in the suite.** `data/facts.json` declares the
+  equations under `situation.geometry.consistency` — the two relative bearings
+  are two readings of one line of sight (`own + own heading + 180 ≡ aspect +
+  other heading`), positions reproduce range and both bearings, and the two
+  headings and speeds reproduce CPA, TCPA and bearing rate — with tolerances,
+  and `REQ-VERIFY-8` requires the suite to apply them. A quantity a record does
+  not state constrains nothing, so the check says "not inconsistent" rather
+  than "possible" where a record is sparse. What it found: all sixteen fixtures
+  that state kinematics satisfied the heading and position equations, and every
+  one of them failed the motion equations, because their CPA, TCPA and
+  bearing-rate values were placeholders. They were re-derived from the headings
+  and speeds. Two cases could not keep their story: the R1 head-on had both
+  vessels with the other to starboard, which no speeds make a steady bearing,
+  and is recast as one; the 13(d) latch case is 400 m abeam with the CPA
+  already past, and lost `7d1`. The partition sweep now constructs positions
+  and headings for every bearing pair and is consistent at every point. The
+  "never both give-way" property is asserted over a sweep of steady-bearing
+  geometries — every relative bearing, several speed pairs, both intercept
+  solutions — where it is a theorem rather than an observation:
+  `u·sin(own bearing) = −v·sin(aspect)`, so the two bearings lie on opposite
+  sides and 15(a) can name only one vessel. The both-starboard counterexample
+  is pinned as a record the check rejects. What is *not* settled, and is
+  pinned too: the theorem is exact only at a bearing rate of zero, and
+  7(d)(i)'s pencilled 1°/min admits a slow, close, starboard-to-starboard
+  passing just outside the head-on cone on which risk is deemed and both
+  vessels are give-way. That is 14(c)'s doubt case and belongs with `Q-41`,
+  not here. Of the three options this question named, "the consumer's problem"
+  is closed — the definition a consumer would need is now in the data — and
+  the relative quantities as derived facts stays open in the block's
+  `settled_by`.
