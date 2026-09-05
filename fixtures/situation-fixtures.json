@@ -2119,6 +2119,42 @@
     "4"
    ],
    "note": "The other side of the same boolean, and the reason 27(c) needs one: most tows do not severely restrict the pair, and a tow that does not is an ordinary power-driven vessel under Rule 18. Without `fact:tow_restricts_deviation` the decode would have to choose one reading for every tow and would be wrong about most of them."
+  },
+  {
+   "name": "27(c): other is being towed in a way that severely restricts the pair, in sight",
+   "status": "binding",
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:being_towed",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 60,
+      "fact:tow_restricts_deviation": true
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true
+     }
+    }
+   },
+   "expect": [
+    "11",
+    "18a2",
+    "4"
+   ],
+   "note": "3(g)(vi) names \"the towing vessel and her tow\" together, and the tow carries her own fact record -- so this side of the pair needs its own fixture: `activity:being_towed` plus `fact:tow_restricts_deviation` on her own record decodes her to `rule18_class:ram` exactly as the towing vessel's does. Before this fixture the decode row only matched `activity:towing`, and the tow herself fell through to her propulsion undetected."
   }
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",

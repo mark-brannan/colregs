@@ -646,6 +646,26 @@ test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1
     'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
 })
 
+test('REQ-MODEL-10: every entry id is unique, and none collides with a retired id', () => {
+  // `byId` above is a Map built from `appl.entries`, which silently drops a
+  // duplicate key rather than asserting on it -- so a colliding id would
+  // pass every other test in this file undetected. This is the one place
+  // REQ-MODEL-10's "a retired id is never reused" guarantee is actually
+  // enforced, rather than left to a reviewer noticing the note by hand.
+  const ids = appl.entries.map((e) => e.id)
+  const seen = new Set()
+  for (const id of ids) {
+    assert.ok(!seen.has(id), `entry id ${id} is used by more than one entry`)
+    seen.add(id)
+  }
+  const retired = Object.keys(appl.retired_entry_ids?.ids ?? {})
+  for (const id of retired) {
+    assert.ok(!seen.has(id),
+      `${id} is both an active entry id and a retired_entry_ids key -- ` +
+      'REQ-MODEL-10 forbids reusing a retired id for a different entry')
+  }
+})
+
 test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares', () => {
   // Finding-1 recurrence guard: the requirement enumerates the three axes'
   // values, so it drifts silently every time an axis gains or renames one.

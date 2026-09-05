@@ -211,12 +211,17 @@
     },
     {
      "when": {
-      "fact:activity": "activity:towing",
+      "fact:activity": {
+       "any_of": [
+        "activity:towing",
+        "activity:being_towed"
+       ]
+      },
       "fact:tow_restricts_deviation": true
      },
      "value": "rule18_class:ram",
      "cite": "27(c)",
-     "note": "The case Q-32 recorded as uncaught. A tow that does not severely restrict the pair falls through to her propulsion, which is right: most tows are ordinary power-driven vessels under Rule 18."
+     "note": "The case Q-32 recorded as uncaught. 3(g)(vi) names \"the towing vessel and her tow\" together, so both sides of a severely-restricted tow rank as RAM here -- each from her own fact record, since a consumer supplies `fact:tow_restricts_deviation` per vessel and this decode never looks at the other subject. `any_of` for the same reason as the row above: a bare list would still work today, but a scalar disjunct keeps this open to a future refinement the way 3(g)'s row is. A tow that does not severely restrict the pair falls through to her propulsion, which is right: most tows are ordinary power-driven vessels under Rule 18."
     },
     {
      "when": {
