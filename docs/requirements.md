@@ -155,6 +155,18 @@ Four layers, each independently addressable.
   - `rel:exempts` — one entry lifting another's obligation;
   - `rel:conditional_includes` — import or alternatives, gated on a predicate.
   The five are not interchangeable; README.md holds the working semantics.
+- **REQ-MODEL-13** — Where a condition goes is not a style choice. A
+  condition on whether a paragraph *applies to this vessel at all* MUST be in
+  the entry's predicate; a condition on *which of two applicable paragraphs
+  prevails* MUST be a relation between them, never a negation of the other
+  entry's class folded into the predicate. The test: delete the other
+  paragraph, and if this one is still true of the vessel, it is a relation.
+  Rule 28 does not speak to a vessel constrained by her draught at anchor, so
+  `underway` is a predicate; Rule 15 does speak to a fishing vessel under
+  power, and Rule 18 only displaces the role it assigns, so that is
+  `rel:overrides`. A gate doing a relation's job silently drops every pair the
+  displacing paragraph is silent about (fishing against fishing under Rule 18).
+  ADR 0005 §4.
 - **REQ-MODEL-12** — `rel:conditional_includes` currently carries three
   distinct shapes under one relation name: a bare `one_of` alternative set
   (`25d2`), a gated alternative set (`when` + `one_of`, `27f`), and a gated
@@ -1089,7 +1101,9 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   between them. Narrowed deliberately and recorded on each entry. Settled with
   the rest of `Q-14`, and by deciding whether Rule 18 overrides Rules 12–15 the
   way Rules 9, 10 and 13 override Rule 18 — a `rel:overrides` nobody has yet
-  written down.
+  written down. *Which mechanism* is settled: REQ-MODEL-13 makes it a
+  relation, not a gate, because Rule 12 and Rule 15 do apply to the vessel and
+  Rule 18 only displaces the role.
 
   **Decided in pencil 2026-09-05 (PR #35): Rule 12 reads 3(c), and Rules 13
   and 18 override it.** The three Rule 12 entries gate both subjects on
