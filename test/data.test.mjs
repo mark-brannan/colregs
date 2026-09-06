@@ -1599,8 +1599,8 @@ test('the declared constants are the numbers the entries actually read', () => {
     { gt: -appreciable, lt: appreciable })
   assert.deepEqual(byId.get('13b-overtaking').when['other:geo:rel_bearing_deg'], sector)
   assert.deepEqual(byId.get('13b-overtaken').when['own:geo:rel_bearing_deg'], sector)
-  assert.deepEqual(byId.get('14a').when['own:geo:rel_bearing_deg'], cone)
-  assert.deepEqual(byId.get('14a').when['other:geo:rel_bearing_deg'], cone)
+  assert.deepEqual(byId.get('14b').when['own:geo:rel_bearing_deg'], cone)
+  assert.deepEqual(byId.get('14b').when['other:geo:rel_bearing_deg'], cone)
   // The residual is `not` over the very same objects, which is the whole
   // reason the partition above cannot be broken by editing one side only.
   const c = byId.get('15a-crossing').when
