@@ -336,10 +336,10 @@ the new keys and values from the decode table for free. One that stored a
 above; `fixtures/applicability-fixtures.json` is the check that the rewrite
 came out right.
 
-From 0.2.0 on, every identifier in the package is bound by REQ-MODEL-10:
-[`data/deprecated-identifiers.json`](data/deprecated-identifiers.json) is
-where a retired identifier goes, and `npm test` refuses a removal that is
-not recorded there.
+From 0.2.0 on, every identifier in the package is immutable once published
+(REQ-MODEL-10). [`data/deprecated-identifiers.json`](data/deprecated-identifiers.json)
+is the REQ-MODEL-11 registry a retired identifier goes into, and `npm test`
+refuses a removal that is not recorded there.
 
 ## Provenance and licence
 
