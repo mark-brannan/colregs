@@ -24,9 +24,5 @@ permissions:
 jobs:
   review:
     uses: mark-brannan/.github/.github/workflows/claude-review.yml@main
-    with:
-      # mark-brannan-release-please[bot] opens the release PR; mergify[bot]
-      # is allowed by the shared workflow's own default.
-      allowed-bots: mergify[bot],mark-brannan-release-please[bot]
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
