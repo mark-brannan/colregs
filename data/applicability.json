@@ -974,12 +974,18 @@
      "position": "one near the foremast head and one at each end of the fore yard"
     }
    ],
-   "rel:includes": [
-    "23a1",
-    "23a2",
-    "23a34"
-   ],
    "rel:conditional_includes": [
+    {
+     "when": {
+      "fact:position": "position:underway"
+     },
+     "rel:includes": [
+      "23a1",
+      "23a2",
+      "23a34"
+     ],
+     "cite": "27(f)"
+    },
     {
      "when": {
       "fact:position": "position:anchored"
@@ -987,20 +993,23 @@
      "one_of": [
       "30a",
       "30b"
-     ]
+     ],
+     "cite": "27(f)"
     }
    ],
    "modality": "shall",
    "images": [
     "NRHB_27_f.png"
-   ]
+   ],
+   "notes": "27(f) adds the three green lights 'to the lights prescribed for a power-driven vessel in Rule 23 or to the lights or shape prescribed for a vessel at anchor in Rule 30, as appropriate': which set is imported turns on fact:position, so both imports are gated (the 29(a) pattern). The anchored branch is genuine practice, added by A.464(XII) in 1981 — docs/verification/2026-09-05-rule27f-rule28-anchor-scenarios.md, Q1."
   },
   {
    "id": "28",
    "jurisdiction": "intl",
    "cite": "28",
    "when": {
-    "fact:activity": "activity:cbd"
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:underway"
    },
    "lights": [
     {
@@ -1019,7 +1028,7 @@
    "images": [
     "NRHB_28.png"
    ],
-   "notes": "The Rule 23(a) lights are 'shall' (she is a power-driven vessel underway); the three red lights are 'may'. International Rules only."
+   "notes": "The Rule 23(a) lights are 'shall' (she is a power-driven vessel underway); the three red lights are 'may'. International Rules only. Position is pinned to underway rather than gating the Rule 23 import: 'constrained by her draught' is a status of a vessel navigating (3(h)); the standard commentary and IMO guidance treat the Rule 28 signal as shown only with the underway lights; and Annex I positions the red lights only relative to masthead lights — docs/verification/2026-09-05-rule27f-rule28-anchor-scenarios.md, Q2. A record of activity:cbd at anchor therefore gets Rule 30 alone."
   },
   {
    "id": "29a",
