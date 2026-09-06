@@ -3225,6 +3225,151 @@
      }
     }
    }
+  },
+  {
+   "name": "12 under 18(b)(iii): own fishing under sail on the port tack, the other a sailing vessel on the starboard tack",
+   "status": "binding",
+   "narrative": "The same crossing as the 12(a)(i) case, with own now engaged in fishing under sail. She is a sailing vessel by 3(c) -- her machinery is not in use -- so 12(a)(i) applies from her side and would make her give way, being on the port tack. She is also a vessel engaged in fishing by 3(d), so from the other vessel's side 18(b)(iii) applies and makes the other keep out of her way. Both are in force; Rule 18's opening words except Rules 9, 10 and 13 and not Rule 12, so 18b3 carries rel:overrides against 12a1 and own resolves to stand-on. This fixture asserts applicability from own's side, which is 12a1; the resolution is asserted by the pooled-roles tests, and before this PR own was simply outside Rule 12, which was Q-40's finding.",
+   "expect": [
+    "4",
+    "11",
+    "7d1",
+    "8f3",
+    "12a1"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:fishing",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 16.0
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 6.0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:fishing",
+      "kin:wind_side": "wind_side:port"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 45.0,
+      "geo:windward": false
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 11.0
+     },
+     "kin": {
+      "kin:heading_deg": 285.0,
+      "kin:sog_kn": 4.9,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:yacht",
+      "kin:wind_side": "wind_side:starboard"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 300.0,
+      "geo:windward": true
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 1500,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 436,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true
+     }
+    }
+   }
+  },
+  {
+   "name": "13 over 12: own overtaking a windward vessel on the same tack from dead astern",
+   "status": "binding",
+   "narrative": "Two sailing vessels on the starboard tack, own to leeward and coming up from dead astern at twice the other's speed. From own's side 13(a) and 13(b) apply and 12(a)(ii) does not -- own is not the windward vessel. From the other's side 12(a)(ii) does apply and would make her, the windward vessel, keep out of the way of own. 13(a) is 'notwithstanding anything contained in' the Rules of Part B Sections I and II, which is Rule 12 among others, so 13a carries rel:overrides against the three Rule 12 entries and the overtaken vessel resolves to stand-on. Steady bearing: dead ahead and dead astern, closing at three knots.",
+   "expect": [
+    "4",
+    "11",
+    "7d1",
+    "8f3",
+    "13a",
+    "13b-overtaking"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 12.0
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 6.0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:yacht",
+      "kin:wind_side": "wind_side:starboard"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 0.0,
+      "geo:windward": false
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 11.0
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 3.0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:yacht",
+      "kin:wind_side": "wind_side:starboard"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 180.0,
+      "geo:windward": true
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 500,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 324,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true
+     }
+    }
+   }
   }
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",

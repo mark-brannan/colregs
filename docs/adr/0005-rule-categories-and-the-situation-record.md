@@ -234,6 +234,14 @@ Sixteen things the model could not express are recorded as `Q-31`–`Q-48` in
 `docs/requirements.md` §11 rather than bent into the data. The largest is
 `Q-32`: `fact:activity` is a display axis, and a vessel's rank under Rule 18
 is not the same thing as the lights she shows.
+- **2026-09-05, PR #35 — Rules 13 and 18 override Rule 12.** §4's sixth
+  relation was written down for Rules 9, 10 and 13 over Rule 18, and for 18(f)
+  within it. Rule 18's chapeau excepts only those three, so where Rule 18 and
+  Rule 12 are both in force — two sailing vessels, one of them fishing or not
+  under command — Rule 18 governs: `18b1`–`18b3` and `18c1`–`18c2` carry
+  `rel:overrides` against `12a1`–`12a3`, and `13a` does too. The Rule 12
+  entries now read 3(c) rather than the Rule 18 rank, which is what made the
+  relation necessary. `Q-40`.
 
 ## What is unchanged
 
