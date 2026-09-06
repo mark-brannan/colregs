@@ -1043,6 +1043,18 @@ named that gap before the class existed.
   are wider than their paragraphs and could assert a duty owed to a third
   vessel. Settled by deciding whether the protected-vessel property is a
   per-vessel fact, and whether it is a fact at all or a consumer's judgement.
+
+  **Decided in pencil 2026-09-05, for the 9(b)/9(d) and 10(i)/10(j) half: the
+  protected-vessel property is a per-vessel fact, consumer-supplied like
+  `pair:env:narrow_channel` and `pair:env:traffic_lane` are.** `fact:confined_to_channel`
+  and `fact:following_traffic_lane` name it, in the same shape as the existing
+  `fact:near_channel` and `fact:obstruction_exists`; entries `9b`, `10i` and
+  `10j` now read `other:fact:confined_to_channel`/`other:fact:following_traffic_lane`
+  and their `gap` fields are closed. `9(d)` has no entry yet, so it inherits
+  the same fact when one is written. **18(d)(i) is deliberately left open**:
+  "exhibiting the signals in Rule 28" is a display-compliance fact rather than
+  a vessel-identity one, and this package models night lights only (see
+  CLAUDE.md "Coverage") — settling it is a narrower, separate decision.
 - **Q-35** — 8(f)(iii)'s antecedent is "a vessel, the passage of which is not to
   be impeded" — the *output* of another norm, not a fact. A precedence
   predicate reads only facts, so entry `8f3` reads the risk-of-collision half
