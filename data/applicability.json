@@ -129,7 +129,7 @@
   }
  ],
  "retired_entry_ids": {
-  "note": "Entry ids that existed and no longer do. REQ-MODEL-10 makes an identifier immutable, which means a retired id is never reused for a different entry -- recorded here so that a later session cannot reuse one by accident. Nothing in this package has shipped a Part B entry, so retiring these costs no consumer anything; that will not be true a second time.",
+  "note": "Entry ids that existed and no longer do. REQ-MODEL-10 makes an identifier immutable, which means a retired id is never reused for a different entry -- recorded here so that a later session cannot reuse one by accident. The first four retirements cost no consumer anything since nothing had shipped yet; `14a` is the first to have shipped (v0.1.3), so it is deprecated rather than dropped -- see data/deprecated-identifiers.json.",
   "ids": {
    "9b-small": "Collapsed into `9b` when `any_of` gave the predicate language a disjunction; 9(b)'s subject needed two entries only because a `when` was a conjunction.",
    "9b-sail": "Collapsed into `9b`, same reason.",
