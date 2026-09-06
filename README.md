@@ -62,7 +62,8 @@ point at.
 — paragraph paths and the entry ids built from them — carry no prefix, because
 the path *is* the citation. Vocabulary ids do: `light:masthead`,
 `fact:activity`, `activity:nuc`, `rel:in_lieu_of`. See
-[`docs/identifiers.md`](docs/identifiers.md).
+[`docs/identifiers.md`](docs/identifiers.md); coming from a 0.1.x release, see
+[Migrating from 0.1.x](#migrating-from-01x).
 
 ## Design
 
@@ -239,6 +240,106 @@ distinction; see [Q-5](docs/requirements.md#9-open-questions).
 
 `fixtures/applicability-fixtures.json` is the cross-implementation contract: an
 implementation in any language should reproduce those entry sets exactly.
+
+## Migrating from 0.1.x
+
+0.2.0 is the first release whose vocabulary identifiers carry a type prefix.
+`colregs@0.1.1`, the last version on npm, has the bare names; every 0.1.x
+consumer holds strings that no longer resolve. Renaming an identifier is a
+breaking change under REQ-PKG-4, and the rename is the one exception
+REQ-MODEL-10 records: 0.1.1 predates the identifier audit, sits outside the
+immutability baseline, and nothing after it may be renamed this way again.
+
+**What did not change.** Paragraph paths (`27(a)(i)`) and entry ids (`25b`,
+`27a-mw`) are citation-derived and stay bare. No entry id present in 0.1.1
+is removed — the 40 entries of 0.1.1 are all in 0.2.0, with 30 more.
+
+**What did.** Every light id, fact key, fact value and relation verb, in
+every place it appears: `lights.json` keys, `facts.json` keys and `values`,
+the `light` field of an entry's `lights[]`, the keys and values of an entry's
+`when` and `modality_by[].when`, the relation keys on an entry
+(`includes` → `rel:includes`, and so on), the `relations` map in
+`applicability.json`, the `light` field in `geometry.json`, the
+`signalk_navigation_state.decode` table, `actuable_subset.fields`, and the
+`facts` record of every fixture. The rule is in
+[`docs/identifiers.md`](docs/identifiers.md): a light is `light:<id>`, a
+fact key is `fact:<key>`, a value of an enumerated fact is `<fact>:<value>`,
+a relation is `rel:<name>`. The full table, generated from the two data
+sets rather than from memory:
+
+| kind | 0.1.1 | 0.2.0 |
+|---|---|---|
+| light id | `masthead` | `light:masthead` |
+| light id | `sidelights` | `light:sidelights` |
+| light id | `sidelight_starboard` | `light:sidelight_starboard` |
+| light id | `sidelight_port` | `light:sidelight_port` |
+| light id | `sternlight` | `light:sternlight` |
+| light id | `towing` | `light:towing` |
+| light id | `all_round` | `light:all_round` |
+| light id | `flashing` | `light:flashing` |
+| light id | `torch` | `light:torch` |
+| light id | `deck_lights` | `light:deck_lights` |
+| fact key | `propulsion` | `fact:propulsion` |
+| value of propulsion | `power` | `propulsion:power` |
+| value of propulsion | `sail` | `propulsion:sail` |
+| value of propulsion | `oars` | `propulsion:oars` |
+| fact key | `activity` | `fact:activity` |
+| value of activity | `none` | `activity:none` |
+| value of activity | `fishing` | `activity:fishing` |
+| value of activity | `trawling` | `activity:trawling` |
+| value of activity | `towing` | `activity:towing` |
+| value of activity | `pushing` | `activity:pushing` |
+| value of activity | `being_towed` | `activity:being_towed` |
+| value of activity | `nuc` | `activity:nuc` |
+| value of activity | `ram` | `activity:ram` |
+| value of activity | `ram_underwater` | `activity:ram_underwater` |
+| value of activity | `cbd` | `activity:cbd` |
+| value of activity | `mine` | `activity:mine` |
+| value of activity | `pilot` | `activity:pilot` |
+| value of activity | `diving` | `activity:diving` |
+| fact key | `position` | `fact:position` |
+| value of position | `underway` | `position:underway` |
+| value of position | `anchored` | `position:anchored` |
+| value of position | `aground` | `position:aground` |
+| value of position | `moored` | `position:moored` |
+| fact key | `making_way` | `fact:making_way` |
+| fact key | `length_m` | `fact:length_m` |
+| fact key | `tow_length_m` | `fact:tow_length_m` |
+| fact key | `max_speed_kn` | `fact:max_speed_kn` |
+| fact key | `gear_extent_m` | `fact:gear_extent_m` |
+| fact key | `beam_m` | `fact:beam_m` |
+| fact key | `composite_unit` | `fact:composite_unit` |
+| fact key | `non_displacement` | `fact:non_displacement` |
+| fact key | `wig` | `fact:wig` |
+| fact key | `wig_near_surface` | `fact:wig_near_surface` |
+| fact key | `near_channel` | `fact:near_channel` |
+| fact key | `inconspicuous_partly_submerged_tow` | `fact:inconspicuous_partly_submerged_tow` |
+| fact key | `towed_alongside` | `fact:towed_alongside` |
+| fact key | `obstruction_exists` | `fact:obstruction_exists` |
+| fact key | `obstruction_side` | `fact:obstruction_side` |
+| value of obstruction_side | `port` | `obstruction_side:port` |
+| value of obstruction_side | `starboard` | `obstruction_side:starboard` |
+| relation | `includes` | `rel:includes` |
+| relation | `conditional_includes` | `rel:conditional_includes` |
+| relation | `in_lieu_of` | `rel:in_lieu_of` |
+| relation | `excludes` | `rel:excludes` |
+| relation | `exempts` | `rel:exempts` |
+
+The mapping is mechanical and total: strip nothing, prepend the namespace.
+The one string that needed the prefix to disambiguate is `towing`, which in
+0.1.1 was both a light id and an `activity` value; it is now `light:towing`
+or `activity:towing` depending on which it was.
+
+A consumer that builds a fact record from SignalK `navigation.state` gets
+the new keys and values from the decode table for free. One that stored a
+0.1.1 fact record, light id or relation name must rewrite it by the table
+above; `fixtures/applicability-fixtures.json` is the check that the rewrite
+came out right.
+
+From 0.2.0 on, every identifier in the package is immutable once published
+(REQ-MODEL-10). [`data/deprecated-identifiers.json`](data/deprecated-identifiers.json)
+is the REQ-MODEL-11 registry a retired identifier goes into, and `npm test`
+refuses a removal that is not recorded there.
 
 ## Provenance and licence
 
