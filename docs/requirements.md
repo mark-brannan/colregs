@@ -1318,3 +1318,48 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   is closed — the definition a consumer would need is now in the data — and
   the relative quantities as derived facts stays open in the block's
   `settled_by`.
+
+- **Q-49** — **Does a `classification` entry's effect need to cross the
+  Section II/III scope boundary for Rule 19(d)(i) to be expressible?**
+  [colregs#51](https://github.com/mark-brannan/colregs/pull/51) (P4.1,
+  `INV-19a-noroles`) flags 19(d)(i) — "other than for a vessel being
+  overtaken" — as needing Rule 13's classification inside Section III, where
+  Rule 13 itself does not apply, and observes that today's classification
+  entries are gated on `pair:geo:in_sight` throughout, `13d` included. Two
+  readings:
+
+  - **broad** — a `classification` entry's effect (`13d`'s `encounter:
+    overtaking`) is a property of the encounter's history and should be
+    readable regardless of which section currently governs, so `13d` should
+    drop the `pair:geo:in_sight` gate it inherited from its siblings `13b-*`
+    (which read geometry and legitimately need it). Buys nothing that the
+    narrow reading doesn't already have; costs the `scope: a situation
+    selects exactly one Part B section` invariant (`test/data.test.mjs`),
+    which currently holds every Section II-cited entry absent once a pair is
+    out of sight and would need `13d` carved out as an exception.
+  - **narrow** (default, unchanged by this question) — an entry's effect
+    belongs to the section its cite lives in; `13d` stays gated exactly as
+    written. A future Rule 19(d)(i) entry does not read `13d`'s effect at
+    all — no entry in `data/applicability.json` ever reads another entry's
+    `effect`, all of them read the situation record directly — so it reads
+    `own:hist:was_overtaking`/`other:hist:was_overtaking` in its own `when`,
+    exactly as `14b` and `15a-crossing` already do. That fact is not derived
+    from `13d` firing; it is a plain two-subject fact (`facts.json`,
+    `situation.history`), ungated, and it resolves unchanged whether or not
+    the pair is in sight.
+
+  **My recommendation: narrow.** Verified rather than assumed:
+  `test/data.test.mjs` asserts directly (`Q-49 (P4.0, colregs#51): ...`)
+  that `own:hist:was_overtaking` resolves for a situation with
+  `pair:geo:in_sight: false` and a latch already set, while `13d` correctly
+  does not fire there; `fixtures/situation-fixtures.json` carries the
+  situation as an illustrative case (no Rule 19 entry exists yet to bind
+  it). So the fact vocabulary this repo already declared for two-vessel
+  predicates (`docs/identifiers.md`, "Two subjects"; `facts.json`,
+  `situation`) has no gap here: Rule 19(d)(i) is expressible today, on the
+  vocabulary as it stands, without touching `13d` or the scope invariant.
+  This is a recommendation, not a ruling — the broad reading is a real
+  alternative if a future consumer wants `13d`'s `encounter` effect itself,
+  not just the fact behind it, to be visible in Section III — and nothing
+  here writes the Rule 19(d)(i) entry itself, which needs Q-55's "hole or
+  closed" answered first.
