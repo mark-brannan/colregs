@@ -84,8 +84,8 @@ The switching plugin's name and the renderer's name. The plugin needs a
 ### 2026-09-05 — Licence terms verified against the primary sources (Q-3, REQ-PROV-2)
 
 The table in Consequences was recalled, not checked, and said so. Every
-term below was read from the live primary source on 2026-09-05; the
-fetch-by-fetch evidence is in the private state log of that date
+term below except CEVNI was read from the live primary source on
+2026-09-05; CEVNI remains unresolved (item 7). The fetch-by-fetch evidence is in the private state log of that date
 (`state/global/log/2026-09-05-colregs-jurisdiction-licences.md`). This
 amendment supersedes that table. It does not change the decision — name,
 jurisdiction-as-dimension, the work queue — only the licence column and
@@ -98,7 +98,7 @@ what it implies for which instrument supplies the Rules *text*.
 | `ca/inland` | Collision Regulations, C.R.C. c.1416, Schedule 1 | moderate | Reproduction of Federal Law Order SI/97-5 | none; accuracy diligence required, and must not be represented as an official version |
 | `de/binnen` | SeeSchStrO (delta) + KVR, Anlage to SeeStrOV (text) | large | §5(1) UrhG, no copyright | none |
 | `uk` | SI 1996/75 (delta) + MSN 1781 (text) | near-zero | OGL v3.0, Crown copyright | "Contains public sector information licensed under the Open Government Licence v3.0." |
-| `au` | Marine Order 30 (Prevention of collisions) 2016, F2016L01187 (delta only; text inherited from `intl`) | near-zero | CC BY 4.0 | "Based on content from the Federal Register of Legislation at [full date of download]. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au." |
+| `au` | Marine Order 30 (Prevention of collisions) 2016, F2016L01187 (delta only; text inherited from `intl`) | near-zero | CC BY 4.0 | "Based on content from the Federal Register of Legislation at [full date of download — filled in when the `au` corpus is retrieved]. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au." |
 
 **What the recall got wrong.** Recorded so the errors are not re-recalled:
 
@@ -145,9 +145,11 @@ what it implies for which instrument supplies the Rules *text*.
    permit copying and adaptation "for the User's personal, non-commercial
    purposes" and state that "Reuse of the Materials for commercial purposes
    is expressly prohibited", with derivatives bound to the same terms. That
-   is incompatible with Apache-2.0 (ADR 0004). The package does not rely on
-   IMO's text and must not; the US route it already takes, and the UK, CA
-   and DE routes above, all reach the same Rules text lawfully.
+   is incompatible with Apache-2.0 (ADR 0004). The package does not take
+   its text from IMO website materials and must not; the US route it
+   already takes, and the UK, CA and DE routes above, all reach the same
+   Rules text lawfully. Whether IMO holds a copyright in the treaty text
+   itself is the separate, open question below.
 
 **Accepted risk: IMO copyright in the enacted treaty text.** The `intl`
 text is taken from a US Government publication, and §105 covers that
