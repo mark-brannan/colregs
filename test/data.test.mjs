@@ -1730,15 +1730,43 @@ const forcefulPool = (s) => resolve_(pooledRoles(s)).filter((r) => FORCEFUL.has(
 const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r) => r.B === role)
 
 // The fleets the steady-bearing sweep is run over. Two ordinary power-driven
-// vessels are Rule 15's case and Q-48's. Two sailing vessels are Rule 12's, in
-// every combination of tack and windward side, and with one of them ranked by
-// Rule 18 as well -- fishing under sail, not under command under sail -- so
-// that 12(a), 13(a) and 18(b)/(c) are all in force at once somewhere in the
-// sweep and rel:overrides has to earn its keep (Q-40).
+// vessels are Rule 15's case and Q-48's. The power fleets below them put each
+// Rule 18 rank on one side and then on both, so that 15(a) and 18(a)/(c)/(f)
+// are in force at once on one side of the sweep and Rule 18 says nothing on the
+// other -- two vessels engaged in fishing, or a NUC and a RAM, are a pair Rule
+// 18 does not order and Rule 15 alone governs (Q-40). Two sailing vessels are
+// Rule 12's, in every combination of tack and windward side, and with one of
+// them ranked by Rule 18 as well -- fishing under sail, not under command under
+// sail -- so that 12(a), 13(a) and 18(b)/(c) are all in force at once somewhere
+// in the sweep and rel:overrides has to earn its keep (Q-40).
 const SAIL = { 'fact:propulsion': 'propulsion:sail', 'fact:activity': 'activity:none' }
 const WINDS = ['wind_side:port', 'wind_side:starboard', 'wind_side:unknown']
+// The four ranks 15a-give-way used to negate out of its own predicate, keyed by
+// the facts that decode to them -- a WIG craft is the phase pair, not an
+// activity -- plus constrained by her draught, which it never negated: 18(d)(i)
+// is what meets Rule 15 there and it assigns no helm role, so the pair is swept
+// to keep that true rather than to prove an override.
+const RANKS = {
+  fishing: { 'fact:activity': 'activity:fishing' },
+  nuc: { 'fact:activity': 'activity:nuc' },
+  ram: { 'fact:activity': 'activity:ram' },
+  wig: { 'fact:wig': true, 'fact:wig_near_surface': true },
+  cbd: { 'fact:activity': 'activity:cbd' },
+}
 function* fleets() {
   yield { name: 'two power-driven vessels', step: 0.5, speeds: [3, 6, 12, 20], own: {}, other: {} }
+  const power = (fact) => ({ fact: { 'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:none', ...fact } })
+  const ranks = Object.entries(RANKS)
+  for (const [i, [rank, fact]] of ranks.entries()) {
+    yield { name: `power-driven, own ${rank}`, step: 2, speeds: [6, 12], own: power(fact), other: power({}) }
+    yield { name: `power-driven, both ${rank}`, step: 2, speeds: [6, 12], own: power(fact), other: power(fact) }
+    // The mixed pairs, which are where 18(c) lives -- a fishing vessel against a
+    // NUC or a RAM -- and where Rule 18 falls silent: NUC against RAM is its
+    // unordered pair and Rule 15 is then the only norm assigning a role.
+    for (const [rank2, fact2] of ranks.slice(i + 1)) {
+      yield { name: `power-driven, own ${rank}, other ${rank2}`, step: 2, speeds: [6, 12], own: power(fact), other: power(fact2) }
+    }
+  }
   const sail = (fact, wind, windward) => ({
     fact: { ...SAIL, ...fact }, kin: { 'kin:wind_side': wind, 'kin:dynamics': 'dynamics:yacht' }, geo: { 'geo:windward': windward },
   })
@@ -1845,7 +1873,7 @@ test('Q-48 residual: 7(d)(i)\'s tolerance admits a slow starboard-to-starboard p
   assert.ok(bothHold(forcefulPool(s), 'give-way'), 'both vessels are give-way -- the residual this test pins')
 })
 
-// --- who governs over Rule 12 (Q-40) ----------------------------------------
+// --- who governs over Rules 12 and 15 (Q-40) --------------------------------
 test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs over it says so', () => {
   const rule12 = precedence.filter((e) => e.cite.startsWith('12('))
   assert.deepEqual(rule12.map((e) => e.id).sort(), ['12a1', '12a2', '12a3'])
@@ -1877,4 +1905,59 @@ test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs ov
   assert.ok(over12)
   assert.deepEqual([...rolesFor(over12, 'A')].map(([r]) => r), ['give-way'], 'the overtaking vessel gives way, 12(a)(ii) displaced')
   assert.deepEqual([...rolesFor(over12, 'B')].map(([r]) => r), ['stand-on'])
+})
+
+test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm that meets it overrides it', () => {
+  const gw = byId.get('15a-give-way')
+  // 'Two power-driven vessels' is 3(b), which is the propulsion axis. The rank
+  // is no longer read here at all: keeping it out of the predicate is what puts
+  // the interaction with Rule 18 into rel:overrides where it can be checked.
+  assert.equal(gw.when['own:fact:propulsion'], 'propulsion:power', 'own is not gated on 3(b)')
+  assert.equal(gw.when['other:fact:propulsion'], 'propulsion:power', 'other is not gated on 3(b)')
+  for (const k of factKeys(gw.when)) assert.ok(!k.endsWith('fact:rule18_class'), `15a-give-way reads ${k}`)
+  // 15a-crossing never carried the rank gate and still must not: the encounter
+  // is a crossing whatever Rule 18 makes of the roles.
+  for (const k of factKeys(byId.get('15a-crossing').when)) {
+    assert.ok(!k.endsWith('fact:rule18_class'), `15a-crossing reads ${k}`)
+  }
+  // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so it governs
+  // over Rule 15 as it does over Rule 12. Asserted from rules.json, so the data
+  // cannot keep the override after losing the words.
+  assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+  assert.match(rules.paragraphs['15(a)'].text, /power-driven vessels/)
+  for (const id of ['18a1', '18a2', '18a3', '18c1', '18c2', '18f1']) {
+    assert.ok((byId.get(id)['rel:overrides'] ?? []).includes('15a-give-way'), `${id} does not override 15a-give-way`)
+  }
+  // ...and that hand-list is exactly the derived one, so a Rule 18 entry added
+  // later cannot quietly join Rule 15 without saying which of them wins. An
+  // entry meets 15a-give-way when it assigns a helm role and neither subject is
+  // gated to a sailing vessel -- a gate 15a-give-way's own propulsion gate makes
+  // unsatisfiable, because rule18_class:sail decodes from propulsion:sail alone.
+  const sailRow = facts.derived['fact:rule18_class'].decode.find((r) => r.value === 'rule18_class:sail')
+  assert.deepEqual(sailRow.when, { 'fact:propulsion': 'propulsion:sail' })
+  const meetsRule15 = (e) => (HELM_ROLES.has(e.effect.own) || HELM_ROLES.has(e.effect.other)) &&
+    !['own', 'other'].some((sub) => e.when[`${sub}:fact:rule18_class`] === 'rule18_class:sail')
+  const rule18 = precedence.filter((e) => e.cite.startsWith('18('))
+  assert.deepEqual(
+    rule18.filter(meetsRule15).map((e) => e.id).sort(),
+    ['18a1', '18a2', '18a3', '18c1', '18c2', '18f1'],
+    'the Rule 18 entries that can be in force between two power-driven vessels have changed')
+  for (const e of rule18) {
+    assert.equal((e['rel:overrides'] ?? []).includes('15a-give-way'), meetsRule15(e),
+      `${e.id}: rel:overrides against 15a-give-way disagrees with whether it can meet Rule 15`)
+  }
+  // 13(a) needs no override against this entry and must not acquire one by
+  // accident: 15a-give-way excludes every overtaking twice over, by the latch
+  // and by the sector 13(b) reads, so the two are never in force together.
+  assert.equal(gw.when['own:hist:was_overtaking'], false)
+  assert.equal(gw.when['other:hist:was_overtaking'], false)
+  assert.ok(!(byId.get('13a')['rel:overrides'] ?? []).includes('15a-give-way'))
+  // The two fixtures written for it resolve the way the data now says: where
+  // Rule 18 ranks neither vessel, Rule 15 alone assigns the roles.
+  for (const [name, note] of [['15 between two fishing vessels', 'two fishing vessels'], ['15 between NUC and RAM', 'NUC and RAM']]) {
+    const c = bindingCases.find((x) => x.name.startsWith(name))
+    assert.ok(c, `${name}: fixture missing`)
+    assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r), ['give-way'], `${note}: own has the other to starboard`)
+    assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r), ['stand-on'], `${note}: the other stands on`)
+  }
 })

@@ -173,8 +173,10 @@ on a fact (23(a)(ii) is `shall` at 50 m and above, `may` below).
 Most entries read one vessel and produce lights. A few read **two** — a
 situation, not a fact record — and produce an `effect` instead. Rules 4, 11
 and 19(a) say which section of Part B governs; Rules 18, 9, 10, 12 and 15 say
-which vessel gives way, reading `fact:rule18_class` rather than re-listing the
-activity axis; and Rules 7(d), 13, 14 and 15 say what kind of encounter it is —
+which vessel gives way — Rule 18 reading `fact:rule18_class` rather than
+re-listing the activity axis, Rules 12 and 15 reading the propulsion their own
+words name and leaving the rank to Rule 18's `rel:overrides`; and Rules 7(d),
+13, 14 and 15 say what kind of encounter it is —
 `head-on`, `crossing` or `overtaking` — or that risk of collision exists.
 Those carry `category` and `subjects: 2`, and address each vessel
 through a subject segment: `own:fact:activity`, `other:fact:propulsion`,
