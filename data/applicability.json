@@ -1410,7 +1410,12 @@
     "own": "give-way",
     "other": "stand-on"
    },
-   "note": "Own is `rule18_class:sail`, which is 3(c)'s sailing vessel and not a fishing vessel under sail -- the class carries both halves of what the propulsion gate and the activity list used to say between them."
+   "rel:overrides": [
+    "12a1",
+    "12a2",
+    "12a3"
+   ],
+   "note": "Own is `rule18_class:sail`, which is 3(c)'s sailing vessel and not a fishing vessel under sail -- the class carries both halves of what the propulsion gate and the activity list used to say between them. Overrides the three Rule 12 entries (Q-40): both subjects can be sailing vessels by 3(c) -- the other under sail and not under command, restricted in her ability to manoeuvre, or engaged in fishing -- so Rule 12 is in force between them too, and Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
    "id": "18b2",
@@ -1429,7 +1434,13 @@
    "effect": {
     "own": "give-way",
     "other": "stand-on"
-   }
+   },
+   "rel:overrides": [
+    "12a1",
+    "12a2",
+    "12a3"
+   ],
+   "note": "Overrides the three Rule 12 entries (Q-40): both subjects can be sailing vessels by 3(c) -- the other under sail and not under command, restricted in her ability to manoeuvre, or engaged in fishing -- so Rule 12 is in force between them too, and Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
    "id": "18b3",
@@ -1448,7 +1459,13 @@
    "effect": {
     "own": "give-way",
     "other": "stand-on"
-   }
+   },
+   "rel:overrides": [
+    "12a1",
+    "12a2",
+    "12a3"
+   ],
+   "note": "Overrides the three Rule 12 entries (Q-40): both subjects can be sailing vessels by 3(c) -- the other under sail and not under command, restricted in her ability to manoeuvre, or engaged in fishing -- so Rule 12 is in force between them too, and Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
    "id": "18c1",
@@ -1468,7 +1485,12 @@
     "own": "give-way",
     "other": "stand-on"
    },
-   "note": "'so far as possible' is the practicability qualifier, so the modality is shall-if-practicable. 18(c) does not distinguish propulsion, and `rule18_class:fishing` does not either: a fishing vessel under sail is ranked here."
+   "rel:overrides": [
+    "12a1",
+    "12a2",
+    "12a3"
+   ],
+   "note": "'so far as possible' is the practicability qualifier, so the modality is shall-if-practicable. 18(c) does not distinguish propulsion, and `rule18_class:fishing` does not either: a fishing vessel under sail is ranked here. Overrides the three Rule 12 entries (Q-40): a vessel engaged in fishing under sail is a sailing vessel by 3(c), and if the vessel she must keep out of the way of is under sail as well, Rule 12 is in force between them; Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
    "id": "18c2",
@@ -1487,7 +1509,13 @@
    "effect": {
     "own": "give-way",
     "other": "stand-on"
-   }
+   },
+   "rel:overrides": [
+    "12a1",
+    "12a2",
+    "12a3"
+   ],
+   "note": "Overrides the three Rule 12 entries (Q-40): a vessel engaged in fishing under sail is a sailing vessel by 3(c), and if the vessel she must keep out of the way of is under sail as well, Rule 12 is in force between them; Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
    "id": "18d1",
@@ -1599,9 +1627,12 @@
     "18c1",
     "18c2",
     "18d1",
-    "18f1"
+    "18f1",
+    "12a1",
+    "12a2",
+    "12a3"
    ],
-   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them. The predicate now carries both halves of 'any vessel overtaking any other': the 13(b) sector, which 13b-overtaking classifies, and the 13(d) latch, which 13d classifies. They are a disjunction, which is what the entry could not write before the predicate language grew `any_of` (Q-33).",
+   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them. The predicate now carries both halves of 'any vessel overtaking any other': the 13(b) sector, which 13b-overtaking classifies, and the 13(d) latch, which 13d classifies. They are a disjunction, which is what the entry could not write before the predicate language grew `any_of` (Q-33). Now also overrides the three Rule 12 entries: 'notwithstanding anything contained in' the Rules of Part B Sections I and II includes Rule 12, and two sailing vessels in an overtaking would otherwise hold 13(a)'s and 12(a)'s roles at once (Q-40).",
    "gap": "Only own's side. 13(a) lays the duty on the overtaking vessel, so this entry is directional by design and the overtaken vessel's stand-on role comes from the same entry read on the swapped situation. What it still cannot say is 13(c) -- a vessel in any doubt as to whether she is overtaking shall assume that she is -- because doubt is a state of the observer and no fact carries it; and it inherits 13b-overtaking's speed-comparison gap. Q-41, Q-46."
   },
   {
@@ -1747,8 +1778,8 @@
    "when": {
     "pair:geo:in_sight": true,
     "pair:geo:risk_of_collision": true,
-    "own:fact:rule18_class": "rule18_class:sail",
-    "other:fact:rule18_class": "rule18_class:sail",
+    "own:fact:propulsion": "propulsion:sail",
+    "other:fact:propulsion": "propulsion:sail",
     "own:fact:position": "position:underway",
     "other:fact:position": "position:underway",
     "own:kin:wind_side": "wind_side:port",
@@ -1759,8 +1790,7 @@
     "own": "give-way",
     "other": "stand-on"
    },
-   "note": "Each has the wind on a different side, so the vessel with the wind on the port side keeps out of the way. Evaluated from own's side, so the mirror case -- own on starboard, other on port -- is this same entry read on the swapped situation, and it is what makes the other vessel stand-on.",
-   "gap": "12(a) says 'two sailing vessels', which is 3(c)'s definition and would be `fact:propulsion: propulsion:sail`. This entry reads `rule18_class:sail` instead, which is narrower: a vessel engaged in fishing under sail is a sailing vessel by 3(c) but is ranked as fishing by 18(c), and letting Rule 12 hand her a give-way duty would contradict 18(b)(iii) with no override between them. Narrowed deliberately and recorded rather than left to collide; Q-40."
+   "note": "Each has the wind on a different side, so the vessel with the wind on the port side keeps out of the way. Evaluated from own's side, so the mirror case -- own on starboard, other on port -- is this same entry read on the swapped situation, and it is what makes the other vessel stand-on. 'Two sailing vessels' is 3(c), so both subjects are gated on `fact:propulsion: propulsion:sail` and not on `rule18_class:sail` (Q-40): a vessel engaged in fishing under sail, or not under command under sail, is a sailing vessel by 3(c) and is inside Rule 12. Where Rule 18 also ranks the pair -- 18(b) from the ordinary sailing vessel's side, 18(c) from the fishing vessel's -- that entry carries `rel:overrides` against this one, because Rule 18's opening words except Rules 9, 10 and 13 and no others; 13(a)'s 'notwithstanding' overrides it the same way. Between two sailing vessels Rule 18 leaves unordered -- one not under command and one restricted in her ability to manoeuvre -- this entry is the only norm in force, and it lays a helm duty on a vessel that may be unable to discharge it; that is Rule 2's region and is recorded in Q-40 rather than gated away."
   },
   {
    "id": "12a2",
@@ -1771,8 +1801,8 @@
    "when": {
     "pair:geo:in_sight": true,
     "pair:geo:risk_of_collision": true,
-    "own:fact:rule18_class": "rule18_class:sail",
-    "other:fact:rule18_class": "rule18_class:sail",
+    "own:fact:propulsion": "propulsion:sail",
+    "other:fact:propulsion": "propulsion:sail",
     "own:fact:position": "position:underway",
     "other:fact:position": "position:underway",
     "own:geo:windward": true,
@@ -1792,8 +1822,7 @@
     "own": "give-way",
     "other": "stand-on"
    },
-   "note": "Both have the wind on the same side, so the windward vessel keeps clear. 'The same side' is a comparison between two facts and the predicate language compares a fact to a constant, so the disjunction is written out over the two values the comparison can take -- which is why `wind_side:unknown` on either subject falls through to 12(a)(iii) rather than into this entry.",
-   "gap": "12(a) says 'two sailing vessels', which is 3(c)'s definition and would be `fact:propulsion: propulsion:sail`. This entry reads `rule18_class:sail` instead, which is narrower: a vessel engaged in fishing under sail is a sailing vessel by 3(c) but is ranked as fishing by 18(c), and letting Rule 12 hand her a give-way duty would contradict 18(b)(iii) with no override between them. Narrowed deliberately and recorded rather than left to collide; Q-40."
+   "note": "Both have the wind on the same side, so the windward vessel keeps clear. 'The same side' is a comparison between two facts and the predicate language compares a fact to a constant, so the disjunction is written out over the two values the comparison can take -- which is why `wind_side:unknown` on either subject falls through to 12(a)(iii) rather than into this entry. 'Two sailing vessels' is 3(c), so both subjects are gated on `fact:propulsion: propulsion:sail` and not on `rule18_class:sail` (Q-40): a vessel engaged in fishing under sail, or not under command under sail, is a sailing vessel by 3(c) and is inside Rule 12. Where Rule 18 also ranks the pair -- 18(b) from the ordinary sailing vessel's side, 18(c) from the fishing vessel's -- that entry carries `rel:overrides` against this one, because Rule 18's opening words except Rules 9, 10 and 13 and no others; 13(a)'s 'notwithstanding' overrides it the same way. Between two sailing vessels Rule 18 leaves unordered -- one not under command and one restricted in her ability to manoeuvre -- this entry is the only norm in force, and it lays a helm duty on a vessel that may be unable to discharge it; that is Rule 2's region and is recorded in Q-40 rather than gated away."
   },
   {
    "id": "12a3",
@@ -1804,8 +1833,8 @@
    "when": {
     "pair:geo:in_sight": true,
     "pair:geo:risk_of_collision": true,
-    "own:fact:rule18_class": "rule18_class:sail",
-    "other:fact:rule18_class": "rule18_class:sail",
+    "own:fact:propulsion": "propulsion:sail",
+    "other:fact:propulsion": "propulsion:sail",
     "own:fact:position": "position:underway",
     "other:fact:position": "position:underway",
     "own:kin:wind_side": "wind_side:port",
@@ -1817,8 +1846,7 @@
     "own": "give-way",
     "other": "stand-on"
    },
-   "note": "The doubt case, and the one paragraph of Rule 12 that is expressible only because uncertainty is a declared value of the fact rather than the fact's absence. `wind_side:unknown` on the other subject is 'cannot determine with certainty', and an absent fact would have been the wrong model for it: absent satisfies nothing, so silence would have relieved own of a duty the paragraph imposes. This is the shape 13(c) and 14(c) would need and do not have -- Q-41.",
-   "gap": "12(a) says 'two sailing vessels', which is 3(c)'s definition and would be `fact:propulsion: propulsion:sail`. This entry reads `rule18_class:sail` instead, which is narrower: a vessel engaged in fishing under sail is a sailing vessel by 3(c) but is ranked as fishing by 18(c), and letting Rule 12 hand her a give-way duty would contradict 18(b)(iii) with no override between them. Narrowed deliberately and recorded rather than left to collide; Q-40."
+   "note": "The doubt case, and the one paragraph of Rule 12 that is expressible only because uncertainty is a declared value of the fact rather than the fact's absence. `wind_side:unknown` on the other subject is 'cannot determine with certainty', and an absent fact would have been the wrong model for it: absent satisfies nothing, so silence would have relieved own of a duty the paragraph imposes. This is the shape 13(c) and 14(c) would need and do not have -- Q-41. 'Two sailing vessels' is 3(c), so both subjects are gated on `fact:propulsion: propulsion:sail` and not on `rule18_class:sail` (Q-40): a vessel engaged in fishing under sail, or not under command under sail, is a sailing vessel by 3(c) and is inside Rule 12. Where Rule 18 also ranks the pair -- 18(b) from the ordinary sailing vessel's side, 18(c) from the fishing vessel's -- that entry carries `rel:overrides` against this one, because Rule 18's opening words except Rules 9, 10 and 13 and no others; 13(a)'s 'notwithstanding' overrides it the same way. Between two sailing vessels Rule 18 leaves unordered -- one not under command and one restricted in her ability to manoeuvre -- this entry is the only norm in force, and it lays a helm duty on a vessel that may be unable to discharge it; that is Rule 2's region and is recorded in Q-40 rather than gated away."
   },
   {
    "id": "13b-overtaking",

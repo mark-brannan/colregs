@@ -1715,6 +1715,9 @@ function statedSituation({ ownRel, otherHeading, ownSog, otherSog, range_m = SWE
   aim(s, ownRel, norm360(ownRel + 180 - otherHeading), range_m)
   Object.assign(s.own.kin, { 'kin:sog_kn': ownSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' }, own.kin)
   Object.assign(s.other.kin, { 'kin:sog_kn': otherSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' }, other.kin)
+  // A fleet may change the vessels themselves; the derived facts follow.
+  s.own.fact = derive({ ...s.own.fact, ...own.fact }); s.other.fact = derive({ ...s.other.fact, ...other.fact })
+  Object.assign(s.own.geo, own.geo ?? {}); Object.assign(s.other.geo, other.geo ?? {})
   const m = relativeMotion({ range_m, ownRel, ownHeading: 0, otherHeading, ownSog, otherSog })
   s.pair.geo = {
     'geo:in_sight': true, 'geo:risk_of_collision': risk, 'geo:range_m': range_m,
@@ -1726,43 +1729,77 @@ function statedSituation({ ownRel, otherHeading, ownSog, otherSog, range_m = SWE
 const forcefulPool = (s) => resolve_(pooledRoles(s)).filter((r) => FORCEFUL.has(r.entry.modality))
 const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r) => r.B === role)
 
-test('precedence: never both give-way, never both stand-on, on every steady bearing (Q-48)', () => {
-  const speeds = [3, 6, 12, 20]
+// The fleets the steady-bearing sweep is run over. Two ordinary power-driven
+// vessels are Rule 15's case and Q-48's. Two sailing vessels are Rule 12's, in
+// every combination of tack and windward side, and with one of them ranked by
+// Rule 18 as well -- fishing under sail, not under command under sail -- so
+// that 12(a), 13(a) and 18(b)/(c) are all in force at once somewhere in the
+// sweep and rel:overrides has to earn its keep (Q-40).
+const SAIL = { 'fact:propulsion': 'propulsion:sail', 'fact:activity': 'activity:none' }
+const WINDS = ['wind_side:port', 'wind_side:starboard', 'wind_side:unknown']
+function* fleets() {
+  yield { name: 'two power-driven vessels', step: 0.5, speeds: [3, 6, 12, 20], own: {}, other: {} }
+  const sail = (fact, wind, windward) => ({
+    fact: { ...SAIL, ...fact }, kin: { 'kin:wind_side': wind, 'kin:dynamics': 'dynamics:yacht' }, geo: { 'geo:windward': windward },
+  })
+  for (const w1 of WINDS) {
+    for (const w2 of WINDS) {
+      for (const windward of [true, false]) {
+        const tag = `${w1.split(':')[1]}/${w2.split(':')[1]}, own ${windward ? 'windward' : 'leeward'}`
+        yield { name: `two sailing vessels, ${tag}`, step: 1, speeds: [3, 6], own: sail({}, w1, windward), other: sail({}, w2, !windward) }
+        yield { name: `sailing vessel and fishing under sail, ${tag}`, step: 2, speeds: [3, 6], own: sail({}, w1, windward), other: sail({ 'fact:activity': 'activity:fishing' }, w2, !windward) }
+        yield { name: `fishing under sail and NUC under sail, ${tag}`, step: 2, speeds: [3, 6], own: sail({ 'fact:activity': 'activity:fishing' }, w1, windward), other: sail({ 'fact:activity': 'activity:nuc' }, w2, !windward) }
+      }
+    }
+  }
+}
+
+test('precedence: never both give-way, never both stand-on, no two helm roles, on every steady bearing (Q-48, Q-40)', () => {
   let checked = 0, gaveWayA = 0, gaveWayB = 0
   const bad = []
-  for (const ownSog of speeds) {
-    for (const otherSog of speeds) {
-      for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
-        for (const otherHeading of steadyBearingHeadings({ ownRel, ownSog, otherSog })) {
-          const s = statedSituation({ ownRel, otherHeading, ownSog, otherSog })
-          const found = inconsistencies(s)
-          if (found.length) { bad.push(`${ownRel} @ ${ownSog}/${otherSog}: ${found.join('; ')}`); continue }
-          // The construction really is a collision course, not merely a
-          // consistent record of some motion.
-          const pg = s.pair.geo
-          if (!(pg['geo:cpa_m'] < 1 && pg['geo:tcpa_s'] > 0 && Math.abs(pg['geo:bearing_change_deg_min']) < 1e-6)) {
-            bad.push(`${ownRel} @ ${ownSog}/${otherSog}: not a steady bearing (cpa ${pg['geo:cpa_m'].toFixed(1)})`); continue
+  for (const fleet of fleets()) {
+    for (const ownSog of fleet.speeds) {
+      for (const otherSog of fleet.speeds) {
+        for (let ownRel = 0; ownRel < 360; ownRel += fleet.step) {
+          for (const otherHeading of steadyBearingHeadings({ ownRel, ownSog, otherSog })) {
+            const where = `${fleet.name}: ${ownRel} @ ${ownSog}/${otherSog} (other heading ${otherHeading.toFixed(1)})`
+            const s = statedSituation({ ownRel, otherHeading, ownSog, otherSog, own: fleet.own, other: fleet.other })
+            const found = inconsistencies(s)
+            if (found.length) { bad.push(`${where}: ${found.join('; ')}`); continue }
+            // The construction really is a collision course, not merely a
+            // consistent record of some motion.
+            const pg = s.pair.geo
+            if (!(pg['geo:cpa_m'] < 1 && pg['geo:tcpa_s'] > 0 && Math.abs(pg['geo:bearing_change_deg_min']) < 1e-6)) {
+              bad.push(`${where}: not a steady bearing (cpa ${pg['geo:cpa_m'].toFixed(1)})`); continue
+            }
+            // The theorem itself, which is why the property below can hold.
+            const aspect = s.other.geo['geo:rel_bearing_deg']
+            const side = (b) => (b > 0 && b < 180 ? 'starboard' : b > 180 ? 'port' : 'ahead-or-astern')
+            if (side(ownRel) !== 'ahead-or-astern' && side(ownRel) === side(aspect)) {
+              bad.push(`${where}: both bearings to ${side(ownRel)} on a steady bearing`); continue
+            }
+            const pool = forcefulPool(s)
+            for (const role of ['give-way', 'stand-on']) {
+              if (bothHold(pool, role)) bad.push(`${where}: both ${role}`)
+            }
+            // ...and no vessel is told two things about her helm once
+            // rel:overrides has resolved -- the fixture-level check, swept.
+            for (const subject of ['A', 'B']) {
+              const helm = new Set(pool.map((r) => r[subject]).filter((x) => HELM_ROLES.has(x)))
+              if (helm.size > 1) bad.push(`${where}: ${subject} holds ${[...helm].join(' and ')} (${pool.filter((r) => HELM_ROLES.has(r[subject])).map((r) => r.entry.id).join(', ')})`)
+            }
+            gaveWayA += pool.some((r) => r.A === 'give-way'); gaveWayB += pool.some((r) => r.B === 'give-way')
+            checked++
           }
-          // The theorem itself, which is why the property below can hold.
-          const aspect = s.other.geo['geo:rel_bearing_deg']
-          const side = (b) => (b > 0 && b < 180 ? 'starboard' : b > 180 ? 'port' : 'ahead-or-astern')
-          if (side(ownRel) !== 'ahead-or-astern' && side(ownRel) === side(aspect)) {
-            bad.push(`${ownRel} @ ${ownSog}/${otherSog}: both bearings to ${side(ownRel)} on a steady bearing`); continue
-          }
-          const pool = forcefulPool(s)
-          for (const role of ['give-way', 'stand-on']) {
-            if (bothHold(pool, role)) bad.push(`${ownRel} @ ${ownSog}/${otherSog} (other heading ${otherHeading.toFixed(1)}): both ${role}`)
-          }
-          gaveWayA += pool.some((r) => r.A === 'give-way'); gaveWayB += pool.some((r) => r.B === 'give-way')
-          checked++
         }
       }
     }
   }
-  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} of ${checked} steady bearings break the property`)
-  // Sixteen speed pairs by 720 bearings, less the bearings a slower vessel
-  // cannot intercept from: several thousand, and never fewer than this.
-  assert.ok(checked > 5000, `only ${checked} steady bearings swept`)
+  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} of ${checked} steady bearings break a property`)
+  // Sixteen speed pairs by 720 bearings for the power pair, less the bearings
+  // a slower vessel cannot intercept from, plus the sailing fleets: tens of
+  // thousands, and never fewer than this.
+  assert.ok(checked > 20000, `only ${checked} steady bearings swept`)
   // Not vacuous: each vessel is the give-way vessel somewhere in the sweep.
   assert.ok(gaveWayA > 0 && gaveWayB > 0, `give-way fell on A ${gaveWayA} times and on B ${gaveWayB}`)
 })
@@ -1806,4 +1843,38 @@ test('Q-48 residual: 7(d)(i)\'s tolerance admits a slow starboard-to-starboard p
   assert.ok(matchesSituation(byId.get('7d1').when, s), '7(d)(i) deems risk')
   assert.deepEqual([...encountersFor(s)], ['crossing'])
   assert.ok(bothHold(forcefulPool(s), 'give-way'), 'both vessels are give-way -- the residual this test pins')
+})
+
+// --- who governs over Rule 12 (Q-40) ----------------------------------------
+test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs over it says so', () => {
+  const rule12 = precedence.filter((e) => e.cite.startsWith('12('))
+  assert.deepEqual(rule12.map((e) => e.id).sort(), ['12a1', '12a2', '12a3'])
+  for (const e of rule12) {
+    // 'Two sailing vessels' is 3(c), which is the propulsion axis -- not the
+    // Rule 18 rank, which would drop a fishing vessel under sail out of Rule 12.
+    assert.equal(e.when['own:fact:propulsion'], 'propulsion:sail', `${e.id}: own is not gated on 3(c)`)
+    assert.equal(e.when['other:fact:propulsion'], 'propulsion:sail', `${e.id}: other is not gated on 3(c)`)
+    for (const k of factKeys(e.when)) assert.ok(!k.endsWith('fact:rule18_class'), `${e.id} reads ${k}`)
+  }
+  // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so every Rule
+  // 18 norm that can be in force between two sailing vessels displaces Rule
+  // 12: 18(b), whose subject is a sailing vessel, and 18(c), which does not
+  // distinguish propulsion. 13(a) is 'notwithstanding' the whole of Sections I
+  // and II. Both are on file, so the reason is asserted along with the data.
+  assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+  assert.match(rules.paragraphs['13(a)'].text, /^Notwithstanding/)
+  for (const id of ['18b1', '18b2', '18b3', '18c1', '18c2', '13a']) {
+    for (const t of ['12a1', '12a2', '12a3']) {
+      assert.ok((byId.get(id)['rel:overrides'] ?? []).includes(t), `${id} does not override ${t}`)
+    }
+  }
+  // The two fixtures written for it resolve the way the overrides say.
+  const under18 = bindingCases.find((c) => c.name.startsWith('12 under 18(b)(iii)'))
+  assert.ok(under18)
+  assert.deepEqual([...rolesFor(under18, 'A')].map(([r]) => r), ['stand-on'], 'fishing under sail: stand-on, 12(a)(i) displaced')
+  assert.deepEqual([...rolesFor(under18, 'B')].map(([r]) => r), ['give-way'])
+  const over12 = bindingCases.find((c) => c.name.startsWith('13 over 12'))
+  assert.ok(over12)
+  assert.deepEqual([...rolesFor(over12, 'A')].map(([r]) => r), ['give-way'], 'the overtaking vessel gives way, 12(a)(ii) displaced')
+  assert.deepEqual([...rolesFor(over12, 'B')].map(([r]) => r), ['stand-on'])
 })
