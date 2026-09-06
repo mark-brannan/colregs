@@ -1241,13 +1241,13 @@ path `data/rules.json` carries in the range 13–19 appears exactly once.
 | 14(c) | **not formalised** — doubt |
 | 15(a) | `INV-15a-crossing`, `INV-15a-give-way`, `INV-15a-single`, `INV-15a-not-ahead` |
 | 16 | `INV-16`, `INV-16-scope` |
-| 17(a)(i) | `INV-17a1-scope`, `INV-17a1` |
+| 17(a)(i) | `INV-17a1-scope`, `INV-17a1`, `INV-17-phases` |
 | 17(a)(ii) | `INV-17a2-trigger`, `INV-17a2-permission` |
 | 17(b) | `INV-17b` |
 | 17(c) | `INV-17c` |
 | 17(d) | `INV-17d` |
 | 18 (chapeau) | `INV-18-except` |
-| 18(a) (chapeau) | `INV-18-order` — read with 18(a)(i)–(iv) |
+| 18(a) (chapeau) | `INV-18-order`, `INV-18-partial` — read with 18(a)(i)–(iv) |
 | 18(a)(i) | `INV-18-order` |
 | 18(a)(ii) | `INV-18-order` |
 | 18(a)(iii) | `INV-18-order` |
@@ -1273,7 +1273,8 @@ path `data/rules.json` carries in the range 13–19 appears exactly once.
 | 19(e) | `INV-19e` |
 
 Thirty-nine paragraph paths; thirty-four covered by an invariant, five
-excluded. Thirty-eight invariants, of which three are cross-rule.
+excluded. Forty invariants, of which three — the `INV-PB-` ones — are
+cross-rule and appear against no single paragraph.
 
 ### Excluded paragraphs, with reasons
 
