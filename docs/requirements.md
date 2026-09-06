@@ -364,6 +364,60 @@ towards, not because the shape is settled.
   whose threshold does not match the declared constant. `✎` pencil, with the
   rest of §4.1.
 
+### 4.2 Part B invariants
+
+`docs/part-b-invariants.md`, seeded 2026-09-06. Everything in this subsection
+is **pencil** (`docs/conventions.md`) with §4.1, and the document it binds is
+pencil throughout.
+
+An **invariant** is a proposition about what the Rules require of a *trace* of
+situations. An **entry** says which norms a single state selects; an invariant
+says what must hold over time, including the things no predicate at a point can
+express — 13(d)'s latch, Rule 17's phases, Rule 16's "early and substantial".
+The two layers check each other: where both exist, an entry that selects a norm
+the invariant does not, or the reverse, is a defect in one of them.
+
+The invariants are a separate document rather than requirements here because
+they are not requirements *on this package*. This file states what colregs must
+do; the invariants state what COLREGS requires, which is a different kind of
+proposition and would be misread under a `REQ-` id and an RFC 2119 MUST. The
+requirements below are the package's obligations *about* that document.
+
+- **REQ-INV-1** — Part B's steering and sailing rules MUST be recorded as prose
+  invariants in `docs/part-b-invariants.md`, each with a stable identifier,
+  each citing the paragraph path it comes from, and each precise enough that a
+  formalisation can be written from it without returning to the rule text.
+- **REQ-INV-2** — An invariant identifier MUST be `INV-` followed by the
+  entry-id derivation of its paragraph path (`docs/identifiers.md`, "Entry
+  ids"), with a descriptive hyphenated suffix where one paragraph yields more
+  than one invariant. A suffix MUST name what distinguishes the invariant, and
+  MUST NOT be an ordinal. Identifiers MUST be stable and MUST NOT be reused; a
+  withdrawn invariant is struck through and kept, as a requirement is.
+- **REQ-INV-3** **(unimplemented — the check is unwritten; it needs a Markdown
+  reader, which nothing in the suite has today)** — Every paragraph path in
+  `data/rules.json` within the range the document covers MUST appear exactly
+  once in its coverage table, mapped either to an invariant identifier or to an
+  explicit exclusion with a reason. CI MUST fail on a paragraph in range that
+  appears in neither, on one that appears twice, and on an invariant whose
+  citation does not resolve in `data/rules.json`. Until the check exists the
+  table is maintained by hand and is asserted, not verified.
+- **REQ-INV-4** — An invariant that is temporal MUST state what state must be
+  remembered and over what window. "Temporal" means it relates two or more
+  states of a trace; a property of a single state MUST say so. This is the
+  clause P4.2 and P4.3 read, and an invariant that omits it is incomplete
+  rather than terse.
+- **REQ-INV-5** — Where the rule text admits two readings, the document MUST
+  record both and MUST NOT choose. The choice is an open question in §11 and is
+  Mark's; a session MAY argue for a reading, and MUST NOT resolve one by
+  writing only its preferred half down. A proposition that is neither the rule
+  text, arithmetic over the rule text, nor a decision recorded as such MUST NOT
+  appear as an invariant.
+- **REQ-INV-6** — An invariant that covers its paragraph while leaving a term
+  the Rules do not define MUST name that term in the document's list of
+  undetermined terms, so that "covered" is never read as "checkable". A numeric
+  stand-in for such a term MUST be a declared constant under
+  `situation.constants` (`REQ-CAT-9`), never a literal inside an invariant.
+
 ---
 
 ## 5. Languages and localization
@@ -1318,3 +1372,129 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   is closed — the definition a consumer would need is now in the data — and
   the relative quantities as derived facts stays open in the block's
   `settled_by`.
+
+### From the Part B invariants (P4.1)
+
+`docs/part-b-invariants.md` states Rules 13–19 as prose invariants. Eight
+places where the rule text admits two readings are recorded here rather than
+resolved there; `REQ-INV-5` is why. Each is a question about a legal
+instrument, so each is Mark's, and each names a default — what the data does
+today — so that nothing is blocked while it is open.
+
+- **Q-49** — **Does risk of collision gate Rules 13 and 18?** Rules 14(a) and
+  15(a) each condition on "so as to involve risk of collision" in terms.
+  Rule 13 does not, and neither does any paragraph of Rule 18. Two readings.
+  *Wide:* the overtaking classification, the overtaking vessel's duty, and
+  Rule 18's ranks attach whenever the vessels are in sight and the geometry
+  holds, whether or not risk of collision exists — the paragraphs say what they
+  say, and Rule 11 is the only gate Section II states. *Narrow:* Section II is
+  about avoiding collisions and its duties attach only where risk of collision
+  exists, the explicit conditions in 14 and 15 being drafting emphasis rather
+  than a distinction. The consequences differ sharply: on the wide reading a
+  vessel overtaking another a mile clear abeam is give-way and Rule 16 binds
+  her. Default today is **wide** — entries `13a`, `13b-overtaking`,
+  `13b-overtaken`, `13d` and every Rule 18 entry read `pair:geo:in_sight` and
+  not `pair:geo:risk_of_collision`, while `14b`, `15a-crossing` and
+  `15a-give-way` read both. Settled by Mark; a source that settles it for
+  either rule settles it for both.
+- **Q-50** — **What arms 13(d)'s latch?** 13(d) preserves the overtaking
+  classification and duty against a subsequent alteration of the bearing, and
+  does not say what must first have been true. *Reading A:* 13(b)'s deeming —
+  the latch arms at the first state at which the geometry holds. *Reading B:*
+  13(a)'s duty — the latch arms only once the overtaking vessel is actually
+  under the duty to keep clear. They differ wherever the geometry holds but
+  some further condition on 13(a) does not, which is exactly the surface
+  `Q-49` is about. Default today is **A**: `hist:was_overtaking` is described
+  as "was, at some earlier point in this encounter, an overtaking vessel", and
+  entry `13b-overtaking`'s predicate is the geometry.
+- **Q-51** — **What does 13(d)'s latch forbid?** The paragraph runs "shall not
+  make the overtaking vessel a crossing vessel within the meaning of these
+  Rules or relieve her of the duty of keeping clear". *Narrow, literal:* it
+  forbids reclassification to *crossing* and preserves the duty; it says
+  nothing about head-on, which is left to Rule 14 on the geometry of the
+  moment. *Broad:* the encounter remains an overtaking, full stop, and no
+  other Section II classification can attach to the pair. The second clause
+  makes the two readings agree about the duty and disagree about the encounter
+  type — which matters because Rule 17's phases and 14(a)'s mutual-alteration
+  duty hang off the encounter type, not off the role. Default today is
+  **broad**: entry `13d` produces `encounter: overtaking` from history alone,
+  and `14b` and `15a-crossing` both gate on `hist:was_overtaking: false` on
+  both subjects. `INV-13d` and `INV-13d-duty` are stated as two invariants so
+  that the narrow reading remains expressible.
+- **Q-52** — **Does 17(a)(ii) suspend 17(a)(i)'s duty, or add an exception to
+  it?** *Suspension:* once it becomes apparent that the give-way vessel is not
+  taking appropriate action, the stand-on vessel is no longer under any
+  keep-course-and-speed duty; "may, however" reads as lifting the preceding
+  sentence. *Exception:* she remains under the duty, and a departure from
+  course or speed is lawful only if it is action to avoid collision by her
+  manoeuvre alone; the paragraph describes a permitted action rather than
+  cancelling a duty. A monitor built on the first reading flags nothing once
+  phase 2 is entered; one built on the second flags a stand-on vessel who alters
+  for a reason other than avoiding the collision. No default in the data —
+  Rule 17 is `conduct` and has no entry. Recommendation: **exception**, because
+  17(a)(ii) is written as a description of an action and not as a proviso on
+  17(a)(i), and because it is the reading that leaves a monitor with something
+  to check; but this is an argument from drafting, not from a source.
+- **Q-53** — **Are Rule 17's phases monotone?** Nothing in the rule says
+  whether a stand-on vessel who has entered phase 2 — non-compliance apparent —
+  returns to phase 1 if the give-way vessel then begins to comply, or whether
+  the permission, once triggered, persists. Nor whether a vessel who has
+  altered course under 17(a)(ii) must then hold her *new* course and speed.
+  *Latching:* one three-valued monotone latch per stand-on vessel per
+  encounter; a late-complying give-way vessel does not take the permission
+  away. *Re-evaluating:* each phase is a predicate on the current state and the
+  vessel may fall back. TLC will distinguish them on a four-state trace, which
+  is why the question is worth settling before P4.2 rather than after. No
+  default in the data. Recommendation: **latching**, on the ground that the
+  permission exists because the stand-on vessel can no longer rely on the other
+  and a single late alteration does not restore reliance — an argument from
+  purpose, offered as one, not as a source.
+- **Q-54** — **What does a visibility transition do to accumulated Section II
+  state?** A pair in sight may lose sight of one another inside one encounter
+  and regain it. Rule 11 and 19(a) switch the ruleset on the current state and
+  no paragraph says what becomes of a 13(d) latch or a Rule 17 phase across the
+  switch. *Persisting:* the latch and the phase belong to the encounter and
+  survive; a vessel who was overtaking is still overtaking when the fog lifts.
+  *Resetting:* Section II state exists only while Section II applies, and a pair
+  emerging from fog starts Section II afresh on the geometry they then have.
+  The second is the more mechanical and produces the reclassification 13(d)
+  exists to forbid, only via visibility rather than via bearing. No default in
+  the data — nothing there is temporal. Recommendation: **persisting**, and it
+  is the reading `INV-13d`'s "the same encounter" is written for; flagged
+  because it is the single question in `docs/part-b-invariants.md` most likely
+  to produce a surprising TLC trace.
+- **Q-55** — **The third visibility state: a hole in the Rules, or closed by
+  the model?** Rule 11 gives Section II to pairs in sight; 19(a) gives Rule 19
+  to pairs *not* in sight **and** navigating in or near an area of restricted
+  visibility. Two vessels beyond visual range in clear weather, aware of each
+  other by radar or AIS, are in neither: only Section I governs them.
+  *Hole:* that is what the two paragraphs say, the model should represent it,
+  and a fact for "in or near an area of restricted visibility" is owed.
+  *Closed:* treat not-in-sight as Section III, on the ground that a pair
+  navigating without visual contact should be under Rule 19's conduct
+  whatever the cause. Default today is **closed**: entry `19a` drops 19(a)'s
+  second conjunct and records the widening as a `gap`. Note that the two
+  readings differ in the safe direction for a switching consumer and in the
+  unsafe direction for a traceability claim — the model asserts Rule 19 on
+  pairs the paragraph does not reach.
+- **Q-56** — **What is the baseline for "keep her course and speed"?**
+  17(a)(i) fixes no instant. *Attachment:* the course and speed held at the
+  state where the stand-on role attached; any later change is a departure.
+  *Steady state:* the vessel's settled condition, so that a vessel already in a
+  turn may complete it and one accelerating to passage speed may finish. The
+  first is checkable and occasionally absurd; the second is the seamanlike
+  reading and needs a definition of "settled" the Rules do not give. No default
+  in the data. Recommendation: **attachment**, with the departure tolerance
+  made an explicit parameter of the monitor rather than hidden in the choice of
+  baseline.
+
+Two decisions this file's author took in pencil rather than raising as
+questions, listed here so they can be reversed in one edit:
+
+- The invariants live in `docs/part-b-invariants.md` rather than inline in this
+  file, with `REQ-INV-1`–`REQ-INV-6` binding them (§4.2). The reason is stated
+  in §4.2: they are propositions about COLREGS, not requirements on this
+  package, and would be misread under a `REQ-` id.
+- The identifier scheme is `INV-` plus the entry-id derivation of the paragraph
+  path plus a descriptive suffix (`REQ-INV-2`). Cheap to change until P4.2
+  cites one from a TLA+ module; expensive after.
