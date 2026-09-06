@@ -1124,12 +1124,39 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   Rule 18 does not order — one not under command, one restricted in her
   ability to manoeuvre — Rule 12 is now the only norm in force, and it lays a
   helm duty on a vessel that may be unable to discharge it; that is Rule 2's
-  region (ADR 0005 §5) and is recorded, not gated. And `15a-give-way` still
-  keeps the Rule 18 ranks out by a gate in its own predicate rather than by
-  overrides from the Rule 18 entries — the same question answered the other
-  way for Rule 15. The fixtures file's `override_note` argues for overrides;
-  converting it changes a reviewed entry, so it waits for that decision. The
-  category half — Rule 12 as `precedence` — is unchanged and stays with
+  region (ADR 0005 §5) and is recorded, not gated.
+
+  **Decided in pencil 2026-09-05 (PR #46): Rule 15 reads 3(b), and Rule 18
+  overrides it too.** The same question answered the other way for Rule 15.
+  `15a-give-way` kept the four Rule 18 ranks — NUC, RAM, fishing and WIG —
+  out of Rule 15 by negating them on both subjects in its own predicate; the
+  negation is gone, both subjects gate on `fact:propulsion: propulsion:power`
+  which is 3(b), and `18a1`–`18a3`, `18c1`–`18c2` and `18f1` carry
+  `rel:overrides` against it. The gate was not merely the relation said in
+  the wrong place. It produced the right roles wherever Rule 18 speaks and
+  *no* role at all where Rule 18 is silent: two vessels engaged in fishing
+  under power, and a vessel not under command crossing one restricted in her
+  ability to manoeuvre under power, are pairs Rule 18 does not order, and
+  neither vessel took a helm role from any entry. Both are fixtures now, and
+  both failed on the data before the change — `15a-crossing` classified the
+  encounter and nothing assigned a role. What it leaves is Rule 12's residue
+  again: on those unordered pairs Rule 15 lays a give-way duty on a vessel
+  that may be unable to discharge it, which is Rule 2's region and is
+  recorded, not gated. `13a` needs no override against `15a-give-way` — the
+  entry excludes every overtaking by the `hist:was_overtaking` latch and by
+  13(b)'s sector — and a test pins that absence so it stays a reason rather
+  than an oversight. The hand-list of six is asserted complete by a derived
+  check: every Rule 18 entry that assigns a helm role and does not gate a
+  subject to a sailing vessel must carry the override, so a Rule 18 paragraph
+  written later cannot join Rule 15 silently. The steady-bearing sweep gained
+  power fleets — each rank on one side, on both sides, and against each other
+  rank — and every one of the six overrides fails the sweep when removed. The
+  fixtures file's `override_note` stays as it is: it says `expect` names every
+  entry a situation selects, including one a `rel:overrides` then displaces,
+  which is still how the fixtures are written and is what makes these six
+  overrides observable rather than invisible.
+
+  The category half — Rule 12 as `precedence` — is unchanged and stays with
   `Q-14`.
 - **Q-41** — **13(c) and 14(c) invert the absent-fact rule.** "When a vessel is
   in any doubt as to whether she is overtaking, she shall assume that this is
