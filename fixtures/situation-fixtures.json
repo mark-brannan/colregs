@@ -260,6 +260,76 @@
    }
   },
   {
+   "name": "19(d)(i) fact reachability: an overtaking latch, out of sight (P4.0)",
+   "status": "illustrative",
+   "narrative": "The `13(d)` latch case above, unchanged, except the pair has lost sight of one another (`pair:geo:in_sight: false`) with own's latch already set. No Rule 19 entry exists yet to read it, so this asserts no entries (`expect: []`, per `case_status`) and exists to fix the shape: Q-49 (✎ pencil, colregs#51, P4.1's INV-19a-noroles) asked whether the fact vocabulary blocks Rule 19(d)(i) -- 'other than for a vessel being overtaken' -- from being written, because entry `13d`'s classification effect does not cross into Section III (it stays gated on `pair:geo:in_sight`, correctly, per the scope invariant). It does not: `own:hist:was_overtaking` and `other:hist:was_overtaking` are plain facts of the situation record, not derived from `13d` firing, and they resolve here exactly as they do in sight -- `14b` and `15a-crossing` already read them the same way, ungated. A future `19d1` entry reads them directly and needs nothing this fixture doesn't already show.",
+   "expect": [],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50.0,
+       "longitude": -1.4
+      },
+      "kin:heading_deg": 20,
+      "kin:sog_kn": 14,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 90
+     },
+     "hist": {
+      "hist:was_overtaking": true,
+      "hist:latched_at_s": 420
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 22
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 49.99877,
+       "longitude": -1.39475
+      },
+      "kin:heading_deg": 40,
+      "kin:sog_kn": 9,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:fishing"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 250
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 400,
+      "geo:bearing_change_deg_min": 24.51,
+      "geo:cpa_m": 350,
+      "geo:tcpa_s": -60,
+      "geo:in_sight": false,
+      "geo:risk_of_collision": true
+     }
+    }
+   }
+  },
+  {
    "name": "18 matrix: own power-driven, other power-driven, in sight",
    "status": "binding",
    "narrative": "Own is power-driven; the other vessel is power-driven. Both underway and in sight of one another.",

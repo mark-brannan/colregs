@@ -1153,6 +1153,22 @@ test('REQ-CAT-4: subject and class resolution is exact, and aspect is a subject 
   assert.equal(matchesSituation({ 'other:hist:was_overtaking': true }, latched.situation), false)
 })
 
+test('Q-49 (P4.0, colregs#51): the fact a future Rule 19(d)(i) entry needs is reachable out of sight', () => {
+  // 13d's classification effect stays inside Section II (it is gated on
+  // `pair:geo:in_sight`, and the scope test above holds every Section II
+  // paragraph absent once a pair is out of sight). That does not block Rule
+  // 19(d)(i): the fact it would read, `hist:was_overtaking`, is not derived
+  // from 13d firing -- it is a plain fact of the situation record, exactly
+  // like every other two-subject fact, and 14b/15a-crossing already read it
+  // ungated by `pair:geo:in_sight` themselves.
+  const outOfSight = situationFixtures.cases.find((x) => x.name.startsWith('19(d)(i)'))
+  assert.ok(outOfSight, 'the P4.0 illustrative fixture')
+  assert.equal(resolve('pair:geo:in_sight', outOfSight.situation), false)
+  assert.equal(matchesSituation({ 'own:hist:was_overtaking': true }, outOfSight.situation), true)
+  assert.equal(applyingSituation(outOfSight.situation).includes('13d'), false,
+    "13d does not fire out of sight -- that's the scope invariant, not a fact gap")
+})
+
 // --- two-subject entries: scope and precedence (ADR 0005, REQ-CAT-1/3/6) ----
 // The first data written against the situation record. Everything below either
 // checks the shape of the new entries or replays the situation fixtures through
