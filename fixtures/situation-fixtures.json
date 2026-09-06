@@ -2069,7 +2069,7 @@
   {
    "name": "9(b) length boundary: 20.0 m power-driven vessel in a narrow channel",
    "status": "binding",
-   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct of 9b's subject holds, so 9b no longer applies and nothing else in this situation does either.",
+   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct of 9b's subject holds, so 9b no longer applies and nothing else in this situation does either. `other:fact:confined_to_channel` stays true so length alone crosses the threshold.",
    "expect": [
     "11",
     "4"
@@ -2090,7 +2090,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:confined_to_channel": true
      }
     },
     "pair": {
@@ -2150,7 +2151,7 @@
   {
    "name": "10(j) length boundary: 20.0 m power-driven vessel in a traffic separation scheme",
    "status": "binding",
-   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct holds and 10j no longer applies.",
+   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct holds and 10j no longer applies. `other:fact:following_traffic_lane` stays true so length alone crosses the threshold.",
    "expect": [
     "11",
     "4"
@@ -2171,7 +2172,8 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 40
+      "fact:length_m": 40,
+      "fact:following_traffic_lane": true
      }
     },
     "pair": {
