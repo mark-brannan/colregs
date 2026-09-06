@@ -231,7 +231,7 @@ value.
 **The three encounter types partition relative bearing, and the data is
 written so that they cannot stop.** 13(b)'s sector is one constraint object,
 `{"gt": 112.5, "lt": 247.5}`; 15(a)'s residual is `not` over that same object,
-and 14(a)'s cone is negated the same way inside an `any_of`. Nothing writes a
+and 14(b)'s cone is negated the same way inside an `any_of`. Nothing writes a
 crossing sector. The consequence is that the only way to put a bearing in two
 encounters or in none is to edit one of two constraints and not the other, and
 there is exactly one of each to edit. `test/data.test.mjs` sweeps both
