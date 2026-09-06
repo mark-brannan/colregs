@@ -350,4 +350,5 @@ publications, public domain; see [PROVENANCE.md](PROVENANCE.md). The
 compilation is Apache-2.0.
 
 Not authoritative, not endorsed by the Coast Guard. Navigate by the published
-rules.
+rules. When the `ca/inland` delta lands, it will carry the same condition
+its licence does: it must not be represented as an official version.

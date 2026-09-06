@@ -731,6 +731,11 @@ Tracked here until resolved; each becomes an ADR.
   UK OGL v3.0, AU CC BY 4.0, DE §5 UrhG *amtliche Werke*, CA Reproduction of
   Federal Law Order, EU/UNECE CEVNI unclear. REQ-PROV-2 blocks each until
   checked against the primary source. CEVNI is the one most likely to fail.
+  **Verified 2026-09-05** against the primary sources for every jurisdiction
+  except CEVNI — see ADR 0001 Amendments (2026-09-05). CEVNI remains open:
+  unece.org was unreachable from the checking host, and the UN's default
+  terms (personal, non-commercial use only) block it until written
+  permission or a national transposition is chosen instead.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
 - **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
