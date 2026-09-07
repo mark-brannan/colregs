@@ -1961,3 +1961,77 @@ test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm th
     assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r), ['stand-on'], `${note}: the other stands on`)
   }
 })
+
+// --- Part B invariants (REQ-INV-3) ------------------------------------------
+// docs/part-b-invariants.md claims every Rules 13-19 paragraph path is covered
+// or explicitly excluded. The coverage table is prose; this is what makes the
+// claim a check instead of an assertion.
+const invariantsText = readFileSync(new URL('../docs/part-b-invariants.md', import.meta.url), 'utf8')
+const paragraphPaths = new Set(Object.values(rules.paragraphs).flat().map((p) => p.path))
+const invHeadings = [...invariantsText.matchAll(/^### (INV-[A-Za-z0-9-]+) /gm)].map((m) => m[1])
+
+test('REQ-INV-3: the coverage table matches data/rules.json for Rules 13-19', () => {
+  const inRange = [...paragraphPaths].filter((p) => /^1[3-9](\(|$)/.test(p))
+  assert.ok(inRange.length > 0, 'no Rules 13-19 paths in data/rules.json -- failing closed')
+
+  const from = invariantsText.indexOf('### Coverage')
+  const to = invariantsText.indexOf('### Excluded paragraphs')
+  assert.ok(from > 0 && to > from, 'coverage table not found in docs/part-b-invariants.md')
+  const rows = [...invariantsText.slice(from, to).matchAll(/^\| (.+?) \| (.+?) \|$/gm)]
+    .map(([, path, disposition]) => [path.replace(/ \(chapeau\)$/, ''), disposition])
+    .filter(([path]) => path !== 'paragraph' && path !== '---')
+
+  const seen = new Map()
+  for (const [path] of rows) seen.set(path, (seen.get(path) ?? 0) + 1)
+  for (const path of inRange) {
+    assert.equal(seen.get(path) ?? 0, 1, `${path}: appears ${seen.get(path) ?? 0} times in the coverage table, not once`)
+  }
+  for (const path of seen.keys()) {
+    assert.ok(paragraphPaths.has(path), `${path}: in the coverage table but not a path in data/rules.json`)
+  }
+
+  const cited = new Set()
+  for (const [path, disposition] of rows) {
+    const ids = [...disposition.matchAll(/`(INV-[A-Za-z0-9-]+)`/g)].map((m) => m[1])
+    if (ids.length === 0) {
+      assert.match(disposition, /\*\*not formalised\*\* — \S/, `${path}: neither an INV- id nor an exclusion with a reason`)
+    }
+    for (const id of ids) {
+      assert.ok(invHeadings.includes(id), `${path} cites ${id}, which has no ### heading`)
+      cited.add(id)
+    }
+  }
+  // Cross-rule invariants (INV-PB-*) belong to no single paragraph by design.
+  for (const id of invHeadings) {
+    if (id.startsWith('INV-PB-')) continue
+    assert.ok(cited.has(id), `${id} has a heading but no row in the coverage table`)
+  }
+})
+
+test('REQ-INV-3: every invariant cites paragraph paths that resolve in data/rules.json', () => {
+  const blocks = invariantsText.split(/^### (?=INV-)/m).slice(1)
+  assert.equal(blocks.length, invHeadings.length)
+  for (const block of blocks) {
+    const id = block.match(/^(INV-[A-Za-z0-9-]+)/)[1]
+    const header = block.split('\n\n')[1]
+    assert.ok(header, `${id}: no header line`)
+    const cite = header.split(' · ')[0]
+    const paths = [...cite.matchAll(/`([^`]+)`/g)].map((m) => m[1].split('–')[0])
+    assert.ok(paths.length > 0, `${id}: header line cites no paragraph path`)
+    for (const path of paths) {
+      assert.ok(paragraphPaths.has(path), `${id} cites ${path}, which is not a path in data/rules.json`)
+    }
+  }
+})
+
+test('Q-, REQ- and INV- identifiers are each defined once', () => {
+  const unique = (label, ids) => {
+    const dup = ids.filter((id, i) => ids.indexOf(id) !== i)
+    assert.deepEqual(dup, [], `${label} defined more than once: ${dup.join(', ')}`)
+  }
+  unique('Q- ids in docs/requirements.md',
+    [...requirementsText.matchAll(/^- \*\*(Q-\d+)\*\* —/gm)].map((m) => m[1]))
+  unique('REQ- ids in docs/requirements.md',
+    [...requirementsText.matchAll(/^- \*\*(REQ-[A-Z]+-\d+)\*\*/gm)].map((m) => m[1]))
+  unique('INV- headings in docs/part-b-invariants.md', invHeadings)
+})

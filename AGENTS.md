@@ -19,11 +19,8 @@ a light, a fact or a relation.
 `docs/conventions.md` states the ink/pencil convention: a `✎` marker is the
 rule for *who may change that item and on what grounds*, not a confidence
 note — read it before editing anything a design doc has marked.
-`docs/part-b-invariants.md` states Rules 13–19 as prose invariants with stable
-`INV-` ids: what the Rules require of a *trace*, as distinct from what an entry
-selects at a point. Bound by `REQ-INV-1..6` (§4.2) — read `REQ-INV-5` before
-touching it, because where the rule text admits two readings that document
-records both and a session does not get to pick one.
+`docs/part-b-invariants.md` states Rules 13–19 as trace invariants with stable
+`INV-` ids. Read `REQ-INV-5` (§4.2) first: it forbids choosing a reading.
 
 ## Commands
 
