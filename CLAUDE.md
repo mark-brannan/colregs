@@ -26,7 +26,7 @@ note — read it before editing anything a design doc has marked.
 npm test              # node --test test/*.mjs — the entire verification surface
 ```
 
-There is no build, lint, or type-check step. `test/data.test.mjs` is the
+There is no build, lint, or type-check step. `test/*.mjs` is the
 whole suite; there's no per-test filter script — use Node's own `--test-name-pattern`
 if you need to run one test (e.g. `node --test --test-name-pattern=drift test/data.test.mjs`).
 
@@ -113,3 +113,7 @@ bump, not a minor, until that's deliberately turned off at 1.0.
 Part C lights (Rules 20–31), `intl` jurisdiction, night only. Day shapes,
 Part D signals, and every non-`intl` jurisdiction are modelled for but not
 yet present.
+
+## Prose budget
+
+One home per argument: a JSON `note` is one sentence plus the Q-/REQ-/ADR id it points at, and the argument lives there. No PR numbers, phase ids, dates or session references in data, fixtures, tests or this file. Budgets are in `docs/budgets.json` and enforced by `test/docs.test.mjs`; raising one is a deliberate diff.
