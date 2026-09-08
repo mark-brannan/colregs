@@ -22,7 +22,17 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
+      # The prose-budget engine isn't on this runner; the `prose-budget` job
+      # below is the gate for it, so the wrapper test skips here.
       - run: npm test
+        env:
+          PROSE_BUDGET_SKIP: '1'
+
+  # Documentation gate: the shared prose-budget engine over docs/budgets.json.
+  prose-budget:
+    uses: mark-brannan/.github/.github/workflows/prose-budget.yml@main
+    with:
+      dotfiles-ref: claude/prose-budget
 
   # The single required status check, shared across repositories: the
   # `gate` job of mark-brannan/.github's reusable ci-gate workflow, which fails
@@ -33,7 +43,7 @@ jobs:
   # evaluate when a dependency failed or was skipped, so it reports an explicit
   # pass or fail of its own rather than inheriting the skip.
   ci-gate:
-    needs: [test]
+    needs: [test, prose-budget]
     if: always()
     # It reads nothing and writes nothing; the results go in as an input.
     permissions: {}
