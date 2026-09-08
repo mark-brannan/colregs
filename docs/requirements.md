@@ -160,8 +160,8 @@ Four layers, each independently addressable.
   - `rel:includes` — import another entry's **lights only**, never its predicate;
   - `rel:in_lieu_of` — legal alternatives for the same fact record;
   - `rel:excludes` — mutual exclusion, including across rules; symmetric
-    (A excludes B implies B excludes A) and never between two forceful
-    (`shall`/`shall-if-practicable`) entries — a directed "this one
+    (A excludes B implies B excludes A), and no participating entry MAY be
+    forceful (`shall`/`shall-if-practicable`) — a directed "this one
     prevails" is `rel:overrides` (ADR 0007), not `rel:excludes`;
   - `rel:exempts` — one entry lifting another's obligation;
   - `rel:conditional_includes` — import or alternatives, gated on a predicate.
