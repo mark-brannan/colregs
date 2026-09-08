@@ -24,10 +24,16 @@ fixtures/                fact records and the entries that apply to them
 
 ## Coverage
 
-Part C lights (Rules 20-31) only, `intl` jurisdiction only, night only. Day
-shapes, Part D signals, and every other jurisdiction (US Inland, Canada,
-CEVNI) are on the roadmap in [`docs/requirements.md`](docs/requirements.md)
-but not present here.
+Part C lights (Rules 20-31), `intl` jurisdiction, night only. Day shapes,
+Part D signals, and every other jurisdiction (US Inland, Canada, CEVNI) are
+on the roadmap in [`docs/requirements.md`](docs/requirements.md) but not
+present here.
+
+One exception, not a claim to model the Inland Rules: `us/inland` carries
+two entries, `30a-buoy` and `30b-buoy`, for a vessel made fast to a mooring
+buoy — 33 CFR 90.5 deems her at anchor and the Convention does not, so the
+case cannot be stated under `intl` at all
+([ADR 0008](docs/adr/0008-mooring-buoy-modifier.md)).
 
 ## The four layers
 

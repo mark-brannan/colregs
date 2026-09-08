@@ -65,6 +65,12 @@
    "refines": "fact:position=position:underway",
    "note": "Undefined in the Rules; it means moving through the water. Underway but not making way is free drifting. Only the 26/27-family predicates read it (26(b)(iii), 26(c)(iii), 27(a)(iii), 27(b)(iii)); Rules 23 and 25 gate on 'underway' alone, so a power-driven vessel drifting in neutral still shows full running lights.",
    "actuable": true
+  },
+  "fact:on_mooring_buoy": {
+   "type": "boolean",
+   "refines": "fact:position=position:moored",
+   "note": "Made fast to a mooring buoy rather than to the shore. Rule 3(i) makes both 'moored', and the Convention prescribes no lights for either. Only a jurisdiction that deems a buoy-moored vessel to be at anchor reads it -- US Inland, 33 CFR 90.5 -- so under intl it selects nothing.",
+   "actuable": true
   }
  },
  "numerics": {
@@ -291,12 +297,13 @@
   }
  },
  "actuable_subset": {
-  "note": "What a switching consumer needs and can get: the three axes (decodable from navigation.state), making_way, and length_m. Everything else is education-side.",
+  "note": "What a switching consumer needs: the three axes (decodable from navigation.state), making_way, on_mooring_buoy, and length_m. Decodability is not the test -- making_way and on_mooring_buoy change which lights must burn and the helm knows both, so a consumer must ask. Everything else is education-side.",
   "fields": [
    "fact:propulsion",
    "fact:activity",
    "fact:position",
    "fact:making_way",
+   "fact:on_mooring_buoy",
    "fact:length_m"
   ]
  },
@@ -419,6 +426,11 @@
    "not defined (example)"
   ],
   "lossy": [
+   {
+    "what": "made fast to a mooring buoy vs. made fast to the shore",
+    "why": "'moored' covers both and no SignalK path distinguishes them, so fact:on_mooring_buoy cannot be derived from navigation.state and must be asked of the consumer. Under us/inland it decides whether the 30(a)/(b) anchor lights are required.",
+    "cite": "3(i)"
+   },
    {
     "what": "fishing or trawling at anchor",
     "why": "Rule 26(a) applies 'whether underway or at anchor', but 'fishing' and 'anchored' are mutually exclusive values of one flat enum, so the pair cannot be stated.",
