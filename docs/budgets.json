@@ -1,0 +1,114 @@
+{
+  "$comment": "Prose budgets enforced by test/docs.test.mjs. Raising a number or adding an exception is a deliberate, reviewable diff.",
+  "lines": {
+    "README.md": 360,
+    "AGENTS.md": 120,
+    "CLAUDE.md": 10,
+    "docs/requirements.md": 1500,
+    "docs/identifiers.md": 450,
+    "docs/part-b-invariants.md": 950
+  },
+  "lines_not_yet_created": [
+    "docs/part-b-invariants.md"
+  ],
+  "prose": {
+    "keys": [
+      "note",
+      "gap",
+      "narrative",
+      "settled_by",
+      "rationale",
+      "why"
+    ],
+    "max_chars": 450,
+    "grandfathered": [
+      "data/applicability.json#/effects/note",
+      "data/applicability.json#/known_omissions/9/why",
+      "data/applicability.json#/known_omissions/10/why",
+      "data/applicability.json#/known_omissions/11/why",
+      "data/applicability.json#/entries/43/note",
+      "data/applicability.json#/entries/44/note",
+      "data/applicability.json#/entries/45/note",
+      "data/applicability.json#/entries/47/note",
+      "data/applicability.json#/entries/50/note",
+      "data/applicability.json#/entries/51/note",
+      "data/applicability.json#/entries/52/note",
+      "data/applicability.json#/entries/53/note",
+      "data/applicability.json#/entries/55/note",
+      "data/applicability.json#/entries/56/note",
+      "data/applicability.json#/entries/60/note",
+      "data/applicability.json#/entries/61/note",
+      "data/applicability.json#/entries/62/note",
+      "data/applicability.json#/entries/63/note",
+      "data/applicability.json#/entries/64/note",
+      "data/applicability.json#/entries/64/gap",
+      "data/applicability.json#/entries/65/note",
+      "data/applicability.json#/entries/65/gap",
+      "data/applicability.json#/entries/66/note",
+      "data/applicability.json#/entries/67/note",
+      "data/applicability.json#/entries/68/note",
+      "data/applicability.json#/entries/68/gap",
+      "data/applicability.json#/entries/69/note",
+      "data/facts.json#/derived/note",
+      "data/facts.json#/derived/fact:rule18_class/note",
+      "data/facts.json#/derived/fact:rule18_class/decode/1/note",
+      "data/facts.json#/derived/fact:rule18_class/decode/2/note",
+      "data/facts.json#/situation/kinematics/kin:wind_side/note",
+      "data/facts.json#/situation/geometry/directional/geo:rel_bearing_deg/note",
+      "data/facts.json#/situation/geometry/consistency/note",
+      "data/facts.json#/situation/history/hist:was_overtaking/note",
+      "data/facts.json#/situation/constants/note",
+      "fixtures/situation-fixtures.json#/case_status/note",
+      "fixtures/situation-fixtures.json#/cases/0/narrative",
+      "fixtures/situation-fixtures.json#/cases/1/narrative",
+      "fixtures/situation-fixtures.json#/cases/2/narrative",
+      "fixtures/situation-fixtures.json#/cases/45/narrative",
+      "fixtures/situation-fixtures.json#/cases/62/narrative",
+      "fixtures/situation-fixtures.json#/cases/75/narrative",
+      "fixtures/situation-fixtures.json#/cases/76/narrative",
+      "fixtures/situation-fixtures.json#/cases/77/narrative",
+      "fixtures/situation-fixtures.json#/cases/78/narrative"
+    ]
+  },
+  "narration": {
+    "grandfathered": [
+      {
+        "file": "data/applicability.json",
+        "hash": "447b3984d57b",
+        "match": "PR #24"
+      },
+      {
+        "file": "data/applicability.json",
+        "hash": "5ff9d39319b8",
+        "match": "PR #24"
+      },
+      {
+        "file": "docs/conventions.md",
+        "hash": "d1f1ed997431",
+        "match": "the session"
+      },
+      {
+        "file": "docs/requirements.md",
+        "hash": "cdbdaf145c0a",
+        "match": "seeded 2026-"
+      }
+    ]
+  },
+  "voice": {
+    "words": [
+      "delve",
+      "leverage",
+      "seamless",
+      "cutting-edge",
+      "robust",
+      "comprehensive",
+      "testament",
+      "tapestry",
+      "pivotal",
+      "foster",
+      "elevate",
+      "unlock",
+      "game-changer"
+    ]
+  }
+}
