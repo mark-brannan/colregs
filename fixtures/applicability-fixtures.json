@@ -363,6 +363,23 @@
    ]
   },
   {
+   "name": "towing astern, at anchor (issue #44: Rule 23 running lights not imported)",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:anchored",
+    "fact:length_m": 40,
+    "fact:tow_length_m": 150
+   },
+   "expect": [
+    "24a-m2",
+    "24a-rest",
+    "30a",
+    "30b",
+    "30c"
+   ]
+  },
+  {
    "name": "pushing ahead, composite unit",
    "facts": {
     "fact:propulsion": "propulsion:power",
@@ -376,6 +393,22 @@
    ]
   },
   {
+   "name": "pushing ahead, composite unit, at anchor (issue #44: Rule 23 running lights not imported)",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:position": "position:anchored",
+    "fact:length_m": 30,
+    "fact:composite_unit": true
+   },
+   "expect": [
+    "24b",
+    "30a",
+    "30b",
+    "30c"
+   ]
+  },
+  {
    "name": "pushing ahead, not a composite unit",
    "facts": {
     "fact:propulsion": "propulsion:power",
@@ -386,6 +419,22 @@
    },
    "expect": [
     "24c"
+   ]
+  },
+  {
+   "name": "pushing ahead, not a composite unit, at anchor (issue #44: Rule 23 running lights not imported)",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:position": "position:anchored",
+    "fact:length_m": 30,
+    "fact:composite_unit": false
+   },
+   "expect": [
+    "24c",
+    "30a",
+    "30b",
+    "30c"
    ]
   },
   {

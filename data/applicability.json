@@ -410,8 +410,15 @@
      "count": 1
     }
    ],
-   "rel:includes": [
-    "23a34"
+   "rel:conditional_includes": [
+    {
+     "when": {
+      "fact:position": "position:underway"
+     },
+     "rel:includes": [
+      "23a34"
+     ]
+    }
    ],
    "modality": "shall",
    "images": [
@@ -427,10 +434,17 @@
     "fact:composite_unit": true
    },
    "lights": [],
-   "rel:includes": [
-    "23a1",
-    "23a2",
-    "23a34"
+   "rel:conditional_includes": [
+    {
+     "when": {
+      "fact:position": "position:underway"
+     },
+     "rel:includes": [
+      "23a1",
+      "23a2",
+      "23a34"
+     ]
+    }
    ],
    "modality": "shall",
    "images": [
@@ -453,8 +467,15 @@
      "arrangement": "vertical"
     }
    ],
-   "rel:includes": [
-    "23a34"
+   "rel:conditional_includes": [
+    {
+     "when": {
+      "fact:position": "position:underway"
+     },
+     "rel:includes": [
+      "23a34"
+     ]
+    }
    ],
    "rel:in_lieu_of": [
     "23a1",
