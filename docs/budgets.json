@@ -66,12 +66,12 @@
       "fixtures/situation-fixtures.json#/cases/0/narrative",
       "fixtures/situation-fixtures.json#/cases/1/narrative",
       "fixtures/situation-fixtures.json#/cases/2/narrative",
-      "fixtures/situation-fixtures.json#/cases/45/narrative",
-      "fixtures/situation-fixtures.json#/cases/62/narrative",
-      "fixtures/situation-fixtures.json#/cases/75/narrative",
+      "fixtures/situation-fixtures.json#/cases/46/narrative",
+      "fixtures/situation-fixtures.json#/cases/63/narrative",
       "fixtures/situation-fixtures.json#/cases/76/narrative",
       "fixtures/situation-fixtures.json#/cases/77/narrative",
-      "fixtures/situation-fixtures.json#/cases/78/narrative"
+      "fixtures/situation-fixtures.json#/cases/78/narrative",
+      "fixtures/situation-fixtures.json#/cases/79/narrative"
     ]
   },
   "narration": {

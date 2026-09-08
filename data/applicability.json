@@ -1952,7 +1952,7 @@
    "effect": {
     "encounter": "overtaking"
    },
-   "note": "The latch, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on 14b and 15a-crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids.",
+   "note": "The latch, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on 14b and 15a-crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids. `pair:geo:in_sight` stays in the gate; a Rule 19(d)(i) entry reads `hist:was_overtaking` directly (Q-49).",
    "gap": "'Until she is finally past and clear' is the paragraph's own end condition and nothing in the fact vocabulary carries it, so in this model the latch never clears. A consumer sets and clears `hist:was_overtaking` itself. Recorded rather than approximated with a range or a bearing: past and clear is a seamanship judgement, and inventing a threshold for it would be the kind of number Q-40's neighbours are about. Q-47."
   },
   {
