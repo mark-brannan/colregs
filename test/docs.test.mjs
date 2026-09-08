@@ -94,7 +94,7 @@ function* narrationHits(file, lines, which) {
   }
 }
 
-test('docs: no session narration in data, fixtures, docs, test titles, README or CLAUDE.md', () => {
+test('docs: no session narration in data, fixtures, docs, test titles, README, AGENTS.md or CLAUDE.md', () => {
   const grandfathered = new Set(budgets.narration.grandfathered.map((g) => `${g.file}:${g.hash}`))
   const hits = []
   let old = 0
@@ -104,10 +104,10 @@ test('docs: no session narration in data, fixtures, docs, test titles, README or
       else hits.push(h)
     }
   }
-  for (const f of [...proseFiles, 'CLAUDE.md', 'README.md']) scan(f, read(f).split('\n'), allNarration)
+  for (const f of [...proseFiles, 'AGENTS.md', 'CLAUDE.md', 'README.md']) scan(f, read(f).split('\n'), allNarration)
   for (const f of mdFiles('docs')) scan(f, read(f).split('\n'), docsNarration)
   for (const f of testFiles()) {
-    const titles = [...read(f).matchAll(/^test\((['"`])(.*?)\1/gm)].map((m) => m[2])
+    const titles = [...read(f).matchAll(/^\s*test\((['"`])(.*?)\1/gm)].map((m) => m[2])
     scan(f, titles, allNarration)
   }
   console.log(`  narration: ${old} grandfathered hit(s)`)
@@ -134,14 +134,14 @@ function voiceHits(file, text) {
   return out
 }
 
-test('docs: no model-voice words in docs, README, CLAUDE.md or JSON prose', () => {
+test('docs: no model-voice words in docs, README, AGENTS.md, CLAUDE.md or JSON prose', () => {
   const hits = []
-  for (const f of [...mdFiles('docs'), 'README.md', 'CLAUDE.md']) hits.push(...voiceHits(f, read(f)))
+  for (const f of [...mdFiles('docs'), 'README.md', 'AGENTS.md', 'CLAUDE.md']) hits.push(...voiceHits(f, read(f)))
   for (const f of proseFiles) {
     for (const { ptr, text } of proseStrings(load(f), proseKeys)) hits.push(...voiceHits(`${f}#${ptr}`, text))
   }
   // "rather than" is a tell but not a fault: a human rule can't ban it. Count only.
-  const counts = [...mdFiles('docs'), 'README.md', 'CLAUDE.md']
+  const counts = [...mdFiles('docs'), 'README.md', 'AGENTS.md', 'CLAUDE.md']
     .map((f) => [f, (read(f).match(/\brather than\b/gi) || []).length])
     .filter(([, n]) => n > 0)
   console.log(`  "rather than": ${counts.map(([f, n]) => `${f} ${n}`).join(', ') || 'none'}`)

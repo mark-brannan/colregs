@@ -2,7 +2,8 @@
   "$comment": "Prose budgets enforced by test/docs.test.mjs. Raising a number or adding an exception is a deliberate, reviewable diff.",
   "lines": {
     "README.md": 360,
-    "CLAUDE.md": 120,
+    "AGENTS.md": 120,
+    "CLAUDE.md": 10,
     "docs/requirements.md": 1500,
     "docs/identifiers.md": 450,
     "docs/part-b-invariants.md": 950
