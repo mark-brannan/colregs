@@ -2,7 +2,7 @@
 
 Status: **sketch** (P4.1 of the formal-methods epic,
 [colregs-engine#1](https://github.com/mark-brannan/colregs-engine/issues/1)).
-Bound by `REQ-INV-1`–`REQ-INV-6` in `docs/requirements.md` §4.2. Everything
+Bound by `REQ-INV-1`–`REQ-INV-7` in `docs/requirements.md` §4.2. Everything
 here is `✎` **pencil** under `docs/conventions.md` unless a block says
 otherwise.
 

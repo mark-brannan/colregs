@@ -2058,6 +2058,18 @@ test('REQ-INV-3: every invariant cites paragraph paths that resolve in data/rule
   }
 })
 
+test('REQ-INV-7: every Invariant. paragraph is at most 120 words', () => {
+  const blocks = invariantsText.split(/^### (?=INV-)/m).slice(1)
+  assert.equal(blocks.length, invHeadings.length)
+  for (const block of blocks) {
+    const id = block.match(/^(INV-[A-Za-z0-9-]+)/)[1]
+    const invariantParagraph = block.split('\n\n').find((p) => p.startsWith('**Invariant.**'))
+    assert.ok(invariantParagraph, `${id}: no **Invariant.** paragraph`)
+    const wordCount = invariantParagraph.trim().split(/\s+/).length
+    assert.ok(wordCount <= 120, `${id}: **Invariant.** paragraph is ${wordCount} words, over the 120-word limit`)
+  }
+})
+
 test('Q-, REQ- and INV- identifiers are each defined once', () => {
   const unique = (label, ids) => {
     const dup = ids.filter((id, i) => ids.indexOf(id) !== i)

@@ -384,7 +384,10 @@ here is **pencil** (`docs/conventions.md`) with §4.1.
   ids"), with a descriptive hyphenated suffix where one paragraph yields more
   than one invariant. A suffix MUST name what distinguishes the invariant, and
   MUST NOT be an ordinal. Identifiers MUST be stable and MUST NOT be reused; a
-  withdrawn invariant is struck through and kept, as a requirement is.
+  withdrawn invariant is struck through and kept, as a requirement is. Once a
+  formal specification cites an invariant identifier, its **Invariant.**
+  statement MUST NOT change in place; a changed statement is a new identifier
+  and the old one is struck through and kept.
 - **REQ-INV-3** — Every paragraph path in `data/rules.json` within the range
   the document covers MUST appear exactly once in its coverage table, mapped
   either to an invariant identifier or to an explicit exclusion with a reason.
@@ -405,6 +408,11 @@ here is **pencil** (`docs/conventions.md`) with §4.1.
   undetermined terms, so that "covered" is never read as "checkable". A numeric
   stand-in for such a term MUST be a declared constant under
   `situation.constants` (`REQ-CAT-9`), never a literal inside an invariant.
+- **REQ-INV-7** — An invariant's **Invariant.** paragraph MUST be at most 120
+  words. This is a readability bound on the normative statement itself, not a
+  document-length budget (`docs/budgets.json` governs those); it keeps a single
+  invariant from growing into a paragraph a formalisation can't be checked
+  against sentence-by-sentence. Enforced by `test/data.test.mjs`.
 
 ## 5. Languages and localization
 
@@ -1428,6 +1436,6 @@ nothing is blocked while open.
   **attachment**, with the departure tolerance an explicit monitor parameter.
 
 Two decisions taken in pencil, reversible in one edit: the invariants live in
-their own document under `REQ-INV-1`–`REQ-INV-6` (§4.2 says why), and the id
+their own document under `REQ-INV-1`–`REQ-INV-7` (§4.2 says why), and the id
 scheme is `REQ-INV-2`'s — cheap to change until P4.2 cites an id from a TLA+
 module, expensive after.
