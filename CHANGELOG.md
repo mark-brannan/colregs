@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/mark-brannan/colregs/compare/v0.2.1...v0.2.2) (2026-09-08)
+
+
+### Fixed
+
+* fetch prose-budget in publish workflow before npm test ([#61](https://github.com/mark-brannan/colregs/issues/61)) ([e4112aa](https://github.com/mark-brannan/colregs/commit/e4112aac3c640697953a06d61cd298e909cfcb6b))
+
 ## [0.2.1](https://github.com/mark-brannan/colregs/compare/v0.2.0...v0.2.1) (2026-09-08)
 
 
