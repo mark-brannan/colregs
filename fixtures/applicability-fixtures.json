@@ -808,6 +808,43 @@
     "26c-id",
     "26c-mw"
    ]
+  },
+  {
+   "name": "yacht 11.6 m moored alongside a quay",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:moored",
+    "fact:on_mooring_buoy": false,
+    "fact:length_m": 11.6
+   },
+   "expect": []
+  },
+  {
+   "name": "same yacht made fast to a mooring buoy, US Inland",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:moored",
+    "fact:on_mooring_buoy": true,
+    "fact:length_m": 11.6
+   },
+   "expect": [
+    "30a-buoy",
+    "30b-buoy"
+   ]
+  },
+  {
+   "name": "same yacht made fast to a mooring buoy, International",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:moored",
+    "fact:on_mooring_buoy": true,
+    "fact:length_m": 11.6
+   },
+   "expect": []
   }
  ]
 }
