@@ -1284,6 +1284,29 @@ test('REQ-CAT-3: every rel:overrides resolves to an entry id, and the relation i
   for (const id of over.keys()) walk(id, [])
 })
 
+// rel:excludes is symmetric pick-one between alternatives (ADR 0007): if A
+// excludes B, B excludes A, and neither may carry a forceful modality that
+// rel:excludes would then silently veto -- a directed "this one prevails"
+// is rel:overrides (colregs-engine#26).
+test('rel:excludes is reciprocated and never carries a forceful modality (ADR 0007)', () => {
+  const excl = new Map(appl.entries.map((e) => [e.id, e['rel:excludes'] ?? []]))
+  for (const [id, targets] of excl) {
+    for (const t of targets) {
+      assert.ok(byId.has(t), `${id}: rel:excludes references unknown entry ${t}`)
+      assert.ok((excl.get(t) ?? []).includes(id), `${id} excludes ${t}, but ${t} does not exclude ${id} back`)
+    }
+  }
+  const forceful = new Set(['shall', 'shall-if-practicable'])
+  for (const [id, targets] of excl) {
+    if (targets.length === 0) continue
+    const e = byId.get(id)
+    assert.ok(!forceful.has(e.modality), `${id}: rel:excludes with modality ${e.modality}`)
+    for (const m of e.modality_by ?? []) {
+      assert.ok(!forceful.has(m.modality), `${id}: rel:excludes with a modality_by branch of ${m.modality}`)
+    }
+  }
+})
+
 // --- situation fixture replay (REQ-VERIFY-1 for two-subject data) -----------
 // A situation fixture asserts the non-`display` entries the pair selects. It
 // asserts applicability, not resolution: an entry a rel:overrides displaces is
