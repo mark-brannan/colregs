@@ -1433,6 +1433,6 @@ nothing is blocked while open.
   **attachment**, with the departure tolerance an explicit monitor parameter.
 
 Two decisions taken in pencil, reversible in one edit: the invariants live in
-their own document under `REQ-INV-1`–`REQ-INV-6` (§4.2 says why), and the id
+their own document under `REQ-INV-1`–`REQ-INV-7` (§4.2 says why), and the id
 scheme is `REQ-INV-2`'s — cheap to change until P4.2 cites an id from a TLA+
 module, expensive after.
