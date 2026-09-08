@@ -191,6 +191,47 @@
    ]
   },
   {
+   "name": "fishing, aground, 30 m",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:aground",
+    "fact:length_m": 30
+   },
+   "expect": [
+    "30d-anchor",
+    "30d-red"
+   ]
+  },
+  {
+   "name": "trawler, aground, 30 m",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:aground",
+    "fact:length_m": 30
+   },
+   "expect": [
+    "30d-anchor",
+    "30d-red"
+   ]
+  },
+  {
+   "name": "fishing at anchor, 30 m",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:anchored",
+    "fact:length_m": 30
+   },
+   "expect": [
+    "26c-id",
+    "30a",
+    "30b",
+    "30c"
+   ]
+  },
+  {
    "name": "trawler 30 m making way",
    "facts": {
     "fact:propulsion": "propulsion:power",
