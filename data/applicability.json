@@ -2126,6 +2126,56 @@
    },
    "note": "The role half of 15(a): the vessel which has the other on her own starboard side keeps out of the way. Own's bearing constraint is the starboard half of the non-overtaking sector, and its upper edge is the same declared constant 13b reads, so it is not a hand-listed sector either; the partition test asserts that this entry selects exactly the crossings in which the other bears between 0 and 180 relative, which is what makes the shorthand checkable rather than trusted. 'Two power-driven vessels' is 3(b) and nothing more, so both subjects are gated on `fact:propulsion: propulsion:power` and on no Rule 18 rank (Q-40): a vessel engaged in fishing, not under command, restricted in her ability to manoeuvre or constrained by her draught is a power-driven vessel whenever her machinery is in use, and is inside Rule 15. Where Rule 18 also ranks the pair, that entry carries `rel:overrides` against this one -- 18(a)(i)-(iii) from the unranked vessel's side, 18(c)(i)-(ii) from the fishing vessel's, 18(f)(i) from the WIG craft's -- because Rule 18's opening words except Rules 9, 10 and 13 and no others; 13(a)'s 'notwithstanding' would override it the same way, and does not need to, because this entry's bearing gates and its `hist:was_overtaking: false` already exclude every overtaking. Where Rule 18 leaves the pair unordered -- two vessels engaged in fishing, or one not under command and one restricted in her ability to manoeuvre -- this entry is the only norm in force, and it lays a helm duty on a vessel that may be unable to discharge it; that is Rule 2's region and is recorded in Q-40 rather than gated away.",
    "gap": "15(a)'s second duty -- 'shall, if the circumstances of the case admit, avoid crossing ahead of the other vessel' -- is `conduct` with a practicability caveat, and neither half fits a precedence entry. It is dropped here, which is Q-31's shape again: the caveat has no field to move into unless the duty happens to be a role, and this one is an action."
+  },
+  {
+   "id": "30a-buoy",
+   "jurisdiction": "us/inland",
+   "cite": "30(a)",
+   "when": {
+    "fact:position": "position:moored",
+    "fact:on_mooring_buoy": true
+   },
+   "lights": [
+    {
+     "light": "light:all_round",
+     "color": "white",
+     "count": 1,
+     "position": "in the fore part"
+    },
+    {
+     "light": "light:all_round",
+     "color": "white",
+     "count": 1,
+     "position": "at or near the stern, at a lower level than the fore one"
+    }
+   ],
+   "modality": "shall",
+   "note": "33 CFR 90.5 deems a vessel made fast to a mooring buoy to be a vessel at anchor, so Inland Rule 30(a) reaches her. The Convention has no such deeming provision: under intl she is 'moored' by Rule 3(i) and no paragraph prescribes lights for her."
+  },
+  {
+   "id": "30b-buoy",
+   "jurisdiction": "us/inland",
+   "cite": "30(b)",
+   "when": {
+    "fact:position": "position:moored",
+    "fact:on_mooring_buoy": true,
+    "fact:length_m": {
+     "lt": 50
+    }
+   },
+   "lights": [
+    {
+     "light": "light:all_round",
+     "color": "white",
+     "count": 1,
+     "position": "where it can best be seen"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "30a-buoy"
+   ],
+   "modality": "may",
+   "note": "The under-50 m alternative, on the same 33 CFR 90.5 deeming that brings 30a-buoy in. It is a separate entry because widening 30b's predicate would edit an intl entry to carry a national delta, which REQ-SCOPE-4 forbids."
   }
  ]
 }

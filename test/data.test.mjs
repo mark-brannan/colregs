@@ -108,11 +108,18 @@ function withDerived(s) {
 // every fact record in applicability-fixtures.json. REQ-CAT-1's `display`
 // default is what makes the filter well-defined for the entries that predate it.
 const isDisplay = (e) => (e.category ?? 'display') === 'display'
-const applying = (f) => appl.entries.filter((e) => isDisplay(e) && matches(e.when, f)).map((e) => e.id)
+// Jurisdiction is a dimension, not a fork (REQ-SCOPE-2/3): a jurisdiction sees
+// `intl` plus its own deltas, and `intl` sees only itself. Without this filter
+// a national entry would be selected for a fact record evaluated under the
+// Convention -- which is the whole distinction the mooring-buoy case turns on.
+const inJurisdiction = (e, j) => e.jurisdiction === 'intl' || e.jurisdiction === j
+const applying = (f, j = 'intl') =>
+  appl.entries.filter((e) => isDisplay(e) && inJurisdiction(e, j) && matches(e.when, f)).map((e) => e.id)
 
 test('fixtures: every fact record selects exactly the expected entries', () => {
   for (const c of fixtures.cases) {
-    assert.deepEqual(applying(c.facts).sort(), [...c.expect].sort(), c.name)
+    const j = c.jurisdiction ?? fixtures.jurisdiction
+    assert.deepEqual(applying(c.facts, j).sort(), [...c.expect].sort(), c.name)
   }
 })
 
@@ -406,8 +413,12 @@ test('drift: lights already shown never silently admit an undeclared candidate e
   for (const c of fixtures.cases) {
     const shownIds = new Set(c.expect)
     const shown = new Set(appl.entries.filter((e) => shownIds.has(e.id)).flatMap(lightSig))
+    const j = c.jurisdiction ?? fixtures.jurisdiction
     for (const e of appl.entries) {
       if (shownIds.has(e.id)) continue
+      // An entry from another jurisdiction is not a candidate at all: it was
+      // never in force for this record, so its absence is not drift.
+      if (!inJurisdiction(e, j)) continue
       const sig = lightSig(e)
       if (sig.length === 0 || !sig.every((s) => shown.has(s))) continue
       const excludedByFacts = !matches(e.when, c.facts)
@@ -1073,8 +1084,10 @@ test('REQ-CAT-4: an existing one-subject predicate is a valid situation predicat
   // one-subject situation and every entry still selects exactly the same ids.
   for (const c of fixtures.cases) {
     const asSituation = { own: { fact: c.facts } }
-    const viaSituation = appl.entries.filter((e) => isDisplay(e) && matchesSituation(e.when, asSituation)).map((e) => e.id)
-    assert.deepEqual(viaSituation.sort(), applying(c.facts).sort(), c.name)
+    const j = c.jurisdiction ?? fixtures.jurisdiction
+    const viaSituation = appl.entries
+      .filter((e) => isDisplay(e) && inJurisdiction(e, j) && matchesSituation(e.when, asSituation)).map((e) => e.id)
+    assert.deepEqual(viaSituation.sort(), applying(c.facts, j).sort(), c.name)
   }
 })
 

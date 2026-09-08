@@ -3,6 +3,7 @@
   "$id": "https://github.com/mark-brannan/colregs/schema/applicability-fixtures.schema.json",
   "title": "fixtures/applicability-fixtures.json",
   "description": "The cross-implementation contract: fact record -> expected entry ids. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "$comment": "The top-level `jurisdiction` is the corpus default; a case may name its own, and is then evaluated against `intl` plus that jurisdiction's deltas (REQ-SCOPE-3).",
   "type": "object",
   "additionalProperties": false,
   "required": ["jurisdiction", "cases"],
@@ -28,6 +29,7 @@
         "required": ["name", "facts", "expect"],
         "properties": {
           "name": { "type": "string", "minLength": 1 },
+          "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "facts": {
             "type": "object",
             "minProperties": 1,
