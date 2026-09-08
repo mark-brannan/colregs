@@ -26,7 +26,7 @@ jobs:
       # below is the gate for it, so the wrapper test skips here.
       - run: npm test
         env:
-          PROSE_BUDGET_SKIP: '1'
+          PROSE_BUDGET_ALLOW_MISSING_ENGINE: '1'
 
   # Documentation gate: the shared prose-budget engine over docs/budgets.json.
   prose-budget:
