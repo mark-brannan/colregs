@@ -59,10 +59,29 @@ jobs:
             exit 1
           fi
 
+      # test/docs.test.mjs shells out to the shared prose-budget engine
+      # (mark-brannan/dotfiles .local/bin/prose-budget). ci.yml never fetches
+      # it into the npm-test job either -- it sets PROSE_BUDGET_SKIP=1 there
+      # and gates on the engine separately via the reusable
+      # mark-brannan/.github/.github/workflows/prose-budget.yml job. This job
+      # is a single sequential `npm test` -> `npm publish`, so instead of
+      # splitting it in two, fetch just the engine file the same way that
+      # reusable workflow does and point PROSE_BUDGET at it.
+      - uses: actions/checkout@v7
+        with:
+          repository: mark-brannan/dotfiles
+          ref: main
+          sparse-checkout: /.local/bin/prose-budget
+          sparse-checkout-cone-mode: false
+          path: .prose-budget-engine
+          persist-credentials: false
+
       # The published package has zero runtime dependencies (REQ-PKG-1); the
       # test suite itself now needs ajv as a devDependency (ADR 0006).
       - run: npm ci
       - run: npm test
+        env:
+          PROSE_BUDGET: ${{ github.workspace }}/.prose-budget-engine/.local/bin/prose-budget
 
       # No NODE_AUTH_TOKEN. Authentication is the OIDC identity above.
       - run: npm publish
