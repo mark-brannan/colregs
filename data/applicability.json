@@ -640,7 +640,10 @@
    "jurisdiction": "intl",
    "cite": "26(b)(i)",
    "when": {
-    "fact:activity": "activity:trawling"
+    "fact:activity": "activity:trawling",
+    "fact:position": {
+     "not": "position:aground"
+    }
    },
    "lights": [
     {
@@ -656,7 +659,7 @@
      "position": "lower"
     }
    ],
-   "rel:excludes": [
+   "rel:overrides": [
     "30a",
     "30b"
    ],
@@ -664,14 +667,17 @@
    "images": [
     "NRHB_26_b.png"
    ],
-   "notes": "Rule 26(a): a vessel engaged in fishing shall exhibit only the lights of Rule 26, whether underway or at anchor — hence the exclusion of Rule 30."
+   "notes": "Rule 26(a) — 'only the lights prescribed in this Rule' — prevails over Rule 30's anchor lights underway or at anchor (rel:overrides, ADR 0007). Aground is neither (Rule 3(i)); she shows 30(d) alone."
   },
   {
    "id": "26b-mast",
    "jurisdiction": "intl",
    "cite": "26(b)(ii)",
    "when": {
-    "fact:activity": "activity:trawling"
+    "fact:activity": "activity:trawling",
+    "fact:position": {
+     "not": "position:aground"
+    }
    },
    "lights": [
     {
@@ -722,7 +728,10 @@
    "jurisdiction": "intl",
    "cite": "26(c)(i)",
    "when": {
-    "fact:activity": "activity:fishing"
+    "fact:activity": "activity:fishing",
+    "fact:position": {
+     "not": "position:aground"
+    }
    },
    "lights": [
     {
@@ -738,7 +747,7 @@
      "position": "lower"
     }
    ],
-   "rel:excludes": [
+   "rel:overrides": [
     "30a",
     "30b"
    ],
@@ -750,6 +759,9 @@
    "cite": "26(c)(ii)",
    "when": {
     "fact:activity": "activity:fishing",
+    "fact:position": {
+     "not": "position:aground"
+    },
     "fact:gear_extent_m": {
      "gt": 150
     }

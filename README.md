@@ -151,9 +151,9 @@ add to Rule 23 rather than replacing it. Relations between them:
 | `rel:includes` | import the referenced entry's **lights only**, never its predicate |
 | `rel:conditional_includes` | import lights when the stated `when` holds; `one_of` is a set of legal alternatives |
 | `rel:in_lieu_of` | this entry's lights replace the referenced entries' lights |
-| `rel:excludes` | must not be shown together (25(c) and the tricolor) |
+| `rel:excludes` | must not be shown together: a pick-one between alternatives (25(c) and the tricolor), never one obligation vetoing another |
 | `rel:exempts` | the referenced requirement does not apply (30(e)) |
-| `rel:overrides` | the superiority relation: this paragraph's requirement prevails over the referenced one's when both apply (Rule 18's "except where Rules 9, 10 and 13 otherwise require") |
+| `rel:overrides` | the superiority relation: this paragraph's requirement prevails over the referenced one's when both apply (Rule 18's "except where Rules 9, 10 and 13 otherwise require"); for lights, Rule 26(a)'s "only the lights prescribed in this Rule" displacing Rule 30's anchor lights |
 
 A condition on whether a paragraph applies to the vessel at all goes in the
 predicate; a condition on which of two applicable paragraphs prevails is a
