@@ -11,6 +11,13 @@
       "include-component-in-tag": false,
       "draft": false,
       "prerelease": false,
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "data/version.json",
+          "jsonpath": "$.version"
+        }
+      ],
       "changelog-sections": [
         {
           "type": "feat",
