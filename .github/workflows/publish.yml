@@ -61,7 +61,7 @@ jobs:
 
       # test/docs.test.mjs shells out to the shared prose-budget engine
       # (mark-brannan/dotfiles .local/bin/prose-budget). ci.yml never fetches
-      # it into the npm-test job either -- it sets PROSE_BUDGET_SKIP=1 there
+      # it into the npm-test job either -- it sets PROSE_BUDGET_ALLOW_MISSING_ENGINE=1 there
       # and gates on the engine separately via the reusable
       # mark-brannan/.github/.github/workflows/prose-budget.yml job. This job
       # is a single sequential `npm test` -> `npm publish`, so instead of
