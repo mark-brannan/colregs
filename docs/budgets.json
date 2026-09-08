@@ -1,17 +1,22 @@
 {
-  "$comment": "Prose budgets enforced by test/docs.test.mjs. Raising a number or adding an exception is a deliberate, reviewable diff.",
+  "$comment": "Prose budgets enforced by prose-budget (the engine in dotfiles .local/bin), run locally by npm test and in CI by the shared workflow. Raising a number or adding an exception is a deliberate, reviewable diff.",
   "lines": {
     "README.md": 360,
     "AGENTS.md": 120,
     "CLAUDE.md": 10,
     "docs/requirements.md": 1500,
     "docs/identifiers.md": 450,
-    "docs/part-b-invariants.md": 950
+    "docs/part-b-invariants.md": 950,
+    "required": true,
+    "pending": [
+      "docs/part-b-invariants.md"
+    ]
   },
-  "lines_not_yet_created": [
-    "docs/part-b-invariants.md"
-  ],
-  "prose": {
+  "json_prose": {
+    "targets": [
+      "data/*.json",
+      "fixtures/*.json"
+    ],
     "keys": [
       "note",
       "gap",
@@ -71,6 +76,49 @@
     ]
   },
   "narration": {
+    "targets": [
+      "README.md",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "data/*.json",
+      "fixtures/*.json",
+      "test/*.mjs",
+      "docs/**/*.md"
+    ],
+    "scope": {
+      "pr": [
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "data/*.json",
+        "fixtures/*.json",
+        "test/*.mjs"
+      ],
+      "issue": [
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "data/*.json",
+        "fixtures/*.json",
+        "test/*.mjs"
+      ],
+      "phase": [
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "data/*.json",
+        "fixtures/*.json",
+        "test/*.mjs"
+      ],
+      "split": [
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "data/*.json",
+        "fixtures/*.json",
+        "test/*.mjs"
+      ]
+    },
     "grandfathered": [
       {
         "file": "data/applicability.json",
@@ -95,20 +143,20 @@
     ]
   },
   "voice": {
-    "words": [
-      "delve",
-      "leverage",
-      "seamless",
-      "cutting-edge",
-      "robust",
-      "comprehensive",
-      "testament",
-      "tapestry",
-      "pivotal",
-      "foster",
-      "elevate",
-      "unlock",
-      "game-changer"
+    "scope": "tree",
+    "targets": [
+      "README.md",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "docs/**/*.md",
+      "data/*.json",
+      "fixtures/*.json"
     ]
-  }
+  },
+  "unique_ids": [
+    {
+      "file": "docs/requirements.md",
+      "pattern": "\\*\\*(Q-\\d+|REQ-[A-Z]+-\\d+)\\*\\*"
+    }
+  ]
 }

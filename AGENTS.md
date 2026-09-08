@@ -116,4 +116,4 @@ yet present.
 
 ## Prose budget
 
-One home per argument: a JSON `note` is one sentence plus the Q-/REQ-/ADR id it points at, and the argument lives there. No PR numbers, phase ids, dates or session references in data, fixtures, tests or this file. Budgets are in `docs/budgets.json` and enforced by `test/docs.test.mjs`; raising one is a deliberate diff.
+One home per argument: a JSON `note` is one sentence plus the Q-/REQ-/ADR id it points at, and the argument lives there. No PR numbers, phase ids, dates or session references in data, fixtures, tests or this file. Budgets are in `docs/budgets.json` (the shared `prose-budget` engine looks there first, then `.prose-budgets.json`, walking up to the git root) and enforced by `npm test` and CI; raising one is a deliberate diff.
