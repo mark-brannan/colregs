@@ -405,6 +405,11 @@ here is **pencil** (`docs/conventions.md`) with §4.1.
   undetermined terms, so that "covered" is never read as "checkable". A numeric
   stand-in for such a term MUST be a declared constant under
   `situation.constants` (`REQ-CAT-9`), never a literal inside an invariant.
+- **REQ-INV-7** — An invariant's **Invariant.** paragraph MUST be at most 120
+  words. This is a readability bound on the normative statement itself, not a
+  document-length budget (`docs/budgets.json` governs those); it keeps a single
+  invariant from growing into a paragraph a formalisation can't be checked
+  against sentence-by-sentence. Enforced by `test/data.test.mjs`.
 
 ## 5. Languages and localization
 

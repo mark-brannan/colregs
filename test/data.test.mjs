@@ -2032,6 +2032,14 @@ test('REQ-INV-3: every invariant cites paragraph paths that resolve in data/rule
     for (const path of paths) {
       assert.ok(paragraphPaths.has(path), `${id} cites ${path}, which is not a path in data/rules.json`)
     }
+  }
+})
+
+test('REQ-INV-7: every Invariant. paragraph is at most 120 words', () => {
+  const blocks = invariantsText.split(/^### (?=INV-)/m).slice(1)
+  assert.equal(blocks.length, invHeadings.length)
+  for (const block of blocks) {
+    const id = block.match(/^(INV-[A-Za-z0-9-]+)/)[1]
     const invariantParagraph = block.split('\n\n').find((p) => p.startsWith('**Invariant.**'))
     assert.ok(invariantParagraph, `${id}: no **Invariant.** paragraph`)
     const wordCount = invariantParagraph.trim().split(/\s+/).length
