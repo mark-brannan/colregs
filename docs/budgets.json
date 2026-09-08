@@ -9,9 +9,7 @@
     "docs/part-b-invariants.md": 950,
     "docs/adr/0007-rule26-overrides-and-aground.md": 90,
     "required": true,
-    "pending": [
-      "docs/part-b-invariants.md"
-    ]
+    "pending": []
   },
   "json_prose": {
     "targets": [
