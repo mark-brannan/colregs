@@ -836,6 +836,35 @@
    ]
   },
   {
+   "name": "30b-buoy length boundary: on a mooring buoy at 49.9 m, US Inland",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:moored",
+    "fact:on_mooring_buoy": true,
+    "fact:length_m": 49.9
+   },
+   "expect": [
+    "30a-buoy",
+    "30b-buoy"
+   ]
+  },
+  {
+   "name": "30b-buoy length boundary: on a mooring buoy at 50.0 m, US Inland",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:moored",
+    "fact:on_mooring_buoy": true,
+    "fact:length_m": 50.0
+   },
+   "expect": [
+    "30a-buoy"
+   ]
+  },
+  {
    "name": "same yacht made fast to a mooring buoy, International",
    "facts": {
     "fact:propulsion": "propulsion:power",
