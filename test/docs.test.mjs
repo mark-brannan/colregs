@@ -45,12 +45,18 @@ function* proseStrings(value, keys, ptr = '') {
 
 // --- 1. line budgets ---------------------------------------------------------
 test('docs: every budgeted file is within its line budget', () => {
+  const notYetCreated = new Set(budgets.lines_not_yet_created ?? [])
   const over = []
+  const missing = []
   for (const [file, max] of Object.entries(budgets.lines)) {
-    if (!exists(file)) continue
+    if (!exists(file)) {
+      if (!notYetCreated.has(file)) missing.push(file)
+      continue
+    }
     const n = lineCount(read(file))
     if (n > max) over.push(`${file}: ${n} lines, budget ${max}`)
   }
+  assert.deepEqual(missing, [], `Budgeted file missing (rename/typo, or add it to lines_not_yet_created if it genuinely doesn't exist yet):\n  ${missing.join('\n  ')}\n${BUDGET_NOTE}`)
   assert.deepEqual(over, [], `Over budget:\n  ${over.join('\n  ')}\n${BUDGET_NOTE}`)
 })
 
@@ -107,7 +113,7 @@ test('docs: no session narration in data, fixtures, docs, test titles, README, A
   for (const f of [...proseFiles, 'AGENTS.md', 'CLAUDE.md', 'README.md']) scan(f, read(f).split('\n'), allNarration)
   for (const f of mdFiles('docs')) scan(f, read(f).split('\n'), docsNarration)
   for (const f of testFiles()) {
-    const titles = [...read(f).matchAll(/^\s*test\((['"`])(.*?)\1/gm)].map((m) => m[2])
+    const titles = [...read(f).matchAll(/(?<!\.)\btest(?:\.(?:skip|todo|only))?\s*\((['"`])(.*?)\1/g)].map((m) => m[2])
     scan(f, titles, allNarration)
   }
   console.log(`  narration: ${old} grandfathered hit(s)`)
