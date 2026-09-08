@@ -1356,6 +1356,13 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   the relative quantities as derived facts stays open in the block's
   `settled_by`.
 
+- **Q-49** — **Must `13d`'s effect cross the Section II/III boundary for Rule 19(d)(i) to be expressible?**
+  - *broad* — drop `13d`'s `pair:geo:in_sight` gate so `encounter: overtaking` is visible in Section III; breaks the scope invariant.
+  - *narrow* — `13d` stays gated; a 19(d)(i) entry reads `own:hist:was_overtaking`/`other:hist:was_overtaking` directly, as `14b` and `15a-crossing` already do.
+  - Default: narrow (nothing changes).
+  - Recommendation: narrow — the test named below shows the fact resolves out of sight
+    (`Q-49: hist:was_overtaking resolves out of sight; 13d does not fire`, `test/data.test.mjs`).
+
 ### From the Part B invariants (P4.1)
 
 Eight places where the rule text admits two readings, recorded here under
