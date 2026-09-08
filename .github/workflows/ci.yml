@@ -24,9 +24,7 @@ jobs:
       - run: npm ci
       # The prose-budget engine isn't on this runner; the `prose-budget` job
       # below is the gate for it, so the wrapper test skips here.
-      - run: npm test
-        env:
-          PROSE_BUDGET_ALLOW_MISSING_ENGINE: '1'
+      - uses: mark-brannan/.github/.github/actions/npm-test-prose-fallback@29b5b7b2a6fe3b3ccd01a6283145c223a05b2023
 
   # Documentation gate: the shared prose-budget engine over docs/budgets.json.
   prose-budget:
