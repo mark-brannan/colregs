@@ -381,7 +381,10 @@ here is **pencil** (`docs/conventions.md`) with §4.1.
   ids"), with a descriptive hyphenated suffix where one paragraph yields more
   than one invariant. A suffix MUST name what distinguishes the invariant, and
   MUST NOT be an ordinal. Identifiers MUST be stable and MUST NOT be reused; a
-  withdrawn invariant is struck through and kept, as a requirement is.
+  withdrawn invariant is struck through and kept, as a requirement is. Once a
+  formal specification cites an invariant identifier, its **Invariant.**
+  statement MUST NOT change in place; a changed statement is a new identifier
+  and the old one is struck through and kept.
 - **REQ-INV-3** — Every paragraph path in `data/rules.json` within the range
   the document covers MUST appear exactly once in its coverage table, mapped
   either to an invariant identifier or to an explicit exclusion with a reason.
