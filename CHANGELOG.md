@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.1](https://github.com/mark-brannan/colregs/compare/v0.2.0...v0.2.1) (2026-09-08)
+
+
+### Added
+
+* fact:on_mooring_buoy refines position:moored; the buoy case is a us/inland delta (ADR 0008) ([#60](https://github.com/mark-brannan/colregs/issues/60)) ([75aafc2](https://github.com/mark-brannan/colregs/commit/75aafc2bb2b7f84f5cc0cb5404663d912abee2ef))
+
+
+### Fixed
+
+* Rule 26 prevails over Rule 30 by rel:overrides, and never reaches a vessel aground ([#56](https://github.com/mark-brannan/colregs/issues/56)) ([6f07ec6](https://github.com/mark-brannan/colregs/commit/6f07ec64d13cf67edb09af0ad9dfc347922f6e32))
+
 ## [0.2.0](https://github.com/mark-brannan/colregs/compare/v0.1.3...v0.2.0) (2026-09-06)
 
 
