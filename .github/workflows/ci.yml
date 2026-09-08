@@ -22,7 +22,11 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
+      # The prose-budget engine isn't on this runner; the `prose-budget` job
+      # below is the gate for it, so the wrapper test skips here.
       - run: npm test
+        env:
+          PROSE_BUDGET_SKIP: '1'
 
   # Documentation gate: the shared prose-budget engine over docs/budgets.json.
   prose-budget:
