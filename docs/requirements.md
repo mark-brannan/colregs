@@ -151,7 +151,10 @@ Four layers, each independently addressable.
 - **REQ-MODEL-7** — Five relations MUST be supported:
   - `rel:includes` — import another entry's **lights only**, never its predicate;
   - `rel:in_lieu_of` — legal alternatives for the same fact record;
-  - `rel:excludes` — mutual exclusion, including across rules;
+  - `rel:excludes` — mutual exclusion, including across rules; symmetric
+    (A excludes B implies B excludes A) and never between two forceful
+    (`shall`/`shall-if-practicable`) entries — a directed "this one
+    prevails" is `rel:overrides` (ADR 0007), not `rel:excludes`;
   - `rel:exempts` — one entry lifting another's obligation;
   - `rel:conditional_includes` — import or alternatives, gated on a predicate.
   The five are not interchangeable; README.md holds the working semantics.
