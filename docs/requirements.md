@@ -76,7 +76,9 @@ Neither consumer lives in this repo.
   (Rule 28 "[Reserved]") means silence-means-inherit would apply
   international law where the national body deliberately has none, so no
   non-`intl` jurisdiction lands before an explicit suppression mechanism
-  exists.
+  exists. A delta that only *adds* entries is exempt: it suppresses nothing,
+  so the Q-11 hazard cannot arise from it (ADR 0008, `30a-buoy`/`30b-buoy`).
+  A delta that suppresses or replaces an `intl` entry still waits.
 - **REQ-SCOPE-4** — Adding a jurisdiction MUST be additive. It MUST NOT require
   a schema change or edits to existing `intl` entries.
 - **REQ-SCOPE-5** — Geography that gates a rule (Great Lakes, Western Rivers,
@@ -93,7 +95,10 @@ Part C (Rules 20–31, lights and shapes) is v1. The structure MUST accommodate
 the rest without redesign.
 
 - **REQ-PART-1** — Part C lights MUST be complete for `intl` before any other
-  part or jurisdiction is added.
+  part or jurisdiction is added, except a purely additive jurisdiction delta
+  recorded in an ADR — one that adds entries and edits or suppresses none
+  (ADR 0008). Such a delta is not a claim to model that jurisdiction, and
+  REQ-SCOPE-6's coverage statement MUST say what it does and does not cover.
 - **REQ-PART-2** — Day shapes MUST use the same entry model as lights, differing
   only in the fixture vocabulary they emit.
 - **REQ-PART-3** — Sound and light signals (Part D, Rules 32–37) SHOULD be
@@ -133,8 +138,11 @@ Four layers, each independently addressable.
     `activity:pilot` / `activity:diving`
   - `fact:position` ∈ `position:underway` / `position:anchored` /
     `position:aground` / `position:moored`
-  plus `fact:making_way` as a boolean refining `fact:position=position:underway`,
-  and numeric and boolean facts (`fact:length_m`, `fact:tow_length_m`,
+  plus `fact:making_way` as a boolean refining `fact:position=position:underway`
+  and `fact:on_mooring_buoy` as a boolean refining
+  `fact:position=position:moored` — made fast to a buoy, not to the shore;
+  the Convention prescribes lights for neither, and only a jurisdiction that
+  deems her at anchor reads it (ADR 0008) — and numeric and boolean facts (`fact:length_m`, `fact:tow_length_m`,
   `fact:max_speed_kn`, `fact:composite_unit`, and the education-only facts).
   Fact keys, and the values of the enumerated facts, carry a type prefix;
   `docs/identifiers.md` states the scheme and why citation-derived
