@@ -55,8 +55,8 @@ these files, which `test/data.test.mjs` enforces exhaustively:
   `navigation.state` (SignalK) → axes decode table.
 - **`data/geometry.json`** — Annex I: heights, spacings, colour, intensity;
   `applies_to_entries` references back into `applicability.json`.
-- **`data/images.json`** — every file in `images/`, its source, SHA-256, and
-  which paragraphs/entries it illustrates.
+- **`data/images.json`** — every file in `images/`, its source, SHA-256, the
+  paragraphs/entries it illustrates, and `depicts` provision or exception.
 - **`fixtures/applicability-fixtures.json`** — the cross-implementation
   contract: fact record → expected entry ids. Any implementation, in any
   language, should reproduce these exactly.

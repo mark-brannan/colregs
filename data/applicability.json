@@ -196,6 +196,7 @@
     }
    ],
    "images": [
+    "NRHB_23_a.png",
     "NRHB_23_aii.png"
    ]
   },
@@ -393,7 +394,7 @@
    ],
    "modality": "shall",
    "images": [
-    "NRHB_24_a.png"
+    "NRHB_24_av.png"
    ]
   },
   {
@@ -952,7 +953,8 @@
    ],
    "modality": "shall",
    "images": [
-    "NRHB_27_d.png"
+    "NRHB_27_d.png",
+    "NRHB_27_diii.png"
    ],
    "notes": "27(d)(iii): when at anchor these lights are shown instead of Rule 30's."
   },
@@ -987,9 +989,6 @@
     "27d"
    ],
    "modality": "shall",
-   "images": [
-    "NRHB_27_ei.png"
-   ],
    "notes": "Only when the vessel's size makes the full 27(d) display impracticable."
   },
   {
@@ -1134,6 +1133,7 @@
    ],
    "modality": "shall",
    "images": [
+    "NRHB_30_dii.png",
     "NRHB_30_a.png"
    ]
   },

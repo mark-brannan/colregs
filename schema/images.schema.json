@@ -44,6 +44,10 @@
             "minItems": 1,
             "items": { "type": "string", "minLength": 1 }
           },
+          "depicts": {
+            "description": "Whether the figure shows the provision of the clauses it is mapped to, the exception they carve out, or both.",
+            "enum": ["provision", "exception", "mixed"]
+          },
           "provenance_status": { "type": "string" },
           "unmapped_reason": { "type": "string", "minLength": 1 }
         }

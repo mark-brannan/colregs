@@ -1,5 +1,5 @@
 {
- "note": "Every image in images/, with where it came from and which paragraph or applicability entry it illustrates. The arc GIFs are decorative; the arcs themselves are data in lights.json.",
+ "note": "Every image in images/, with where it came from, which paragraph or applicability entry it illustrates, and whether the figure shows that clause's provision, its exception, or both. The arc GIFs are decorative; the arcs themselves are data in lights.json.",
  "count": 43,
  "images": {
   "NRHB_23_Intl_dii.png": {
@@ -22,7 +22,8 @@
    ],
    "entries": [
     "23d2"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_23_a.png": {
    "file": "NRHB_23_a.png",
@@ -48,8 +49,10 @@
    ],
    "entries": [
     "23a1",
+    "23a2",
     "24b"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_23_aii.png": {
    "file": "NRHB_23_aii.png",
@@ -71,7 +74,8 @@
    ],
    "entries": [
     "23a2"
-   ]
+   ],
+   "depicts": "exception"
   },
   "NRHB_23_b.png": {
    "file": "NRHB_23_b.png",
@@ -93,7 +97,8 @@
    ],
    "entries": [
     "23b"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_23_di.png": {
    "file": "NRHB_23_di.png",
@@ -115,7 +120,8 @@
    ],
    "entries": [
     "23d1"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_23_e.png": {
    "file": "NRHB_23_e.png",
@@ -149,9 +155,9 @@
    ],
    "entries": [
     "24a-m2",
-    "24a-m3",
     "24a-rest"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_24_av.png": {
    "file": "NRHB_24_av.png",
@@ -170,7 +176,11 @@
    ],
    "paragraphs": [
     "24(a)(v)"
-   ]
+   ],
+   "entries": [
+    "24a-m3"
+   ],
+   "depicts": "provision"
   },
   "NRHB_24_d.png": {
    "file": "NRHB_24_d.png",
@@ -189,7 +199,8 @@
    ],
    "paragraphs": [
     "24(d)"
-   ]
+   ],
+   "depicts": "mixed"
   },
   "NRHB_24_e.png": {
    "file": "NRHB_24_e.png",
@@ -211,7 +222,8 @@
    ],
    "entries": [
     "24e"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_24_eiii.png": {
    "file": "NRHB_24_eiii.png",
@@ -230,7 +242,8 @@
    ],
    "paragraphs": [
     "24(e)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_24_f.png": {
    "file": "NRHB_24_f.png",
@@ -249,7 +262,8 @@
    ],
    "paragraphs": [
     "24(f)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_24_j.png": {
    "file": "NRHB_24_j.png",
@@ -288,7 +302,8 @@
    ],
    "entries": [
     "25a"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_25_b.png": {
    "file": "NRHB_25_b.png",
@@ -307,7 +322,8 @@
    ],
    "entries": [
     "25b"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_25_c.png": {
    "file": "NRHB_25_c.png",
@@ -329,7 +345,8 @@
    ],
    "entries": [
     "25c"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_25_d.png": {
    "file": "NRHB_25_d.png",
@@ -351,7 +368,8 @@
    ],
    "entries": [
     "25d1"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_25_dii.png": {
    "file": "NRHB_25_dii.png",
@@ -373,7 +391,8 @@
    ],
    "entries": [
     "25d2"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_25_e.png": {
    "file": "NRHB_25_e.png",
@@ -392,7 +411,8 @@
    ],
    "paragraphs": [
     "25(e)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_26_b.png": {
    "file": "NRHB_26_b.png",
@@ -415,7 +435,8 @@
    ],
    "entries": [
     "26b-id"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_26_biii.png": {
    "file": "NRHB_26_biii.png",
@@ -437,7 +458,8 @@
    ],
    "entries": [
     "26b-mw"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_26_ciii.png": {
    "file": "NRHB_26_ciii.png",
@@ -459,7 +481,8 @@
    ],
    "entries": [
     "26c-mw"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_a.png": {
    "file": "NRHB_27_a.png",
@@ -482,7 +505,8 @@
    ],
    "entries": [
     "27a-id"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_aiii.png": {
    "file": "NRHB_27_aiii.png",
@@ -504,7 +528,8 @@
    ],
    "entries": [
     "27a-mw"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_biii.png": {
    "file": "NRHB_27_biii.png",
@@ -526,7 +551,8 @@
    ],
    "entries": [
     "27b-mw"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_biv.png": {
    "file": "NRHB_27_biv.png",
@@ -548,7 +574,8 @@
    ],
    "entries": [
     "27b-anc"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_c.png": {
    "file": "NRHB_27_c.png",
@@ -567,7 +594,8 @@
    ],
    "paragraphs": [
     "27(c)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_d.png": {
    "file": "NRHB_27_d.png",
@@ -591,7 +619,8 @@
    ],
    "entries": [
     "27d"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_diii.png": {
    "file": "NRHB_27_diii.png",
@@ -609,8 +638,14 @@
     "Vessel Restricted in Her Ability to Maneuver"
    ],
    "paragraphs": [
-    "27(d)(iii)"
-   ]
+    "27(d)",
+    "27(d)(i)",
+    "27(d)(ii)"
+   ],
+   "entries": [
+    "27d"
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_ei.png": {
    "file": "NRHB_27_ei.png",
@@ -625,11 +660,9 @@
    "retrieved": "2026-08-29",
    "rights": "US Government work, public domain (17 U.S.C. 105)",
    "paragraphs": [
-    "27(e)(i)"
+    "27(e)(ii)"
    ],
-   "entries": [
-    "27e"
-   ]
+   "depicts": "provision"
   },
   "NRHB_27_eii.png": {
    "file": "NRHB_27_eii.png",
@@ -648,7 +681,8 @@
    ],
    "paragraphs": [
     "27(e)(ii)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_27_f.png": {
    "file": "NRHB_27_f.png",
@@ -670,7 +704,8 @@
    ],
    "entries": [
     "27f"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_28.png": {
    "file": "NRHB_28.png",
@@ -692,7 +727,8 @@
    ],
    "entries": [
     "28"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_29_a.png": {
    "file": "NRHB_29_a.png",
@@ -715,7 +751,8 @@
    ],
    "entries": [
     "29a"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_29_aiii.png": {
    "file": "NRHB_29_aiii.png",
@@ -737,7 +774,8 @@
    ],
    "entries": [
     "29a"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_30_a.png": {
    "file": "NRHB_30_a.png",
@@ -755,11 +793,13 @@
     "Vessels at Anchor"
    ],
    "paragraphs": [
-    "30(a)"
+    "30(a)",
+    "30(b)"
    ],
    "entries": [
     "30a"
-   ]
+   ],
+   "depicts": "exception"
   },
   "NRHB_30_d.png": {
    "file": "NRHB_30_d.png",
@@ -781,7 +821,8 @@
    ],
    "entries": [
     "30d-red"
-   ]
+   ],
+   "depicts": "provision"
   },
   "NRHB_30_dii.png": {
    "file": "NRHB_30_dii.png",
@@ -799,8 +840,13 @@
     "Vessels at Anchor"
    ],
    "paragraphs": [
-    "30(d)"
-   ]
+    "30(a)",
+    "30(c)"
+   ],
+   "entries": [
+    "30a"
+   ],
+   "depicts": "provision"
   },
   "mastheadarc.gif": {
    "file": "mastheadarc.gif",
@@ -819,7 +865,8 @@
    ],
    "paragraphs": [
     "21(a)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "portarc.gif": {
    "file": "portarc.gif",
@@ -838,7 +885,8 @@
    ],
    "paragraphs": [
     "21(b)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "stbdarc.gif": {
    "file": "stbdarc.gif",
@@ -857,7 +905,8 @@
    ],
    "paragraphs": [
     "21(b)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "sternarc.gif": {
    "file": "sternarc.gif",
@@ -876,7 +925,8 @@
    ],
    "paragraphs": [
     "21(c)"
-   ]
+   ],
+   "depicts": "provision"
   },
   "towingarc.gif": {
    "file": "towingarc.gif",
@@ -896,7 +946,8 @@
    "paragraphs": [
     "21(d)",
     "24(a)(iv)"
-   ]
+   ],
+   "depicts": "provision"
   }
  }
 }
