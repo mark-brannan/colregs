@@ -1,7 +1,7 @@
 # ADR 0001 — Package name, and jurisdiction as a dimension
 
 Date: 2026-08-29
-Status: accepted; amended 2026-09-05 (licence terms verified, see Amendments)
+Status: accepted; amended 2026-09-05, 2026-09-09 (see Amendments)
 
 ## Context
 
@@ -192,3 +192,31 @@ is not made here.
   <https://www.un.org/en/about-us/terms-of-use>.
 - IMO: <https://www.imo.org/en/About/Conventions/Pages/COLREG.aspx>;
   <https://www.imo.org/en/About/Pages/IMO-Website-Terms-and-conditions-of-use.aspx>.
+
+### 2026-09-09 — Independent re-check (issue #75), plus per-language corpus sources (Q-6/Q-7)
+
+Re-fetched each primary source for issue #75; also checked Q-6/Q-7's three
+per-language corpus candidates, not checked before.
+
+#### Six jurisdictions — confirms 2026-09-05 verbatim, nothing changed
+
+| Jurisdiction | Re-checked against | Result |
+|---|---|---|
+| `us` | [17 U.S.C. §105](https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title17-section105&num=0&edition=prelim) | Confirmed: "Copyright protection under this title is not available for any work of the United States Government." Public domain, as recorded. |
+| `uk` | [OGL v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) | Confirmed: copy/adapt/exploit commercially permitted; required attribution string matches; excludes third-party rights. As recorded. |
+| `au` | [legislation.gov.au terms-of-use](https://www.legislation.gov.au/terms-of-use) | Confirmed CC BY 4.0; both attribution strings (unchanged/adapted) match verbatim. As recorded. |
+| `de` | [§5 UrhG](https://www.gesetze-im-internet.de/urhg/__5.html) | Confirmed: §5(1) excludes Gesetze, Verordnungen, amtliche Erlasse und Bekanntmachungen from copyright outright; §5(2)'s conditions apply only to the other class of official works. As recorded. |
+| `ca` | [Reproduction of Federal Law Order, SI/97-5](https://laws-lois.justice.gc.ca/eng/regulations/SI-97-5/page-1.html) | Confirmed: reproduction permitted "provided due diligence is exercised... and the reproduction is not represented as an official version." As recorded. |
+| `eu/cevni` | [unece.org/copyright](https://unece.org/copyright) (403), [unece.org/general/copyright-notice](https://unece.org/general/copyright-notice) (403); [un.org copyright](https://www.un.org/en/about-us/copyright), [un.org terms-of-use](https://www.un.org/en/about-us/terms-of-use) | Both unece.org paths 403 again — independently reproduces "unreachable" rather than assuming it. UN default terms confirmed restrictive: "personal, non-commercial use... no right to resell, redistribute... or create derivative works." Still blocked, not merely unclear — no change. |
+
+#### Per-language corpus sources (Q-6/Q-7) — new ground, mixed result
+
+| Source | Checked against | Verdict |
+|---|---|---|
+| BOE (`es`) | [boe.es/informacion/aviso_legal](https://www.boe.es/informacion/aviso_legal/index.php) (the path Q-7 guessed, `boe.es/aviso_legal/`, 404s) | Clean — permits the reuse REQ-PROV-2 needs. Commercial + non-commercial reuse; required attribution ("Fuente de los datos: Agencia Estatal Boletín Oficial del Estado", or "Basado en datos de..." for derivatives); consolidated texts must not be represented as official. Matches Q-7's guess; cheapest language to unblock. |
+| UNTS (`en`/`fr`) | [un.org terms-of-use](https://www.un.org/en/about-us/terms-of-use), [un.org copyright](https://www.un.org/en/about-us/copyright), [treaties.un.org FAQ](https://treaties.un.org/pages/Overview.aspx?path=overview%2Ffaq%2Fpage1_en.xml) (no copyright content) | Ambiguous, new concern — no UNTS-specific rights page found; the only primary terms reachable were the UN's general "personal, non-commercial... no derivative works" terms, the same ones blocking CEVNI. Weakens rather than confirms Q-7's "UNTS deposit is likely lawful" assumption. Resolves via a UNTS-specific rights statement, written UN permission, or a national republication (the `de`/`uk`/`ca`/`us` pattern already used for `intl`). |
+| Finlex (`fi`) | [finlex.fi](https://www.finlex.fi/en/), [finlex.fi/en/legislation](https://www.finlex.fi/en/legislation/), [Tekijänoikeuslaki 404/1961](https://www.finlex.fi/fi/laki/ajantasa/1961/19610404) | Inconclusive — no terms/copyright text was present in the fetched HTML (JS-rendered shells); §9's carve-out for *säädökset* could not be confirmed from primary text. A secondary source (Electronic Frontier Finland) reports a live, contested Finlex copyright claim over compiled statute text. Resolves via a JS-capable fetch of §9 and Finlex's actual ToS page. |
+
+`es` clears REQ-PROV-2; `fi` and `en`/`fr` via UNTS stay open. Updating
+`docs/requirements.md` Q-6/Q-7 for this is left as a follow-up (concurrent
+edits to that file are in flight elsewhere).
