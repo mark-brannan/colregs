@@ -193,10 +193,11 @@ is not made here.
 - IMO: <https://www.imo.org/en/About/Conventions/Pages/COLREG.aspx>;
   <https://www.imo.org/en/About/Pages/IMO-Website-Terms-and-conditions-of-use.aspx>.
 
-### 2026-09-09 — Independent re-check (issue #75), plus per-language corpus sources (Q-6/Q-7)
+### 2026-09-09 — Independent re-check (issue #75), plus per-language corpus sources (Q-7)
 
-Re-fetched each primary source for issue #75; also checked Q-6/Q-7's three
-per-language corpus candidates, not checked before.
+Re-fetched issue #75's primary sources; checked Q-7's three per-language
+corpus candidates, previously unchecked. Q-6 (authenticity) verified
+2026-08-30.
 
 #### Six jurisdictions — confirms 2026-09-05 verbatim, nothing changed
 
@@ -209,7 +210,7 @@ per-language corpus candidates, not checked before.
 | `ca` | [Reproduction of Federal Law Order, SI/97-5](https://laws-lois.justice.gc.ca/eng/regulations/SI-97-5/page-1.html) | Confirmed: reproduction permitted "provided due diligence is exercised... and the reproduction is not represented as an official version." As recorded. |
 | `eu/cevni` | [unece.org/copyright](https://unece.org/copyright) (403), [unece.org/general/copyright-notice](https://unece.org/general/copyright-notice) (403); [un.org copyright](https://www.un.org/en/about-us/copyright), [un.org terms-of-use](https://www.un.org/en/about-us/terms-of-use) | Both unece.org paths 403 again — independently reproduces "unreachable" rather than assuming it. UN default terms confirmed restrictive: "personal, non-commercial use... no right to resell, redistribute... or create derivative works." Still blocked, not merely unclear — no change. |
 
-#### Per-language corpus sources (Q-6/Q-7) — new ground, mixed result
+#### Per-language corpus sources (Q-7) — new ground, mixed result
 
 | Source | Checked against | Verdict |
 |---|---|---|
@@ -218,5 +219,5 @@ per-language corpus candidates, not checked before.
 | Finlex (`fi`) | [finlex.fi](https://www.finlex.fi/en/), [finlex.fi/en/legislation](https://www.finlex.fi/en/legislation/), [Tekijänoikeuslaki 404/1961](https://www.finlex.fi/fi/laki/ajantasa/1961/19610404) | Inconclusive — no terms/copyright text was present in the fetched HTML (JS-rendered shells); §9's carve-out for *säädökset* could not be confirmed from primary text. A secondary source (Electronic Frontier Finland) reports a live, contested Finlex copyright claim over compiled statute text. Resolves via a JS-capable fetch of §9 and Finlex's actual ToS page. |
 
 `es` clears REQ-PROV-2; `fi` and `en`/`fr` via UNTS stay open. Updating
-`docs/requirements.md` Q-6/Q-7 for this is left as a follow-up (concurrent
+`docs/requirements.md` Q-7 for this is left as a follow-up (concurrent
 edits to that file are in flight elsewhere).
