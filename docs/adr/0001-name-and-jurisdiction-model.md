@@ -1,8 +1,8 @@
 # ADR 0001 — Package name, and jurisdiction as a dimension
 
 Date: 2026-08-29
-Status: accepted; amended 2026-09-05, 2026-09-09 (see Amendments). CEVNI's
-text stays blocked; ADR 0010 unblocks modelling it.
+Status: accepted; amended 2026-09-05 and 2026-09-09 (licence terms verified,
+see Amendments). CEVNI's text stays blocked; ADR 0010 unblocks modelling it.
 
 ## Context
 

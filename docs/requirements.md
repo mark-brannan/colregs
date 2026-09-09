@@ -1341,6 +1341,16 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   be a number invented rather than declared. Settled by whatever settles the
   `conduct` monitors, which are the things that watch a duty end rather than
   begin.
+
+  **Ruled 2026-09-08:** while one vessel holds the latch, 13(a)'s sector
+  test is suppressed on the other, newly-gaining vessel — once overtaking,
+  always overtaking, per 13(d)'s own text, so a geometry test that would
+  newly name a second give-way vessel must not fire while the first still
+  holds the role by history alone. `13a`'s sector branch now also reads
+  `other:hist:was_overtaking: false`; the closing fixture in
+  `fixtures/situation-fixtures.json` is the case this closes — a vessel
+  drops back onto the latch-holder's own stern, and only the latch-holder
+  gives way.
 - **Q-48** — **Nothing checks that a situation is geometrically possible.**
   `own:geo:rel_bearing_deg`, `other:geo:rel_bearing_deg`, the two
   `kin:heading_deg` and the two `kin:sog_kn` are six facts related by two
@@ -1460,3 +1470,10 @@ Two decisions taken in pencil, reversible in one edit: the invariants live in
 their own document under `REQ-INV-1`–`REQ-INV-7` (§4.2 says why), and the id
 scheme is `REQ-INV-2`'s — cheap to change until P4.2 cites an id from a TLA+
 module, expensive after.
+
+A third, ruled rather than pencil: **`docs/part-b-invariants.md` stays
+hand-written Markdown; no derived JSON registry.** Ruled 2026-09-08. Revisit
+only if P4.2's TLA+ needs to cite `INV-` ids mechanically — the id scheme
+just above is already the cheap-to-change half of that trigger, so the
+revisit costs one file's worth of tooling, not a re-derivation of the ids
+themselves.
