@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
@@ -33,7 +33,8 @@ test('ADR 0010: a ruleset with every text withheld validates against rules.schem
 })
 
 test('ADR 0010: fixtures, integrity checks and the reference evaluator stay green with every text stripped', () => {
-  const file = join(mkdtempSync(join(tmpdir(), 'colregs-withheld-')), 'rules.json')
+  const dir = mkdtempSync(join(tmpdir(), 'colregs-withheld-'))
+  const file = join(dir, 'rules.json')
   writeFileSync(file, JSON.stringify(withheld))
   // NODE_TEST_CONTEXT is how the runner tells a child it is one of its own; a
   // nested runner inheriting it reports nothing to stdout.
@@ -42,6 +43,7 @@ test('ADR 0010: fixtures, integrity checks and the reference evaluator stay gree
     encoding: 'utf8',
     env: { ...env, COLREGS_RULES_JSON: file },
   })
+  rmSync(dir, { recursive: true, force: true })
   const summary = run.stdout.split('\n').filter((l) => /^not ok|^# (pass|fail)/.test(l)).join('\n')
   assert.equal(run.status, 0, `data.test.mjs is not green over a text-stripped ruleset:\n${summary}\n${run.stderr.slice(-2000)}`)
   assert.match(run.stdout, /^# fail 0$/m)
