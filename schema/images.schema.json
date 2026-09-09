@@ -14,7 +14,7 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["file", "bytes", "sha256", "pixels", "source_url", "source", "retrieved", "rights"],
+        "required": ["file", "bytes", "sha256", "pixels", "source_url", "source", "retrieved", "rights", "transcript", "subjects", "description"],
         "properties": {
           "file": { "type": "string", "minLength": 1 },
           "bytes": { "type": "integer", "minimum": 0 },
@@ -47,6 +47,22 @@
           "depicts": {
             "description": "Whether the figure shows the provision of the clauses it is mapped to, the exception they carve out, or both.",
             "enum": ["provision", "exception", "mixed"]
+          },
+          "transcript": {
+            "description": "Every printed text block in the image, verbatim, in reading order. Empty when the image carries no text.",
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "subjects": {
+            "description": "What is drawn, one noun phrase per vessel or object, in plain maritime vocabulary, not the Convention's classes.",
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "description": {
+            "description": "One paragraph of what the drawing contains: vessel type and its evidence, viewpoint, then the lights and shapes as drawn. No rule citations.",
+            "type": "string",
+            "minLength": 40
           },
           "provenance_status": { "type": "string" },
           "unmapped_reason": { "type": "string", "minLength": 1 }

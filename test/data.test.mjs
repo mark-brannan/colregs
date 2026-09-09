@@ -624,6 +624,23 @@ test('images: every entry that cites a figure cites one depicting its provision'
   }
 })
 
+// `transcript` is the printed text, `description` what is drawn. The two
+// must not collapse into each other or into the rule: a description that
+// cites a clause is explaining, not describing, and a transcript element
+// that is blank is a placeholder, not a reading.
+test('images: transcript is verbatim text and description is prose about the drawing', () => {
+  const cites = /\b\d{1,2}\s?\([a-z]+\)|\bRule\s+\d/i
+  const telling = /\b(the (image|figure|picture|drawing) (shows|depicts)|this (image|figure)|we see|as required)\b/i
+  for (const [name, rec] of Object.entries(images.images)) {
+    for (const t of rec.transcript) assert.equal(t, t.trim(), `${name}: transcript element has stray whitespace`)
+    const words = rec.description.trim().split(/\s+/).length
+    assert.ok(words >= 40 && words <= 180, `${name}: description is ${words} words, expected 40-180`)
+    assert.ok(!cites.test(rec.description), `${name}: description cites a clause`)
+    assert.ok(!telling.test(rec.description), `${name}: description narrates the figure instead of describing it`)
+    for (const s of rec.subjects) assert.equal(s[0], s[0].toLowerCase(), `${name}: subject "${s}" is capitalised`)
+  }
+})
+
 test('navigation.state decodes only to values the axes define', () => {
   const axes = facts.axes
   for (const [state, d] of Object.entries(facts.signalk_navigation_state.decode)) {
