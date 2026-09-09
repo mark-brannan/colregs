@@ -1133,8 +1133,7 @@
    ],
    "modality": "shall",
    "images": [
-    "NRHB_30_dii.png",
-    "NRHB_30_a.png"
+    "NRHB_30_dii.png"
    ]
   },
   {
@@ -1158,7 +1157,10 @@
    "rel:in_lieu_of": [
     "30a"
    ],
-   "modality": "may"
+   "modality": "may",
+   "images": [
+    "NRHB_30_a.png"
+   ]
   },
   {
    "id": "30c",

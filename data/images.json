@@ -45,6 +45,7 @@
    "paragraphs": [
     "23(a)",
     "23(a)(i)",
+    "23(a)(ii)",
     "24(b)"
    ],
    "entries": [
@@ -793,13 +794,12 @@
     "Vessels at Anchor"
    ],
    "paragraphs": [
-    "30(a)",
     "30(b)"
    ],
    "entries": [
-    "30a"
+    "30b"
    ],
-   "depicts": "exception"
+   "depicts": "provision"
   },
   "NRHB_30_d.png": {
    "file": "NRHB_30_d.png",

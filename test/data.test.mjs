@@ -572,7 +572,7 @@ test('images: every entry that cites a figure cites one depicting its provision'
       assert.ok(catalogued[name]?.entries?.includes(entry.id), `${entry.id} cites ${name}, which does not name it back`)
     }
     assert.ok(
-      shown.some((name) => catalogued[name].depicts === 'provision'),
+      shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
       `${entry.id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
     )
   }
@@ -582,6 +582,23 @@ test('images: every entry that cites a figure cites one depicting its provision'
       assert.ok(entry, `${name} names entry ${id}, which does not exist`)
       assert.ok(entry.images?.includes(name), `${name} names ${id}, which does not cite it back`)
     }
+    for (const id of rec.paragraphs ?? []) {
+      assert.ok(rules.paragraphs[id], `${name} names paragraph ${id}, which does not exist`)
+      assert.ok(rules.paragraphs[id].images?.includes(name), `${name} names ${id}, which does not cite it back`)
+    }
+  }
+  // The same check on the paragraph side, so a paragraph cannot be illustrated
+  // only by its exception either.
+  for (const [id, para] of Object.entries(rules.paragraphs)) {
+    const shown = para.images ?? []
+    if (shown.length === 0) continue
+    for (const name of shown) {
+      assert.ok(catalogued[name]?.paragraphs?.includes(id), `${id} cites ${name}, which does not name it back`)
+    }
+    assert.ok(
+      shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
+      `${id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
+    )
   }
 })
 
