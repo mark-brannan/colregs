@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.3](https://github.com/mark-brannan/colregs/compare/v0.2.2...v0.2.3) (2026-09-09)
+
+
+### Added
+
+* data/version.json — single version stamp for data/ ([#48](https://github.com/mark-brannan/colregs/issues/48)) ([#65](https://github.com/mark-brannan/colregs/issues/65)) ([4409f1a](https://github.com/mark-brannan/colregs/commit/4409f1a5a8a79521ea7d9dd396d7bd940b7df893))
+
+
+### Fixed
+
+* pin position:underway on Rule 24 entries' Rule 23 imports ([#44](https://github.com/mark-brannan/colregs/issues/44)) ([#64](https://github.com/mark-brannan/colregs/issues/64)) ([3d35443](https://github.com/mark-brannan/colregs/commit/3d354431be84bd581ae065ffa1583c7e452d9177))
+* rename PROSE_BUDGET_SKIP to PROSE_BUDGET_ALLOW_MISSING_ENGINE ([#63](https://github.com/mark-brannan/colregs/issues/63)) ([bc3c5b2](https://github.com/mark-brannan/colregs/commit/bc3c5b23d4e8f884b4e6c4fe67b4b62708bdc5f6))
+
 ## [0.2.2](https://github.com/mark-brannan/colregs/compare/v0.2.1...v0.2.2) (2026-09-08)
 
 
