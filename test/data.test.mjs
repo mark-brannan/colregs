@@ -182,7 +182,7 @@ test('rules schema: a withheld paragraph validates, and its malformed variants d
     'a verbatim paragraph may still name the intl provision it restates')
 })
 
-// --- colregs#85: a document that withholds text must record when that
+// --- ADR 0010: a document that withholds text must record when that
 // withholding was last checked against the primary source --------------
 test('rules schema: a document with a withheld paragraph requires retrieved', () => {
   const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('rules.schema.json'))
