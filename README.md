@@ -26,7 +26,7 @@ See a [live demo](https://mark-brannan.github.io/searoom/) of searoom and the co
 > by the published rules.
 
 ```text
-data/rules.json          verbatim rule text, keyed by paragraph path and jurisdiction
+data/rules.json          rule text, keyed by paragraph path and jurisdiction
 data/lights.json         the six Rule 21 lights: colour, arc, Rule 22 range
 data/facts.json          the fact record, and how to decode SignalK navigation.state
 data/applicability.json  predicate -> lights, each entry also carrying modality, citation, jurisdiction
@@ -59,7 +59,9 @@ mooring buoy, lives only under `us/inland`
 ## The layers
 
 **Rule text.** Verbatim, keyed by *paragraph path*, like `27(a)(i)`, because
-the paragraph is the unit you actually cite.
+the paragraph is the unit you actually cite. Where a licence bars republishing
+a jurisdiction's words, the paragraph is still modelled and its text withheld
+rather than paraphrased — evaluation never reads the text.
 
 **Light definitions.** Rule 21's lights with colour, arc as a bearing range,
 and Rule 22 range by length band. Bearings run clockwise from right ahead; an

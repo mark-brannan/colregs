@@ -2,7 +2,7 @@
   "$comment": "Prose budgets enforced by prose-budget (the engine in dotfiles .local/bin), run locally by npm test and in CI by the shared workflow. Raising a number or adding an exception is a deliberate, reviewable diff.",
   "lines": {
     "README.md": 200,
-    "AGENTS.md": 120,
+    "AGENTS.md": 122,
     "CLAUDE.md": 10,
     "docs/requirements.md": 1500,
     "docs/identifiers.md": 450,
@@ -10,6 +10,7 @@
     "docs/adr/0007-rule26-overrides-and-aground.md": 90,
     "docs/adr/0008-mooring-buoy-modifier.md": 90,
     "docs/adr/0009-data-version-stamp.md": 90,
+    "docs/adr/0010-text-withheld-jurisdictions.md": 125,
     "required": true,
     "pending": []
   },

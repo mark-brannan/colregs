@@ -76,7 +76,9 @@ Neither consumer lives in this repo.
   (Rule 28 "[Reserved]") means silence-means-inherit would apply
   international law where the national body deliberately has none, so no
   non-`intl` jurisdiction lands before an explicit suppression mechanism
-  exists. A delta that only *adds* entries is exempt: it suppresses nothing,
+  exists. That bar is about suppression, not licensing: it is independent of
+  REQ-PROV-2 and ADR 0010, and it binds whether a jurisdiction's text ships or
+  is withheld. A delta that only *adds* entries is exempt: it suppresses nothing,
   so the Q-11 hazard cannot arise from it (ADR 0008, `30a-buoy`/`30b-buoy`).
   A delta that suppresses or replaces an `intl` entry still waits.
 - **REQ-SCOPE-4** — Adding a jurisdiction MUST be additive. It MUST NOT require
@@ -123,7 +125,12 @@ Four layers, each independently addressable.
 
 - **REQ-MODEL-1** — **Rule text**, verbatim, keyed by paragraph path. Text MUST
   NOT be paraphrased, summarised or reflowed. Where a jurisdiction's text
-  differs, both MUST be stored, keyed by jurisdiction.
+  differs, both MUST be stored, keyed by jurisdiction — unless the paragraph is
+  `text_status: withheld` (ADR 0010), which stores no rule text. What a
+  withheld paragraph carries instead — citation alone, a digest, a
+  deterministic non-prose reduction, or the `intl` equivalent — is pencil in
+  ADR 0010, deliberately unsettled. This requirement bars paraphrasing text
+  the package *ships*; it does not by itself decide the withheld case.
 - **REQ-MODEL-2** — **Light definitions** (Rule 21) MUST carry colour, arc of
   visibility in degrees, and range by length band (Rule 22). Jurisdictions MAY
   add definitions (e.g. the US special flashing light, Inland 21(g)).
@@ -509,9 +516,10 @@ See ADR 0003.
 
 - **REQ-PROV-1** — Every text and image asset MUST record its source, the date
   retrieved, and its licence or public-domain basis.
-- **REQ-PROV-2** — A jurisdiction MUST NOT be added until its reproduction terms
-  have been checked against the primary source and recorded. Recalled or assumed
-  terms are not sufficient.
+- **REQ-PROV-2** — A jurisdiction's *rule text* MUST NOT be published until its
+  reproduction terms have been checked against the primary source and recorded.
+  Recalled or assumed terms are not sufficient. This does not bar *modelling* a
+  jurisdiction: its structure may ship with the text withheld — ADR 0010.
 - **REQ-PROV-3** — Where a licence requires attribution (e.g. OGL, CC BY), the
   attribution text MUST ship in the package, not only in the repo.
 - **REQ-PROV-4** — Code licence and data licence MUST be stated separately. The
@@ -792,6 +800,9 @@ Tracked here until resolved; each becomes an ADR.
   unece.org was unreachable from the checking host, and the UN's default
   terms (personal, non-commercial use only) block it until written
   permission or a national transposition is chosen instead.
+  **Ruled 2026-09-09 (ADR 0010):** this blocks CEVNI's *text*, not CEVNI.
+  A jurisdiction may be modelled in full with its text withheld, so no
+  session should treat `eu/cevni` as unimplementable.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
 - **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
@@ -918,7 +929,9 @@ Tracked here until resolved; each becomes an ADR.
   "this path/entry deliberately does not exist here", distinguishable from
   "not yet transcribed". Decide the mechanism in the second-jurisdiction
   bundle (GATE-1 re-take, GATE-2, Q-10); until then no non-`intl`
-  jurisdiction lands.
+  jurisdiction lands. This is the live blocker on CEVNI, and it is *not* the
+  licence one: ADR 0010 removed the licence block by permitting structure with
+  the text withheld, and left this one standing.
   Also from the same verification pass, tracked on the global board rather
   than here: four transcription defects in `data/rules.json` itself
   (`21(a)`, `21(b)`, `23(b)`, `29(b)`) — a data fix, not a design

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/rules.schema.json",
   "title": "data/rules.json",
-  "description": "Verbatim rule text keyed by paragraph path. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "description": "Rule text keyed by paragraph path, verbatim unless withheld under a licence bar. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md and docs/adr/0010-text-withheld-jurisdictions.md.",
   "type": "object",
   "additionalProperties": false,
   "required": ["source", "paragraphs"],
@@ -30,13 +30,59 @@
         "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["path", "rule", "rule_title", "jurisdiction", "text"],
+          "required": ["path", "rule", "rule_title", "jurisdiction"],
+          "allOf": [
+            {
+              "$comment": "ADR 0010: a withheld paragraph is modelled but ships no text.",
+              "if": {
+                "properties": { "text_status": { "const": "withheld" } },
+                "required": ["text_status"]
+              },
+              "then": {
+                "properties": {
+                  "text": false,
+                  "withheld_reason": { "type": "string", "minLength": 1 }
+                },
+                "required": ["withheld_reason"]
+              },
+              "else": {
+                "$comment": "mirrors, text_digest and text_slug are open to verbatim paragraphs too; only withheld_reason is incoherent without a bar.",
+                "properties": {
+                  "text": { "type": "string", "minLength": 1 },
+                  "withheld_reason": false
+                },
+                "required": ["text"]
+              }
+            }
+          ],
           "properties": {
             "path": { "type": "string", "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$" },
             "rule": { "type": "string", "pattern": "^[0-9]+$" },
             "rule_title": { "type": "string", "minLength": 1 },
             "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
             "text": { "type": "string", "minLength": 1 },
+            "text_status": {
+              "$comment": "Absent means verbatim. 'withheld' means the text is not ours to publish -- ADR 0010.",
+              "enum": ["verbatim", "withheld"]
+            },
+            "withheld_reason": { "type": "string", "minLength": 1 },
+            "text_slug": {
+              "$comment": "Pencil, ADR 0010: sorted set of lemmatised key nouns and verbs, English counterparts where the source is not English. Defined so the option is not walled off; nothing writes it yet.",
+              "type": "array",
+              "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "text_digest": {
+              "$comment": "Pencil, ADR 0010: algorithm-qualified digest of the normalised text, e.g. 'sha256:<hex>'. Defined so the option is not walled off by additionalProperties; nothing writes it yet.",
+              "type": "string",
+              "pattern": "^[a-z0-9-]+:[A-Za-z0-9+/=]+$"
+            },
+            "mirrors": {
+              "$comment": "Paragraph path in intl this provision restates; display labelled as the international equivalent, never as this jurisdiction's text.",
+              "type": "string",
+              "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
+            },
             "images": {
               "type": "array",
               "items": { "type": "string", "minLength": 1 },
