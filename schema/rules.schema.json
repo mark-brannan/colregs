@@ -66,6 +66,13 @@
               "enum": ["verbatim", "withheld"]
             },
             "withheld_reason": { "type": "string", "minLength": 1 },
+            "text_slug": {
+              "$comment": "Pencil, ADR 0010: sorted set of lemmatised key nouns and verbs, English counterparts where the source is not English. Defined so the option is not walled off; nothing writes it yet.",
+              "type": "array",
+              "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+              "minItems": 1,
+              "uniqueItems": true
+            },
             "text_digest": {
               "$comment": "Pencil, ADR 0010: algorithm-qualified digest of the normalised text, e.g. 'sha256:<hex>'. Defined so the option is not walled off by additionalProperties; nothing writes it yet.",
               "type": "string",

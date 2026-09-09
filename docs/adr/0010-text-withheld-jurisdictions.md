@@ -66,23 +66,26 @@ not license a later session to settle it by inference. Any of the following
 may be adopted, dropped or combined before a general release without another
 ADR, and more than one may ship at once — they occupy different keys:
 
-| option | what it buys | what it costs | what would settle it |
-|---|---|---|---|
-| **Redaction** — the citation alone | nothing to argue about; ships today | a reader holding a lawful copy gets no help binding it to our structure | it is the floor; it needs no decision |
-| **Digest** — a hash of the normalised text, algorithm-qualified | a holder of a lawful copy can verify our model tracks the same paragraph, and detect a silent upstream amendment | a digest of text nobody can obtain is inert until someone holds the text | one consumer who holds CEVNI and wants the binding, or one amendment we failed to notice |
-| **Deterministic condensation** — a reproducible, non-prose reduction: token/slug set, key-term vector, structural digest | a placeholder a *human* can navigate, and possibly the vocabulary the applicability entries want anyway | needs a rights read: how far a reduction may go before it is a derivative work, and whether an output that reads as prose crosses a line a slug set does not | a rights read plus a demo on `intl`, where the text is free — see the research issue |
-| **`mirrors`** — the `intl` equivalent | the reader gets real, lawful rule text for the majority of CEVNI | says nothing where CEVNI genuinely differs, which is exactly the interesting part | already carried; nothing to settle |
+| option | key | note |
+|---|---|---|
+| **Redaction** — the citation alone | — | the floor; ships today, needs no decision |
+| **Digest** — a hash of the normalised text, algorithm-qualified | `text_digest` | lets a holder of a lawful copy bind it to our structure, and catches a silent upstream amendment |
+| **Slug** — key nouns and verbs lifted from the paragraph, lemmatised, English counterparts where the source is another language | `text_slug` | the straw man below |
+| **`mirrors`** — the `intl` equivalent | `mirrors` | real, lawful text for the majority of CEVNI; silent exactly where CEVNI differs |
 
-Two honest notes, so the pencil is not re-argued from a worse position than
-it deserves. **The digest is not a paraphrase**; it reproduces nothing, and
-the earlier draft of this ADR dismissed it too quickly by asking who would
-verify it — the answer is the one reader who matters, someone holding a
-lawful copy. **Condensation is the genuinely open one.** REQ-MODEL-1 bars
-paraphrase and summary of *shipped rule text*; whether a deterministic,
-non-prose reduction of text we do not ship falls under that bar, or is
-simply indexing, is a question for a rights read, not for a session's
-nerves. It may turn out to be the best of the four. It is not foreclosed
-here.
+**Straw man for the slug**, so the option is designed against something
+rather than argued about in the abstract: take the paragraph, keep the key
+nouns and verbs, drop everything else, lemmatise, emit a sorted set —
+`blue-board`, `overtake`, `sound-signal`. Deterministic, reproducible from
+the same input, no word order, no syntax, no prose. Where the source is not
+English, the terms map to their English counterparts, which is the same
+vocabulary the applicability entries already use. Build it and judge it; it
+may be replaced or dropped. See the research issue.
+
+Nothing here turns on where the line between indexing and a derivative work
+falls. That question is not this ADR's to answer and does not gate the work:
+redaction ships today whatever the answer, and the slug is a straw man to be
+built, investigated or thrown away later.
 
 How a withheld paragraph reads on screen is likewise a display choice, not a
 data one.
@@ -101,10 +104,12 @@ data one.
   blocker on CEVNI. Read the two together or the wrong one gets blamed.
 - `schema/rules.schema.json` carries the conditional: `text` required unless
   `text_status` is `withheld`, in which case it is forbidden and
-  `withheld_reason` is required; `mirrors` is rejected on a verbatim
-  paragraph. Additive under ADR 0006. Since `data/rules.json` is entirely
-  verbatim `intl`, nothing in the data exercises that branch — the malformed
-  half-states are asserted directly in `test/data.test.mjs`.
+  `withheld_reason` is required. Only `withheld_reason` is refused on a
+  verbatim paragraph; `mirrors`, `text_digest` and `text_slug` are open to
+  any paragraph, defined but unwritten, so the pencil options above cannot be
+  foreclosed by `additionalProperties: false`. Additive under ADR 0006. Since
+  `data/rules.json` is entirely verbatim `intl`, nothing in the data
+  exercises that branch — the cases are asserted in `test/data.test.mjs`.
 - **Nothing in evaluation may read `text`.** That is the invariant this
   decision rests on, so it wants a test rather than a promise: fixtures and
   the evaluator output envelope must stay green over a ruleset with every
