@@ -509,9 +509,10 @@ See ADR 0003.
 
 - **REQ-PROV-1** — Every text and image asset MUST record its source, the date
   retrieved, and its licence or public-domain basis.
-- **REQ-PROV-2** — A jurisdiction MUST NOT be added until its reproduction terms
-  have been checked against the primary source and recorded. Recalled or assumed
-  terms are not sufficient.
+- **REQ-PROV-2** — A jurisdiction's *rule text* MUST NOT be published until its
+  reproduction terms have been checked against the primary source and recorded.
+  Recalled or assumed terms are not sufficient. This does not bar *modelling* a
+  jurisdiction: its structure may ship with the text withheld — ADR 0010.
 - **REQ-PROV-3** — Where a licence requires attribution (e.g. OGL, CC BY), the
   attribution text MUST ship in the package, not only in the repo.
 - **REQ-PROV-4** — Code licence and data licence MUST be stated separately. The
