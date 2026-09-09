@@ -641,6 +641,17 @@ test('images: transcript is verbatim text and description is prose about the dra
   }
 })
 
+// The day shapes are a closed vocabulary so a consumer can switch on them.
+// A figure that draws none carries `[]` rather than no key: "draws nothing"
+// and "not yet read" must not look the same.
+test('images: shapes are drawn from the closed day-shape vocabulary', () => {
+  const vocabulary = new Set(['ball', 'diamond', 'cone-up', 'cone-down', 'cylinder', 'basket', 'flag-a'])
+  for (const [name, rec] of Object.entries(images.images)) {
+    assert.ok(Array.isArray(rec.shapes), `${name}: shapes is missing or not an array`)
+    for (const s of rec.shapes) assert.ok(vocabulary.has(s), `${name}: shape "${s}" is outside the vocabulary`)
+  }
+})
+
 test('navigation.state decodes only to values the axes define', () => {
   const axes = facts.axes
   for (const [state, d] of Object.entries(facts.signalk_navigation_state.decode)) {
