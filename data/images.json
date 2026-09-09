@@ -32,7 +32,8 @@
     "transom-mounted outboard motor",
     "standing helmsman"
    ],
-   "description": "A small open skiff: a hard-chined hull with plank thwarts, a slatted floor and an outboard clamped to the transom, worked by a man who stands to the tiller. She is drawn from above and off the port bow, heading down and to the right, her bottom closed by a dashed line with no sea around her. One white lobe burns at the head of a short staff stepped beside the outboard at the after end, and it is the only light drawn: no sidelights, no separate stern light, nothing on the bow. No day shape or inset panel accompanies her, and the rest of the frame is bare ground."
+   "description": "A small open skiff: a hard-chined hull with plank thwarts, a slatted floor and an outboard clamped to the transom, worked by a man who stands to the tiller. She is drawn from above and off the port bow, heading down and to the right, her bottom closed by a dashed line with no sea around her. One white lobe burns at the head of a short staff stepped beside the outboard at the after end, and it is the only light drawn: no sidelights, no separate stern light, nothing on the bow. No day shape or inset panel accompanies her, and the rest of the frame is bare ground.",
+   "shapes": []
   },
   "NRHB_23_a.png": {
    "file": "NRHB_23_a.png",
@@ -71,7 +72,8 @@
     "pipe manifold and catwalk",
     "bridge wings"
    ],
-   "description": "A tanker: the accommodation block, funnel and mainmast sit right aft, and a pipe manifold with valve stands and a raised catwalk runs the length of a low, flush deck to a stem carrying a jackstaff and a stowed anchor. She is seen from above and off the starboard quarter, heading to the right, the hull closed by a dashed waterline with no sea drawn. A white lobe caps the mast above the bridge, a second stands lower on a short mast well forward along the deck, and a third sits low at the ship's side aft. Red and green lobes hang from the outboard ends of the two bridge wings."
+   "description": "A tanker: the accommodation block, funnel and mainmast sit right aft, and a pipe manifold with valve stands and a raised catwalk runs the length of a low, flush deck to a stem carrying a jackstaff and a stowed anchor. She is seen from above and off the starboard quarter, heading to the right, the hull closed by a dashed waterline with no sea drawn. A white lobe caps the mast above the bridge, a second stands lower on a short mast well forward along the deck, and a third sits low at the ship's side aft. Red and green lobes hang from the outboard ends of the two bridge wings.",
+   "shapes": []
   },
   "NRHB_23_aii.png": {
    "file": "NRHB_23_aii.png",
@@ -103,7 +105,8 @@
     "boats in cradles under davits",
     "raised pilothouse"
    ],
-   "description": "Portholes and rows of square windows run along a low hull; a two-tier deckhouse carries a raised pilothouse with a short mast, and open boats sit in cradles under davits on the after deck, making her a small motor yacht or utility passenger vessel. The view is from above and off the starboard bow, stem to the right, waterline dashed and no sea drawn. A white lobe caps the mast above the pilothouse, red and green lobes stand out either side of the pilothouse front, and a further white lobe burns low over the fantail aft. Nothing else is drawn beside her."
+   "description": "Portholes and rows of square windows run along a low hull; a two-tier deckhouse carries a raised pilothouse with a short mast, and open boats sit in cradles under davits on the after deck, making her a small motor yacht or utility passenger vessel. The view is from above and off the starboard bow, stem to the right, waterline dashed and no sea drawn. A white lobe caps the mast above the pilothouse, red and green lobes stand out either side of the pilothouse front, and a further white lobe burns low over the fantail aft. Nothing else is drawn beside her.",
+   "shapes": []
   },
   "NRHB_23_b.png": {
    "file": "NRHB_23_b.png",
@@ -135,7 +138,8 @@
     "flexible skirt",
     "lift fan and propeller pylon"
    ],
-   "description": "An air-cushion vehicle: a segmented rubber skirt wraps the whole hull, the cabin roof carries a radar scanner and whip aerials, and a tall pylon with a propeller and guard stands right aft. She is drawn from above and off the starboard bow, nose to the right, riding clear of any drawn water. A red lobe stands just abaft the cabin on the far side and a green lobe low on the near side of the hull, with a white lobe on a short staff between them and above. A yellow lobe, drawn as a small rayed star, burns at the top of the after pylon."
+   "description": "An air-cushion vehicle: a segmented rubber skirt wraps the whole hull, the cabin roof carries a radar scanner and whip aerials, and a tall pylon with a propeller and guard stands right aft. She is drawn from above and off the starboard bow, nose to the right, riding clear of any drawn water. A red lobe stands just abaft the cabin on the far side and a green lobe low on the near side of the hull, with a white lobe on a short staff between them and above. A yellow lobe, drawn as a small rayed star, burns at the top of the after pylon.",
+   "shapes": []
   },
   "NRHB_23_di.png": {
    "file": "NRHB_23_di.png",
@@ -167,7 +171,8 @@
     "outboard motor",
     "steering console"
    ],
-   "description": "Inflatable tubes with moulded seams run round a rigid hull, a windscreen and steering console stand amidships with a seated driver at the wheel, and a large outboard hangs on the transom: a rigid inflatable tender. She is seen from above and off the port bow, bow to the right, hull bottom closed by a dashed line with no sea drawn. A single combined lantern sits on a short staff at the bow, its green lobe to the left and red lobe to the right of the staff. One white lobe burns at the head of a thin pole stepped by the outboard aft."
+   "description": "Inflatable tubes with moulded seams run round a rigid hull, a windscreen and steering console stand amidships with a seated driver at the wheel, and a large outboard hangs on the transom: a rigid inflatable tender. She is seen from above and off the port bow, bow to the right, hull bottom closed by a dashed line with no sea drawn. A single combined lantern sits on a short staff at the bow, its green lobe to the left and red lobe to the right of the staff. One white lobe burns at the head of a thin pole stepped by the outboard aft.",
+   "shapes": []
   },
   "NRHB_23_e.png": {
    "file": "NRHB_23_e.png",
@@ -190,6 +195,7 @@
     "after machinery house and funnel"
    ],
    "description": "Twenty-odd flat hatch covers fill a long straight-sided cargo deck between a forward deckhouse with bridge windows and an after machinery house with a squat funnel: a Great Lakes bulk carrier. She is drawn from above and off the starboard bow, stem to the right, the hull closed by a dashed waterline and no sea beneath. A white lobe caps the short mast on the after house, a second sits on the mast above the forward bridge, and red and green lobes stand either side of that bridge front. No day shapes or inset panels appear.",
+   "shapes": [],
    "unmapped_reason": "illustrates a paragraph outside this release's scope (inland-only, or a rule family not in the table)"
   },
   "NRHB_24_a.png": {
@@ -221,7 +227,8 @@
     "towline",
     "towing mast"
    ],
-   "description": "Heavy fendering, a low bulwarked working deck and a deckhouse set well aft under a stout mast mark her as a towing tug; a single wire leads out over the after bulwark and away to the upper left. She is drawn from above and off the port quarter, heading to the right, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast, a red lobe on the far side of the wheelhouse and a green lobe on the near side. On the short staff aft a yellow lobe burns above a white one."
+   "description": "Heavy fendering, a low bulwarked working deck and a deckhouse set well aft under a stout mast mark her as a towing tug; a single wire leads out over the after bulwark and away to the upper left. She is drawn from above and off the port quarter, heading to the right, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast, a red lobe on the far side of the wheelhouse and a green lobe on the near side. On the short staff aft a yellow lobe burns above a white one.",
+   "shapes": []
   },
   "NRHB_24_av.png": {
    "file": "NRHB_24_av.png",
@@ -253,7 +260,10 @@
     "towline",
     "day shapes"
    ],
-   "description": "Fendered bulwarks, a low working deck aft and a heavy mast over a deckhouse set well aft mark an ocean-going towing tug, her towing wire running out over the after bulwark to the upper left. She is viewed from above and off the port quarter, heading right, above a dashed waterline and no drawn sea. Three white lobes stand in a vertical line on the mast, a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one on the after staff. A black diamond stands alone on a vertical line in the panel at right."
+   "description": "Fendered bulwarks, a low working deck aft and a heavy mast over a deckhouse set well aft mark an ocean-going towing tug, her towing wire running out over the after bulwark to the upper left. She is viewed from above and off the port quarter, heading right, above a dashed waterline and no drawn sea. Three white lobes stand in a vertical line on the mast, a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one on the after staff. A black diamond stands alone on a vertical line in the panel at right.",
+   "shapes": [
+    "diamond"
+   ]
   },
   "NRHB_24_d.png": {
    "file": "NRHB_24_d.png",
@@ -282,7 +292,8 @@
     "towing vessel",
     "after wheelhouse"
    ],
-   "description": "A long open working deck forward, twin funnels amidships and the wheelhouse set right aft give her the look of a buoy tender pressed into towing. She is drawn small and from above, off the port quarter, bow to the right where an anchor sits in the hawse, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast forward of the wheelhouse, a green strip runs along the near side of the bridge front and a red lobe shows beyond it on the far side. At the after end a yellow lobe burns above a white one on a slender mast."
+   "description": "A long open working deck forward, twin funnels amidships and the wheelhouse set right aft give her the look of a buoy tender pressed into towing. She is drawn small and from above, off the port quarter, bow to the right where an anchor sits in the hawse, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast forward of the wheelhouse, a green strip runs along the near side of the bridge front and a red lobe shows beyond it on the far side. At the after end a yellow lobe burns above a white one on a slender mast.",
+   "shapes": []
   },
   "NRHB_24_e.png": {
    "file": "NRHB_24_e.png",
@@ -314,7 +325,10 @@
     "towing bridle",
     "day shapes"
    ],
-   "description": "Square-ended and slab-sided, with a rubbing strake round the box hull, stanchions and cross members framing an open well, and two small deck boxes at one end: a dumb deck cargo barge under tow. The view is from above and off the port quarter, the barge running away to the upper left, and a bridle of two wires leads forward from her near corner off the right of the frame. A white lobe burns on a short staff at the far end, and red and green lobes stand at the leading corner nearest the bridle. A black diamond on a vertical line fills the panel at right."
+   "description": "Square-ended and slab-sided, with a rubbing strake round the box hull, stanchions and cross members framing an open well, and two small deck boxes at one end: a dumb deck cargo barge under tow. The view is from above and off the port quarter, the barge running away to the upper left, and a bridle of two wires leads forward from her near corner off the right of the frame. A white lobe burns on a short staff at the far end, and red and green lobes stand at the leading corner nearest the bridle. A black diamond on a vertical line fills the panel at right.",
+   "shapes": [
+    "diamond"
+   ]
   },
   "NRHB_24_eiii.png": {
    "file": "NRHB_24_eiii.png",
@@ -343,7 +357,10 @@
     "towing bridle",
     "day shapes"
    ],
-   "description": "Slab sides with a rubbing strake, an open framed well along the deck, two low boxes and a stub post at the far end make her a dumb box-hulled deck barge under tow. She lies from above and off the port quarter, running away to the upper left, with a two-legged bridle leading from her near corner out of frame to the right and a dashed waterline for sea. A white lobe stands on a short staff at the far end; at the leading corner a red lobe shows outboard and a green lobe below on the near side. The panel at right holds one black diamond on a vertical line."
+   "description": "Slab sides with a rubbing strake, an open framed well along the deck, two low boxes and a stub post at the far end make her a dumb box-hulled deck barge under tow. She lies from above and off the port quarter, running away to the upper left, with a two-legged bridle leading from her near corner out of frame to the right and a dashed waterline for sea. A white lobe stands on a short staff at the far end; at the leading corner a red lobe shows outboard and a green lobe below on the near side. The panel at right holds one black diamond on a vertical line.",
+   "shapes": [
+    "diamond"
+   ]
   },
   "NRHB_24_f.png": {
    "file": "NRHB_24_f.png",
@@ -371,7 +388,8 @@
     "deck cargo barge",
     "harbour tug made fast alongside"
    ],
-   "description": "A small tug lies lashed alongside a square-ended deck barge, her wheelhouse, twin masts and low counter tucked against the barge's far side amidships. Both are drawn from above and off the port quarter, running away to the upper left over a dashed waterline. Two white lobes stand in a line on the tug's mast with a third forward of them, a green strip runs along her bridge front and a red lobe shows abaft it. At the barge's leading corner a red lobe stands outboard and a green lobe lies low on the near side. No day shapes are drawn."
+   "description": "A small tug lies lashed alongside a square-ended deck barge, her wheelhouse, twin masts and low counter tucked against the barge's far side amidships. Both are drawn from above and off the port quarter, running away to the upper left over a dashed waterline. Two white lobes stand in a line on the tug's mast with a third forward of them, a green strip runs along her bridge front and a red lobe shows abaft it. At the barge's leading corner a red lobe stands outboard and a green lobe lies low on the near side. No day shapes are drawn.",
+   "shapes": []
   },
   "NRHB_24_j.png": {
    "file": "NRHB_24_j.png",
@@ -397,6 +415,7 @@
     "push knees"
    ],
    "description": "Square push knees on a small tug are set hard against the flat end of a long box barge, the two drawn as one unit running from upper left to lower right. The view is from above and off the port quarter, with a dashed waterline and no sea. On the tug two white lobes stand in a line on the mast, a green strip runs along the near side of her bridge and a red lobe shows beyond, and two yellow lobes burn one above the other on a staff at her stern. At the head of the tow two yellow lobes sit together with a red lobe outboard and a green lobe on the near side.",
+   "shapes": [],
    "unmapped_reason": "illustrates a paragraph outside this release's scope (inland-only, or a rule family not in the table)"
   },
   "NRHB_25_a.png": {
@@ -428,7 +447,8 @@
     "sloop-rigged sailing yacht",
     "mainsail and headsail"
    ],
-   "description": "One mast, a mainsail on a long boom and a single headsail on the forestay: a sloop-rigged sailing yacht with a low coachroof, a run of deck lights along the topsides and no engine exhaust or propeller drawn. She heels a little, seen from above and off the starboard bow, stem to the right, her bottom closed by a dashed waterline with no sea. A red lobe stands on the topside above the sheerline forward and a green lobe below it on the near bow, and one white lobe burns low over the counter aft. The masthead carries no light and no day shape appears."
+   "description": "One mast, a mainsail on a long boom and a single headsail on the forestay: a sloop-rigged sailing yacht with a low coachroof, a run of deck lights along the topsides and no engine exhaust or propeller drawn. She heels a little, seen from above and off the starboard bow, stem to the right, her bottom closed by a dashed waterline with no sea. A red lobe stands on the topside above the sheerline forward and a green lobe below it on the near bow, and one white lobe burns low over the counter aft. The masthead carries no light and no day shape appears.",
+   "shapes": []
   },
   "NRHB_25_b.png": {
    "file": "NRHB_25_b.png",
@@ -456,7 +476,8 @@
     "sloop-rigged sailing yacht",
     "masthead tricolour lantern"
    ],
-   "description": "One mast, a mainsail and a single headsail on the forestay mark a sloop-rigged sailing yacht, with a low coachroof, a boom over the cockpit and a fine counter aft. She is drawn from above and off the starboard bow, stem to the right, upright on a dashed waterline with no sea beneath. Every light in the drawing sits at the truck of the mast, where one lantern is coloured as a flat disc in three sectors: green on the left, white in the middle and red on the right. The hull itself is dark; no sidelights burn on the topsides, no light burns over the counter, and no day shape is shown."
+   "description": "One mast, a mainsail and a single headsail on the forestay mark a sloop-rigged sailing yacht, with a low coachroof, a boom over the cockpit and a fine counter aft. She is drawn from above and off the starboard bow, stem to the right, upright on a dashed waterline with no sea beneath. Every light in the drawing sits at the truck of the mast, where one lantern is coloured as a flat disc in three sectors: green on the left, white in the middle and red on the right. The hull itself is dark; no sidelights burn on the topsides, no light burns over the counter, and no day shape is shown.",
+   "shapes": []
   },
   "NRHB_25_c.png": {
    "file": "NRHB_25_c.png",
@@ -488,7 +509,8 @@
     "masthead lanterns",
     "mainsail and headsail"
    ],
-   "description": "Mainsail, single headsail and one mast mark a sloop-rigged yacht, her coachroof low and her counter fine, seen from above and off the starboard bow with the stem to the right and a dashed waterline for sea. Two broad lobes stand clear above the masthead, red uppermost and green immediately beneath it. Down on the hull a red lobe shows on the topside forward with a green lobe below on the near bow, and a white lobe burns low over the counter aft. No day shape or inset panel is drawn beside her."
+   "description": "Mainsail, single headsail and one mast mark a sloop-rigged yacht, her coachroof low and her counter fine, seen from above and off the starboard bow with the stem to the right and a dashed waterline for sea. Two broad lobes stand clear above the masthead, red uppermost and green immediately beneath it. Down on the hull a red lobe shows on the topside forward with a green lobe below on the near bow, and a white lobe burns low over the counter aft. No day shape or inset panel is drawn beside her.",
+   "shapes": []
   },
   "NRHB_25_d.png": {
    "file": "NRHB_25_d.png",
@@ -520,7 +542,8 @@
     "hand torch",
     "single crew"
    ],
-   "description": "An open sailing dinghy: a beamy hull with a slatted floor, a light unstayed mast well forward and a small sail set on a sprit, with one seated crew holding the sheet and the tiller. She is drawn from above and off the port quarter, bow to the right, her bottom closed by a dashed line and no sea around her. The only light is a torch held up in the crew's hand, drawn as a white wedge spreading forward across the sail. No sidelights and no stern light burn on the hull, and no day shape or inset panel appears."
+   "description": "An open sailing dinghy: a beamy hull with a slatted floor, a light unstayed mast well forward and a small sail set on a sprit, with one seated crew holding the sheet and the tiller. She is drawn from above and off the port quarter, bow to the right, her bottom closed by a dashed line and no sea around her. The only light is a torch held up in the crew's hand, drawn as a white wedge spreading forward across the sail. No sidelights and no stern light burn on the hull, and no day shape or inset panel appears.",
+   "shapes": []
   },
   "NRHB_25_dii.png": {
    "file": "NRHB_25_dii.png",
@@ -552,7 +575,8 @@
     "pair of oars",
     "hand torch"
    ],
-   "description": "Two people sit in a small open rowing boat with plank thwarts, slatted floorboards and a pair of oars shipped in rowlocks, one of them pulling while the other faces aft. The boat is seen from above and off the port quarter, bow to the right, with a dashed line for her bottom and no water drawn. The after occupant holds a torch aloft in one hand, and its beam is drawn as a broad white wedge opening upward, the only light in the picture. Nothing burns on the stem or the transom, and no day shape accompanies her."
+   "description": "Two people sit in a small open rowing boat with plank thwarts, slatted floorboards and a pair of oars shipped in rowlocks, one of them pulling while the other faces aft. The boat is seen from above and off the port quarter, bow to the right, with a dashed line for her bottom and no water drawn. The after occupant holds a torch aloft in one hand, and its beam is drawn as a broad white wedge opening upward, the only light in the picture. Nothing burns on the stem or the transom, and no day shape accompanies her.",
+   "shapes": []
   },
   "NRHB_25_e.png": {
    "file": "NRHB_25_e.png",
@@ -580,7 +604,10 @@
     "sloop-rigged sailing yacht",
     "black cone day shape"
    ],
-   "description": "Set against a plain white ground, a sloop-rigged yacht carries mainsail and headsail on a single mast above a low coachroof and a fine counter. She is drawn from above and off the starboard bow, stem to the right, on a dashed waterline with no sea. No lights are coloured anywhere on her: instead a small black cone hangs point down in the fore triangle, and the same shape is repeated large in the upper left corner, a solid black triangle apex downward on a vertical line. The frame is ruled as a plain rectangle."
+   "description": "Set against a plain white ground, a sloop-rigged yacht carries mainsail and headsail on a single mast above a low coachroof and a fine counter. She is drawn from above and off the starboard bow, stem to the right, on a dashed waterline with no sea. No lights are coloured anywhere on her: instead a small black cone hangs point down in the fore triangle, and the same shape is repeated large in the upper left corner, a solid black triangle apex downward on a vertical line. The frame is ruled as a plain rectangle.",
+   "shapes": [
+    "cone-down"
+   ]
   },
   "NRHB_26_b.png": {
    "file": "NRHB_26_b.png",
@@ -613,7 +640,11 @@
     "trawl gallows and warps",
     "day shapes"
    ],
-   "description": "Trawl gallows stand at the after end of a sheered hull with a wheelhouse forward, a tall funnel amidships and two warps running out astern to the upper left: a side trawler at work. She is drawn small, from above and off the port quarter, stem to the right, over a dashed waterline with no sea. A green lobe burns above a white lobe on the short mast at the wheelhouse, and a single white lobe caps the taller mast further aft. In the panel at right two solid black cones meet point to point on a vertical line."
+   "description": "Trawl gallows stand at the after end of a sheered hull with a wheelhouse forward, a tall funnel amidships and two warps running out astern to the upper left: a side trawler at work. She is drawn small, from above and off the port quarter, stem to the right, over a dashed waterline with no sea. A green lobe burns above a white lobe on the short mast at the wheelhouse, and a single white lobe caps the taller mast further aft. In the panel at right two solid black cones meet point to point on a vertical line.",
+   "shapes": [
+    "cone-down",
+    "cone-up"
+   ]
   },
   "NRHB_26_biii.png": {
    "file": "NRHB_26_biii.png",
@@ -645,7 +676,11 @@
     "trawl gantry",
     "day shapes"
    ],
-   "description": "Derrick and gantry frames rise over a low working deck, with the wheelhouse aft and a shelter deck forward, marking a small trawler with her gear out. The drawing is a small one, taken from above and off the port quarter with the stem to the right and a dashed waterline beneath. A green lobe stands above a white lobe at the head of the gantry mast, a red lobe shows on the far side of the wheelhouse and a green lobe low on the near side, and a further white lobe burns forward. Two black cones meet point to point on a vertical line in the panel at right."
+   "description": "Derrick and gantry frames rise over a low working deck, with the wheelhouse aft and a shelter deck forward, marking a small trawler with her gear out. The drawing is a small one, taken from above and off the port quarter with the stem to the right and a dashed waterline beneath. A green lobe stands above a white lobe at the head of the gantry mast, a red lobe shows on the far side of the wheelhouse and a green lobe low on the near side, and a further white lobe burns forward. Two black cones meet point to point on a vertical line in the panel at right.",
+   "shapes": [
+    "cone-down",
+    "cone-up"
+   ]
   },
   "NRHB_26_ciii.png": {
    "file": "NRHB_26_ciii.png",
@@ -678,7 +713,12 @@
     "derrick and gantry",
     "day shapes"
    ],
-   "description": "A raised whaleback forward, an open hatched working deck and a heavy derrick guyed to a short mast over the wheelhouse mark an inshore fishing boat rather than a trawler. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A red lobe burns above a white lobe on the mast, with a red lobe on the far side of the wheelhouse, a green lobe on the near side and a white lobe out forward. Two black cones meet point to point in the right-hand panel, and a separate cone stands point upward at lower left."
+   "description": "A raised whaleback forward, an open hatched working deck and a heavy derrick guyed to a short mast over the wheelhouse mark an inshore fishing boat rather than a trawler. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A red lobe burns above a white lobe on the mast, with a red lobe on the far side of the wheelhouse, a green lobe on the near side and a white lobe out forward. Two black cones meet point to point in the right-hand panel, and a separate cone stands point upward at lower left.",
+   "shapes": [
+    "cone-down",
+    "cone-up",
+    "cone-up"
+   ]
   },
   "NRHB_27_a.png": {
    "file": "NRHB_27_a.png",
@@ -711,7 +751,11 @@
     "container stacks",
     "day shapes"
    ],
-   "description": "Tiers of boxes stand in rows the whole length of an open hold deck, with a slender flared bow at one end and a tall accommodation block, funnel casing and pole mast at the other: a container ship. She is drawn from above and off the starboard quarter, the bow away to the upper left, lying on a dashed waterline with no sea. Two red lobes burn one above the other on a short mast at the after superstructure, and nothing else is lit: no masthead light, no sidelights, no stern light. The panel at upper right holds two black balls on one vertical line."
+   "description": "Tiers of boxes stand in rows the whole length of an open hold deck, with a slender flared bow at one end and a tall accommodation block, funnel casing and pole mast at the other: a container ship. She is drawn from above and off the starboard quarter, the bow away to the upper left, lying on a dashed waterline with no sea. Two red lobes burn one above the other on a short mast at the after superstructure, and nothing else is lit: no masthead light, no sidelights, no stern light. The panel at upper right holds two black balls on one vertical line.",
+   "shapes": [
+    "ball",
+    "ball"
+   ]
   },
   "NRHB_27_aiii.png": {
    "file": "NRHB_27_aiii.png",
@@ -743,7 +787,11 @@
     "container stacks",
     "day shapes"
    ],
-   "description": "Rows of stacked boxes fill the open hold deck of a container ship, her flared bow at the far end and her accommodation block, funnel casing and pole mast at the near end. The view is from above and off the starboard quarter, bow away to the upper left, hull closed by a dashed waterline. Two red lobes stand one above the other on the short mast over the accommodation; a red lobe shows on the far side of the block and a green lobe low on the near side, and a single white lobe burns far forward at the bow. Two black balls on a vertical line fill the panel at upper right."
+   "description": "Rows of stacked boxes fill the open hold deck of a container ship, her flared bow at the far end and her accommodation block, funnel casing and pole mast at the near end. The view is from above and off the starboard quarter, bow away to the upper left, hull closed by a dashed waterline. Two red lobes stand one above the other on the short mast over the accommodation; a red lobe shows on the far side of the block and a green lobe low on the near side, and a single white lobe burns far forward at the bow. Two black balls on a vertical line fill the panel at upper right.",
+   "shapes": [
+    "ball",
+    "ball"
+   ]
   },
   "NRHB_27_biii.png": {
    "file": "NRHB_27_biii.png",
@@ -775,7 +823,12 @@
     "deck crane and buoy",
     "day shapes"
    ],
-   "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship whose bridge and boat deck sit amidships and whose forecastle is cut low for handling gear: a buoy tender. She is drawn from above and off the port bow, stem to the right, over a dashed waterline with no sea. On the mast aft a red lobe stands above a white lobe above a second red lobe; two white lobes burn on the masts amidships, a green lobe shows along the bridge front and a white lobe low at the after end. A black ball, diamond and ball stand on one line at right."
+   "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship whose bridge and boat deck sit amidships and whose forecastle is cut low for handling gear: a buoy tender. She is drawn from above and off the port bow, stem to the right, over a dashed waterline with no sea. On the mast aft a red lobe stands above a white lobe above a second red lobe; two white lobes burn on the masts amidships, a green lobe shows along the bridge front and a white lobe low at the after end. A black ball, diamond and ball stand on one line at right.",
+   "shapes": [
+    "ball",
+    "diamond",
+    "ball"
+   ]
   },
   "NRHB_27_biv.png": {
    "file": "NRHB_27_biv.png",
@@ -808,7 +861,13 @@
     "anchor cable",
     "day shapes"
    ],
-   "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship, her bridge and boat deck amidships and a cable leading down from the bow at the right into the water: a buoy tender. The view is from above and off the port bow on a dashed waterline. A red lobe burns above a white lobe above a second red on the mast aft, with a single white lobe forward of them; no sidelights are coloured. Two panels stand at right: a black ball, diamond and ball on one vertical line, and beside it a single black ball on its own line."
+   "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship, her bridge and boat deck amidships and a cable leading down from the bow at the right into the water: a buoy tender. The view is from above and off the port bow on a dashed waterline. A red lobe burns above a white lobe above a second red on the mast aft, with a single white lobe forward of them; no sidelights are coloured. Two panels stand at right: a black ball, diamond and ball on one vertical line, and beside it a single black ball on its own line.",
+   "shapes": [
+    "ball",
+    "diamond",
+    "ball",
+    "ball"
+   ]
   },
   "NRHB_27_c.png": {
    "file": "NRHB_27_c.png",
@@ -837,7 +896,12 @@
     "towline",
     "day shapes"
    ],
-   "description": "Fendered bulwarks, a low after working deck and a stout mast over a deckhouse set well aft mark her as an ocean-going towing tug, her wire running out over the after bulwark and away to the upper left. She is seen from above and off the port quarter, heading right, on a dashed waterline with no sea. The mast carries, from the top down, two white lobes, then a red lobe, a white lobe and a second red lobe; a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one aft. A ball, diamond and ball stand in the right-hand panel."
+   "description": "Fendered bulwarks, a low after working deck and a stout mast over a deckhouse set well aft mark her as an ocean-going towing tug, her wire running out over the after bulwark and away to the upper left. She is seen from above and off the port quarter, heading right, on a dashed waterline with no sea. The mast carries, from the top down, two white lobes, then a red lobe, a white lobe and a second red lobe; a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one aft. A ball, diamond and ball stand in the right-hand panel.",
+   "shapes": [
+    "ball",
+    "diamond",
+    "ball"
+   ]
   },
   "NRHB_27_d.png": {
    "file": "NRHB_27_d.png",
@@ -871,7 +935,16 @@
     "dredge ladder",
     "day shapes"
    ],
-   "description": "A latticed dredge ladder is swung out and down over one side of a broad, low-freeboard hull whose deckhouse, mast and gantry crowd the after end: a dredger at work. She is drawn from above and off the port bow, the ladder reaching toward the lower left corner and the stem away to the right, on a dashed waterline. Two red lobes stand one above the other at the outboard end of the ladder, two green lobes one above the other on the gantry, and on the after mast a red lobe above a white lobe above a red. Three panels at right carry two balls, a ball-diamond-ball line, and two diamonds."
+   "description": "A latticed dredge ladder is swung out and down over one side of a broad, low-freeboard hull whose deckhouse, mast and gantry crowd the after end: a dredger at work. She is drawn from above and off the port bow, the ladder reaching toward the lower left corner and the stem away to the right, on a dashed waterline. Two red lobes stand one above the other at the outboard end of the ladder, two green lobes one above the other on the gantry, and on the after mast a red lobe above a white lobe above a red. Three panels at right carry two balls, a ball-diamond-ball line, and two diamonds.",
+   "shapes": [
+    "ball",
+    "ball",
+    "ball",
+    "diamond",
+    "ball",
+    "diamond",
+    "diamond"
+   ]
   },
   "NRHB_27_diii.png": {
    "file": "NRHB_27_diii.png",
@@ -905,7 +978,16 @@
     "dredge ladder",
     "day shapes"
    ],
-   "description": "Working gear crowds a cutter-suction dredger: the latticed ladder swung out and down over one side, the deckhouse, mast and lattice gantry gathered aft, the stem running away to the right. The view is from above and off the port bow, on a dashed waterline with no sea. Two red lobes burn one above the other at the outboard end of the ladder and two green lobes on the gantry, while the after mast carries a red lobe above a white above a red; white lobes stand forward and aft along the deck and a green lobe on the bridge front. Three day-shape panels at right show balls and diamonds."
+   "description": "Working gear crowds a cutter-suction dredger: the latticed ladder swung out and down over one side, the deckhouse, mast and lattice gantry gathered aft, the stem running away to the right. The view is from above and off the port bow, on a dashed waterline with no sea. Two red lobes burn one above the other at the outboard end of the ladder and two green lobes on the gantry, while the after mast carries a red lobe above a white above a red; white lobes stand forward and aft along the deck and a green lobe on the bridge front. Three day-shape panels at right show balls and diamonds.",
+   "shapes": [
+    "ball",
+    "ball",
+    "ball",
+    "diamond",
+    "ball",
+    "diamond",
+    "diamond"
+   ]
   },
   "NRHB_27_ei.png": {
    "file": "NRHB_27_ei.png",
@@ -931,7 +1013,10 @@
     "code flag A",
     "hard-topped console"
    ],
-   "description": "Drawn on plain white ground inside a ruled frame, a small open motor boat carries a flat hard top on posts over a centre console, an open cockpit aft and a wide sheer forward. She is seen from above and off the port bow, stem to the right, with no waterline and no sea. No lights are coloured anywhere on her. A single staff stepped at the stemhead carries a stiff swallow-tailed flag, its hoist half solid blue and its fly white, the swallowtail cut deep between the two. Nothing else stands in the frame beside her."
+   "description": "Drawn on plain white ground inside a ruled frame, a small open motor boat carries a flat hard top on posts over a centre console, an open cockpit aft and a wide sheer forward. She is seen from above and off the port bow, stem to the right, with no waterline and no sea. No lights are coloured anywhere on her. A single staff stepped at the stemhead carries a stiff swallow-tailed flag, its hoist half solid blue and its fly white, the swallowtail cut deep between the two. Nothing else stands in the frame beside her.",
+   "shapes": [
+    "flag-a"
+   ]
   },
   "NRHB_27_eii.png": {
    "file": "NRHB_27_eii.png",
@@ -960,7 +1045,10 @@
     "code flag A",
     "hard-topped console"
    ],
-   "description": "On plain white ground within a ruled frame lies a small open motor boat: hard top on posts above a centre console, open cockpit aft, wide flare forward and a low freeboard. The view is from above and off the port bow, stem to the right, with no waterline and no sea drawn. She shows no coloured lights at all. Her only marking is the flag on a staff at the stemhead, swallow-tailed and held stiff, blue on the half nearest the staff and white on the fly. No day-shape panel accompanies the drawing."
+   "description": "On plain white ground within a ruled frame lies a small open motor boat: hard top on posts above a centre console, open cockpit aft, wide flare forward and a low freeboard. The view is from above and off the port bow, stem to the right, with no waterline and no sea drawn. She shows no coloured lights at all. Her only marking is the flag on a staff at the stemhead, swallow-tailed and held stiff, blue on the half nearest the staff and white on the fly. No day-shape panel accompanies the drawing.",
+   "shapes": [
+    "flag-a"
+   ]
   },
   "NRHB_27_f.png": {
    "file": "NRHB_27_f.png",
@@ -992,7 +1080,12 @@
     "yardarm",
     "day shapes"
    ],
-   "description": "Twin funnels, a long open deck forward, boats in davits and a bridge set aft under a masted yardarm give a naval look to this ship, a warship at mine clearance work. She is drawn from above and off the port bow, stem to the right, on a dashed waterline with no sea. Green lobes burn at three points: one on the mast below the truck and one at each end of the yardarm. A white lobe stands above them at the masthead, another far forward, and a red lobe at the mast foot. The panel at right shows a black ball above a crossbar carrying two more."
+   "description": "Twin funnels, a long open deck forward, boats in davits and a bridge set aft under a masted yardarm give a naval look to this ship, a warship at mine clearance work. She is drawn from above and off the port bow, stem to the right, on a dashed waterline with no sea. Green lobes burn at three points: one on the mast below the truck and one at each end of the yardarm. A white lobe stands above them at the masthead, another far forward, and a red lobe at the mast foot. The panel at right shows a black ball above a crossbar carrying two more.",
+   "shapes": [
+    "ball",
+    "ball",
+    "ball"
+   ]
   },
   "NRHB_28.png": {
    "file": "NRHB_28.png",
@@ -1024,7 +1117,10 @@
     "pipe manifold and catwalk",
     "cylinder day shape"
    ],
-   "description": "Accommodation block, funnel and mainmast stand right aft on a crude oil tanker, a manifold of pipes, valve stands and catwalk running the length of a low flush deck to a stem with a jackstaff. She is drawn from above and off the starboard quarter, heading right, with a dashed waterline and no sea. Three red lobes stand one above the other on the mast above the bridge, a white lobe above them at the truck, and further white lobes low at the ship's side aft and on the short mast along the deck. Red and green lobes hang at the bridge wings. A tall black cylinder fills the panel at right."
+   "description": "Accommodation block, funnel and mainmast stand right aft on a crude oil tanker, a manifold of pipes, valve stands and catwalk running the length of a low flush deck to a stem with a jackstaff. She is drawn from above and off the starboard quarter, heading right, with a dashed waterline and no sea. Three red lobes stand one above the other on the mast above the bridge, a white lobe above them at the truck, and further white lobes low at the ship's side aft and on the short mast along the deck. Red and green lobes hang at the bridge wings. A tall black cylinder fills the panel at right.",
+   "shapes": [
+    "cylinder"
+   ]
   },
   "NRHB_29_a.png": {
    "file": "NRHB_29_a.png",
@@ -1057,7 +1153,8 @@
     "after wheelhouse",
     "boarding gear"
    ],
-   "description": "PILOT is lettered large on the bow of a ship with a long open working deck forward, twin funnels amidships, boats in davits and the wheelhouse set right aft. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A white lobe burns at the head of the short mast abaft the wheelhouse with a red lobe immediately below it, and a second red lobe lower still. A green lobe shows along the bridge front on the near side and a white lobe far forward on the deck. No day shape is drawn."
+   "description": "PILOT is lettered large on the bow of a ship with a long open working deck forward, twin funnels amidships, boats in davits and the wheelhouse set right aft. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A white lobe burns at the head of the short mast abaft the wheelhouse with a red lobe immediately below it, and a second red lobe lower still. A green lobe shows along the bridge front on the near side and a white lobe far forward on the deck. No day shape is drawn.",
+   "shapes": []
   },
   "NRHB_29_aiii.png": {
    "file": "NRHB_29_aiii.png",
@@ -1089,7 +1186,10 @@
     "wheelhouse",
     "day shapes"
    ],
-   "description": "PILOT is lettered on the side of a small launch with a boxy wheelhouse forward, a low open working cockpit aft, lifebuoys on the rail and a tall whip aerial amidships. She is drawn from above and off the port bow, bow to the left, with a line running down from her after end into the water and a soft wash along the hull. A white lobe burns at the head of a staff on the wheelhouse roof with a red lobe beneath it, and a separate white lobe stands on a second, shorter staff beside them. One black ball on a vertical line fills the panel at upper right."
+   "description": "PILOT is lettered on the side of a small launch with a boxy wheelhouse forward, a low open working cockpit aft, lifebuoys on the rail and a tall whip aerial amidships. She is drawn from above and off the port bow, bow to the left, with a line running down from her after end into the water and a soft wash along the hull. A white lobe burns at the head of a staff on the wheelhouse roof with a red lobe beneath it, and a separate white lobe stands on a second, shorter staff beside them. One black ball on a vertical line fills the panel at upper right.",
+   "shapes": [
+    "ball"
+   ]
   },
   "NRHB_30_a.png": {
    "file": "NRHB_30_a.png",
@@ -1121,7 +1221,10 @@
     "boats in cradles under davits",
     "day shapes"
    ],
-   "description": "Square windows and portholes run the length of a low hull, a two-tier deckhouse rises to a pilothouse and mast, and open boats sit in cradles under davits on the after deck: a small motor yacht. The view is from above and off the starboard bow, stem to the right, with a dashed waterline and no sea. One white lobe burns at the head of the short mast above the pilothouse and nothing else is lit; no sidelights and no stern light are coloured. A single black ball hangs on a vertical line in the panel at upper right."
+   "description": "Square windows and portholes run the length of a low hull, a two-tier deckhouse rises to a pilothouse and mast, and open boats sit in cradles under davits on the after deck: a small motor yacht. The view is from above and off the starboard bow, stem to the right, with a dashed waterline and no sea. One white lobe burns at the head of the short mast above the pilothouse and nothing else is lit; no sidelights and no stern light are coloured. A single black ball hangs on a vertical line in the panel at upper right.",
+   "shapes": [
+    "ball"
+   ]
   },
   "NRHB_30_d.png": {
    "file": "NRHB_30_d.png",
@@ -1154,7 +1257,10 @@
     "illuminated deck",
     "pipe manifold and catwalk"
    ],
-   "description": "A crude oil tanker lies with her accommodation block, funnel and mainmast aft and a pipe manifold with valve stands and catwalk running the length of a flush deck to the stem. She lies from above and off the starboard quarter on a dashed waterline, no sea around her. Pale blue washes lie across the deck between the pipelines from end to end, standing for working lights spilled over the plating. A white lobe burns high at the ship's side aft, level with the bridge, and a second white lobe low on the deck well forward. No sidelights are coloured and no day-shape panel is drawn."
+   "description": "A crude oil tanker lies with her accommodation block, funnel and mainmast aft and a pipe manifold with valve stands and catwalk running the length of a flush deck to the stem. She lies from above and off the starboard quarter on a dashed waterline, no sea around her. Pale blue washes lie across the deck between the pipelines from end to end, standing for working lights spilled over the plating. A white lobe burns high at the ship's side aft, level with the bridge, and a second white lobe low on the deck well forward. No sidelights are coloured, and one black ball hangs on a vertical line in the panel at upper right.",
+   "shapes": [
+    "ball"
+   ]
   },
   "NRHB_30_dii.png": {
    "file": "NRHB_30_dii.png",
@@ -1186,7 +1292,12 @@
     "pipe manifold and catwalk",
     "day shapes"
    ],
-   "description": "Coarsely drawn and pixelated, a crude oil tanker shows her accommodation block and mast aft, pipelines, valve stands and catwalk running the length of the flush deck to a stem at the far right. She sits from above and off the starboard quarter on a dashed waterline, with no sea. Two red lobes stand one above the other on the mast above the bridge, a white lobe burns beyond the bridge on the far side, and a second white lobe low on the deck well forward. Three black balls hang one above another on a single vertical line in the panel at right."
+   "description": "Coarsely drawn and pixelated, a crude oil tanker shows her accommodation block and mast aft, pipelines, valve stands and catwalk running the length of the flush deck to a stem at the far right. She sits from above and off the starboard quarter on a dashed waterline, with no sea. Two red lobes stand one above the other on the mast above the bridge, a white lobe burns beyond the bridge on the far side, and a second white lobe low on the deck well forward. Three black balls hang one above another on a single vertical line in the panel at right.",
+   "shapes": [
+    "ball",
+    "ball",
+    "ball"
+   ]
   },
   "mastheadarc.gif": {
    "file": "mastheadarc.gif",
@@ -1212,7 +1323,8 @@
     "light-arc diagram",
     "plan-view hull outline"
    ],
-   "description": "A light-arc diagram: a hull is drawn in plan from directly overhead, bow to the top of the frame, the stem fine and the transom square, with a centreline running its length and a dot-dash beam line crossing it. Sectors are laid round the outline as flat tinted bands. The forward sector is picked out in white and sweeps from dead ahead round both bows to a little abaft each beam, a total of 225 degrees, leaving a wedge open astern. The remaining grey sectors, one on each quarter and one dead astern, are left unhighlighted behind it."
+   "description": "A light-arc diagram: a hull is drawn in plan from directly overhead, bow to the top of the frame, the stem fine and the transom square, with a centreline running its length and a dot-dash beam line crossing it. Sectors are laid round the outline as flat tinted bands. The forward sector is picked out in white and sweeps from dead ahead round both bows to a little abaft each beam, a total of 225 degrees, leaving a wedge open astern. The remaining grey sectors, one on each quarter and one dead astern, are left unhighlighted behind it.",
+   "shapes": []
   },
   "portarc.gif": {
    "file": "portarc.gif",
@@ -1238,7 +1350,8 @@
     "light-arc diagram",
     "plan-view hull outline"
    ],
-   "description": "Sectors ring a plan-view hull outline drawn from overhead, bow to the top, with a centreline down the hull and a dot-dash beam line across it. One sector is filled solid red and fades outward at its edges: it lies wholly on the left-hand side of the drawing, running from dead ahead round the port bow to 22.5 degrees abaft the port beam, an arc of 112.5 degrees. The starboard sector, the two quarters and the sector dead astern are left in plain grey, so only the port bow band carries colour in this light-arc diagram."
+   "description": "Sectors ring a plan-view hull outline drawn from overhead, bow to the top, with a centreline down the hull and a dot-dash beam line across it. One sector is filled solid red and fades outward at its edges: it lies wholly on the left-hand side of the drawing, running from dead ahead round the port bow to 22.5 degrees abaft the port beam, an arc of 112.5 degrees. The starboard sector, the two quarters and the sector dead astern are left in plain grey, so only the port bow band carries colour in this light-arc diagram.",
+   "shapes": []
   },
   "stbdarc.gif": {
    "file": "stbdarc.gif",
@@ -1264,7 +1377,8 @@
     "light-arc diagram",
     "plan-view hull outline"
    ],
-   "description": "Green fills a single sector of this light-arc diagram, the hull beneath it drawn in plan from overhead with the bow at the top, a centreline down its length and a dot-dash beam line across. The green band lies wholly to the right of the centreline, beginning dead ahead and sweeping round the starboard bow to 22.5 degrees abaft the starboard beam, an arc of 112.5 degrees, its outer edge softened. Grey sectors cover the port bow, both quarters and the water dead astern, and none of them is coloured."
+   "description": "Green fills a single sector of this light-arc diagram, the hull beneath it drawn in plan from overhead with the bow at the top, a centreline down its length and a dot-dash beam line across. The green band lies wholly to the right of the centreline, beginning dead ahead and sweeping round the starboard bow to 22.5 degrees abaft the starboard beam, an arc of 112.5 degrees, its outer edge softened. Grey sectors cover the port bow, both quarters and the water dead astern, and none of them is coloured.",
+   "shapes": []
   },
   "sternarc.gif": {
    "file": "sternarc.gif",
@@ -1290,7 +1404,8 @@
     "light-arc diagram",
     "plan-view hull outline"
    ],
-   "description": "Aft rather than forward is highlighted in this light-arc diagram: the hull is drawn in plan from overhead, bow to the top, centreline down the middle and a dot-dash beam line across. The sector picked out in white spreads from dead astern round to 67.5 degrees on either quarter, an arc of 135 degrees centred on the stern, and fades at its outer edge. The larger grey band covering both bows and the beams, and the pale wedges on the quarters, are left unhighlighted, so the white lies in the gap between them."
+   "description": "Aft rather than forward is highlighted in this light-arc diagram: the hull is drawn in plan from overhead, bow to the top, centreline down the middle and a dot-dash beam line across. The sector picked out in white spreads from dead astern round to 67.5 degrees on either quarter, an arc of 135 degrees centred on the stern, and fades at its outer edge. The larger grey band covering both bows and the beams, and the pale wedges on the quarters, are left unhighlighted, so the white lies in the gap between them.",
+   "shapes": []
   },
   "towingarc.gif": {
    "file": "towingarc.gif",
@@ -1317,7 +1432,8 @@
     "light-arc diagram",
     "plan-view hull outline"
    ],
-   "description": "A plan-view hull outline is drawn from overhead with the bow at the top, a centreline running aft and a dot-dash beam line across the middle. Here the coloured sector is yellow, spread over the water astern from one quarter to the other, 67.5 degrees each side of dead astern for an arc of 135 degrees, its edges fading outward. Grey bands round both bows and on the quarters carry no colour. The yellow overlaps the stern of the outline itself, so the after part of the hull sits inside the tinted wedge in this light-arc diagram."
+   "description": "A plan-view hull outline is drawn from overhead with the bow at the top, a centreline running aft and a dot-dash beam line across the middle. Here the coloured sector is yellow, spread over the water astern from one quarter to the other, 67.5 degrees each side of dead astern for an arc of 135 degrees, its edges fading outward. Grey bands round both bows and on the quarters carry no colour. The yellow overlaps the stern of the outline itself, so the after part of the hull sits inside the tinted wedge in this light-arc diagram.",
+   "shapes": []
   }
  }
 }

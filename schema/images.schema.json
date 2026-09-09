@@ -14,7 +14,7 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["file", "bytes", "sha256", "pixels", "source_url", "source", "retrieved", "rights", "transcript", "subjects", "description"],
+        "required": ["file", "bytes", "sha256", "pixels", "source_url", "source", "retrieved", "rights", "transcript", "subjects", "description", "shapes"],
         "properties": {
           "file": { "type": "string", "minLength": 1 },
           "bytes": { "type": "integer", "minimum": 0 },
@@ -63,6 +63,11 @@
             "description": "One paragraph of what the drawing contains: vessel type and its evidence, viewpoint, then the lights and shapes as drawn. No rule citations.",
             "type": "string",
             "minLength": 40
+          },
+          "shapes": {
+            "description": "The day shapes the figure draws, top to bottom, from the closed vocabulary. Empty when it draws none.",
+            "type": "array",
+            "items": { "enum": ["ball", "diamond", "cone-up", "cone-down", "cylinder", "basket", "flag-a"] }
           },
           "provenance_status": { "type": "string" },
           "unmapped_reason": { "type": "string", "minLength": 1 }

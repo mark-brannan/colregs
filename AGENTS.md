@@ -56,7 +56,7 @@ these files, which `test/data.test.mjs` enforces exhaustively:
 - **`data/geometry.json`** — Annex I: heights, spacings, colour, intensity;
   `applies_to_entries` references back into `applicability.json`.
 - **`data/images.json`** — every file in `images/`: source, SHA-256, paragraphs
-  and entries it illustrates, `depicts`, printed `transcript`, `subjects`, `description`.
+  and entries it illustrates, `depicts`, printed `transcript`, `subjects`, `description`, `shapes`.
 - **`fixtures/applicability-fixtures.json`** — the cross-implementation
   contract: fact record → expected entry ids. Any implementation, in any
   language, should reproduce these exactly.
