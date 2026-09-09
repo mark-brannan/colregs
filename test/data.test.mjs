@@ -13,6 +13,7 @@ const appl = load('data/applicability.json')
 const images = load('data/images.json')
 const geometry = load('data/geometry.json')
 const deprecated = load('data/deprecated-identifiers.json')
+const versionStamp = load('data/version.json')
 const fixtures = load('fixtures/applicability-fixtures.json')
 
 const byId = new Map(appl.entries.map((e) => [e.id, e]))
@@ -138,6 +139,7 @@ const schemaTargets = [
   ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
   ['data/images.json', images, loadSchema('images.schema.json')],
   ['data/deprecated-identifiers.json', deprecated, loadSchema('deprecated-identifiers.schema.json')],
+  ['data/version.json', versionStamp, loadSchema('version.schema.json')],
   ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
   ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
 ]
@@ -149,6 +151,12 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
     const ok = validate(data)
     assert.ok(ok, `${file} fails ${schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
   }
+})
+
+// --- docs/adr/0009-data-version-stamp.md: data/version.json is the single stamp release-please owns --
+test('version: data/version.json matches package.json (release-please extra-files keeps these in sync)', () => {
+  const pkg = load('package.json')
+  assert.equal(versionStamp.version, pkg.version)
 })
 
 // --- the predicate language (README.md, 'Predicate semantics') -------------

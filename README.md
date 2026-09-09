@@ -347,7 +347,7 @@ came out right.
 From 0.2.0 on, every identifier in the package is immutable once published
 (REQ-MODEL-10). [`data/deprecated-identifiers.json`](data/deprecated-identifiers.json)
 is the REQ-MODEL-11 registry a retired identifier goes into, and `npm test`
-refuses a removal that is not recorded there.
+refuses a removal that is not recorded there. [`data/version.json`](data/version.json) mirrors `package.json`; release-please keeps it in sync (see [ADR 0009](docs/adr/0009-data-version-stamp.md)).
 
 ## Provenance and licence
 
