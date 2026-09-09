@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/version.schema.json",
   "title": "data/version.json",
-  "description": "The single version stamp for all of data/ and fixtures/, mirroring package.json's version at release time. One source of truth -- see docs/adr and issue #48 (release-please's extra-files generic JSON updater keeps this in sync; never hand-edit). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "description": "The single version stamp for all of data/ and fixtures/, mirroring package.json's version at release time. One source of truth -- see docs/adr/0009-data-version-stamp.md (release-please's extra-files generic JSON updater keeps this in sync; never hand-edit). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
   "required": ["version"],
@@ -10,7 +10,7 @@
     "version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
-      "description": "Matches package.json's version at release time (REQ-VERIFY / issue #48). Not hand-edited -- release-please's extra-files JSON updater stamps it on every release."
+      "description": "Matches package.json's version at release time (REQ-VERIFY; docs/adr/0009-data-version-stamp.md). Not hand-edited -- release-please's extra-files JSON updater stamps it on every release."
     }
   }
 }

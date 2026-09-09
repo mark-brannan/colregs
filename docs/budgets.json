@@ -9,6 +9,7 @@
     "docs/part-b-invariants.md": 950,
     "docs/adr/0007-rule26-overrides-and-aground.md": 90,
     "docs/adr/0008-mooring-buoy-modifier.md": 90,
+    "docs/adr/0009-data-version-stamp.md": 90,
     "required": true,
     "pending": []
   },
