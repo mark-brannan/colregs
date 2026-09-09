@@ -46,7 +46,7 @@
                 "required": ["withheld_reason"]
               },
               "else": {
-                "$comment": "mirrors and text_digest are open to verbatim paragraphs too; only withheld_reason is incoherent without a bar.",
+                "$comment": "mirrors, text_digest and text_slug are open to verbatim paragraphs too; only withheld_reason is incoherent without a bar.",
                 "properties": {
                   "text": { "type": "string", "minLength": 1 },
                   "withheld_reason": false
