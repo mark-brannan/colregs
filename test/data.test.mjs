@@ -153,6 +153,29 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
   }
 })
 
+// --- docs/adr/0010-text-withheld-jurisdictions.md: a jurisdiction may ship without text --
+// Only `intl` is populated today, and every intl paragraph is verbatim, so the
+// withheld branch of rules.schema.json is not exercised by data/rules.json at
+// all. It is asserted directly here: the whole ruling rests on a withheld
+// paragraph being expressible, and on a half-withheld one being rejected.
+
+test('rules schema: a withheld paragraph validates, and its malformed variants do not', () => {
+  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('rules.schema.json'))
+  const doc = (paragraph) => ({ source: 'test', paragraphs: { 6: paragraph } })
+  const base = { path: '6', rule: '6', rule_title: 'Overtaking', jurisdiction: 'eu/cevni' }
+  const withheld = { ...base, text_status: 'withheld', withheld_reason: 'UN terms permit no redistribution' }
+
+  assert.ok(validate(doc({ ...withheld, mirrors: '13(a)' })), 'a withheld paragraph with a mirror must validate')
+  assert.ok(validate(doc(withheld)), 'a withheld paragraph without a mirror must validate')
+  assert.ok(!validate(doc({ ...withheld, text: 'verbatim words' })), 'withheld must not carry text')
+  assert.ok(!validate(doc({ ...base, text_status: 'withheld' })), 'withheld must name its reason')
+  assert.ok(!validate(doc({ ...base, jurisdiction: 'intl' })), 'a verbatim paragraph must carry text')
+  assert.ok(!validate(doc({ ...base, jurisdiction: 'intl', text: 'w', mirrors: '13(a)' })),
+    'mirrors is for withheld paragraphs only')
+  assert.ok(!validate(doc({ ...base, jurisdiction: 'intl', text: 'w', withheld_reason: 'r' })),
+    'withheld_reason is for withheld paragraphs only')
+})
+
 // --- docs/adr/0009-data-version-stamp.md: data/version.json is the single stamp release-please owns --
 test('version: data/version.json matches package.json (release-please extra-files keeps these in sync)', () => {
   const pkg = load('package.json')

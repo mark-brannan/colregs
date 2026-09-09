@@ -76,7 +76,9 @@ Neither consumer lives in this repo.
   (Rule 28 "[Reserved]") means silence-means-inherit would apply
   international law where the national body deliberately has none, so no
   non-`intl` jurisdiction lands before an explicit suppression mechanism
-  exists. A delta that only *adds* entries is exempt: it suppresses nothing,
+  exists. That bar is about suppression, not licensing: it is independent of
+  REQ-PROV-2 and ADR 0010, and it binds whether a jurisdiction's text ships or
+  is withheld. A delta that only *adds* entries is exempt: it suppresses nothing,
   so the Q-11 hazard cannot arise from it (ADR 0008, `30a-buoy`/`30b-buoy`).
   A delta that suppresses or replaces an `intl` entry still waits.
 - **REQ-SCOPE-4** — Adding a jurisdiction MUST be additive. It MUST NOT require
@@ -123,7 +125,10 @@ Four layers, each independently addressable.
 
 - **REQ-MODEL-1** — **Rule text**, verbatim, keyed by paragraph path. Text MUST
   NOT be paraphrased, summarised or reflowed. Where a jurisdiction's text
-  differs, both MUST be stored, keyed by jurisdiction.
+  differs, both MUST be stored, keyed by jurisdiction — unless the paragraph is
+  `text_status: withheld` (ADR 0010), which stores no text at all. The bar on
+  paraphrase is why: a condensation is a derivative work, so redaction is the
+  only lawful way to ship a paragraph we may not reproduce.
 - **REQ-MODEL-2** — **Light definitions** (Rule 21) MUST carry colour, arc of
   visibility in degrees, and range by length band (Rule 22). Jurisdictions MAY
   add definitions (e.g. the US special flashing light, Inland 21(g)).
@@ -922,7 +927,9 @@ Tracked here until resolved; each becomes an ADR.
   "this path/entry deliberately does not exist here", distinguishable from
   "not yet transcribed". Decide the mechanism in the second-jurisdiction
   bundle (GATE-1 re-take, GATE-2, Q-10); until then no non-`intl`
-  jurisdiction lands.
+  jurisdiction lands. This is the live blocker on CEVNI, and it is *not* the
+  licence one: ADR 0010 removed the licence block by permitting structure with
+  the text withheld, and left this one standing.
   Also from the same verification pass, tracked on the global board rather
   than here: four transcription defects in `data/rules.json` itself
   (`21(a)`, `21(b)`, `23(b)`, `29(b)`) — a data fix, not a design
