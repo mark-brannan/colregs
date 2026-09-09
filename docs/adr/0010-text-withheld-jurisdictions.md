@@ -77,10 +77,18 @@ smaller act than paraphrase, not a larger one.
   structure as of this ADR, blocked for text until ADR 0001's licence
   question is answered. The same route is open to any jurisdiction that
   fails REQ-PROV-2 later; nothing here is CEVNI-specific.
-- `schema/rules.schema.json` needs the conditional: `text` required unless
+- **A different bar still stands, and it is not this one.** REQ-SCOPE-3 and
+  Q-11 hold that no non-`intl` jurisdiction lands until an explicit
+  suppression mechanism exists, because silence-means-inherit would apply
+  international law where a national body deliberately has none. That is
+  about deltas, not licences; it survives this ADR untouched and is the live
+  blocker on CEVNI. Read the two together or the wrong one gets blamed.
+- `schema/rules.schema.json` carries the conditional: `text` required unless
   `text_status` is `withheld`, in which case it is forbidden and
-  `withheld_reason` is required. Adding `text_status`, `withheld_reason`
-  and `mirrors` is an additive schema change under ADR 0006.
+  `withheld_reason` is required; `mirrors` is rejected on a verbatim
+  paragraph. Additive under ADR 0006. Since `data/rules.json` is entirely
+  verbatim `intl`, nothing in the data exercises that branch — the malformed
+  half-states are asserted directly in `test/data.test.mjs`.
 - **Nothing in evaluation may read `text`.** That is the invariant this
   decision rests on, so it wants a test rather than a promise: fixtures and
   the evaluator output envelope must stay green over a ruleset with every
