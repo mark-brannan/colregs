@@ -10,6 +10,7 @@
     "docs/adr/0007-rule26-overrides-and-aground.md": 90,
     "docs/adr/0008-mooring-buoy-modifier.md": 90,
     "docs/adr/0009-data-version-stamp.md": 90,
+    "docs/adr/0010-text-withheld-jurisdictions.md": 95,
     "required": true,
     "pending": []
   },

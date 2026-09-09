@@ -792,6 +792,9 @@ Tracked here until resolved; each becomes an ADR.
   unece.org was unreachable from the checking host, and the UN's default
   terms (personal, non-commercial use only) block it until written
   permission or a national transposition is chosen instead.
+  **Ruled 2026-09-09 (ADR 0010):** this blocks CEVNI's *text*, not CEVNI.
+  A jurisdiction may be modelled in full with its text withheld, so no
+  session should treat `eu/cevni` as unimplementable.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
 - **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
