@@ -554,6 +554,54 @@ test('images: on disk, catalogued, and unchanged', () => {
   for (const name of cited) assert.ok(images.images[name], `${name} cited but not catalogued`)
 })
 
+// A USCG figure is placed by the handbook's own layout, not by the clause a
+// reader of our entry is looking at: NRHB_23_aii.png sits under 23(a)(ii) but
+// draws the under-50 m vessel that the exception excuses from the second
+// masthead light. `depicts` records which of the two a figure shows, and an
+// entry that only ever illustrates the exception is the drift this catches.
+test('images: every entry that cites a figure cites one depicting its provision', () => {
+  const catalogued = images.images
+  for (const [name, rec] of Object.entries(catalogued)) {
+    const mapped = (rec.paragraphs ?? rec.entries) !== undefined
+    assert.equal(mapped, rec.depicts !== undefined, `${name}: mapped figures carry depicts, unmapped ones do not`)
+  }
+  for (const entry of appl.entries) {
+    const shown = entry.images ?? []
+    if (shown.length === 0) continue
+    for (const name of shown) {
+      assert.ok(catalogued[name]?.entries?.includes(entry.id), `${entry.id} cites ${name}, which does not name it back`)
+    }
+    assert.ok(
+      shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
+      `${entry.id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
+    )
+  }
+  for (const [name, rec] of Object.entries(catalogued)) {
+    for (const id of rec.entries ?? []) {
+      const entry = appl.entries.find((e) => e.id === id)
+      assert.ok(entry, `${name} names entry ${id}, which does not exist`)
+      assert.ok(entry.images?.includes(name), `${name} names ${id}, which does not cite it back`)
+    }
+    for (const id of rec.paragraphs ?? []) {
+      assert.ok(rules.paragraphs[id], `${name} names paragraph ${id}, which does not exist`)
+      assert.ok(rules.paragraphs[id].images?.includes(name), `${name} names ${id}, which does not cite it back`)
+    }
+  }
+  // The same check on the paragraph side, so a paragraph cannot be illustrated
+  // only by its exception either.
+  for (const [id, para] of Object.entries(rules.paragraphs)) {
+    const shown = para.images ?? []
+    if (shown.length === 0) continue
+    for (const name of shown) {
+      assert.ok(catalogued[name]?.paragraphs?.includes(id), `${id} cites ${name}, which does not name it back`)
+    }
+    assert.ok(
+      shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
+      `${id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
+    )
+  }
+})
+
 test('navigation.state decodes only to values the axes define', () => {
   const axes = facts.axes
   for (const [state, d] of Object.entries(facts.signalk_navigation_state.decode)) {

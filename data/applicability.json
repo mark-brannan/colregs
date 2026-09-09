@@ -196,6 +196,7 @@
     }
    ],
    "images": [
+    "NRHB_23_a.png",
     "NRHB_23_aii.png"
    ]
   },
@@ -393,7 +394,7 @@
    ],
    "modality": "shall",
    "images": [
-    "NRHB_24_a.png"
+    "NRHB_24_av.png"
    ]
   },
   {
@@ -952,7 +953,8 @@
    ],
    "modality": "shall",
    "images": [
-    "NRHB_27_d.png"
+    "NRHB_27_d.png",
+    "NRHB_27_diii.png"
    ],
    "notes": "27(d)(iii): when at anchor these lights are shown instead of Rule 30's."
   },
@@ -987,9 +989,6 @@
     "27d"
    ],
    "modality": "shall",
-   "images": [
-    "NRHB_27_ei.png"
-   ],
    "notes": "Only when the vessel's size makes the full 27(d) display impracticable."
   },
   {
@@ -1134,7 +1133,7 @@
    ],
    "modality": "shall",
    "images": [
-    "NRHB_30_a.png"
+    "NRHB_30_d.png"
    ]
   },
   {
@@ -1158,7 +1157,10 @@
    "rel:in_lieu_of": [
     "30a"
    ],
-   "modality": "may"
+   "modality": "may",
+   "images": [
+    "NRHB_30_a.png"
+   ]
   },
   {
    "id": "30c",
@@ -1232,7 +1234,7 @@
    ],
    "modality": "shall-if-practicable",
    "images": [
-    "NRHB_30_d.png"
+    "NRHB_30_dii.png"
    ],
    "notes": "The two red lights are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them; it does not exempt the 30(a)/(b) anchor lights, see 30d-anchor."
   },

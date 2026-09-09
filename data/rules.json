@@ -904,28 +904,41 @@
    "rule": "21",
    "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Masthead light\" means a white light placed over the fore and aft centerline of the vessel showing an unbroken light over an arc of the horizon of 225 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on either side of the vessel."
+   "text": "\"Masthead light\" means a white light placed over the fore and aft centerline of the vessel showing an unbroken light over an arc of the horizon of 225 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on either side of the vessel.",
+   "images": [
+    "mastheadarc.gif"
+   ]
   },
   "21(b)": {
    "path": "21(b)",
    "rule": "21",
    "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Sidelights\" means a green light on the starboard side and a red light on the port side each showing an unbroken light over an arc of the horizon of 112.5 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on its respective side. In a vessel of less than 20 meters in length the sidelights may be combined in one lantern carried on the fore and aft centerline of the vessel."
+   "text": "\"Sidelights\" means a green light on the starboard side and a red light on the port side each showing an unbroken light over an arc of the horizon of 112.5 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on its respective side. In a vessel of less than 20 meters in length the sidelights may be combined in one lantern carried on the fore and aft centerline of the vessel.",
+   "images": [
+    "portarc.gif",
+    "stbdarc.gif"
+   ]
   },
   "21(c)": {
    "path": "21(c)",
    "rule": "21",
    "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Sternlight\" means a white light placed as nearly as practicable at the stern showing an unbroken light over an arc of the horizon of 135 degrees and so fixed as to show the light 67.5 degrees from right aft on each side of the vessel."
+   "text": "\"Sternlight\" means a white light placed as nearly as practicable at the stern showing an unbroken light over an arc of the horizon of 135 degrees and so fixed as to show the light 67.5 degrees from right aft on each side of the vessel.",
+   "images": [
+    "sternarc.gif"
+   ]
   },
   "21(d)": {
    "path": "21(d)",
    "rule": "21",
    "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Towing light\" means a yellow light having the same characteristics as the \"sternlight\" defined in Rule 21(c)."
+   "text": "\"Towing light\" means a yellow light having the same characteristics as the \"sternlight\" defined in Rule 21(c).",
+   "images": [
+    "towingarc.gif"
+   ]
   },
   "21(e)": {
    "path": "21(e)",
@@ -1003,6 +1016,7 @@
    "jurisdiction": "intl",
    "text": "a second masthead light abaft of and higher than the forward one; except that a vessel of less than 50 meters in length shall not be obliged to exhibit such a light but may do so;",
    "images": [
+    "NRHB_23_a.png",
     "NRHB_23_aii.png"
    ]
   },
@@ -1103,7 +1117,10 @@
    "rule": "24",
    "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "a towing light in a vertical line above the sternlight; and"
+   "text": "a towing light in a vertical line above the sternlight; and",
+   "images": [
+    "towingarc.gif"
+   ]
   },
   "24(a)(v)": {
    "path": "24(a)(v)",
@@ -1428,7 +1445,8 @@
    "jurisdiction": "intl",
    "text": "A vessel engaged in dredging or underwater operations, when restricted in her ability to maneuver, shall exhibit the lights and shapes prescribed in Rules 27(b)(i), (ii) and (iii) and shall in addition when an obstruction exists, exhibit:",
    "images": [
-    "NRHB_27_d.png"
+    "NRHB_27_d.png",
+    "NRHB_27_diii.png"
    ]
   },
   "27(d)(i)": {
@@ -1438,7 +1456,8 @@
    "jurisdiction": "intl",
    "text": "two all-round red lights or two balls in a vertical line to indicate the side on which the obstruction exists;",
    "images": [
-    "NRHB_27_d.png"
+    "NRHB_27_d.png",
+    "NRHB_27_diii.png"
    ]
   },
   "27(d)(ii)": {
@@ -1448,7 +1467,8 @@
    "jurisdiction": "intl",
    "text": "two all-round green lights or two diamonds in a vertical line to indicate the side on which another vessel may pass; and",
    "images": [
-    "NRHB_27_d.png"
+    "NRHB_27_d.png",
+    "NRHB_27_diii.png"
    ]
   },
   "27(d)(iii)": {
@@ -1456,10 +1476,7 @@
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "when at anchor, the lights or shapes prescribed in this paragraph instead of the lights or shapes prescribed in Rule 30.",
-   "images": [
-    "NRHB_27_diii.png"
-   ]
+   "text": "when at anchor, the lights or shapes prescribed in this paragraph instead of the lights or shapes prescribed in Rule 30."
   },
   "27(e)": {
    "path": "27(e)",
@@ -1473,10 +1490,7 @@
    "rule": "27",
    "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "Three all-round lights in a vertical line where they can best be seen. The highest and lowest of these lights shall be red and the middle light shall be white;",
-   "images": [
-    "NRHB_27_ei.png"
-   ]
+   "text": "Three all-round lights in a vertical line where they can best be seen. The highest and lowest of these lights shall be red and the middle light shall be white;"
   },
   "27(e)(ii)": {
    "path": "27(e)(ii)",
@@ -1485,6 +1499,7 @@
    "jurisdiction": "intl",
    "text": "a rigid replica of the International Code flag \"A\" not less than 1 meter in height. Measures shall be taken to ensure its all-round visibility.",
    "images": [
+    "NRHB_27_ei.png",
     "NRHB_27_eii.png"
    ]
   },
@@ -1573,7 +1588,7 @@
    "jurisdiction": "intl",
    "text": "A vessel at anchor shall exhibit where it can best be seen: (i) in the fore part, an all-round white light or one ball; (ii) at or near the stern and at a lower level than the light prescribed in Rule 30(a)(i), an all-round white light.",
    "images": [
-    "NRHB_30_a.png"
+    "NRHB_30_d.png"
    ]
   },
   "30(b)": {
@@ -1581,14 +1596,20 @@
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
    "jurisdiction": "intl",
-   "text": "A vessel of less than 50 meters in length may exhibit an all-round white light where it can best be seen instead of the lights prescribed in Rule 30(a)."
+   "text": "A vessel of less than 50 meters in length may exhibit an all-round white light where it can best be seen instead of the lights prescribed in Rule 30(a).",
+   "images": [
+    "NRHB_30_a.png"
+   ]
   },
   "30(c)": {
    "path": "30(c)",
    "rule": "30",
    "rule_title": "Anchored Vessels and Vessels Aground",
    "jurisdiction": "intl",
-   "text": "A vessel at anchor may, and a vessel of 100 meters and more in length shall, also use the available working or equivalent lights to illuminate her decks."
+   "text": "A vessel at anchor may, and a vessel of 100 meters and more in length shall, also use the available working or equivalent lights to illuminate her decks.",
+   "images": [
+    "NRHB_30_d.png"
+   ]
   },
   "30(d)": {
    "path": "30(d)",
@@ -1597,7 +1618,6 @@
    "jurisdiction": "intl",
    "text": "A vessel aground shall exhibit the lights prescribed in Rule 30(a) or (b) and in addition, if practicable, where they can best be seen: (i) two all-round red lights in a vertical line; (ii) three balls in a vertical line.",
    "images": [
-    "NRHB_30_d.png",
     "NRHB_30_dii.png"
    ]
   },
