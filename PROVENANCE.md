@@ -19,6 +19,10 @@ publications. Nothing here is authoritative: consult the published rules.
   reconstruct it from memory, `rules.json` records it under `gaps` and the
   paragraph is omitted. 24(g) covers inconspicuous, partly submerged tows and
   is outside the applicability table in this release.
+- **Withheld text is not a gap.** A `gaps` entry is a paragraph we could not
+  obtain. A paragraph with `text_status: withheld` is one we hold but may not
+  publish, under a licence bar recorded in `withheld_reason` — see ADR 0010.
+  None exist yet; `intl` is entirely verbatim.
 - **Known quirks kept verbatim:** the source's own text of Rule 1(c) repeats
   "special rules ... special rules made" and Rule 13(b) reads "coming up with
   a another vessel" (sic), and Rule 10(c) reads "A vessel, shall so far as

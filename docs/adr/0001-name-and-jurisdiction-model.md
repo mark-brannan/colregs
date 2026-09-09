@@ -95,7 +95,7 @@ what it implies for which instrument supplies the Rules *text*.
 | Jurisdiction | Instrument (text source) | Delta | Licence, verified | Attribution to ship (REQ-PROV-3) |
 |---|---|---|---|---|
 | `us/inland` | 33 CFR 83, eCFR | large | 17 U.S.C. §105, public domain | none; credit USCG by custom |
-| `eu/cevni` | CEVNI Rev.6 (UNECE) | largest | **unverified** — unece.org unreachable from the checking host; the UN default terms are personal, non-commercial only. Blocked until written permission is obtained or a national transposition is chosen instead | — |
+| `eu/cevni` | CEVNI Rev.6 (UNECE) | largest | **unverified** — unece.org unreachable from the checking host; the UN default terms are personal, non-commercial only. Text blocked until written permission or a national transposition; structure may be modelled now with the text withheld — ADR 0010 | — |
 | `ca/inland` | Collision Regulations, C.R.C. c.1416, Schedule 1 | moderate | Reproduction of Federal Law Order SI/97-5 | none; accuracy diligence required, and must not be represented as an official version |
 | `de/binnen` | SeeSchStrO (delta) + KVR, Anlage to SeeStrOV (text) | large | §5(1) UrhG, no copyright | none |
 | `uk` | SI 1996/75 (delta) + MSN 1781 (text) | near-zero | OGL v3.0, Crown copyright | "Contains public sector information licensed under the Open Government Licence v3.0." |
@@ -142,6 +142,9 @@ what it implies for which instrument supplies the Rules *text*.
    or a national transposition under an open licence (Germany's BinSchStrO
    under §5(1) UrhG, or the Netherlands' BPR) — the same corpus by a lawful
    route, at the cost of being a national delta rather than "CEVNI".
+   A third way opened later: ADR 0010 permits modelling CEVNI now, text
+   withheld. These two remedies restore the text; they no longer gate the
+   work.
 8. **IMO's own text is closed to this package.** The IMO website terms
    permit copying and adaptation "for the User's personal, non-commercial
    purposes" and state that "Reuse of the Materials for commercial purposes

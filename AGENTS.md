@@ -37,8 +37,10 @@ Everything lives in `data/*.json`, cross-referenced by string keys. There is
 no code to trace — the "architecture" is the referential integrity between
 these files, which `test/data.test.mjs` enforces exhaustively:
 
-- **`data/rules.json`** — verbatim rule text keyed by **paragraph path**
-  (`27(a)(i)`, not "Rule 27") — the citation unit everything else points at.
+- **`data/rules.json`** — rule text keyed by **paragraph path** (`27(a)(i)`,
+  not "Rule 27") — the citation unit everything else points at. Verbatim
+  unless `text_status: withheld`: a licence blocks a jurisdiction's text,
+  never its modelling (ADR 0010).
 - **`data/lights.json`** — the Rule 21 lights: colour, bearing arc, Rule 22
   range. Referenced by id (`light:masthead`, `light:sidelight_starboard`, …) from
   applicability entries.

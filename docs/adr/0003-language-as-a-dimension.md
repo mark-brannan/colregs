@@ -124,7 +124,7 @@ consumer's call (the spirit of REQ-CONS-3).
 ### Sketch (illustrative, not binding on filenames)
 
 ```text
-data/rules.json                     # skeleton: paths, rule numbers, gaps
+data/rules.json                     # skeleton: paths, numbers, gaps, text_status
 data/text/intl.en-US.uscg.json      # today's text, relabeled for what it is
 data/text/intl.fr.unts.json         # authentic French, when licensed+landed
 data/text/intl.fi.finlex.json       # Finnish national text, contributable
