@@ -161,7 +161,7 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
 
 test('rules schema: a withheld paragraph validates, and its malformed variants do not', () => {
   const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('rules.schema.json'))
-  const doc = (paragraph) => ({ source: 'test', paragraphs: { 6: paragraph } })
+  const doc = (paragraph) => ({ source: 'test', retrieved: '2026-09-09', paragraphs: { 6: paragraph } })
   const base = { path: '6', rule: '6', rule_title: 'Overtaking', jurisdiction: 'eu/cevni' }
   const withheld = { ...base, text_status: 'withheld', withheld_reason: 'UN terms permit no redistribution' }
 
@@ -180,6 +180,28 @@ test('rules schema: a withheld paragraph validates, and its malformed variants d
   assert.ok(validate(doc({ ...withheld, text_slug: ['blue-board', 'overtake'] })), 'a slug must be expressible')
   assert.ok(validate(doc({ ...base, jurisdiction: 'intl', text: 'w', mirrors: '13(a)' })),
     'a verbatim paragraph may still name the intl provision it restates')
+})
+
+// --- colregs#85: a document that withholds text must record when that
+// withholding was last checked against the primary source --------------
+test('rules schema: a document with a withheld paragraph requires retrieved', () => {
+  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('rules.schema.json'))
+  const base = { path: '6', rule: '6', rule_title: 'Overtaking', jurisdiction: 'eu/cevni' }
+  const withheld = { ...base, text_status: 'withheld', withheld_reason: 'UN terms permit no redistribution' }
+  const verbatim = { ...base, text: 'Every vessel overtaking any other shall keep out of the way.' }
+
+  assert.ok(
+    validate({ source: 'test', retrieved: '2026-09-09', paragraphs: { 6: withheld } }),
+    'withheld + retrieved present must validate',
+  )
+  assert.ok(
+    !validate({ source: 'test', paragraphs: { 6: withheld } }),
+    'withheld + retrieved absent must be rejected',
+  )
+  assert.ok(
+    validate({ source: 'test', paragraphs: { 6: verbatim } }),
+    'a document with no withheld paragraphs is not required to carry retrieved',
+  )
 })
 
 // --- docs/adr/0009-data-version-stamp.md: data/version.json is the single stamp release-please owns --

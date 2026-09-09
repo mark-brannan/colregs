@@ -6,6 +6,33 @@
   "type": "object",
   "additionalProperties": false,
   "required": ["source", "paragraphs"],
+  "allOf": [
+    {
+      "$comment": "colregs#85: a withheld paragraph is a citation, not a reproduction (ADR 0010) -- 'retrieved' is when that citation was last checked against the primary source, so it can't be blank on a document that withholds text.",
+      "if": {
+        "properties": {
+          "paragraphs": {
+            "not": {
+              "type": "object",
+              "patternProperties": {
+                "^.*$": {
+                  "not": {
+                    "type": "object",
+                    "properties": { "text_status": { "const": "withheld" } },
+                    "required": ["text_status"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": { "retrieved": { "type": "string" } },
+        "required": ["retrieved"]
+      }
+    }
+  ],
   "properties": {
     "source": { "type": "string", "minLength": 1 },
     "source_url": { "type": "string", "minLength": 1 },
