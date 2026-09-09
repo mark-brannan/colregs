@@ -153,7 +153,7 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
   }
 })
 
-// --- issue #48: data/version.json is the single stamp release-please owns --
+// --- docs/adr/0009-data-version-stamp.md: data/version.json is the single stamp release-please owns --
 test('version: data/version.json matches package.json (release-please extra-files keeps these in sync)', () => {
   const pkg = load('package.json')
   assert.equal(versionStamp.version, pkg.version)
