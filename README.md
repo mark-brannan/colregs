@@ -48,11 +48,12 @@ lawful option comes back and none is picked. Selection belongs to the consumer.
 
 ## Coverage
 
-Part C lights (Rules 20-31) and the Part B encounter rules, `intl`
-jurisdiction. Day shapes, Part D signals, and the other jurisdictions (US
-Inland, Canada, CEVNI) are laid out in
-[`docs/requirements.md`](docs/requirements.md). `us/inland` carries the one
-case the Convention cannot state, a vessel made fast to a mooring buoy
+Every rule with a machine-checkable consequence: Part B conduct, Part C
+lights and shapes, Part D sound and light signals, and Annex I geometry.
+`intl` is the base; `us/inland`, `ca/inland` and `eu/cevni` are deltas on it.
+[`docs/requirements.md`](docs/requirements.md) is the numbered contract for
+all of it. One case the Convention cannot state, a vessel made fast to a
+mooring buoy, lives only under `us/inland`
 ([ADR 0008](docs/adr/0008-mooring-buoy-modifier.md)).
 
 ## The layers
@@ -176,5 +177,5 @@ publications, public domain; see [PROVENANCE.md](PROVENANCE.md). The
 compilation is Apache-2.0.
 
 Not authoritative, not endorsed by the Coast Guard. Navigate by the published
-rules. When the `ca/inland` delta lands, it will carry the same condition
-its licence does: it must not be represented as an official version.
+rules. The `ca/inland` delta carries the same condition its licence does: it
+must not be represented as an official version.
