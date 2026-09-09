@@ -126,9 +126,11 @@ Four layers, each independently addressable.
 - **REQ-MODEL-1** — **Rule text**, verbatim, keyed by paragraph path. Text MUST
   NOT be paraphrased, summarised or reflowed. Where a jurisdiction's text
   differs, both MUST be stored, keyed by jurisdiction — unless the paragraph is
-  `text_status: withheld` (ADR 0010), which stores no text at all. The bar on
-  paraphrase is why: a condensation is a derivative work, so redaction is the
-  only lawful way to ship a paragraph we may not reproduce.
+  `text_status: withheld` (ADR 0010), which stores no rule text. What a
+  withheld paragraph carries instead — citation alone, a digest, a
+  deterministic non-prose reduction, or the `intl` equivalent — is pencil in
+  ADR 0010, deliberately unsettled. This requirement bars paraphrasing text
+  the package *ships*; it does not by itself decide the withheld case.
 - **REQ-MODEL-2** — **Light definitions** (Rule 21) MUST carry colour, arc of
   visibility in degrees, and range by length band (Rule 22). Jurisdictions MAY
   add definitions (e.g. the US special flashing light, Inland 21(g)).

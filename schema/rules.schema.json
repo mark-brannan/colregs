@@ -46,10 +46,10 @@
                 "required": ["withheld_reason"]
               },
               "else": {
+                "$comment": "mirrors and text_digest are open to verbatim paragraphs too; only withheld_reason is incoherent without a bar.",
                 "properties": {
                   "text": { "type": "string", "minLength": 1 },
-                  "withheld_reason": false,
-                  "mirrors": false
+                  "withheld_reason": false
                 },
                 "required": ["text"]
               }
@@ -66,6 +66,11 @@
               "enum": ["verbatim", "withheld"]
             },
             "withheld_reason": { "type": "string", "minLength": 1 },
+            "text_digest": {
+              "$comment": "Pencil, ADR 0010: algorithm-qualified digest of the normalised text, e.g. 'sha256:<hex>'. Defined so the option is not walled off by additionalProperties; nothing writes it yet.",
+              "type": "string",
+              "pattern": "^[a-z0-9-]+:[A-Za-z0-9+/=]+$"
+            },
             "mirrors": {
               "$comment": "Paragraph path in intl this provision restates; display labelled as the international equivalent, never as this jurisdiction's text.",
               "type": "string",
