@@ -177,6 +177,7 @@ test('rules schema: a withheld paragraph validates, and its malformed variants d
   // must not foreclose it: a digest, and a mirror on a paragraph that does
   // ship its own text, both have to remain expressible.
   assert.ok(validate(doc({ ...withheld, text_digest: 'sha256:0f9a2b' })), 'a digest must be expressible')
+  assert.ok(validate(doc({ ...withheld, text_slug: ['blue-board', 'overtake'] })), 'a slug must be expressible')
   assert.ok(validate(doc({ ...base, jurisdiction: 'intl', text: 'w', mirrors: '13(a)' })),
     'a verbatim paragraph may still name the intl provision it restates')
 })
