@@ -58,18 +58,34 @@ text. CEVNI is largely a restatement of the Rules for inland waters, so
 `mirrors` should cover most of it, leaving the genuine CEVNI-only provisions
 as the short list that shows a placeholder.
 
-How a withheld paragraph reads on screen — "text withheld, see CEVNI 6.10"
-or something friendlier — is a display choice, not a data one, and may
-change before a general release without another ADR.
+### ✎ What a withheld paragraph carries in place of text — pencil
 
-**Rejected: a hash or checksum of the withheld text.** It reads as rigour
-and buys nothing — only a reader who already holds the text could verify it,
-and that reader did not need us.
+**Ink is only that the text is withheld and the structure ships.** What
+stands in for the text is deliberately *not* settled here, and this ADR does
+not license a later session to settle it by inference. Any of the following
+may be adopted, dropped or combined before a general release without another
+ADR, and more than one may ship at once — they occupy different keys:
 
-**Rejected: a machine-condensed or summarised text.** The option that looks
-safest is the most exposed: a condensation of a protected text is a
-derivative work, precisely what the UN terms withhold. Redaction is a
-smaller act than paraphrase, not a larger one.
+| option | what it buys | what it costs | what would settle it |
+|---|---|---|---|
+| **Redaction** — the citation alone | nothing to argue about; ships today | a reader holding a lawful copy gets no help binding it to our structure | it is the floor; it needs no decision |
+| **Digest** — a hash of the normalised text, algorithm-qualified | a holder of a lawful copy can verify our model tracks the same paragraph, and detect a silent upstream amendment | a digest of text nobody can obtain is inert until someone holds the text | one consumer who holds CEVNI and wants the binding, or one amendment we failed to notice |
+| **Deterministic condensation** — a reproducible, non-prose reduction: token/slug set, key-term vector, structural digest | a placeholder a *human* can navigate, and possibly the vocabulary the applicability entries want anyway | needs a rights read: how far a reduction may go before it is a derivative work, and whether an output that reads as prose crosses a line a slug set does not | a rights read plus a demo on `intl`, where the text is free — see the research issue |
+| **`mirrors`** — the `intl` equivalent | the reader gets real, lawful rule text for the majority of CEVNI | says nothing where CEVNI genuinely differs, which is exactly the interesting part | already carried; nothing to settle |
+
+Two honest notes, so the pencil is not re-argued from a worse position than
+it deserves. **The digest is not a paraphrase**; it reproduces nothing, and
+the earlier draft of this ADR dismissed it too quickly by asking who would
+verify it — the answer is the one reader who matters, someone holding a
+lawful copy. **Condensation is the genuinely open one.** REQ-MODEL-1 bars
+paraphrase and summary of *shipped rule text*; whether a deterministic,
+non-prose reduction of text we do not ship falls under that bar, or is
+simply indexing, is a question for a rights read, not for a session's
+nerves. It may turn out to be the best of the four. It is not foreclosed
+here.
+
+How a withheld paragraph reads on screen is likewise a display choice, not a
+data one.
 
 ## Consequences
 

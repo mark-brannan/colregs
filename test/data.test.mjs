@@ -170,10 +170,15 @@ test('rules schema: a withheld paragraph validates, and its malformed variants d
   assert.ok(!validate(doc({ ...withheld, text: 'verbatim words' })), 'withheld must not carry text')
   assert.ok(!validate(doc({ ...base, text_status: 'withheld' })), 'withheld must name its reason')
   assert.ok(!validate(doc({ ...base, jurisdiction: 'intl' })), 'a verbatim paragraph must carry text')
-  assert.ok(!validate(doc({ ...base, jurisdiction: 'intl', text: 'w', mirrors: '13(a)' })),
-    'mirrors is for withheld paragraphs only')
   assert.ok(!validate(doc({ ...base, jurisdiction: 'intl', text: 'w', withheld_reason: 'r' })),
-    'withheld_reason is for withheld paragraphs only')
+    'withheld_reason is incoherent without a licence bar')
+
+  // ADR 0010 leaves the placeholder representation in pencil, so the schema
+  // must not foreclose it: a digest, and a mirror on a paragraph that does
+  // ship its own text, both have to remain expressible.
+  assert.ok(validate(doc({ ...withheld, text_digest: 'sha256:0f9a2b' })), 'a digest must be expressible')
+  assert.ok(validate(doc({ ...base, jurisdiction: 'intl', text: 'w', mirrors: '13(a)' })),
+    'a verbatim paragraph may still name the intl provision it restates')
 })
 
 // --- docs/adr/0009-data-version-stamp.md: data/version.json is the single stamp release-please owns --
