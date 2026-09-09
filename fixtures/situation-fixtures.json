@@ -3664,6 +3664,84 @@
      }
     }
    }
+  },
+  {
+   "name": "13(d) latch: 13(a)'s sector test suppressed on the newly-gaining vessel",
+   "status": "binding",
+   "narrative": "Own already holds 13(d)'s latch from an earlier overtaking. Since then the pair has closed again from the other direction: the other now sits dead astern of own, gaining at three knots -- 13(a)'s sector test, read on her geometry alone, would newly name her give-way too. The latch forbids it: only own, the latch-holder, gives way (Q-47).",
+   "expect": [
+    "4",
+    "11",
+    "7d1",
+    "8f3",
+    "13a",
+    "13b-overtaken",
+    "13d"
+   ],
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 28
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50.0,
+       "longitude": -1.4
+      },
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 10,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 180
+     },
+     "hist": {
+      "hist:was_overtaking": true,
+      "hist:latched_at_s": 900
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 16
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 49.995503,
+       "longitude": -1.4
+      },
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 13,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:ferry"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 0
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 500,
+      "geo:bearing_change_deg_min": 0.0,
+      "geo:cpa_m": 0,
+      "geo:tcpa_s": 324.0,
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true
+     }
+    }
+   }
   }
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",

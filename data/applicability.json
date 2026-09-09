@@ -1654,7 +1654,8 @@
       },
       "pair:geo:tcpa_s": {
        "gt": 0
-      }
+      },
+      "other:hist:was_overtaking": false
      },
      {
       "own:hist:was_overtaking": true
@@ -1683,7 +1684,7 @@
     "12a2",
     "12a3"
    ],
-   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them. The predicate now carries both halves of 'any vessel overtaking any other': the 13(b) sector, which 13b-overtaking classifies, and the 13(d) latch, which 13d classifies. They are a disjunction, which is what the entry could not write before the predicate language grew `any_of` (Q-33). Now also overrides the three Rule 12 entries: 'notwithstanding anything contained in' the Rules of Part B Sections I and II includes Rule 12, and two sailing vessels in an overtaking would otherwise hold 13(a)'s and 12(a)'s roles at once (Q-40).",
+   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them. The predicate now carries both halves of 'any vessel overtaking any other': the 13(b) sector, which 13b-overtaking classifies, and the 13(d) latch, which 13d classifies. They are a disjunction, which is what the entry could not write before the predicate language grew `any_of` (Q-33). Now also overrides the three Rule 12 entries: 'notwithstanding anything contained in' the Rules of Part B Sections I and II includes Rule 12, and two sailing vessels in an overtaking would otherwise hold 13(a)'s and 12(a)'s roles at once (Q-40). Ruled 2026-09-08 (Q-47): the sector branch now also reads `other:hist:was_overtaking: false`, so it cannot newly name a second give-way vessel while the other side already holds 13(d)'s latch -- once overtaking, always overtaking, on whichever vessel history says holds the role.",
    "gap": "Only own's side. 13(a) lays the duty on the overtaking vessel, so this entry is directional by design and the overtaken vessel's stand-on role comes from the same entry read on the swapped situation. What it still cannot say is 13(c) -- a vessel in any doubt as to whether she is overtaking shall assume that she is -- because doubt is a state of the observer and no fact carries it; and it inherits 13b-overtaking's speed-comparison gap. Q-41, Q-46."
   },
   {
