@@ -6,7 +6,14 @@ import { execFileSync } from 'node:child_process'
 import Ajv2020 from 'ajv/dist/2020.js'
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
-const rules = load('data/rules.json')
+// ADR 0010's invariant -- nothing in evaluation reads `text` -- is checked by
+// test/text-withheld.test.mjs, which re-runs this whole file over a ruleset
+// with every text stripped, supplied through COLREGS_RULES_JSON.
+const rules = process.env.COLREGS_RULES_JSON ? JSON.parse(readFileSync(process.env.COLREGS_RULES_JSON)) : load('data/rules.json')
+// The words, where the words are on file. A withheld paragraph has none, and
+// an assertion that quotes them then has nothing to quote: the override it
+// explains stands on the cite alone.
+const verbatim = (path) => rules.paragraphs[path].text_status !== 'withheld'
 const lights = load('data/lights.json')
 const facts = load('data/facts.json')
 const appl = load('data/applicability.json')
@@ -2071,8 +2078,8 @@ test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs ov
   // 12: 18(b), whose subject is a sailing vessel, and 18(c), which does not
   // distinguish propulsion. 13(a) is 'notwithstanding' the whole of Sections I
   // and II. Both are on file, so the reason is asserted along with the data.
-  assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
-  assert.match(rules.paragraphs['13(a)'].text, /^Notwithstanding/)
+  if (verbatim('18')) assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+  if (verbatim('13(a)')) assert.match(rules.paragraphs['13(a)'].text, /^Notwithstanding/)
   for (const id of ['18b1', '18b2', '18b3', '18c1', '18c2', '13a']) {
     for (const t of ['12a1', '12a2', '12a3']) {
       assert.ok((byId.get(id)['rel:overrides'] ?? []).includes(t), `${id} does not override ${t}`)
@@ -2105,8 +2112,8 @@ test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm th
   // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so it governs
   // over Rule 15 as it does over Rule 12. Asserted from rules.json, so the data
   // cannot keep the override after losing the words.
-  assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
-  assert.match(rules.paragraphs['15(a)'].text, /power-driven vessels/)
+  if (verbatim('18')) assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+  if (verbatim('15(a)')) assert.match(rules.paragraphs['15(a)'].text, /power-driven vessels/)
   for (const id of ['18a1', '18a2', '18a3', '18c1', '18c2', '18f1']) {
     assert.ok((byId.get(id)['rel:overrides'] ?? []).includes('15a-give-way'), `${id} does not override 15a-give-way`)
   }
