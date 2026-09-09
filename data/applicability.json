@@ -1133,7 +1133,7 @@
    ],
    "modality": "shall",
    "images": [
-    "NRHB_30_dii.png"
+    "NRHB_30_d.png"
    ]
   },
   {
@@ -1234,7 +1234,7 @@
    ],
    "modality": "shall-if-practicable",
    "images": [
-    "NRHB_30_d.png"
+    "NRHB_30_dii.png"
    ],
    "notes": "The two red lights are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them; it does not exempt the 30(a)/(b) anchor lights, see 30d-anchor."
   },

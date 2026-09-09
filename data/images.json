@@ -408,7 +408,7 @@
    "retrieved": "2026-08-29",
    "rights": "US Government work, public domain (17 U.S.C. 105)",
    "captions": [
-    "Vessel Under Oars"
+    "Vessel Under Sail and Power"
    ],
    "paragraphs": [
     "25(e)"
@@ -475,7 +475,7 @@
    "retrieved": "2026-08-29",
    "rights": "US Government work, public domain (17 U.S.C. 105)",
    "captions": [
-    "Vessels Engaged in Trawling"
+    "Vessels Engaged in Fishing Other Than Trawling"
    ],
    "paragraphs": [
     "26(c)(iii)"
@@ -814,13 +814,14 @@
    "retrieved": "2026-08-29",
    "rights": "US Government work, public domain (17 U.S.C. 105)",
    "captions": [
-    "Vessel Aground"
+    "Vessels at Anchor"
    ],
    "paragraphs": [
-    "30(d)"
+    "30(a)",
+    "30(c)"
    ],
    "entries": [
-    "30d-red"
+    "30a"
    ],
    "depicts": "provision"
   },
@@ -837,14 +838,13 @@
    "retrieved": "2026-08-29",
    "rights": "US Government work, public domain (17 U.S.C. 105)",
    "captions": [
-    "Vessels at Anchor"
+    "Vessel Aground"
    ],
    "paragraphs": [
-    "30(a)",
-    "30(c)"
+    "30(d)"
    ],
    "entries": [
-    "30a"
+    "30d-red"
    ],
    "depicts": "provision"
   },
