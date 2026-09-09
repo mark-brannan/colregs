@@ -28,7 +28,7 @@ jobs:
 
   # Documentation gate: the shared prose-budget engine over docs/budgets.json.
   prose-budget:
-    uses: mark-brannan/.github/.github/workflows/prose-budget.yml@main
+    uses: mark-brannan/.github/.github/workflows/prose-budget.yml@v1
 
   # The single required status check, shared across repositories: the
   # `gate` job of mark-brannan/.github's reusable ci-gate workflow, which fails
