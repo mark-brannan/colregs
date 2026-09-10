@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.4](https://github.com/mark-brannan/colregs/compare/v0.2.3...v0.2.4) (2026-09-10)
+
+
+### Added
+
+* record the day shapes each figure draws as a structured field ([#93](https://github.com/mark-brannan/colregs/issues/93)) ([0e5adb1](https://github.com/mark-brannan/colregs/commit/0e5adb13d372a1ada7c9f27755daf496e03d905c))
+* transcribe the printed text of every figure and describe what it draws ([#90](https://github.com/mark-brannan/colregs/issues/90)) ([aa9a690](https://github.com/mark-brannan/colregs/commit/aa9a690a22ba9f11d4a6a0d729247d79da46f669))
+
+
+### Fixed
+
+* audit which clause each USCG figure depicts ([#86](https://github.com/mark-brannan/colregs/issues/86)) ([946515d](https://github.com/mark-brannan/colregs/commit/946515d5acdd27a5f510d756a07fb847bb0fd8dc))
+* **schema:** require retrieved when a document has withheld paragraphs ([#87](https://github.com/mark-brannan/colregs/issues/87)) ([86d9d18](https://github.com/mark-brannan/colregs/commit/86d9d18c00af8269902b2a67deed5c9353ea2c78))
+
 ## [0.2.3](https://github.com/mark-brannan/colregs/compare/v0.2.2...v0.2.3) (2026-09-09)
 
 
