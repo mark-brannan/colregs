@@ -11,7 +11,9 @@ fact record supplied by the consumer.
 
 `docs/requirements.md` is the source of truth for what the package must do;
 requirement IDs (`REQ-SCOPE-2`, `REQ-VERIFY-5`, …) are stable and cited by
-tests. `docs/adr/` records decisions so they aren't re-argued. Read both
+tests. `docs/adr/` records decisions so they aren't re-argued — for the whole
+family (colregs-engine, searoom, nav-wright), one sequence; a bare `ADR NNNN`
+anywhere in the family means this directory. An ADR lands by PR. Read both
 before making a design change — don't infer intent from the data alone.
 `docs/identifiers.md` states the naming scheme: citation-derived identifiers
 are bare, vocabulary identifiers carry a type prefix. Read it before adding
@@ -69,8 +71,7 @@ these files, which `test/data.test.mjs` enforces exhaustively:
   `intl` is the reserved base; other jurisdictions are deltas — entries
   they don't override are inherited. Only `intl` is populated so far.
 - **Predicates, not enumerations.** Gates are `{gte, gt, lte, lt}` /
-  list-membership / equality over facts, never pre-built configuration
-  lists.
+  list-membership / equality over facts, never pre-built configuration lists.
 - **Entries compose.** Multiple entries normally apply to one fact record
   (Rule 28 adds to Rule 23, doesn't replace it).
 - **Alternatives are first-class and unresolved.** Where COLREGS permits a
@@ -113,9 +114,8 @@ bump, not a minor, until that's deliberately turned off at 1.0.
 
 ## Coverage (changes as jurisdictions/parts land — check README.md, not this file, for current state)
 
-Part C lights (Rules 20–31), `intl` jurisdiction, night only. Day shapes,
-Part D signals, and every non-`intl` jurisdiction are modelled for but not
-yet present.
+Part C lights (Rules 20–31), `intl` jurisdiction, night only. Day shapes, Part D
+signals, and every non-`intl` jurisdiction are modelled for but not yet present.
 
 ## Prose budget
 
