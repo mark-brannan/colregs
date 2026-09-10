@@ -11,6 +11,8 @@
     "docs/adr/0008-mooring-buoy-modifier.md": 90,
     "docs/adr/0009-data-version-stamp.md": 90,
     "docs/adr/0010-text-withheld-jurisdictions.md": 125,
+    "docs/adr/0011-api-shape.md": 173,
+    "docs/adr/0012-trace-and-rule2-departure-api.md": 203,
     "docs/verification/2026-09-09-text-slug-straw-man.md": 270,
     "required": true,
     "pending": []
