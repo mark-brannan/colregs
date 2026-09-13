@@ -183,9 +183,8 @@ trace becomes a fixture; a certified grid, a `Rule2DepartureModel`.
   2. `Trace`, `appliedConductEntries` against those fixtures — phase 3
      starts here.
   3. `evaluateConduct` with verdicts and phases; the constants above.
-  4. `evaluateRule2Departure` once a grid exists. Until then the name is
-     reserved and nothing exported: a stub answering `inconclusive-in-model`
-     is a stub wearing a status.
+  4. `evaluateRule2Departure` once a grid exists. ~~Until then the name is reserved and nothing exported: a stub answering `inconclusive-in-model` is a stub wearing a status.~~
+     **Struck. Reserving the name was never the policy here: a name gets an export the day it is written down, throwing or answering `inconclusive-in-model`. Withholding an export to look careful is the failure mode, not the stub. — Solace, 2026-09-13**
 
 ## Register
 
@@ -200,4 +199,4 @@ trace becomes a fixture; a certified grid, a `Rule2DepartureModel`.
 | Vague-quantity constants live in colregs; `SolverParameters` on the model and echoed on the finding, `colregs_version` naming the release solved against; nothing else on the model is API | ✎ | the first constant a conduct entry reads; Q-19's sensitivity matrix |
 | `Rule2DepartureFinding` field set — `rules`, `Rule2DepartureAdvisory[]`, no banner cite (it is a function of `status`); the status alphabet is colregs' (ADR 0005 §5), not this package's to rename | ✎ | proposal v4 §4's sensitivity matrix; Q-19, Q-20 |
 | No *situation* input names a departure; the grid does, and is named in every finding | ✎ | — |
-| Nothing exported until a fixture backs it; exports then carry TSDoc's `@beta` release tag | ✎ | — |
+| A name is exported the day it is written down, throwing or answering `inconclusive-in-model`; exports carry TSDoc's `@beta` release tag until a fixture backs them | ✎ | — |
