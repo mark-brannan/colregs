@@ -1,0 +1,21 @@
+{
+ "id": "us/inland@2014.en-US.ecfr",
+ "edition": "us/inland@2014",
+ "language": "en-US",
+ "source_id": "ecfr",
+ "tier": "national",
+ "normalization": "NFC",
+ "source": {
+  "publisher": "Office of the Federal Register, eCFR",
+  "title": "33 CFR Part 83, Navigation Rules (Inland)",
+  "url": "https://www.ecfr.gov/current/title-33/chapter-I/subchapter-E/part-83",
+  "retrieved": null
+ },
+ "rights": {
+  "source_text": "Work of the United States Government, not subject to copyright in the United States (17 U.S.C. 105)",
+  "redistribution_basis": "17 U.S.C. 105",
+  "package_licence": "Apache-2.0"
+ },
+ "note": "Stub: a second jurisdiction, so the key shape is exercised on both axes; the delta itself waits on Q-11 -- REQ-SCOPE-3.",
+ "paragraphs": {}
+}

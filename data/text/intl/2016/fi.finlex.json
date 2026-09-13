@@ -1,0 +1,21 @@
+{
+ "id": "intl@2016.fi.finlex",
+ "edition": "intl@2016",
+ "language": "fi",
+ "source_id": "finlex",
+ "tier": "national",
+ "normalization": "NFC",
+ "source": {
+  "publisher": "Finlex (Oikeusministeriö), Suomen säädöskokoelman sopimussarja",
+  "title": "Asetus kansainvälisistä säännöistä yhteentörmäämisen ehkäisemiseksi merellä vuonna 1972 tehdyn yleissopimuksen voimaansaattamisesta, SopS 30/1977",
+  "url": "https://www.finlex.fi/fi/sopimukset/sopsteksti/1977/19770030",
+  "retrieved": "2026-09-12"
+ },
+ "rights": {
+  "source_text": "Tekijänoikeuslaki 404/1961 §9: no copyright in treaties and their official translations",
+  "redistribution_basis": "Finlex FAQ: published materials carry no usage restriction; open data CC BY 4.0",
+  "package_licence": "Apache-2.0"
+ },
+ "note": "Stub: identity and provenance only; no text until GATE-2 is re-taken -- REQ-GATE-2.",
+ "paragraphs": {}
+}

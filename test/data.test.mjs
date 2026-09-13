@@ -7,13 +7,22 @@ import Ajv2020 from 'ajv/dist/2020.js'
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
 // ADR 0010's invariant -- nothing in evaluation reads `text` -- is checked by
-// test/text-withheld.test.mjs, which re-runs this whole file over a ruleset
-// with every text stripped, supplied through COLREGS_RULES_JSON.
-const rules = process.env.COLREGS_RULES_JSON ? JSON.parse(readFileSync(process.env.COLREGS_RULES_JSON)) : load('data/rules.json')
-// The words, where the words are on file. A withheld paragraph has none, and
-// an assertion that quotes them then has nothing to quote: the override it
-// explains stands on the cite alone.
-const verbatim = (path) => rules.paragraphs[path].text_status !== 'withheld'
+// test/text-withheld.test.mjs, which re-runs this whole file with every text
+// in the en-US corpus stripped, supplied through COLREGS_CORPUS_JSON.
+const rules = load('data/rules.json')
+const corporaIndex = load('data/corpora.json')
+const editions = load('data/editions.json')
+const editionOf = (id) => Object.values(editions.jurisdictions).flatMap((j) => Object.entries(j.editions)).find(([k]) => k === id)?.[1]
+const jurisdictionOf = (editionId) => editionId.split('@')[0]
+const corpora = Object.fromEntries(Object.entries(corporaIndex.corpora).map(([id, e]) => [id, load(`data/${e.file}`)]))
+// The reference corpus: today's text, relabelled for what it is (ADR 0003 step 1).
+const EN_US = 'intl@2016.en-US.uscg'
+if (process.env.COLREGS_CORPUS_JSON) corpora[EN_US] = JSON.parse(readFileSync(process.env.COLREGS_CORPUS_JSON))
+const enUS = corpora[EN_US]
+// The words, where the words are on file. A withheld or absent paragraph has
+// none, and an assertion that quotes them then has nothing to quote: the
+// override it explains stands on the cite alone.
+const verbatim = (path) => enUS.paragraphs[path]?.text !== undefined
 const lights = load('data/lights.json')
 const facts = load('data/facts.json')
 const appl = load('data/applicability.json')
@@ -143,6 +152,9 @@ test('fixtures: every fact record selects exactly the expected entries', () => {
 const loadSchema = (p) => JSON.parse(readFileSync(new URL(`../schema/${p}`, import.meta.url)))
 const schemaTargets = [
   ['data/rules.json', rules, loadSchema('rules.schema.json')],
+  ['data/corpora.json', corporaIndex, loadSchema('corpora.schema.json')],
+  ['data/editions.json', editions, loadSchema('editions.schema.json')],
+  ...Object.entries(corporaIndex.corpora).map(([id, e]) => [`data/${e.file}`, corpora[id], loadSchema('corpus.schema.json')]),
   ['data/lights.json', lights, loadSchema('lights.schema.json')],
   ['data/facts.json', facts, loadSchema('facts.schema.json')],
   ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
@@ -158,7 +170,8 @@ const schemaTargets = [
 test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
   const ajv = new Ajv2020({ allErrors: true, strict: true })
   for (const [file, data, schema] of schemaTargets) {
-    const validate = ajv.compile(schema)
+    // One corpus schema validates several corpus files; Ajv refuses to compile the same $id twice.
+    const validate = ajv.getSchema(schema.$id) ?? ajv.compile(schema)
     const ok = validate(data)
     assert.ok(ok, `${file} fails ${schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
   }
@@ -173,54 +186,119 @@ test('i18n: every light: key in a display catalog resolves to a light in data/li
 })
 
 // --- docs/adr/0010-text-withheld-jurisdictions.md: a jurisdiction may ship without text --
-// Only `intl` is populated today, and every intl paragraph is verbatim, so the
-// withheld branch of rules.schema.json is not exercised by data/rules.json at
-// all. It is asserted directly here: the whole ruling rests on a withheld
-// paragraph being expressible, and on a half-withheld one being rejected.
+// Every corpus on file is verbatim, so the withheld branch of
+// corpus.schema.json is not exercised by the data at all. It is asserted
+// directly here: the whole ruling rests on a withheld paragraph being
+// expressible, and on a half-withheld one being rejected.
 
-test('rules schema: a withheld paragraph validates, and its malformed variants do not', () => {
-  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('rules.schema.json'))
-  const doc = (paragraph) => ({ source: 'test', retrieved: '2026-09-09', paragraphs: { 6: paragraph } })
-  const base = { path: '6', rule: '6', rule_title: 'Overtaking', jurisdiction: 'eu/cevni' }
+const corpusDoc = (paragraphs, over = {}) => ({
+  id: 'eu/cevni@rev6.fr.unece', edition: 'eu/cevni@rev6', language: 'fr', source_id: 'unece', tier: 'national',
+  normalization: 'NFC',
+  source: { publisher: 'UNECE', title: 'CEVNI', url: 'https://unece.org/', retrieved: '2026-09-09' },
+  rights: { source_text: 'UN terms', redistribution_basis: 'none', package_licence: 'Apache-2.0' },
+  paragraphs,
+  ...over,
+})
+
+test('corpus schema: a withheld paragraph validates, and its malformed variants do not', () => {
+  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('corpus.schema.json'))
+  const doc = (paragraph) => corpusDoc({ 6: paragraph })
+  const base = { rule_title: 'Overtaking' }
   const withheld = { ...base, text_status: 'withheld', withheld_reason: 'UN terms permit no redistribution' }
 
   assert.ok(validate(doc({ ...withheld, mirrors: '13(a)' })), 'a withheld paragraph with a mirror must validate')
   assert.ok(validate(doc(withheld)), 'a withheld paragraph without a mirror must validate')
   assert.ok(!validate(doc({ ...withheld, text: 'verbatim words' })), 'withheld must not carry text')
   assert.ok(!validate(doc({ ...base, text_status: 'withheld' })), 'withheld must name its reason')
-  assert.ok(!validate(doc({ ...base, jurisdiction: 'intl' })), 'a verbatim paragraph must carry text')
-  assert.ok(!validate(doc({ ...base, jurisdiction: 'intl', text: 'w', withheld_reason: 'r' })),
-    'withheld_reason is incoherent without a licence bar')
+  assert.ok(!validate(doc(base)), 'a verbatim paragraph must carry text')
+  assert.ok(!validate(doc({ ...base, text: 'w', withheld_reason: 'r' })), 'withheld_reason is incoherent without a licence bar')
 
   // ADR 0010 leaves the placeholder representation in pencil, so the schema
   // must not foreclose it: a digest, and a mirror on a paragraph that does
   // ship its own text, both have to remain expressible.
   assert.ok(validate(doc({ ...withheld, text_digest: 'sha256:0f9a2b' })), 'a digest must be expressible')
   assert.ok(validate(doc({ ...withheld, text_slug: ['blue-board', 'overtake'] })), 'a slug must be expressible')
-  assert.ok(validate(doc({ ...base, jurisdiction: 'intl', text: 'w', mirrors: '13(a)' })),
-    'a verbatim paragraph may still name the intl provision it restates')
+  assert.ok(validate(doc({ ...base, text: 'w', mirrors: '13(a)' })), 'a verbatim paragraph may still name the intl provision it restates')
 })
 
-// --- ADR 0010: a document that withholds text must record when that
+// --- ADR 0010: a corpus that withholds text must record when that
 // withholding was last checked against the primary source --------------
-test('rules schema: a document with a withheld paragraph requires retrieved', () => {
-  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('rules.schema.json'))
-  const base = { path: '6', rule: '6', rule_title: 'Overtaking', jurisdiction: 'eu/cevni' }
-  const withheld = { ...base, text_status: 'withheld', withheld_reason: 'UN terms permit no redistribution' }
-  const verbatim = { ...base, text: 'Every vessel overtaking any other shall keep out of the way.' }
+test('corpus schema: a corpus with a withheld paragraph requires source.retrieved', () => {
+  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('corpus.schema.json'))
+  const withheld = { rule_title: 'Overtaking', text_status: 'withheld', withheld_reason: 'UN terms permit no redistribution' }
+  const verbatim = { rule_title: 'Overtaking', text: 'Every vessel overtaking any other shall keep out of the way.' }
+  const unretrieved = (paragraphs) => {
+    const d = corpusDoc(paragraphs)
+    return { ...d, source: { ...d.source, retrieved: null } }
+  }
+  assert.ok(validate(corpusDoc({ 6: withheld })), 'withheld + retrieved present must validate')
+  assert.ok(!validate(unretrieved({ 6: withheld })), 'withheld + retrieved null must be rejected')
+  assert.ok(validate(unretrieved({ 6: verbatim })), 'a corpus with no withheld paragraphs may leave retrieved null')
+})
 
-  assert.ok(
-    validate({ source: 'test', retrieved: '2026-09-09', paragraphs: { 6: withheld } }),
-    'withheld + retrieved present must validate',
-  )
-  assert.ok(
-    !validate({ source: 'test', paragraphs: { 6: withheld } }),
-    'withheld + retrieved absent must be rejected',
-  )
-  assert.ok(
-    validate({ source: 'test', paragraphs: { 6: verbatim } }),
-    'a document with no withheld paragraphs is not required to carry retrieved',
-  )
+// --- REQ-LANG-5 / ADR 0013: corpora key into the skeleton, and the index
+// and filenames agree with the metadata inside each file -------------------
+test('REQ-LANG-5: every corpus paragraph and gap resolves to a skeleton path, and none is both', () => {
+  for (const [id, c] of Object.entries(corpora)) {
+    for (const path of Object.keys(c.paragraphs)) {
+      assert.ok(rules.paragraphs[path], `${id}: paragraph ${path} is not a skeleton path`)
+      assert.equal(rules.paragraphs[path].jurisdiction, jurisdictionOf(c.edition), `${id}: ${path} belongs to another jurisdiction`)
+    }
+    for (const g of c.gaps ?? []) {
+      assert.ok(rules.paragraphs[g.path], `${id}: gap ${g.path} is not a skeleton path`)
+      assert.ok(!c.paragraphs[g.path], `${id}: ${g.path} is both a gap and present`)
+    }
+  }
+})
+
+test('ADR 0013: corpus id, file path and data/corpora.json agree with the metadata inside each corpus', () => {
+  const onDisk = new Set()
+  const walk = (dir) => {
+    for (const ent of readdirSync(dir, { withFileTypes: true })) {
+      const p = `${dir}/${ent.name}`
+      if (ent.isDirectory()) walk(p)
+      else if (ent.name.endsWith('.json')) onDisk.add(p.slice(p.indexOf('text/')))
+    }
+  }
+  walk(new URL('../data/text', import.meta.url).pathname)
+  const indexed = new Set(Object.values(corporaIndex.corpora).map((e) => e.file))
+  assert.deepEqual([...onDisk].sort(), [...indexed].sort(), 'data/corpora.json lists exactly the files under data/text/')
+  for (const [id, e] of Object.entries(corporaIndex.corpora)) {
+    const c = corpora[id]
+    assert.equal(c.id, id, `${e.file}: id inside the file is ${c.id}`)
+    assert.equal(id, `${c.edition}.${c.language}.${c.source_id}`, `${id}: id is not <edition>.<language>.<source_id>`)
+    const [jurisdiction, tag] = c.edition.split('@')
+    assert.equal(e.file, `text/${jurisdiction}/${tag}/${c.language}.${c.source_id}.json`, `${id}: file path disagrees with metadata`)
+    assert.deepEqual(
+      { edition: e.edition, language: e.language, source_id: e.source_id, tier: e.tier, paragraphs: e.paragraphs },
+      { edition: c.edition, language: c.language, source_id: c.source_id, tier: c.tier, paragraphs: Object.keys(c.paragraphs).length },
+      `${id}: data/corpora.json has drifted from the file`,
+    )
+    if (c.translation_of) assert.ok(corpora[c.translation_of], `${id}: translation_of names an unknown corpus`)
+  }
+})
+
+test('REQ-LANG-10 / GATE-2: every edition a corpus or the skeleton names is registered, under its own jurisdiction', () => {
+  for (const [jur, j] of Object.entries(editions.jurisdictions)) {
+    for (const ed of Object.keys(j.editions)) assert.equal(jurisdictionOf(ed), jur, `${ed} is registered under ${jur}`)
+    if (j.skeleton) {
+      assert.ok(j.editions[j.skeleton], `${jur}: skeleton edition ${j.skeleton} is not registered`)
+      assert.ok(Object.values(rules.paragraphs).some((p) => p.jurisdiction === jur), `${jur}: declares a skeleton edition but has no paragraphs`)
+    } else {
+      assert.ok(!Object.values(rules.paragraphs).some((p) => p.jurisdiction === jur), `${jur}: has paragraphs but declares no skeleton edition`)
+    }
+  }
+  for (const jur of new Set(Object.values(rules.paragraphs).map((p) => p.jurisdiction))) {
+    assert.ok(editions.jurisdictions[jur], `${jur}: in the skeleton but not in data/editions.json`)
+  }
+  for (const [id, c] of Object.entries(corpora)) {
+    const ed = editionOf(c.edition)
+    assert.ok(ed, `${id}: names unregistered edition ${c.edition}`)
+    // Not asserting the corpus edition equals the skeleton's: a stale corpus
+    // is legitimate. Asserting the comparison is possible, which is what
+    // REQ-LANG-10 asks -- and here it is an id comparison, not a string one.
+    assert.equal(typeof ed.amended_through, 'string')
+  }
 })
 
 // --- docs/adr/0009-data-version-stamp.md: data/version.json is the single stamp release-please owns --
@@ -2090,8 +2168,8 @@ test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs ov
   // 12: 18(b), whose subject is a sailing vessel, and 18(c), which does not
   // distinguish propulsion. 13(a) is 'notwithstanding' the whole of Sections I
   // and II. Both are on file, so the reason is asserted along with the data.
-  if (verbatim('18')) assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
-  if (verbatim('13(a)')) assert.match(rules.paragraphs['13(a)'].text, /^Notwithstanding/)
+  if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+  if (verbatim('13(a)')) assert.match(enUS.paragraphs['13(a)'].text, /^Notwithstanding/)
   for (const id of ['18b1', '18b2', '18b3', '18c1', '18c2', '13a']) {
     for (const t of ['12a1', '12a2', '12a3']) {
       assert.ok((byId.get(id)['rel:overrides'] ?? []).includes(t), `${id} does not override ${t}`)
@@ -2124,8 +2202,8 @@ test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm th
   // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so it governs
   // over Rule 15 as it does over Rule 12. Asserted from rules.json, so the data
   // cannot keep the override after losing the words.
-  if (verbatim('18')) assert.match(rules.paragraphs['18'].text, /Rules 9, 10,? and 13/)
-  if (verbatim('15(a)')) assert.match(rules.paragraphs['15(a)'].text, /power-driven vessels/)
+  if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+  if (verbatim('15(a)')) assert.match(enUS.paragraphs['15(a)'].text, /power-driven vessels/)
   for (const id of ['18a1', '18a2', '18a3', '18c1', '18c2', '18f1']) {
     assert.ok((byId.get(id)['rel:overrides'] ?? []).includes('15a-give-way'), `${id} does not override 15a-give-way`)
   }

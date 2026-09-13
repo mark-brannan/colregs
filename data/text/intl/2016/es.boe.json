@@ -1,0 +1,22 @@
+{
+ "id": "intl@2016.es.boe",
+ "edition": "intl@2016",
+ "language": "es",
+ "source_id": "boe",
+ "tier": "national",
+ "normalization": "NFC",
+ "source": {
+  "publisher": "Agencia Estatal Boletín Oficial del Estado",
+  "title": "Instrumento de Adhesión de España al Convenio sobre el Reglamento internacional para prevenir los abordajes, 1972",
+  "url": "https://www.boe.es/",
+  "retrieved": null
+ },
+ "rights": {
+  "source_text": "BOE aviso legal: reuse permitted, commercial and non-commercial; consolidated texts must not be represented as official",
+  "redistribution_basis": "BOE aviso legal, with attribution",
+  "attribution": "Fuente de los datos: Agencia Estatal Boletín Oficial del Estado",
+  "package_licence": "Apache-2.0"
+ },
+ "note": "Stub: the BOE instrument id is not yet located; resolve it and the retrieval date before any text lands -- Q-7.",
+ "paragraphs": {}
+}
