@@ -22,6 +22,7 @@
           "required": [
             "file",
             "edition",
+            "edition_status",
             "language",
             "source_id",
             "tier",
@@ -35,6 +36,9 @@
             "edition": {
               "type": "string",
               "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$"
+            },
+            "edition_status": {
+              "enum": ["verified", "claimed", "unknown"]
             },
             "language": {
               "type": "string",

@@ -4,6 +4,7 @@
   "intl@2016.en-US.uscg": {
    "file": "text/intl/2016/en-US.uscg.json",
    "edition": "intl@2016",
+   "edition_status": "verified",
    "language": "en-US",
    "source_id": "uscg",
    "tier": "national",
@@ -12,6 +13,7 @@
   "intl@2016.fi.finlex": {
    "file": "text/intl/2016/fi.finlex.json",
    "edition": "intl@2016",
+   "edition_status": "claimed",
    "language": "fi",
    "source_id": "finlex",
    "tier": "national",
@@ -20,6 +22,7 @@
   "intl@2016.es.boe": {
    "file": "text/intl/2016/es.boe.json",
    "edition": "intl@2016",
+   "edition_status": "claimed",
    "language": "es",
    "source_id": "boe",
    "tier": "national",
@@ -28,6 +31,7 @@
   "us/inland@2014.en-US.ecfr": {
    "file": "text/us/inland/2014/en-US.ecfr.json",
    "edition": "us/inland@2014",
+   "edition_status": "claimed",
    "language": "en-US",
    "source_id": "ecfr",
    "tier": "national",
