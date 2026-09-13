@@ -36,9 +36,9 @@
       "declined_in": "docs/adr/0003-language-as-a-dimension.md",
       "closing_event": "first-non-english-corpus",
       "trigger": "a jurisdiction publishing two editions in force concurrently",
-      "status": "open",
-      "settled_by": null,
-      "note": "Due at translation #1, not at 1.0."
+      "status": "adopted",
+      "settled_by": "docs/adr/0013-corpus-files-with-editions.md",
+      "note": "Re-taken and adopted ahead of its due date (translation #1) — ADR 0013 introduces the edition registry directly."
     },
     {
       "id": "GATE-3",
