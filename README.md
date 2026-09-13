@@ -95,8 +95,9 @@ identifier is immutable once published; retirements go through
 
 Requirements-first: sessions work against the numbered requirements in
 [`docs/requirements.md`](docs/requirements.md) and decisions live in
-[`docs/adr/`](docs/adr/) rather than being argued again. Four ideas carry
-most of it.
+[`docs/adr/`](docs/adr/) rather than being argued again; the amendment and
+national-adoption history is in [`docs/timeline.md`](docs/timeline.md). Four
+ideas carry most of it.
 
 **The paragraph is the unit.** Rule text, citations and composition all key
 on the paragraph path. Citation unit and composition unit turn out to be the
