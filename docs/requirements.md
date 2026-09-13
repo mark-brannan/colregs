@@ -842,6 +842,14 @@ Tracked here until resolved; each becomes an ADR.
   not only as a whole: clearing one candidate source unblocks that corpus
   alone, which is the cheap path when a demo needs a specific language
   early.
+  **BOE (`es`) and Finlex (`fi`) verified clean, 2026-09-09 and 2026-09-12**
+  (ADR 0001 amendments) — both permit the reuse REQ-PROV-2 needs. The UNTS
+  deposit (`en`/`fr`) is confirmed **blocked**, not merely unverified: no
+  UNTS-specific rights statement exists, and the reachable terms are the
+  same personal/non-commercial, no-derivative-works terms that block CEVNI.
+  `es` is the cheapest language to ship the first non-`intl` corpus; UNTS
+  needs written UN permission or a national republication before `en`/`fr`
+  can use the deposit route.
 - **Q-8** — Does the paragraph path survive the first national amalgamation?
   GATE-1's accepted risk rests on paragraph paths being immutable
   (REQ-MODEL-10) — adding and deprecating are fine, but a path that keeps its
