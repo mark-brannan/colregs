@@ -1,910 +1,652 @@
 {
- "source": "USCG Navigation Rules, amalgamated (International text only)",
- "source_url": "https://www.navcen.uscg.gov/navigation-rules-amalgamated",
- "retrieved": "2026-09-04",
- "note": "Verbatim International text of COLREGS 72 Parts A and B (Rules 1-19) and Part C (Lights and Shapes, Rules 20-31), plus the Rule 3 definitions those paragraphs depend on. Paragraph path is the citation unit. Inland-only text is not included in this ruleset.",
- "gaps": [
-  {
-   "path": "24(g)(i)",
-   "reason": "not present in the USCG amalgamated page used as the source; no verbatim text transcribed rather than reconstruct it"
+ "note": "Language-neutral skeleton: paragraph paths, rule numbers, jurisdictions and figures, keyed by paragraph path. The words live in data/text/ corpora, one per jurisdiction x language x source -- ADR 0003, ADR 0013.",
+ "amendment_state": {
+  "intl": {
+   "amended_through": "A.1085(28)",
+   "in_force": "2016-01-01",
+   "note": "2013 amendment (Part F) verified on imo.org; the resolution number and date are recalled, not yet verified against the resolution text -- REQ-LANG-10."
   }
- ],
+ },
  "paragraphs": {
   "1(a)": {
    "path": "1(a)",
    "rule": "1",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "These Rules shall apply to all vessels upon the high seas and in all waters connected therewith navigable by seagoing vessels."
+   "jurisdiction": "intl"
   },
   "1(b)": {
    "path": "1(b)",
    "rule": "1",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "Nothing in these Rules shall interfere with the operation of special rules made by an appropriate authority for roadsteads, harbors, rivers, lakes, or inland waterways connected with the high seas and navigable by seagoing vessels. Such special rules shall conform as closely as possible to these Rules."
+   "jurisdiction": "intl"
   },
   "1(c)": {
    "path": "1(c)",
    "rule": "1",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "Nothing in these Rules shall interfere with the operation of any special rules made by the Government of any State with respect to special rules with respect to additional station and signal lights and shapes or whistle signals for ships of war and vessels proceeding under convoy, or with respect to additional station or signal lights or shapes for fishing vessels engaged in fishing as a fleet. These additional stations or signal lights, shapes or whistle signals shall, so far as possible, be such that they cannot be mistaken for any light, shape, or signal authorized elsewhere under these Rules."
+   "jurisdiction": "intl"
   },
   "1(d)": {
    "path": "1(d)",
    "rule": "1",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "Traffic separation schemes may be adopted by the Organization for the purposes of these Rules."
+   "jurisdiction": "intl"
   },
   "1(e)": {
    "path": "1(e)",
    "rule": "1",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "Whenever the Government concerned shall have determined that a vessel of special construction or purpose cannot comply fully with the provisions of any of these Rules with respect to number, position, range or arc of visibility of lights or shapes, as well as to the disposition and characteristics of sound-signaling appliances, such vessel shall comply with such other provisions in regard to number, position, range or arc of visibility of lights or shapes, as well as to the disposition and characteristics of sound-signaling appliances, as the Government shall have determined to be the closest possible compliance with these Rules in respect to that vessel."
+   "jurisdiction": "intl"
   },
   "2(a)": {
    "path": "2(a)",
    "rule": "2",
-   "rule_title": "Responsibility",
-   "jurisdiction": "intl",
-   "text": "Nothing in these Rules shall exonerate any vessel, or the owner, master, or crew thereof, from the consequences of any neglect to comply with these Rules or of the neglect of any precaution which may be required by the ordinary practice of seamen, or by the special circumstances of the case."
+   "jurisdiction": "intl"
   },
   "2(b)": {
    "path": "2(b)",
    "rule": "2",
-   "rule_title": "Responsibility",
-   "jurisdiction": "intl",
-   "text": "In construing and complying with these Rules due regard shall be had to all dangers of navigation and collision and to any special circumstances, including the limitations of the vessels involved, which may make a departure from these Rules necessary to avoid immediate danger."
+   "jurisdiction": "intl"
   },
   "3(a)": {
    "path": "3(a)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The word \"vessel\" includes every description of watercraft, including non-displacement craft, WIG craft, and seaplanes, used or capable of being used as a means of transportation on water."
+   "jurisdiction": "intl"
   },
   "3(b)": {
    "path": "3(b)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term \"power-driven vessel\" means any vessel propelled by machinery."
+   "jurisdiction": "intl"
   },
   "3(c)": {
    "path": "3(c)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term \"sailing vessel\" means any vessel under sail provided that propelling machinery, if fitted, is not being used."
+   "jurisdiction": "intl"
   },
   "3(d)": {
    "path": "3(d)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term \"vessel engaged in fishing\" means any vessel fishing with nets, lines, trawls, or other fishing apparatus which restrict maneuverability, but does not include a vessel fishing with trolling lines or other fishing apparatus which do not restrict maneuverability."
+   "jurisdiction": "intl"
   },
   "3(e)": {
    "path": "3(e)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term \"seaplane\" includes any aircraft designed to maneuver on the water."
+   "jurisdiction": "intl"
   },
   "3(f)": {
    "path": "3(f)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term \"vessel not under command\" means a vessel which through some exceptional circumstance is unable to maneuver as required by these Rules and is therefore unable to keep out of the way of another vessel."
+   "jurisdiction": "intl"
   },
   "3(g)": {
    "path": "3(g)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term \"vessel restricted in her ability to maneuver\" means a vessel which from the nature of her work is restricted in her ability to maneuver as required by these Rules and is, therefore, unable to keep out of the way of another vessel. The term \"vessels restricted in their ability to maneuver\" shall include but not be limited to: (i) A vessel engaged in laying, servicing, or picking up a navigational mark, submarine cable or pipeline; (ii) A vessel engaged in dredging, surveying or underwater operations; (iii) A vessel engaged in replenishment or transferring persons, provisions or cargo while underway; (iv) A vessel engaged in the launching or recovery of aircraft; (v) A vessel engaged in mine clearance operations; (vi) A vessel engaged in a towing operation such as severely restricts the towing vessel and her tow in their ability to deviate from their course."
+   "jurisdiction": "intl"
   },
   "3(h)": {
    "path": "3(h)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term \"vessel constrained by her draft\" means a power-driven vessel which because of her draft in relation to the available depth and width of navigable water is severely restricted in her ability to deviate from the course she is following."
+   "jurisdiction": "intl"
   },
   "3(i)": {
    "path": "3(i)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The word \"underway\" means that a vessel is not at anchor, or made fast to the shore, or aground."
+   "jurisdiction": "intl"
   },
   "3(j)": {
    "path": "3(j)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The words \"length\" and \"breadth\" of a vessel mean her length overall and greatest breadth."
+   "jurisdiction": "intl"
   },
   "3(k)": {
    "path": "3(k)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "Vessels shall be deemed to be in sight of one another only when one can be observed visually from the other."
+   "jurisdiction": "intl"
   },
   "3(l)": {
    "path": "3(l)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term “restricted visibility” means any condition in which visibility is restricted by fog, mist, falling snow, heavy rainstorms, sandstorms, or any other similar causes."
+   "jurisdiction": "intl"
   },
   "3(m)": {
    "path": "3(m)",
    "rule": "3",
-   "rule_title": "General Definitions",
-   "jurisdiction": "intl",
-   "text": "The term “Wing-In-Ground (WIG)” craft means a multimodal craft which, in its main operational mode, flies in close proximity to the surface by utilizing surface-effect action."
+   "jurisdiction": "intl"
   },
   "4": {
    "path": "4",
    "rule": "4",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "Rules 4-10 apply in any condition of visibility."
+   "jurisdiction": "intl"
   },
   "5": {
    "path": "5",
    "rule": "5",
-   "rule_title": "Lookout",
-   "jurisdiction": "intl",
-   "text": "Every vessel shall at all times maintain a proper look-out by sight and hearing as well as by all available means appropriate in the prevailing circumstances and conditions so as to make a full appraisal of the situation and of the risk of collision."
+   "jurisdiction": "intl"
   },
   "6": {
    "path": "6",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "Every vessel shall at all times proceed at a safe speed so that she can take proper and effective action to avoid collision and be stopped within a distance appropriate to the prevailing circumstances and conditions. In determining a safe speed the following factors shall be among those taken into account:"
+   "jurisdiction": "intl"
   },
   "6(a)": {
    "path": "6(a)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "By all vessels:"
+   "jurisdiction": "intl"
   },
   "6(a)(i)": {
    "path": "6(a)(i)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The state of visibility;"
+   "jurisdiction": "intl"
   },
   "6(a)(ii)": {
    "path": "6(a)(ii)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The traffic density including concentrations of fishing vessels or any other vessels;"
+   "jurisdiction": "intl"
   },
   "6(a)(iii)": {
    "path": "6(a)(iii)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The maneuverability of the vessel with special reference to stopping distance and turning ability in the prevailing conditions;"
+   "jurisdiction": "intl"
   },
   "6(a)(iv)": {
    "path": "6(a)(iv)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "At night, the presence of background light such as from shore lights or from back scatter from her own lights;"
+   "jurisdiction": "intl"
   },
   "6(a)(v)": {
    "path": "6(a)(v)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The state of wind, sea and current, and the proximity of navigational hazards;"
+   "jurisdiction": "intl"
   },
   "6(a)(vi)": {
    "path": "6(a)(vi)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The draft in relation to the available depth of water."
+   "jurisdiction": "intl"
   },
   "6(b)": {
    "path": "6(b)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "Additionally, by vessels with operational radar:"
+   "jurisdiction": "intl"
   },
   "6(b)(i)": {
    "path": "6(b)(i)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The characteristics, efficiency and limitations of the radar equipment;"
+   "jurisdiction": "intl"
   },
   "6(b)(ii)": {
    "path": "6(b)(ii)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "Any constraints imposed by the radar range scale in use;"
+   "jurisdiction": "intl"
   },
   "6(b)(iii)": {
    "path": "6(b)(iii)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The effect on radar detection of the sea state, weather and other sources of interference;"
+   "jurisdiction": "intl"
   },
   "6(b)(iv)": {
    "path": "6(b)(iv)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The possibility that small vessels, ice and other floating objects may not be detected by radar at an adequate range;"
+   "jurisdiction": "intl"
   },
   "6(b)(v)": {
    "path": "6(b)(v)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The number, location and movement of vessels detected by radar;"
+   "jurisdiction": "intl"
   },
   "6(b)(vi)": {
    "path": "6(b)(vi)",
    "rule": "6",
-   "rule_title": "Safe Speed",
-   "jurisdiction": "intl",
-   "text": "The more exact assessment of the visibility that may be possible when radar is used to determine the range of vessels or other objects in the vicinity."
+   "jurisdiction": "intl"
   },
   "7(a)": {
    "path": "7(a)",
    "rule": "7",
-   "rule_title": "Risk of Collision",
-   "jurisdiction": "intl",
-   "text": "Every vessel shall use all available means appropriate to the prevailing circumstances and conditions to determine if risk of collision exists. If there is any doubt such risk shall be deemed to exist."
+   "jurisdiction": "intl"
   },
   "7(b)": {
    "path": "7(b)",
    "rule": "7",
-   "rule_title": "Risk of Collision",
-   "jurisdiction": "intl",
-   "text": "Proper use shall be made of radar equipment if fitted and operational, including long-range scanning to obtain early warning of risk of collision and radar plotting or equivalent systematic observation of detected objects."
+   "jurisdiction": "intl"
   },
   "7(c)": {
    "path": "7(c)",
    "rule": "7",
-   "rule_title": "Risk of Collision",
-   "jurisdiction": "intl",
-   "text": "Assumptions shall not be made on the basis of scanty information, especially scanty radar information."
+   "jurisdiction": "intl"
   },
   "7(d)": {
    "path": "7(d)",
    "rule": "7",
-   "rule_title": "Risk of Collision",
-   "jurisdiction": "intl",
-   "text": "In determining if risk of collision exists the following considerations shall be among those taken into account:"
+   "jurisdiction": "intl"
   },
   "7(d)(i)": {
    "path": "7(d)(i)",
    "rule": "7",
-   "rule_title": "Risk of Collision",
-   "jurisdiction": "intl",
-   "text": "Such risk shall be deemed to exist if the compass bearing of an approaching vessel does not appreciably change."
+   "jurisdiction": "intl"
   },
   "7(d)(ii)": {
    "path": "7(d)(ii)",
    "rule": "7",
-   "rule_title": "Risk of Collision",
-   "jurisdiction": "intl",
-   "text": "Such risk may sometimes exist even when an appreciable bearing change is evident, particularly when approaching a very large vessel or a tow or when approaching a vessel at close range."
+   "jurisdiction": "intl"
   },
   "8(a)": {
    "path": "8(a)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "Any action taken to avoid collision shall be taken in accordance with Rules 4-19, and shall if the circumstances of the case admit, be positive, made in ample time and with due regard to the observance of good seamanship."
+   "jurisdiction": "intl"
   },
   "8(b)": {
    "path": "8(b)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "Any alteration of course and/or speed to avoid collision shall, if the circumstances of the case admit, be large enough to be readily apparent to another vessel observing visually or by radar; a succession of small alterations of course and/or speed should be avoided."
+   "jurisdiction": "intl"
   },
   "8(c)": {
    "path": "8(c)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "If there is sufficient sea room, alteration of course alone may be the most effective action to avoid a close-quarters situation provided that it is made in good time, is substantial and does not result in another close-quarters situation."
+   "jurisdiction": "intl"
   },
   "8(d)": {
    "path": "8(d)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "Action taken to avoid collision with another vessel shall be such as to result in passing at a safe distance. The effectiveness of the action shall be carefully checked until the other vessel is finally past and clear."
+   "jurisdiction": "intl"
   },
   "8(e)": {
    "path": "8(e)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "If necessary to avoid collision or allow more time to assess the situation, a vessel shall slacken her speed or take all way off by stopping or reversing her means of propulsion."
+   "jurisdiction": "intl"
   },
   "8(f)(i)": {
    "path": "8(f)(i)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "A vessel which, by any of these Rules, is required not to impede the passage or safe passage of another vessel shall, when required by the circumstances of the case, take early action to allow sufficient sea room for the safe passage of the other vessel."
+   "jurisdiction": "intl"
   },
   "8(f)(ii)": {
    "path": "8(f)(ii)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "A vessel required not to impede the passage or safe passage of another vessel is not relieved of this obligation if approaching the other vessel so as to involve risk of collision and shall, when taking action, have full regard to the action which may be required by Rules 4-19."
+   "jurisdiction": "intl"
   },
   "8(f)(iii)": {
    "path": "8(f)(iii)",
    "rule": "8",
-   "rule_title": "Action to Avoid Collision",
-   "jurisdiction": "intl",
-   "text": "A vessel, the passage of which is not to be impeded remains fully obliged to comply with Rules 4-19 when the two vessels are approaching one another so as to involve risk of collision."
+   "jurisdiction": "intl"
   },
   "9(a)": {
    "path": "9(a)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "A vessel proceeding along the course of a narrow channel or fairway shall keep as near to the outer limit of the channel or fairway which lies on her starboard side as is safe and practicable."
+   "jurisdiction": "intl"
   },
   "9(b)": {
    "path": "9(b)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "A vessel of less than 20 meters in length or a sailing vessel shall not impede the passage of a vessel which can safely navigate only within a narrow channel or fairway."
+   "jurisdiction": "intl"
   },
   "9(c)": {
    "path": "9(c)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "A vessel engaged in fishing shall not impede the passage of any other vessel navigating within a narrow channel or fairway."
+   "jurisdiction": "intl"
   },
   "9(d)": {
    "path": "9(d)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "A vessel shall not cross a narrow channel or fairway if such crossing impedes the passage of a vessel which can safely navigate only within that channel or fairway. The latter vessel may use the signal prescribed in Rule 34(d) if in doubt as to the intention of the crossing vessel."
+   "jurisdiction": "intl"
   },
   "9(e)(i)": {
    "path": "9(e)(i)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "In a narrow channel or fairway when overtaking can take place only if the vessel to be overtaken has to take action to permit safe passing, the vessel intending to overtake shall indicate her intention by sounding the appropriate signal prescribed in Rule 34(c)(i). The vessel to be overtaken shall, if in agreement, sound the appropriate signal prescribed in Rule 34(c)(ii) and take steps to permit safe passing. If in doubt she may sound the signals prescribed in Rule 34(d)."
+   "jurisdiction": "intl"
   },
   "9(e)(ii)": {
    "path": "9(e)(ii)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "This rule does not relieve the overtaking vessel of her obligation under Rule 13."
+   "jurisdiction": "intl"
   },
   "9(f)": {
    "path": "9(f)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "A vessel nearing a bend or an area of a narrow channel or fairway where other vessels may be obscured by an intervening obstruction shall navigate with particular alertness and caution and shall sound the appropriate signal prescribed in Rule 34(e)."
+   "jurisdiction": "intl"
   },
   "9(g)": {
    "path": "9(g)",
    "rule": "9",
-   "rule_title": "Narrow Channels",
-   "jurisdiction": "intl",
-   "text": "Any vessel shall, if the circumstances of the case admit, avoid anchoring in a narrow channel."
+   "jurisdiction": "intl"
   },
   "10(a)": {
    "path": "10(a)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "This Rule applies to traffic separation schemes adopted by the Organization and does not relieve any vessel of her obligation under any other rule."
+   "jurisdiction": "intl"
   },
   "10(b)": {
    "path": "10(b)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel using a traffic separation scheme shall:"
+   "jurisdiction": "intl"
   },
   "10(b)(i)": {
    "path": "10(b)(i)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "Proceed in the appropriate traffic lane in the general direction of traffic flow for that lane."
+   "jurisdiction": "intl"
   },
   "10(b)(ii)": {
    "path": "10(b)(ii)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "So far as is practicable keep clear of a traffic separation line or separation zone."
+   "jurisdiction": "intl"
   },
   "10(b)(iii)": {
    "path": "10(b)(iii)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "Normally join or leave a traffic lane at the termination of the lane, but when joining or leaving from either side shall do so at as small an angle to the general direction of traffic flow as practicable."
+   "jurisdiction": "intl"
   },
   "10(c)": {
    "path": "10(c)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel, shall so far as practicable, avoid crossing traffic lanes but if obliged to do so shall cross on a heading as nearly as practicable at right angles to the general direction of traffic flow."
+   "jurisdiction": "intl"
   },
   "10(d)(i)": {
    "path": "10(d)(i)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel shall not use an inshore traffic zone when she can safely use the appropriate traffic lane within the adjacent traffic separation scheme. However, vessels of less than 20 meters in length, sailing vessels and vessels engaged in fishing may use the inshore traffic zone."
+   "jurisdiction": "intl"
   },
   "10(d)(ii)": {
    "path": "10(d)(ii)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "Notwithstanding Rule 10(d)(i), a vessel may use an inshore traffic zone when en route to or from a port, offshore installation or structure, pilot station or any other place situated within the inshore traffic zone, or to avoid immediate danger."
+   "jurisdiction": "intl"
   },
   "10(e)": {
    "path": "10(e)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel, other than a crossing vessel or a vessel joining or leaving a lane shall not normally enter a separation zone or cross a separation line except:"
+   "jurisdiction": "intl"
   },
   "10(e)(i)": {
    "path": "10(e)(i)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "In cases of emergency to avoid immediate danger;"
+   "jurisdiction": "intl"
   },
   "10(e)(ii)": {
    "path": "10(e)(ii)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "To engage in fishing within a separation zone."
+   "jurisdiction": "intl"
   },
   "10(f)": {
    "path": "10(f)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel navigating in areas near the terminations of traffic separation schemes shall do so with particular caution."
+   "jurisdiction": "intl"
   },
   "10(g)": {
    "path": "10(g)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel shall so far as practicable avoid anchoring in a traffic separation scheme or in areas near its terminations."
+   "jurisdiction": "intl"
   },
   "10(h)": {
    "path": "10(h)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel not using a traffic separating scheme shall avoid it by as wide a margin as is practicable."
+   "jurisdiction": "intl"
   },
   "10(i)": {
    "path": "10(i)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel engaged in fishing shall not impede the passage of any vessel following a traffic lane."
+   "jurisdiction": "intl"
   },
   "10(j)": {
    "path": "10(j)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel of less than 20 meters in length or a sailing vessel shall not impede the safe passage of a power-driven vessel following a traffic lane."
+   "jurisdiction": "intl"
   },
   "10(k)": {
    "path": "10(k)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel restricted in her ability to maneuver when engaged in an operation for the maintenance of safety of navigation in a traffic separation scheme is exempted from complying with this Rule to the extent necessary to carry out the operation."
+   "jurisdiction": "intl"
   },
   "10(l)": {
    "path": "10(l)",
    "rule": "10",
-   "rule_title": "Traffic Separation Schemes",
-   "jurisdiction": "intl",
-   "text": "A vessel restricted in her ability to maneuver when engaged in an operation for the laying, servicing or picking up of a submarine cable, within a traffic separation scheme, is exempted from complying with this Rule to the extent necessary to carry out the operation."
+   "jurisdiction": "intl"
   },
   "11": {
    "path": "11",
    "rule": "11",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "Rules 11-18 apply to vessels in sight of one another."
+   "jurisdiction": "intl"
   },
   "12(a)": {
    "path": "12(a)",
    "rule": "12",
-   "rule_title": "Sailing Vessels",
-   "jurisdiction": "intl",
-   "text": "When two sailing vessels are approaching one another, so as to involve risk of collision, one of them shall keep out of the way of the other as follows:"
+   "jurisdiction": "intl"
   },
   "12(a)(i)": {
    "path": "12(a)(i)",
    "rule": "12",
-   "rule_title": "Sailing Vessels",
-   "jurisdiction": "intl",
-   "text": "when each has the wind on a different side, the vessel which has the wind on the port side shall keep out of the way of the other;"
+   "jurisdiction": "intl"
   },
   "12(a)(ii)": {
    "path": "12(a)(ii)",
    "rule": "12",
-   "rule_title": "Sailing Vessels",
-   "jurisdiction": "intl",
-   "text": "when both have the wind on the same side, the vessel which is to windward shall keep out of the way of the vessel which is to leeward;"
+   "jurisdiction": "intl"
   },
   "12(a)(iii)": {
    "path": "12(a)(iii)",
    "rule": "12",
-   "rule_title": "Sailing Vessels",
-   "jurisdiction": "intl",
-   "text": "if a vessel with the wind on the port side sees a vessel to windward and cannot determine with certainty whether the other vessel has the wind on the port or on the starboard side, she shall keep out of the way of the other."
+   "jurisdiction": "intl"
   },
   "12(b)": {
    "path": "12(b)",
    "rule": "12",
-   "rule_title": "Sailing Vessels",
-   "jurisdiction": "intl",
-   "text": "For the purposes of this Rule, the windward side shall be deemed to be the side opposite that on which the mainsail is carried or, in the case of a square-rigged vessel, the side opposite to that on which the largest fore-and-aft sail is carried."
+   "jurisdiction": "intl"
   },
   "13(a)": {
    "path": "13(a)",
    "rule": "13",
-   "rule_title": "Overtaking",
-   "jurisdiction": "intl",
-   "text": "Notwithstanding anything contained in the Rules 4-18, any vessel overtaking any other shall keep out of the way of the vessel being overtaken."
+   "jurisdiction": "intl"
   },
   "13(b)": {
    "path": "13(b)",
    "rule": "13",
-   "rule_title": "Overtaking",
-   "jurisdiction": "intl",
-   "text": "A vessel shall be deemed to be overtaking when coming up with a another vessel from a direction more than 22.5 degrees abaft her beam, that is, in such a position with reference to the vessel she is overtaking, that at night she would be able to see only the sternlight of that vessel but neither of her sidelights."
+   "jurisdiction": "intl"
   },
   "13(c)": {
    "path": "13(c)",
    "rule": "13",
-   "rule_title": "Overtaking",
-   "jurisdiction": "intl",
-   "text": "When a vessel is in any doubt as to whether she is overtaking another, she shall assume that this is the case and act accordingly."
+   "jurisdiction": "intl"
   },
   "13(d)": {
    "path": "13(d)",
    "rule": "13",
-   "rule_title": "Overtaking",
-   "jurisdiction": "intl",
-   "text": "Any subsequent alteration of the bearing between the two vessels shall not make the overtaking vessel a crossing vessel within the meaning of these Rules or relieve her of the duty of keeping clear of the overtaken vessel until she is finally past and clear."
+   "jurisdiction": "intl"
   },
   "14(a)": {
    "path": "14(a)",
    "rule": "14",
-   "rule_title": "Head-on Situation",
-   "jurisdiction": "intl",
-   "text": "When two power-driven vessels are meeting on reciprocal or nearly reciprocal courses so as to involve risk of collision each shall alter her course to starboard so that each shall pass on the port side of the other."
+   "jurisdiction": "intl"
   },
   "14(b)": {
    "path": "14(b)",
    "rule": "14",
-   "rule_title": "Head-on Situation",
-   "jurisdiction": "intl",
-   "text": "Such a situation shall be deemed to exist when a vessel sees the other ahead or nearly ahead and by night she could see the masthead lights of the other in a line or nearly in a line and/or both sidelights and by day she observes the corresponding aspect of the other vessel."
+   "jurisdiction": "intl"
   },
   "14(c)": {
    "path": "14(c)",
    "rule": "14",
-   "rule_title": "Head-on Situation",
-   "jurisdiction": "intl",
-   "text": "When a vessel is in any doubt as to whether such a situation exists she shall assume that it does exist and act accordingly."
+   "jurisdiction": "intl"
   },
   "15(a)": {
    "path": "15(a)",
    "rule": "15",
-   "rule_title": "Crossing Situation",
-   "jurisdiction": "intl",
-   "text": "When two power-driven vessels are crossing so as to involve risk of collision, the vessel which has the other on her own starboard side shall keep out of the way and shall, if the circumstances of the case admit, avoid crossing ahead of the other vessel."
+   "jurisdiction": "intl"
   },
   "16": {
    "path": "16",
    "rule": "16",
-   "rule_title": "Action by Give-way Vessel",
-   "jurisdiction": "intl",
-   "text": "Every vessel which is directed to keep out of the way of another vessel shall, so far as possible, take early and substantial action to keep well clear."
+   "jurisdiction": "intl"
   },
   "17(a)(i)": {
    "path": "17(a)(i)",
    "rule": "17",
-   "rule_title": "Action by Stand-on Vessel",
-   "jurisdiction": "intl",
-   "text": "Where one of two vessels is to keep out of the way, the other shall keep her course and speed."
+   "jurisdiction": "intl"
   },
   "17(a)(ii)": {
    "path": "17(a)(ii)",
    "rule": "17",
-   "rule_title": "Action by Stand-on Vessel",
-   "jurisdiction": "intl",
-   "text": "The latter vessel may, however, take action to avoid collision by her maneuver alone, as soon as it becomes apparent to her that the vessel required to keep out of the way is not taking appropriate action in compliance with these Rules."
+   "jurisdiction": "intl"
   },
   "17(b)": {
    "path": "17(b)",
    "rule": "17",
-   "rule_title": "Action by Stand-on Vessel",
-   "jurisdiction": "intl",
-   "text": "When, from any cause, the vessel required to keep her course and speed finds herself so close that collision cannot be avoided by the action of the give-way vessel alone, she shall take such action as will best aid to avoid collision."
+   "jurisdiction": "intl"
   },
   "17(c)": {
    "path": "17(c)",
    "rule": "17",
-   "rule_title": "Action by Stand-on Vessel",
-   "jurisdiction": "intl",
-   "text": "A power-driven vessel which takes action in a crossing situation in accordance with Rule 17(a)(ii) to avoid collision with another power-driven vessel shall, if the circumstances of the case admit, not alter course to port for a vessel on her own port side."
+   "jurisdiction": "intl"
   },
   "17(d)": {
    "path": "17(d)",
    "rule": "17",
-   "rule_title": "Action by Stand-on Vessel",
-   "jurisdiction": "intl",
-   "text": "This Rule does not relieve the give-way vessel of her obligation to keep out of the way."
+   "jurisdiction": "intl"
   },
   "18": {
    "path": "18",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "Except where Rules 9, 10, and 13 otherwise require:"
+   "jurisdiction": "intl"
   },
   "18(a)": {
    "path": "18(a)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "A power-driven vessel underway shall keep out of the way of:"
+   "jurisdiction": "intl"
   },
   "18(a)(i)": {
    "path": "18(a)(i)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel not under command;"
+   "jurisdiction": "intl"
   },
   "18(a)(ii)": {
    "path": "18(a)(ii)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel restricted in her ability to maneuver;"
+   "jurisdiction": "intl"
   },
   "18(a)(iii)": {
    "path": "18(a)(iii)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel engaged in fishing;"
+   "jurisdiction": "intl"
   },
   "18(a)(iv)": {
    "path": "18(a)(iv)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a sailing vessel."
+   "jurisdiction": "intl"
   },
   "18(b)": {
    "path": "18(b)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "A sailing vessel underway shall keep out of the way of:"
+   "jurisdiction": "intl"
   },
   "18(b)(i)": {
    "path": "18(b)(i)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel not under command;"
+   "jurisdiction": "intl"
   },
   "18(b)(ii)": {
    "path": "18(b)(ii)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel restricted in her ability to maneuver;"
+   "jurisdiction": "intl"
   },
   "18(b)(iii)": {
    "path": "18(b)(iii)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel engaged in fishing."
+   "jurisdiction": "intl"
   },
   "18(c)": {
    "path": "18(c)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "A vessel engaged in fishing when underway shall, so far as possible, keep out of the way of:"
+   "jurisdiction": "intl"
   },
   "18(c)(i)": {
    "path": "18(c)(i)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel not under command;"
+   "jurisdiction": "intl"
   },
   "18(c)(ii)": {
    "path": "18(c)(ii)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a vessel restricted in her ability to maneuver."
+   "jurisdiction": "intl"
   },
   "18(d)(i)": {
    "path": "18(d)(i)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "Any vessel other than a vessel not under command or a vessel restricted in her ability to maneuver shall, if the circumstances of the case admit, avoid impeding the safe passage of a vessel constrained by her draft, exhibiting the signals in Rule 28."
+   "jurisdiction": "intl"
   },
   "18(d)(ii)": {
    "path": "18(d)(ii)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "A vessel constrained by her draft shall navigate with particular caution having full regard to her special condition."
+   "jurisdiction": "intl"
   },
   "18(e)": {
    "path": "18(e)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "A seaplane on the water shall, in general, keep well clear of all vessels and avoid impeding their navigation. In circumstances, however, where risk of collision exists, she shall comply with Rules 4-19."
+   "jurisdiction": "intl"
   },
   "18(f)(i)": {
    "path": "18(f)(i)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "A WIG craft shall, when taking off, landing and in flight near the surface, keep well clear of all other vessels and avoid impeding their navigation;"
+   "jurisdiction": "intl"
   },
   "18(f)(ii)": {
    "path": "18(f)(ii)",
    "rule": "18",
-   "rule_title": "Responsibilities Between Vessels",
-   "jurisdiction": "intl",
-   "text": "a WIG craft operating on the water surface shall comply with Rules 4-19 as a power-driven vessel."
+   "jurisdiction": "intl"
   },
   "19(a)": {
    "path": "19(a)",
    "rule": "19",
-   "rule_title": "Conduct of Vessels in Restricted Visibility",
-   "jurisdiction": "intl",
-   "text": "This Rule applies to vessels not in sight of one another when navigating in or near an area of restricted visibility."
+   "jurisdiction": "intl"
   },
   "19(b)": {
    "path": "19(b)",
    "rule": "19",
-   "rule_title": "Conduct of Vessels in Restricted Visibility",
-   "jurisdiction": "intl",
-   "text": "Every vessel shall proceed at a safe speed adapted to the prevailing circumstances and conditions of restricted visibility. A power-driven vessel shall have her engines ready for immediate maneuver."
+   "jurisdiction": "intl"
   },
   "19(c)": {
    "path": "19(c)",
    "rule": "19",
-   "rule_title": "Conduct of Vessels in Restricted Visibility",
-   "jurisdiction": "intl",
-   "text": "Every vessel shall have due regard to the prevailing circumstances and conditions of restricted visibility when complying with Rules 4-10."
+   "jurisdiction": "intl"
   },
   "19(d)": {
    "path": "19(d)",
    "rule": "19",
-   "rule_title": "Conduct of Vessels in Restricted Visibility",
-   "jurisdiction": "intl",
-   "text": "A vessel which detects by radar alone the presence of another vessel shall determine if a close-quarters situation is developing and/or risk of collision exists. If so, she shall take avoiding action in ample time, provided that when such action consists of an alteration in course, so far as possible the following shall be avoided:"
+   "jurisdiction": "intl"
   },
   "19(d)(i)": {
    "path": "19(d)(i)",
    "rule": "19",
-   "rule_title": "Conduct of Vessels in Restricted Visibility",
-   "jurisdiction": "intl",
-   "text": "An alteration of course to port for a vessel forward of the beam, other than for a vessel being overtaken;"
+   "jurisdiction": "intl"
   },
   "19(d)(ii)": {
    "path": "19(d)(ii)",
    "rule": "19",
-   "rule_title": "Conduct of Vessels in Restricted Visibility",
-   "jurisdiction": "intl",
-   "text": "An alteration of course toward a vessel abeam or abaft the beam."
+   "jurisdiction": "intl"
   },
   "19(e)": {
    "path": "19(e)",
    "rule": "19",
-   "rule_title": "Conduct of Vessels in Restricted Visibility",
-   "jurisdiction": "intl",
-   "text": "Except where it has been determined that a risk of collision does not exist, every vessel which hears apparently forward of her beam the fog signal of another vessel, or which cannot avoid a close-quarters situation with another vessel forward of her beam, shall reduce her speed to be the minimum at which she can be kept on her course. She shall if necessary take all her way off and in any event navigate with extreme caution until danger of collision is over."
+   "jurisdiction": "intl"
   },
   "20(a)": {
    "path": "20(a)",
    "rule": "20",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "Rules 20-31 shall be complied with in all weathers."
+   "jurisdiction": "intl"
   },
   "20(b)": {
    "path": "20(b)",
    "rule": "20",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "The Rules concerning lights shall be complied with from sunset to sunrise, and during such times no other lights shall be exhibited, except such lights which cannot be mistaken for the lights specified in these Rules or do not impair their visibility or distinctive character, or interfere with the keeping of a proper look-out."
+   "jurisdiction": "intl"
   },
   "20(c)": {
    "path": "20(c)",
    "rule": "20",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "The lights prescribed by these Rules shall, if carried, also be exhibited from sunrise to sunset in restricted visibility and may be exhibited in all other circumstances when it is deemed necessary."
+   "jurisdiction": "intl"
   },
   "20(d)": {
    "path": "20(d)",
    "rule": "20",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "The Rules concerning shapes shall be complied with by day."
+   "jurisdiction": "intl"
   },
   "20(e)": {
    "path": "20(e)",
    "rule": "20",
-   "rule_title": "Application",
-   "jurisdiction": "intl",
-   "text": "The lights and shapes specified in these Rules shall comply with the provisions of Annex I of these Rules."
+   "jurisdiction": "intl"
   },
   "21(a)": {
    "path": "21(a)",
    "rule": "21",
-   "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Masthead light\" means a white light placed over the fore and aft centerline of the vessel showing an unbroken light over an arc of the horizon of 225 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on either side of the vessel.",
    "images": [
     "mastheadarc.gif"
    ]
@@ -912,9 +654,7 @@
   "21(b)": {
    "path": "21(b)",
    "rule": "21",
-   "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Sidelights\" means a green light on the starboard side and a red light on the port side each showing an unbroken light over an arc of the horizon of 112.5 degrees and so fixed as to show the light from right ahead to 22.5 degrees abaft the beam on its respective side. In a vessel of less than 20 meters in length the sidelights may be combined in one lantern carried on the fore and aft centerline of the vessel.",
    "images": [
     "portarc.gif",
     "stbdarc.gif"
@@ -923,9 +663,7 @@
   "21(c)": {
    "path": "21(c)",
    "rule": "21",
-   "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Sternlight\" means a white light placed as nearly as practicable at the stern showing an unbroken light over an arc of the horizon of 135 degrees and so fixed as to show the light 67.5 degrees from right aft on each side of the vessel.",
    "images": [
     "sternarc.gif"
    ]
@@ -933,9 +671,7 @@
   "21(d)": {
    "path": "21(d)",
    "rule": "21",
-   "rule_title": "Definitions",
    "jurisdiction": "intl",
-   "text": "\"Towing light\" means a yellow light having the same characteristics as the \"sternlight\" defined in Rule 21(c).",
    "images": [
     "towingarc.gif"
    ]
@@ -943,58 +679,42 @@
   "21(e)": {
    "path": "21(e)",
    "rule": "21",
-   "rule_title": "Definitions",
-   "jurisdiction": "intl",
-   "text": "\"All-round light\" means a light showing an unbroken light over an arc of the horizon of 360 degrees."
+   "jurisdiction": "intl"
   },
   "21(f)": {
    "path": "21(f)",
    "rule": "21",
-   "rule_title": "Definitions",
-   "jurisdiction": "intl",
-   "text": "\"Flashing light\" means a light flashing at regular intervals at a frequency of 120 flashes or more per minute."
+   "jurisdiction": "intl"
   },
   "22": {
    "path": "22",
    "rule": "22",
-   "rule_title": "Visibility of Lights",
-   "jurisdiction": "intl",
-   "text": "The lights prescribed in Rules (Subpart C) shall have an intensity as specified in Annex I to these Rules (33 CFR part 84), so as to be visible at the following minimum ranges:"
+   "jurisdiction": "intl"
   },
   "22(a)": {
    "path": "22(a)",
    "rule": "22",
-   "rule_title": "Visibility of Lights",
-   "jurisdiction": "intl",
-   "text": "In vessels of 50 meters or more in length: (i) a masthead light, 6 miles; (ii) a sidelight, 3 miles; (iii) a sternlight, 3 miles; (iv) a towing light, 3 miles; and (v) a white, red, green or yellow all-round light, 3 miles."
+   "jurisdiction": "intl"
   },
   "22(b)": {
    "path": "22(b)",
    "rule": "22",
-   "rule_title": "Visibility of Lights",
-   "jurisdiction": "intl",
-   "text": "In vessels of 12 meters or more in length but less than 50 meters in length: (i) a masthead light, 5 miles; except that where the length of the vessel is less than 20 meters, 3 miles; (ii) a sidelight, 2 miles; (iii) a sternlight, 2 miles; (iv) a towing light, 2 miles; and (v) a white, red, green or yellow all-round light, 2 miles."
+   "jurisdiction": "intl"
   },
   "22(c)": {
    "path": "22(c)",
    "rule": "22",
-   "rule_title": "Visibility of Lights",
-   "jurisdiction": "intl",
-   "text": "In vessels of less than 12 meters in length: (i) a masthead light, 2 miles; (ii) a sidelight, 1 mile; (iii) a sternlight, 2 miles; (iv) a towing light, 2 miles; and (v) a white, red, green or yellow all-round light, 2 miles."
+   "jurisdiction": "intl"
   },
   "22(d)": {
    "path": "22(d)",
    "rule": "22",
-   "rule_title": "Visibility of Lights",
-   "jurisdiction": "intl",
-   "text": "In inconspicuous, partly submerged vessels or objects being towed: (i) a white all-round light, 3 miles."
+   "jurisdiction": "intl"
   },
   "23(a)": {
    "path": "23(a)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
    "jurisdiction": "intl",
-   "text": "A power-driven vessel underway shall exhibit:",
    "images": [
     "NRHB_23_a.png"
    ]
@@ -1002,9 +722,7 @@
   "23(a)(i)": {
    "path": "23(a)(i)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
    "jurisdiction": "intl",
-   "text": "a masthead light forward;",
    "images": [
     "NRHB_23_a.png"
    ]
@@ -1012,9 +730,7 @@
   "23(a)(ii)": {
    "path": "23(a)(ii)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
    "jurisdiction": "intl",
-   "text": "a second masthead light abaft of and higher than the forward one; except that a vessel of less than 50 meters in length shall not be obliged to exhibit such a light but may do so;",
    "images": [
     "NRHB_23_a.png",
     "NRHB_23_aii.png"
@@ -1023,23 +739,17 @@
   "23(a)(iii)": {
    "path": "23(a)(iii)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
-   "jurisdiction": "intl",
-   "text": "sidelights; and,"
+   "jurisdiction": "intl"
   },
   "23(a)(iv)": {
    "path": "23(a)(iv)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
-   "jurisdiction": "intl",
-   "text": "a sternlight."
+   "jurisdiction": "intl"
   },
   "23(b)": {
    "path": "23(b)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
    "jurisdiction": "intl",
-   "text": "An air-cushion vessel when operating in non-displacement mode shall, in addition to the lights prescribed in Rule 23(a), exhibit an all-round flashing yellow light.",
    "images": [
     "NRHB_23_b.png"
    ]
@@ -1047,16 +757,12 @@
   "23(c)": {
    "path": "23(c)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
-   "jurisdiction": "intl",
-   "text": "A WIG craft only when taking off, landing and in flight near the surface shall, in addition to the lights prescribed in Rule 23(a), exhibit a high intensity all-round flashing red light."
+   "jurisdiction": "intl"
   },
   "23(d)(i)": {
    "path": "23(d)(i)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
    "jurisdiction": "intl",
-   "text": "A power-driven vessel of less than 12 meters in length may in lieu of the lights prescribed in Rule 23(a) exhibit an all-round white light and sidelights.",
    "images": [
     "NRHB_23_di.png"
    ]
@@ -1064,9 +770,7 @@
   "23(d)(ii)": {
    "path": "23(d)(ii)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
    "jurisdiction": "intl",
-   "text": "a power-driven vessel of less than 7 meters in length whose maximum speed does not exceed 7 knots may in lieu of the lights prescribed in Rule 23(a) exhibit an all-round white light and shall, if practicable, also exhibit sidelights.",
    "images": [
     "NRHB_23_Intl_dii.png"
    ]
@@ -1074,16 +778,12 @@
   "23(d)(iii)": {
    "path": "23(d)(iii)",
    "rule": "23",
-   "rule_title": "Power-driven Vessels Underway",
-   "jurisdiction": "intl",
-   "text": "the masthead light or all-round white light on a power-driven vessel of less than 12 meters in length may be displaced from the fore and aft center line of the vessel if center line fitting is not practicable, provided that the sidelights are combined in one lantern which shall be carried on the fore and aft center line of the vessel or located as nearly as practicable in the same fore and aft line as the masthead light or the all-round white light."
+   "jurisdiction": "intl"
   },
   "24(a)": {
    "path": "24(a)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "A power-driven vessel when towing astern shall exhibit:",
    "images": [
     "NRHB_24_a.png"
    ]
@@ -1091,9 +791,7 @@
   "24(a)(i)": {
    "path": "24(a)(i)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "Instead of the light prescribed in Rule 23(a)(i) or Rule 23(a)(ii), two masthead lights in a vertical line. When the length of the tow, measuring from the stern of the towing vessel to the after end of the tow, exceeds 200 meters, three such lights in a vertical line;",
    "images": [
     "NRHB_24_a.png"
    ]
@@ -1101,23 +799,17 @@
   "24(a)(ii)": {
    "path": "24(a)(ii)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
-   "jurisdiction": "intl",
-   "text": "sidelights;"
+   "jurisdiction": "intl"
   },
   "24(a)(iii)": {
    "path": "24(a)(iii)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
-   "jurisdiction": "intl",
-   "text": "a sternlight;"
+   "jurisdiction": "intl"
   },
   "24(a)(iv)": {
    "path": "24(a)(iv)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "a towing light in a vertical line above the sternlight; and",
    "images": [
     "towingarc.gif"
    ]
@@ -1125,9 +817,7 @@
   "24(a)(v)": {
    "path": "24(a)(v)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "when the length of the tow exceeds 200 meters, a diamond shape where it can best be seen.",
    "images": [
     "NRHB_24_av.png"
    ]
@@ -1135,9 +825,7 @@
   "24(b)": {
    "path": "24(b)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "When a pushing vessel and a vessel being pushed ahead are rigidly connected in a composite unit they shall be regarded as a power-driven vessel and exhibit the lights prescribed in Rule 23(a).",
    "images": [
     "NRHB_23_a.png"
    ]
@@ -1145,16 +833,12 @@
   "24(c)": {
    "path": "24(c)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
-   "jurisdiction": "intl",
-   "text": "A power-driven vessel when pushing ahead or towing alongside, except in the case of a composite unit, shall exhibit: (i) instead of the light prescribed in Rule 23(a)(i) or Rule 23(a)(ii), two masthead lights in a vertical line; (ii) sidelights; (iii) a sternlight."
+   "jurisdiction": "intl"
   },
   "24(d)": {
    "path": "24(d)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "A power-driven vessel to which Rule 24(a) or (c) applies shall also comply with Rule 23(a)(ii).",
    "images": [
     "NRHB_24_d.png"
    ]
@@ -1162,9 +846,7 @@
   "24(e)": {
    "path": "24(e)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "A vessel or object being towed, other than those mentioned in Rule 24(g), shall exhibit: (i) sidelights; (ii) a sternlight; (iii) when the length of the tow exceeds 200 meters, a diamond shape where it can best be seen.",
    "images": [
     "NRHB_24_e.png",
     "NRHB_24_eiii.png"
@@ -1173,9 +855,7 @@
   "24(f)": {
    "path": "24(f)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
    "jurisdiction": "intl",
-   "text": "Provided that any number of vessels being towed alongside or pushed in a group shall be lighted as one vessel. (i) a vessel being pushed ahead, not being part of a composite unit, shall exhibit at the forward end, sidelights; (ii) a vessel being towed alongside shall exhibit a sternlight and at the forward end, sidelights.",
    "images": [
     "NRHB_24_f.png"
    ]
@@ -1183,30 +863,27 @@
   "24(g)": {
    "path": "24(g)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
-   "jurisdiction": "intl",
-   "text": "An inconspicuous, partly submerged vessel or object, or combination of such vessels or objects being towed, shall exhibit: (ii) if it is 25 meters or more in breadth, two additional all-round white lights at or near the extremities of its breadth; (iii) if it exceeds 100 meters in length, additional all-round white lights between the lights prescribed in Rule 24(g)(i) and so that the distance between the lights shall not exceed 100 meters; (iv) a diamond shape at or near the aftermost extremity of the last vessel or object being towed; and if the length of the tow exceeds 200 meters an additional diamond shape where it can best be seen and located as far forward as is practicable."
+   "jurisdiction": "intl"
+  },
+  "24(g)(i)": {
+   "path": "24(g)(i)",
+   "rule": "24",
+   "jurisdiction": "intl"
   },
   "24(h)": {
    "path": "24(h)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
-   "jurisdiction": "intl",
-   "text": "Where from any sufficient cause it is impracticable for a vessel or object being towed to exhibit the lights or shapes prescribed in Rule 24(e) or (g), all possible measures shall be taken to light the vessel or object towed or at least to indicate the presence of such vessel or object."
+   "jurisdiction": "intl"
   },
   "24(i)": {
    "path": "24(i)",
    "rule": "24",
-   "rule_title": "Towing and Pushing",
-   "jurisdiction": "intl",
-   "text": "Where from any sufficient cause it is impracticable for a vessel not normally engaged in towing operations to display the lights prescribed in Rule 24(a), Rule 24(c), such vessel shall not be required to exhibit those lights when engaged in towing another vessel in distress or otherwise in need of assistance. All possible measures shall be taken to indicate the nature of the relationship between the towing vessel and the vessel being towed as authorized by Rule 36, in particular by illuminating the towline."
+   "jurisdiction": "intl"
   },
   "25(a)": {
    "path": "25(a)",
    "rule": "25",
-   "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
    "jurisdiction": "intl",
-   "text": "A sailing vessel underway shall exhibit: (i) sidelights; (ii) a sternlight.",
    "images": [
     "NRHB_25_a.png"
    ]
@@ -1214,9 +891,7 @@
   "25(b)": {
    "path": "25(b)",
    "rule": "25",
-   "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
    "jurisdiction": "intl",
-   "text": "In a sailing vessel of less than 20 meters in length the lights prescribed in Rule 25(a) may be combined in one lantern carried at or near the top of the mast where it can best be seen.",
    "images": [
     "NRHB_25_b.png"
    ]
@@ -1224,9 +899,7 @@
   "25(c)": {
    "path": "25(c)",
    "rule": "25",
-   "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
    "jurisdiction": "intl",
-   "text": "A sailing vessel underway may, in addition to the lights prescribed in Rule 25(a), exhibit at or near the top of the mast, where they can best be seen, two all-round lights in a vertical line, the upper being red and the lower green, but these lights shall not be exhibited in conjunction with the combined lantern permitted by Rule 25(b).",
    "images": [
     "NRHB_25_c.png"
    ]
@@ -1234,9 +907,7 @@
   "25(d)(i)": {
    "path": "25(d)(i)",
    "rule": "25",
-   "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
    "jurisdiction": "intl",
-   "text": "A sailing vessel of less than 7 meters in length shall, if practicable, exhibit the lights prescribed in Rule 25(a) or (b), but if she does not, she shall have ready at hand an electric torch or lighted lantern showing a white light which shall be exhibited in sufficient time to prevent collision.",
    "images": [
     "NRHB_25_d.png"
    ]
@@ -1244,9 +915,7 @@
   "25(d)(ii)": {
    "path": "25(d)(ii)",
    "rule": "25",
-   "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
    "jurisdiction": "intl",
-   "text": "A vessel under oars may exhibit the lights prescribed in this rule for sailing vessels, but if she does not, she shall have ready at hand an electric torch or lighted lantern showing a white light which shall be exhibited in sufficient time to prevent collision.",
    "images": [
     "NRHB_25_dii.png"
    ]
@@ -1254,9 +923,7 @@
   "25(e)": {
    "path": "25(e)",
    "rule": "25",
-   "rule_title": "Sailing Vessels Underway and Vessels Under Oars",
    "jurisdiction": "intl",
-   "text": "A vessel proceeding under sail when also being propelled by machinery shall exhibit forward where it can best be seen a conical shape, apex downwards.",
    "images": [
     "NRHB_25_e.png"
    ]
@@ -1264,16 +931,12 @@
   "26(a)": {
    "path": "26(a)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
-   "jurisdiction": "intl",
-   "text": "A vessel engaged in fishing, whether underway or at anchor, shall exhibit only the lights and shapes prescribed in this Rule."
+   "jurisdiction": "intl"
   },
   "26(b)": {
    "path": "26(b)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
    "jurisdiction": "intl",
-   "text": "A vessel when engaged in trawling, by which is meant the dragging through the water of a dredge net or other apparatus used as a fishing appliance, shall exhibit:",
    "images": [
     "NRHB_26_b.png"
    ]
@@ -1281,9 +944,7 @@
   "26(b)(i)": {
    "path": "26(b)(i)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
    "jurisdiction": "intl",
-   "text": "two all-round lights in a vertical line, the upper being green and the lower white, or a shape consisting of two cones with their apexes together in a vertical line one above the other;",
    "images": [
     "NRHB_26_b.png"
    ]
@@ -1291,16 +952,12 @@
   "26(b)(ii)": {
    "path": "26(b)(ii)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
-   "jurisdiction": "intl",
-   "text": "a masthead light abaft of and higher than the all-round green light; a vessel of less than 50 meters in length shall not be obliged to exhibit such a light but may do so;"
+   "jurisdiction": "intl"
   },
   "26(b)(iii)": {
    "path": "26(b)(iii)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
    "jurisdiction": "intl",
-   "text": "when making way through the water, in addition to the lights prescribed in this paragraph, sidelights and a sternlight.",
    "images": [
     "NRHB_26_biii.png"
    ]
@@ -1308,30 +965,22 @@
   "26(c)": {
    "path": "26(c)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
-   "jurisdiction": "intl",
-   "text": "A vessel engaged in fishing, other than trawling, shall exhibit:"
+   "jurisdiction": "intl"
   },
   "26(c)(i)": {
    "path": "26(c)(i)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
-   "jurisdiction": "intl",
-   "text": "two all-round lights in a vertical line, the upper being red and the lower white, or a shape consisting of two cones with their apexes together in a vertical line one above the other;"
+   "jurisdiction": "intl"
   },
   "26(c)(ii)": {
    "path": "26(c)(ii)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
-   "jurisdiction": "intl",
-   "text": "when there is outlying gear extending more than 150 meters horizontally from the vessel, an all-round white light or a cone apex upwards in the direction of the gear."
+   "jurisdiction": "intl"
   },
   "26(c)(iii)": {
    "path": "26(c)(iii)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
    "jurisdiction": "intl",
-   "text": "when making way through the water, in addition to the lights prescribed in this paragraph, sidelights and a sternlight.",
    "images": [
     "NRHB_26_ciii.png"
    ]
@@ -1339,23 +988,17 @@
   "26(d)": {
    "path": "26(d)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
-   "jurisdiction": "intl",
-   "text": "The additional signals described in Annex II to these Regulations apply to a vessel engaged in fishing in close proximity to other vessels engaged in fishing."
+   "jurisdiction": "intl"
   },
   "26(e)": {
    "path": "26(e)",
    "rule": "26",
-   "rule_title": "Fishing Vessels",
-   "jurisdiction": "intl",
-   "text": "A vessel when not engaged in fishing shall not exhibit the lights or shapes prescribed in this Rule, but only those prescribed for a vessel of her length."
+   "jurisdiction": "intl"
   },
   "27(a)": {
    "path": "27(a)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "A vessel not under command shall exhibit:",
    "images": [
     "NRHB_27_a.png"
    ]
@@ -1363,9 +1006,7 @@
   "27(a)(i)": {
    "path": "27(a)(i)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "two all-round red lights in a vertical line where they can best be seen;",
    "images": [
     "NRHB_27_a.png"
    ]
@@ -1373,16 +1014,12 @@
   "27(a)(ii)": {
    "path": "27(a)(ii)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "two balls or similar shapes in a vertical line where they can best be seen;"
+   "jurisdiction": "intl"
   },
   "27(a)(iii)": {
    "path": "27(a)(iii)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "when making way through the water, in addition to the lights prescribed in this paragraph, sidelights and a sternlight.",
    "images": [
     "NRHB_27_aiii.png"
    ]
@@ -1390,30 +1027,22 @@
   "27(b)": {
    "path": "27(b)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "A vessel restricted in her ability to maneuver, except a vessel engaged in mine clearance operations, shall exhibit:"
+   "jurisdiction": "intl"
   },
   "27(b)(i)": {
    "path": "27(b)(i)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "three all-round lights in a vertical line where they can best be seen. The highest and lowest of these lights shall be red and the middle light shall be white;"
+   "jurisdiction": "intl"
   },
   "27(b)(ii)": {
    "path": "27(b)(ii)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "three shapes in a vertical line where they can best be seen. The highest and lowest of these shapes shall be balls and the middle one a diamond."
+   "jurisdiction": "intl"
   },
   "27(b)(iii)": {
    "path": "27(b)(iii)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "when making way through the water, a masthead light(s), sidelights and a sternlight in addition to the lights prescribed in Rule 27(b)(i);",
    "images": [
     "NRHB_27_biii.png"
    ]
@@ -1421,9 +1050,7 @@
   "27(b)(iv)": {
    "path": "27(b)(iv)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "when at anchor, in addition to the lights or shapes prescribed in Rule 27(b)(i) and (ii), the light, lights, or shapes prescribed in Rule 30.",
    "images": [
     "NRHB_27_biv.png"
    ]
@@ -1431,9 +1058,7 @@
   "27(c)": {
    "path": "27(c)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "A power-driven vessel engaged in a towing operation such as severely restricts the towing vessel and her tow in their ability to deviate from their course shall, in addition to the lights or shape prescribed in Rule 24(a), exhibit the lights or shapes prescribed in subparagraphs (b)(i) and (ii) of this Rule.",
    "images": [
     "NRHB_27_c.png"
    ]
@@ -1441,9 +1066,7 @@
   "27(d)": {
    "path": "27(d)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "A vessel engaged in dredging or underwater operations, when restricted in her ability to maneuver, shall exhibit the lights and shapes prescribed in Rules 27(b)(i), (ii) and (iii) and shall in addition when an obstruction exists, exhibit:",
    "images": [
     "NRHB_27_d.png",
     "NRHB_27_diii.png"
@@ -1452,9 +1075,7 @@
   "27(d)(i)": {
    "path": "27(d)(i)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "two all-round red lights or two balls in a vertical line to indicate the side on which the obstruction exists;",
    "images": [
     "NRHB_27_d.png",
     "NRHB_27_diii.png"
@@ -1463,9 +1084,7 @@
   "27(d)(ii)": {
    "path": "27(d)(ii)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "two all-round green lights or two diamonds in a vertical line to indicate the side on which another vessel may pass; and",
    "images": [
     "NRHB_27_d.png",
     "NRHB_27_diii.png"
@@ -1474,30 +1093,22 @@
   "27(d)(iii)": {
    "path": "27(d)(iii)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "when at anchor, the lights or shapes prescribed in this paragraph instead of the lights or shapes prescribed in Rule 30."
+   "jurisdiction": "intl"
   },
   "27(e)": {
    "path": "27(e)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "Whenever the size of a vessel engaged in diving operations makes it impracticable to exhibit all lights and shapes prescribed in Rule 27(d), the following shall be exhibited:"
+   "jurisdiction": "intl"
   },
   "27(e)(i)": {
    "path": "27(e)(i)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "Three all-round lights in a vertical line where they can best be seen. The highest and lowest of these lights shall be red and the middle light shall be white;"
+   "jurisdiction": "intl"
   },
   "27(e)(ii)": {
    "path": "27(e)(ii)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "a rigid replica of the International Code flag \"A\" not less than 1 meter in height. Measures shall be taken to ensure its all-round visibility.",
    "images": [
     "NRHB_27_ei.png",
     "NRHB_27_eii.png"
@@ -1506,9 +1117,7 @@
   "27(f)": {
    "path": "27(f)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
    "jurisdiction": "intl",
-   "text": "A vessel engaged in mine clearance operations shall, in addition to the lights prescribed for a power-driven vessel in Rule 23(a) or to the lights or shape prescribed for a vessel at anchor in Rule 30 as appropriate, exhibit three all-round green lights or three balls. One of these lights or shapes shall be exhibited near the foremast head and one at each end of the fore yard. These lights or shapes indicate that it is dangerous for another vessel to approach within 1000 meters of the mine clearance vessel.",
    "images": [
     "NRHB_27_f.png"
    ]
@@ -1516,23 +1125,17 @@
   "27(g)": {
    "path": "27(g)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "Vessels of less than 12 meters in length, except those engaged in diving operations, shall not be required to exhibit the lights and shapes prescribed in this Rule."
+   "jurisdiction": "intl"
   },
   "27(h)": {
    "path": "27(h)",
    "rule": "27",
-   "rule_title": "Vessels Not Under Command or Restricted in Their Ability to Maneuver",
-   "jurisdiction": "intl",
-   "text": "The signals prescribed in this Rule are not signals of vessels in distress and requiring assistance. Such signals are contained in Annex IV to these Rules."
+   "jurisdiction": "intl"
   },
   "28": {
    "path": "28",
    "rule": "28",
-   "rule_title": "Vessels Constrained by Their Draft",
    "jurisdiction": "intl",
-   "text": "A vessel constrained by her draft may, in addition to the lights prescribed for power-driven vessels in Rule 23(a), exhibit where they can best be seen three all-round red lights in a vertical line, or a cylinder.",
    "images": [
     "NRHB_28.png"
    ]
@@ -1540,9 +1143,7 @@
   "29(a)": {
    "path": "29(a)",
    "rule": "29",
-   "rule_title": "Pilot Vessels",
    "jurisdiction": "intl",
-   "text": "A vessel engaged on pilotage duty shall exhibit:",
    "images": [
     "NRHB_29_a.png"
    ]
@@ -1550,9 +1151,7 @@
   "29(a)(i)": {
    "path": "29(a)(i)",
    "rule": "29",
-   "rule_title": "Pilot Vessels",
    "jurisdiction": "intl",
-   "text": "at or near the masthead, two all-round lights in a vertical line, the upper being white and the lower red;",
    "images": [
     "NRHB_29_a.png"
    ]
@@ -1560,16 +1159,12 @@
   "29(a)(ii)": {
    "path": "29(a)(ii)",
    "rule": "29",
-   "rule_title": "Pilot Vessels",
-   "jurisdiction": "intl",
-   "text": "when underway, in addition, sidelights and a sternlight;"
+   "jurisdiction": "intl"
   },
   "29(a)(iii)": {
    "path": "29(a)(iii)",
    "rule": "29",
-   "rule_title": "Pilot Vessels",
    "jurisdiction": "intl",
-   "text": "when at anchor, in addition to the lights prescribed in Rule 29(a)(i), the light, lights, or shape prescribed in Rule 30 for vessels at anchor.",
    "images": [
     "NRHB_29_aiii.png"
    ]
@@ -1577,16 +1172,12 @@
   "29(b)": {
    "path": "29(b)",
    "rule": "29",
-   "rule_title": "Pilot Vessels",
-   "jurisdiction": "intl",
-   "text": "A pilot vessel when not engaged on pilotage duty shall exhibit the lights or shapes prescribed for a similar vessel of her length."
+   "jurisdiction": "intl"
   },
   "30(a)": {
    "path": "30(a)",
    "rule": "30",
-   "rule_title": "Anchored Vessels and Vessels Aground",
    "jurisdiction": "intl",
-   "text": "A vessel at anchor shall exhibit where it can best be seen: (i) in the fore part, an all-round white light or one ball; (ii) at or near the stern and at a lower level than the light prescribed in Rule 30(a)(i), an all-round white light.",
    "images": [
     "NRHB_30_d.png"
    ]
@@ -1594,9 +1185,7 @@
   "30(b)": {
    "path": "30(b)",
    "rule": "30",
-   "rule_title": "Anchored Vessels and Vessels Aground",
    "jurisdiction": "intl",
-   "text": "A vessel of less than 50 meters in length may exhibit an all-round white light where it can best be seen instead of the lights prescribed in Rule 30(a).",
    "images": [
     "NRHB_30_a.png"
    ]
@@ -1604,9 +1193,7 @@
   "30(c)": {
    "path": "30(c)",
    "rule": "30",
-   "rule_title": "Anchored Vessels and Vessels Aground",
    "jurisdiction": "intl",
-   "text": "A vessel at anchor may, and a vessel of 100 meters and more in length shall, also use the available working or equivalent lights to illuminate her decks.",
    "images": [
     "NRHB_30_d.png"
    ]
@@ -1614,9 +1201,7 @@
   "30(d)": {
    "path": "30(d)",
    "rule": "30",
-   "rule_title": "Anchored Vessels and Vessels Aground",
    "jurisdiction": "intl",
-   "text": "A vessel aground shall exhibit the lights prescribed in Rule 30(a) or (b) and in addition, if practicable, where they can best be seen: (i) two all-round red lights in a vertical line; (ii) three balls in a vertical line.",
    "images": [
     "NRHB_30_dii.png"
    ]
@@ -1624,23 +1209,17 @@
   "30(e)": {
    "path": "30(e)",
    "rule": "30",
-   "rule_title": "Anchored Vessels and Vessels Aground",
-   "jurisdiction": "intl",
-   "text": "A vessel of less than 7 meters in length, when at anchor not in or near a narrow channel, fairway or where other vessels normally navigate, shall not be required to exhibit the lights or shape prescribed in Rule 30(a) and (b)."
+   "jurisdiction": "intl"
   },
   "30(f)": {
    "path": "30(f)",
    "rule": "30",
-   "rule_title": "Anchored Vessels and Vessels Aground",
-   "jurisdiction": "intl",
-   "text": "A vessel of less than 12 meters in length, when aground, shall not be required to exhibit the lights or shapes prescribed in Rule 30(d)(i) and (ii)."
+   "jurisdiction": "intl"
   },
   "31": {
    "path": "31",
    "rule": "31",
-   "rule_title": "Seaplanes",
-   "jurisdiction": "intl",
-   "text": "Where it is impracticable for a seaplane or a WIG craft to exhibit lights or shapes of the characteristics or in the positions prescribed in Rules 20-31 she shall exhibit lights and shapes as closely similar in characteristics and position as is possible."
+   "jurisdiction": "intl"
   }
  }
 }

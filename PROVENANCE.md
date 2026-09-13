@@ -3,7 +3,7 @@
 Everything in this package is transcribed or copied from US Government
 publications. Nothing here is authoritative: consult the published rules.
 
-## Rule text — `data/rules.json`
+## Rule text — `data/text/intl/en-US.uscg.json`
 
 - **Source:** USCG Navigation Center, *Navigation Rules, International —
   Inland* (amalgamated), <https://www.navcen.uscg.gov/navigation-rules-amalgamated>
@@ -16,8 +16,8 @@ publications. Nothing here is authoritative: consult the published rules.
 - **Rights:** a work of the US Government, not subject to copyright in the
   United States (17 U.S.C. 105).
 - **Known hole:** Rule 24(g)(i) is absent from the source page. Rather than
-  reconstruct it from memory, `rules.json` records it under `gaps` and the
-  paragraph is omitted. 24(g) covers inconspicuous, partly submerged tows and
+  reconstruct it from memory, the corpus records it under `gaps` and carries
+  no text for it; the skeleton still has the path. 24(g) covers inconspicuous, partly submerged tows and
   is outside the applicability table in this release.
 - **Withheld text is not a gap.** A `gaps` entry is a paragraph we could not
   obtain. A paragraph with `text_status: withheld` is one we hold but may not

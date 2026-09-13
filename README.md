@@ -26,7 +26,9 @@ See a [live demo](https://mark-brannan.github.io/searoom/) of searoom and the co
 > by the published rules.
 
 ```text
-data/rules.json          rule text, keyed by paragraph path and jurisdiction
+data/rules.json          the skeleton: paragraph paths, rule numbers, jurisdictions -- no text
+data/text/               rule text, one corpus per jurisdiction x language x source
+data/corpora.json        index of those corpora and how much each covers
 data/lights.json         the six Rule 21 lights: colour, arc, Rule 22 range
 data/facts.json          the fact record, and how to decode SignalK navigation.state
 data/applicability.json  predicate -> lights, each entry also carrying modality, citation, jurisdiction
@@ -59,7 +61,10 @@ mooring buoy, lives only under `us/inland`
 ## The layers
 
 **Rule text.** Verbatim, keyed by *paragraph path*, like `27(a)(i)`, because
-the paragraph is the unit you actually cite. Where a licence bars republishing
+the paragraph is the unit you actually cite. The paths live in a
+language-neutral skeleton; the words live in corpora, one per jurisdiction,
+language and source, each with its own provenance and legal tier. A mixed
+rendering across corpora is never a single authoritative edition. Where a licence bars republishing
 a jurisdiction's words, the paragraph is still modelled and its text withheld
 rather than paraphrased — evaluation never reads the text.
 

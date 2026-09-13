@@ -1,0 +1,37 @@
+{
+ "note": "Index of the text corpora under data/text/, one entry per file; test/data.test.mjs regenerates it from the files and fails on drift -- REQ-LANG-5.",
+ "corpora": {
+  "intl.en-US.uscg": {
+   "file": "text/intl/en-US.uscg.json",
+   "jurisdiction": "intl",
+   "language": "en-US",
+   "source_id": "uscg",
+   "tier": "national",
+   "paragraphs": 212
+  },
+  "intl.fi.finlex": {
+   "file": "text/intl/fi.finlex.json",
+   "jurisdiction": "intl",
+   "language": "fi",
+   "source_id": "finlex",
+   "tier": "national",
+   "paragraphs": 0
+  },
+  "intl.es.boe": {
+   "file": "text/intl/es.boe.json",
+   "jurisdiction": "intl",
+   "language": "es",
+   "source_id": "boe",
+   "tier": "national",
+   "paragraphs": 0
+  },
+  "us/inland.en-US.ecfr": {
+   "file": "text/us/inland/en-US.ecfr.json",
+   "jurisdiction": "us/inland",
+   "language": "en-US",
+   "source_id": "ecfr",
+   "tier": "national",
+   "paragraphs": 0
+  }
+ }
+}

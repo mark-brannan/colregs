@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/corpus.schema.json",
+  "title": "data/text/<jurisdiction>/<language>.<source_id>.json",
+  "description": "One rule-text corpus: the words of one jurisdiction's rules, in one language, from one source, keyed by paragraph path into data/rules.json. Verbatim unless withheld under a licence bar. See docs/adr/0003-language-as-a-dimension.md, docs/adr/0010-text-withheld-jurisdictions.md and docs/adr/0013-corpus-files.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "jurisdiction",
+    "language",
+    "source_id",
+    "tier",
+    "normalization",
+    "amendment_state",
+    "source",
+    "rights",
+    "paragraphs"
+  ],
+  "allOf": [
+    {
+      "$comment": "REQ-LANG-10: a corpus that carries text declares the amendment state its source reflects; only an empty stub may leave it null.",
+      "if": {
+        "properties": {
+          "paragraphs": {
+            "type": "object",
+            "minProperties": 1
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "amendment_state": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "$comment": "colregs#85 / ADR 0010: a withheld paragraph is a citation, not a reproduction -- 'retrieved' is when that citation was last checked against the primary source.",
+      "if": {
+        "properties": {
+          "paragraphs": {
+            "not": {
+              "type": "object",
+              "patternProperties": {
+                "^.*$": {
+                  "not": {
+                    "type": "object",
+                    "properties": {
+                      "text_status": {
+                        "const": "withheld"
+                      }
+                    },
+                    "required": [
+                      "text_status"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source": {
+            "type": "object",
+            "properties": {
+              "retrieved": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "retrieved"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "path": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "amendment_state": {
+      "$comment": "The consolidated state a text reflects: the last amending instrument it incorporates, and when that came into force. Free text for the instrument, because national amalgamations cite their own amending acts, not IMO resolutions.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amended_through",
+        "in_force"
+      ],
+      "properties": {
+        "amended_through": {
+          "type": "string",
+          "minLength": 1
+        },
+        "in_force": {
+          "$ref": "#/$defs/date"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "properties": {
+    "id": {
+      "$comment": "<jurisdiction>.<language>.<source_id>; CI checks it agrees with the file's path and with data/corpora.json.",
+      "type": "string",
+      "pattern": "^[a-z]+(/[a-z]+)*\\.[A-Za-z0-9-]+\\.[a-z0-9]+$"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "pattern": "^[a-z]+(/[a-z]+)*$"
+    },
+    "language": {
+      "$comment": "BCP 47. Carries the language of the text and nothing else -- REQ-LANG-1.",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Z][a-z]{3})?(-[A-Z]{2}|-[0-9]{3})?$"
+    },
+    "source_id": {
+      "$comment": "Short handle for the publishing route (uscg, finlex, boe, ecfr); the identity of the source is the structured `source` object.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+$"
+    },
+    "tier": {
+      "$comment": "Legal authority of the source, never of the language -- REQ-LANG-3.",
+      "enum": [
+        "authentic",
+        "official",
+        "national",
+        "community"
+      ]
+    },
+    "normalization": {
+      "$comment": "Unicode normalization form the text is stored in -- REQ-LANG-9.",
+      "enum": [
+        "NFC",
+        "NFD",
+        "NFKC",
+        "NFKD"
+      ]
+    },
+    "amendment_state": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/amendment_state"
+        }
+      ]
+    },
+    "translation_of": {
+      "$comment": "Corpus id this text is a translation of, where it is one and that is known. Absent for independently promulgated national texts.",
+      "type": "string"
+    },
+    "source": {
+      "$comment": "REQ-PROV-6: structured source identity, not a prose string.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publisher",
+        "title",
+        "url",
+        "retrieved"
+      ],
+      "properties": {
+        "publisher": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "edition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "published": {
+          "$ref": "#/$defs/date"
+        },
+        "effective": {
+          "$ref": "#/$defs/date"
+        },
+        "url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retrieved": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/date"
+            }
+          ]
+        }
+      }
+    },
+    "rights": {
+      "$comment": "REQ-PROV-6: three separate statements, never one flat licence field.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_text",
+        "redistribution_basis",
+        "package_licence"
+      ],
+      "properties": {
+        "source_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "redistribution_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "package_licence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "note": {
+      "type": "string"
+    },
+    "gaps": {
+      "$comment": "Skeleton paths this source could not supply. Distinct from withheld: a gap is text we could not obtain, withheld is text we may not publish.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "#/$defs/path"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "paragraphs": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "rule_title"
+          ],
+          "allOf": [
+            {
+              "$comment": "ADR 0010: a withheld paragraph is modelled but ships no text.",
+              "if": {
+                "properties": {
+                  "text_status": {
+                    "const": "withheld"
+                  }
+                },
+                "required": [
+                  "text_status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "text": false,
+                  "withheld_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "withheld_reason"
+                ]
+              },
+              "else": {
+                "$comment": "mirrors, text_digest and text_slug are open to verbatim paragraphs too; only withheld_reason is incoherent without a bar.",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "withheld_reason": false
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          ],
+          "properties": {
+            "rule_title": {
+              "$comment": "Verbatim source material like `text`; on a withheld paragraph, a neutral label written for this package -- ADR 0010.",
+              "type": "string",
+              "minLength": 1
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "text_status": {
+              "$comment": "Absent means verbatim. 'withheld' means the text is not ours to publish -- ADR 0010.",
+              "enum": [
+                "verbatim",
+                "withheld"
+              ]
+            },
+            "withheld_reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "text_slug": {
+              "$comment": "Pencil, ADR 0010: sorted set of lemmatised key nouns and verbs, English counterparts where the source is not English.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "text_digest": {
+              "$comment": "Pencil, ADR 0010: algorithm-qualified digest of the normalised text, e.g. 'sha256:<hex>'.",
+              "type": "string",
+              "pattern": "^[a-z0-9-]+:[A-Za-z0-9+/=]+$"
+            },
+            "mirrors": {
+              "$comment": "Paragraph path in intl this provision restates; display labelled as the international equivalent, never as this jurisdiction's text.",
+              "$ref": "#/$defs/path"
+            }
+          }
+        }
+      }
+    }
+  }
+}

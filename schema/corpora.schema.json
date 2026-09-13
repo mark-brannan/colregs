@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/corpora.schema.json",
+  "title": "data/corpora.json",
+  "description": "Index of the text corpora under data/text/: which exist, where each lives, and how many paragraphs it covers. Derived from the corpus files and checked against them by test/data.test.mjs; a consumer that cannot list a directory reads this instead. See docs/adr/0013-corpus-files.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["corpora"],
+  "properties": {
+    "note": { "type": "string" },
+    "corpora": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z]+(/[a-z]+)*\\.[A-Za-z0-9-]+\\.[a-z0-9]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["file", "jurisdiction", "language", "source_id", "tier", "paragraphs"],
+          "properties": {
+            "file": { "type": "string", "pattern": "^text/.+\\.json$" },
+            "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+            "language": { "type": "string", "minLength": 2 },
+            "source_id": { "type": "string", "pattern": "^[a-z0-9]+$" },
+            "tier": { "enum": ["authentic", "official", "national", "community"] },
+            "paragraphs": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    }
+  }
+}
