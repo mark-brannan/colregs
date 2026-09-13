@@ -5,8 +5,9 @@ text, and names a slug as a straw man to be built and judged rather than
 argued about. This is the build and the judgement. The research issue is
 colregs#83; nothing here decides the pencil item.
 
-Everything below is reproducible from `scripts/text-slug.mjs` over
-`data/rules.json` at this commit. Nothing was written into `data/`.
+Everything below is reproducible from `scripts/text-slug.mjs` over the
+en-US corpus (`data/text/intl/2016/en-US.uscg.json` since ADR 0013 moved the
+words out of `data/rules.json`). Nothing was written into `data/`.
 
 ## What the pipeline does
 
