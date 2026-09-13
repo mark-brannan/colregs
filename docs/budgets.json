@@ -4,6 +4,7 @@
     "README.md": 200,
     "AGENTS.md": 122,
     "CLAUDE.md": 10,
+    "docs/adr/0001-name-and-jurisdiction-model.md": 280,
     "docs/requirements.md": 1500,
     "docs/identifiers.md": 450,
     "docs/part-b-invariants.md": 950,

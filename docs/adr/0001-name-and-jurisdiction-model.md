@@ -1,8 +1,9 @@
 # ADR 0001 — Package name, and jurisdiction as a dimension
 
 Date: 2026-08-29
-Status: accepted; amended 2026-09-05 and 2026-09-09 (licence terms verified,
-see Amendments). CEVNI's text stays blocked; ADR 0010 unblocks modelling it.
+Status: accepted; amended 2026-09-05, 2026-09-09 and 2026-09-12 (licence
+terms verified, see Amendments). CEVNI's text stays blocked; ADR 0010
+unblocks modelling it.
 
 ## Context
 
@@ -225,3 +226,42 @@ corpus candidates, previously unchecked. Q-6 (authenticity) verified
 `es` clears REQ-PROV-2; `fi` and `en`/`fr` via UNTS stay open. Updating
 `docs/requirements.md` Q-7 for this is left as a follow-up (concurrent
 edits to that file are in flight elsewhere).
+
+### 2026-09-12 — UNTS and Finlex resolved (issue #81, Q-7)
+
+Re-ran both 2026-09-09 checks with a fetch that renders what looked like a
+JS-only shell. Finlex turned out not to need a browser: its Next.js page
+ships the article text inline in a React Server Components payload that a
+plain fetch already receives, just not as visible HTML.
+
+**Finlex (`fi`) — resolved clean.** §9, Tekijänoikeuslaki 404/1961: no
+copyright in laws and decrees; in other documents enacted via the Statutes
+Collection and in treaties and similar instruments containing international
+obligations; in the decisions and statements of an authority or other public
+body; or in official translations of the above. Finlex's own FAQ
+(`finlex.fi/fi/ukk`, Ministry of Justice) states published materials carry
+no usage restrictions, and machine-readable open data is licensed CC BY 4.0.
+EFFI's contested claim concerns the compiled database, not the statute text
+§9 already excludes; Finlex's current primary statement outranks that
+secondary source.
+
+**UNTS (`en`/`fr`) — resolved, and it does not clear.** Checked the UNTS
+intro and FAQ pages on treaties.un.org and the copyright and terms-of-use
+pages on un.org directly; none needed a browser. No UNTS-specific rights
+page exists anywhere in that set — every path leads to the same general UN
+terms already found blocking CEVNI: personal, non-commercial use, with no
+right to resell, redistribute or create derivative works. Confirmed
+blocked, not merely ambiguous.
+
+Per Q-7's per-language routing, `es` (BOE, cleared 2026-09-09) is the
+corpus that unblocks the first non-`intl` text; `fi` is now open alongside
+it. UNTS stays closed pending written UN permission or a national
+republication of the authentic `en`/`fr` text.
+
+Sources: `fi` —
+<https://www.finlex.fi/fi/laki/ajantasa/1961/19610404> (§9);
+<https://www.finlex.fi/fi/ukk> (usage terms, CC BY 4.0). UNTS —
+<https://treaties.un.org/Pages/Content.aspx?path=DB/UNTS/pageIntro_en.xml>;
+<https://treaties.un.org/Pages/Overview.aspx?path=overview/faq/page1_en.xml>;
+<https://www.un.org/en/about-us/copyright>;
+<https://www.un.org/en/about-us/terms-of-use>.
