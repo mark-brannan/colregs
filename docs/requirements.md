@@ -438,8 +438,7 @@ official languages, and many states gazette their own legally binding
 translation. (Recalled, not yet verified against the primary sources — Q-6.)
 See ADR 0003.
 
-- **REQ-LANG-1** **(unimplemented — no language dimension exists in the
-  data)** — Language MUST be a dimension orthogonal to jurisdiction,
+- **REQ-LANG-1** — Language MUST be a dimension orthogonal to jurisdiction,
   identified by BCP 47 tags. Which body of rules applies and which text of
   them is displayed are independent questions; neither MUST ever be inferred
   from the other, and no property beyond the language of the text — not
@@ -452,8 +451,7 @@ See ADR 0003.
   and renaming an identifier is a breaking change (REQ-PKG-4). Immutability
   itself is REQ-MODEL-10; this requirement adds only that identifiers are
   never localized.
-- **REQ-LANG-3** **(unimplemented — rule text is one untagged ruleset, not a
-  corpus per jurisdiction × language × source)** — Rule text MUST be storable
+- **REQ-LANG-3** — Rule text MUST be storable
   as a **corpus** per (jurisdiction × language × source), keyed by paragraph
   path, holding at most one text per path, with corpus-level provenance and
   one declared status tier:
@@ -468,8 +466,7 @@ See ADR 0003.
   rule applies per corpus, against that corpus's own source.
 - **REQ-LANG-4** — Adding a language MUST be additive: no schema change, no
   edits to existing corpora or catalogs (the language mirror of REQ-SCOPE-4).
-- **REQ-LANG-5** **(unimplemented — no coverage declaration, and the CI checks
-  are unwritten)** — Corpora MAY be partial. Coverage MUST be declared in
+- **REQ-LANG-5** — Corpora MAY be partial. Coverage MUST be declared in
   machine-readable form, and CI MUST fail on a corpus key that does not
   resolve to a known paragraph path, and on a corpus filename that disagrees
   with the file's internal metadata. Silence MUST NOT imply coverage (the
@@ -495,15 +492,13 @@ See ADR 0003.
 - **REQ-LANG-8** — A `community`-tier corpus MUST record who produced and
   who reviewed it. Machine translation without named human review MUST NOT
   be accepted.
-- **REQ-LANG-9** **(unimplemented — the shipped text declares no normalization
-  form)** — Verbatim (REQ-MODEL-1) is defined at the Unicode level: each
+- **REQ-LANG-9** — Verbatim (REQ-MODEL-1) is defined at the Unicode level: each
   corpus MUST declare the normalization form applied to its text (NFC unless
   declared otherwise) and MUST NOT insert or strip bidi control characters,
   localize numerals, punctuation, units or quotation marks, or otherwise "fix"
   the source text. Rendering direction is a consumer concern and MUST stay out
   of the data.
-- **REQ-LANG-10** **(unimplemented — neither the skeleton nor the ruleset
-  declares an amendment state)** — The structural skeleton MUST declare, as
+- **REQ-LANG-10** — The structural skeleton MUST declare, as
   data, the amendment state it consolidates (e.g. "COLREGS 72 as amended
   through …"). Every corpus MUST declare the amendment state its source
   reflects. The two MAY differ — a corpus transcribed from an older
@@ -527,8 +522,7 @@ See ADR 0003.
 - **REQ-PROV-5** — Images MUST be addressable as data: an image record per file,
   naming what it illustrates by entry id or paragraph path. Unexplained filename
   prefixes are a provenance defect.
-- **REQ-PROV-6** **(unimplemented — source identity is a prose string and
-  rights are one flat field)** — Source identity MUST be structured data —
+- **REQ-PROV-6** — Source identity MUST be structured data —
   publisher, title, edition, publication and effective dates, URL, retrieval
   date — not a prose string. Rights MUST be recorded separately for the source
   text, for the basis on which this package redistributes it, and for the
