@@ -1,7 +1,7 @@
 # ADR 0013 — Rule text as corpus files under an edition registry (GATE-2 adopted)
 
 Date: 2026-09-12
-Status: proposed
+Status: accepted (2026-09-13)
 
 ## Context
 
