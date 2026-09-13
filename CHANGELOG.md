@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/mark-brannan/colregs/compare/v0.2.4...v0.3.0) (2026-09-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* data/rules.json no longer carries text or rule_title.
+
+### Added
+
+* split rule text into corpus files under an edition registry (ADR 0013, proposed, GATE-2 adopted) ([#100](https://github.com/mark-brannan/colregs/issues/100)) ([8b70785](https://github.com/mark-brannan/colregs/commit/8b707850216755ec652a12690a04175cac83abe9))
+
 ## [0.2.4](https://github.com/mark-brannan/colregs/compare/v0.2.3...v0.2.4) (2026-09-10)
 
 
