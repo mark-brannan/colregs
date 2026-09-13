@@ -128,8 +128,8 @@ consumers are colregs-engine and colregs-mcp, repos Solace owns and can fix in
 the same afternoon. Until Solace says otherwise that is a fact about the world,
 not an estimate, and not an agent's to re-evaluate.
 
-**Breaking changes need no ceremony.** Rename an identifier, retire a relation
-verb, reshape a record, drop a field, split a corpus, renumber an entry — no
+**Breaking changes to the surface need no ceremony.** Reshape a record, drop a
+field, renumber an entry, retire a relation verb's use in a given place — no
 deprecation window, no alias, no compatibility shim, no migration note, no
 paragraph weighing who might be hurt. Fix the consumers in their own PR or let
 them break and fix them next. `git revert` is the migration path.
@@ -138,8 +138,10 @@ them break and fix them next. `git revert` is the migration path.
 semantics, editions and corpora, the Part B invariants, the requirement IDs and
 the verification notes. Those are expensive to change *later* no matter who is
 consuming today, and `docs/identifiers.md`, `docs/requirements.md` and the
-ink/pencil convention govern them. Get the model right; treat the surface and
-the version number as disposable.
+ink/pencil convention govern them — including REQ-MODEL-10/11's ban on renaming
+or silently removing an identifier, which `test/data.test.mjs` enforces
+mechanically against the last release tag. Get the model right; treat the
+surface and the version number as disposable.
 
 **Two failure modes, both of which have cost repeated correction.**
 
