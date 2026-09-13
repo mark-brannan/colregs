@@ -17,6 +17,6 @@
   "redistribution_basis": "Finlex FAQ: published materials carry no usage restriction; open data CC BY 4.0",
   "package_licence": "Apache-2.0"
  },
- "note": "Stub: identity and provenance only; no text until GATE-2 is re-taken -- REQ-GATE-2.",
+ "note": "Stub: identity and provenance only; the Finnish text is not transcribed yet. GATE-2 is adopted in docs/gates.json, settled by ADR 0013, so nothing structural blocks it.",
  "paragraphs": {}
 }
