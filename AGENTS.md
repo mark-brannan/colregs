@@ -129,7 +129,7 @@ the same afternoon. Until Solace says otherwise that is a fact about the world,
 not an estimate, and not an agent's to re-evaluate.
 
 **Breaking changes to the surface need no ceremony.** Reshape a record, drop a
-field, renumber an entry, retire a relation verb's use in a given place — no
+field, split a corpus, retire a relation verb's use in a given place — no
 deprecation window, no alias, no compatibility shim, no migration note, no
 paragraph weighing who might be hurt. Fix the consumers in their own PR or let
 them break and fix them next. `git revert` is the migration path.
