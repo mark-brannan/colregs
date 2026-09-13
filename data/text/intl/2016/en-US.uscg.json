@@ -1,6 +1,7 @@
 {
  "id": "intl@2016.en-US.uscg",
  "edition": "intl@2016",
+ "edition_status": "verified",
  "language": "en-US",
  "source_id": "uscg",
  "tier": "national",

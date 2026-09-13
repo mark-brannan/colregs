@@ -693,20 +693,21 @@ Each gate names the declined design, the closing event, and the trigger.
   second-jurisdiction bundle — justified by Q-11 and GATE-2, no longer by
   a cross-jurisdiction trigger route.
 
-- **GATE-2 — instrument → edition → corpus as first-class layers**
-  (ADR 0003, declined; the adopted 80% is REQ-LANG-10).
-  *Closing event*: the second corpus of any one jurisdiction — which,
-  read against ADR 0003's sequencing, means **the first non-English
-  corpus**, not a distant milestone. A French or Finnish text of `intl`
-  is a second corpus of `intl`. With one corpus, re-homing it under an
-  edition parent is a single file move; the cost scales with
+- ~~**GATE-2 — instrument → edition → corpus as first-class layers**~~
+  (ADR 0003, declined; the adopted 80% is REQ-LANG-10). **Re-taken and
+  adopted, ADR 0013** — ahead of its due date (translation #1): the
+  edition registry lands directly, rather than waiting for the trigger
+  below to fire.
+  *Closing event, as declined*: the second corpus of any one jurisdiction
+  — which, read against ADR 0003's sequencing, means **the first
+  non-English corpus**, not a distant milestone. A French or Finnish text
+  of `intl` is a second corpus of `intl`. With one corpus, re-homing it
+  under an edition parent is a single file move; the cost scales with
   corpora × languages immediately thereafter.
-  *Trigger*: a jurisdiction publishing two editions in force
+  *Trigger, as declined*: a jurisdiction publishing two editions in force
   concurrently — an old and a new text running in parallel through a
   transition period. REQ-LANG-10's declared amendment state makes such a
-  pair machine-visible, which is what gives this trigger a foothold.
-  *Re-take required before translation #1 lands* — the edition-layer
-  decision is due at the first added translation, not at 1.0.
+  pair machine-visible, which is what gave this trigger its foothold.
 
 - **GATE-3 — legal-status × translation-status as two enums**
   (ADR 0003, half-adopted: one tier for legal authority in REQ-LANG-3,
