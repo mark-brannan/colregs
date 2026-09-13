@@ -180,7 +180,7 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
 // expressible, and on a half-withheld one being rejected.
 
 const corpusDoc = (paragraphs, over = {}) => ({
-  id: 'eu/cevni@rev6.fr.unece', edition: 'eu/cevni@rev6', language: 'fr', source_id: 'unece', tier: 'national',
+  id: 'eu/cevni@rev6.fr.unece', edition: 'eu/cevni@rev6', edition_status: 'claimed', language: 'fr', source_id: 'unece', tier: 'national',
   normalization: 'NFC',
   source: { publisher: 'UNECE', title: 'CEVNI', url: 'https://unece.org/', retrieved: '2026-09-09' },
   rights: { source_text: 'UN terms', redistribution_basis: 'none', package_licence: 'Apache-2.0' },
@@ -258,8 +258,8 @@ test('ADR 0013: corpus id, file path and data/corpora.json agree with the metada
     const [jurisdiction, tag] = c.edition.split('@')
     assert.equal(e.file, `text/${jurisdiction}/${tag}/${c.language}.${c.source_id}.json`, `${id}: file path disagrees with metadata`)
     assert.deepEqual(
-      { edition: e.edition, language: e.language, source_id: e.source_id, tier: e.tier, paragraphs: e.paragraphs },
-      { edition: c.edition, language: c.language, source_id: c.source_id, tier: c.tier, paragraphs: Object.keys(c.paragraphs).length },
+      { edition: e.edition, edition_status: e.edition_status, language: e.language, source_id: e.source_id, tier: e.tier, paragraphs: e.paragraphs },
+      { edition: c.edition, edition_status: c.edition_status, language: c.language, source_id: c.source_id, tier: c.tier, paragraphs: Object.keys(c.paragraphs).length },
       `${id}: data/corpora.json has drifted from the file`,
     )
     if (c.translation_of) assert.ok(corpora[c.translation_of], `${id}: translation_of names an unknown corpus`)
