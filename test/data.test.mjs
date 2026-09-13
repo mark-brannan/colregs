@@ -31,6 +31,9 @@ const geometry = load('data/geometry.json')
 const deprecated = load('data/deprecated-identifiers.json')
 const versionStamp = load('data/version.json')
 const fixtures = load('fixtures/applicability-fixtures.json')
+// Display catalogs (ADR 0003) -- one file per language under data/i18n/.
+const catalogFiles = readdirSync(new URL('../data/i18n', import.meta.url)).filter((f) => f.endsWith('.json'))
+const catalogs = catalogFiles.map((f) => [`data/i18n/${f}`, load(`data/i18n/${f}`)])
 
 const byId = new Map(appl.entries.map((e) => [e.id, e]))
 
@@ -161,6 +164,7 @@ const schemaTargets = [
   ['data/version.json', versionStamp, loadSchema('version.schema.json')],
   ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
   ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
+  ...catalogs.map(([file, data]) => [file, data, loadSchema('i18n-catalog.schema.json')]),
 ]
 
 test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
@@ -170,6 +174,14 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
     const validate = ajv.getSchema(schema.$id) ?? ajv.compile(schema)
     const ok = validate(data)
     assert.ok(ok, `${file} fails ${schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
+  }
+})
+
+test('i18n: every light: key in a display catalog resolves to a light in data/lights.json', () => {
+  for (const [file, cat] of catalogs) {
+    for (const key of Object.keys(cat.strings)) {
+      if (key.startsWith('light:')) assert.ok(lights.lights[key], `${file}: ${key} is not a light in data/lights.json`)
+    }
   }
 })
 
