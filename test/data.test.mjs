@@ -177,10 +177,26 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
   }
 })
 
-test('i18n: every light: key in a display catalog resolves to a light in data/lights.json', () => {
+// Each catalog section is keyed by one vocabulary and every key must resolve
+// to that vocabulary's own source, so a misspelt key cannot ship. Adding a
+// vocabulary (fact, image) is one entry here and one property in the schema.
+const catalogVocabularies = {
+  light: new Set(Object.keys(lights.lights)),
+  modality: new Set(loadSchema('applicability.schema.json').$defs.modality.enum),
+}
+
+test('i18n: the language inside a display catalog matches its filename', () => {
   for (const [file, cat] of catalogs) {
-    for (const key of Object.keys(cat.strings)) {
-      if (key.startsWith('light:')) assert.ok(lights.lights[key], `${file}: ${key} is not a light in data/lights.json`)
+    assert.equal(cat.language, file.slice('data/i18n/'.length, -'.json'.length), `${file}: language is ${cat.language}`)
+  }
+})
+
+test('i18n: every key in a display catalog resolves to its vocabulary', () => {
+  for (const [file, cat] of catalogs) {
+    for (const [section, entries] of Object.entries(cat.strings)) {
+      const known = catalogVocabularies[section]
+      assert.ok(known, `${file}: no vocabulary named ${section}`)
+      for (const key of Object.keys(entries)) assert.ok(known.has(key), `${file}: ${section}.${key} is not a ${section} value`)
     }
   }
 })
