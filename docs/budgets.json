@@ -16,11 +16,13 @@
     "docs/adr/0012-trace-and-rule2-departure-api.md": 203,
     "docs/verification/2026-09-09-text-slug-straw-man.md": 270,
     "required": true,
-    "pending": []
+    "pending": [],
+    "docs/adr/0013-corpus-files-with-editions.md": 95
   },
   "json_prose": {
     "targets": [
       "data/*.json",
+      "data/text/**/*.json",
       "fixtures/*.json"
     ],
     "keys": [
@@ -87,6 +89,7 @@
       "AGENTS.md",
       "CLAUDE.md",
       "data/*.json",
+      "data/text/**/*.json",
       "fixtures/*.json",
       "test/*.mjs",
       "docs/**/*.md"
@@ -97,6 +100,7 @@
         "AGENTS.md",
         "CLAUDE.md",
         "data/*.json",
+        "data/text/**/*.json",
         "fixtures/*.json",
         "test/*.mjs"
       ],
@@ -105,6 +109,7 @@
         "AGENTS.md",
         "CLAUDE.md",
         "data/*.json",
+        "data/text/**/*.json",
         "fixtures/*.json",
         "test/*.mjs"
       ],
@@ -113,6 +118,7 @@
         "AGENTS.md",
         "CLAUDE.md",
         "data/*.json",
+        "data/text/**/*.json",
         "fixtures/*.json",
         "test/*.mjs"
       ],
@@ -121,6 +127,7 @@
         "AGENTS.md",
         "CLAUDE.md",
         "data/*.json",
+        "data/text/**/*.json",
         "fixtures/*.json",
         "test/*.mjs"
       ]
@@ -156,6 +163,7 @@
       "CLAUDE.md",
       "docs/**/*.md",
       "data/*.json",
+      "data/text/**/*.json",
       "fixtures/*.json"
     ]
   },
