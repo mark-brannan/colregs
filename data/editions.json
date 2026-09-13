@@ -1,0 +1,27 @@
+{
+ "note": "Registry of instruments and their editions, per jurisdiction. A corpus names the edition its text reflects; the skeleton names the one it consolidates -- REQ-LANG-10, ADR 0013.",
+ "jurisdictions": {
+  "intl": {
+   "instrument": "Convention on the International Regulations for Preventing Collisions at Sea, 1972 (COLREG)",
+   "skeleton": "intl@2016",
+   "editions": {
+    "intl@2016": {
+     "amended_through": "A.1085(28)",
+     "in_force": "2016-01-01",
+     "note": "2013 amendment (Part F) verified on imo.org; the resolution number and date are recalled, not yet verified against the resolution text -- REQ-LANG-10."
+    }
+   }
+  },
+  "us/inland": {
+   "instrument": "33 CFR Part 83, Inland Navigation Rules",
+   "skeleton": null,
+   "editions": {
+    "us/inland@2014": {
+     "amended_through": "79 FR 37898 (2014 final rule)",
+     "in_force": "2014-08-01",
+     "note": "Recalled, not verified; a stub edition so the second jurisdiction has one to name -- REQ-LANG-10."
+    }
+   }
+  }
+ }
+}

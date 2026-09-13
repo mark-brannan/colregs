@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/editions.schema.json",
+  "title": "data/editions.json",
+  "description": "Registry of instruments and their editions, per jurisdiction: the layer GATE-2 asked for. The skeleton names the edition it consolidates; every corpus names the edition its text reflects; two editions of one jurisdiction may be registered at once. See docs/adr/0013-corpus-files-with-editions.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jurisdictions"],
+  "properties": {
+    "note": { "type": "string" },
+    "jurisdictions": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z]+(/[a-z]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["instrument", "skeleton", "editions"],
+          "properties": {
+            "instrument": { "$comment": "The body of rules this jurisdiction's editions are editions of.", "type": "string", "minLength": 1 },
+            "skeleton": {
+              "$comment": "Which edition data/rules.json consolidates for this jurisdiction; null while the skeleton has no paragraphs of it.",
+              "oneOf": [{ "type": "null" }, { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$" }]
+            },
+            "editions": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["amended_through", "in_force"],
+                  "properties": {
+                    "amended_through": { "$comment": "Free text: national amalgamations cite their own amending acts, not IMO resolutions.", "type": "string", "minLength": 1 },
+                    "in_force": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+                    "superseded_by": { "$comment": "The later edition, where two are registered and one has lapsed.", "type": "string", "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$" },
+                    "note": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
