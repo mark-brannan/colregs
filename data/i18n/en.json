@@ -1,0 +1,20 @@
+{
+  "language": "en",
+  "provenance": {
+    "contributors": ["mark-brannan"],
+    "reviewed_by": ["mark-brannan"],
+    "review_date": "2026-09-13",
+    "licence": "CC-BY-4.0"
+  },
+  "strings": {
+    "light:masthead": "Masthead light",
+    "light:sidelight_starboard": "Starboard sidelight",
+    "light:sidelight_port": "Port sidelight",
+    "light:sternlight": "Sternlight",
+    "light:towing": "Towing light",
+    "light:all_round": "All-round light",
+    "modality:shall": "Required",
+    "modality:may": "Permitted",
+    "modality:shall-if-practicable": "Required if practicable"
+  }
+}

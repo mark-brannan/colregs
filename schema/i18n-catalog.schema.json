@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/i18n-catalog.schema.json",
+  "title": "data/i18n/*.json",
+  "description": "Display catalog for one BCP 47 language: UI strings for identifier vocabularies (light names, fact-axis labels, modality labels, image captions), not legal text -- see docs/adr/0003-language-as-a-dimension.md 'Display catalogs'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["language", "provenance", "strings"],
+  "properties": {
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]+)*$",
+      "description": "BCP 47 tag, e.g. en, fi."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contributors", "reviewed_by", "review_date"],
+      "properties": {
+        "contributors": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "reviewed_by": { "type": "array", "items": { "type": "string" } },
+        "review_date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "licence": { "type": "string" }
+      }
+    },
+    "strings": {
+      "type": "object",
+      "description": "key -> static string. No interpolation, no plurals -- the consumer's i18n system owns composition.",
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    }
+  }
+}
