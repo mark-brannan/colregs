@@ -120,3 +120,39 @@ signals, and every non-`intl` jurisdiction are modelled for but not yet present.
 ## Prose budget
 
 One home per argument: a JSON `note` is one sentence plus the Q-/REQ-/ADR id it points at, and the argument lives there. No PR numbers, phase ids, dates or session references in data, fixtures, tests or this file. Budgets are in `docs/budgets.json` (the shared `prose-budget` engine looks there first, then `.prose-budgets.json`, walking up to the git root) and enforced by `npm test` and CI; raising one is a deliberate diff. READMEs describe the project's intended state in present tense; do not flag a README for describing behaviour the code does not yet have.
+
+## Stage: pre-consumer
+
+Published on npm at 0.x. Nobody outside this family depends on it: the only
+consumers are colregs-engine and colregs-mcp, repos Solace owns and can fix in
+the same afternoon. Until Solace says otherwise that is a fact about the world,
+not an estimate, and not an agent's to re-evaluate.
+
+**Breaking changes need no ceremony.** Rename an identifier, retire a relation
+verb, reshape a record, drop a field, split a corpus, renumber an entry — no
+deprecation window, no alias, no compatibility shim, no migration note, no
+paragraph weighing who might be hurt. Fix the consumers in their own PR or let
+them break and fix them next. `git revert` is the migration path.
+
+**Where the rigour goes instead.** Identifiers, the six relation verbs and their
+semantics, editions and corpora, the Part B invariants, the requirement IDs and
+the verification notes. Those are expensive to change *later* no matter who is
+consuming today, and `docs/identifiers.md`, `docs/requirements.md` and the
+ink/pencil convention govern them. Get the model right; treat the surface and
+the version number as disposable.
+
+**Two failure modes, both of which have cost repeated correction.**
+
+- *Withholding.* Not naming, not exporting, not landing a thing because it isn't
+  finished. Land it unfinished and named. A name in a design doc gets its entry
+  the same day, empty or provisional.
+- *Hedging.* Disclaimers, caveats, "for now", "may change", liability language,
+  or any sentence that closes an option on risk grounds. Risk is Solace's call,
+  always, however small the decision looks and however sure the agent feels. An
+  agent that has done risk arithmetic silently, in a subordinate clause, has made
+  her decision for her. Write the card; don't narrow the work.
+
+**When this changes:** Solace says so, in as many words. A 1.0 with formal
+verification behind it is the earliest plausible date and it is far off. An agent
+that finds itself reasoning about consumer breakage before then is reasoning
+about nobody.
