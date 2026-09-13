@@ -1,6 +1,7 @@
 {
  "id": "intl@2016.fi.finlex",
  "edition": "intl@2016",
+ "edition_status": "claimed",
  "language": "fi",
  "source_id": "finlex",
  "tier": "national",

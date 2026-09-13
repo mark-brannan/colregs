@@ -8,6 +8,7 @@
   "required": [
     "id",
     "edition",
+    "edition_status",
     "language",
     "source_id",
     "tier",
@@ -80,6 +81,10 @@
       "$comment": "Edition id from data/editions.json (<jurisdiction>@<tag>): the consolidated state this text reflects -- REQ-LANG-10. The jurisdiction is the edition's, never restated here.",
       "type": "string",
       "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$"
+    },
+    "edition_status": {
+      "$comment": "Confidence in the `edition` claim above, not in the text itself: 'verified' means this corpus's edition was checked against the primary source; 'claimed' means asserted but not yet checked (every stub starts here); 'unknown' means even the claim is inherited/guessed. See ADR 0013.",
+      "enum": ["verified", "claimed", "unknown"]
     },
     "language": {
       "$comment": "BCP 47. Carries the language of the text and nothing else -- REQ-LANG-1.",
