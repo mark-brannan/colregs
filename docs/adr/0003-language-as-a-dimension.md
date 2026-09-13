@@ -79,8 +79,10 @@ with BCP 47 codes, structured as three layers:
    consolidated state*: the skeleton declares, as data, the amendment state
    it consolidates, and every corpus declares the amendment state its
    source reflects (REQ-LANG-10). A mismatch is legitimate but
-   machine-visible — declared staleness, never silence. Historical states
-   are prior package versions, not an in-data version dimension. A
+   machine-visible — declared staleness, never silence. (GATE-2 adopted in
+   ADR 0013: `data/editions.json` now registers editions in force
+   *concurrently*, so "historical states are prior package versions" holds
+   only for a fully superseded edition, not one still in transition.) A
    renumbering amendment is a major version under REQ-PKG-4 — but it is
    resolved by *issuing new paragraph paths and deprecating the old ones*
    (REQ-MODEL-10/11), never by repointing an existing path at different
@@ -204,11 +206,10 @@ check. What was declined, and why — recorded so it isn't re-argued:
   renumbering lands — or when Q-8's check of the first national
   amalgamation shows paragraph paths do not survive it.
 - **A full temporal/legal-version model** (instrument → edition → corpus as
-  first-class layers; GATE-2). The package models current consolidated law;
-  history lives in package versions. The cheap 80% — declared amendment
-  state on skeleton and corpus, machine-visible mismatch — is adopted
-  instead. If a jurisdiction ever requires multiple concurrent editions,
-  that is a new ADR.
+  first-class layers; GATE-2). Declined *here*; the cheap 80% (declared
+  amendment state, machine-visible mismatch) was adopted instead. **Re-taken
+  and adopted in ADR 0013**, on the trigger this bullet named: a
+  jurisdiction requiring multiple concurrent editions.
 - **`dir: ltr|rtl` metadata per language.** Derivable from the language
   tag via CLDR by any consumer that needs it; storing it invites drift.
 

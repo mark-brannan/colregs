@@ -1,6 +1,7 @@
 {
  "id": "intl@2016.es.boe",
  "edition": "intl@2016",
+ "edition_status": "claimed",
  "language": "es",
  "source_id": "boe",
  "tier": "national",
