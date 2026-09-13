@@ -22,10 +22,12 @@ confirms GATE-2 declined instead; the two are meant to be read side by side.
 2. **`data/editions.json` is the registry: jurisdiction → instrument →
    editions.** An edition id is `<jurisdiction>@<tag>` (`intl@2016`,
    `us/inland@2014`), carrying `amended_through`, `in_force` and optionally
-   `superseded_by`. Each jurisdiction names the edition the skeleton
-   consolidates. Two editions of one jurisdiction may be registered at once,
-   which is GATE-2's trigger case expressed as data rather than as a diff
-   between strings.
+   `superseded_by`. **The tag is the `in_force` year, nothing else** — the
+   amending instrument (an IMO resolution, a Federal Register cite) belongs
+   in `amended_through`, never in the tag. Each jurisdiction names the
+   edition the skeleton consolidates. Two editions of
+   one jurisdiction may be registered at once, which is GATE-2's trigger
+   case expressed as data rather than as a diff between strings.
 3. **One file per corpus**,
    `data/text/<jurisdiction>/<tag>/<language>.<source_id>.json`, identity
    `<edition>.<language>.<source_id>`. A corpus names its `edition` and
