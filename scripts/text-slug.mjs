@@ -12,6 +12,7 @@
 //   node scripts/text-slug.mjs --json         # {path: [terms]} for machines
 //   node scripts/text-slug.mjs --stats        # collisions, near-duplicates, overlap
 //   node scripts/text-slug.mjs --blind        # shuffled slugs, no paths (navigation test)
+//   node scripts/text-slug.mjs --corpus data/text/intl/2016/en-US.uscg.json  # another corpus file
 //
 // Not a dependency of the package and not shipped: package.json `files` does
 // not include scripts/.
@@ -19,7 +20,12 @@
 import { readFileSync } from 'node:fs'
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
+const args = process.argv.slice(2)
+// The words live in a corpus file (ADR 0013); the skeleton only says which
+// rule a path belongs to.
+const corpusFile = args.includes('--corpus') ? args[args.indexOf('--corpus') + 1] : 'data/text/intl/2016/en-US.uscg.json'
 const rules = load('data/rules.json')
+const corpus = load(corpusFile)
 const appl = load('data/applicability.json')
 const facts = load('data/facts.json')
 
@@ -165,10 +171,11 @@ function tokens(text) {
 export const slugOf = (paragraph) => tokens(paragraph.text)
 
 // --- CLI ---------------------------------------------------------------------
-const args = process.argv.slice(2)
 const range = (args.includes('--rules') ? args[args.indexOf('--rules') + 1] : '1-19').split('-').map(Number)
 const inRange = (p) => Number(p.rule) >= range[0] && Number(p.rule) <= (range[1] ?? range[0])
-const paragraphs = Object.values(rules.paragraphs).filter((p) => p.text !== undefined && inRange(p))
+const paragraphs = Object.entries(corpus.paragraphs)
+  .map(([path, p]) => ({ path, rule: rules.paragraphs[path].rule, ...p }))
+  .filter((p) => p.text !== undefined && inRange(p))
 const slugs = new Map(paragraphs.map((p) => [p.path, slugOf(p)]))
 
 if (args.includes('--json')) {
