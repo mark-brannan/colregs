@@ -1424,16 +1424,25 @@ nothing is blocked while open.
 - **Q-51** — **What arms 13(d)'s latch?** *A:* 13(b)'s deeming, at the first
   state the geometry holds. *B:* 13(a)'s duty actually attaching. They differ
   where the geometry holds but a condition on 13(a) does not — `Q-50`'s
-  surface. Default **A**: `hist:was_overtaking` is "was, at some earlier point
-  in this encounter, an overtaking vessel" and `13b-overtaking` is geometry.
-  No recommendation; downstream of `Q-50`.
+  surface. Pencilled **B** ✎ (Solace, 2026-09-14): the latch arms when the
+  duty attaches. KIVELI [2025] EWHC 1185 (Admlty) holds the analogous Rule 14
+  latch arms on risk of collision and then persists; no authority was found on
+  overtaking geometry with no risk of collision. Free to reverse: four entries
+  (`13a`, `13b-*`, `13d`) and their fixtures, and nothing consumes the one
+  state this changes the answer for. Settled by: a decision on Rule 13 itself,
+  or Cockcroft & Lameijer on whether overtaking status needs risk of
+  collision.
 - **Q-52** — **What does 13(d)'s latch forbid?** *Narrow:* reclassification to
   *crossing* only, as the paragraph says, leaving head-on to Rule 14 on the
   geometry of the moment. *Broad:* the encounter stays an overtaking and no
   other Section II classification attaches. Both preserve the duty; they differ
-  on encounter type, which Rule 17's phases and 14(a) hang off. Default
-  **broad**: `13d` yields `encounter: overtaking` from history alone, `14b` and
-  `15a-crossing` gate on `was_overtaking: false`. No recommendation.
+  on encounter type, which Rule 17's phases and 14(a) hang off.
+  Pencilled **broad** ✎ (Solace, 2026-09-14), which is also the data's
+  default: `13d` yields `encounter: overtaking` from history alone, `14b` and
+  `15a-crossing` gate on `was_overtaking: false`. 13(a)'s "notwithstanding"
+  already displaces Rule 14; eCOLREGs states the broad reading as conventional.
+  Settled by: a case or commentary on an overtaking becoming a head-on; none
+  found.
 - **Q-53** — **Does 17(a)(ii) suspend 17(a)(i)'s duty, or add an exception?**
   *Suspension:* "may, however" lifts the duty once non-compliance is apparent;
   a monitor then flags nothing. *Exception:* the duty stands and a departure is
