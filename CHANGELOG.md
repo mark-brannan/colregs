@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.0](https://github.com/mark-brannan/colregs/compare/v0.2.4...v0.3.0) (2026-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* data/rules.json no longer carries text or rule_title.
+
+### Added
+
+* **schema:** edition_status enum on every corpus ([#102](https://github.com/mark-brannan/colregs/issues/102)) ([81fe7ba](https://github.com/mark-brannan/colregs/commit/81fe7ba7bf4d1d483d0b2decf3a6f51d0233e9fe))
+* split rule text into corpus files under an edition registry (ADR 0013, proposed, GATE-2 adopted) ([#100](https://github.com/mark-brannan/colregs/issues/100)) ([8b70785](https://github.com/mark-brannan/colregs/commit/8b707850216755ec652a12690a04175cac83abe9))
+
+
+### Fixed
+
+* **scripts:** text-slug reads the en-US corpus file, not the skeleton ([#109](https://github.com/mark-brannan/colregs/issues/109)) ([29be5b1](https://github.com/mark-brannan/colregs/commit/29be5b1644e902bd54b697d6e16fc88b67b38edf))
+
 ## [0.2.4](https://github.com/mark-brannan/colregs/compare/v0.2.3...v0.2.4) (2026-09-10)
 
 
