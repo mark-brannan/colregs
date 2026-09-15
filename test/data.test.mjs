@@ -31,6 +31,9 @@ const geometry = load('data/geometry.json')
 const deprecated = load('data/deprecated-identifiers.json')
 const versionStamp = load('data/version.json')
 const fixtures = load('fixtures/applicability-fixtures.json')
+// Display catalogs (ADR 0003) -- one file per language under data/i18n/.
+const catalogFiles = readdirSync(new URL('../data/i18n', import.meta.url)).filter((f) => f.endsWith('.json'))
+const catalogs = catalogFiles.map((f) => [`data/i18n/${f}`, load(`data/i18n/${f}`)])
 
 const byId = new Map(appl.entries.map((e) => [e.id, e]))
 
@@ -161,6 +164,7 @@ const schemaTargets = [
   ['data/version.json', versionStamp, loadSchema('version.schema.json')],
   ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
   ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
+  ...catalogs.map(([file, data]) => [file, data, loadSchema('i18n-catalog.schema.json')]),
 ]
 
 test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
@@ -170,6 +174,30 @@ test('schema: every data file and the fixtures validate against schema/*.schema.
     const validate = ajv.getSchema(schema.$id) ?? ajv.compile(schema)
     const ok = validate(data)
     assert.ok(ok, `${file} fails ${schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
+  }
+})
+
+// Each catalog section is keyed by one vocabulary and every key must resolve
+// to that vocabulary's own source, so a misspelt key cannot ship. Adding a
+// vocabulary (fact, image) is one entry here and one property in the schema.
+const catalogVocabularies = {
+  light: new Set(Object.keys(lights.lights)),
+  modality: new Set(loadSchema('applicability.schema.json').$defs.modality.enum),
+}
+
+test('i18n: the language inside a display catalog matches its filename', () => {
+  for (const [file, cat] of catalogs) {
+    assert.equal(cat.language, file.slice('data/i18n/'.length, -'.json'.length), `${file}: language is ${cat.language}`)
+  }
+})
+
+test('i18n: every key in a display catalog resolves to its vocabulary', () => {
+  for (const [file, cat] of catalogs) {
+    for (const [section, entries] of Object.entries(cat.strings)) {
+      const known = catalogVocabularies[section]
+      assert.ok(known, `${file}: no vocabulary named ${section}`)
+      for (const key of Object.keys(entries)) assert.ok(known.has(key), `${file}: ${section}.${key} is not a ${section} value`)
+    }
   }
 })
 
