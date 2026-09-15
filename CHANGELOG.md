@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/mark-brannan/colregs/compare/v0.3.0...v0.3.1) (2026-09-15)
+
+
+### Added
+
+* display-catalog schema and an English example (ADR 0003 step 2) ([#101](https://github.com/mark-brannan/colregs/issues/101)) ([3f5a4de](https://github.com/mark-brannan/colregs/commit/3f5a4de51d4e7dc01ec7662684f736bbf647a8e1))
+
 ## [0.3.0](https://github.com/mark-brannan/colregs/compare/v0.2.4...v0.3.0) (2026-09-14)
 
 
