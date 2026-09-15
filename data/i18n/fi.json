@@ -1,0 +1,25 @@
+{
+  "language": "fi",
+  "provenance": {
+    "contributors": [
+      "claude-fable-5-1"
+    ],
+    "reviewed_by": [],
+    "review_date": "2026-09-15"
+  },
+  "strings": {
+    "light": {
+      "light:masthead": "Mastovalo",
+      "light:sidelight_starboard": "Oikea sivuvalo",
+      "light:sidelight_port": "Vasen sivuvalo",
+      "light:sternlight": "Perävalo",
+      "light:towing": "Hinausvalo",
+      "light:all_round": "Ympäri näköpiirin näkyvä valo"
+    },
+    "modality": {
+      "shall": "Pakollinen",
+      "may": "Sallittu",
+      "shall-if-practicable": "Pakollinen, jos mahdollista"
+    }
+  }
+}
