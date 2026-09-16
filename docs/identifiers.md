@@ -18,7 +18,7 @@ what a consumer stores when it records why a light was shown. Prefixing it
 would put a package-local token in front of a reference that belongs to the
 Convention rather than to this repository, and would make a stored citation
 unreadable outside the tool that stored it. Entry ids were in this class
-until ADR 0014 moved them out: an entry is this package's *reading* of a
+until ADR 0015 moved them out: an entry is this package's *reading* of a
 paragraph, and a reading can change while the paragraph does not.
 Paragraph-keying is argued in ADR 0001 and required by REQ-MODEL-4; nothing
 here reopens either.
@@ -308,7 +308,7 @@ sailing vessel" — `any_of` carries the disjunction inside one entry,
 
 ## Entry ids
 
-An entry id is a name in the `entry:` namespace, not a citation. ADR 0014
+An entry id is a name in the `entry:` namespace, not a citation. ADR 0015
 made the change and carries the table from the old ids; the rule for
 minting a new one is here.
 

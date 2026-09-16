@@ -1116,7 +1116,7 @@ const reqModel10Section = () => {
   return requirementsText.slice(start, end)
 }
 
-const BASELINE = '1.0.0' // moved from 0.1.1 by ADR 0014 (#121); fixed from here on
+const BASELINE = '1.0.0' // moved from 0.1.1 by ADR 0015 (#121); fixed from here on
 
 test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 1.0.0', () => {
   const whole = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1])
@@ -1144,7 +1144,7 @@ function extractIdentifiers({ rules, lights, facts, appl }) {
   // Keys in lights.json already carry their `light:` prefix (docs/identifiers.md).
   for (const id of Object.keys(lights.lights ?? {})) ids.add(id)
   for (const path of Object.keys(rules.paragraphs ?? {})) ids.add(`paragraph:${path}`)
-  // Entry ids carry their `entry:` prefix since ADR 0014; before it the
+  // Entry ids carry their `entry:` prefix since ADR 0015; before it the
   // prefix was added here, which is why the registry keys always had one.
   for (const e of appl.entries ?? []) ids.add(e.id)
   for (const k of Object.keys(appl.relations ?? {})) ids.add(`rel:${k}`)
@@ -1194,7 +1194,7 @@ const semverLt = (a, b) => {
 test('identifier diff: no identifier published in the last release is silently removed', (t) => {
   const tag = latestReleaseTag()
   if (semverLt(tag.slice(1), BASELINE)) {
-    // Pre-baseline releases are outside REQ-MODEL-10 (ADR 0014): nothing in
+    // Pre-baseline releases are outside REQ-MODEL-10 (ADR 0015): nothing in
     // them is immutable, so there is nothing to diff against yet.
     t.skip(`dormant until the first release at or after the ${BASELINE} baseline; latest tag is ${tag}`)
     return

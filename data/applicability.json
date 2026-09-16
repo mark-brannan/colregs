@@ -129,7 +129,7 @@
   }
  ],
  "retired_entry_ids": {
-  "note": "Entry ids that existed and no longer do, so that a later session cannot reissue one. Emptied by ADR 0014: every citation-derived id (`23a1`, `24a-m2`, `14a`) was discarded when entry ids became names, and none can collide with an `entry:` name by construction. Retirements from here on are recorded again; the immutability baseline is REQ-MODEL-10's.",
+  "note": "Entry ids that existed and no longer do, so that a later session cannot reissue one. Emptied by ADR 0015: every citation-derived id (`23a1`, `24a-m2`, `14a`) was discarded when entry ids became names, and none can collide with an `entry:` name by construction. Retirements from here on are recorded again; the immutability baseline is REQ-MODEL-10's.",
   "ids": {}
  },
  "entries": [

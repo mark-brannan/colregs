@@ -1,4 +1,4 @@
-# ADR 0014 — Entry ids are names, not citations
+# ADR 0015 — Entry ids are names, not citations
 
 Date: 2026-09-16
 Status: proposed; accepted by the merge of the PR that carries it (#121, ruling C)

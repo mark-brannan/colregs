@@ -156,7 +156,7 @@ Four layers, each independently addressable.
   identifiers do not.
 - **REQ-MODEL-4** — **Applicability entries**: `when` (predicate over facts) →
   lights or refs → modality → citation → jurisdiction. Every entry MUST have a
-  stable id, a name in the `entry:` namespace (`entry:sail_under_7m`; ADR 0014).
+  stable id, a name in the `entry:` namespace (`entry:sail_under_7m`; ADR 0015).
 - **REQ-MODEL-5** — Gates MUST be expressed as predicates over facts
   (`fact:length_m < 7`), never as pre-enumerated tuples or configuration counts. Any
   count of "configurations" is an output of evaluation, never an input to the
@@ -233,7 +233,7 @@ Four layers, each independently addressable.
   The baseline was first set at `0.1.1` on 2026-08-30, the day after the
   package was seeded, so that the identifier review this requirement calls
   for could happen at all. It was moved to `1.0.0` by Solace's ruling on
-  #121 (ADR 0014, 2026-09-16), which discarded every citation-derived entry
+  #121 (ADR 0015, 2026-09-16), which discarded every citation-derived entry
   id in favour of a name.
 
   From `1.0.0` the baseline is **fixed**. It MUST NOT be moved, raised,
@@ -274,7 +274,7 @@ Four layers, each independently addressable.
   - **`nuc`, `cbd`, `ram`, `ram_underwater`** — kept unspelled as terms of
     art; see `docs/identifiers.md` for the reasoning and the trap in `ram`.
 
-  ADR 0014 (Solace's ruling on #121, 2026-09-16) reopened the first two
+  ADR 0015 (Solace's ruling on #121, 2026-09-16) reopened the first two
   bullets: entry ids are names now. They stand as the audit's record.
 - **REQ-MODEL-11** — Deprecated identifiers MUST be recorded as data — a
   registry naming each retired identifier, what it denoted, the version that
@@ -1327,7 +1327,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   not fix; 14(a) joins `known_omissions` as conduct beside 18(d)(ii), and
   `14a` was retired in `retired_entry_ids` and, because v0.1.3 shipped it,
   recorded in `data/deprecated-identifiers.json` with `14b` as its replacement
-  — the registry's first record (REQ-MODEL-11), discarded by ADR 0014. The
+  — the registry's first record (REQ-MODEL-11), discarded by ADR 0015. The
   general question — whether a paragraph with no effect of its own gets an
   entry — is `Q-39`'s and is untouched; this paragraph turned out not to be an
   instance of it.
