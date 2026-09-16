@@ -23,8 +23,11 @@ name: Release
 # read, since that strips a leading `v`. Tags here are plain `vX.Y.Z`.
 #
 # Version policy lives in release-please-config.json, not here:
-# bump-patch-for-minor-pre-major and bump-minor-pre-major keep `feat` a patch
-# and a breaking change a minor while this is pre-1.0.
+# `versioning: always-bump-patch` pins every release to a patch bump of the
+# current 0.x line regardless of commit type -- deliberate, until Mark
+# decides colregs is ready for a minor/major bump. Same convention as the
+# other vended repos; see mark-brannan/colregs-engine's copy of this file
+# for the fuller rationale.
 
 on:
   push:
@@ -60,7 +63,7 @@ jobs:
           client-id: ${{ secrets.RELEASE_PLEASE_APP_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
 
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@v5
         id: release
         with:
           token: ${{ steps.app-token.outputs.token }}
