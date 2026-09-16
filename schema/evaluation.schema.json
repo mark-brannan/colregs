@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/evaluation.schema.json",
   "title": "Evaluation",
-  "description": "The $defs every result envelope shares (ADR 0015): the colregs provenance stamp, what an evaluation read, entry-id and paragraph-cite vocabularies. No instance validates against the root; the envelopes under schema/*-evaluation.schema.json and the operations manifest $ref into $defs here.",
+  "description": "The $defs every result envelope shares (ADR 0014): the colregs provenance stamp, what an evaluation read, entry-id and paragraph-cite vocabularies. No instance validates against the root; the envelopes under schema/*-evaluation.schema.json and the operations manifest $ref into $defs here.",
   "$defs": {
     "entryId": {
       "$ref": "applicability.schema.json#/$defs/entryId"

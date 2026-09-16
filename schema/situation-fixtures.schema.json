@@ -173,7 +173,7 @@
             }
           },
           "situation": {
-            "$comment": "A Situation (schema/situation.schema.json, ADR 0015).",
+            "$comment": "A Situation (schema/situation.schema.json, ADR 0014).",
             "$ref": "situation.schema.json"
           }
         }

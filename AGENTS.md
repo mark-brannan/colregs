@@ -62,7 +62,7 @@ these files, which `test/data.test.mjs` enforces exhaustively:
 - **`fixtures/applicability-fixtures.json`** — the cross-implementation
   contract: fact record → expected entry ids. Any implementation, in any
   language, should reproduce these exactly.
-- **`data/operations.json`** — the engine interface (ADR 0015): verb →
+- **`data/operations.json`** — the engine interface (ADR 0014): verb →
   input schemas → result schema → companion → fixture file. The
   `*-evaluation` and input schemas under `schema/` it names are the
   machine-readable form of ADR 0011/0012's envelopes.

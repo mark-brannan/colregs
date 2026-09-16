@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/rule2-departure-finding.schema.json",
   "title": "Rule2DepartureFinding",
-  "description": "The result of evaluateRule2Departure: what a named grid found for a situation, with the rule-derived obligations unchanged beside it and the model that made the claim (ADR 0012 §4, ADR 0015). Advisories are ranked best margin first and are empty under no-robust-policy-in-model. Structure only.",
+  "description": "The result of evaluateRule2Departure: what a named grid found for a situation, with the rule-derived obligations unchanged beside it and the model that made the claim (ADR 0012 §4, ADR 0014). Advisories are ranked best margin first and are empty under no-robust-policy-in-model. Structure only.",
   "type": "object",
   "additionalProperties": false,
   "required": [

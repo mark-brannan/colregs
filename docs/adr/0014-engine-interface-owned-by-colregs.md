@@ -1,4 +1,4 @@
-# ADR 0015 — The engine interface is colregs' to own: an operations manifest and result schemas
+# ADR 0014 — The engine interface is colregs' to own: an operations manifest and result schemas
 
 Date: 2026-09-16
 Status: proposed. Solace ordered options 2 and 3 built on 2026-09-16; the

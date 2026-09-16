@@ -172,7 +172,7 @@ const schemaTargets = [
 
 // Every schema file is registered under its $id before anything compiles, so
 // a `$ref` from one schema file into another (the result envelopes reuse
-// applicability.schema.json's entryId and modality, ADR 0015) resolves; one
+// applicability.schema.json's entryId and modality, ADR 0014) resolves; one
 // corpus schema validates several corpus files, so registration is by file,
 // not per target.
 const schemaFiles = readdirSync(new URL('../schema', import.meta.url)).filter((f) => f.endsWith('.schema.json'))
@@ -196,7 +196,7 @@ test('schema: every schema file names itself by $id and compiles, cross-file $re
   }
 })
 
-// --- operations (ADR 0015) --------------------------------------------------
+// --- operations (ADR 0014) --------------------------------------------------
 // data/operations.json is the engine interface colregs owns: verb -> input
 // schemas -> result schema -> companion -> fixture file. The schema checks its
 // shape; these tests check that every reference lands and that the fixture
