@@ -33,7 +33,7 @@ as a corpus key and a `data/text/` filesystem path — its sibling axis,
 is immutable under REQ-MODEL-10 like any identifier here — renaming
 `us/inland` would break every stored provenance and corpus path — it just
 carries no prefix, because the grammar that owns it already keeps it stable
-and collision-free (ADR 0016).
+and collision-free (ADR 0017).
 
 **Vocabulary identifiers carry a type prefix.** These names are this
 package's own — nothing in COLREGS calls anything `masthead` or `nuc`. They
@@ -46,7 +46,7 @@ resolves that collision by construction rather than by convention. The same
 shape recurs inside the closed vocabularies themselves: `shall-not-impede`
 names both a modality and a role, and `none` names both a role and an
 encounter — resolved the identical way, `modality:shall-not-impede` and
-`role:shall-not-impede` being two names rather than one (ADR 0016).
+`role:shall-not-impede` being two names rather than one (ADR 0017).
 
 ## The scheme
 
@@ -223,7 +223,7 @@ Five roles, a closed set: `role:give-way`, `role:stand-on`,
 `role:shall-not-impede`, `role:keep-clear`, `role:none`. They are declared
 in `data/applicability.json` under `effects`, and, like modality and
 category, they are identifiers: prefixed closed vocabularies `REQ-MODEL-10`
-binds (ADR 0016).
+binds (ADR 0017).
 
 ### Encounters, and why a classification effect has two shapes
 

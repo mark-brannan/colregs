@@ -68,7 +68,7 @@ Neither consumer lives in this repo.
   applicability entry and every rule-text record, expressed as
   `<country-or-body>/<waters>` with `intl` as the reserved base value.
   Examples: `intl`, `us/inland`, `us/great-lakes`, `us/western-rivers`,
-  `ca/inland`, `de/binnen`, `eu/cevni`. The jurisdiction value is itself an identifier, unprefixed and immutable under REQ-MODEL-10 (ADR 0016).
+  `ca/inland`, `de/binnen`, `eu/cevni`. The jurisdiction value is itself an identifier, unprefixed and immutable under REQ-MODEL-10 (ADR 0017).
 - **REQ-SCOPE-3** — A jurisdiction MUST be expressible as a *delta*: entries
   absent from a jurisdiction's data inherit from `intl`. A jurisdiction MUST
   NOT require restating the whole body of rules. Inheritance is "unless
