@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/encounter-evaluation.schema.json",
+  "title": "EncounterEvaluation",
+  "description": "The result of evaluateEncounter: two vessels at one instant -- scope, encounter class, risk of collision with its grounds, roles as a set per subject, overrides and modalities (ADR 0011 §4, ADR 0014). Structure only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["colregs", "applied", "scope", "risk_of_collision", "roles", "overridden", "modalities", "categories", "provenance"],
+  "properties": {
+    "colregs": { "$ref": "display-evaluation.schema.json#/$defs/colregs" },
+    "applied": { "$ref": "display-evaluation.schema.json#/$defs/entryIds" },
+    "scope": { "$ref": "display-evaluation.schema.json#/$defs/entryIds" },
+    "encounter": {
+      "$comment": "Absent when no classification entry fired: cannot say, not none (Q-43).",
+      "type": "string",
+      "enum": ["head-on", "crossing", "overtaking", "none"]
+    },
+    "risk_of_collision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asserted", "by"],
+      "properties": {
+        "asserted": { "type": "boolean" },
+        "by": { "$ref": "display-evaluation.schema.json#/$defs/entryIds" }
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["own", "other"],
+      "properties": {
+        "own": { "$ref": "#/$defs/subjectRoles" },
+        "other": { "$ref": "#/$defs/subjectRoles" }
+      }
+    },
+    "overridden": { "$ref": "display-evaluation.schema.json#/$defs/byEntryList" },
+    "modalities": { "$ref": "display-evaluation.schema.json#/$defs/modalities" },
+    "categories": { "$ref": "display-evaluation.schema.json#/$defs/categories" },
+    "provenance": { "$ref": "display-evaluation.schema.json#/$defs/provenance" }
+  },
+  "$defs": {
+    "subjectRole": {
+      "$comment": "Roles are a set per subject, each citing the entry that assigned it (Q-36).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "by"],
+      "properties": {
+        "role": { "$ref": "applicability.schema.json#/$defs/effectRole" },
+        "by": { "$ref": "display-evaluation.schema.json#/$defs/entryId" }
+      }
+    },
+    "subjectRoles": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/subjectRole" }
+    }
+  }
+}

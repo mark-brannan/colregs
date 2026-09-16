@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/trace.schema.json",
+  "title": "Trace",
+  "description": "The situation over time: the window evaluateConduct reads (ADR 0012 §2, ADR 0014). Non-empty, `t_s` strictly increasing on the caller's clock, the same two vessels throughout; the ordering is checked by the engine's validator, the identity is the caller's. Structure only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["samples"],
+  "properties": {
+    "samples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["t_s", "situation"],
+        "properties": {
+          "t_s": { "type": "number" },
+          "situation": { "$ref": "situation.schema.json" }
+        }
+      }
+    }
+  }
+}
