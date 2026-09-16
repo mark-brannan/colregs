@@ -63,12 +63,14 @@ reading of the Rules, and the package that carries the Rules should say it.
 
 4. **Two entries in force whose `rel:in_lieu_of` targets intersect are
    alternatives to each other** and never share a display. This is an
-   invariant of the verb, not a declared pair list. Both pairs the data
-   holds read that way in the text: 23(d)(ii)'s display is 23(d)(i)'s with
-   the sidelights made practicable-only, and 25(d)(i)'s torch is what a
-   vessel shows *if she does not* exhibit (a) or (b). A future pair that
-   lawfully combines is the evidence to reopen this point; until one
-   exists, the target sets are the declaration.
+   invariant of the verb, not a declared pair list. The two pairs the data
+   can hold in force together read that way in the text: 23(d)(ii)'s
+   display is 23(d)(i)'s with the sidelights made practicable-only, and
+   25(d)(i)'s torch is what a vessel shows *if she does not* exhibit (a) or
+   (b). The Rule 24 entries that share targets — 24(a)(i) below and above
+   200 m, and 24(c) — are disjoint on their own predicates and never meet.
+   A future pair that lawfully combines is the evidence to reopen this
+   point; until one exists, the target sets are the declaration.
 
 Three shapes were considered and not adopted. Restating each option's
 scalar gate on the carrier's branch (30(d) split at 50 m) keeps "lights
