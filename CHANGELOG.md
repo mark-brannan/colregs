@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.2](https://github.com/mark-brannan/colregs/compare/v0.3.1...v0.3.2) (2026-09-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* closed vocabularies are prefixed identifiers (ADR 0017) ([#148](https://github.com/mark-brannan/colregs/issues/148))
+
+### Added
+
+* closed vocabularies are prefixed identifiers (ADR 0017) ([#148](https://github.com/mark-brannan/colregs/issues/148)) ([39d110a](https://github.com/mark-brannan/colregs/commit/39d110af4519b57a7b3b1f723a9c0ac3654542ea))
+* encounter roles are the pooled two-frame read (ADR 0016) ([#144](https://github.com/mark-brannan/colregs/issues/144)) ([13e4251](https://github.com/mark-brannan/colregs/commit/13e42515b356aae3aa87c4f08a7ebf53424087f0))
+
+
+### Fixed
+
+* **data:** correct 13a's gap note, no longer claims the swapped read ([#145](https://github.com/mark-brannan/colregs/issues/145)) ([321aa7c](https://github.com/mark-brannan/colregs/commit/321aa7c5a72b2483f88356d41032b59c0653a0b6))
+
 ## [0.3.1](https://github.com/mark-brannan/colregs/compare/v0.3.0...v0.3.1) (2026-09-16)
 
 
