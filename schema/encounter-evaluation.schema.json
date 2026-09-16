@@ -56,11 +56,11 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "own",
+        "self",
         "other"
       ],
       "properties": {
-        "own": {
+        "self": {
           "$ref": "#/$defs/subjectRoles"
         },
         "other": {

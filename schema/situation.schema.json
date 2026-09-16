@@ -3,12 +3,12 @@
   "$id": "https://github.com/mark-brannan/colregs/schema/situation.schema.json",
   "title": "Situation",
   "description": "Two vessels and the encounter at one instant: the input evaluateEncounter reads, nested by subject and class (ADR 0005 §2, ADR 0011 §3, ADR 0014). Structure only -- every kin:/geo:/hist:/env: key must be declared in data/facts.json §situation, checked in the tests.",
-  "$comment": "The same shape as a case's `situation` in schema/situation-fixtures.schema.json, stated once here so an operation can name it; `own` required, `other` optional (Rule 19's single-vessel scope), every class and key optional -- absent is absent.",
+  "$comment": "The same shape as a case's `situation` in schema/situation-fixtures.schema.json, stated once here so an operation can name it; `self` required, `other` optional (Rule 19's single-vessel scope), every class and key optional -- absent is absent.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["own"],
+  "required": ["self"],
   "properties": {
-    "own": { "$ref": "#/$defs/subject" },
+    "self": { "$ref": "#/$defs/subject" },
     "other": { "$ref": "#/$defs/subject" },
     "pair": {
       "type": "object",
