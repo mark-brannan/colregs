@@ -479,7 +479,7 @@
     "fact": "the per-vessel fact record above, unchanged and unprefixed inside the record. `own` and `other` only.",
     "kin": "kinematic state: where a vessel is, where it is pointing, how fast it is going and turning, and what it handles like. `own` and `other` only.",
     "geo": "relative geometry. Under `own`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
-    "hist": "what has already been true of this encounter and latches. `own` and `other` only; directional.",
+    "hist": "what has already been true of this encounter and persists. `own` and `other` only; directional.",
     "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed."
    },
    "bare_key": "A key with no subject segment means `own:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
@@ -653,7 +653,7 @@
    }
   },
   "history": {
-   "note": "The situation is not memoryless: Rule 13(d) latches a classification that the instantaneous geometry would later contradict. History is directional -- it is own that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
+   "note": "The situation is not memoryless: Rule 13(d) carries forward a classification that the instantaneous geometry would later contradict. History is directional -- it is own that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
    "hist:was_overtaking": {
     "type": "boolean",
     "cite": "13(d)",
@@ -667,7 +667,7 @@
     "unit": "s",
     "cite": "13(d)",
     "cite_pending": null,
-    "note": "Seconds since the latched classification first held, or null if nothing has latched. Carried so a `conduct` monitor can say when the duty attached; a predicate at a point does not read it.",
+    "note": "Seconds since the carried-forward classification first held, or null if none has held yet. Carried so a `conduct` monitor can say when the duty attached; a predicate at a point does not read it.",
     "actuable": false,
     "signalk": null
    }
