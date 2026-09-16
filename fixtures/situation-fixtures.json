@@ -11,10 +11,10 @@
  ],
  "jurisdiction": "intl",
  "expect_form": {
-  "note": "An element of `expect` is either a bare entry id, exactly as in applicability-fixtures.json, or an object {\"entry\": <id>, \"modality\": <modality>} naming the modality that entry is expected to carry for this situation. The two forms are interchangeable and a bare id asserts nothing about modality, so the published one-subject fixtures remain valid unedited while Q-5's three modality-only gates (23a2, 26b-mast, 30c) become fixturable.",
-  "bare": "23a1",
+  "note": "An element of `expect` is either a bare entry id or an object {\"entry\": <id>, \"modality\": <modality>} naming the modality that entry is expected to carry. The two forms are interchangeable and a bare id asserts nothing about modality, so the published one-subject fixtures remain valid unedited while Q-5's three modality-only gates (entry:power_second_masthead, entry:trawling_masthead, entry:anchored_deck_lights) become fixturable.",
+  "bare": "entry:power_forward_masthead",
   "with_modality": {
-   "entry": "23a2",
+   "entry": "entry:power_second_masthead",
    "modality": "may"
   }
  },
@@ -29,14 +29,14 @@
   {
    "name": "crossing: own power-driven, other fine on the starboard bow",
    "status": "binding",
-   "narrative": "Two power-driven vessels in sight of one another, other bearing 040 relative at 3 nm on a steady bearing and crossing right to left ahead. Own has the other on her own starboard side, so own is the give-way vessel under Rule 15 and Rule 16 governs the action; the other is stand-on under Rule 17. Rule 15 is not transcribed yet, so this asserts nothing. Binding since Rules 7(d), 13, 14 and 15 landed: 15a-crossing is the encounter, 15a-give-way is the role, 7d1 is the steady bearing, and 8f3 is Rule 8(f)(iii) denying the stand-on vessel any privilege from a shall-not-impede duty she is not owed. Rules 16 and 17 are `conduct` and are still not modelled.",
+   "narrative": "Two power-driven vessels in sight of one another, other bearing 040 relative at 3 nm on a steady bearing and crossing right to left ahead. Own has the other on her own starboard side, so own is the give-way vessel under Rule 15 and Rule 16 governs the action; the other is stand-on under Rule 17. Rule 15 is not transcribed yet, so this asserts nothing. Binding since Rules 7(d), 13, 14 and 15 landed: entry:crossing is the encounter, entry:crossing_gives_way is the role, entry:steady_bearing is the steady bearing, and entry:not_impeded_remains_obliged is Rule 8(f)(iii) denying the stand-on vessel any privilege from a shall-not-impede duty she is not owed. Rules 16 and 17 are `conduct` and are still not modelled.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "15a-crossing",
-    "15a-give-way"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:crossing",
+    "entry:crossing_gives_way"
    ],
    "situation": {
     "own": {
@@ -106,13 +106,13 @@
   {
    "name": "narrow channel: head-on round a bend, bank 100 m to starboard",
    "status": "binding",
-   "narrative": "The R1 illustration of ADR 0005 sec. 5 and the proposal's sec. 4. Own keeps to the starboard side of a narrow channel per Rule 9(a); a vessel cuts the bend and is head-on at 800 m. Rule 14(a) requires each to alter to starboard, and the bank is 100 m to starboard of own. Every compliant plan grounds or collides; a port alteration passes starboard-to-starboard and breaches 14(a). The value of the case here is not the region finding, which belongs to colregs-engine -- it is that the situation record can carry it at all. Binding now: `pair:env:narrow_channel` is the fact the recorded gap asked for and 14b is the classification. Neither 9(b) nor 9(c) applies from own's side -- she is 24 m and power-driven -- so the narrow channel changes no entry here and is stated because it is true, not to select one. Recast on a steady bearing when the consistency check landed (Q-48): the other now bears 357 relative, three degrees on own's port bow, and has own 3.6 degrees on her own starboard bow, which at 12 and 10 knots is a collision course. The 3/8 starboard-to-starboard pair the case opened with passed at 74 m with the bearing changing four and a half degrees a minute, and no positive speeds make it steady -- two vessels each with the other to starboard are never on a collision course. The dilemma is unchanged: a starboard alteration is into the bank.",
+   "narrative": "The R1 illustration of ADR 0005 sec. 5 and the proposal's sec. 4. Own keeps to the starboard side of a narrow channel per Rule 9(a); a vessel cuts the bend and is head-on at 800 m. Rule 14(a) requires each to alter to starboard, and the bank is 100 m to starboard of own. Every compliant plan grounds or collides; a port alteration passes starboard-to-starboard and breaches 14(a). The value of the case here is not the region finding, which belongs to colregs-engine -- it is that the situation record can carry it at all. Binding now: `pair:env:narrow_channel` is the fact the recorded gap asked for and entry:head_on is the classification. Neither 9(b) nor 9(c) applies from own's side -- she is 24 m and power-driven -- so the narrow channel changes no entry here and is stated because it is true, not to select one. Recast on a steady bearing when the consistency check landed (Q-48): the other now bears 357 relative, three degrees on own's port bow, and has own 3.6 degrees on her own starboard bow, which at 12 and 10 knots is a collision course. The 3/8 starboard-to-starboard pair the case opened with passed at 74 m with the bearing changing four and a half degrees a minute, and no positive speeds make it steady -- two vessels each with the other to starboard are never on a collision course. The dilemma is unchanged: a starboard alteration is into the bank.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "14b"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:head_on"
    ],
    "situation": {
     "own": {
@@ -186,13 +186,13 @@
   {
    "name": "13(d) latch: an overtaking whose bearing has drawn out to a crossing",
    "status": "binding",
-   "narrative": "Own came up on the other vessel from abaft her beam and is overtaking. The bearing has since drawn out: own now bears 250 relative from the other, just outside Rule 13(b)'s 112.5-247.5 sector, so the instantaneous geometry alone would reclassify this as a crossing with the other vessel give-way. Rule 13(d) forbids exactly that, and own:hist:was_overtaking is the fact that carries it. This is the case that makes history a class rather than a note. Binding: 13d holds the classification at overtaking on the strength of the latch alone, and 15a-crossing is absent -- not because the geometry excludes it, which it does not, but because its `own:hist:was_overtaking: false` gate does. That absence is the whole content of 13(d). The pair numbers were re-derived from the kinematics when the consistency check landed (Q-48): at 400 m abeam with five knots between them the bearing is changing at 24 degrees a minute and the closest approach is already past, so 7(d)(i)'s steady-bearing ground is not available and `7d1` left the expectation. `geo:risk_of_collision` is a supplied judgement and stays true -- nothing in this package may deny a risk, and 13(d) does not read one.",
+   "narrative": "Own came up on the other vessel from abaft her beam and is overtaking. The bearing has since drawn out: own now bears 250 relative from the other, just outside Rule 13(b)'s 112.5-247.5 sector, so the instantaneous geometry alone would reclassify this as a crossing with the other vessel give-way. Rule 13(d) forbids exactly that, and own:hist:was_overtaking is the fact that carries it. This is the case that makes history a class rather than a note. Binding: entry:overtaking_until_past_and_clear holds the classification at overtaking on the strength of the latch alone, and entry:crossing is absent -- not because the geometry excludes it, which it does not, but because its `own:hist:was_overtaking: false` gate does. That absence is the whole content of 13(d). The pair numbers were re-derived from the kinematics when the consistency check landed (Q-48): at 400 m abeam with five knots between them the bearing is changing at 24 degrees a minute and the closest approach is already past, so 7(d)(i)'s steady-bearing ground is not available and `entry:steady_bearing` left the expectation. `geo:risk_of_collision` is a supplied judgement and stays true -- nothing in this package may deny a risk, and 13(d) does not read one.",
    "expect": [
-    "4",
-    "11",
-    "8f3",
-    "13a",
-    "13d"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:not_impeded_remains_obliged",
+    "entry:overtaking_gives_way",
+    "entry:overtaking_until_past_and_clear"
    ],
    "situation": {
     "own": {
@@ -334,8 +334,8 @@
    "status": "binding",
    "narrative": "Own is power-driven; the other vessel is power-driven. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -368,9 +368,9 @@
    "status": "binding",
    "narrative": "Own is power-driven; the other vessel is sailing. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a4",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_sail",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -403,9 +403,9 @@
    "status": "binding",
    "narrative": "Own is power-driven; the other vessel is fishing (power). Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a3",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_fishing",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -438,9 +438,9 @@
    "status": "binding",
    "narrative": "Own is power-driven; the other vessel is not under command. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a1",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_nuc",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -473,9 +473,9 @@
    "status": "binding",
    "narrative": "Own is power-driven; the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a2",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_ram",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -508,12 +508,12 @@
    "status": "binding",
    "narrative": "Own is power-driven; the other vessel is constrained by her draught. Both underway and in sight of one another.",
    "expect": [
-    "11",
+    "entry:in_sight",
     {
-     "entry": "18d1",
+     "entry": "entry:avoid_impeding_cbd",
      "modality": "shall-if-practicable"
     },
-    "4"
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -546,8 +546,8 @@
    "status": "binding",
    "narrative": "Own is sailing; the other vessel is power-driven. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -580,8 +580,8 @@
    "status": "binding",
    "narrative": "Own is sailing; the other vessel is sailing. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -614,9 +614,9 @@
    "status": "binding",
    "narrative": "Own is sailing; the other vessel is fishing (power). Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18b3",
-    "4"
+    "entry:in_sight",
+    "entry:sail_gives_way_to_fishing",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -649,9 +649,9 @@
    "status": "binding",
    "narrative": "Own is sailing; the other vessel is not under command. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18b1",
-    "4"
+    "entry:in_sight",
+    "entry:sail_gives_way_to_nuc",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -684,9 +684,9 @@
    "status": "binding",
    "narrative": "Own is sailing; the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18b2",
-    "4"
+    "entry:in_sight",
+    "entry:sail_gives_way_to_ram",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -719,12 +719,12 @@
    "status": "binding",
    "narrative": "Own is sailing; the other vessel is constrained by her draught. Both underway and in sight of one another.",
    "expect": [
-    "11",
+    "entry:in_sight",
     {
-     "entry": "18d1",
+     "entry": "entry:avoid_impeding_cbd",
      "modality": "shall-if-practicable"
     },
-    "4"
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -757,8 +757,8 @@
    "status": "binding",
    "narrative": "Own is fishing (power); the other vessel is power-driven. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -791,8 +791,8 @@
    "status": "binding",
    "narrative": "Own is fishing (power); the other vessel is sailing. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -825,8 +825,8 @@
    "status": "binding",
    "narrative": "Own is fishing (power); the other vessel is fishing (power). Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -859,12 +859,12 @@
    "status": "binding",
    "narrative": "Own is fishing (power); the other vessel is not under command. Both underway and in sight of one another.",
    "expect": [
-    "11",
+    "entry:in_sight",
     {
-     "entry": "18c1",
+     "entry": "entry:fishing_gives_way_to_nuc",
      "modality": "shall-if-practicable"
     },
-    "4"
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -897,12 +897,12 @@
    "status": "binding",
    "narrative": "Own is fishing (power); the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
    "expect": [
-    "11",
+    "entry:in_sight",
     {
-     "entry": "18c2",
+     "entry": "entry:fishing_gives_way_to_ram",
      "modality": "shall-if-practicable"
     },
-    "4"
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -935,12 +935,12 @@
    "status": "binding",
    "narrative": "Own is fishing (power); the other vessel is constrained by her draught. Both underway and in sight of one another.",
    "expect": [
-    "11",
+    "entry:in_sight",
     {
-     "entry": "18d1",
+     "entry": "entry:avoid_impeding_cbd",
      "modality": "shall-if-practicable"
     },
-    "4"
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -973,8 +973,8 @@
    "status": "binding",
    "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1007,8 +1007,8 @@
    "status": "binding",
    "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1041,8 +1041,8 @@
    "status": "binding",
    "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1075,8 +1075,8 @@
    "status": "binding",
    "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1109,8 +1109,8 @@
    "status": "binding",
    "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1143,8 +1143,8 @@
    "status": "binding",
    "narrative": "Own is not under command: Rule 18 ranks her below nothing, so no paragraph of it applies to her and she carries no obligation here -- including against a vessel restricted in her ability to manoeuvre, which is the unordered pair at the top of the partial order.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1177,8 +1177,8 @@
    "status": "binding",
    "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1211,8 +1211,8 @@
    "status": "binding",
    "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1245,8 +1245,8 @@
    "status": "binding",
    "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1279,8 +1279,8 @@
    "status": "binding",
    "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1313,8 +1313,8 @@
    "status": "binding",
    "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1347,8 +1347,8 @@
    "status": "binding",
    "narrative": "Own is restricted in her ability to manoeuvre: nothing in Rule 18 is addressed to her, including against a vessel not under command. NUC and RAM are unordered.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1381,8 +1381,8 @@
    "status": "binding",
    "narrative": "Own is constrained by her draught; the other vessel is power-driven. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1415,9 +1415,9 @@
    "status": "binding",
    "narrative": "Own is constrained by her draught; the other vessel is sailing. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a4",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_sail",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1450,9 +1450,9 @@
    "status": "binding",
    "narrative": "Own is constrained by her draught; the other vessel is fishing (power). Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a3",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_fishing",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1485,9 +1485,9 @@
    "status": "binding",
    "narrative": "Own is constrained by her draught; the other vessel is not under command. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a1",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_nuc",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1520,9 +1520,9 @@
    "status": "binding",
    "narrative": "Own is constrained by her draught; the other vessel is restricted in her ability to manoeuvre. Both underway and in sight of one another.",
    "expect": [
-    "11",
-    "18a2",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_ram",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1555,12 +1555,12 @@
    "status": "binding",
    "narrative": "Own is constrained by her draught; the other vessel is constrained by her draught. Both underway and in sight of one another.",
    "expect": [
-    "11",
+    "entry:in_sight",
     {
-     "entry": "18d1",
+     "entry": "entry:avoid_impeding_cbd",
      "modality": "shall-if-practicable"
     },
-    "4"
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1593,12 +1593,12 @@
    "status": "binding",
    "narrative": "18(c) does not distinguish propulsion: a fishing vessel under sail is ranked by 18(c)(i), not by 18(b)(i), and both would otherwise match. This is the case that makes own's activity list, not her propulsion, the discriminator.",
    "expect": [
-    "11",
+    "entry:in_sight",
     {
-     "entry": "18c1",
+     "entry": "entry:fishing_gives_way_to_nuc",
      "modality": "shall-if-practicable"
     },
-    "4"
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1631,8 +1631,8 @@
    "status": "binding",
    "narrative": "A fishing vessel under sail against an ordinary power-driven vessel: 18(a)(iii) gives the duty to the other vessel, so own carries none. The mirror of this case is the power-driven row.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1665,8 +1665,8 @@
    "status": "binding",
    "narrative": "The same facts as the in-sight matrix cell, with `pair:geo:in_sight` false. Section II falls away entirely -- 18(a)(i) does not apply -- and Rule 19 takes its place. This is the scope gate, asserted rather than described.",
    "expect": [
-    "19a",
-    "4"
+    "entry:restricted_visibility",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1699,8 +1699,8 @@
    "status": "binding",
    "narrative": "Section II is gated off; a sailing vessel gets no Rule 18 privilege from a vessel that cannot see her.",
    "expect": [
-    "19a",
-    "4"
+    "entry:restricted_visibility",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1733,8 +1733,8 @@
    "status": "binding",
    "narrative": "18(c)(ii) is Section II and falls away with it.",
    "expect": [
-    "19a",
-    "4"
+    "entry:restricted_visibility",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1767,9 +1767,9 @@
    "status": "binding",
    "narrative": "Not in sight, so Section II is gone, but Rule 4 keeps Rules 4-10 alive and 8(f)(iii) is one of them. It confers no role on either subject, which is its whole content.",
    "expect": [
-    "19a",
-    "4",
-    "8f3"
+    "entry:restricted_visibility",
+    "entry:any_visibility",
+    "entry:not_impeded_remains_obliged"
    ],
    "situation": {
     "own": {
@@ -1803,10 +1803,10 @@
    "status": "binding",
    "narrative": "Own is a sailing vessel that came up on a power-driven vessel from abaft her beam, so `own:hist:was_overtaking` is latched. Read from own's side 13(a) makes her give-way. Read from the other vessel's side -- the swapped situation -- 18(a)(iv) would make the power-driven vessel give-way to a sailing vessel, and 13(a)'s rel:overrides is what resolves the pair. The conflict is only visible across the swap, because a two-subject entry is evaluated from own's side alone.",
    "expect": [
-    "11",
-    "13a",
-    "4",
-    "13d"
+    "entry:in_sight",
+    "entry:overtaking_gives_way",
+    "entry:any_visibility",
+    "entry:overtaking_until_past_and_clear"
    ],
    "situation": {
     "own": {
@@ -1843,9 +1843,9 @@
    "status": "binding",
    "narrative": "A WIG craft near the surface satisfies 18(a)'s predicate too -- she is a power-driven vessel underway -- and against an ordinary power-driven vessel no 18(a) entry fires, so 18(f)(i) stands alone.",
    "expect": [
-    "11",
-    "18f1",
-    "4"
+    "entry:in_sight",
+    "entry:wig_keeps_well_clear",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1878,12 +1878,12 @@
   {
    "name": "18(f)(i) overrides 18(a)(iv): a WIG craft near the surface and a sailing vessel",
    "status": "binding",
-   "narrative": "Here both fire from own's side: 18(a)(iv) would make her give-way, 18(f)(i) makes her keep clear of all vessels. 18f1's rel:overrides against 18a4 is what stops that being two different roles for one subject in one situation.",
+   "narrative": "Here both fire from own's side: 18(a)(iv) would make her give-way, 18(f)(i) makes her keep clear of all vessels. entry:wig_keeps_well_clear's rel:overrides against entry:power_gives_way_to_sail is what stops that being two different roles for one subject in one situation.",
    "expect": [
-    "11",
-    "18a4",
-    "18f1",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_sail",
+    "entry:wig_keeps_well_clear",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -1918,10 +1918,10 @@
    "status": "binding",
    "narrative": "Outside a channel a power-driven vessel keeps out of the way of a sailing vessel. Inside one 9(b) reverses it: the sailing vessel shall not impede. Both halves of 9(b)'s disjunctive subject fire here because the vessel is also under 20 m.",
    "expect": [
-    "11",
-    "4",
+    "entry:in_sight",
+    "entry:any_visibility",
     {
-     "entry": "9b",
+     "entry": "entry:narrow_channel_small_or_sail",
      "modality": "shall-not-impede"
     }
    ],
@@ -1961,14 +1961,14 @@
    "status": "binding",
    "narrative": "18(a)(iii) would make the power-driven vessel keep out of the way; 9(c) makes the fishing vessel not impede her. Read from the fishing vessel's side.",
    "expect": [
-    "11",
-    "4",
+    "entry:in_sight",
+    "entry:any_visibility",
     {
-     "entry": "9b",
+     "entry": "entry:narrow_channel_small_or_sail",
      "modality": "shall-not-impede"
     },
     {
-     "entry": "9c",
+     "entry": "entry:narrow_channel_fishing",
      "modality": "shall-not-impede"
     }
    ],
@@ -2009,15 +2009,15 @@
    "narrative": "The traffic-lane twin of 9(c). `pair:env:traffic_lane` is the only fact that separates them.",
    "expect": [
     {
-     "entry": "10i",
+     "entry": "entry:traffic_lane_fishing",
      "modality": "shall-not-impede"
     },
     {
-     "entry": "10j",
+     "entry": "entry:traffic_lane_small_or_sail",
      "modality": "shall-not-impede"
     },
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -2056,11 +2056,11 @@
    "narrative": "10(j)'s object is narrower than 9(b)'s -- a power-driven vessel following a traffic lane -- so `other:fact:propulsion` is read. Both halves of the disjunctive subject fire.",
    "expect": [
     {
-     "entry": "10j",
+     "entry": "entry:traffic_lane_small_or_sail",
      "modality": "shall-not-impede"
     },
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -2096,12 +2096,12 @@
   {
    "name": "9(b) length boundary: 19.9 m power-driven vessel in a narrow channel",
    "status": "binding",
-   "narrative": "REQ-VERIFY-5: the `own:fact:length_m: {lt: 20}` disjunct of 9b's `any_of` subject, isolated from the `propulsion:sail` disjunct and from 18a4 by keeping both vessels power-driven -- no other predicate fires, so only the length gate decides.",
+   "narrative": "REQ-VERIFY-5: the `own:fact:length_m: {lt: 20}` disjunct of entry:narrow_channel_small_or_sail's `any_of` subject, isolated from the `propulsion:sail` disjunct and from entry:power_gives_way_to_sail by keeping both vessels power-driven -- no other predicate fires, so only the length gate decides.",
    "expect": [
-    "11",
-    "4",
+    "entry:in_sight",
+    "entry:any_visibility",
     {
-     "entry": "9b",
+     "entry": "entry:narrow_channel_small_or_sail",
      "modality": "shall-not-impede"
     }
    ],
@@ -2139,10 +2139,10 @@
   {
    "name": "9(b) length boundary: 20.0 m power-driven vessel in a narrow channel",
    "status": "binding",
-   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct of 9b's subject holds, so 9b no longer applies and nothing else in this situation does either. `other:fact:confined_to_channel` stays true so length alone crosses the threshold.",
+   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct of entry:narrow_channel_small_or_sail's subject holds, so entry:narrow_channel_small_or_sail no longer applies and nothing else in this situation does either. `other:fact:confined_to_channel` stays true so length alone crosses the threshold.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -2178,12 +2178,12 @@
   {
    "name": "10(j) length boundary: 19.9 m power-driven vessel in a traffic separation scheme",
    "status": "binding",
-   "narrative": "REQ-VERIFY-5: the twin gate, on 10j's `any_of` subject. Both vessels power-driven, other following the lane, so only the length disjunct decides.",
+   "narrative": "REQ-VERIFY-5: the twin gate, on entry:traffic_lane_small_or_sail's `any_of` subject. Both vessels power-driven, other following the lane, so only the length disjunct decides.",
    "expect": [
-    "11",
-    "4",
+    "entry:in_sight",
+    "entry:any_visibility",
     {
-     "entry": "10j",
+     "entry": "entry:traffic_lane_small_or_sail",
      "modality": "shall-not-impede"
     }
    ],
@@ -2221,10 +2221,10 @@
   {
    "name": "10(j) length boundary: 20.0 m power-driven vessel in a traffic separation scheme",
    "status": "binding",
-   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct holds and 10j no longer applies. `other:fact:following_traffic_lane` stays true so length alone crosses the threshold.",
+   "narrative": "The other side of the same gate: at exactly 20 m, neither disjunct holds and entry:traffic_lane_small_or_sail no longer applies. `other:fact:following_traffic_lane` stays true so length alone crosses the threshold.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -2262,8 +2262,8 @@
    "status": "binding",
    "narrative": "The negative case for 10(j)'s `other:fact:propulsion` gate: the other vessel is not power-driven, so 10(j) does not fire and Rule 18 says nothing between two sailing vessels either. Rule 12 would, and is not modelled.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -2300,8 +2300,8 @@
    "status": "binding",
    "narrative": "REQ-VERIFY-5's twin for a boolean gate rather than a threshold: same subjects and channel as the first 9(b) fixture, but the other vessel is not the paragraph's protected vessel, so `other:fact:confined_to_channel` alone decides and 9(b) does not fire.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -2339,8 +2339,8 @@
    "status": "binding",
    "narrative": "The traffic-lane twin of the 9(b) case above: same subjects and scheme as the 10(j) fixture, but the other vessel is not following it, so `other:fact:following_traffic_lane` alone decides.",
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "situation": {
     "own": {
@@ -2404,9 +2404,9 @@
     }
    },
    "expect": [
-    "11",
-    "18a2",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_ram",
+    "entry:any_visibility"
    ],
    "narrative": "The case Q-32 recorded as uncaught: a towing operation that severely restricts the towing vessel and her tow is restricted in her ability to manoeuvre by 27(c), so 18(a)(ii) applies -- but her `fact:activity` is `activity:towing` and no enumeration of the display axis reached her. `fact:rule18_class` decodes her to `rule18_class:ram` and the entry finds her."
   },
@@ -2441,8 +2441,8 @@
     }
    },
    "expect": [
-    "11",
-    "4"
+    "entry:in_sight",
+    "entry:any_visibility"
    ],
    "narrative": "The other side of the same boolean, and the reason 27(c) needs one: most tows do not severely restrict the pair, and a tow that does not is an ordinary power-driven vessel under Rule 18. Without `fact:tow_restricts_deviation` the decode would have to choose one reading for every tow and would be wrong about most of them."
   },
@@ -2476,22 +2476,22 @@
     }
    },
    "expect": [
-    "11",
-    "18a2",
-    "4"
+    "entry:in_sight",
+    "entry:power_gives_way_to_ram",
+    "entry:any_visibility"
    ],
    "narrative": "3(g)(vi) names \"the towing vessel and her tow\" together, and the tow carries her own fact record -- so this side of the pair needs its own fixture: `activity:being_towed` plus `fact:tow_restricts_deviation` on her own record decodes her to `rule18_class:ram` exactly as the towing vessel's does. Before this fixture the decode row only matched `activity:towing`, and the tow herself fell through to her propulsion undetected."
   },
   {
    "name": "13(b) edge: own bears exactly 112.5 from the other, and is not yet overtaking",
    "status": "binding",
-   "narrative": "Own bears 112.5 relative from the other -- exactly 22.5 degrees abaft her beam, the forward edge of her sternlight arc. 13(b) says 'more than 22.5 degrees abaft her beam', so the edge itself is not an overtaking and the encounter is a crossing. The other bears 300 relative from own, on own's port bow, so own is the stand-on vessel and 15a-give-way is absent from her side; it applies to the other vessel, which is the swapped situation and not what a fixture asserts.",
+   "narrative": "Own bears 112.5 relative from the other -- exactly 22.5 degrees abaft her beam, the forward edge of her sternlight arc. 13(b) says 'more than 22.5 degrees abaft her beam', so the edge itself is not an overtaking and the encounter is a crossing. The other bears 300 relative from own, on own's port bow, so own is the stand-on vessel and entry:crossing_gives_way is absent from her side; it applies to the other vessel, which is the swapped situation and not what a fixture asserts.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "15a-crossing"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:crossing"
    ],
    "situation": {
     "own": {
@@ -2553,14 +2553,14 @@
   {
    "name": "13(b) edge: own bears 112.6 from the other, one tenth of a degree into the sector",
    "status": "binding",
-   "narrative": "The same edge from the other side of it. A tenth of a degree further abaft the other's beam and the encounter is an overtaking: 13b-overtaking classifies it and 13a lays the duty on own. 15a-crossing is excluded by the sector, not by a hand-written crossing sector, which is the property the partition test asserts over the whole circle.",
+   "narrative": "The same edge from the other side of it. A tenth of a degree further abaft the other's beam and the encounter is an overtaking: entry:overtaking classifies it and entry:overtaking_gives_way lays the duty on own. entry:crossing is excluded by the sector, not by a hand-written crossing sector, which is the property the partition test asserts over the whole circle.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "13a",
-    "13b-overtaking"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:overtaking_gives_way",
+    "entry:overtaking"
    ],
    "situation": {
     "own": {
@@ -2622,14 +2622,14 @@
   {
    "name": "13(b) edge: own bears exactly 247.5 from the other, the mirror of the same edge",
    "status": "binding",
-   "narrative": "The port-quarter edge, 112.5 degrees the other way round. Not overtaking, so a crossing; and the other bears 010 relative from own, on her starboard bow, so own is the give-way vessel. Own is inside the head-on cone and the other is not, which is why 14b does not apply: 14(b) is a statement about both aspects, and the `any_of` that negates it needs only one of them outside.",
+   "narrative": "The port-quarter edge, 112.5 degrees the other way round. Not overtaking, so a crossing; and the other bears 010 relative from own, on her starboard bow, so own is the give-way vessel. Own is inside the head-on cone and the other is not, which is why entry:head_on does not apply: 14(b) is a statement about both aspects, and the `any_of` that negates it needs only one of them outside.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "15a-crossing",
-    "15a-give-way"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:crossing",
+    "entry:crossing_gives_way"
    ],
    "situation": {
     "own": {
@@ -2693,12 +2693,12 @@
    "status": "binding",
    "narrative": "The mirror of the 112.6 case. Overtaking, and the give-way entry that applied a tenth of a degree away is gone -- the two sit either side of one number, which is the point of declaring it once.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "13a",
-    "13b-overtaking"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:overtaking_gives_way",
+    "entry:overtaking"
    ],
    "situation": {
     "own": {
@@ -2760,13 +2760,13 @@
   {
    "name": "13(b): own is the vessel being overtaken, and the encounter is still an overtaking",
    "status": "binding",
-   "narrative": "The other bears 200 relative from own and is coming up fast on own's port quarter. From own's side the aspect is 005 -- she is nearly ahead of the overtaking vessel -- and reading aspect alone would have made this a crossing on own's side and an overtaking on the other's, one encounter with two names. 13b-overtaken is the second half of 13(b) and is what stops that. 13a is correctly absent: own is not the vessel that keeps out of the way.",
+   "narrative": "The other bears 200 relative from own and is coming up fast on own's port quarter. The aspect is 005 -- own is nearly ahead of the other -- and reading aspect alone would have made this a crossing on own's side and an overtaking on the other's, one encounter with two names. entry:being_overtaken, the second half of 13(b), stops that. entry:overtaking_gives_way is correctly absent: own is not the vessel that keeps out of the way.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "13b-overtaken"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:being_overtaken"
    ],
    "situation": {
     "own": {
@@ -2830,11 +2830,11 @@
    "status": "binding",
    "narrative": "Own bears 348.75 relative from the other and the other bears 011.25 from own -- both exactly at `head_on_half_angle_deg`, one point of the compass. The cone is closed at the edge, so this is a head-on situation. Courses are 000 and 202.5, twenty-two and a half degrees off reciprocal, which is the widest pair the pencilled constant admits and the fixture that will change if the constant does.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "14b"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:head_on"
    ],
    "situation": {
     "own": {
@@ -2896,14 +2896,14 @@
   {
    "name": "14 edge: one twentieth of a degree wider, and the same situation is a crossing",
    "status": "binding",
-   "narrative": "Own's bearing of the other moves from 11.25 to 11.3 and nothing else changes. The head-on cone no longer holds on both subjects, so 14b is gone and 15a-crossing takes it -- the residual, with no bearing left unclassified between the two fixtures. Own has the other on her starboard side, so she is give-way.",
+   "narrative": "Own's bearing of the other moves from 11.25 to 11.3 and nothing else changes. The head-on cone no longer holds on both subjects, so entry:head_on is gone and entry:crossing takes it -- the residual, with no bearing left unclassified between the two fixtures. Own has the other on her starboard side, so she is give-way.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "15a-crossing",
-    "15a-give-way"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:crossing",
+    "entry:crossing_gives_way"
    ],
    "situation": {
     "own": {
@@ -2965,13 +2965,13 @@
   {
    "name": "7(d)(i) does not apply: the bearing is drawing out at three degrees a minute",
    "status": "binding",
-   "narrative": "The same crossing geometry as the first fixture with the bearing opening at 3 deg/min, comfortably outside `appreciable_bearing_change_deg_min`. 7d1 is absent and every other entry is unchanged: risk of collision is a supplied fact and 7(d)(i) is a second ground for it, never the only one, which is why 15a-crossing and 8f3 still apply.",
+   "narrative": "The same crossing geometry as the first fixture with the bearing opening at 3 deg/min, comfortably outside `appreciable_bearing_change_deg_min`. entry:steady_bearing is absent and every other entry is unchanged: risk of collision is a supplied fact and 7(d)(i) is a second ground for it, never the only one, which is why entry:crossing and entry:not_impeded_remains_obliged still apply.",
    "expect": [
-    "4",
-    "11",
-    "8f3",
-    "15a-crossing",
-    "15a-give-way"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:not_impeded_remains_obliged",
+    "entry:crossing",
+    "entry:crossing_gives_way"
    ],
    "situation": {
     "own": {
@@ -3035,8 +3035,8 @@
    "status": "binding",
    "narrative": "The same bearings again with `geo:risk_of_collision` false. Rules 14 and 15 both open on risk of collision, so neither the encounter type nor the role survives its absence, and the pair selects only the two scope entries. Rule 13 would have survived it -- 13(b) says nothing about risk -- which is why this case is a crossing geometry and not an overtaking one.",
    "expect": [
-    "4",
-    "11"
+    "entry:any_visibility",
+    "entry:in_sight"
    ],
    "situation": {
     "own": {
@@ -3100,11 +3100,11 @@
    "status": "binding",
    "narrative": "Two sailing vessels approaching with the wind on different sides. Own has it on the port side and keeps out of the way. No encounter type is produced: Rules 14 and 15 are both gated on two power-driven vessels and Rule 12 has no deeming paragraph of its own, so the pair carries a role and no classification. That is a finding about the Rules rather than a gap in the data -- Q-43.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "12a1"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:sail_port_tack_gives_way"
    ],
    "situation": {
     "own": {
@@ -3172,11 +3172,11 @@
    "status": "binding",
    "narrative": "The wind on the same side for both, so the windward vessel keeps clear. `geo:windward` is antisymmetric and the fixture states both halves of it, which is what makes the swapped reading -- the other vessel is not give-way -- an assertion rather than an absence.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "12a2"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:sail_windward_gives_way"
    ],
    "situation": {
     "own": {
@@ -3244,11 +3244,11 @@
    "status": "binding",
    "narrative": "Own has the wind on the port side, sees a vessel to windward, and cannot tell which side that vessel has the wind on. `wind_side:unknown` is a declared value and not an absent fact, which is the only reason this paragraph is expressible at all: an absent fact satisfies nothing, so silence would have relieved own of the duty the paragraph exists to impose.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "12a3"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:sail_port_tack_uncertain_gives_way"
    ],
    "situation": {
     "own": {
@@ -3314,12 +3314,12 @@
   {
    "name": "12 does not apply: both on the starboard tack and own to leeward",
    "status": "binding",
-   "narrative": "The exclusion case for all three of Rule 12. Same tack rules out 12(a)(i), own to leeward rules out 12(a)(ii), and the other's tack being known rules out 12(a)(iii). The leeward vessel is stand-on and the entry that says so is 12a2 read on the swapped situation, which is why nothing appears here.",
+   "narrative": "The exclusion case for all three of Rule 12. Same tack rules out 12(a)(i), own to leeward rules out 12(a)(ii), and the other's tack being known rules out 12(a)(iii). The leeward vessel is stand-on and the entry that says so is entry:sail_windward_gives_way read on the swapped situation, which is why nothing appears here.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged"
    ],
    "situation": {
     "own": {
@@ -3385,13 +3385,13 @@
   {
    "name": "12 under 18(b)(iii): own fishing under sail on the port tack, the other a sailing vessel on the starboard tack",
    "status": "binding",
-   "narrative": "The same crossing as the 12(a)(i) case, with own now engaged in fishing under sail. She is a sailing vessel by 3(c) -- her machinery is not in use -- so 12(a)(i) applies from her side and would make her give way, being on the port tack. She is also a vessel engaged in fishing by 3(d), so from the other vessel's side 18(b)(iii) applies and makes the other keep out of her way. Both are in force; Rule 18's opening words except Rules 9, 10 and 13 and not Rule 12, so 18b3 carries rel:overrides against 12a1 and own resolves to stand-on. This fixture asserts applicability from own's side, which is 12a1; the resolution is asserted by the pooled-roles tests, and before this PR own was simply outside Rule 12, which was Q-40's finding.",
+   "narrative": "The same crossing as the 12(a)(i) case, with own now engaged in fishing under sail. She is a sailing vessel by 3(c) -- her machinery is not in use -- so 12(a)(i) applies from her side and would make her give way, being on the port tack. She is also a vessel engaged in fishing by 3(d), so from the other vessel's side 18(b)(iii) applies and makes the other keep out of her way. Both are in force; Rule 18's opening words except Rules 9, 10 and 13 and not Rule 12, so entry:sail_gives_way_to_fishing carries rel:overrides against entry:sail_port_tack_gives_way and own resolves to stand-on. This fixture asserts applicability from own's side, which is entry:sail_port_tack_gives_way; the resolution is asserted by the pooled-roles tests, and before this PR own was simply outside Rule 12, which was Q-40's finding.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "12a1"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:sail_port_tack_gives_way"
    ],
    "situation": {
     "own": {
@@ -3457,14 +3457,14 @@
   {
    "name": "13 over 12: own overtaking a windward vessel on the same tack from dead astern",
    "status": "binding",
-   "narrative": "Two sailing vessels on the starboard tack, own to leeward and coming up from dead astern at twice the other's speed. From own's side 13(a) and 13(b) apply and 12(a)(ii) does not -- own is not the windward vessel. From the other's side 12(a)(ii) does apply and would make her, the windward vessel, keep out of the way of own. 13(a) is 'notwithstanding anything contained in' the Rules of Part B Sections I and II, which is Rule 12 among others, so 13a carries rel:overrides against the three Rule 12 entries and the overtaken vessel resolves to stand-on. Steady bearing: dead ahead and dead astern, closing at three knots.",
+   "narrative": "Two sailing vessels on the starboard tack, own to leeward and coming up from dead astern at twice the other's speed. From own's side 13(a) and 13(b) apply and 12(a)(ii) does not -- own is not the windward vessel. From the other's side 12(a)(ii) does apply and would make her, the windward vessel, keep out of the way of own. 13(a) is 'notwithstanding anything contained in' the Rules of Part B Sections I and II, which is Rule 12 among others, so entry:overtaking_gives_way carries rel:overrides against the three Rule 12 entries and the overtaken vessel resolves to stand-on. Steady bearing: dead ahead and dead astern, closing at three knots.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "13a",
-    "13b-overtaking"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:overtaking_gives_way",
+    "entry:overtaking"
    ],
    "situation": {
     "own": {
@@ -3530,14 +3530,14 @@
   {
    "name": "15 between two fishing vessels: both under power, the other on own's starboard side",
    "status": "binding",
-   "narrative": "Two vessels engaged in fishing, both propelled by machinery, crossing in sight on a steady bearing at 1500 m. Rule 18 orders neither of them: 18(a) speaks for a power-driven vessel that is not herself ranked by Rule 18, and 18(c) ranks a fishing vessel only against a vessel not under command and one restricted in her ability to manoeuvre. So no Rule 18 norm is in force between this pair. 15(a)'s \"two power-driven vessels\" is 3(b), and a vessel engaged in fishing whose machinery is in use is a power-driven vessel, so Rule 15 is the only norm that assigns a role here: own has the other on her own starboard side and keeps out of the way, the other stands on. Before this PR `15a-give-way` negated the four Rule 18 ranks on both subjects, so neither vessel took a helm role and the pair was ungoverned -- which is the finding this fixture was written to record.",
+   "narrative": "Two vessels engaged in fishing, both propelled by machinery, crossing in sight on a steady bearing at 1500 m. Rule 18 orders neither of them: 18(a) speaks for a power-driven vessel that is not herself ranked by Rule 18, and 18(c) ranks a fishing vessel only against a vessel not under command and one restricted in her ability to manoeuvre. So no Rule 18 norm is in force between this pair. 15(a)'s \"two power-driven vessels\" is 3(b), and a vessel engaged in fishing whose machinery is in use is a power-driven vessel, so Rule 15 is the only norm that assigns a role here: own has the other on her own starboard side and keeps out of the way, the other stands on. Before this PR `entry:crossing_gives_way` negated the four Rule 18 ranks on both subjects, so neither vessel took a helm role and the pair was ungoverned -- which is the finding this fixture was written to record.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "15a-crossing",
-    "15a-give-way"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:crossing",
+    "entry:crossing_gives_way"
    ],
    "situation": {
     "own": {
@@ -3599,14 +3599,14 @@
   {
    "name": "15 between NUC and RAM: both under power, and Rule 18 does not order them",
    "status": "binding",
-   "narrative": "The same crossing with own not under command and the other restricted in her ability to manoeuvre, both propelled by machinery. Rule 18 is a partial order and these two are its unordered pair -- neither 18(a), whose subject is a vessel Rule 18 does not rank, nor 18(c), whose subject is a fishing vessel, reaches them -- which the partial-order test already pins. Both are power-driven vessels by 3(b), so 15(a) applies and own, having the other on her own starboard side, is the give-way vessel. That lays a helm duty on a vessel which by 3(f) is unable to manoeuvre as the Rules require, and the model records it rather than gating it away: Rule 2 is what answers it (ADR 0005 sec. 5), the same position `12a1` takes for two sailing vessels Rule 18 leaves unordered. Q-40.",
+   "narrative": "The same crossing with own not under command and the other restricted in her ability to manoeuvre, both propelled by machinery. Rule 18 is a partial order and these two are its unordered pair -- neither 18(a), whose subject is a vessel Rule 18 does not rank, nor 18(c), whose subject is a fishing vessel, reaches them -- which the partial-order test already pins. Both are power-driven vessels by 3(b), so 15(a) applies and own, having the other on her own starboard side, is the give-way vessel. That lays a helm duty on a vessel which by 3(f) is unable to manoeuvre as the Rules require, and the model records it rather than gating it away: Rule 2 is what answers it (ADR 0005 sec. 5), the same position `entry:sail_port_tack_gives_way` takes for two sailing vessels Rule 18 leaves unordered. Q-40.",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "15a-crossing",
-    "15a-give-way"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:crossing",
+    "entry:crossing_gives_way"
    ],
    "situation": {
     "own": {
@@ -3670,13 +3670,13 @@
    "status": "binding",
    "narrative": "Own already holds 13(d)'s latch from an earlier overtaking. Since then the pair has closed again from the other direction: the other now sits dead astern of own, gaining at three knots -- 13(a)'s sector test, read on her geometry alone, would newly name her give-way too. The latch forbids it: only own, the latch-holder, gives way (Q-47).",
    "expect": [
-    "4",
-    "11",
-    "7d1",
-    "8f3",
-    "13a",
-    "13b-overtaken",
-    "13d"
+    "entry:any_visibility",
+    "entry:in_sight",
+    "entry:steady_bearing",
+    "entry:not_impeded_remains_obliged",
+    "entry:overtaking_gives_way",
+    "entry:being_overtaken",
+    "entry:overtaking_until_past_and_clear"
    ],
    "situation": {
     "own": {
@@ -3746,6 +3746,6 @@
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",
  "expect_scope": "`expect` names the non-`display` entries a situation selects -- `scope`, `precedence` and `classification`. Display entries are deliberately out of scope here: a situation carries `own.fact`, so every Part C entry that matches that vessel would otherwise have to be repeated in every Part B fixture, and fixtures/applicability-fixtures.json is already the contract for those. A situation fixture asserts what the pair produces, not what own shows.",
- "collapse_note": "Four expected ids changed in the PR that gave the predicate language `any_of` and `not`: `9b-small`/`9b-sail` collapsed to `9b` and `10j-small`/`10j-sail` to `10j`, because 9(b)'s and 10(j)'s disjunctive subjects no longer need an entry apiece. Every other expected id is unchanged. `18d1`'s expected modality moved from `shall-not-impede` to `shall-if-practicable`: the duty now lives in `effect.own` and the modality carries the 'if the circumstances of the case admit' caveat the entry used to drop.",
- "geometry_note": "The bearings, headings and speeds of every case that states its kinematics are a consistent set, and since the consistency check landed (Q-48, REQ-VERIFY-8) the suite enforces that rather than trusting the author. The two relative bearings are two readings of one line of sight, so own's bearing plus own's heading plus 180 equals the aspect plus the other's heading, modulo 360; where positions are stated they reproduce the range and both bearings; and the pair's cpa, tcpa and bearing rate are the ones the two headings and speeds produce, to the tolerances `data/facts.json` declares under `situation.geometry.consistency`. Positions are still omitted from the cases added with Rules 12-15: range and bearing are given directly, inventing a latitude to derive them from would assert more than the case knows, and the heading equation checks what the case does state. When the check landed every case that stated speeds failed the motion equations -- the pair numbers had been placeholders -- and they were re-derived; the head-on case was recast on a steady bearing and the 13(d) latch case lost `7d1`, both recorded in their narratives. Everything else, and every other expected id, is unchanged."
+ "collapse_note": "Four expected ids changed in the PR that gave the predicate language `any_of` and `not`: `9b-small`/`9b-sail` collapsed to `entry:narrow_channel_small_or_sail` and `10j-small`/`10j-sail` to `entry:traffic_lane_small_or_sail`, because 9(b)'s and 10(j)'s disjunctive subjects no longer need an entry apiece. Every other expected id is unchanged. `entry:avoid_impeding_cbd`'s expected modality moved from `shall-not-impede` to `shall-if-practicable`: the duty now lives in `effect.own` and the modality carries the 'if the circumstances of the case admit' caveat the entry used to drop.",
+ "geometry_note": "The bearings, headings and speeds of every case that states its kinematics are a consistent set, and since the consistency check landed (Q-48, REQ-VERIFY-8) the suite enforces that rather than trusting the author. The two relative bearings are two readings of one line of sight, so own's bearing plus own's heading plus 180 equals the aspect plus the other's heading, modulo 360; where positions are stated they reproduce the range and both bearings; and the pair's cpa, tcpa and bearing rate are the ones the two headings and speeds produce, to the tolerances `data/facts.json` declares under `situation.geometry.consistency`. Positions are still omitted from the cases added with Rules 12-15: range and bearing are given directly, inventing a latitude to derive them from would assert more than the case knows, and the heading equation checks what the case does state. When the check landed every case that stated speeds failed the motion equations -- the pair numbers had been placeholders -- and they were re-derived; the head-on case was recast on a steady bearing and the 13(d) latch case lost `entry:steady_bearing`, both recorded in their narratives. Everything else, and every other expected id, is unchanged."
 }

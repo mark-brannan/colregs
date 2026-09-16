@@ -49,7 +49,7 @@
   {
    "cite": "24(d)",
    "what": "A power-driven vessel to which 24(a) or (c) applies shall also comply with 23(a)(ii) — the second masthead light.",
-   "why": "Not an entry in the settled table; 24a-m2/24a-m3 carry in_lieu_of against 23a1 and 23a2 instead. Recorded here rather than added unilaterally."
+   "why": "Not an entry in the settled table; 24a-m2/24a-m3 carry in_lieu_of against entry:power_forward_masthead and entry:power_second_masthead instead. Recorded here rather than added unilaterally."
   },
   {
    "cite": "24(f), 24(g), 24(h), 24(i)",
@@ -89,7 +89,7 @@
   {
    "cite": "18(f)(ii)",
    "what": "A WIG craft operating on the water surface shall comply with Rules 4-19 as a power-driven vessel.",
-   "why": "Not a precedence norm: it maps a WIG on the surface onto `propulsion:power` for the rest of Part B, which is a classification or a decode-table statement rather than a role in a pair. 18(f)(i) -- the phase that does change the roles -- is entry 18f1."
+   "why": "Not a precedence norm: it maps a WIG on the surface onto `propulsion:power` for the rest of Part B, which is a classification or a decode-table statement rather than a role in a pair. 18(f)(i) -- the phase that does change the roles -- is entry entry:wig_keeps_well_clear."
   },
   {
    "cite": "1(a), 1(b), 1(c), 1(d), 1(e), 20(b), 20(c)",
@@ -109,7 +109,7 @@
   {
    "cite": "14(a)",
    "what": "When two power-driven vessels are meeting on reciprocal or nearly reciprocal courses so as to involve risk of collision each shall alter her course to starboard so that each shall pass on the port side of the other.",
-   "why": "`conduct`, not `classification`: the paragraph states the situation in words and prescribes the action, and 14(b) is the paragraph that deems the situation to exist -- entry 14b cites it. The action is monitored over a trace rather than evaluated at a point (ADR 0005 sec. 1), and no conduct entry shape exists yet. Q-45."
+   "why": "`conduct`, not `classification`: the paragraph states the situation in words and prescribes the action, and 14(b) is the paragraph that deems the situation to exist -- entry entry:head_on cites it. The action is monitored over a trace rather than evaluated at a point (ADR 0005 sec. 1), and no conduct entry shape exists yet. Q-45."
   }
  ],
  "represented_paragraphs": [
@@ -129,18 +129,12 @@
   }
  ],
  "retired_entry_ids": {
-  "note": "Entry ids that existed and no longer do. REQ-MODEL-10 makes an identifier immutable, which means a retired id is never reused for a different entry -- recorded here so that a later session cannot reuse one by accident. The first four retirements cost no consumer anything since nothing had shipped yet; `14a` is the first to have shipped (v0.1.3), so it is deprecated rather than dropped -- see data/deprecated-identifiers.json.",
-  "ids": {
-   "9b-small": "Collapsed into `9b` when `any_of` gave the predicate language a disjunction; 9(b)'s subject needed two entries only because a `when` was a conjunction.",
-   "9b-sail": "Collapsed into `9b`, same reason.",
-   "10j-small": "Collapsed into `10j`, same reason.",
-   "10j-sail": "Collapsed into `10j`, same reason.",
-   "14a": "Renamed `14b` when the head-on classification moved its cite from 14(a) to 14(b), the deeming paragraph it reads; 14(a) is conduct and is in known_omissions. Shipped in v0.1.3, so it is the first record in data/deprecated-identifiers.json (REQ-MODEL-11). Q-45."
-  }
+  "note": "Entry ids that existed and no longer do, so that a later session cannot reissue one. Emptied by ADR 0014: every citation-derived id (`23a1`, `24a-m2`, `14a`) was discarded when entry ids became names, and none can collide with an `entry:` name by construction. Retirements from here on are recorded again; the immutability baseline is REQ-MODEL-10's.",
+  "ids": {}
  },
  "entries": [
   {
-   "id": "23a1",
+   "id": "entry:power_forward_masthead",
    "jurisdiction": "intl",
    "cite": "23(a)(i)",
    "when": {
@@ -161,7 +155,7 @@
    ]
   },
   {
-   "id": "23a2",
+   "id": "entry:power_second_masthead",
    "jurisdiction": "intl",
    "cite": "23(a)(ii)",
    "when": {
@@ -201,7 +195,7 @@
    ]
   },
   {
-   "id": "23a34",
+   "id": "entry:power_sidelights_sternlight",
    "jurisdiction": "intl",
    "cite": "23(a)(iii)-(iv)",
    "when": {
@@ -220,7 +214,7 @@
    "modality": "shall"
   },
   {
-   "id": "23b",
+   "id": "entry:air_cushion_non_displacement",
    "jurisdiction": "intl",
    "cite": "23(b)",
    "when": {
@@ -238,9 +232,9 @@
     }
    ],
    "rel:includes": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "shall",
    "images": [
@@ -249,7 +243,7 @@
    "notes": "Air-cushion vessel operating in non-displacement mode; in addition to 23(a)."
   },
   {
-   "id": "23c",
+   "id": "entry:wig_near_surface",
    "jurisdiction": "intl",
    "cite": "23(c)",
    "when": {
@@ -269,15 +263,15 @@
     }
    ],
    "rel:includes": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "shall",
    "notes": "Only when taking off, landing and in flight near the surface."
   },
   {
-   "id": "23d1",
+   "id": "entry:power_under_12m",
    "jurisdiction": "intl",
    "cite": "23(d)(i)",
    "when": {
@@ -299,9 +293,9 @@
     }
    ],
    "rel:in_lieu_of": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "may",
    "images": [
@@ -309,7 +303,7 @@
    ]
   },
   {
-   "id": "23d2",
+   "id": "entry:power_under_7m_slow",
    "jurisdiction": "intl",
    "cite": "23(d)(ii)",
    "when": {
@@ -335,9 +329,9 @@
     }
    ],
    "rel:in_lieu_of": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "may",
    "images": [
@@ -346,7 +340,7 @@
    "notes": "The all-round white light is 'may'; the sidelights are 'shall, if practicable' — one paragraph, two modalities."
   },
   {
-   "id": "24a-m2",
+   "id": "entry:towing_mastheads",
    "jurisdiction": "intl",
    "cite": "24(a)(i)",
    "when": {
@@ -363,8 +357,8 @@
     }
    ],
    "rel:in_lieu_of": [
-    "23a1",
-    "23a2"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead"
    ],
    "modality": "shall",
    "images": [
@@ -372,7 +366,7 @@
    ]
   },
   {
-   "id": "24a-m3",
+   "id": "entry:towing_mastheads_long_tow",
    "jurisdiction": "intl",
    "cite": "24(a)(i)",
    "when": {
@@ -389,8 +383,8 @@
     }
    ],
    "rel:in_lieu_of": [
-    "23a1",
-    "23a2"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead"
    ],
    "modality": "shall",
    "images": [
@@ -398,7 +392,7 @@
    ]
   },
   {
-   "id": "24a-rest",
+   "id": "entry:towing_light",
    "jurisdiction": "intl",
    "cite": "24(a)(ii)-(iv)",
    "when": {
@@ -417,7 +411,7 @@
       "fact:position": "position:underway"
      },
      "rel:includes": [
-      "23a34"
+      "entry:power_sidelights_sternlight"
      ]
     }
    ],
@@ -427,7 +421,7 @@
    ]
   },
   {
-   "id": "24b",
+   "id": "entry:pushing_composite_unit",
    "jurisdiction": "intl",
    "cite": "24(b)",
    "when": {
@@ -441,9 +435,9 @@
       "fact:position": "position:underway"
      },
      "rel:includes": [
-      "23a1",
-      "23a2",
-      "23a34"
+      "entry:power_forward_masthead",
+      "entry:power_second_masthead",
+      "entry:power_sidelights_sternlight"
      ]
     }
    ],
@@ -454,7 +448,7 @@
    "notes": "A composite unit is regarded as a power-driven vessel."
   },
   {
-   "id": "24c",
+   "id": "entry:pushing_ahead_or_alongside",
    "jurisdiction": "intl",
    "cite": "24(c)",
    "when": {
@@ -474,19 +468,19 @@
       "fact:position": "position:underway"
      },
      "rel:includes": [
-      "23a34"
+      "entry:power_sidelights_sternlight"
      ]
     }
    ],
    "rel:in_lieu_of": [
-    "23a1",
-    "23a2"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead"
    ],
    "modality": "shall",
    "notes": "Also covers towing alongside (towed_alongside=true)."
   },
   {
-   "id": "24e",
+   "id": "entry:being_towed",
    "jurisdiction": "intl",
    "cite": "24(e)",
    "when": {
@@ -507,7 +501,7 @@
    "notes": "Other than the inconspicuous, partly submerged objects of 24(g)."
   },
   {
-   "id": "25a",
+   "id": "entry:sail_sidelights_sternlight",
    "jurisdiction": "intl",
    "cite": "25(a)",
    "when": {
@@ -529,7 +523,7 @@
    ]
   },
   {
-   "id": "25b",
+   "id": "entry:sail_combined_lantern",
    "jurisdiction": "intl",
    "cite": "25(b)",
    "when": {
@@ -553,10 +547,10 @@
     }
    ],
    "rel:in_lieu_of": [
-    "25a"
+    "entry:sail_sidelights_sternlight"
    ],
    "rel:excludes": [
-    "25c"
+    "entry:sail_red_over_green"
    ],
    "modality": "may",
    "images": [
@@ -565,7 +559,7 @@
    "notes": "The tricolor: 25(a)'s lights combined in one lantern."
   },
   {
-   "id": "25c",
+   "id": "entry:sail_red_over_green",
    "jurisdiction": "intl",
    "cite": "25(c)",
    "when": {
@@ -588,10 +582,10 @@
     }
    ],
    "rel:includes": [
-    "25a"
+    "entry:sail_sidelights_sternlight"
    ],
    "rel:excludes": [
-    "25b"
+    "entry:sail_combined_lantern"
    ],
    "modality": "may",
    "images": [
@@ -599,7 +593,7 @@
    ]
   },
   {
-   "id": "25d1",
+   "id": "entry:sail_under_7m",
    "jurisdiction": "intl",
    "cite": "25(d)(i)",
    "when": {
@@ -619,8 +613,8 @@
     }
    ],
    "rel:in_lieu_of": [
-    "25a",
-    "25b"
+    "entry:sail_sidelights_sternlight",
+    "entry:sail_combined_lantern"
    ],
    "modality": "shall-if-practicable",
    "images": [
@@ -629,7 +623,7 @@
    "notes": "25(a) or (b) shall be shown if practicable; the torch is the fallback."
   },
   {
-   "id": "25d2",
+   "id": "entry:under_oars",
    "jurisdiction": "intl",
    "cite": "25(d)(ii)",
    "when": {
@@ -646,8 +640,8 @@
    "rel:conditional_includes": [
     {
      "one_of": [
-      "25a",
-      "25b"
+      "entry:sail_sidelights_sternlight",
+      "entry:sail_combined_lantern"
      ]
     }
    ],
@@ -658,7 +652,7 @@
    "notes": "No length gate at all: a vessel under oars of any length may show only the torch, where a sailing vessel of 10 m may not."
   },
   {
-   "id": "26b-id",
+   "id": "entry:trawling_green_over_white",
    "jurisdiction": "intl",
    "cite": "26(b)(i)",
    "when": {
@@ -682,8 +676,8 @@
     }
    ],
    "rel:overrides": [
-    "30a",
-    "30b"
+    "entry:anchored",
+    "entry:anchored_under_50m"
    ],
    "modality": "shall",
    "images": [
@@ -692,7 +686,7 @@
    "notes": "Rule 26(a) — 'only the lights prescribed in this Rule' — prevails over Rule 30's anchor lights underway or at anchor (rel:overrides, ADR 0007). Aground is neither (Rule 3(i)); she shows 30(d) alone."
   },
   {
-   "id": "26b-mast",
+   "id": "entry:trawling_masthead",
    "jurisdiction": "intl",
    "cite": "26(b)(ii)",
    "when": {
@@ -729,7 +723,7 @@
    ]
   },
   {
-   "id": "26b-mw",
+   "id": "entry:trawling_making_way",
    "jurisdiction": "intl",
    "cite": "26(b)(iii)",
    "when": {
@@ -738,7 +732,7 @@
    },
    "lights": [],
    "rel:includes": [
-    "23a34"
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "shall",
    "images": [
@@ -746,7 +740,7 @@
    ]
   },
   {
-   "id": "26c-id",
+   "id": "entry:fishing_red_over_white",
    "jurisdiction": "intl",
    "cite": "26(c)(i)",
    "when": {
@@ -770,13 +764,13 @@
     }
    ],
    "rel:overrides": [
-    "30a",
-    "30b"
+    "entry:anchored",
+    "entry:anchored_under_50m"
    ],
    "modality": "shall"
   },
   {
-   "id": "26c-gear",
+   "id": "entry:fishing_outlying_gear",
    "jurisdiction": "intl",
    "cite": "26(c)(ii)",
    "when": {
@@ -799,7 +793,7 @@
    "modality": "shall"
   },
   {
-   "id": "26c-mw",
+   "id": "entry:fishing_making_way",
    "jurisdiction": "intl",
    "cite": "26(c)(iii)",
    "when": {
@@ -808,7 +802,7 @@
    },
    "lights": [],
    "rel:includes": [
-    "23a34"
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "shall",
    "images": [
@@ -816,7 +810,7 @@
    ]
   },
   {
-   "id": "27a-id",
+   "id": "entry:nuc_red_over_red",
    "jurisdiction": "intl",
    "cite": "27(a)(i)",
    "when": {
@@ -837,7 +831,7 @@
    ]
   },
   {
-   "id": "27a-mw",
+   "id": "entry:nuc_making_way",
    "jurisdiction": "intl",
    "cite": "27(a)(iii)",
    "when": {
@@ -846,7 +840,7 @@
    },
    "lights": [],
    "rel:includes": [
-    "23a34"
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "shall",
    "images": [
@@ -854,7 +848,7 @@
    ]
   },
   {
-   "id": "27b-id",
+   "id": "entry:ram_red_white_red",
    "jurisdiction": "intl",
    "cite": "27(b)(i)",
    "when": {
@@ -884,7 +878,7 @@
    "notes": "Except a vessel engaged in mine clearance operations (27(f))."
   },
   {
-   "id": "27b-mw",
+   "id": "entry:ram_making_way",
    "jurisdiction": "intl",
    "cite": "27(b)(iii)",
    "when": {
@@ -893,9 +887,9 @@
    },
    "lights": [],
    "rel:includes": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "shall",
    "images": [
@@ -903,7 +897,7 @@
    ]
   },
   {
-   "id": "27b-anc",
+   "id": "entry:ram_anchored",
    "jurisdiction": "intl",
    "cite": "27(b)(iv)",
    "when": {
@@ -914,8 +908,8 @@
    "rel:conditional_includes": [
     {
      "one_of": [
-      "30a",
-      "30b"
+      "entry:anchored",
+      "entry:anchored_under_50m"
      ]
     }
    ],
@@ -925,7 +919,7 @@
    ]
   },
   {
-   "id": "27d",
+   "id": "entry:ram_underwater_obstruction",
    "jurisdiction": "intl",
    "cite": "27(d)",
    "when": {
@@ -949,7 +943,7 @@
     }
    ],
    "rel:includes": [
-    "27b-id"
+    "entry:ram_red_white_red"
    ],
    "modality": "shall",
    "images": [
@@ -959,7 +953,7 @@
    "notes": "27(d)(iii): when at anchor these lights are shown instead of Rule 30's."
   },
   {
-   "id": "27e",
+   "id": "entry:diving",
    "jurisdiction": "intl",
    "cite": "27(e)(i)",
    "when": {
@@ -986,13 +980,13 @@
     }
    ],
    "rel:in_lieu_of": [
-    "27d"
+    "entry:ram_underwater_obstruction"
    ],
    "modality": "shall",
    "notes": "Only when the vessel's size makes the full 27(d) display impracticable."
   },
   {
-   "id": "27f",
+   "id": "entry:mine_clearance",
    "jurisdiction": "intl",
    "cite": "27(f)",
    "when": {
@@ -1012,9 +1006,9 @@
       "fact:position": "position:underway"
      },
      "rel:includes": [
-      "23a1",
-      "23a2",
-      "23a34"
+      "entry:power_forward_masthead",
+      "entry:power_second_masthead",
+      "entry:power_sidelights_sternlight"
      ],
      "cite": "27(f)"
     },
@@ -1023,8 +1017,8 @@
       "fact:position": "position:anchored"
      },
      "one_of": [
-      "30a",
-      "30b"
+      "entry:anchored",
+      "entry:anchored_under_50m"
      ],
      "cite": "27(f)"
     }
@@ -1036,7 +1030,7 @@
    "notes": "27(f) adds the three green lights 'to the lights prescribed for a power-driven vessel in Rule 23 or to the lights or shape prescribed for a vessel at anchor in Rule 30, as appropriate': which set is imported turns on fact:position, so both imports are gated (the 29(a) pattern). The anchored branch is genuine practice, added by A.464(XII) in 1981 — docs/verification/2026-09-05-rule27f-rule28-anchor-scenarios.md, Q1."
   },
   {
-   "id": "28",
+   "id": "entry:cbd",
    "jurisdiction": "intl",
    "cite": "28",
    "when": {
@@ -1052,9 +1046,9 @@
     }
    ],
    "rel:includes": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ],
    "modality": "may",
    "images": [
@@ -1063,7 +1057,7 @@
    "notes": "The Rule 23(a) lights are 'shall' (she is a power-driven vessel underway); the three red lights are 'may'. International Rules only. Position is pinned to underway rather than gating the Rule 23 import: 'constrained by her draught' is a status of a vessel navigating (3(h)); the standard commentary and IMO guidance treat the Rule 28 signal as shown only with the underway lights; and Annex I positions the red lights only relative to masthead lights — docs/verification/2026-09-05-rule27f-rule28-anchor-scenarios.md, Q2. A record of activity:cbd at anchor therefore gets Rule 30 alone."
   },
   {
-   "id": "29a",
+   "id": "entry:pilot",
    "jurisdiction": "intl",
    "cite": "29(a)",
    "when": {
@@ -1089,7 +1083,7 @@
       "fact:position": "position:underway"
      },
      "rel:includes": [
-      "23a34"
+      "entry:power_sidelights_sternlight"
      ],
      "cite": "29(a)(ii)"
     },
@@ -1098,8 +1092,8 @@
       "fact:position": "position:anchored"
      },
      "one_of": [
-      "30a",
-      "30b"
+      "entry:anchored",
+      "entry:anchored_under_50m"
      ],
      "cite": "29(a)(iii)"
     }
@@ -1111,7 +1105,7 @@
    ]
   },
   {
-   "id": "30a",
+   "id": "entry:anchored",
    "jurisdiction": "intl",
    "cite": "30(a)",
    "when": {
@@ -1137,7 +1131,7 @@
    ]
   },
   {
-   "id": "30b",
+   "id": "entry:anchored_under_50m",
    "jurisdiction": "intl",
    "cite": "30(b)",
    "when": {
@@ -1155,7 +1149,7 @@
     }
    ],
    "rel:in_lieu_of": [
-    "30a"
+    "entry:anchored"
    ],
    "modality": "may",
    "images": [
@@ -1163,7 +1157,7 @@
    ]
   },
   {
-   "id": "30c",
+   "id": "entry:anchored_deck_lights",
    "jurisdiction": "intl",
    "cite": "30(c)",
    "when": {
@@ -1196,7 +1190,7 @@
    ]
   },
   {
-   "id": "30d-anchor",
+   "id": "entry:aground_anchor_lights",
    "jurisdiction": "intl",
    "cite": "30(d)",
    "when": {
@@ -1206,8 +1200,8 @@
    "rel:conditional_includes": [
     {
      "one_of": [
-      "30a",
-      "30b"
+      "entry:anchored",
+      "entry:anchored_under_50m"
      ]
     }
    ],
@@ -1215,7 +1209,7 @@
    "notes": "30(d)'s lead-in requires the 30(a)/(b) anchor lights unconditionally, with no length gate; only the two red lights below (30(d)(i)-(ii)) are subject to the 30(f) exemption."
   },
   {
-   "id": "30d-red",
+   "id": "entry:aground_red_over_red",
    "jurisdiction": "intl",
    "cite": "30(d)",
    "when": {
@@ -1236,10 +1230,10 @@
    "images": [
     "NRHB_30_dii.png"
    ],
-   "notes": "The two red lights are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them; it does not exempt the 30(a)/(b) anchor lights, see 30d-anchor."
+   "notes": "The two red lights are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them; it does not exempt the 30(a)/(b) anchor lights, see entry:aground_anchor_lights."
   },
   {
-   "id": "30e",
+   "id": "entry:anchored_under_7m_not_near_channel",
    "jurisdiction": "intl",
    "cite": "30(e)",
    "when": {
@@ -1251,13 +1245,13 @@
    },
    "lights": [],
    "rel:exempts": [
-    "30a",
-    "30b"
+    "entry:anchored",
+    "entry:anchored_under_50m"
    ],
    "modality": "exempt"
   },
   {
-   "id": "4",
+   "id": "entry:any_visibility",
    "jurisdiction": "intl",
    "cite": "4",
    "category": "scope",
@@ -1280,7 +1274,7 @@
    "note": "Part B Section I is ungated: the predicate is empty because 'any condition of visibility' is the absence of a condition, not a fact. A scope entry is never a display entry, so an empty `when` selects no lights."
   },
   {
-   "id": "11",
+   "id": "entry:in_sight",
    "jurisdiction": "intl",
    "cite": "11",
    "category": "scope",
@@ -1306,7 +1300,7 @@
    "note": "Rule 3(k)'s in-sight test is a fact of the pair, so Section II is gated on `pair:geo:in_sight` and every Rule 18 entry below repeats that gate rather than relying on the engine to apply this one."
   },
   {
-   "id": "19a",
+   "id": "entry:restricted_visibility",
    "jurisdiction": "intl",
    "cite": "19(a)",
    "category": "scope",
@@ -1326,7 +1320,7 @@
    "note": "The complement of 11. Rule 3(l) defines restricted visibility; nothing in facts.json carries it."
   },
   {
-   "id": "18a1",
+   "id": "entry:power_gives_way_to_nuc",
    "jurisdiction": "intl",
    "cite": "18(a)(i)",
    "category": "precedence",
@@ -1351,12 +1345,12 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "15a-give-way"
+    "entry:crossing_gives_way"
    ],
-   "note": "Own is 'a power-driven vessel underway' (18(a)) that is not herself ranked by Rule 18 -- written as the negation the paragraph implies rather than as an enumeration of activity values that had to be edited every time the axis grew (Q-33). A vessel constrained by her draught and a WIG craft on the surface are both power-driven and both stay inside it, which is why the gate is `fact:propulsion` plus the negated rank and not `rule18_class:power`: 18(d) protects a CBD vessel, it does not exempt her from 18(a). Overrides `15a-give-way` (Q-40): own and a vessel not under command are both power-driven vessels by 3(b) whenever her machinery is in use, so 15(a) is in force between them as well and would hand the give-way role to whichever has the other on her starboard side, rank or no rank. Rule 18's opening words except Rules 9, 10 and 13 and no others, so this paragraph displaces it."
+   "note": "Own is 'a power-driven vessel underway' (18(a)) that is not herself ranked by Rule 18 -- written as the negation the paragraph implies rather than as an enumeration of activity values that had to be edited every time the axis grew (Q-33). A vessel constrained by her draught and a WIG craft on the surface are both power-driven and both stay inside it, which is why the gate is `fact:propulsion` plus the negated rank and not `rule18_class:power`: 18(d) protects a CBD vessel, it does not exempt her from 18(a). Overrides `entry:crossing_gives_way` (Q-40): own and a vessel not under command are both power-driven vessels by 3(b) whenever her machinery is in use, so 15(a) is in force between them as well and would hand the give-way role to whichever has the other on her starboard side, rank or no rank. Rule 18's opening words except Rules 9, 10 and 13 and no others, so this paragraph displaces it."
   },
   {
-   "id": "18a2",
+   "id": "entry:power_gives_way_to_ram",
    "jurisdiction": "intl",
    "cite": "18(a)(ii)",
    "category": "precedence",
@@ -1381,12 +1375,12 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "15a-give-way"
+    "entry:crossing_gives_way"
    ],
-   "note": "Mine clearance (27(f)) and diving (27(e)) reach this entry through `rule18_class:ram`, which decodes them by 3(g), instead of being listed here by hand. That is the display/rank divergence Q-32 named, moved into facts.json. Overrides `15a-give-way` (Q-40): own and a vessel restricted in her ability to manoeuvre are both power-driven vessels by 3(b) whenever her machinery is in use, so 15(a) is in force between them as well and would hand the give-way role to whichever has the other on her starboard side, rank or no rank. Rule 18's opening words except Rules 9, 10 and 13 and no others, so this paragraph displaces it."
+   "note": "Mine clearance (27(f)) and diving (27(e)) reach this entry through `rule18_class:ram`, which decodes them by 3(g), instead of being listed here by hand. That is the display/rank divergence Q-32 named, moved into facts.json. Overrides `entry:crossing_gives_way` (Q-40): own and a vessel restricted in her ability to manoeuvre are both power-driven vessels by 3(b) whenever her machinery is in use, so 15(a) is in force between them as well and would hand the give-way role to whichever has the other on her starboard side, rank or no rank. Rule 18's opening words except Rules 9, 10 and 13 and no others, so this paragraph displaces it."
   },
   {
-   "id": "18a3",
+   "id": "entry:power_gives_way_to_fishing",
    "jurisdiction": "intl",
    "cite": "18(a)(iii)",
    "category": "precedence",
@@ -1411,12 +1405,12 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "15a-give-way"
+    "entry:crossing_gives_way"
    ],
-   "note": "`activity:trawling` reaches this entry through the class decode rather than by being listed beside `activity:fishing`; a fishing vessel under sail is `rule18_class:fishing` too, which is 18(c)'s reading of the axis. Overrides `15a-give-way` (Q-40): own and a vessel engaged in fishing are both power-driven vessels by 3(b) whenever her machinery is in use, so 15(a) is in force between them as well and would hand the give-way role to whichever has the other on her starboard side, rank or no rank. Rule 18's opening words except Rules 9, 10 and 13 and no others, so this paragraph displaces it."
+   "note": "`activity:trawling` reaches this entry through the class decode rather than by being listed beside `activity:fishing`; a fishing vessel under sail is `rule18_class:fishing` too, which is 18(c)'s reading of the axis. Overrides `entry:crossing_gives_way` (Q-40): own and a vessel engaged in fishing are both power-driven vessels by 3(b) whenever her machinery is in use, so 15(a) is in force between them as well and would hand the give-way role to whichever has the other on her starboard side, rank or no rank. Rule 18's opening words except Rules 9, 10 and 13 and no others, so this paragraph displaces it."
   },
   {
-   "id": "18a4",
+   "id": "entry:power_gives_way_to_sail",
    "jurisdiction": "intl",
    "cite": "18(a)(iv)",
    "category": "precedence",
@@ -1443,7 +1437,7 @@
    "note": "A sailing vessel that is also fishing decodes to `rule18_class:fishing` and is ranked by 18(a)(iii), so the class alone carries what the old predicate needed a propulsion gate and an activity list to say."
   },
   {
-   "id": "18b1",
+   "id": "entry:sail_gives_way_to_nuc",
    "jurisdiction": "intl",
    "cite": "18(b)(i)",
    "category": "precedence",
@@ -1461,14 +1455,14 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "12a1",
-    "12a2",
-    "12a3"
+    "entry:sail_port_tack_gives_way",
+    "entry:sail_windward_gives_way",
+    "entry:sail_port_tack_uncertain_gives_way"
    ],
    "note": "Own is `rule18_class:sail`, which is 3(c)'s sailing vessel and not a fishing vessel under sail -- the class carries both halves of what the propulsion gate and the activity list used to say between them. Overrides the three Rule 12 entries (Q-40): both subjects can be sailing vessels by 3(c) -- the other under sail and not under command, restricted in her ability to manoeuvre, or engaged in fishing -- so Rule 12 is in force between them too, and Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
-   "id": "18b2",
+   "id": "entry:sail_gives_way_to_ram",
    "jurisdiction": "intl",
    "cite": "18(b)(ii)",
    "category": "precedence",
@@ -1486,14 +1480,14 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "12a1",
-    "12a2",
-    "12a3"
+    "entry:sail_port_tack_gives_way",
+    "entry:sail_windward_gives_way",
+    "entry:sail_port_tack_uncertain_gives_way"
    ],
    "note": "Overrides the three Rule 12 entries (Q-40): both subjects can be sailing vessels by 3(c) -- the other under sail and not under command, restricted in her ability to manoeuvre, or engaged in fishing -- so Rule 12 is in force between them too, and Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
-   "id": "18b3",
+   "id": "entry:sail_gives_way_to_fishing",
    "jurisdiction": "intl",
    "cite": "18(b)(iii)",
    "category": "precedence",
@@ -1511,14 +1505,14 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "12a1",
-    "12a2",
-    "12a3"
+    "entry:sail_port_tack_gives_way",
+    "entry:sail_windward_gives_way",
+    "entry:sail_port_tack_uncertain_gives_way"
    ],
    "note": "Overrides the three Rule 12 entries (Q-40): both subjects can be sailing vessels by 3(c) -- the other under sail and not under command, restricted in her ability to manoeuvre, or engaged in fishing -- so Rule 12 is in force between them too, and Rule 18's chapeau excepts only Rules 9, 10 and 13."
   },
   {
-   "id": "18c1",
+   "id": "entry:fishing_gives_way_to_nuc",
    "jurisdiction": "intl",
    "cite": "18(c)(i)",
    "category": "precedence",
@@ -1536,15 +1530,15 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "12a1",
-    "12a2",
-    "12a3",
-    "15a-give-way"
+    "entry:sail_port_tack_gives_way",
+    "entry:sail_windward_gives_way",
+    "entry:sail_port_tack_uncertain_gives_way",
+    "entry:crossing_gives_way"
    ],
-   "note": "'so far as possible' is the practicability qualifier, so the modality is shall-if-practicable. 18(c) does not distinguish propulsion, and `rule18_class:fishing` does not either: a fishing vessel under sail is ranked here. Overrides the three Rule 12 entries (Q-40): a vessel engaged in fishing under sail is a sailing vessel by 3(c), and if the vessel she must keep out of the way of is under sail as well, Rule 12 is in force between them; Rule 18's chapeau excepts only Rules 9, 10 and 13. It overrides `15a-give-way` on the same ground (Q-40): a fishing vessel under power and a vessel not under command under power are two power-driven vessels by 3(b), so Rule 15 is in force between them too."
+   "note": "'so far as possible' is the practicability qualifier, so the modality is shall-if-practicable. 18(c) does not distinguish propulsion, and `rule18_class:fishing` does not either: a fishing vessel under sail is ranked here. Overrides the three Rule 12 entries (Q-40): a vessel engaged in fishing under sail is a sailing vessel by 3(c), and if the vessel she must keep out of the way of is under sail as well, Rule 12 is in force between them; Rule 18's chapeau excepts only Rules 9, 10 and 13. It overrides `entry:crossing_gives_way` on the same ground (Q-40): a fishing vessel under power and a vessel not under command under power are two power-driven vessels by 3(b), so Rule 15 is in force between them too."
   },
   {
-   "id": "18c2",
+   "id": "entry:fishing_gives_way_to_ram",
    "jurisdiction": "intl",
    "cite": "18(c)(ii)",
    "category": "precedence",
@@ -1562,15 +1556,15 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "12a1",
-    "12a2",
-    "12a3",
-    "15a-give-way"
+    "entry:sail_port_tack_gives_way",
+    "entry:sail_windward_gives_way",
+    "entry:sail_port_tack_uncertain_gives_way",
+    "entry:crossing_gives_way"
    ],
-   "note": "Overrides the three Rule 12 entries (Q-40): a vessel engaged in fishing under sail is a sailing vessel by 3(c), and if the vessel she must keep out of the way of is under sail as well, Rule 12 is in force between them; Rule 18's chapeau excepts only Rules 9, 10 and 13. It overrides `15a-give-way` on the same ground (Q-40): a fishing vessel under power and a vessel restricted in her ability to manoeuvre under power are two power-driven vessels by 3(b), so Rule 15 is in force between them too."
+   "note": "Overrides the three Rule 12 entries (Q-40): a vessel engaged in fishing under sail is a sailing vessel by 3(c), and if the vessel she must keep out of the way of is under sail as well, Rule 12 is in force between them; Rule 18's chapeau excepts only Rules 9, 10 and 13. It overrides `entry:crossing_gives_way` on the same ground (Q-40): a fishing vessel under power and a vessel restricted in her ability to manoeuvre under power are two power-driven vessels by 3(b), so Rule 15 is in force between them too."
   },
   {
-   "id": "18d1",
+   "id": "entry:avoid_impeding_cbd",
    "jurisdiction": "intl",
    "cite": "18(d)(i)",
    "category": "precedence",
@@ -1596,7 +1590,7 @@
    "gap": "18(d)(i) conditions on the CBD vessel 'exhibiting the signals in Rule 28', which is a display fact of the other vessel and is not read here; the entry is that much wider than the paragraph. Q-34."
   },
   {
-   "id": "18f1",
+   "id": "entry:wig_keeps_well_clear",
    "jurisdiction": "intl",
    "cite": "18(f)(i)",
    "category": "precedence",
@@ -1613,17 +1607,17 @@
     "other": "none"
    },
    "rel:overrides": [
-    "18a1",
-    "18a2",
-    "18a3",
-    "18a4",
-    "18d1",
-    "15a-give-way"
+    "entry:power_gives_way_to_nuc",
+    "entry:power_gives_way_to_ram",
+    "entry:power_gives_way_to_fishing",
+    "entry:power_gives_way_to_sail",
+    "entry:avoid_impeding_cbd",
+    "entry:crossing_gives_way"
    ],
-   "note": "`rule18_class:wig` is the decode of `fact:wig` and `fact:wig_near_surface` together, so the phase gate 18(f)(i) is scoped to is stated once in facts.json rather than as a pair of booleans in every entry that needs it. A WIG craft near the surface still satisfies 18(a)'s predicate -- she is a power-driven vessel underway and the negated rank does not exclude her -- so the rel:overrides against the 18(a) family and 18(d)(i) still carries. `keep-clear` is one effect for the paragraph's two duties, which the effect vocabulary cannot separate. It overrides `15a-give-way` as well (Q-40): a WIG craft operating on the water surface is a power-driven vessel by 3(m), so 15(a) would give her a give-way or stand-on role beside 18(f)(i)'s keep-clear duty -- two helm roles at once, which is the conflict the rank negation on `15a-give-way` used to avoid by keeping her out of Rule 15 altogether."
+   "note": "`rule18_class:wig` is the decode of `fact:wig` and `fact:wig_near_surface` together, so the phase gate 18(f)(i) is scoped to is stated once in facts.json rather than as a pair of booleans in every entry that needs it. A WIG craft near the surface still satisfies 18(a)'s predicate -- she is a power-driven vessel underway and the negated rank does not exclude her -- so the rel:overrides against the 18(a) family and 18(d)(i) still carries. `keep-clear` is one effect for the paragraph's two duties, which the effect vocabulary cannot separate. It overrides `entry:crossing_gives_way` as well (Q-40): a WIG craft operating on the water surface is a power-driven vessel by 3(m), so 15(a) would give her a give-way or stand-on role beside 18(f)(i)'s keep-clear duty -- two helm roles at once, which is the conflict the rank negation on `entry:crossing_gives_way` used to avoid by keeping her out of Rule 15 altogether."
   },
   {
-   "id": "8f3",
+   "id": "entry:not_impeded_remains_obliged",
    "jurisdiction": "intl",
    "cite": "8(f)(iii)",
    "category": "precedence",
@@ -1641,7 +1635,7 @@
    "no_gate_note": "No in-sight gate: Rule 4 puts Rules 4-10 in any condition of visibility."
   },
   {
-   "id": "13a",
+   "id": "entry:overtaking_gives_way",
    "jurisdiction": "intl",
    "cite": "13(a)",
    "category": "precedence",
@@ -1671,26 +1665,26 @@
     "other": "stand-on"
    },
    "rel:overrides": [
-    "18a1",
-    "18a2",
-    "18a3",
-    "18a4",
-    "18b1",
-    "18b2",
-    "18b3",
-    "18c1",
-    "18c2",
-    "18d1",
-    "18f1",
-    "12a1",
-    "12a2",
-    "12a3"
+    "entry:power_gives_way_to_nuc",
+    "entry:power_gives_way_to_ram",
+    "entry:power_gives_way_to_fishing",
+    "entry:power_gives_way_to_sail",
+    "entry:sail_gives_way_to_nuc",
+    "entry:sail_gives_way_to_ram",
+    "entry:sail_gives_way_to_fishing",
+    "entry:fishing_gives_way_to_nuc",
+    "entry:fishing_gives_way_to_ram",
+    "entry:avoid_impeding_cbd",
+    "entry:wig_keeps_well_clear",
+    "entry:sail_port_tack_gives_way",
+    "entry:sail_windward_gives_way",
+    "entry:sail_port_tack_uncertain_gives_way"
    ],
-   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them. The predicate now carries both halves of 'any vessel overtaking any other': the 13(b) sector, which 13b-overtaking classifies, and the 13(d) latch, which 13d classifies. They are a disjunction, which is what the entry could not write before the predicate language grew `any_of` (Q-33). Now also overrides the three Rule 12 entries: 'notwithstanding anything contained in' the Rules of Part B Sections I and II includes Rule 12, and two sailing vessels in an overtaking would otherwise hold 13(a)'s and 12(a)'s roles at once (Q-40). The sector branch now also reads `other:hist:was_overtaking: false`, so it cannot newly name a second give-way vessel while the other side already holds 13(d)'s latch -- once overtaking, always overtaking, on whichever vessel history says holds the role (Q-47).",
-   "gap": "Only own's side. 13(a) lays the duty on the overtaking vessel, so this entry is directional by design and the overtaken vessel's stand-on role comes from the same entry read on the swapped situation. What it still cannot say is 13(c) -- a vessel in any doubt as to whether she is overtaking shall assume that she is -- because doubt is a state of the observer and no fact carries it; and it inherits 13b-overtaking's speed-comparison gap. Q-41, Q-46."
+   "note": "Categorised `precedence`, not `classification` as ADR 0005 sec. 1 and the proposal's first-cut table have it. 13(a) is the one paragraph of Rule 13 that assigns a role, and a `classification` entry has no field to put a role in; 13(b)'s sector test is the classification and is what sets the latch. Q-14 settles membership paragraph by paragraph and this is one of them. The predicate now carries both halves of 'any vessel overtaking any other': the 13(b) sector, which entry:overtaking classifies, and the 13(d) latch, which entry:overtaking_until_past_and_clear classifies. They are a disjunction, which is what the entry could not write before the predicate language grew `any_of` (Q-33). Now also overrides the three Rule 12 entries: 'notwithstanding anything contained in' the Rules of Part B Sections I and II includes Rule 12, and two sailing vessels in an overtaking would otherwise hold 13(a)'s and 12(a)'s roles at once (Q-40). The sector branch now also reads `other:hist:was_overtaking: false`, so it cannot newly name a second give-way vessel while the other side already holds 13(d)'s latch -- once overtaking, always overtaking, on whichever vessel history says holds the role (Q-47).",
+   "gap": "Only own's side. 13(a) lays the duty on the overtaking vessel, so this entry is directional and the overtaken vessel's stand-on role comes from the same entry read on the swapped situation. What it still cannot say is 13(c) -- a vessel in any doubt as to whether she is overtaking shall assume that she is -- because doubt is a state of the observer and no fact carries it; and it inherits entry:overtaking's speed-comparison gap. Q-41, Q-46."
   },
   {
-   "id": "9b",
+   "id": "entry:narrow_channel_small_or_sail",
    "jurisdiction": "intl",
    "cite": "9(b)",
    "category": "precedence",
@@ -1717,12 +1711,12 @@
     "other": "none"
    },
    "rel:overrides": [
-    "18a4"
+    "entry:power_gives_way_to_sail"
    ],
    "note": "9(b)'s subject is disjunctive -- 'a vessel of less than 20 metres in length or a sailing vessel' -- and used to take two entries, `9b-small` and `9b-sail`, because a `when` was a conjunction. `any_of` is that disjunction (Q-33), so the paragraph is one entry again and the entry id is the plain citation-derived one. The two suffixed ids are retired and not reused (REQ-MODEL-10). The gate is `fact:propulsion` and not `rule18_class:sail`: 9(b)'s subject is a sailing vessel in the ordinary sense and 9(c) covers fishing vessels separately, so borrowing Rule 18's rank here would quietly move a fishing vessel under sail from one paragraph to the other. `other:fact:confined_to_channel` closes Q-34: the entry now reads which vessel the paragraph protects instead of assuming it from the encounter being in a channel at all."
   },
   {
-   "id": "9c",
+   "id": "entry:narrow_channel_fishing",
    "jurisdiction": "intl",
    "cite": "9(c)",
    "category": "precedence",
@@ -1739,13 +1733,13 @@
     "other": "none"
    },
    "rel:overrides": [
-    "18a3",
-    "18b3"
+    "entry:power_gives_way_to_fishing",
+    "entry:sail_gives_way_to_fishing"
    ],
    "note": "Reverses 18(a)(iii) and 18(b)(iii) inside a narrow channel: 9(c)'s object is 'any other vessel navigating within a narrow channel or fairway', so unlike 9(b) it needs no further fact about the other vessel."
   },
   {
-   "id": "10i",
+   "id": "entry:traffic_lane_fishing",
    "jurisdiction": "intl",
    "cite": "10(i)",
    "category": "precedence",
@@ -1763,13 +1757,13 @@
     "other": "none"
    },
    "rel:overrides": [
-    "18a3",
-    "18b3"
+    "entry:power_gives_way_to_fishing",
+    "entry:sail_gives_way_to_fishing"
    ],
    "note": "`other:fact:following_traffic_lane` closes Q-34: the entry now reads which vessel the paragraph protects instead of assuming it from the encounter being in a lane at all."
   },
   {
-   "id": "10j",
+   "id": "entry:traffic_lane_small_or_sail",
    "jurisdiction": "intl",
    "cite": "10(j)",
    "category": "precedence",
@@ -1797,12 +1791,12 @@
     "other": "none"
    },
    "rel:overrides": [
-    "18a4"
+    "entry:power_gives_way_to_sail"
    ],
-   "note": "The same collapse as 9b, and the same disjunctive subject. 10(j)'s object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read. `10j-small` and `10j-sail` are retired and not reused. `other:fact:following_traffic_lane` closes Q-34, same as 10i."
+   "note": "The same collapse as entry:narrow_channel_small_or_sail, and the same disjunctive subject. 10(j)'s object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read. `10j-small` and `10j-sail` are retired and not reused. `other:fact:following_traffic_lane` closes Q-34, same as entry:traffic_lane_fishing."
   },
   {
-   "id": "7d1",
+   "id": "entry:steady_bearing",
    "jurisdiction": "intl",
    "cite": "7(d)(i)",
    "category": "classification",
@@ -1825,7 +1819,7 @@
    "no_gate_note": "No in-sight gate: Rule 4 puts Rules 4-10 in any condition of visibility."
   },
   {
-   "id": "12a1",
+   "id": "entry:sail_port_tack_gives_way",
    "jurisdiction": "intl",
    "cite": "12(a)(i)",
    "category": "precedence",
@@ -1848,7 +1842,7 @@
    "note": "Each has the wind on a different side, so the vessel with the wind on the port side keeps out of the way. Evaluated from own's side, so the mirror case -- own on starboard, other on port -- is this same entry read on the swapped situation, and it is what makes the other vessel stand-on. 'Two sailing vessels' is 3(c), so both subjects are gated on `fact:propulsion: propulsion:sail` and not on `rule18_class:sail` (Q-40): a vessel engaged in fishing under sail, or not under command under sail, is a sailing vessel by 3(c) and is inside Rule 12. Where Rule 18 also ranks the pair -- 18(b) from the ordinary sailing vessel's side, 18(c) from the fishing vessel's -- that entry carries `rel:overrides` against this one, because Rule 18's opening words except Rules 9, 10 and 13 and no others; 13(a)'s 'notwithstanding' overrides it the same way. Between two sailing vessels Rule 18 leaves unordered -- one not under command and one restricted in her ability to manoeuvre -- this entry is the only norm in force, and it lays a helm duty on a vessel that may be unable to discharge it; that is Rule 2's region and is recorded in Q-40 rather than gated away."
   },
   {
-   "id": "12a2",
+   "id": "entry:sail_windward_gives_way",
    "jurisdiction": "intl",
    "cite": "12(a)(ii)",
    "category": "precedence",
@@ -1880,7 +1874,7 @@
    "note": "Both have the wind on the same side, so the windward vessel keeps clear. 'The same side' is a comparison between two facts and the predicate language compares a fact to a constant, so the disjunction is written out over the two values the comparison can take -- which is why `wind_side:unknown` on either subject falls through to 12(a)(iii) rather than into this entry. 'Two sailing vessels' is 3(c), so both subjects are gated on `fact:propulsion: propulsion:sail` and not on `rule18_class:sail` (Q-40): a vessel engaged in fishing under sail, or not under command under sail, is a sailing vessel by 3(c) and is inside Rule 12. Where Rule 18 also ranks the pair -- 18(b) from the ordinary sailing vessel's side, 18(c) from the fishing vessel's -- that entry carries `rel:overrides` against this one, because Rule 18's opening words except Rules 9, 10 and 13 and no others; 13(a)'s 'notwithstanding' overrides it the same way. Between two sailing vessels Rule 18 leaves unordered -- one not under command and one restricted in her ability to manoeuvre -- this entry is the only norm in force, and it lays a helm duty on a vessel that may be unable to discharge it; that is Rule 2's region and is recorded in Q-40 rather than gated away."
   },
   {
-   "id": "12a3",
+   "id": "entry:sail_port_tack_uncertain_gives_way",
    "jurisdiction": "intl",
    "cite": "12(a)(iii)",
    "category": "precedence",
@@ -1904,7 +1898,7 @@
    "note": "The doubt case, and the one paragraph of Rule 12 that is expressible only because uncertainty is a declared value of the fact rather than the fact's absence. `wind_side:unknown` on the other subject is 'cannot determine with certainty', and an absent fact would have been the wrong model for it: absent satisfies nothing, so silence would have relieved own of a duty the paragraph imposes. This is the shape 13(c) and 14(c) would need and do not have -- Q-41. 'Two sailing vessels' is 3(c), so both subjects are gated on `fact:propulsion: propulsion:sail` and not on `rule18_class:sail` (Q-40): a vessel engaged in fishing under sail, or not under command under sail, is a sailing vessel by 3(c) and is inside Rule 12. Where Rule 18 also ranks the pair -- 18(b) from the ordinary sailing vessel's side, 18(c) from the fishing vessel's -- that entry carries `rel:overrides` against this one, because Rule 18's opening words except Rules 9, 10 and 13 and no others; 13(a)'s 'notwithstanding' overrides it the same way. Between two sailing vessels Rule 18 leaves unordered -- one not under command and one restricted in her ability to manoeuvre -- this entry is the only norm in force, and it lays a helm duty on a vessel that may be unable to discharge it; that is Rule 2's region and is recorded in Q-40 rather than gated away."
   },
   {
-   "id": "13b-overtaking",
+   "id": "entry:overtaking",
    "jurisdiction": "intl",
    "cite": "13(b)",
    "category": "classification",
@@ -1929,7 +1923,7 @@
    "gap": "'Coming up with' is a comparison of the two vessels' speeds, and a predicate compares a fact to a constant, never one fact to another. `pair:geo:tcpa_s` positive stands in for it: the closest point of approach is still ahead, so the pair is closing, and closing from abaft the beam is coming up. A vessel drawing away astern is excluded, which is the case that mattered; a pair closing because the vessel ahead has stopped is not, and is classified as an overtaking. Q-46."
   },
   {
-   "id": "13b-overtaken",
+   "id": "entry:being_overtaken",
    "jurisdiction": "intl",
    "cite": "13(b)",
    "category": "classification",
@@ -1954,7 +1948,7 @@
    "gap": "'Coming up with' is a comparison of the two vessels' speeds, and a predicate compares a fact to a constant, never one fact to another. `pair:geo:tcpa_s` positive stands in for it: the closest point of approach is still ahead, so the pair is closing, and closing from abaft the beam is coming up. A vessel drawing away astern is excluded, which is the case that mattered; a pair closing because the vessel ahead has stopped is not, and is classified as an overtaking. Q-46."
   },
   {
-   "id": "13d",
+   "id": "entry:overtaking_until_past_and_clear",
    "jurisdiction": "intl",
    "cite": "13(d)",
    "category": "classification",
@@ -1976,11 +1970,11 @@
    "effect": {
     "encounter": "overtaking"
    },
-   "note": "The latch, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on 14b and 15a-crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids. `pair:geo:in_sight` stays in the gate; a Rule 19(d)(i) entry reads `hist:was_overtaking` directly (Q-49).",
+   "note": "The latch, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on entry:head_on and entry:crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids. `pair:geo:in_sight` stays in the gate; a Rule 19(d)(i) entry reads `hist:was_overtaking` directly (Q-49).",
    "gap": "'Until she is finally past and clear' is the paragraph's own end condition and nothing in the fact vocabulary carries it, so in this model the latch never clears. A consumer sets and clears `hist:was_overtaking` itself. Recorded rather than approximated with a range or a bearing: past and clear is a seamanship judgement, and inventing a threshold for it would be the kind of number Q-40's neighbours are about. Q-47."
   },
   {
-   "id": "14b",
+   "id": "entry:head_on",
    "jurisdiction": "intl",
    "cite": "14(b)",
    "category": "classification",
@@ -2019,11 +2013,11 @@
    "effect": {
     "encounter": "head-on"
    },
-   "note": "14(b)'s deeming test: both vessels see the other ahead or nearly ahead. Both bearings are read, not one: a single vessel with the other fine on the bow is not a head-on situation unless she is also fine on the other's bow, and reading one bearing alone would have swallowed part of the crossing sector. The half-angle is declared once in facts.json `situation.constants.head_on_half_angle_deg`. Cites 14(b) and not 14(a) because the deeming paragraph is the classification, exactly as 13b-overtaking and 13b-overtaken cite 13(b): 14(a) states the situation in words -- 'reciprocal or nearly reciprocal courses' -- and imposes the duty, each shall alter her course to starboard, which is `conduct`, is not modelled, and is in known_omissions. Q-45.",
+   "note": "14(b)'s deeming test: both vessels see the other ahead or nearly ahead. Both bearings are read, not one: a single vessel with the other fine on the bow is not a head-on situation unless she is also fine on the other's bow, and reading one bearing alone would have swallowed part of the crossing sector. The half-angle is declared once in facts.json `situation.constants.head_on_half_angle_deg`. Cites 14(b) and not 14(a) because the deeming paragraph is the classification, exactly as entry:overtaking and entry:being_overtaken cite 13(b): 14(a) states the situation in words -- 'reciprocal or nearly reciprocal courses' -- and imposes the duty, each shall alter her course to starboard, which is `conduct`, is not modelled, and is in known_omissions. Q-45.",
    "gap": "The history gates are 13(d)'s, not Rule 14's, and they are what keeps the three encounter types a partition -- their price is that a situation which omits `hist:was_overtaking` is classified as no encounter at all rather than as a head-on. Q-43."
   },
   {
-   "id": "15a-crossing",
+   "id": "entry:crossing",
    "jurisdiction": "intl",
    "cite": "15(a)",
    "category": "classification",
@@ -2084,11 +2078,11 @@
    "effect": {
     "encounter": "crossing"
    },
-   "note": "The residual, and derived rather than written as its own sector. Not overtaking is `not` over the very constraint 13b-overtaking uses, on both subjects, so the sector and its complement cannot drift apart and the 112.5 edge lands in exactly one of them. Not head-on is `not` over 14b's cone, on either subject -- the negation of a conjunction, which is why it is an `any_of` and not two constraints. Nothing here enumerates a crossing sector, and that is the point: the only way for the three encounter types to overlap or to leave a bearing unclassified is for someone to edit one of the two constraints without editing the other, and there is only one of each.",
-   "gap": "15(a) says 'two power-driven vessels', which this reads as 3(b)'s definition and nothing more, so a vessel not under command is inside it -- she is power-driven. That is deliberate for the classification: the encounter really is a crossing. `15a-give-way` reads 3(b) the same way and no longer gates on rank either (Q-40): where Rule 18 ranks the pair it is the Rule 18 entry's `rel:overrides` that displaces the role, which is the half of the encounter Rule 18 reaches. The geometry is not that half, and no entry now says otherwise in two places."
+   "note": "The residual, and derived rather than written as its own sector. Not overtaking is `not` over the very constraint entry:overtaking uses, on both subjects, so the sector and its complement cannot drift apart and the 112.5 edge lands in exactly one of them. Not head-on is `not` over entry:head_on's cone, on either subject -- the negation of a conjunction, which is why it is an `any_of` and not two constraints. Nothing here enumerates a crossing sector, and that is the point: the only way for the three encounter types to overlap or to leave a bearing unclassified is for someone to edit one of the two constraints without editing the other, and there is only one of each.",
+   "gap": "15(a) says 'two power-driven vessels', which this reads as 3(b)'s definition and nothing more, so a vessel not under command is inside it -- she is power-driven. That is deliberate for the classification: the encounter really is a crossing. `entry:crossing_gives_way` reads 3(b) the same way and no longer gates on rank either (Q-40): where Rule 18 ranks the pair it is the Rule 18 entry's `rel:overrides` that displaces the role, which is the half of the encounter Rule 18 reaches. The geometry is not that half, and no entry now says otherwise in two places."
   },
   {
-   "id": "15a-give-way",
+   "id": "entry:crossing_gives_way",
    "jurisdiction": "intl",
    "cite": "15(a)",
    "category": "precedence",
@@ -2152,7 +2146,7 @@
    "gap": "15(a)'s second duty -- 'shall, if the circumstances of the case admit, avoid crossing ahead of the other vessel' -- is `conduct` with a practicability caveat, and neither half fits a precedence entry. It is dropped here, which is Q-31's shape again: the caveat has no field to move into unless the duty happens to be a role, and this one is an action."
   },
   {
-   "id": "30a-buoy",
+   "id": "entry:mooring_buoy",
    "jurisdiction": "us/inland",
    "cite": "30(a)",
    "when": {
@@ -2177,7 +2171,7 @@
    "note": "33 CFR 90.5 deems a vessel made fast to a mooring buoy to be a vessel at anchor, so Inland Rule 30(a) reaches her. The Convention has no such deeming provision: under intl she is 'moored' by Rule 3(i) and no paragraph prescribes lights for her."
   },
   {
-   "id": "30b-buoy",
+   "id": "entry:mooring_buoy_under_50m",
    "jurisdiction": "us/inland",
    "cite": "30(b)",
    "when": {
@@ -2196,10 +2190,10 @@
     }
    ],
    "rel:in_lieu_of": [
-    "30a-buoy"
+    "entry:mooring_buoy"
    ],
    "modality": "may",
-   "note": "The under-50 m alternative, on the same 33 CFR 90.5 deeming that brings 30a-buoy in. It is a separate entry because widening 30b's predicate would edit an intl entry to carry a national delta, which REQ-SCOPE-4 forbids."
+   "note": "The under-50 m alternative, on the same 33 CFR 90.5 deeming that brings entry:mooring_buoy in. It is a separate entry because widening entry:anchored_under_50m's predicate would edit an intl entry to carry a national delta, which REQ-SCOPE-4 forbids."
   }
  ]
 }

@@ -21,7 +21,8 @@
         "meta"
       ]
     },
-    "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$" },
+    "entryId": { "type": "string", "pattern": "^entry:[a-z][a-z0-9_]*$" },
+    "paragraphDerivedId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*$" },
     "modality": {
       "type": "string",
       "enum": ["shall", "may", "shall-if-practicable", "conditional", "exempt", "shall-not", "shall-not-impede"]
@@ -326,7 +327,7 @@
         "additionalProperties": false,
         "required": ["id", "jurisdiction", "cite", "category", "note"],
         "properties": {
-          "id": { "$ref": "#/$defs/entryId" },
+          "id": { "$ref": "#/$defs/paragraphDerivedId" },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "cite": { "type": "string", "minLength": 1 },
           "category": { "type": "string", "enum": ["care", "meta"] },

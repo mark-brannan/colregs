@@ -34,9 +34,9 @@ suffix naming what distinguishes them.
 - Insertion appends a suffix and never renumbers; a suffix names something and
   is not an ordinal (`REQ-INV-2`).
 - The paragraph is the unit (ADR 0001): an invariant reading several takes the
-  id of the one stating its operative content, as entry `14b` does.
+  id of the one stating its operative content, as entry `entry:head_on` does.
 - `INV-` is a type prefix on a citation-derived name — the one departure from
-  `docs/identifiers.md`, because `13a` is already an entry id. Jurisdiction is a
+  `docs/identifiers.md`, because `entry:overtaking_gives_way` is already an entry id. Jurisdiction is a
   dimension (`REQ-SCOPE-2`, `Q-8`); only `intl` is populated.
 
 ---
@@ -82,10 +82,10 @@ not overtaking); its edges are the forward edges of Rule 21(c)'s sternlight
 arc, which 13(b)'s second limb states in light terms.
 
 - **Undetermined term.** "Coming up with" is a speed comparison the model cannot
-  express (`Q-46`); `13b-overtaking` substitutes `pair:geo:tcpa_s > 0`, which
+  express (`Q-46`); `entry:overtaking` substitutes `pair:geo:tcpa_s > 0`, which
   admits a pair closing because the vessel ahead stopped. This states the rule.
 - **Not stated by 13(b).** Risk of collision: `Q-50`.
-- Entries: `13b-overtaking`, `13b-overtaken`;
+- Entries: `entry:overtaking`, `entry:being_overtaken`;
   `situation.constants.overtaking_sector_from_deg`/`_to_deg` (ink). Settled by
   P2.2's Alloy sector model: a partition, or a bearing that falls in both.
 
@@ -100,7 +100,7 @@ overtaking vessel bears forward of her beam.
 
 - **Why separate.** A formalisation carrying encounter type per vessel
   classifies the overtaken side as a crossing, two types on one pair.
-- Entries: `13b-overtaking`, `13b-overtaken`, each other's `when` with subjects
+- Entries: `entry:overtaking`, `entry:being_overtaken`, each other's `when` with subjects
   swapped. Settled by P4.2 carrying the type on the pair and TLC finding no
   state where the subjects disagree.
 
@@ -116,7 +116,7 @@ roles displace any role Rules 4–18 would otherwise assign to either vessel.
 well as Rules 14 and 15.
 
 - **Not stated by 13(a).** Risk of collision: `Q-50`.
-- Entries: `13a`, overriding all eleven Rule 18 and all three Rule 12 entries.
+- Entries: `entry:overtaking_gives_way`, overriding all eleven Rule 18 and all three Rule 12 entries.
   Settled by P4.2's role assignment: the override is or is not needed to keep
   "never both give-way" true.
 
@@ -142,8 +142,8 @@ until own is finally past and clear, the encounter type of the pair is
   model's is its segmentation, and no bearing or range is invented here.
 - **Readings in doubt.** Two: what arms the latch, `Q-51`; what it forbids,
   `Q-52`.
-- Entries: `13d`, reading `own`/`other:hist:was_overtaking` and no geometry; the
-  `was_overtaking: false` gates on `14b`, `15a-crossing`, `15a-give-way`
+- Entries: `entry:overtaking_until_past_and_clear`, reading `own`/`other:hist:was_overtaking` and no geometry; the
+  `was_overtaking: false` gates on `entry:head_on`, `entry:crossing`, `entry:crossing_gives_way`
   implement `Q-52`'s *broad* reading. Settled by `Q-51`, `Q-52`, then TLC on a
   three-state trace of an overtaking drawing out onto the bow.
 
@@ -159,7 +159,7 @@ the duty by its second clause, and a formalisation deriving role from encounter
 type alone cannot distinguish `Q-52`'s readings.
 
 - **State remembered.** As `INV-13d`.
-- Entries: `13a`'s `any_of` second limb, `own:hist:was_overtaking: true` — role
+- Entries: `entry:overtaking_gives_way`'s `any_of` second limb, `own:hist:was_overtaking: true` — role
   asserted from the latch directly, keeping the limbs separable. Settled by
   `Q-52`.
 
@@ -186,7 +186,7 @@ in [0°, 11.25°] ∪ [348.75°, 360°).
   that way.
 - **Not formalised.** The night and day observation limbs are stated as the
   geometry they encode; a vessel that cannot see the lights has 14(c).
-- Entries: `14b`. Settled by `INV-13b`'s partition sweep plus a decision on the
+- Entries: `entry:head_on`. Settled by `INV-13b`'s partition sweep plus a decision on the
   constant.
 
 ### INV-14a — both vessels alter to starboard
@@ -228,7 +228,7 @@ encounter type is `crossing` exactly when it is neither `overtaking` under
 - **Known incompleteness.** Two sailing vessels get no encounter type (Rules 14
   and 15 are gated on power, Rule 12 has no deeming paragraph): the Rules'. A
   pair with the history fact absent gets none: the model's (`Q-43`).
-- Entries: `15a-crossing`.
+- Entries: `entry:crossing`.
 
 ### INV-15a-give-way — the vessel with the other to starboard gives way
 
@@ -241,7 +241,7 @@ other holds `stand-on`.
 - **Undetermined term.** "On her own starboard side" has no sector in the
   paragraph; the data reads `own:geo:rel_bearing_deg` in (0°, 112.5°], its upper
   edge 13(b)'s constant, so it is checkable against the partition.
-- Entries: `15a-give-way`, plus six `rel:overrides` from Rule 18 entries, since
+- Entries: `entry:crossing_gives_way`, plus six `rel:overrides` from Rule 18 entries, since
   Rule 18's chapeau excepts Rules 9, 10 and 13 and no others.
 
 ### INV-15a-single — at most one give-way vessel in a crossing
@@ -277,7 +277,7 @@ advancing position.
   segment ("ahead of" a moving vessel), and the state the role attached.
 - **Undetermined term.** "If the circumstances of the case admit" has nowhere to
   live — `modality` is one closed value, an action has no `effect` — `Q-31`.
-- Entries: none; a `gap` on `15a-give-way`.
+- Entries: none; a `gap` on `entry:crossing_gives_way`.
 
 ---
 
@@ -443,7 +443,7 @@ discharge her obligation.
 - **Why separate.** The natural automaton takes the give-way duty as an input to
   its transitions; 17(d) says the arrow does not run back, so model two
   obligations holding concurrently, not one machine with one obligation.
-- Entries: none; nearest is 8(f)(ii)'s parallel for `shall-not-impede`, `8f3`.
+- Entries: none; nearest is 8(f)(ii)'s parallel for `shall-not-impede`, `entry:not_impeded_remains_obliged`.
 
 ### INV-17-phases — the phase structure
 
@@ -485,9 +485,9 @@ governs.
 - **Why both directions.** "To nothing else" is what runs the `rel:overrides`
   edges from Rule 18 *to* Rules 12 and 15; got wrong once, found by a sweep
   (`Q-40`).
-- Entries: overrides on `13a` against all Rule 18 and Rule 12 entries; on
-  `18a1`–`18a3`, `18c1`–`18c2`, `18f1` against `15a-give-way`; on the Rule 18
-  entries that can meet two sailing vessels against `12a1`–`12a3`; a derived
+- Entries: overrides on `entry:overtaking_gives_way` against all Rule 18 and Rule 12 entries; on
+  the 18(a)(i)–(iii) entries, the two 18(c) entries, `entry:wig_keeps_well_clear` against `entry:crossing_gives_way`; on the Rule 18
+  entries that can meet two sailing vessels against the three Rule 12 entries; a derived
   check asserts the hand-list of six against Rule 15 is complete.
 
 ### INV-18-order — the rank order
@@ -510,7 +510,7 @@ The subject holds `give-way`; the object `stand-on`.
   (`Q-32`) is the model's decode onto these ranks. A vessel constrained by her
   draught is a power-driven vessel for 18(a) and is ranked by it.
 - **Not stated by Rule 18.** Risk of collision and encounter type: `Q-50`.
-- Entries: `18a1`–`18a4`, `18b1`–`18b3`, `18c1`–`18c2`.
+- Entries: the four 18(a) entries, the three 18(b) entries, the two 18(c) entries.
 
 ### INV-18-partial — the order is partial, and the gaps are the Rules'
 
@@ -542,7 +542,7 @@ discharging `INV-16` requires of her.
 
 - **Why stated.** Read as a condition on the antecedent, it gives a roleless
   pair exactly when compliance is hard and the roles matter.
-- Entries: `18c1`, `18c2`, modality `shall-if-practicable` with effect
+- Entries: `entry:fishing_gives_way_to_nuc`, `entry:fishing_gives_way_to_ram`, modality `shall-if-practicable` with effect
   `give-way`/`stand-on` — `Q-31`'s shape, resolved only because the duty is a
   role.
 
@@ -563,8 +563,8 @@ is not relieved (8(f)(ii)).
   protected vessel a Rule 17 duty no paragraph confers — 8(f)(iii)'s content,
   and why `none` is explicit.
 - **Undetermined term.** "Exhibiting the signals in Rule 28" is a
-  display-compliance fact `18d1` does not read; the entry is wider (`Q-34`).
-- Entries: `18d1`, `8f3`.
+  display-compliance fact `entry:avoid_impeding_cbd` does not read; the entry is wider (`Q-34`).
+- Entries: `entry:avoid_impeding_cbd`, `entry:not_impeded_remains_obliged`.
 
 ### INV-18f1 — the WIG craft keeps well clear
 
@@ -575,7 +575,7 @@ in flight near the surface, she holds `keep-clear` with respect to every other
 vessel — keeps well clear and avoids impeding their navigation — and the other
 holds `none`. `keep-clear` is outside the give-way/stand-on pairing and Rule 16.
 
-- Entries: `18f1`.
+- Entries: `entry:wig_keeps_well_clear`.
 
 ---
 
@@ -601,9 +601,9 @@ not jointly exhaustive (`INV-19a-third-state`); Rule 19 supplements Section I
   cross it and back inside one encounter, and no paragraph says what becomes of
   a 13(d) latch or a Rule 17 phase: `Q-55`.
 - **Undetermined term.** "In or near an area of restricted visibility" has no
-  fact (3(l)'s atmospheric condition is nowhere in `data/facts.json`), so `19a`
+  fact (3(l)'s atmospheric condition is nowhere in `data/facts.json`), so `entry:restricted_visibility`
   selects Section III for any pair not in sight — wider — and records a gap.
-- Entries: `11`, `19a`, complementary on `pair:geo:in_sight`.
+- Entries: `entry:in_sight`, `entry:restricted_visibility`, complementary on `pair:geo:in_sight`.
 
 ### INV-19a-noroles — Section III has no give-way and no stand-on vessel
 
@@ -633,7 +633,7 @@ excludes Section II, 19(a) excludes Rule 19, and only Section I governs.
 - **Why written down.** A hole forced by both scope paragraphs, which "not
   Section II, so Section III" will not have. The model closes it by dropping
   19(a)'s second conjunct — a decision, not a reading: `Q-56`.
-- Entries: `19a`'s `gap`.
+- Entries: `entry:restricted_visibility`'s `gap`.
 
 ### INV-19b — safe speed, and engines ready
 
