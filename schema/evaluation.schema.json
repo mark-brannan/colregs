@@ -14,7 +14,7 @@
       }
     },
     "paragraphCite": {
-      "$comment": "A Rules paragraph path, the vocabulary of `phase` and `breaches` (ADR 0011 §4); the pattern is data/rules.json's paragraph key, and the tests hold the two equal.",
+      "$comment": "A Rules paragraph path, the vocabulary of `phase` and `breaches` (ADR 0011 \u00a74); the pattern is data/rules.json's paragraph key, and the tests hold the two equal.",
       "type": "string",
       "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
     },
@@ -66,7 +66,7 @@
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
-        "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$": {
+        "^entry:[a-z][a-z0-9_]*$": {
           "$ref": "applicability.schema.json#/$defs/modality"
         }
       }
@@ -75,7 +75,7 @@
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
-        "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$": {
+        "^entry:[a-z][a-z0-9_]*$": {
           "$ref": "#/$defs/ruleCategory"
         }
       }
@@ -95,7 +95,7 @@
       ],
       "properties": {
         "id": {
-          "$ref": "#/$defs/entryId"
+          "$ref": "applicability.schema.json#/$defs/paragraphDerivedId"
         },
         "jurisdiction": {
           "type": "string",
