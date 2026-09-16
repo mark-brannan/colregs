@@ -923,6 +923,48 @@
     "fact:length_m": 11.6
    },
    "expect": []
+  },
+  {
+   "name": "constrained by draft, US Inland: Rule 28 is [Reserved], the record is out of vocabulary and selects nothing",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:underway",
+    "fact:length_m": 200
+   },
+   "expect": []
+  },
+  {
+   "name": "6 m outboard, max speed 6 kn, US Inland: 23(d)(ii) has no Inland counterpart, 23(d)(i) and 23(a) are inherited",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 6,
+    "fact:max_speed_kn": 6
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i"
+   ]
+  },
+  {
+   "name": "constrained by draft, at anchor, US Inland: Rule 30 is inherited untouched",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:anchored",
+    "fact:length_m": 200
+   },
+   "expect": [
+    "rule:30a",
+    "rule:30c"
+   ]
   }
  ]
 }

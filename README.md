@@ -56,7 +56,10 @@ lights and shapes, Part D sound and light signals, and Annex I geometry.
 [`docs/requirements.md`](docs/requirements.md) is the numbered contract for
 all of it. One case the Convention cannot state, a vessel made fast to a
 mooring buoy, lives only under `us/inland`
-([ADR 0008](docs/adr/0008-mooring-buoy-modifier.md)).
+([ADR 0008](docs/adr/0008-mooring-buoy-modifier.md)); two the Inland Rules
+deliberately lack, Rule 28 and 23(d)(ii), are tombstoned there
+([ADR 0018](docs/adr/0018-jurisdiction-delta-is-a-merge-patch.md)). That is
+the whole of `us/inland` today: four records, not a model of the Inland Rules.
 
 ## The layers
 
@@ -104,7 +107,12 @@ same thing.
 
 **Jurisdiction is a dimension, not a fork.** Every record carries a
 `jurisdiction`: `intl`, or `<country-or-body>/<waters>` as a delta on it.
-Entries a jurisdiction doesn't override are inherited, not restated.
+Entries a jurisdiction doesn't override are inherited, not restated. The
+delta is an [RFC 7396](https://www.rfc-editor.org/rfc/rfc7396) merge patch
+over `intl` keyed by entry id: the jurisdiction's own entries are its keys,
+its `suppressions` are the keys set to `null`, and silence inherits
+([ADR 0018](docs/adr/0018-jurisdiction-delta-is-a-merge-patch.md)). Any
+conformant merge-patch library reproduces the resolved rule set.
 
 **Predicates, not enumerations.** Gates are `fact:length_m < 7`, never a
 pre-built list of configurations. Enumerated tables are where prior art
