@@ -1465,7 +1465,7 @@ nothing is blocked while open.
   state and the vessel may fall back — must she then hold her *new* course
   and speed? TLC distinguishes them on a four-state trace. **Ruled
   2026-09-16:** monotone — permission or duty, once arisen, survives belated
-  compliance; a fall-back needs a baseline the Rules lack (`Q-57`). No source (colregs#72); *Ever Smart* [2021] UKSC 6 para 61 leans monotone.
+  compliance; a fall-back needs a baseline the Rules lack (`Q-57`). No holding on point (colregs#72); *Ever Smart* [2021] UKSC 6 para 61 has the obligation cease at 17(a)(ii)/17(b) with no revival — consistent with monotone, not a ruling on it.
 - **Q-55** — **What does a visibility transition do to Section II state?**
   Rule 11 and 19(a) switch on the current state; no paragraph says what
   becomes of a 13(d) overtaking history or a Rule 17 phase. *Persisting:* they belong to the
