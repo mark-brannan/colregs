@@ -40,6 +40,22 @@
           }
         }
       ]
+    },
+    "subjectRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "by"
+      ],
+      "properties": {
+        "role": {
+          "$ref": "applicability.schema.json#/$defs/effectRole"
+        },
+        "by": {
+          "$ref": "#/$defs/ruleId"
+        }
+      }
     }
   },
   "properties": {
@@ -175,6 +191,29 @@
           "situation": {
             "$comment": "A Situation (schema/situation.schema.json, ADR 0014).",
             "$ref": "situation.schema.json"
+          },
+          "roles": {
+            "$comment": "The pooled, resolved roles of both subjects (ADR 0016). `expect` stays the own-frame entry ids.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "own",
+              "other"
+            ],
+            "properties": {
+              "own": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/subjectRole"
+                }
+              },
+              "other": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/subjectRole"
+                }
+              }
+            }
           }
         }
       }

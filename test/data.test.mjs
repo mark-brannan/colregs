@@ -1676,6 +1676,19 @@ function rolesFor(c, subject) {
   return roles
 }
 
+test('ADR 0016: a case that states roles states the pooled, resolved roles of both subjects', () => {
+  const stated = bindingCases.filter((c) => c.roles)
+  assert.ok(stated.length > 0, 'no situation fixture states roles; ADR 0016 would bind nothing')
+  const key = (x) => `${x.role} ${x.by}`
+  for (const c of stated) {
+    const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
+    for (const [subject, side] of [['A', 'own'], ['B', 'other']]) {
+      const got = pool.filter((r) => r[subject] && r[subject] !== 'none').map((r) => ({ role: r[subject], by: r.entry.id }))
+      assert.deepEqual(got.sort((x, y) => key(x).localeCompare(key(y))), [...c.roles[side]].sort((x, y) => key(x).localeCompare(key(y))), `${c.name}: ${side}`)
+    }
+  }
+})
+
 test('precedence: no subject is given two conflicting helm roles once rel:overrides has resolved', () => {
   for (const c of bindingCases) {
     for (const subject of ['A', 'B']) {

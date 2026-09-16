@@ -49,7 +49,7 @@
      },
      "kin": {
       "kin:position": {
-       "latitude": 50.0,
+       "latitude": 50,
        "longitude": -1.4
       },
       "kin:heading_deg": 0,
@@ -94,13 +94,27 @@
     "pair": {
      "geo": {
       "geo:range_m": 5556,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 1,
       "geo:tcpa_s": 1023,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
     }
+   },
+   "roles": {
+    "own": [
+     {
+      "role": "give-way",
+      "by": "rule:15a:keep_out_of_the_way"
+     }
+    ],
+    "other": [
+     {
+      "role": "stand-on",
+      "by": "rule:15a:keep_out_of_the_way"
+     }
+    ]
    }
   },
   {
@@ -125,7 +139,7 @@
      },
      "kin": {
       "kin:position": {
-       "latitude": 50.0,
+       "latitude": 50,
        "longitude": -1.4
       },
       "kin:heading_deg": 90,
@@ -134,7 +148,7 @@
       "kin:dynamics": "dynamics:ferry"
      },
      "geo": {
-      "geo:rel_bearing_deg": 357.0
+      "geo:rel_bearing_deg": 357
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -170,7 +184,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 800,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 71,
       "geo:in_sight": true,
@@ -205,7 +219,7 @@
      },
      "kin": {
       "kin:position": {
-       "latitude": 50.0,
+       "latitude": 50,
        "longitude": -1.4
       },
       "kin:heading_deg": 20,
@@ -275,7 +289,7 @@
      },
      "kin": {
       "kin:position": {
-       "latitude": 50.0,
+       "latitude": 50,
        "longitude": -1.4
       },
       "kin:heading_deg": 20,
@@ -2500,16 +2514,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 12.0,
+      "kin:sog_kn": 12,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0
+      "geo:rel_bearing_deg": 300
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -2522,7 +2536,7 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 7.5,
@@ -2541,7 +2555,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 2000,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 2,
       "geo:tcpa_s": 2294,
       "geo:in_sight": true,
@@ -2569,16 +2583,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 14.0,
+      "kin:sog_kn": 14,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 350.0
+      "geo:rel_bearing_deg": 350
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -2591,7 +2605,7 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 57.4,
@@ -2610,7 +2624,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1200,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 183,
       "geo:in_sight": true,
@@ -2638,16 +2652,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 14.0,
+      "kin:sog_kn": 14,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 10.0
+      "geo:rel_bearing_deg": 10
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -2660,7 +2674,7 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 302.5,
@@ -2679,7 +2693,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1200,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 183,
       "geo:in_sight": true,
@@ -2707,16 +2721,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 14.0,
+      "kin:sog_kn": 14,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 10.0
+      "geo:rel_bearing_deg": 10
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -2729,7 +2743,7 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 302.6,
@@ -2748,7 +2762,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1200,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 183,
       "geo:in_sight": true,
@@ -2775,16 +2789,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 3.0,
+      "kin:sog_kn": 3,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:fishing"
      },
      "geo": {
-      "geo:rel_bearing_deg": 200.0
+      "geo:rel_bearing_deg": 200
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -2797,16 +2811,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
-      "kin:heading_deg": 15.0,
+      "kin:heading_deg": 15,
       "kin:sog_kn": 11.8,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 5.0
+      "geo:rel_bearing_deg": 5
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -2816,7 +2830,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 900,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 196,
       "geo:in_sight": true,
@@ -2843,11 +2857,11 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 12.0,
+      "kin:sog_kn": 12,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:ferry"
      },
@@ -2865,11 +2879,11 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 202.5,
-      "kin:sog_kn": 12.0,
+      "kin:sog_kn": 12,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:ferry"
      },
@@ -2884,7 +2898,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 124,
       "geo:in_sight": true,
@@ -2912,11 +2926,11 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 12.0,
+      "kin:sog_kn": 12,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:ferry"
      },
@@ -2934,7 +2948,7 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 202.55,
@@ -2953,7 +2967,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 124,
       "geo:in_sight": true,
@@ -2980,16 +2994,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 12.0,
+      "kin:sog_kn": 12,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 40.0
+      "geo:rel_bearing_deg": 40
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3002,16 +3016,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
-      "kin:heading_deg": 300.0,
+      "kin:heading_deg": 300,
       "kin:sog_kn": 18.2,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 280.0
+      "geo:rel_bearing_deg": 280
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3045,16 +3059,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 12.0,
+      "kin:sog_kn": 12,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 40.0
+      "geo:rel_bearing_deg": 40
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3067,16 +3081,16 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 30.0
+      "fact:length_m": 30
      },
      "kin": {
-      "kin:heading_deg": 300.0,
+      "kin:heading_deg": 300,
       "kin:sog_kn": 18.2,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 280.0
+      "geo:rel_bearing_deg": 280
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3113,17 +3127,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 12.0
+      "fact:length_m": 12
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:port"
      },
      "geo": {
-      "geo:rel_bearing_deg": 45.0,
+      "geo:rel_bearing_deg": 45,
       "geo:windward": false
      },
      "hist": {
@@ -3137,17 +3151,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 11.0
+      "fact:length_m": 11
      },
      "kin": {
-      "kin:heading_deg": 285.0,
+      "kin:heading_deg": 285,
       "kin:sog_kn": 4.9,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0,
+      "geo:rel_bearing_deg": 300,
       "geo:windward": true
      },
      "hist": {
@@ -3158,7 +3172,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 436,
       "geo:in_sight": true,
@@ -3185,17 +3199,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 12.0
+      "fact:length_m": 12
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 45.0,
+      "geo:rel_bearing_deg": 45,
       "geo:windward": true
      },
      "hist": {
@@ -3209,17 +3223,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 11.0
+      "fact:length_m": 11
      },
      "kin": {
-      "kin:heading_deg": 285.0,
+      "kin:heading_deg": 285,
       "kin:sog_kn": 4.9,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0,
+      "geo:rel_bearing_deg": 300,
       "geo:windward": false
      },
      "hist": {
@@ -3230,7 +3244,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 436,
       "geo:in_sight": true,
@@ -3257,17 +3271,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 12.0
+      "fact:length_m": 12
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:port"
      },
      "geo": {
-      "geo:rel_bearing_deg": 45.0,
+      "geo:rel_bearing_deg": 45,
       "geo:windward": false
      },
      "hist": {
@@ -3281,17 +3295,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 11.0
+      "fact:length_m": 11
      },
      "kin": {
-      "kin:heading_deg": 285.0,
+      "kin:heading_deg": 285,
       "kin:sog_kn": 4.9,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:unknown"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0,
+      "geo:rel_bearing_deg": 300,
       "geo:windward": true
      },
      "hist": {
@@ -3302,7 +3316,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 436,
       "geo:in_sight": true,
@@ -3328,17 +3342,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 12.0
+      "fact:length_m": 12
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 45.0,
+      "geo:rel_bearing_deg": 45,
       "geo:windward": false
      },
      "hist": {
@@ -3352,17 +3366,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 11.0
+      "fact:length_m": 11
      },
      "kin": {
-      "kin:heading_deg": 285.0,
+      "kin:heading_deg": 285,
       "kin:sog_kn": 4.9,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0,
+      "geo:rel_bearing_deg": 300,
       "geo:windward": true
      },
      "hist": {
@@ -3373,7 +3387,7 @@
     "pair": {
      "geo": {
       "geo:range_m": 1500,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 436,
       "geo:in_sight": true,
@@ -3400,17 +3414,17 @@
       "fact:activity": "activity:fishing",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 16.0
+      "fact:length_m": 16
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:fishing",
       "kin:wind_side": "wind_side:port"
      },
      "geo": {
-      "geo:rel_bearing_deg": 45.0,
+      "geo:rel_bearing_deg": 45,
       "geo:windward": false
      },
      "hist": {
@@ -3424,17 +3438,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 11.0
+      "fact:length_m": 11
      },
      "kin": {
-      "kin:heading_deg": 285.0,
+      "kin:heading_deg": 285,
       "kin:sog_kn": 4.9,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0,
+      "geo:rel_bearing_deg": 300,
       "geo:windward": true
      },
      "hist": {
@@ -3447,7 +3461,7 @@
       "geo:range_m": 1500,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 436,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3473,17 +3487,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 12.0
+      "fact:length_m": 12
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 0.0,
+      "geo:rel_bearing_deg": 0,
       "geo:windward": false
      },
      "hist": {
@@ -3497,17 +3511,17 @@
       "fact:activity": "activity:none",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 11.0
+      "fact:length_m": 11
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 3.0,
+      "kin:sog_kn": 3,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:yacht",
       "kin:wind_side": "wind_side:starboard"
      },
      "geo": {
-      "geo:rel_bearing_deg": 180.0,
+      "geo:rel_bearing_deg": 180,
       "geo:windward": true
      },
      "hist": {
@@ -3520,7 +3534,7 @@
       "geo:range_m": 500,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 324,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3546,16 +3560,16 @@
       "fact:activity": "activity:fishing",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 26.0
+      "fact:length_m": 26
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:fishing"
      },
      "geo": {
-      "geo:rel_bearing_deg": 45.0
+      "geo:rel_bearing_deg": 45
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3568,16 +3582,16 @@
       "fact:activity": "activity:fishing",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 22.0
+      "fact:length_m": 22
      },
      "kin": {
-      "kin:heading_deg": 285.0,
+      "kin:heading_deg": 285,
       "kin:sog_kn": 4.9,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:fishing"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0
+      "geo:rel_bearing_deg": 300
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3589,7 +3603,7 @@
       "geo:range_m": 1500,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 436,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3615,16 +3629,16 @@
       "fact:activity": "activity:nuc",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 80.0
+      "fact:length_m": 80
      },
      "kin": {
       "kin:heading_deg": 0,
-      "kin:sog_kn": 6.0,
+      "kin:sog_kn": 6,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 45.0
+      "geo:rel_bearing_deg": 45
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3637,16 +3651,16 @@
       "fact:activity": "activity:ram",
       "fact:position": "position:underway",
       "fact:making_way": true,
-      "fact:length_m": 65.0
+      "fact:length_m": 65
      },
      "kin": {
-      "kin:heading_deg": 285.0,
+      "kin:heading_deg": 285,
       "kin:sog_kn": 4.9,
       "kin:rot_deg_min": 0,
       "kin:dynamics": "dynamics:cargo"
      },
      "geo": {
-      "geo:rel_bearing_deg": 300.0
+      "geo:rel_bearing_deg": 300
      },
      "hist": {
       "hist:was_overtaking": false,
@@ -3658,7 +3672,7 @@
       "geo:range_m": 1500,
       "geo:cpa_m": 0,
       "geo:tcpa_s": 436,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
      }
@@ -3689,7 +3703,7 @@
      },
      "kin": {
       "kin:position": {
-       "latitude": 50.0,
+       "latitude": 50,
        "longitude": -1.4
       },
       "kin:heading_deg": 0,
@@ -3734,11 +3748,268 @@
     "pair": {
      "geo": {
       "geo:range_m": 500,
-      "geo:bearing_change_deg_min": 0.0,
+      "geo:bearing_change_deg_min": 0,
       "geo:cpa_m": 0,
-      "geo:tcpa_s": 324.0,
+      "geo:tcpa_s": 324,
       "geo:in_sight": true,
       "geo:risk_of_collision": true
+     }
+    }
+   }
+  },
+  {
+   "name": "crossing: own power-driven, other fine on the port bow -- own is the stand-on vessel (ADR 0016)",
+   "status": "binding",
+   "narrative": "The mirror of the crossing above: the same two vessels, the other now bearing 320 relative at 3 nm on a steady bearing. The other has own on her starboard side, so own stands on under Rule 17 and the other gives way. No entry names own stand-on from her own seat; the role is rule:15a:keep_out_of_the_way read in the swapped frame, which is why this case states `roles` (ADR 0016, #141).",
+   "expect": [
+    "rule:4",
+    "rule:11",
+    "rule:7d_i",
+    "rule:8f_iii",
+    "rule:15a:crossing"
+   ],
+   "roles": {
+    "own": [
+     {
+      "role": "stand-on",
+      "by": "rule:15a:keep_out_of_the_way"
+     }
+    ],
+    "other": [
+     {
+      "role": "give-way",
+      "by": "rule:15a:keep_out_of_the_way"
+     }
+    ]
+   },
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 15
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:yacht",
+      "kin:position": {
+       "latitude": 50,
+       "longitude": -1.4
+      },
+      "kin:sog_kn": 12
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 320
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     },
+     "kin": {
+      "kin:heading_deg": 60,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo",
+      "kin:position": {
+       "latitude": 50.0383,
+       "longitude": -1.45
+      },
+      "kin:sog_kn": 7.83
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 80
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true,
+      "geo:range_m": 5556,
+      "geo:bearing_change_deg_min": 0,
+      "geo:cpa_m": 1,
+      "geo:tcpa_s": 1023
+     }
+    }
+   }
+  },
+  {
+   "name": "18(a)(i) over 15(a) across frames: own not under command, ordinary power vessel on own's starboard bow (ADR 0016)",
+   "status": "binding",
+   "narrative": "Own is not under command, under power, with an ordinary power-driven vessel crossing from her starboard bow. From own's seat Rule 15 alone applies and would make her give way; 18(a)(i) fires only from the other vessel's seat, and its rel:overrides against rule:15a:keep_out_of_the_way reaches across the frames. Pooled, own stands on and the other gives way. One-seat evaluation tells both to give way (#141).",
+   "expect": [
+    "rule:4",
+    "rule:11",
+    "rule:8f_iii",
+    "rule:15a:crossing",
+    "rule:15a:keep_out_of_the_way"
+   ],
+   "roles": {
+    "own": [
+     {
+      "role": "stand-on",
+      "by": "rule:18a_i"
+     }
+    ],
+    "other": [
+     {
+      "role": "give-way",
+      "by": "rule:18a_i"
+     }
+    ]
+   },
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:nuc",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo",
+      "kin:sog_kn": 6
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 40
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30
+     },
+     "kin": {
+      "kin:heading_deg": 270,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo",
+      "kin:sog_kn": 12
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 310
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true,
+      "geo:range_m": 2000,
+      "geo:bearing_change_deg_min": -4.72,
+      "geo:cpa_m": 795.4,
+      "geo:tcpa_s": 265.9
+     }
+    }
+   }
+  },
+  {
+   "name": "13(a) over 18(a)(iv) across frames: own power-driven, a sailing vessel overtaking her from the starboard quarter (ADR 0016)",
+   "status": "binding",
+   "narrative": "Own is an ordinary power-driven vessel making 3 knots; a sailing vessel comes up from 160 relative at 12 knots. From own's seat 18(a)(iv) applies and would make her keep out of the way; 13(a) fires only from the sailing vessel's seat, and its rel:overrides against rule:18a_iv reaches across the frames. Pooled, the overtaking vessel gives way and own stands on (ADR 0016, #141).",
+   "expect": [
+    "rule:4",
+    "rule:11",
+    "rule:7d_i",
+    "rule:8f_iii",
+    "rule:13b",
+    "rule:18a_iv"
+   ],
+   "roles": {
+    "own": [
+     {
+      "role": "stand-on",
+      "by": "rule:13a"
+     }
+    ],
+    "other": [
+     {
+      "role": "give-way",
+      "by": "rule:13a"
+     }
+    ]
+   },
+   "situation": {
+    "own": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30
+     },
+     "kin": {
+      "kin:heading_deg": 0,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo",
+      "kin:sog_kn": 3
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 160
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:sail",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 30
+     },
+     "kin": {
+      "kin:heading_deg": 350,
+      "kin:sog_kn": 12,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:yacht",
+      "kin:wind_side": "wind_side:port"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 350,
+      "geo:windward": true
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true,
+      "geo:range_m": 2000,
+      "geo:bearing_change_deg_min": -0.94,
+      "geo:cpa_m": 233.5,
+      "geo:tcpa_s": 426.1
      }
     }
    }
