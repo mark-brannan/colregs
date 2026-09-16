@@ -129,7 +129,7 @@ function withDerived(s) {
 // default is what makes the filter well-defined for the entries that predate it.
 const isDisplay = (e) => (e.category ?? 'display') === 'display'
 // Jurisdiction is a dimension, not a fork (REQ-SCOPE-2/3): a jurisdiction sees
-// `intl` plus its self deltas, and `intl` sees only itself. Without this filter
+// `intl` plus its own (self) deltas, and `intl` sees only itself. Without this filter
 // a national entry would be selected for a fact record evaluated under the
 // Convention -- which is the whole distinction the mooring-buoy case turns on.
 const inJurisdiction = (e, j) => e.jurisdiction === 'intl' || e.jurisdiction === j
@@ -342,7 +342,7 @@ test('corpus schema: a withheld paragraph validates, and its malformed variants 
 
   // ADR 0010 leaves the placeholder representation in pencil, so the schema
   // must not foreclose it: a digest, and a mirror on a paragraph that does
-  // ship its self text, both have to remain expressible.
+  // ship its own text, both have to remain expressible.
   assert.ok(validate(doc({ ...withheld, text_digest: 'sha256:0f9a2b' })), 'a digest must be expressible')
   assert.ok(validate(doc({ ...withheld, text_slug: ['blue-board', 'overtake'] })), 'a slug must be expressible')
   assert.ok(validate(doc({ ...base, text: 'w', mirrors: '13(a)' })), 'a verbatim paragraph may still name the intl provision it restates')
@@ -405,7 +405,7 @@ test('ADR 0013: corpus id, file path and data/corpora.json agree with the metada
   }
 })
 
-test('REQ-LANG-10 / GATE-2: every edition a corpus or the skeleton names is registered, under its self jurisdiction', () => {
+test('REQ-LANG-10 / GATE-2: every edition a corpus or the skeleton names is registered, under its own jurisdiction', () => {
   for (const [jur, j] of Object.entries(editions.jurisdictions)) {
     for (const ed of Object.keys(j.editions)) assert.equal(jurisdictionOf(ed), jur, `${ed} is registered under ${jur}`)
     if (j.skeleton) {
@@ -451,7 +451,7 @@ test('predicate language: `not` negates the constraint, never the presence of th
   // The rule this file exists to pin: an absent fact never satisfies a
   // constraint, negated or not. `not` over silence is unsatisfied, so a norm
   // is never attached to a vessel on the strength of a fact nobody supplied.
-  // The consequence is deliberate and is the reason it gets its self assertion:
+  // The consequence is deliberate and is the reason it gets its own assertion:
   // `{not: X}` and `X` are BOTH false for an absent fact, so they are not
   // complements over the empty record and the language is not classical there.
   assert.equal(matches({ 'fact:activity': { not: 'activity:nuc' } }, {}), false)
@@ -673,7 +673,7 @@ test('fact:rule18_class: no precedence entry hand-lists an activity value any mo
 // *could* have produced them. The two directions must not silently disagree:
 // if some other entry's entire light output is already present in what a
 // fixture shows, that entry must be absent from the fixture either because
-// its self predicate rules out the fixture's facts (the forward direction
+// its own predicate rules out the fixture's facts (the forward direction
 // correctly ruled it out) or because the data explicitly declares it related
 // to an entry that IS shown (a declared alternative, not a silent gap).
 function lightSig(e) {
@@ -721,7 +721,7 @@ test('every entry cites a paragraph that exists in rules.json', () => {
   }
   for (const e of appl.entries) {
     check(e.id, e.cite)
-    // A conditional_includes branch may carry its self cite (rule:29a's (ii)/(iii),
+    // A conditional_includes branch may carry its own cite (rule:29a's (ii)/(iii),
     // rule:27f's two branches); it is a citation like any other and must resolve.
     for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
       if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite)
@@ -968,7 +968,7 @@ test('every enumerated fact value a predicate names is declared in facts.json', 
 
 test('every relation an entry uses is declared in applicability.json', () => {
   const declared = new Set(Object.keys(appl.relations))
-  // Both levels: a conditional_includes object carries its self `rel:includes`,
+  // Both levels: a conditional_includes object carries its own `rel:includes`,
   // and refsOf reads that nested key by name — a typo there drops the reference
   // out of cross-reference and drift evaluation without failing anything else.
   const checkKeys = (where, obj) => {
@@ -1357,7 +1357,7 @@ test('REQ-CAT-4: the situation section declares the classes the namespace names'
     if (rec.type === 'enum') {
       const prefix = k.split(':').pop()
       for (const v of rec.values) {
-        assert.equal(v.split(':')[0], prefix, `${k}: value ${v} is not in its self fact's namespace`)
+        assert.equal(v.split(':')[0], prefix, `${k}: value ${v} is not in its own fact's namespace`)
       }
     }
   }
@@ -2090,7 +2090,7 @@ const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r)
 // in the sweep and rel:overrides has to earn its keep (Q-40).
 const SAIL = { 'fact:propulsion': 'propulsion:sail', 'fact:activity': 'activity:none' }
 const WINDS = ['wind_side:port', 'wind_side:starboard', 'wind_side:unknown']
-// The four ranks rule:15a:keep_out_of_the_way used to negate out of its self predicate, keyed by
+// The four ranks rule:15a:keep_out_of_the_way used to negate out of its own predicate, keyed by
 // the facts that decode to them -- a WIG craft is the phase pair, not an
 // activity -- plus constrained by her draught, which it never negated: 18(d)(i)
 // is what meets Rule 15 there and it assigns no helm role, so the pair is swept

@@ -562,7 +562,7 @@
      "unit": "deg",
      "cite": "13(b)",
      "cite_pending": null,
-     "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's self heading. Under `self` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- self is more than 22.5 degrees abaft the other vessel's beam. The two sector edges are declared once in `constants` below (`overtaking_sector_from_deg`, `overtaking_sector_to_deg`) and entries rule:13b and rule:15a:crossing both read them, so the sector and its complement cannot drift apart.",
+     "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's own (self) heading. Under `self` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- self is more than 22.5 degrees abaft the other vessel's beam. The two sector edges are declared once in `constants` below (`overtaking_sector_from_deg`, `overtaking_sector_to_deg`) and entries rule:13b and rule:15a:crossing both read them, so the sector and its complement cannot drift apart.",
      "actuable": false,
      "signalk": null
     },
