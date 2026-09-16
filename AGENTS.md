@@ -108,10 +108,9 @@ Versioning is release-please's job, not a commit's. **Never hand-edit
 `CHANGELOG.md`, and never create a version tag locally** — merges to `main`
 update a standing release pull request automatically; merging that PR is the
 release. Write honest conventional-commit subjects (`feat:`, `fix:`, …) —
-that's the only input release-please reads. `versioning: always-bump-patch`
+that's the only input release-please reads. `bump-patch-for-minor-pre-major`
 in `release-please-config.json` keeps this pre-1.0, so a `feat` is a patch
-bump, not a minor. Unlike the pre-major-only settings it replaced, this
-doesn't self-cancel at 1.0 — someone has to deliberately remove it then.
+bump, not a minor, until that's deliberately turned off at 1.0.
 
 ## Coverage (changes as jurisdictions/parts land — check README.md, not this file, for current state)
 
