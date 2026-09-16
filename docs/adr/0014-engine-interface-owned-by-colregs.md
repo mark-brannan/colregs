@@ -58,12 +58,12 @@ artefact, the Java sense of interface against implementation:
    case is the verb's input, and the tests validate every bound case against
    it.
 4. **Schema files compose by `$ref`,** relative to their `$id`
-   (`applicability.schema.json#/$defs/entryId`). ADR 0006's "no cross-file
+   (`applicability.schema.json#/$defs/ruleId`). ADR 0006's "no cross-file
    references" is about data references — cite to `rules.json` — which stay in
    the tests; a `$ref` between two schema files is one shape reused, not a
    data reference. The suite registers every schema by `$id` before compiling.
    What every envelope shares — the `colregs` stamp, `provenance`, the
-   `entryId` and `paragraphCite` vocabularies — is `schema/evaluation.schema.json`,
+   `ruleId` and `paragraphCite` vocabularies — is `schema/evaluation.schema.json`,
    `$defs` only, so moving one later is never a two-repository change.
 5. **A fixture file is bound to a verb** by `fixtures[].file` and
    `case_inputs`, one case key per positional input, with the answer under

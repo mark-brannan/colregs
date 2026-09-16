@@ -11,9 +11,9 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "entry:sail_sidelights_sternlight",
-    "entry:sail_combined_lantern",
-    "entry:sail_red_over_green"
+    "rule:25a",
+    "rule:25b",
+    "rule:25c"
    ]
   },
   {
@@ -25,10 +25,10 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i"
    ]
   },
   {
@@ -40,9 +40,9 @@
     "fact:length_m": 15
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv"
    ]
   },
   {
@@ -54,9 +54,9 @@
     "fact:length_m": 55
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv"
    ]
   },
   {
@@ -69,11 +69,11 @@
     "fact:max_speed_kn": 6
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m",
-    "entry:power_under_7m_slow"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i",
+    "rule:23d_ii"
    ]
   },
   {
@@ -86,10 +86,10 @@
     "fact:max_speed_kn": 20
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i"
    ]
   },
   {
@@ -101,10 +101,10 @@
     "fact:length_m": 3.5
    },
    "expect": [
-    "entry:sail_sidelights_sternlight",
-    "entry:sail_combined_lantern",
-    "entry:sail_red_over_green",
-    "entry:sail_under_7m"
+    "rule:25a",
+    "rule:25b",
+    "rule:25c",
+    "rule:25d_i"
    ]
   },
   {
@@ -116,7 +116,7 @@
     "fact:length_m": 10
    },
    "expect": [
-    "entry:under_oars"
+    "rule:25d_ii"
    ]
   },
   {
@@ -129,10 +129,10 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i"
    ]
   },
   {
@@ -144,9 +144,9 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights"
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   },
   {
@@ -159,10 +159,10 @@
     "fact:near_channel": false
    },
    "expect": [
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights",
-    "entry:anchored_under_7m_not_near_channel"
+    "rule:30a",
+    "rule:30b",
+    "rule:30c",
+    "rule:30e"
    ]
   },
   {
@@ -174,8 +174,8 @@
     "fact:length_m": 15
    },
    "expect": [
-    "entry:aground_anchor_lights",
-    "entry:aground_red_over_red"
+    "rule:30d",
+    "rule:30d_i"
    ]
   },
   {
@@ -187,7 +187,7 @@
     "fact:length_m": 10
    },
    "expect": [
-    "entry:aground_anchor_lights"
+    "rule:30d"
    ]
   },
   {
@@ -199,8 +199,8 @@
     "fact:length_m": 30
    },
    "expect": [
-    "entry:aground_anchor_lights",
-    "entry:aground_red_over_red"
+    "rule:30d",
+    "rule:30d_i"
    ]
   },
   {
@@ -212,8 +212,8 @@
     "fact:length_m": 30
    },
    "expect": [
-    "entry:aground_anchor_lights",
-    "entry:aground_red_over_red"
+    "rule:30d",
+    "rule:30d_i"
    ]
   },
   {
@@ -225,10 +225,10 @@
     "fact:length_m": 30
    },
    "expect": [
-    "entry:fishing_red_over_white",
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights"
+    "rule:26c_i",
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   },
   {
@@ -241,9 +241,9 @@
     "fact:length_m": 30
    },
    "expect": [
-    "entry:trawling_green_over_white",
-    "entry:trawling_masthead",
-    "entry:trawling_making_way"
+    "rule:26b_i",
+    "rule:26b_ii",
+    "rule:26b_iii"
    ]
   },
   {
@@ -256,8 +256,8 @@
     "fact:length_m": 30
    },
    "expect": [
-    "entry:trawling_green_over_white",
-    "entry:trawling_masthead"
+    "rule:26b_i",
+    "rule:26b_ii"
    ]
   },
   {
@@ -271,8 +271,8 @@
     "fact:gear_extent_m": 200
    },
    "expect": [
-    "entry:fishing_red_over_white",
-    "entry:fishing_outlying_gear"
+    "rule:26c_i",
+    "rule:26c_ii"
    ]
   },
   {
@@ -285,8 +285,8 @@
     "fact:length_m": 40
    },
    "expect": [
-    "entry:nuc_red_over_red",
-    "entry:nuc_making_way"
+    "rule:27a_i",
+    "rule:27a_iii"
    ]
   },
   {
@@ -299,7 +299,7 @@
     "fact:length_m": 40
    },
    "expect": [
-    "entry:nuc_red_over_red"
+    "rule:27a_i"
    ]
   },
   {
@@ -311,10 +311,10 @@
     "fact:length_m": 60
    },
    "expect": [
-    "entry:ram_red_white_red",
-    "entry:ram_anchored",
-    "entry:anchored",
-    "entry:anchored_deck_lights"
+    "rule:27b_i",
+    "rule:27b_iv",
+    "rule:30a",
+    "rule:30c"
    ]
   },
   {
@@ -329,9 +329,9 @@
     "fact:obstruction_side": "obstruction_side:port"
    },
    "expect": [
-    "entry:ram_red_white_red",
-    "entry:ram_making_way",
-    "entry:ram_underwater_obstruction"
+    "rule:27b_i",
+    "rule:27b_iii",
+    "rule:27d"
    ]
   },
   {
@@ -344,8 +344,8 @@
     "fact:tow_length_m": 150
    },
    "expect": [
-    "entry:towing_mastheads",
-    "entry:towing_light"
+    "rule:24a_i",
+    "rule:24a_ii_iv"
    ]
   },
   {
@@ -358,8 +358,8 @@
     "fact:tow_length_m": 300
    },
    "expect": [
-    "entry:towing_mastheads_long_tow",
-    "entry:towing_light"
+    "rule:24a_i:exceeds_200m",
+    "rule:24a_ii_iv"
    ]
   },
   {
@@ -372,11 +372,11 @@
     "fact:tow_length_m": 150
    },
    "expect": [
-    "entry:towing_mastheads",
-    "entry:towing_light",
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights"
+    "rule:24a_i",
+    "rule:24a_ii_iv",
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   },
   {
@@ -389,7 +389,7 @@
     "fact:composite_unit": true
    },
    "expect": [
-    "entry:pushing_composite_unit"
+    "rule:24b"
    ]
   },
   {
@@ -402,10 +402,10 @@
     "fact:composite_unit": true
    },
    "expect": [
-    "entry:pushing_composite_unit",
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights"
+    "rule:24b",
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   },
   {
@@ -418,7 +418,7 @@
     "fact:composite_unit": false
    },
    "expect": [
-    "entry:pushing_ahead_or_alongside"
+    "rule:24c"
    ]
   },
   {
@@ -431,10 +431,10 @@
     "fact:composite_unit": false
    },
    "expect": [
-    "entry:pushing_ahead_or_alongside",
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights"
+    "rule:24c",
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   },
   {
@@ -446,7 +446,7 @@
     "fact:length_m": 200
    },
    "expect": [
-    "entry:cbd"
+    "rule:28"
    ]
   },
   {
@@ -458,8 +458,8 @@
     "fact:length_m": 200
    },
    "expect": [
-    "entry:anchored",
-    "entry:anchored_deck_lights"
+    "rule:30a",
+    "rule:30c"
    ]
   },
   {
@@ -471,7 +471,7 @@
     "fact:length_m": 20
    },
    "expect": [
-    "entry:pilot"
+    "rule:29a"
    ]
   },
   {
@@ -483,7 +483,7 @@
     "fact:length_m": 60
    },
    "expect": [
-    "entry:mine_clearance"
+    "rule:27f"
    ]
   },
   {
@@ -495,9 +495,9 @@
     "fact:length_m": 60
    },
    "expect": [
-    "entry:mine_clearance",
-    "entry:anchored",
-    "entry:anchored_deck_lights"
+    "rule:27f",
+    "rule:30a",
+    "rule:30c"
    ]
   },
   {
@@ -509,7 +509,7 @@
     "fact:length_m": 9
    },
    "expect": [
-    "entry:diving"
+    "rule:27e_i"
    ]
   },
   {
@@ -522,10 +522,10 @@
     "fact:non_displacement": true
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:air_cushion_non_displacement"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23b"
    ]
   },
   {
@@ -537,10 +537,10 @@
     "fact:length_m": 11.9
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i"
    ]
   },
   {
@@ -552,9 +552,9 @@
     "fact:length_m": 12.0
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv"
    ]
   },
   {
@@ -567,11 +567,11 @@
     "fact:max_speed_kn": 7
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m",
-    "entry:power_under_7m_slow"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i",
+    "rule:23d_ii"
    ]
   },
   {
@@ -584,10 +584,10 @@
     "fact:max_speed_kn": 7
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i"
    ]
   },
   {
@@ -600,11 +600,11 @@
     "fact:max_speed_kn": 7.0
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m",
-    "entry:power_under_7m_slow"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i",
+    "rule:23d_ii"
    ]
   },
   {
@@ -617,10 +617,10 @@
     "fact:max_speed_kn": 7.1
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:power_under_12m"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d_i"
    ]
   },
   {
@@ -632,9 +632,9 @@
     "fact:length_m": 19.9
    },
    "expect": [
-    "entry:sail_sidelights_sternlight",
-    "entry:sail_combined_lantern",
-    "entry:sail_red_over_green"
+    "rule:25a",
+    "rule:25b",
+    "rule:25c"
    ]
   },
   {
@@ -646,8 +646,8 @@
     "fact:length_m": 20.0
    },
    "expect": [
-    "entry:sail_sidelights_sternlight",
-    "entry:sail_red_over_green"
+    "rule:25a",
+    "rule:25c"
    ]
   },
   {
@@ -659,10 +659,10 @@
     "fact:length_m": 6.9
    },
    "expect": [
-    "entry:sail_sidelights_sternlight",
-    "entry:sail_combined_lantern",
-    "entry:sail_red_over_green",
-    "entry:sail_under_7m"
+    "rule:25a",
+    "rule:25b",
+    "rule:25c",
+    "rule:25d_i"
    ]
   },
   {
@@ -674,9 +674,9 @@
     "fact:length_m": 7.0
    },
    "expect": [
-    "entry:sail_sidelights_sternlight",
-    "entry:sail_combined_lantern",
-    "entry:sail_red_over_green"
+    "rule:25a",
+    "rule:25b",
+    "rule:25c"
    ]
   },
   {
@@ -686,9 +686,9 @@
     "fact:length_m": 49.9
    },
    "expect": [
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights"
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   },
   {
@@ -698,8 +698,8 @@
     "fact:length_m": 50.0
    },
    "expect": [
-    "entry:anchored",
-    "entry:anchored_deck_lights"
+    "rule:30a",
+    "rule:30c"
    ]
   },
   {
@@ -709,7 +709,7 @@
     "fact:length_m": 11.9
    },
    "expect": [
-    "entry:aground_anchor_lights"
+    "rule:30d"
    ]
   },
   {
@@ -719,8 +719,8 @@
     "fact:length_m": 12.0
    },
    "expect": [
-    "entry:aground_anchor_lights",
-    "entry:aground_red_over_red"
+    "rule:30d",
+    "rule:30d_i"
    ]
   },
   {
@@ -731,10 +731,10 @@
     "fact:length_m": 6.9
    },
    "expect": [
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights",
-    "entry:anchored_under_7m_not_near_channel"
+    "rule:30a",
+    "rule:30b",
+    "rule:30c",
+    "rule:30e"
    ]
   },
   {
@@ -745,9 +745,9 @@
     "fact:length_m": 7.0
    },
    "expect": [
-    "entry:anchored",
-    "entry:anchored_under_50m",
-    "entry:anchored_deck_lights"
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   },
   {
@@ -760,8 +760,8 @@
     "fact:tow_length_m": 200.0
    },
    "expect": [
-    "entry:towing_mastheads",
-    "entry:towing_light"
+    "rule:24a_i",
+    "rule:24a_ii_iv"
    ]
   },
   {
@@ -774,8 +774,8 @@
     "fact:tow_length_m": 200.1
    },
    "expect": [
-    "entry:towing_mastheads_long_tow",
-    "entry:towing_light"
+    "rule:24a_i:exceeds_200m",
+    "rule:24a_ii_iv"
    ]
   },
   {
@@ -786,7 +786,7 @@
     "fact:gear_extent_m": 150.0
    },
    "expect": [
-    "entry:fishing_red_over_white"
+    "rule:26c_i"
    ]
   },
   {
@@ -797,8 +797,8 @@
     "fact:gear_extent_m": 150.1
    },
    "expect": [
-    "entry:fishing_outlying_gear",
-    "entry:fishing_red_over_white"
+    "rule:26c_ii",
+    "rule:26c_i"
    ]
   },
   {
@@ -812,10 +812,10 @@
     "fact:length_m": 25
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight",
-    "entry:wig_near_surface"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23c"
    ]
   },
   {
@@ -829,9 +829,9 @@
     "fact:length_m": 25
    },
    "expect": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:power_sidelights_sternlight"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv"
    ]
   },
   {
@@ -842,7 +842,7 @@
     "fact:length_m": 15
    },
    "expect": [
-    "entry:being_towed"
+    "rule:24e"
    ]
   },
   {
@@ -854,8 +854,8 @@
     "fact:length_m": 12
    },
    "expect": [
-    "entry:fishing_red_over_white",
-    "entry:fishing_making_way"
+    "rule:26c_i",
+    "rule:26c_iii"
    ]
   },
   {
@@ -880,8 +880,8 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "entry:mooring_buoy",
-    "entry:mooring_buoy_under_50m"
+    "rule:30a:mooring_buoy",
+    "rule:30b:mooring_buoy"
    ]
   },
   {
@@ -895,8 +895,8 @@
     "fact:length_m": 49.9
    },
    "expect": [
-    "entry:mooring_buoy",
-    "entry:mooring_buoy_under_50m"
+    "rule:30a:mooring_buoy",
+    "rule:30b:mooring_buoy"
    ]
   },
   {
@@ -910,7 +910,7 @@
     "fact:length_m": 50.0
    },
    "expect": [
-    "entry:mooring_buoy"
+    "rule:30a:mooring_buoy"
    ]
   },
   {

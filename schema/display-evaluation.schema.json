@@ -22,7 +22,7 @@
       "$ref": "evaluation.schema.json#/$defs/colregs"
     },
     "applied": {
-      "$ref": "evaluation.schema.json#/$defs/entryIds"
+      "$ref": "evaluation.schema.json#/$defs/ruleIds"
     },
     "exempted": {
       "$ref": "evaluation.schema.json#/$defs/byEntryList"
@@ -51,10 +51,10 @@
         ],
         "properties": {
           "id": {
-            "$ref": "evaluation.schema.json#/$defs/entryId"
+            "$ref": "evaluation.schema.json#/$defs/ruleId"
           },
           "via": {
-            "$ref": "evaluation.schema.json#/$defs/entryId"
+            "$ref": "evaluation.schema.json#/$defs/ruleId"
           },
           "lights": {
             "type": "array",
@@ -101,15 +101,15 @@
           "$ref": "applicability.schema.json#/$defs/lightRef"
         },
         "source_entry": {
-          "$ref": "evaluation.schema.json#/$defs/entryId"
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
         },
         "sourceEntry": {
           "deprecated": true,
           "$comment": "Renamed to source_entry (ADR 0011 §4).",
-          "$ref": "evaluation.schema.json#/$defs/entryId"
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
         },
         "via": {
-          "$ref": "evaluation.schema.json#/$defs/entryId"
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
         },
         "modality": {
           "$ref": "applicability.schema.json#/$defs/modality"
@@ -126,7 +126,7 @@
       ],
       "properties": {
         "entries": {
-          "$ref": "evaluation.schema.json#/$defs/entryIds"
+          "$ref": "evaluation.schema.json#/$defs/ruleIds"
         },
         "lights": {
           "type": "array",

@@ -1,5 +1,7 @@
 # ADR 0006 — JSON Schema for structural validation, identifier diff for version discipline
 
+The identifier-diff half is removed pre-1.0 by ADR 0015 (Solace, 2026-09-16); it returns, if at all, with the 1.0.0 tag.
+
 Date: 2026-09-04
 Status: accepted
 

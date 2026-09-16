@@ -4,13 +4,13 @@
   "title": "Evaluation",
   "description": "The $defs every result envelope shares (ADR 0014): the colregs provenance stamp, what an evaluation read, entry-id and paragraph-cite vocabularies. No instance validates against the root; the envelopes under schema/*-evaluation.schema.json and the operations manifest $ref into $defs here.",
   "$defs": {
-    "entryId": {
-      "$ref": "applicability.schema.json#/$defs/entryId"
+    "ruleId": {
+      "$ref": "applicability.schema.json#/$defs/ruleId"
     },
-    "entryIds": {
+    "ruleIds": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/entryId"
+        "$ref": "#/$defs/ruleId"
       }
     },
     "paragraphCite": {
@@ -49,10 +49,10 @@
       ],
       "properties": {
         "id": {
-          "$ref": "#/$defs/entryId"
+          "$ref": "#/$defs/ruleId"
         },
         "by": {
-          "$ref": "#/$defs/entryId"
+          "$ref": "#/$defs/ruleId"
         }
       }
     },
@@ -66,7 +66,7 @@
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
-        "^entry:[a-z][a-z0-9_]*$": {
+        "^rule:[0-9]+[a-z]?(_[ivx]+)*(:[a-z][a-z0-9_]*)?$": {
           "$ref": "applicability.schema.json#/$defs/modality"
         }
       }
@@ -75,7 +75,7 @@
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
-        "^entry:[a-z][a-z0-9_]*$": {
+        "^rule:[0-9]+[a-z]?(_[ivx]+)*(:[a-z][a-z0-9_]*)?$": {
           "$ref": "#/$defs/ruleCategory"
         }
       }
@@ -95,7 +95,7 @@
       ],
       "properties": {
         "id": {
-          "$ref": "applicability.schema.json#/$defs/paragraphDerivedId"
+          "$ref": "applicability.schema.json#/$defs/ruleId"
         },
         "jurisdiction": {
           "type": "string",

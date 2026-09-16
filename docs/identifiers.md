@@ -17,9 +17,10 @@ citation: `27(a)(i)` is what a mariner, a lawyer and a court all write, and
 what a consumer stores when it records why a light was shown. Prefixing it
 would put a package-local token in front of a reference that belongs to the
 Convention rather than to this repository, and would make a stored citation
-unreadable outside the tool that stored it. Entry ids were in this class
-until ADR 0015 moved them out: an entry is this package's *reading* of a
-paragraph, and a reading can change while the paragraph does not.
+unreadable outside the tool that stored it. Rule ids sit beside this class
+rather than in it: `rule:13b` is *shaped* like the cite it was minted from,
+but it is a name in a namespace and a consumer reads the paragraph out of
+`cite`, never out of the id (ADR 0015).
 Paragraph-keying is argued in ADR 0001 and required by REQ-MODEL-4; nothing
 here reopens either.
 
@@ -36,7 +37,7 @@ resolves that collision by construction rather than by convention.
 
 | form | class | examples |
 |---|---|---|
-| `entry:<name>` | applicability entries (`data/applicability.json`) | `entry:anchored`, `entry:towing_mastheads_long_tow`, `entry:crossing_gives_way` |
+| `rule:<paragraph-slug>` | applicability entries (`data/applicability.json`) | `rule:30a`, `rule:24a_i:exceeds_200m`, `rule:15a:keep_out_of_the_way` |
 | `light:<id>` | light definitions (`data/lights.json`) | `light:masthead`, `light:sidelight_starboard`, `light:all_round` |
 | `fact:<key>` | fact keys — the input vocabulary (`data/facts.json`) | `fact:activity`, `fact:length_m`, `fact:making_way`, `fact:on_mooring_buoy` |
 | `<fact>:<value>` | values of an enumerated fact | `activity:nuc`, `position:anchored`, `propulsion:sail`, `obstruction_side:port` |
@@ -263,17 +264,17 @@ which is 3(c), so the three Rule 12 entries gate on `fact:propulsion` and not on
 18 rank — a fishing vessel under sail is a sailing vessel. Where Rule 18 also
 ranks the pair, its entry displaces Rule 12's: the three 18(b) entries and the two 18(c) entries
 carry `rel:overrides` against all three, because Rule 18's opening words
-except Rules 9, 10 and 13 and nothing else. `entry:overtaking_gives_way` overrides them for the same
+except Rules 9, 10 and 13 and nothing else. `rule:13a` overrides them for the same
 reason it overrides Rule 18 — 13(a) is "notwithstanding" the rest of Sections
 I and II. The test that pins the relation asserts both reasons from
 `rules.json`, so the data cannot keep an override after losing the words.
 
 **And over Rule 15, the same way.** 15(a)'s subjects are "two power-driven
-vessels", which is 3(b), so `entry:crossing_gives_way` gates on `fact:propulsion` and on
+vessels", which is 3(b), so `rule:15a:keep_out_of_the_way` gates on `fact:propulsion` and on
 no Rule 18 rank either — a vessel engaged in fishing, or not under command,
 whose machinery is in use is a power-driven vessel. It used to negate the four
 ranks in its own predicate, which said the same thing in the one place a test
-could not see the reason; the 18(a)(i)–(iii) entries, the two 18(c) entries and `entry:wig_keeps_well_clear` now carry
+could not see the reason; the 18(a)(i)–(iii) entries, the two 18(c) entries and `rule:18f_i` now carry
 `rel:overrides` against it instead. The derived half of the test is what makes
 that checkable: a Rule 18 entry meets Rule 15 when it assigns a helm role and
 neither subject is gated to a sailing vessel, and every such entry must carry
@@ -294,46 +295,48 @@ that is Rule 18's partial order rather than a gap in the table.
 — keep well clear, and avoid impeding navigation. The vocabulary cannot
 separate them and does not pretend to.
 
-### Two-subject entry ids
+### Two-subject rule ids
 
-A two-subject entry is named like any other (below):
-`entry:power_gives_way_to_nuc` is 18(a)(i), `entry:narrow_channel_fishing`
-is 9(c), `entry:not_impeded_remains_obliged` is 8(f)(iii). The subject word
-never appears in a name: every entry is evaluated from own's side, so
-`entry:overtaking` and `entry:being_overtaken` are the two readings of
-13(b) without either saying `own`. Where a paragraph's subject is
-disjunctive — 9(b) is "a vessel of less than 20 metres in length **or** a
-sailing vessel" — `any_of` carries the disjunction inside one entry,
-`entry:narrow_channel_small_or_sail`.
+A two-subject entry is keyed on its paragraph like any other (below):
+`rule:18a_i` is 18(a)(i), `rule:9c` is 9(c), `rule:8f_iii` is 8(f)(iii). No
+subject segment appears in an id: every entry is evaluated from own's side,
+and where the paragraph classifies the pair rather than one vessel the entry
+reads both subjects inside one predicate — `rule:13b` is 13(b) whichever
+vessel is coming up. Where a paragraph's subject is disjunctive — 9(b) is
+"a vessel of less than 20 metres in length **or** a sailing vessel" —
+`any_of` carries the disjunction inside one entry, `rule:9b`.
 
-## Entry ids
+## Rule ids
 
-An entry id is a name in the `entry:` namespace, not a citation. ADR 0015
-made the change and carries the table from the old ids; the rule for
-minting a new one is here.
+An entry id is a paragraph key in the `rule:` namespace: `rule:` plus the
+cite with its punctuation dropped. ADR 0015 (Solace, 2026-09-16) made the
+change and carries the table from the ids it replaced; the rule for minting
+a new one is here.
 
-| paragraph | entry id | the name says |
+| paragraph | rule id | why that id |
 |---|---|---|
-| 30(a) | `entry:anchored` | who the paragraph addresses |
-| 30(b) | `entry:anchored_under_50m` | the Convention's own threshold, where it is the only thing that separates siblings |
-| 24(a)(i), tow over 200 m | `entry:towing_mastheads_long_tow` | the axis the law splits on, not the light count it produces |
-| 26(b)(i) | `entry:trawling_green_over_white` | the display, in the words a mariner uses for it |
-| 13(b), own coming up | `entry:overtaking` | the reading, without the subject word |
-| 15(a), the duty | `entry:crossing_gives_way` | which half of a paragraph this entry carries |
+| 30(a) | `rule:30a` | the bare slug of the cite: rule number, paragraph letter attached |
+| 27(a)(i) | `rule:27a_i` | each roman subparagraph joined with `_` |
+| 23(a)(iii)-(iv) | `rule:23a_iii_iv` | a span of subparagraphs, joined the same way |
+| 24(a)(i), tow over 200 m | `rule:24a_i:exceeds_200m` | a further norm out of the same paragraph, named in the text's own words |
+| 15(a), the duty | `rule:15a:keep_out_of_the_way` | which half of a fused deeming-and-duty sentence this entry carries |
+| 30(a), US inland | `rule:30a:mooring_buoy` | a jurisdiction delta named by its difference; the jurisdiction stays a field |
 
-The words come from the rule text or from this package's own vocabulary
-(`nuc`, `ram`, `cbd`, `making_way`, `being_towed`), joined with
-underscores like every other identifier. A name never contains a field
-the entry already carries — the paragraph number, the category, the
-jurisdiction, the modality — because a field in an identifier is a fact
-the identifier then has to be renamed for: `14a` became `14b` when its
-cite moved, and `entry:head_on` does not care which paragraph deems it.
+A bare id is the paragraph's principal norm. A third segment is added only
+where the text yields a second norm from the same paragraph, and it is named
+in the words of the text, not in what the entry produces. A number may appear
+there only when the Convention states the threshold itself (`exceeds_200m` is
+24(a)(i)'s).
 
-`cite` is the link to the Convention and is unchanged: a consumer that
-wants "Rule 24(a)(i)" reads `cite`, not the id. Two entries may share a
-cite; they never share a name. `represented_paragraphs` keep
-paragraph-derived ids (`2a` for 2(a)): they are not entries, and nothing
-references them.
+**The id is opaque.** It looks like a citation and it is not one: a consumer
+that wants "Rule 24(a)(i)" reads `cite`, and never splits an id to find a
+paragraph. `cite` is the field that moves when the package reads the Rules
+better — `14a` became `14b` once already — and the id resembling it is a
+convenience for the human reading a trace, nothing the data promises. Two
+entries may share a cite; they never share an id.
+
+`represented_paragraphs` take the same prefix and the same shape
+(`rule:2a` for 2(a)). They are not entries and nothing references them.
 
 ## Derived facts
 

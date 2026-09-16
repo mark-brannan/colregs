@@ -12,7 +12,7 @@
       "output": "schema/display-evaluation.schema.json",
       "companion": {
         "verb": "appliedDisplayEntries",
-        "output": "schema/evaluation.schema.json#/$defs/entryIds"
+        "output": "schema/evaluation.schema.json#/$defs/ruleIds"
       },
       "fixtures": [
         {
@@ -34,7 +34,7 @@
       "output": "schema/encounter-evaluation.schema.json",
       "companion": {
         "verb": "appliedEncounterEntries",
-        "output": "schema/evaluation.schema.json#/$defs/entryIds"
+        "output": "schema/evaluation.schema.json#/$defs/ruleIds"
       },
       "fixtures": [
         {
@@ -56,7 +56,7 @@
       "output": "schema/conduct-evaluation.schema.json",
       "companion": {
         "verb": "appliedConductEntries",
-        "output": "schema/evaluation.schema.json#/$defs/entryIds"
+        "output": "schema/evaluation.schema.json#/$defs/ruleIds"
       },
       "fixtures": []
     },

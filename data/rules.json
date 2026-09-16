@@ -1199,6 +1199,11 @@
     "NRHB_30_dii.png"
    ]
   },
+  "30(d)(i)": {
+   "path": "30(d)(i)",
+   "rule": "30",
+   "jurisdiction": "intl"
+  },
   "30(e)": {
    "path": "30(e)",
    "rule": "30",
