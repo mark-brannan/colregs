@@ -23,7 +23,8 @@
     "docs/adr/0015-rule-ids-are-paragraph-keys.md": 210,
     "docs/adr/0016-encounter-roles-are-pooled-across-frames.md": 90,
     "docs/timeline.md": 130,
-    "docs/maritime-sources.md": 130
+    "docs/maritime-sources.md": 130,
+    "docs/decisions.md": 40
   },
   "json_prose": {
     "targets": [
