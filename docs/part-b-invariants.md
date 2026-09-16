@@ -67,7 +67,7 @@ is Rules 11–18, III is Rule 19; which governs a pair is `INV-19a-scope`.
 # Rule 13 — Overtaking
 
 13(a) assigns a role, 13(b) deems the encounter, 13(c) resolves doubt, 13(d)
-latches the result against the geometry that follows.
+persists the result against the geometry that follows.
 
 ### INV-13b — the overtaking deeming test
 
@@ -122,7 +122,7 @@ well as Rules 14 and 15.
   Settled by P4.2's role assignment: the override is or is not needed to keep
   "never both give-way" true.
 
-### INV-13d — the latch: the classification survives the geometry
+### INV-13d — overtaking history: the classification survives the geometry
 
 `13(d)` · classification · temporal, a state to every later state of the
 encounter · `✎`
@@ -140,10 +140,11 @@ until self is finally past and clear, the encounter type of the pair is
   forbids: an overtaking drawn out on the bow reads *crossing*, and hands
   give-way to the wrong vessel.
 - **Undetermined term.** "Finally past and clear" has no fact and no threshold;
-  the data's latch is consumer-cleared and never self-clears (`Q-47`), a trace
-  model's is its segmentation, and no bearing or range is invented here.
-- **Readings in doubt.** Two: what arms the latch, `Q-51`; what it forbids,
-  `Q-52`.
+  the data's overtaking history is consumer-cleared and never self-clears
+  (`Q-47`), a trace model's is its segmentation, and no bearing or range is
+  invented here.
+- **Readings in doubt.** Two: what arms the overtaking history, `Q-51`; what it
+  forbids, `Q-52`.
 - Entries: `rule:13d`, reading `self`/`other:hist:was_overtaking` and no geometry; the
   `was_overtaking: false` gates on `rule:14b`, `rule:15a:crossing`, `rule:15a:keep_out_of_the_way`
   implement `Q-52`'s *broad* reading. Settled by `Q-51`, `Q-52`, then TLC on a
@@ -162,8 +163,8 @@ type alone cannot distinguish `Q-52`'s readings.
 
 - **State remembered.** As `INV-13d`.
 - Entries: `rule:13a`'s `any_of` second limb, `self:hist:was_overtaking: true` — role
-  asserted from the latch directly, keeping the limbs separable. Settled by
-  `Q-52`.
+  asserted from the overtaking history directly, keeping the limbs separable.
+  Settled by `Q-52`.
 
 ---
 
@@ -174,10 +175,10 @@ type alone cannot distinguish `Q-52`'s readings.
 `14(b)` reading 14(a)'s conditions · classification · single-state · `✎`
 
 **Invariant.** At any state at which two power-driven vessels are in sight,
-both underway, with risk of collision, and neither latched under `INV-13d`, a
-head-on situation is deemed to exist exactly when each sees the other ahead or
-nearly ahead: `self:geo:rel_bearing_deg` and `other:geo:rel_bearing_deg` each
-in [0°, 11.25°] ∪ [348.75°, 360°).
+both underway, with risk of collision, and neither carrying overtaking history
+under `INV-13d`, a head-on situation is deemed to exist exactly when each sees
+the other ahead or nearly ahead: `self:geo:rel_bearing_deg` and
+`other:geo:rel_bearing_deg` each in [0°, 11.25°] ∪ [348.75°, 360°).
 
 - **Both bearings, not one.** 14(b)'s lights limb is a statement about the
   *other* vessel's aspect; one bearing alone swallows part of the crossing
@@ -219,9 +220,9 @@ way; both are directed to act, and the duty is symmetric.
 `15(a)` · classification · single-state · `✎`
 
 **Invariant.** At any state at which two power-driven vessels are in sight,
-both underway, with risk of collision, and neither latched under `INV-13d`, the
-encounter type is `crossing` exactly when it is neither `overtaking` under
-`INV-13b` nor `head-on` under `INV-14b`.
+both underway, with risk of collision, and neither carrying overtaking history
+under `INV-13d`, the encounter type is `crossing` exactly when it is neither
+`overtaking` under `INV-13b` nor `head-on` under `INV-14b`.
 
 - **Derived, not enumerated.** Enumerating the sector gives two statements of
   one boundary, and the partition's only failure mode is editing one;
@@ -462,11 +463,12 @@ is at each state in exactly one of three phases:
 
 Phase 3 dominates phase 2: an obligation is not qualified by a permission.
 
-- **Reading in doubt.** Monotone or not: `Q-54`.
-- **State remembered.** If monotone, one three-valued latch per stand-on vessel
-  per encounter; if not, no latch but `INV-17c` still needs the phase of each
-  action. TLC distinguishes them: under monotone a late-complying give-way
-  vessel still leaves stand-on action permitted; under reversible it does not.
+- **Reading ruled.** Monotone (`Q-54`): once phase 2 or 3 is reached for the
+  stand-on vessel in an encounter, it does not fall back on belated give-way
+  compliance.
+- **State remembered.** One three-valued marker per stand-on vessel per
+  encounter, monotone: a late-complying give-way vessel still leaves stand-on
+  action permitted.
 
 ---
 
@@ -601,7 +603,7 @@ not jointly exhaustive (`INV-19a-third-state`); Rule 19 supplements Section I
 
 - **Temporal note.** The switch is a function of the current state; a pair may
   cross it and back inside one encounter, and no paragraph says what becomes of
-  a 13(d) latch or a Rule 17 phase: `Q-55`.
+  a 13(d) overtaking history or a Rule 17 phase: `Q-55`.
 - **Undetermined term.** "In or near an area of restricted visibility" has no
   fact (3(l)'s atmospheric condition is nowhere in `data/facts.json`), so `rule:19a`
   selects Section III for any pair not in sight — wider — and records a gap.
