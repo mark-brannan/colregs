@@ -653,7 +653,7 @@
    }
   },
   "history": {
-   "note": "The situation is not memoryless: Rule 13(d) latches a classification that the instantaneous geometry would later contradict. History is directional -- it is own that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
+   "note": "The situation is not memoryless: Rule 13(d) carries forward a classification that the instantaneous geometry would later contradict. History is directional -- it is own that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
    "hist:was_overtaking": {
     "type": "boolean",
     "cite": "13(d)",
@@ -667,7 +667,7 @@
     "unit": "s",
     "cite": "13(d)",
     "cite_pending": null,
-    "note": "Seconds since the latched classification first held, or null if nothing has latched. Carried so a `conduct` monitor can say when the duty attached; a predicate at a point does not read it.",
+    "note": "Seconds since the carried-forward classification first held, or null if none has held yet. Carried so a `conduct` monitor can say when the duty attached; a predicate at a point does not read it.",
     "actuable": false,
     "signalk": null
    }
