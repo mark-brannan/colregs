@@ -110,6 +110,11 @@
    "cite": "14(a)",
    "what": "When two power-driven vessels are meeting on reciprocal or nearly reciprocal courses so as to involve risk of collision each shall alter her course to starboard so that each shall pass on the port side of the other.",
    "why": "`category:conduct`, not `category:classification`: the paragraph states the situation in words and prescribes the action, and 14(b) is the paragraph that deems the situation to exist -- entry rule:14b cites it. The action is monitored over a trace rather than evaluated at a point (ADR 0005 sec. 1), and no conduct entry shape exists yet. Q-45."
+  },
+  {
+   "cite": "28",
+   "what": "Under us/inland a record carrying activity:cbd selects nothing: rule:28 is suppressed and the Rule 23(a) entries it imported read activity:none.",
+   "why": "'Constrained by her draft' is not an Inland status, so the record is out of vocabulary there and the package does not pick a reading for it; a consumer that decodes SignalK for inland waters maps it to activity:none (ADR 0018)."
   }
  ],
  "represented_paragraphs": [
@@ -2175,6 +2180,20 @@
    ],
    "modality": "modality:may",
    "note": "The under-50 m alternative, on the same 33 CFR 90.5 deeming that brings rule:30a:mooring_buoy in. It is a separate entry because widening rule:30b's predicate would edit an intl entry to carry a national delta, which REQ-SCOPE-4 forbids."
+  }
+ ],
+ "suppressions": [
+  {
+   "jurisdiction": "us/inland",
+   "suppresses": "rule:28",
+   "cite": "28",
+   "why": "33 CFR 83.28 is [Reserved]: 'constrained by her draft' is not an Inland Rules status, so the Rule 28 signal is deliberately absent under us/inland rather than untranscribed (Q-11, ADR 0018)."
+  },
+  {
+   "jurisdiction": "us/inland",
+   "suppresses": "rule:23d_ii",
+   "cite": "23(d)(ii)",
+   "why": "33 CFR 83.23(d) is a single paragraph with no counterpart to the under-7 m, 7 kn exception of 23(d)(ii); the exception is deliberately absent under us/inland (Q-11, ADR 0018)."
   }
  ]
 }

@@ -102,6 +102,8 @@ data one.
   international law where a national body deliberately has none. That is
   about deltas, not licences; it survives this ADR untouched and is the live
   blocker on CEVNI. Read the two together or the wrong one gets blamed.
+  *(ADR 0018 has since supplied that mechanism; the bar is now "land with
+  your tombstones", not "wait".)*
 - `schema/rules.schema.json` carries the conditional: `text` required unless
   `text_status` is `withheld`, in which case it is forbidden and
   `withheld_reason` is required. Only `withheld_reason` is refused on a

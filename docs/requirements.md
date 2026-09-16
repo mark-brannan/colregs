@@ -72,15 +72,16 @@ Neither consumer lives in this repo.
 - **REQ-SCOPE-3** — A jurisdiction MUST be expressible as a *delta*: entries
   absent from a jurisdiction's data inherit from `intl`. A jurisdiction MUST
   NOT require restating the whole body of rules. Inheritance is "unless
-  suppressed", not unconditional — see Q-11: verified Inland structure
-  (Rule 28 "[Reserved]") means silence-means-inherit would apply
-  international law where the national body deliberately has none, so no
-  non-`intl` jurisdiction lands before an explicit suppression mechanism
-  exists. That bar is about suppression, not licensing: it is independent of
-  REQ-PROV-2 and ADR 0010, and it binds whether a jurisdiction's text ships or
-  is withheld. A delta that only *adds* entries is exempt: it suppresses nothing,
-  so the Q-11 hazard cannot arise from it (ADR 0008, `rule:30a:mooring_buoy`/`rule:30b:mooring_buoy`).
-  A delta that suppresses or replaces an `intl` entry still waits.
+  suppressed", not unconditional: verified Inland structure (Rule 28
+  "[Reserved]") means silence-means-inherit would apply international law
+  where the national body deliberately has none, so a jurisdiction MUST
+  tombstone each inherited entry it deliberately lacks in `suppressions[]`
+  (ADR 0018; Q-11). The delta is an RFC 7396 merge patch over `intl` by
+  entry id — own entries present, tombstones `null`, silence inherits — and
+  a test proves the stored tables equal to that patch applied. This binds
+  whether a jurisdiction's text ships or is withheld (REQ-PROV-2, ADR 0010
+  are separate). A delta that only *adds* entries has no tombstones (ADR
+  0008); one that replaces an `intl` entry tombstones it and adds its own.
 - **REQ-SCOPE-4** — Adding a jurisdiction MUST be additive. It MUST NOT require
   a schema change or edits to existing `intl` entries.
 - **REQ-SCOPE-5** — Geography that gates a rule (Great Lakes, Western Rivers,
@@ -930,14 +931,13 @@ Tracked here until resolved; each becomes an ADR.
   Rule 28 "[Reserved]" and has no counterpart for `23(d)(ii)`/`(iii)`
   ([verification](verification/2026-08-30-q6-q8.md), Claim 1), so a
   `us/inland` delta that is merely silent there would inherit the `intl`
-  entries and assert international obligations on inland waters. A delta
-  needs explicit suppression records (tombstones) alongside overrides —
-  "this path/entry deliberately does not exist here", distinguishable from
-  "not yet transcribed". Decide the mechanism in the second-jurisdiction
-  bundle (GATE-1 re-take, GATE-2, Q-10); until then no non-`intl`
-  jurisdiction lands. This is the live blocker on CEVNI, and it is *not* the
-  licence one: ADR 0010 removed the licence block by permitting structure with
-  the text withheld, and left this one standing.
+  entries and assert international obligations on inland waters.
+  **Resolved 2026-09-16, ADR 0018.** Tombstones: `suppressions[]` in
+  `data/applicability.json`, one record per (jurisdiction, `intl` entry),
+  and the whole delta is an RFC 7396 merge patch by entry id, proven by
+  test; the two verified Inland absences are the first tombstones. The hold
+  on non-`intl` jurisdictions is lifted (CEVNI: structure unblocked on both
+  counts, this and ADR 0010). GATE-1, Q-10, Q-8 stay open on their triggers.
   Also from the same verification pass, tracked on the global board rather
   than here: four transcription defects in `data/rules.json` itself
   (`21(a)`, `21(b)`, `23(b)`, `29(b)`) — a data fix, not a design

@@ -306,6 +306,21 @@
         "classification_shape": { "type": "string" }
       }
     },
+    "suppressions": {
+      "$comment": "Tombstones (REQ-SCOPE-3, ADR 0018): a jurisdiction deliberately lacks an inherited intl entry, as distinct from not-yet-transcribed. With the jurisdiction's own entries these form its RFC 7396 merge patch over intl; suppresses is the key that patch sets to null.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["jurisdiction", "suppresses", "cite", "why"],
+        "properties": {
+          "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)+$" },
+          "suppresses": { "$ref": "#/$defs/ruleId" },
+          "cite": { "type": "string", "minLength": 1 },
+          "why": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
     "known_omissions": {
       "type": "array",
       "items": {

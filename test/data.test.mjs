@@ -132,7 +132,17 @@ const isDisplay = (e) => (e.category ?? 'category:display') === 'category:displa
 // `intl` plus its own (self) deltas, and `intl` sees only itself. Without this filter
 // a national entry would be selected for a fact record evaluated under the
 // Convention -- which is the whole distinction the mooring-buoy case turns on.
-const inJurisdiction = (e, j) => e.jurisdiction === 'intl' || e.jurisdiction === j
+// A jurisdiction's tombstones (ADR 0018, REQ-SCOPE-3): an `intl` entry it
+// names in `suppressions` is deliberately not in force there, so it is neither
+// selected nor a drift candidate. Silence still means inherit; a tombstone is
+// how a jurisdiction says "this one, deliberately, no".
+const suppressedIn = new Map()
+for (const s of appl.suppressions ?? []) {
+  if (!suppressedIn.has(s.jurisdiction)) suppressedIn.set(s.jurisdiction, new Set())
+  suppressedIn.get(s.jurisdiction).add(s.suppresses)
+}
+const inJurisdiction = (e, j) =>
+  e.jurisdiction === j || (e.jurisdiction === 'intl' && !suppressedIn.get(j)?.has(e.id))
 const applying = (f, j = 'intl') =>
   appl.entries.filter((e) => isDisplay(e) && inJurisdiction(e, j) && matches(e.when, f)).map((e) => e.id)
 
@@ -726,6 +736,70 @@ test('every entry cites a paragraph that exists in rules.json', () => {
     for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
       if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite)
     }
+  }
+})
+
+test('suppressions: every tombstone names an intl entry, a registered jurisdiction and a resolving cite (ADR 0018)', () => {
+  const seen = new Set()
+  for (const s of appl.suppressions ?? []) {
+    const target = byId.get(s.suppresses)
+    assert.ok(target, `${s.jurisdiction} suppresses unknown entry ${s.suppresses}`)
+    // Only an inherited entry can be tombstoned. A jurisdiction's own entry is
+    // simply removed; a third jurisdiction's was never in force here.
+    assert.equal(target.jurisdiction, 'intl', `${s.jurisdiction} suppresses ${s.suppresses}, which is not an intl entry`)
+    assert.ok(editions.jurisdictions[s.jurisdiction], `${s.jurisdiction}: suppresses but is not in data/editions.json`)
+    assert.ok(rules.paragraphs[s.cite.split('-')[0].trim()], `${s.jurisdiction}/${s.suppresses} cites missing paragraph ${s.cite}`)
+    const key = `${s.jurisdiction} ${s.suppresses}`
+    assert.ok(!seen.has(key), `${key} is tombstoned twice`)
+    seen.add(key)
+  }
+})
+
+// RFC 7396 (JSON Merge Patch), the pseudocode from section 2, verbatim in
+// spirit: objects merge recursively, `null` deletes, anything else replaces.
+const mergePatch = (target, patch) => {
+  if (patch === null || typeof patch !== 'object' || Array.isArray(patch)) return patch
+  const out = (target !== null && typeof target === 'object' && !Array.isArray(target)) ? { ...target } : {}
+  for (const [k, v] of Object.entries(patch)) {
+    if (v === null) delete out[k]
+    else out[k] = mergePatch(out[k], v)
+  }
+  return out
+}
+
+test('ADR 0018: each jurisdiction is an RFC 7396 merge patch over intl, and applying it reproduces the evaluator\'s view', () => {
+  const byIdOf = (list) => Object.fromEntries(list.map((e) => [e.id, e]))
+  const intl = byIdOf(appl.entries.filter((e) => e.jurisdiction === 'intl'))
+  const jurisdictions = new Set([
+    ...appl.entries.map((e) => e.jurisdiction),
+    ...(appl.suppressions ?? []).map((s) => s.jurisdiction),
+  ].filter((j) => j !== 'intl'))
+  assert.ok(jurisdictions.size > 0, 'no non-intl jurisdiction to exercise the delta encoding on')
+  for (const j of jurisdictions) {
+    // The delta, as a merge-patch document: the jurisdiction's own entries by
+    // id, and null for every tombstone. Nothing else -- inheritance is what
+    // the patch does not mention.
+    const patch = byIdOf(appl.entries.filter((e) => e.jurisdiction === j))
+    for (const s of appl.suppressions ?? []) if (s.jurisdiction === j) patch[s.suppresses] = null
+    const resolved = mergePatch(intl, patch)
+    const viaFilter = byIdOf(appl.entries.filter((e) => inJurisdiction(e, j)))
+    assert.deepEqual(resolved, viaFilter, `${j}: merge patch over intl disagrees with the jurisdiction filter`)
+    // And the patch is minimal: it never restates an inherited entry (REQ-SCOPE-3).
+    for (const id of Object.keys(patch)) {
+      if (patch[id] !== null) assert.ok(!intl[id], `${j}: ${id} restates an intl entry instead of inheriting it`)
+    }
+  }
+})
+
+test('suppressions: every tombstone is exercised by a fixture that would otherwise select the entry (REQ-VERIFY-3)', () => {
+  for (const s of appl.suppressions ?? []) {
+    const target = byId.get(s.suppresses)
+    const hit = fixtures.cases.some((c) => (c.jurisdiction ?? fixtures.jurisdiction) === s.jurisdiction &&
+      matches(target.when, c.facts) && !c.expect.includes(s.suppresses))
+    assert.ok(hit, `${s.jurisdiction} suppresses ${s.suppresses} but no ${s.jurisdiction} fixture matches its predicate and omits it`)
+    const inherits = fixtures.cases.some((c) => (c.jurisdiction ?? fixtures.jurisdiction) === 'intl' &&
+      matches(target.when, c.facts) && c.expect.includes(s.suppresses))
+    assert.ok(inherits, `${s.suppresses} is tombstoned in ${s.jurisdiction} but no intl fixture shows it in force at the base`)
   }
 })
 
