@@ -38,6 +38,13 @@ ambiguous give-way/stand-on roles are what the Rules are written against.
   <https://www.titanicinquiry.org/BOTInq/BOTReport/botRep01.php>
 - Halpern — *Strangers on the Horizon: Titanic and Californian – A Forensic Approach* (2019). Reconstruction of the Titanic–Californian near-encounter: lookout, distress-signal and stand-on/give-way failures. Book only.
   <https://www.amazon.com/STRANGERS-HORIZON-Californian-Forensic-Approach/dp/1702121984>
+- MAIB (for the Isle of Man Ship Registry) — *Report on the investigation of
+  the collision between the bulk carrier Polesie and the general cargo ship
+  Verity* (Report No 5/2026, February 2026). German Bight TSS, 24 October
+  2023; *Verity* sank with five fatalities. Analysis covers Rules 5, 6, 7, 8,
+  15, 16 and 17(a)(ii)/(b) only — it does not reach Rule 2(b), correcting an
+  earlier claim that it paired 17(b) with 2(b) at closest quarters.
+  <https://www.bahamasmaritime.com/wp-content/uploads/2026/02/2026-5-Polesie-Verity-ReportAndAnnexes.pdf>
 - IMO GISIS Marine Casualties and Incidents module. Not a paper but a source class: the mandatory-reporting database of marine safety investigation reports. Ground truth for real COLREGS-relevant incidents.
   <https://www.imo.org/en/OurWork/IIIS/Pages/Marine-Safety-Investigation-reports.aspx>
 
