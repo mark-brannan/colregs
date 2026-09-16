@@ -8,8 +8,7 @@
  },
  "lights": {
   "light:masthead": {
-   "name": "masthead light",
-   "colregs_term": "masthead light",
+   "term": "masthead light",
    "cite": "21(a)",
    "color": "white",
    "character": "steady",
@@ -22,8 +21,7 @@
    "rule21": true
   },
   "light:sidelights": {
-   "name": "sidelights",
-   "colregs_term": "sidelights",
+   "term": "sidelights",
    "cite": "21(b)",
    "character": "steady",
    "composite": true,
@@ -36,8 +34,7 @@
    "rule21": true
   },
   "light:sidelight_starboard": {
-   "name": "starboard sidelight",
-   "colregs_term": "sidelight",
+   "term": "sidelight",
    "cite": "21(b)",
    "color": "green",
    "character": "steady",
@@ -50,8 +47,7 @@
    "rule21": true
   },
   "light:sidelight_port": {
-   "name": "port sidelight",
-   "colregs_term": "sidelight",
+   "term": "sidelight",
    "cite": "21(b)",
    "color": "red",
    "character": "steady",
@@ -64,8 +60,7 @@
    "rule21": true
   },
   "light:sternlight": {
-   "name": "sternlight",
-   "colregs_term": "sternlight",
+   "term": "sternlight",
    "cite": "21(c)",
    "color": "white",
    "character": "steady",
@@ -78,8 +73,7 @@
    "rule21": true
   },
   "light:towing": {
-   "name": "towing light",
-   "colregs_term": "towing light",
+   "term": "towing light",
    "cite": "21(d)",
    "color": "yellow",
    "character": "steady",
@@ -92,8 +86,7 @@
    "rule21": true
   },
   "light:all_round": {
-   "name": "all-round light",
-   "colregs_term": "all-round light",
+   "term": "all-round light",
    "cite": "21(e)",
    "color": null,
    "color_note": "colour is fixed by the citing paragraph, not by Rule 21",
@@ -106,8 +99,7 @@
    "rule21": true
   },
   "light:flashing": {
-   "name": "flashing light",
-   "colregs_term": "flashing light",
+   "term": "flashing light",
    "cite": "21(f)",
    "color": null,
    "color_note": "colour is fixed by the citing paragraph",
@@ -122,8 +114,7 @@
    "rule21": true
   },
   "light:torch": {
-   "name": "electric torch or lighted lantern",
-   "colregs_term": "electric torch or lighted lantern",
+   "term": "electric torch or lighted lantern",
    "cite": "25(d)(i)",
    "color": "white",
    "character": "shown in sufficient time to prevent collision",
@@ -133,8 +124,7 @@
    "note": "Not a fixed navigation light: it is held ready at hand and shown on approach. It has no prescribed arc, range or position."
   },
   "light:deck_lights": {
-   "name": "working or equivalent lights",
-   "colregs_term": "working or equivalent lights",
+   "term": "working or equivalent lights",
    "cite": "30(c)",
    "color": null,
    "character": "steady",

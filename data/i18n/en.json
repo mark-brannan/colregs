@@ -12,11 +12,15 @@
   "strings": {
     "light": {
       "light:masthead": "Masthead light",
+      "light:sidelights": "Sidelights",
       "light:sidelight_starboard": "Starboard sidelight",
       "light:sidelight_port": "Port sidelight",
       "light:sternlight": "Sternlight",
       "light:towing": "Towing light",
-      "light:all_round": "All-round light"
+      "light:all_round": "All-round light",
+      "light:flashing": "Flashing light",
+      "light:torch": "Electric torch or lighted lantern",
+      "light:deck_lights": "Working or equivalent lights"
     },
     "modality": {
       "modality:shall": "Required",

@@ -53,10 +53,9 @@
         "^light:[a-z_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["name", "colregs_term", "cite", "character", "rule21"],
+          "required": ["term", "cite", "character", "rule21"],
           "properties": {
-            "name": { "type": "string", "minLength": 1 },
-            "colregs_term": { "type": "string", "minLength": 1 },
+            "term": { "type": "string", "minLength": 1 },
             "cite": { "type": "string", "minLength": 1 },
             "color": { "type": ["string", "null"] },
             "color_note": { "type": "string" },
