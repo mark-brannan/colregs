@@ -20,6 +20,7 @@
     "pending": [],
     "docs/adr/0013-corpus-files-with-editions.md": 95,
     "docs/adr/0014-engine-interface-owned-by-colregs.md": 110,
+    "docs/adr/0015-entry-ids-are-names.md": 210,
     "docs/timeline.md": 130,
     "docs/maritime-sources.md": 130
   },

@@ -15,9 +15,9 @@ tests. `docs/adr/` records decisions so they aren't re-argued — for the whole
 family (colregs-engine, searoom, nav-wright), one sequence; a bare `ADR NNNN`
 anywhere in the family means this directory. An ADR lands by PR. Read both
 before making a design change — don't infer intent from the data alone.
-`docs/identifiers.md` states the naming scheme: citation-derived identifiers
-are bare, vocabulary identifiers carry a type prefix. Read it before adding
-a light, a fact or a relation.
+`docs/identifiers.md` states the naming scheme: paragraph paths are bare,
+every other identifier — an entry, a light, a fact, a relation — carries a
+type prefix. Read it before adding one; ADR 0015 says how an entry is named.
 `docs/conventions.md` states the ink/pencil convention: a `✎` marker is the
 rule for *who may change that item and on what grounds*, not a confidence
 note — read it before editing anything a design doc has marked.

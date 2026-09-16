@@ -82,12 +82,12 @@ loses.
 
 **Applicability entries.** Each is a predicate over facts, a set of lights or
 references to other entries, a modality, a citation, and a jurisdiction. Every
-entry has an id (`25b`, `27a-mw`) a consumer can point at.
+entry has an id (`entry:sail_combined_lantern`, `entry:nuc_making_way`) a consumer can point at.
 
-**Identifiers.** Citation-derived ids (paragraph paths, entry ids) carry no
-prefix, because the path *is* the citation. Vocabulary ids do:
+**Identifiers.** Paragraph paths carry no prefix, because the path *is* the
+citation. Every other id names its namespace: `entry:anchored`,
 `light:masthead`, `fact:activity`, `activity:nuc`, `rel:in_lieu_of`. Every
-identifier is immutable once published; retirements go through
+identifier is immutable from 1.0.0; retirements go through
 [`data/deprecated-identifiers.json`](data/deprecated-identifiers.json). See
 [`docs/identifiers.md`](docs/identifiers.md).
 

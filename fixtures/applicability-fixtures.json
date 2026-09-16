@@ -11,9 +11,9 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "25a",
-    "25b",
-    "25c"
+    "entry:sail_sidelights_sternlight",
+    "entry:sail_combined_lantern",
+    "entry:sail_red_over_green"
    ]
   },
   {
@@ -25,10 +25,10 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m"
    ]
   },
   {
@@ -40,9 +40,9 @@
     "fact:length_m": 15
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ]
   },
   {
@@ -54,9 +54,9 @@
     "fact:length_m": 55
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ]
   },
   {
@@ -69,11 +69,11 @@
     "fact:max_speed_kn": 6
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1",
-    "23d2"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m",
+    "entry:power_under_7m_slow"
    ]
   },
   {
@@ -86,10 +86,10 @@
     "fact:max_speed_kn": 20
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m"
    ]
   },
   {
@@ -101,10 +101,10 @@
     "fact:length_m": 3.5
    },
    "expect": [
-    "25a",
-    "25b",
-    "25c",
-    "25d1"
+    "entry:sail_sidelights_sternlight",
+    "entry:sail_combined_lantern",
+    "entry:sail_red_over_green",
+    "entry:sail_under_7m"
    ]
   },
   {
@@ -116,7 +116,7 @@
     "fact:length_m": 10
    },
    "expect": [
-    "25d2"
+    "entry:under_oars"
    ]
   },
   {
@@ -129,10 +129,10 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m"
    ]
   },
   {
@@ -144,9 +144,9 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "30a",
-    "30b",
-    "30c"
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -159,10 +159,10 @@
     "fact:near_channel": false
    },
    "expect": [
-    "30a",
-    "30b",
-    "30c",
-    "30e"
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights",
+    "entry:anchored_under_7m_not_near_channel"
    ]
   },
   {
@@ -174,8 +174,8 @@
     "fact:length_m": 15
    },
    "expect": [
-    "30d-anchor",
-    "30d-red"
+    "entry:aground_anchor_lights",
+    "entry:aground_red_over_red"
    ]
   },
   {
@@ -187,7 +187,7 @@
     "fact:length_m": 10
    },
    "expect": [
-    "30d-anchor"
+    "entry:aground_anchor_lights"
    ]
   },
   {
@@ -199,8 +199,8 @@
     "fact:length_m": 30
    },
    "expect": [
-    "30d-anchor",
-    "30d-red"
+    "entry:aground_anchor_lights",
+    "entry:aground_red_over_red"
    ]
   },
   {
@@ -212,8 +212,8 @@
     "fact:length_m": 30
    },
    "expect": [
-    "30d-anchor",
-    "30d-red"
+    "entry:aground_anchor_lights",
+    "entry:aground_red_over_red"
    ]
   },
   {
@@ -225,10 +225,10 @@
     "fact:length_m": 30
    },
    "expect": [
-    "26c-id",
-    "30a",
-    "30b",
-    "30c"
+    "entry:fishing_red_over_white",
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -241,9 +241,9 @@
     "fact:length_m": 30
    },
    "expect": [
-    "26b-id",
-    "26b-mast",
-    "26b-mw"
+    "entry:trawling_green_over_white",
+    "entry:trawling_masthead",
+    "entry:trawling_making_way"
    ]
   },
   {
@@ -256,8 +256,8 @@
     "fact:length_m": 30
    },
    "expect": [
-    "26b-id",
-    "26b-mast"
+    "entry:trawling_green_over_white",
+    "entry:trawling_masthead"
    ]
   },
   {
@@ -271,8 +271,8 @@
     "fact:gear_extent_m": 200
    },
    "expect": [
-    "26c-id",
-    "26c-gear"
+    "entry:fishing_red_over_white",
+    "entry:fishing_outlying_gear"
    ]
   },
   {
@@ -285,8 +285,8 @@
     "fact:length_m": 40
    },
    "expect": [
-    "27a-id",
-    "27a-mw"
+    "entry:nuc_red_over_red",
+    "entry:nuc_making_way"
    ]
   },
   {
@@ -299,7 +299,7 @@
     "fact:length_m": 40
    },
    "expect": [
-    "27a-id"
+    "entry:nuc_red_over_red"
    ]
   },
   {
@@ -311,10 +311,10 @@
     "fact:length_m": 60
    },
    "expect": [
-    "27b-id",
-    "27b-anc",
-    "30a",
-    "30c"
+    "entry:ram_red_white_red",
+    "entry:ram_anchored",
+    "entry:anchored",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -329,9 +329,9 @@
     "fact:obstruction_side": "obstruction_side:port"
    },
    "expect": [
-    "27b-id",
-    "27b-mw",
-    "27d"
+    "entry:ram_red_white_red",
+    "entry:ram_making_way",
+    "entry:ram_underwater_obstruction"
    ]
   },
   {
@@ -344,8 +344,8 @@
     "fact:tow_length_m": 150
    },
    "expect": [
-    "24a-m2",
-    "24a-rest"
+    "entry:towing_mastheads",
+    "entry:towing_light"
    ]
   },
   {
@@ -358,8 +358,8 @@
     "fact:tow_length_m": 300
    },
    "expect": [
-    "24a-m3",
-    "24a-rest"
+    "entry:towing_mastheads_long_tow",
+    "entry:towing_light"
    ]
   },
   {
@@ -372,11 +372,11 @@
     "fact:tow_length_m": 150
    },
    "expect": [
-    "24a-m2",
-    "24a-rest",
-    "30a",
-    "30b",
-    "30c"
+    "entry:towing_mastheads",
+    "entry:towing_light",
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -389,7 +389,7 @@
     "fact:composite_unit": true
    },
    "expect": [
-    "24b"
+    "entry:pushing_composite_unit"
    ]
   },
   {
@@ -402,10 +402,10 @@
     "fact:composite_unit": true
    },
    "expect": [
-    "24b",
-    "30a",
-    "30b",
-    "30c"
+    "entry:pushing_composite_unit",
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -418,7 +418,7 @@
     "fact:composite_unit": false
    },
    "expect": [
-    "24c"
+    "entry:pushing_ahead_or_alongside"
    ]
   },
   {
@@ -431,10 +431,10 @@
     "fact:composite_unit": false
    },
    "expect": [
-    "24c",
-    "30a",
-    "30b",
-    "30c"
+    "entry:pushing_ahead_or_alongside",
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -446,7 +446,7 @@
     "fact:length_m": 200
    },
    "expect": [
-    "28"
+    "entry:cbd"
    ]
   },
   {
@@ -458,8 +458,8 @@
     "fact:length_m": 200
    },
    "expect": [
-    "30a",
-    "30c"
+    "entry:anchored",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -471,7 +471,7 @@
     "fact:length_m": 20
    },
    "expect": [
-    "29a"
+    "entry:pilot"
    ]
   },
   {
@@ -483,7 +483,7 @@
     "fact:length_m": 60
    },
    "expect": [
-    "27f"
+    "entry:mine_clearance"
    ]
   },
   {
@@ -495,9 +495,9 @@
     "fact:length_m": 60
    },
    "expect": [
-    "27f",
-    "30a",
-    "30c"
+    "entry:mine_clearance",
+    "entry:anchored",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -509,7 +509,7 @@
     "fact:length_m": 9
    },
    "expect": [
-    "27e"
+    "entry:diving"
    ]
   },
   {
@@ -522,14 +522,14 @@
     "fact:non_displacement": true
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23b"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:air_cushion_non_displacement"
    ]
   },
   {
-   "name": "23d1 boundary: 11.9 m power vessel underway",
+   "name": "23(d)(i) boundary: 11.9 m power vessel underway",
    "facts": {
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
@@ -537,14 +537,14 @@
     "fact:length_m": 11.9
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m"
    ]
   },
   {
-   "name": "23d1 boundary: 12.0 m power vessel underway",
+   "name": "23(d)(i) boundary: 12.0 m power vessel underway",
    "facts": {
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
@@ -552,13 +552,13 @@
     "fact:length_m": 12.0
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ]
   },
   {
-   "name": "23d2 length boundary: 6.9 m power vessel, max speed 7 kn",
+   "name": "23(d)(ii) length boundary: 6.9 m power vessel, max speed 7 kn",
    "facts": {
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
@@ -567,15 +567,15 @@
     "fact:max_speed_kn": 7
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1",
-    "23d2"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m",
+    "entry:power_under_7m_slow"
    ]
   },
   {
-   "name": "23d2 length boundary: 7.0 m power vessel, max speed 7 kn",
+   "name": "23(d)(ii) length boundary: 7.0 m power vessel, max speed 7 kn",
    "facts": {
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
@@ -584,14 +584,14 @@
     "fact:max_speed_kn": 7
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m"
    ]
   },
   {
-   "name": "23d2 speed boundary: 6.9 m power vessel, max speed 7.0 kn",
+   "name": "23(d)(ii) speed boundary: 6.9 m power vessel, max speed 7.0 kn",
    "facts": {
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
@@ -600,15 +600,15 @@
     "fact:max_speed_kn": 7.0
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1",
-    "23d2"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m",
+    "entry:power_under_7m_slow"
    ]
   },
   {
-   "name": "23d2 speed boundary: 6.9 m power vessel, max speed 7.1 kn",
+   "name": "23(d)(ii) speed boundary: 6.9 m power vessel, max speed 7.1 kn",
    "facts": {
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
@@ -617,14 +617,14 @@
     "fact:max_speed_kn": 7.1
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23d1"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:power_under_12m"
    ]
   },
   {
-   "name": "25b boundary: 19.9 m sailing vessel underway",
+   "name": "25(b) boundary: 19.9 m sailing vessel underway",
    "facts": {
     "fact:propulsion": "propulsion:sail",
     "fact:activity": "activity:none",
@@ -632,13 +632,13 @@
     "fact:length_m": 19.9
    },
    "expect": [
-    "25a",
-    "25b",
-    "25c"
+    "entry:sail_sidelights_sternlight",
+    "entry:sail_combined_lantern",
+    "entry:sail_red_over_green"
    ]
   },
   {
-   "name": "25b boundary: 20.0 m sailing vessel underway",
+   "name": "25(b) boundary: 20.0 m sailing vessel underway",
    "facts": {
     "fact:propulsion": "propulsion:sail",
     "fact:activity": "activity:none",
@@ -646,12 +646,12 @@
     "fact:length_m": 20.0
    },
    "expect": [
-    "25a",
-    "25c"
+    "entry:sail_sidelights_sternlight",
+    "entry:sail_red_over_green"
    ]
   },
   {
-   "name": "25d1 boundary: 6.9 m sailing vessel underway",
+   "name": "25(d)(i) boundary: 6.9 m sailing vessel underway",
    "facts": {
     "fact:propulsion": "propulsion:sail",
     "fact:activity": "activity:none",
@@ -659,14 +659,14 @@
     "fact:length_m": 6.9
    },
    "expect": [
-    "25a",
-    "25b",
-    "25c",
-    "25d1"
+    "entry:sail_sidelights_sternlight",
+    "entry:sail_combined_lantern",
+    "entry:sail_red_over_green",
+    "entry:sail_under_7m"
    ]
   },
   {
-   "name": "25d1 boundary: 7.0 m sailing vessel underway",
+   "name": "25(d)(i) boundary: 7.0 m sailing vessel underway",
    "facts": {
     "fact:propulsion": "propulsion:sail",
     "fact:activity": "activity:none",
@@ -674,32 +674,32 @@
     "fact:length_m": 7.0
    },
    "expect": [
-    "25a",
-    "25b",
-    "25c"
+    "entry:sail_sidelights_sternlight",
+    "entry:sail_combined_lantern",
+    "entry:sail_red_over_green"
    ]
   },
   {
-   "name": "30b boundary: anchored, 49.9 m",
+   "name": "30(b) boundary: anchored, 49.9 m",
    "facts": {
     "fact:position": "position:anchored",
     "fact:length_m": 49.9
    },
    "expect": [
-    "30a",
-    "30b",
-    "30c"
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights"
    ]
   },
   {
-   "name": "30b boundary: anchored, 50.0 m",
+   "name": "30(b) boundary: anchored, 50.0 m",
    "facts": {
     "fact:position": "position:anchored",
     "fact:length_m": 50.0
    },
    "expect": [
-    "30a",
-    "30c"
+    "entry:anchored",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -709,7 +709,7 @@
     "fact:length_m": 11.9
    },
    "expect": [
-    "30d-anchor"
+    "entry:aground_anchor_lights"
    ]
   },
   {
@@ -719,35 +719,35 @@
     "fact:length_m": 12.0
    },
    "expect": [
-    "30d-anchor",
-    "30d-red"
+    "entry:aground_anchor_lights",
+    "entry:aground_red_over_red"
    ]
   },
   {
-   "name": "30e boundary: anchored, clear of channel, 6.9 m",
+   "name": "30(e) boundary: anchored, clear of channel, 6.9 m",
    "facts": {
     "fact:position": "position:anchored",
     "fact:near_channel": false,
     "fact:length_m": 6.9
    },
    "expect": [
-    "30a",
-    "30b",
-    "30c",
-    "30e"
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights",
+    "entry:anchored_under_7m_not_near_channel"
    ]
   },
   {
-   "name": "30e boundary: anchored, clear of channel, 7.0 m",
+   "name": "30(e) boundary: anchored, clear of channel, 7.0 m",
    "facts": {
     "fact:position": "position:anchored",
     "fact:near_channel": false,
     "fact:length_m": 7.0
    },
    "expect": [
-    "30a",
-    "30b",
-    "30c"
+    "entry:anchored",
+    "entry:anchored_under_50m",
+    "entry:anchored_deck_lights"
    ]
   },
   {
@@ -760,8 +760,8 @@
     "fact:tow_length_m": 200.0
    },
    "expect": [
-    "24a-m2",
-    "24a-rest"
+    "entry:towing_mastheads",
+    "entry:towing_light"
    ]
   },
   {
@@ -774,31 +774,31 @@
     "fact:tow_length_m": 200.1
    },
    "expect": [
-    "24a-m3",
-    "24a-rest"
+    "entry:towing_mastheads_long_tow",
+    "entry:towing_light"
    ]
   },
   {
-   "name": "26c-gear boundary: fishing, gear extent 150.0 m",
+   "name": "26(c)(ii) boundary: fishing, gear extent 150.0 m",
    "facts": {
     "fact:activity": "activity:fishing",
     "fact:position": "position:underway",
     "fact:gear_extent_m": 150.0
    },
    "expect": [
-    "26c-id"
+    "entry:fishing_red_over_white"
    ]
   },
   {
-   "name": "26c-gear boundary: fishing, gear extent 150.1 m",
+   "name": "26(c)(ii) boundary: fishing, gear extent 150.1 m",
    "facts": {
     "fact:activity": "activity:fishing",
     "fact:position": "position:underway",
     "fact:gear_extent_m": 150.1
    },
    "expect": [
-    "26c-gear",
-    "26c-id"
+    "entry:fishing_outlying_gear",
+    "entry:fishing_red_over_white"
    ]
   },
   {
@@ -812,10 +812,10 @@
     "fact:length_m": 25
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34",
-    "23c"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight",
+    "entry:wig_near_surface"
    ]
   },
   {
@@ -829,9 +829,9 @@
     "fact:length_m": 25
    },
    "expect": [
-    "23a1",
-    "23a2",
-    "23a34"
+    "entry:power_forward_masthead",
+    "entry:power_second_masthead",
+    "entry:power_sidelights_sternlight"
    ]
   },
   {
@@ -842,7 +842,7 @@
     "fact:length_m": 15
    },
    "expect": [
-    "24e"
+    "entry:being_towed"
    ]
   },
   {
@@ -854,8 +854,8 @@
     "fact:length_m": 12
    },
    "expect": [
-    "26c-id",
-    "26c-mw"
+    "entry:fishing_red_over_white",
+    "entry:fishing_making_way"
    ]
   },
   {
@@ -880,12 +880,12 @@
     "fact:length_m": 11.6
    },
    "expect": [
-    "30a-buoy",
-    "30b-buoy"
+    "entry:mooring_buoy",
+    "entry:mooring_buoy_under_50m"
    ]
   },
   {
-   "name": "30b-buoy length boundary: on a mooring buoy at 49.9 m, US Inland",
+   "name": "Inland 30(b) length boundary: on a mooring buoy at 49.9 m, US Inland",
    "jurisdiction": "us/inland",
    "facts": {
     "fact:propulsion": "propulsion:power",
@@ -895,12 +895,12 @@
     "fact:length_m": 49.9
    },
    "expect": [
-    "30a-buoy",
-    "30b-buoy"
+    "entry:mooring_buoy",
+    "entry:mooring_buoy_under_50m"
    ]
   },
   {
-   "name": "30b-buoy length boundary: on a mooring buoy at 50.0 m, US Inland",
+   "name": "Inland 30(b) length boundary: on a mooring buoy at 50.0 m, US Inland",
    "jurisdiction": "us/inland",
    "facts": {
     "fact:propulsion": "propulsion:power",
@@ -910,7 +910,7 @@
     "fact:length_m": 50.0
    },
    "expect": [
-    "30a-buoy"
+    "entry:mooring_buoy"
    ]
   },
   {

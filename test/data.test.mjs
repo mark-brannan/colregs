@@ -272,12 +272,12 @@ test('operations: the paragraph-cite and entry-id patterns are their source sche
 // against these schemas -- can only run where an engine is.
 const colregs = { version: '0.0.0', source: 'resolved' }
 const provenance = { evaluated_categories: ['display'], jurisdictions: ['intl'], represented: [{ id: '2a', jurisdiction: 'intl', cite: '2(a)', category: 'care' }] }
-const encounter = { colregs, applied: ['13a'], scope: ['11'], encounter: 'overtaking', risk_of_collision: { asserted: true, by: ['7a'] }, roles: { own: [{ role: 'give-way', by: '13a' }], other: [] }, overridden: [], modalities: { '13a': 'shall' }, categories: { '13a': 'precedence' }, provenance }
+const encounter = { colregs, applied: ['entry:overtaking'], scope: ['entry:in_sight'], encounter: 'overtaking', risk_of_collision: { asserted: true, by: ['entry:overtaking'] }, roles: { own: [{ role: 'give-way', by: 'entry:overtaking_gives_way' }], other: [] }, overridden: [], modalities: { 'entry:overtaking': 'shall' }, categories: { 'entry:overtaking': 'precedence' }, provenance }
 const parameters = { dynamics: ['unicycle'], horizon_s: 600, cadence_s: 1, separation_m: 500, information: 'full', adversary: 'physics' }
 const envelopeExamples = {
-  'display-evaluation.schema.json': { colregs, applied: ['23a'], exempted: [], excluded: [], overridden: [], displays: [{ entries: ['23a'], lights: [{ spec: { light: 'light:masthead' }, source_entry: '23a', modality: 'shall' }], chosen: [] }], optional_additions: [], modalities: { '23a': 'shall' }, categories: { '23a': 'display' }, provenance },
+  'display-evaluation.schema.json': { colregs, applied: ['entry:power_forward_masthead'], exempted: [], excluded: [], overridden: [], displays: [{ entries: ['entry:power_forward_masthead'], lights: [{ spec: { light: 'light:masthead' }, source_entry: 'entry:power_forward_masthead', modality: 'shall' }], chosen: [] }], optional_additions: [], modalities: { 'entry:power_forward_masthead': 'shall' }, categories: { 'entry:power_forward_masthead': 'display' }, provenance },
   'encounter-evaluation.schema.json': encounter,
-  'conduct-evaluation.schema.json': { colregs, window: { from_s: 0, to_s: 60, samples: 2 }, applied: ['16'], verdicts: [{ id: '16', subject: 'own', verdict: 'pending', attached_at_s: 0 }], phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }] },
+  'conduct-evaluation.schema.json': { colregs, window: { from_s: 0, to_s: 60, samples: 2 }, applied: ['entry:overtaking_gives_way'], verdicts: [{ id: 'entry:overtaking_gives_way', subject: 'own', verdict: 'pending', attached_at_s: 0 }], phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }] },
   'rule2-departure-finding.schema.json': { status: 'not-flagged', rules: encounter, advisories: [{ action: { alter_deg: 30 }, margin_m: 800, breaches: ['17(c)'], envelope: { holds_until_s: 120 } }], model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] } },
   'trace.schema.json': { samples: [{ t_s: 0, situation: { own: { fact: { 'fact:propulsion': 'propulsion:power' } } } }] },
   'rule2-departure-model.schema.json': { version: 'grid-0', colregs_version: '0.0.0', ...parameters, regions: [{ when: { 'own:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' }], artefact_only: true },
@@ -724,8 +724,8 @@ test('every entry cites a paragraph that exists in rules.json', () => {
   }
   for (const e of appl.entries) {
     check(e.id, e.cite)
-    // A conditional_includes branch may carry its own cite (29a's (ii)/(iii),
-    // 27f's two branches); it is a citation like any other and must resolve.
+    // A conditional_includes branch may carry its own cite (entry:pilot's (ii)/(iii),
+    // entry:mine_clearance's two branches); it is a citation like any other and must resolve.
     for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
       if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite)
     }
@@ -1116,7 +1116,9 @@ const reqModel10Section = () => {
   return requirementsText.slice(start, end)
 }
 
-test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1.1', () => {
+const BASELINE = '1.0.0' // moved from 0.1.1 by ADR 0015 (#121); fixed from here on
+
+test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 1.0.0', () => {
   const whole = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1])
   const found = [...reqModel10Section().matchAll(BASELINE_RE)].map((m) => m[1])
   assert.deepEqual(whole, found,
@@ -1125,7 +1127,7 @@ test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 0.1
   assert.equal(found.length, 1,
     `REQ-MODEL-10 declares ${found.length} immutability baselines (${found.join(', ')}); ` +
     'it is settable exactly once. A second baseline is the escape hatch the requirement forbids.')
-  assert.equal(found[0], '0.1.1',
+  assert.equal(found[0], BASELINE,
     'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.')
 })
 
@@ -1142,7 +1144,9 @@ function extractIdentifiers({ rules, lights, facts, appl }) {
   // Keys in lights.json already carry their `light:` prefix (docs/identifiers.md).
   for (const id of Object.keys(lights.lights ?? {})) ids.add(id)
   for (const path of Object.keys(rules.paragraphs ?? {})) ids.add(`paragraph:${path}`)
-  for (const e of appl.entries ?? []) ids.add(`entry:${e.id}`)
+  // Entry ids carry their `entry:` prefix since ADR 0015; before it the
+  // prefix was added here, which is why the registry keys always had one.
+  for (const e of appl.entries ?? []) ids.add(e.id)
   for (const k of Object.keys(appl.relations ?? {})) ids.add(`rel:${k}`)
   const factGroups = [facts.axes, facts.modifiers, facts.numerics, facts.booleans, facts.enums]
   for (const group of factGroups) {
@@ -1181,8 +1185,20 @@ function loadAtTag(tag, path) {
   return JSON.parse(text)
 }
 
-test('identifier diff: no identifier published in the last release is silently removed', () => {
+const semverLt = (a, b) => {
+  const pa = a.split('.').map(Number), pb = b.split('.').map(Number)
+  for (let i = 0; i < 3; i++) if (pa[i] !== pb[i]) return pa[i] < pb[i]
+  return false
+}
+
+test('identifier diff: no identifier published in the last release is silently removed', (t) => {
   const tag = latestReleaseTag()
+  if (semverLt(tag.slice(1), BASELINE)) {
+    // Pre-baseline releases are outside REQ-MODEL-10 (ADR 0015): nothing in
+    // them is immutable, so there is nothing to diff against yet.
+    t.skip(`dormant until the first release at or after the ${BASELINE} baseline; latest tag is ${tag}`)
+    return
+  }
   const before = extractIdentifiers({
     rules: loadAtTag(tag, 'data/rules.json'),
     lights: loadAtTag(tag, 'data/lights.json'),
@@ -1528,14 +1544,14 @@ test('REQ-CAT-4: subject and class resolution is exact, and aspect is a subject 
   assert.equal(matchesSituation({ 'other:hist:was_overtaking': true }, latched.situation), false)
 })
 
-test('Q-49: hist:was_overtaking resolves out of sight; 13d does not fire', () => {
-  // 13d is gated on `pair:geo:in_sight` (scope invariant); the fact a Rule 19(d)(i)
+test('Q-49: hist:was_overtaking resolves out of sight; entry:overtaking_until_past_and_clear does not fire', () => {
+  // entry:overtaking_until_past_and_clear is gated on `pair:geo:in_sight` (scope invariant); the fact a Rule 19(d)(i)
   // entry would read, `hist:was_overtaking`, is a plain situation fact and is not.
   const outOfSight = situationFixtures.cases.find((x) => x.name.startsWith('19(d)(i)'))
   assert.ok(outOfSight, 'the illustrative fixture')
   assert.equal(resolve('pair:geo:in_sight', outOfSight.situation), false)
   assert.equal(matchesSituation({ 'own:hist:was_overtaking': true }, outOfSight.situation), true)
-  assert.equal(applyingSituation(outOfSight.situation).includes('13d'), false,
+  assert.equal(applyingSituation(outOfSight.situation).includes('entry:overtaking_until_past_and_clear'), false,
     "13d does not fire out of sight -- that's the scope invariant, not a fact gap")
 })
 
@@ -1828,7 +1844,7 @@ test('scope: a situation selects exactly one Part B section, and it tracks in-si
 // that an edit to one sector's constraint that forgets the other's fails here
 // first. The sweep is two-dimensional because the encounter type is a function
 // of both subjects' bearings -- own's, and the aspect -- and reading one alone
-// is the mistake 13b-overtaken exists to prevent.
+// is the mistake entry:being_overtaken exists to prevent.
 const classification = appl.entries.filter((e) => e.category === 'classification')
 const encounterEntries = classification.filter((e) => 'encounter' in e.effect)
 const CONSTANTS = facts.situation.constants
@@ -1965,9 +1981,9 @@ test('classification: 13(d) holds the encounter at overtaking however the bearin
   // a bearing that has drawn out of the sector entirely.
   const drifted = sweepSituation({ ownRel: 90, aspect: 250, latchOwn: true })
   assert.deepEqual([...encountersFor(drifted)], ['overtaking'])
-  assert.equal(matchesSituation(byId.get('13b-overtaking').when, drifted), false,
+  assert.equal(matchesSituation(byId.get('entry:overtaking').when, drifted), false,
     'the sector test no longer holds, which is exactly when 13(d) is load-bearing')
-  assert.equal(matchesSituation(byId.get('13a').when, drifted), true,
+  assert.equal(matchesSituation(byId.get('entry:overtaking_gives_way').when, drifted), true,
     'and the duty stays with the overtaking vessel')
   // Absent history is not false history: a situation that omits the latch is
   // classified as no encounter at all rather than as a crossing. Conservative,
@@ -1977,13 +1993,13 @@ test('classification: 13(d) holds the encounter at overtaking however the bearin
 })
 
 test('classification: 15(a) gives way exactly where the crossing has the other to starboard', () => {
-  // 15a-give-way writes own's bearing as the starboard half of the
+  // entry:crossing_gives_way writes own's bearing as the starboard half of the
   // non-overtaking sector, which is a shorthand for two constraints the
   // predicate language cannot put on one key. The sweep is what makes the
   // shorthand checkable: the entry must select exactly the crossings in which
   // the other bears between 0 and 180 relative, and nothing else.
-  const crossing = byId.get('15a-crossing')
-  const giveWay = byId.get('15a-give-way')
+  const crossing = byId.get('entry:crossing')
+  const giveWay = byId.get('entry:crossing_gives_way')
   const bad = []
   const t = sweepTemplate()
   for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
@@ -2004,22 +2020,22 @@ test('the declared constants are the numbers the entries actually read', () => {
   const sector = { gt: FROM, lt: TO }
   const cone = { any_of: [{ lte: HALF }, { gte: 360 - HALF }] }
   const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value
-  assert.deepEqual(byId.get('7d1').when['pair:geo:bearing_change_deg_min'],
+  assert.deepEqual(byId.get('entry:steady_bearing').when['pair:geo:bearing_change_deg_min'],
     { gt: -appreciable, lt: appreciable })
-  assert.deepEqual(byId.get('13b-overtaking').when['other:geo:rel_bearing_deg'], sector)
-  assert.deepEqual(byId.get('13b-overtaken').when['own:geo:rel_bearing_deg'], sector)
-  assert.deepEqual(byId.get('14b').when['own:geo:rel_bearing_deg'], cone)
-  assert.deepEqual(byId.get('14b').when['other:geo:rel_bearing_deg'], cone)
+  assert.deepEqual(byId.get('entry:overtaking').when['other:geo:rel_bearing_deg'], sector)
+  assert.deepEqual(byId.get('entry:being_overtaken').when['own:geo:rel_bearing_deg'], sector)
+  assert.deepEqual(byId.get('entry:head_on').when['own:geo:rel_bearing_deg'], cone)
+  assert.deepEqual(byId.get('entry:head_on').when['other:geo:rel_bearing_deg'], cone)
   // The residual is `not` over the very same objects, which is the whole
   // reason the partition above cannot be broken by editing one side only.
-  const c = byId.get('15a-crossing').when
+  const c = byId.get('entry:crossing').when
   assert.deepEqual(c['own:geo:rel_bearing_deg'], { not: sector })
   assert.deepEqual(c['other:geo:rel_bearing_deg'], { not: sector })
   assert.deepEqual(c.any_of, [
     { 'own:geo:rel_bearing_deg': { not: cone } },
     { 'other:geo:rel_bearing_deg': { not: cone } },
   ])
-  assert.deepEqual(byId.get('15a-give-way').when['own:geo:rel_bearing_deg'], { gt: 0, lte: FROM })
+  assert.deepEqual(byId.get('entry:crossing_gives_way').when['own:geo:rel_bearing_deg'], { gt: 0, lte: FROM })
   // Every constant says who may change it and, where it is pencil, what would.
   for (const [k, spec] of Object.entries(CONSTANTS)) {
     if (k === 'note') continue
@@ -2150,7 +2166,7 @@ const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r)
 // in the sweep and rel:overrides has to earn its keep (Q-40).
 const SAIL = { 'fact:propulsion': 'propulsion:sail', 'fact:activity': 'activity:none' }
 const WINDS = ['wind_side:port', 'wind_side:starboard', 'wind_side:unknown']
-// The four ranks 15a-give-way used to negate out of its own predicate, keyed by
+// The four ranks entry:crossing_gives_way used to negate out of its own predicate, keyed by
 // the facts that decode to them -- a WIG craft is the phase pair, not an
 // activity -- plus constrained by her draught, which it never negated: 18(d)(i)
 // is what meets Rule 15 there and it assigns no helm role, so the pair is swept
@@ -2247,7 +2263,7 @@ test('Q-48: the both-starboard crossing that breaks the property is a record the
   // risk of collision is claimed. 15(a) then names both vessels.
   const s = statedSituation({ ownRel: 45, otherHeading: norm360(45 + 180 - 45), ownSog: 12, otherSog: 10 })
   Object.assign(s.pair.geo, { 'geo:bearing_change_deg_min': 0, 'geo:cpa_m': 0, 'geo:tcpa_s': 400 })
-  assert.ok(bothHold(forcefulPool(s), 'give-way'), 'the counterexample no longer reproduces; is 15a-give-way still two-sided?')
+  assert.ok(bothHold(forcefulPool(s), 'give-way'), 'the counterexample no longer reproduces; is entry:crossing_gives_way still two-sided?')
   // ...and no positive speeds produce that steady bearing, so the record is
   // one the motion equations refuse, whatever speeds it claims.
   const found = inconsistencies(s)
@@ -2277,7 +2293,7 @@ test('Q-48 residual: 7(d)(i)\'s tolerance admits a slow starboard-to-starboard p
   const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value
   assert.ok(Math.abs(s.pair.geo['geo:bearing_change_deg_min']) < appreciable, 'the bearing rate is inside 7(d)(i)')
   assert.ok(s.pair.geo['geo:cpa_m'] > 100, 'and yet they pass clear')
-  assert.ok(matchesSituation(byId.get('7d1').when, s), '7(d)(i) deems risk')
+  assert.ok(matchesSituation(byId.get('entry:steady_bearing').when, s), '7(d)(i) deems risk')
   assert.deepEqual([...encountersFor(s)], ['crossing'])
   assert.ok(bothHold(forcefulPool(s), 'give-way'), 'both vessels are give-way -- the residual this test pins')
 })
@@ -2285,7 +2301,7 @@ test('Q-48 residual: 7(d)(i)\'s tolerance admits a slow starboard-to-starboard p
 // --- who governs over Rules 12 and 15 (Q-40) --------------------------------
 test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs over it says so', () => {
   const rule12 = precedence.filter((e) => e.cite.startsWith('12('))
-  assert.deepEqual(rule12.map((e) => e.id).sort(), ['12a1', '12a2', '12a3'])
+  assert.deepEqual(rule12.map((e) => e.id).sort(), ['entry:sail_port_tack_gives_way', 'entry:sail_port_tack_uncertain_gives_way', 'entry:sail_windward_gives_way'])
   for (const e of rule12) {
     // 'Two sailing vessels' is 3(c), which is the propulsion axis -- not the
     // Rule 18 rank, which would drop a fishing vessel under sail out of Rule 12.
@@ -2300,8 +2316,8 @@ test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs ov
   // and II. Both are on file, so the reason is asserted along with the data.
   if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/)
   if (verbatim('13(a)')) assert.match(enUS.paragraphs['13(a)'].text, /^Notwithstanding/)
-  for (const id of ['18b1', '18b2', '18b3', '18c1', '18c2', '13a']) {
-    for (const t of ['12a1', '12a2', '12a3']) {
+  for (const id of ['entry:sail_gives_way_to_nuc', 'entry:sail_gives_way_to_ram', 'entry:sail_gives_way_to_fishing', 'entry:fishing_gives_way_to_nuc', 'entry:fishing_gives_way_to_ram', 'entry:overtaking_gives_way']) {
+    for (const t of ['entry:sail_port_tack_gives_way', 'entry:sail_windward_gives_way', 'entry:sail_port_tack_uncertain_gives_way']) {
       assert.ok((byId.get(id)['rel:overrides'] ?? []).includes(t), `${id} does not override ${t}`)
     }
   }
@@ -2317,16 +2333,16 @@ test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs ov
 })
 
 test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm that meets it overrides it', () => {
-  const gw = byId.get('15a-give-way')
+  const gw = byId.get('entry:crossing_gives_way')
   // 'Two power-driven vessels' is 3(b), which is the propulsion axis. The rank
   // is no longer read here at all: keeping it out of the predicate is what puts
   // the interaction with Rule 18 into rel:overrides where it can be checked.
   assert.equal(gw.when['own:fact:propulsion'], 'propulsion:power', 'own is not gated on 3(b)')
   assert.equal(gw.when['other:fact:propulsion'], 'propulsion:power', 'other is not gated on 3(b)')
   for (const k of factKeys(gw.when)) assert.ok(!k.endsWith('fact:rule18_class'), `15a-give-way reads ${k}`)
-  // 15a-crossing never carried the rank gate and still must not: the encounter
+  // entry:crossing never carried the rank gate and still must not: the encounter
   // is a crossing whatever Rule 18 makes of the roles.
-  for (const k of factKeys(byId.get('15a-crossing').when)) {
+  for (const k of factKeys(byId.get('entry:crossing').when)) {
     assert.ok(!k.endsWith('fact:rule18_class'), `15a-crossing reads ${k}`)
   }
   // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so it governs
@@ -2334,13 +2350,13 @@ test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm th
   // cannot keep the override after losing the words.
   if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/)
   if (verbatim('15(a)')) assert.match(enUS.paragraphs['15(a)'].text, /power-driven vessels/)
-  for (const id of ['18a1', '18a2', '18a3', '18c1', '18c2', '18f1']) {
-    assert.ok((byId.get(id)['rel:overrides'] ?? []).includes('15a-give-way'), `${id} does not override 15a-give-way`)
+  for (const id of ['entry:fishing_gives_way_to_nuc', 'entry:fishing_gives_way_to_ram', 'entry:power_gives_way_to_fishing', 'entry:power_gives_way_to_nuc', 'entry:power_gives_way_to_ram', 'entry:wig_keeps_well_clear']) {
+    assert.ok((byId.get(id)['rel:overrides'] ?? []).includes('entry:crossing_gives_way'), `${id} does not override entry:crossing_gives_way`)
   }
   // ...and that hand-list is exactly the derived one, so a Rule 18 entry added
   // later cannot quietly join Rule 15 without saying which of them wins. An
-  // entry meets 15a-give-way when it assigns a helm role and neither subject is
-  // gated to a sailing vessel -- a gate 15a-give-way's own propulsion gate makes
+  // entry meets entry:crossing_gives_way when it assigns a helm role and neither subject is
+  // gated to a sailing vessel -- a gate entry:crossing_gives_way's own propulsion gate makes
   // unsatisfiable, because rule18_class:sail decodes from propulsion:sail alone.
   const sailRow = facts.derived['fact:rule18_class'].decode.find((r) => r.value === 'rule18_class:sail')
   assert.deepEqual(sailRow.when, { 'fact:propulsion': 'propulsion:sail' })
@@ -2349,18 +2365,18 @@ test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm th
   const rule18 = precedence.filter((e) => e.cite.startsWith('18('))
   assert.deepEqual(
     rule18.filter(meetsRule15).map((e) => e.id).sort(),
-    ['18a1', '18a2', '18a3', '18c1', '18c2', '18f1'],
+    ['entry:fishing_gives_way_to_nuc', 'entry:fishing_gives_way_to_ram', 'entry:power_gives_way_to_fishing', 'entry:power_gives_way_to_nuc', 'entry:power_gives_way_to_ram', 'entry:wig_keeps_well_clear'],
     'the Rule 18 entries that can be in force between two power-driven vessels have changed')
   for (const e of rule18) {
-    assert.equal((e['rel:overrides'] ?? []).includes('15a-give-way'), meetsRule15(e),
-      `${e.id}: rel:overrides against 15a-give-way disagrees with whether it can meet Rule 15`)
+    assert.equal((e['rel:overrides'] ?? []).includes('entry:crossing_gives_way'), meetsRule15(e),
+      `${e.id}: rel:overrides against entry:crossing_gives_way disagrees with whether it can meet Rule 15`)
   }
   // 13(a) needs no override against this entry and must not acquire one by
-  // accident: 15a-give-way excludes every overtaking twice over, by the latch
+  // accident: entry:crossing_gives_way excludes every overtaking twice over, by the latch
   // and by the sector 13(b) reads, so the two are never in force together.
   assert.equal(gw.when['own:hist:was_overtaking'], false)
   assert.equal(gw.when['other:hist:was_overtaking'], false)
-  assert.ok(!(byId.get('13a')['rel:overrides'] ?? []).includes('15a-give-way'))
+  assert.ok(!(byId.get('entry:overtaking_gives_way')['rel:overrides'] ?? []).includes('entry:crossing_gives_way'))
   // The two fixtures written for it resolve the way the data now says: where
   // Rule 18 ranks neither vessel, Rule 15 alone assigns the roles.
   for (const [name, note] of [['15 between two fishing vessels', 'two fishing vessels'], ['15 between NUC and RAM', 'NUC and RAM']]) {

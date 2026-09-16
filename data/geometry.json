@@ -92,8 +92,8 @@
    "cite": "AnxI.2(f)(ii)",
    "light": "light:all_round",
    "applies_to_entries": [
-    "27b-id",
-    "28"
+    "entry:ram_red_white_red",
+    "entry:cbd"
    ],
    "text": "When it is impracticable to carry the all-round lights prescribed by Rule 27(b)(i) or Rule 28 below the masthead lights, they may be carried above the after masthead light(s) or vertically in between the forward masthead light(s) and after masthead light(s), provided that in the latter case the requirement of paragraph 3(c) shall be complied with."
   },
@@ -162,8 +162,8 @@
   {
    "cite": "AnxI.2(j)",
    "applies_to_entries": [
-    "26b-id",
-    "26c-id"
+    "entry:trawling_green_over_white",
+    "entry:fishing_red_over_white"
    ],
    "datum": "sidelights",
    "min_multiple_of_pair_spacing": 2,
@@ -172,7 +172,7 @@
   {
    "cite": "AnxI.2(k)",
    "applies_to_entries": [
-    "30a"
+    "entry:anchored"
    ],
    "datum": "after anchor light",
    "min_m": 4.5,
@@ -212,7 +212,7 @@
   {
    "cite": "AnxI.3(c)",
    "applies_to_entries": [
-    "27b-id"
+    "entry:ram_red_white_red"
    ],
    "min_offset_from_centerline_m": 2,
    "text": "When the lights prescribed in Rule 27(b)(i) are placed vertically between the forward masthead light(s) and the after masthead light(s), these all-round lights shall be placed at a horizontal distance of not less than 2 meters from the fore and aft centerline of the vessel in the athwartship direction."
@@ -227,7 +227,7 @@
   {
    "cite": "AnxI.4(a)",
    "applies_to_entries": [
-    "26c-gear"
+    "entry:fishing_outlying_gear"
    ],
    "horizontal_from_identity_lights_m": {
     "min": 2,
@@ -239,7 +239,7 @@
   {
    "cite": "AnxI.4(b)",
    "applies_to_entries": [
-    "27d"
+    "entry:ram_underwater_obstruction"
    ],
    "horizontal_from_ram_lights_m": {
     "min": 2
