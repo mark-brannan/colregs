@@ -81,12 +81,12 @@ interface ConductEvaluation {
   phases: ConductPhaseChange[];
 }
 interface ConductVerdict {
-  id: EntryId; subject: 'own' | 'other';
+  id: EntryId; subject: 'self' | 'other';
   verdict: 'kept' | 'breached' | 'pending';
   attached_at_s?: number; decided_at_s?: number;
   robustness?: { value: number; unit: string };
 }
-interface ConductPhaseChange { subject: 'own' | 'other'; phase: ParagraphCite; at_s: number; }
+interface ConductPhaseChange { subject: 'self' | 'other'; phase: ParagraphCite; at_s: number; }
 ```
 
 - One **verdict** per applied conduct entry per subject it attached to; an

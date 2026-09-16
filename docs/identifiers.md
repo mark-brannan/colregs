@@ -82,14 +82,14 @@ is three segments:
 
 | segment | values |
 |---|---|
-| subject | `own`, `other`, `pair` |
+| subject | `self`, `other`, `pair` |
 | class | `fact`, `kin`, `geo`, `hist` |
 | key | the identifier as it already exists, or a new one in a new class |
 
-`own:fact:activity`, `other:kin:heading_deg`, `pair:geo:in_sight`,
-`own:hist:was_overtaking`.
+`self:fact:activity`, `other:kin:heading_deg`, `pair:geo:in_sight`,
+`self:hist:was_overtaking`.
 
-**A key with no subject segment means `own:`.** This is the whole of the
+**A key with no subject segment means `self:`.** This is the whole of the
 backward-compatibility story and it is why the subject is a *prefix* rather
 than a change to the fact keys. `fact:activity` still spells `fact:activity`
 and still denotes what it always denoted, so every predicate in
@@ -97,14 +97,14 @@ and still denotes what it always denoted, so every predicate in
 `fixtures/applicability-fixtures.json` and every stored citation a consumer
 holds stays correct unedited — `REQ-MODEL-10` is satisfied by construction
 rather than by a migration. The alternative shapes were a suffix
-(`fact:activity:own`), which buries the thing you are scanning for at the
+(`fact:activity:self`), which buries the thing you are scanning for at the
 end of a variable-length name, and per-subject fact keys
 (`fact:own_activity`), which would double the fact vocabulary and repoint
 nothing but would leave two names for one concept forever. Prefixing is the
 only one of the three where the existing vocabulary is a strict subset of
 the new one.
 
-The cost, stated so nobody rediscovers it: `own`, `other` and `pair` are now
+The cost, stated so nobody rediscovers it: `self`, `other` and `pair` are now
 reserved at the head of the identifier space, and no fact, light or relation
 may ever be named one of them. That is the price of a subject segment that
 is not itself prefixed, and it is cheap — the three words are not candidate
@@ -112,9 +112,9 @@ names for anything this package models.
 
 ### The three subjects
 
-`own` is the vessel the rule addresses; `other` is the vessel it is in an
+`self` is the vessel the rule addresses; `other` is the vessel it is in an
 encounter with. **`pair` is the encounter itself**, and it exists because
-some facts belong to neither vessel: range is one number, not own's number
+some facts belong to neither vessel: range is one number, not self's number
 and the other's. Putting `geo:range_m` under both subjects would create two
 identifiers for one quantity and a class of bug — the two disagreeing —
 that has no meaning.
@@ -125,20 +125,20 @@ Geometry splits on whether the quantity is symmetric between the vessels:
 
 | fact | subject | |
 |---|---|---|
-| `geo:rel_bearing_deg` | `own` / `other` | bearing of the *other* subject, clockwise from this subject's heading |
+| `geo:rel_bearing_deg` | `self` / `other` | bearing of the *other* subject, clockwise from this subject's heading |
 | `geo:range_m` | `pair` | |
 | `geo:bearing_change_deg_min` | `pair` | Rule 7(d)(i)'s steady bearing |
 | `geo:cpa_m`, `geo:tcpa_s` | `pair` | |
 | `geo:in_sight` | `pair` | Rule 3(k), symmetric because the rule defines it that way |
 
 The directional row is where the namespace earns its keep.
-`own:geo:rel_bearing_deg` is relative bearing — where the other vessel is
-off own's bow. `other:geo:rel_bearing_deg` is the same fact read from the
+`self:geo:rel_bearing_deg` is relative bearing — where the other vessel is
+off self's bow. `other:geo:rel_bearing_deg` is the same fact read from the
 other side, which is **aspect**. So aspect gets no identifier of its own: it
 is a subject swap, not a second fact. Rule 13(b)'s overtaking sector is then
-`other:geo:rel_bearing_deg` in (112.5, 247.5) — own more than 22.5° abaft
+`other:geo:rel_bearing_deg` in (112.5, 247.5) — self more than 22.5° abaft
 the other vessel's beam — written once, in the units the rule itself uses.
-Swapping `own` and `other` throughout a predicate reverses the encounter,
+Swapping `self` and `other` throughout a predicate reverses the encounter,
 which is exactly the operation a `precedence` rule needs and the reason to
 prefer a subject namespace over two parallel vocabularies.
 
@@ -153,7 +153,7 @@ and a record that omits the kinematics is unchecked rather than wrong.
 
 `kin:` is the kinematic class ADR 0005 introduces — `kin:position`,
 `kin:heading_deg`, `kin:sog_kn`, `kin:rot_deg_min`, `kin:dynamics`. It takes
-`own`/`other` only; there is no kinematic state of a pair. `kin:dynamics`
+`self`/`other` only; there is no kinematic state of a pair. `kin:dynamics`
 is an enumerated fact, so its values follow the bare-fact-name rule above:
 `dynamics:tanker`, not `kin:dynamics:tanker`.
 
@@ -164,12 +164,12 @@ overtaking, a subsequent alteration of the bearing does not make her a
 crossing vessel; the instantaneous geometry, read alone, says otherwise and
 hands the duty to the wrong vessel. So the latch is a fact:
 
-- `own:hist:was_overtaking` — this subject was, earlier in this encounter,
+- `self:hist:was_overtaking` — this subject was, earlier in this encounter,
   an overtaking vessel with respect to the other.
-- `own:hist:latched_at_s` — how long ago that attached, for a `conduct`
+- `self:hist:latched_at_s` — how long ago that attached, for a `conduct`
   monitor. A predicate at a point does not read it.
 
-History is directional — it is *own* that was overtaking — so it takes a
+History is directional — it is *self* that was overtaking — so it takes a
 subject segment like the fact record does, and never `pair`.
 
 ### What this does not do
@@ -197,7 +197,7 @@ an **effect**, and the shape of the effect is fixed by the category:
 | category | effect |
 |---|---|
 | `scope` | `{"part", "section", "applies_rules"}` — which section of which Part governs, and the rules it contains |
-| `precedence` | `{"own": <role>, "other": <role>}` — one role per subject |
+| `precedence` | `{"self": <role>, "other": <role>}` — one role per subject |
 | `classification` | `{"encounter": <encounter>}` **or** `{"risk_of_collision": true}` — exactly one key |
 
 Five roles, a closed set: `give-way`, `stand-on`, `shall-not-impede`,
@@ -281,8 +281,8 @@ neither subject is gated to a sailing vessel, and every such entry must carry
 the override, so a Rule 18 paragraph added later cannot join Rule 15 silently.
 
 **The effect names both subjects, and that is the point.** A `precedence`
-entry is evaluated from own's side, so 18(a)(i) says own gives way *and* the
-other vessel stands on. Writing only own's half would lose Rule 17, which
+entry is evaluated from self's side, so 18(a)(i) says self gives way *and* the
+other vessel stands on. Writing only self's half would lose Rule 17, which
 attaches to the counterpart of a give-way duty and to nothing else. So
 `stand-on` appears only opposite `give-way`, and the counterpart of
 `shall-not-impede` is always `none` — that is 8(f)(iii) in the data: a vessel
@@ -299,7 +299,7 @@ separate them and does not pretend to.
 
 A two-subject entry is keyed on its paragraph like any other (below):
 `rule:18a_i` is 18(a)(i), `rule:9c` is 9(c), `rule:8f_iii` is 8(f)(iii). No
-subject segment appears in an id: every entry is evaluated from own's side,
+subject segment appears in an id: every entry is evaluated from self's side,
 and where the paragraph classifies the pair rather than one vessel the entry
 reads both subjects inside one predicate — `rule:13b` is 13(b) whichever
 vessel is coming up. Where a paragraph's subject is disjunctive — 9(b) is
@@ -410,7 +410,7 @@ implemented in the reference evaluator and asserted by the fixtures.
   data is addressed by. Only the values inside them can be identifiers, and
   where they are (`also_activity` holds an activity value) they are prefixed.
   `not` and `any_of` are the second pair of words reserved at the head of an
-  identifier space, after `own`/`other`/`pair`: they appear where a fact key
+  identifier space, after `self`/`other`/`pair`: they appear where a fact key
   appears, so no fact may ever be named either. The cost is the same and as
   cheap — every fact key carries a class prefix (`fact:`, `geo:`, `kin:`,
   `hist:`, `env:`) and neither word could be one.

@@ -236,7 +236,7 @@ if (args.includes('--json')) {
     non_displacement: ['non-displacement'], obstruction_exists: ['obstruction'], on_mooring_buoy: ['moor'], tow_length_m: ['tow', 'length'],
     wig_near_surface: ['wig-craft', 'surface'], making_way: ['way'],
   }
-  const termsOf = (raw) => { const k = raw.replace(/^(own|other|pair):/, '').split(':').pop(); return ALIAS[k] ?? [k] }
+  const termsOf = (raw) => { const k = raw.replace(/^(self|other|pair):/, '').split(':').pop(); return ALIAS[k] ?? [k] }
   const all = new Set([...slugs.values()].flat())
   const vocab = new Set()
   const walk = (w) => { for (const k in w) { if (k === 'any_of') w[k].forEach(walk); else { vocab.add(k); const v = w[k]; for (const x of Array.isArray(v) ? v : typeof v === 'object' && v !== null ? [].concat(v.not ?? [], v.any_of ?? []) : [v]) if (typeof x === 'string') vocab.add(x) } } }

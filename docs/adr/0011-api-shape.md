@@ -49,7 +49,7 @@ that is the fixture contract: both fixture files `expect` entry ids.
 
 ### 2. `FactRecord` keeps its name
 
-It is colregs' name for the per-vessel record (`own.fact` is "exactly the
+It is colregs' name for the per-vessel record (`self.fact` is "exactly the
 record above, key for key"). ADR 0005 §2 has the situation wrap two fact
 records; the fact record itself does not widen, and a display consumer never
 sees a situation. A name that hinted at two vessels would describe the wrapper,
@@ -59,13 +59,13 @@ not the thing.
 
 colregs states the situation twice: nested by subject and class in
 `facts.json` §`situation.record` and in every fixture case, and flat as
-`own:fact:activity` inside predicates. The engine's public type is the
+`self:fact:activity` inside predicates. The engine's public type is the
 **nested** form. The flat form is the predicate namespace and stays internal
 to the walker.
 
 ```ts
 interface Situation {
-  own: Subject;
+  self: Subject;
   other?: Subject;
   pair?: Pair;
 }
@@ -73,7 +73,7 @@ interface Subject { fact: FactRecord; kin?: Kinematics; geo?: DirectionalGeometr
 interface Pair    { geo?: PairGeometry; env?: Environment; }
 ```
 
-- `own` is required; `other`/`Subject.fact` follow colregs' own fixture schema
+- `self` is required; `other`/`Subject.fact` follow colregs' own fixture schema
   (`situation-fixtures.schema.json`, `0.2.0`) — `other` optional (Rule 19's
   single-vessel scope needs no synthesized one), `fact` required. Every other
   class, and every key inside a class, is optional — absent is absent.
@@ -98,7 +98,7 @@ interface EncounterEvaluation {
   scope: EntryId[];
   encounter?: 'head-on' | 'crossing' | 'overtaking' | 'none';
   risk_of_collision: { asserted: boolean; by: EntryId[] };
-  roles: { own: SubjectRole[]; other: SubjectRole[] };
+  roles: { self: SubjectRole[]; other: SubjectRole[] };
   overridden: { id: EntryId; by: EntryId }[];
   modalities: Record<EntryId, Modality>;
 }
@@ -164,7 +164,7 @@ resolution, and validation of the situation record.
 | `FactRecord` keeps its name | ink | — |
 | `Situation` nested by subject and class, generated from `facts.json` | ink | — |
 | Verb name `evaluateEncounter`; result name `EncounterEvaluation` | ✎ | colregs renaming the `pair` subject or the `encounter` effect |
-| `own` required, `other`/`Subject.fact` per colregs 0.2.0's fixture schema | ✎ | revised 2026-09-07 from "own/other both required"; Mark to confirm before ink |
+| `self` required, `other`/`Subject.fact` per colregs 0.2.0's fixture schema | ✎ | revised 2026-09-07 from "own/other both required"; Mark to confirm before ink |
 | `appliedEncounterEntries` as the fixture-replay companion | ✎ | the situation-fixture replay being written |
 | Field names snake_case with unit suffixes across both ADRs; `EntryId`/`ParagraphCite` alias `string` for ids and cites | ✎ | the rename's alias window closing; a consumer arguing the compiler should enforce the two apart |
 | `EncounterEvaluation` field set (§4); `categories` and `provenance` added 2026-09-16 beyond the block above, as `DisplayEvaluation` carries them — colregs-engine 0.1.5 built them and ADR 0014's `encounter-evaluation.schema.json` is now the shape; `roles` is the pooled two-frame read, ADR 0016 | ✎ | building it; Q-35, Q-36, Q-43 in colregs |
