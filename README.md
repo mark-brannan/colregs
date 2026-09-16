@@ -144,12 +144,12 @@ paragraphs prevails is a relation.
 
 | relation | meaning |
 |---|---|
-| `rel:includes` | import the referenced entry's **lights only**, never its predicate |
-| `rel:conditional_includes` | import lights when the stated `when` holds; `one_of` is a set of legal alternatives |
-| `rel:in_lieu_of` | this entry's lights replace the referenced entries' lights |
-| `rel:excludes` | must not be shown together: a pick-one between alternatives, never one obligation vetoing another |
-| `rel:exempts` | the referenced requirement does not apply (30(e)) |
-| `rel:overrides` | this paragraph's requirement prevails over the referenced one's when both apply (Rule 18; Rule 26(a) over Rule 30's anchor lights) |
+| `rel:includes` | import the referenced entry's lights, their modality and its scalar gates — never its axes (ADR 0019) |
+| `rel:conditional_includes` | import lights when the stated `when` holds; `one_of` is a set of legal alternatives, exactly one per display, or none under a `may` carrier |
+| `rel:in_lieu_of` | this entry's lights replace the referenced entries' lights; two entries replacing overlapping sets are alternatives to each other |
+| `rel:excludes` | must not be shown together: a pick-one between alternatives, never one obligation vetoing another; a constraint on one display, never a removal |
+| `rel:exempts` | the referenced requirement does not apply (30(e)); reaches an entry in force, never an import |
+| `rel:overrides` | this paragraph's requirement prevails over the referenced one's when both apply (Rule 18; Rule 26(a) over Rule 30's anchor lights); reaches an entry in force, never an import |
 
 Modality is `modality:shall`, `modality:may`, `modality:shall-if-practicable`, `modality:shall-not`,
 `modality:shall-not-impede`, or `modality:conditional` with a `modality_by` table when it turns

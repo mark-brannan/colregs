@@ -24,6 +24,7 @@
     "docs/adr/0016-encounter-roles-are-pooled-across-frames.md": 90,
     "docs/adr/0017-closed-vocabularies-are-prefixed-identifiers.md": 120,
     "docs/adr/0018-jurisdiction-delta-is-a-merge-patch.md": 120,
+    "docs/adr/0019-relation-reach-and-import-reads.md": 110,
     "docs/timeline.md": 130,
     "docs/maritime-sources.md": 130,
     "docs/decisions.md": 40
