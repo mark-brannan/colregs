@@ -12,8 +12,10 @@ question the rule text leaves open.
 
 - **Monford Management Ltd v Afina Navigation Ltd ("KIVELI" c/w "AFINA I") [2025] EWHC 1185 (Admlty)**. Bryan J, Admiralty Court; permission to appeal refused, [2025] EWHC 1210. When a Section II classification arms and how long it persists — `Q-51` and `Q-52`. Held: Rule 14 applies once risk of collision arises, not on geometry alone, and risk of collision was found on Rule 7(d)(i) steady bearing plus an unsafe CPA; once armed, the classification persists until the risk has passed, unaffected by later course changes. The court rejected the submission that a head-on at C-22 had become a crossing by C-6 as the bearing opened. Reaches Rule 13 by analogy only; silent on overtaking.
   <https://caselaw.nationalarchives.gov.uk/ewhc/admlty/2025/1185> · case note by Nigel Cooper KC, counsel for AFINA I: <https://www.quadrantchambers.com/sites/default/files/2025-05/avoiding_a_head-on_collision_-_it_is_not_just_about_the_side_lights.pdf>
-- **Evergreen Marine (UK) Ltd v Nautical Challenge Ltd ("Ever Smart" / "Alexandra 1") [2021] UKSC 6**. Frames Section II as a scheme about steady-bearing *collision* situations, with Rule 13 inside that taxonomy ([56]–[57]); leans against treating an engaged rule as inapplicable ([68]); describes Rule 17's obligations as qualified stages, predicates on the current state, with keep-course-and-speed accommodating manoeuvres such as slowing to pick up a pilot ([61]–[62]). Not asked when Rule 13 arms, and did not decide it.
+- **Evergreen Marine (UK) Ltd v Nautical Challenge Ltd ("Ever Smart" / "Alexandra 1") [2021] UKSC 6**. Frames Section II as a scheme about steady-bearing *collision* situations, with Rule 13 inside that taxonomy ([56]–[57]); leans against treating an engaged rule as inapplicable ([68]); describes Rule 17's obligations as qualified stages, predicates on the current state, with keep-course-and-speed accommodating manoeuvres such as slowing to pick up a pilot ([61]–[62]). Not asked when Rule 13 arms, and did not decide it. Separately, at [60] and [66]–[67], settles `Q-23`'s asymmetry: Rule 2(a) is a standing responsibility clause that authorises nothing, while Rule 2(b) is a conjunctive test — special circumstance *and* immediate danger — and rejects Rule 2 as a gap-filler for the steering rules.
   <https://caselaw.nationalarchives.gov.uk/uksc/2021/6>
+- **Crowley Marine Services Inc. v. Maritrans Inc., 447 F.3d 719 (9th Cir. 2006)**. `Q-23`: the burden of justifying a Rule 2(b) departure falls on the departing vessel, and the departure must respond to an immediate danger already created — a pre-emptive departure does not qualify (n.6).
+  <http://cdn.ca9.uscourts.gov/datastore/opinions/2006/05/08/0435724.pdf>
 
 ## Commentary and guidance
 
@@ -41,6 +43,9 @@ ambiguous give-way/stand-on roles are what the Rules are written against.
 
 ## Known gaps
 
+- `Q-23`: *The Bywell Castle* and *Boy Andrew v St Rognvald* are unread, and no
+  case was found holding a Rule 2(b) departure justified on draught,
+  manoeuvrability, shoal water, a lee shore, set, visibility or sea state.
 - Two standard texts — Cockcroft & Lameijer, *A Guide to the Collision Avoidance Rules*, and Farwell's *Rules of the Nautical Road* — are not online. Either may settle how the stages of a close-quarters encounter are divided, and whether they are treated as irreversible.
 - Several of the questions in `docs/requirements.md` §11 appear unlitigated: overtaking geometry with no risk of collision, an overtaking situation becoming a head-on, resumption of course by a stand-on vessel that has acted, and the fate of accumulated Section II state across a visibility transition.
 - BAILII refuses automated access. Use the National Archives Find Case Law service: <https://caselaw.nationalarchives.gov.uk/>
