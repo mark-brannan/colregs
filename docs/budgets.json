@@ -2,6 +2,7 @@
   "$comment": "Prose budgets enforced by prose-budget (the engine in dotfiles .local/bin), run locally by npm test and in CI by the shared workflow. Raising a number or adding an exception is a deliberate, reviewable diff.",
   "lines": {
     "README.md": 360,
+    "docs/normative-language.md": 130,
     "AGENTS.md": 200,
     "CLAUDE.md": 10,
     "docs/requirements.md": 1500,
