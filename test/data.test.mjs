@@ -182,7 +182,7 @@ for (const { schema } of schemaById.values()) ajv.addSchema(schema)
 const SCHEMA_BASE = 'https://github.com/mark-brannan/colregs/schema/'
 const validatorFor = (file) => ajv.getSchema(`${SCHEMA_BASE}${file.replace(/^schema\//, '')}`)
 const check = (validate, data, what) =>
-  assert.ok(validate(data), `${what} fails ${validate.schema.$id ?? ''}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
+  assert.ok(validate(data), `${what} fails ${validate.schemaEnv?.baseId ?? validate.schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
 
 test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
   for (const [file, data, schema] of schemaTargets) check(ajv.getSchema(schema.$id), data, file)
@@ -240,11 +240,15 @@ test('operations: every fixture file is bound to a verb, and every bound case fi
     for (const fx of op.fixtures) {
       bound.add(fx.file)
       assert.ok(fixtureFiles.includes(fx.file), `${verb}: ${fx.file} does not exist`)
-      const inputSchema = schemaRefResolves(op.inputs[0].schema, verb)
-      const expectSchema = op.companion && schemaRefResolves(op.companion.output, verb)
+      assert.equal(fx.case_inputs.length, op.inputs.length, `${verb}: ${fx.file} binds ${fx.case_inputs.length} case keys to ${op.inputs.length} inputs`)
+      const inputSchemas = op.inputs.map((input) => schemaRefResolves(input.schema, verb))
+      const expectRef = fx.expect ?? op.companion?.output
+      const expectSchema = expectRef && schemaRefResolves(expectRef, verb)
       for (const c of load(fx.file).cases) {
-        assert.ok(c[fx.case_input] !== undefined, `${verb}: ${fx.file} case '${c.name}' has no ${fx.case_input}`)
-        check(inputSchema, c[fx.case_input], `${verb}: ${fx.file} case '${c.name}' ${fx.case_input}`)
+        fx.case_inputs.forEach((key, i) => {
+          assert.ok(c[key] !== undefined, `${verb}: ${fx.file} case '${c.name}' has no ${key}`)
+          check(inputSchemas[i], c[key], `${verb}: ${fx.file} case '${c.name}' ${key}`)
+        })
         // A situation fixture may expect `{ entry, modality }`; the companion answers the ids.
         if (expectSchema) check(expectSchema, c.expect.map((e) => (typeof e === 'string' ? e : e.entry)), `${verb}: ${fx.file} case '${c.name}' expect`)
       }
@@ -253,13 +257,19 @@ test('operations: every fixture file is bound to a verb, and every bound case fi
   assert.deepEqual(fixtureFiles.filter((f) => !bound.has(f)), [], 'fixture files no operation binds')
 })
 
-test('operations: the paragraph-cite pattern is rules.json\'s paragraph key', () => {
-  const cite = loadSchema('display-evaluation.schema.json').$defs.paragraphCite.pattern
-  assert.deepEqual(Object.keys(loadSchema('rules.schema.json').properties.paragraphs.patternProperties), [cite])
+// A patternProperties key cannot $ref, so the two vocabularies that key
+// envelope maps are copies of their source patterns; held equal here.
+test('operations: the paragraph-cite and entry-id patterns are their source schemas\' own', () => {
+  const commons = loadSchema('evaluation.schema.json').$defs
+  assert.deepEqual(Object.keys(loadSchema('rules.schema.json').properties.paragraphs.patternProperties), [commons.paragraphCite.pattern])
+  const entryId = loadSchema('applicability.schema.json').$defs.entryId.pattern
+  for (const map of ['modalities', 'categories']) assert.deepEqual(Object.keys(commons[map].patternProperties), [entryId], map)
 })
 
-// The result envelopes have no data file to validate, so each is exercised
-// by one minimal instance that must pass and by `{}`, which must not.
+// The result envelopes have no data file to validate here, so each is
+// smoke-tested with one hand-written instance that must pass and `{}`, which
+// must not. The contract that matters -- real engine output validating
+// against these schemas -- can only run where an engine is.
 const colregs = { version: '0.0.0', source: 'resolved' }
 const provenance = { evaluated_categories: ['display'], jurisdictions: ['intl'], represented: [{ id: '2a', jurisdiction: 'intl', cite: '2(a)', category: 'care' }] }
 const encounter = { colregs, applied: ['13a'], scope: ['11'], encounter: 'overtaking', risk_of_collision: { asserted: true, by: ['7a'] }, roles: { own: [{ role: 'give-way', by: '13a' }], other: [] }, overridden: [], modalities: { '13a': 'shall' }, categories: { '13a': 'precedence' }, provenance }
@@ -273,7 +283,7 @@ const envelopeExamples = {
   'rule2-departure-model.schema.json': { version: 'grid-0', colregs_version: '0.0.0', ...parameters, regions: [{ when: { 'own:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' }], artefact_only: true },
 }
 
-test('operations: each result and input envelope accepts a minimal instance and refuses an empty one', () => {
+test('operations: smoke -- each result and input envelope accepts a hand-written instance and refuses an empty one', () => {
   for (const [file, example] of Object.entries(envelopeExamples)) {
     const validate = validatorFor(file)
     check(validate, example, `${file} example`)

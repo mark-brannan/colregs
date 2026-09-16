@@ -48,21 +48,28 @@ artefact, the Java sense of interface against implementation:
    JSON-Schema-expressible only: `Record<EntryId, Modality>` becomes
    `patternProperties`, the `EntryId` and `ParagraphCite` aliases become
    `$defs`, the two deprecated camelCase aliases are marked `deprecated` and
-   optional. From here the direction reverses: an envelope changes in colregs
-   first and the engine follows.
+   optional. From here the schema is the normative statement of each
+   envelope; the TypeScript blocks in ADR 0011 §4 and ADR 0012 §2–4 are
+   illustrations of record, and an envelope changes here first, the engine
+   second.
 3. **Inputs get schemas too:** `fact-record`, `situation`, `trace`,
-   `rule2-departure-model`. The first two state the case shape the fixture
-   schemas already carry; the fixture schemas keep their inline copy, and the
-   tests validate every bound fixture case against the verb's input schema,
-   so the copies cannot disagree unnoticed.
+   `rule2-departure-model`. The two fixture schemas `$ref` the first two
+   for a case's `facts` and `situation` instead of carrying a copy; a fixture
+   case is the verb's input, and the tests validate every bound case against
+   it.
 4. **Schema files compose by `$ref`,** relative to their `$id`
    (`applicability.schema.json#/$defs/entryId`). ADR 0006's "no cross-file
    references" is about data references — cite to `rules.json` — which stay in
    the tests; a `$ref` between two schema files is one shape reused, not a
    data reference. The suite registers every schema by `$id` before compiling.
+   What every envelope shares — the `colregs` stamp, `provenance`, the
+   `entryId` and `paragraphCite` vocabularies — is `schema/evaluation.schema.json`,
+   `$defs` only, so moving one later is never a two-repository change.
 5. **A fixture file is bound to a verb** by `fixtures[].file` and
-   `case_input`: the case's input under that key, the companion's answer under
-   `expect`. Every file under `fixtures/` must be bound; `evaluateConduct` and
+   `case_inputs`, one case key per positional input, with the answer under
+   `expect`: the companion's entry ids unless the binding names another
+   schema. A case's `status` and `jurisdiction` are the fixture file's own.
+   Every file under `fixtures/` must be bound; `evaluateConduct` and
    `evaluateRule2Departure` bind nothing yet, and say so with an empty list.
 6. **Not in the manifest:** trailing options a binding accepts (`opts.data`),
    which verbs are built, and what a verb throws. Build status is ADR 0011's
@@ -70,12 +77,13 @@ artefact, the Java sense of interface against implementation:
 
 ## Consequences
 
-- Nine new files under `schema/`. The engine's `generate-schema-types.ts`
+- Ten new files under `schema/`. The engine's `generate-schema-types.ts`
   throws on any schema its `ROOT_NAMES` does not list, so the next colregs
-  bump fails its build until the follow-up lands: emit
+  bump fails its build until colregs-engine#86 lands: emit
   `interface ColregsEngine` from `operations.json`, `satisfies ColregsEngine`
-  at the engine's root, and settle the `fact-record.ts` / `situation.ts`
-  collision with the types it derives from `facts.json` today.
+  at the engine's root, settle the `fact-record.ts` / `situation.ts`
+  collision with the types it derives from `facts.json` today, and validate
+  real output against these schemas for every fixture case.
 - A YAML rendering of the manifest is lossless; XML is a generated view (JSON
   Schema to XSD). Authoring the interface in TypeScript first is the one route
   that forecloses both.
@@ -88,7 +96,7 @@ artefact, the Java sense of interface against implementation:
 | item | level | what would settle it |
 |---|---|---|
 | Options 2 and 3, not 1 or 4–10 | ✎ | this ADR accepted |
-| Manifest shape: positional `inputs`, `output`, `companion`, `fixtures[].case_input` | ✎ | the engine generator consuming it |
+| Manifest shape: positional `inputs`, `output`, `companion`, `fixtures[].case_inputs` and `expect` | ✎ | the engine generator consuming it; the first conduct or Rule 2 fixture |
 | Envelope schemas transcribed from `types.ts`, envelope changes land here first | ✎ | the first envelope change after the follow-up |
 | Cross-file `$ref` between schema files | ✎ | a consumer whose validator cannot register a schema set |
 | Deprecated aliases optional in the schema, required in the engine | ✎ | the engine dropping them |

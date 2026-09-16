@@ -4,48 +4,73 @@
     "evaluateDisplay": {
       "adr": "0011",
       "inputs": [
-        { "name": "facts", "schema": "schema/fact-record.schema.json" }
+        {
+          "name": "facts",
+          "schema": "schema/fact-record.schema.json"
+        }
       ],
       "output": "schema/display-evaluation.schema.json",
       "companion": {
         "verb": "appliedDisplayEntries",
-        "output": "schema/display-evaluation.schema.json#/$defs/entryIds"
+        "output": "schema/evaluation.schema.json#/$defs/entryIds"
       },
       "fixtures": [
-        { "file": "fixtures/applicability-fixtures.json", "case_input": "facts" }
+        {
+          "file": "fixtures/applicability-fixtures.json",
+          "case_inputs": [
+            "facts"
+          ]
+        }
       ]
     },
     "evaluateEncounter": {
       "adr": "0011",
       "inputs": [
-        { "name": "situation", "schema": "schema/situation.schema.json" }
+        {
+          "name": "situation",
+          "schema": "schema/situation.schema.json"
+        }
       ],
       "output": "schema/encounter-evaluation.schema.json",
       "companion": {
         "verb": "appliedEncounterEntries",
-        "output": "schema/display-evaluation.schema.json#/$defs/entryIds"
+        "output": "schema/evaluation.schema.json#/$defs/entryIds"
       },
       "fixtures": [
-        { "file": "fixtures/situation-fixtures.json", "case_input": "situation" }
+        {
+          "file": "fixtures/situation-fixtures.json",
+          "case_inputs": [
+            "situation"
+          ]
+        }
       ]
     },
     "evaluateConduct": {
       "adr": "0012",
       "inputs": [
-        { "name": "trace", "schema": "schema/trace.schema.json" }
+        {
+          "name": "trace",
+          "schema": "schema/trace.schema.json"
+        }
       ],
       "output": "schema/conduct-evaluation.schema.json",
       "companion": {
         "verb": "appliedConductEntries",
-        "output": "schema/display-evaluation.schema.json#/$defs/entryIds"
+        "output": "schema/evaluation.schema.json#/$defs/entryIds"
       },
       "fixtures": []
     },
     "evaluateRule2Departure": {
       "adr": "0012",
       "inputs": [
-        { "name": "situation", "schema": "schema/situation.schema.json" },
-        { "name": "model", "schema": "schema/rule2-departure-model.schema.json" }
+        {
+          "name": "situation",
+          "schema": "schema/situation.schema.json"
+        },
+        {
+          "name": "model",
+          "schema": "schema/rule2-departure-model.schema.json"
+        }
       ],
       "output": "schema/rule2-departure-finding.schema.json",
       "fixtures": []

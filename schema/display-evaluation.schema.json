@@ -2,31 +2,70 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/display-evaluation.schema.json",
   "title": "DisplayEvaluation",
-  "description": "The result of evaluateDisplay: every complete lawful display for one vessel, alternatives unresolved (REQ-MODEL-8), with the data it was read against (ADR 0011 §1, ADR 0014). Structure only. The `$defs` shared by every result envelope -- `colregs`, `provenance`, `entryId`, `paragraphCite`, `byEntry` -- live here.",
+  "description": "The result of evaluateDisplay: every complete lawful display for one vessel, alternatives unresolved (REQ-MODEL-8), with the data it was read against (ADR 0011 §1, ADR 0014). Structure only; the $defs shared with the other envelopes live in schema/evaluation.schema.json.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["colregs", "applied", "exempted", "excluded", "overridden", "displays", "optional_additions", "modalities", "categories", "provenance"],
+  "required": [
+    "colregs",
+    "applied",
+    "exempted",
+    "excluded",
+    "overridden",
+    "displays",
+    "optional_additions",
+    "modalities",
+    "categories",
+    "provenance"
+  ],
   "properties": {
-    "colregs": { "$ref": "#/$defs/colregs" },
-    "applied": { "$ref": "#/$defs/entryIds" },
-    "exempted": { "$ref": "#/$defs/byEntryList" },
-    "excluded": { "$ref": "#/$defs/byEntryList" },
-    "overridden": { "$ref": "#/$defs/byEntryList" },
+    "colregs": {
+      "$ref": "evaluation.schema.json#/$defs/colregs"
+    },
+    "applied": {
+      "$ref": "evaluation.schema.json#/$defs/entryIds"
+    },
+    "exempted": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "excluded": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "overridden": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
     "displays": {
       "type": "array",
-      "items": { "$ref": "#/$defs/display" }
+      "items": {
+        "$ref": "#/$defs/display"
+      }
     },
     "optional_additions": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "lights", "cite"],
+        "required": [
+          "id",
+          "lights",
+          "cite"
+        ],
         "properties": {
-          "id": { "$ref": "#/$defs/entryId" },
-          "via": { "$ref": "#/$defs/entryId" },
-          "lights": { "type": "array", "items": { "$ref": "#/$defs/displayLight" } },
-          "cite": { "type": "string", "minLength": 1 }
+          "id": {
+            "$ref": "evaluation.schema.json#/$defs/entryId"
+          },
+          "via": {
+            "$ref": "evaluation.schema.json#/$defs/entryId"
+          },
+          "lights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayLight"
+            }
+          },
+          "cite": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
@@ -34,108 +73,73 @@
       "deprecated": true,
       "$comment": "Renamed to optional_additions (ADR 0011 §4); an implementation may still emit both.",
       "type": "array",
-      "items": { "$ref": "#/properties/optional_additions/items" }
-    },
-    "modalities": { "$ref": "#/$defs/modalities" },
-    "categories": { "$ref": "#/$defs/categories" },
-    "provenance": { "$ref": "#/$defs/provenance" }
-  },
-  "$defs": {
-    "entryId": { "$ref": "applicability.schema.json#/$defs/entryId" },
-    "entryIds": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/entryId" }
-    },
-    "paragraphCite": {
-      "$comment": "A Rules paragraph path, the vocabulary of `phase` and `breaches` (ADR 0011 §4); the pattern is data/rules.json's paragraph key, and the tests hold the two equal.",
-      "type": "string",
-      "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
-    },
-    "colregs": {
-      "$comment": "`resolved`: the data is the implementation's own colregs dependency and `version` describes it exactly. `caller`: the caller supplied the data and `version` names only the release the implementation resolved.",
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["version", "source"],
-      "properties": {
-        "version": { "type": "string", "minLength": 1 },
-        "source": { "type": "string", "enum": ["resolved", "caller"] }
+      "items": {
+        "$ref": "#/properties/optional_additions/items"
       }
-    },
-    "byEntry": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["id", "by"],
-      "properties": {
-        "id": { "$ref": "#/$defs/entryId" },
-        "by": { "$ref": "#/$defs/entryId" }
-      }
-    },
-    "byEntryList": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/byEntry" }
     },
     "modalities": {
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$": { "$ref": "applicability.schema.json#/$defs/modality" }
-      }
+      "$ref": "evaluation.schema.json#/$defs/modalities"
     },
     "categories": {
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$": { "$ref": "#/$defs/ruleCategory" }
-      }
-    },
-    "ruleCategory": { "$ref": "applicability.schema.json#/properties/entries/items/properties/category" },
-    "representedParagraph": {
-      "$comment": "One of data/applicability.json's represented_paragraphs without its note: an evaluation carries the identity, not the prose.",
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["id", "jurisdiction", "cite", "category"],
-      "properties": {
-        "id": { "$ref": "#/$defs/entryId" },
-        "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
-        "cite": { "type": "string", "minLength": 1 },
-        "category": { "type": "string", "enum": ["care", "meta"] }
-      }
+      "$ref": "evaluation.schema.json#/$defs/categories"
     },
     "provenance": {
-      "$comment": "What an evaluation read, and therefore what its answer does not cover: the categories it matched, the jurisdictions offered, and the paragraphs no verb computes.",
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["evaluated_categories", "jurisdictions", "represented"],
-      "properties": {
-        "evaluated_categories": { "type": "array", "items": { "$ref": "#/$defs/ruleCategory" } },
-        "jurisdictions": { "type": "array", "items": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" } },
-        "represented": { "type": "array", "items": { "$ref": "#/$defs/representedParagraph" } }
-      }
-    },
+      "$ref": "evaluation.schema.json#/$defs/provenance"
+    }
+  },
+  "$defs": {
     "displayLight": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["spec", "source_entry", "modality"],
+      "required": [
+        "spec",
+        "source_entry",
+        "modality"
+      ],
       "properties": {
-        "spec": { "$ref": "applicability.schema.json#/$defs/lightRef" },
-        "source_entry": { "$ref": "#/$defs/entryId" },
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/lightRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/entryId"
+        },
         "sourceEntry": {
           "deprecated": true,
           "$comment": "Renamed to source_entry (ADR 0011 §4).",
-          "$ref": "#/$defs/entryId"
+          "$ref": "evaluation.schema.json#/$defs/entryId"
         },
-        "via": { "$ref": "#/$defs/entryId" },
-        "modality": { "$ref": "applicability.schema.json#/$defs/modality" }
+        "via": {
+          "$ref": "evaluation.schema.json#/$defs/entryId"
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
       }
     },
     "display": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["entries", "lights", "chosen"],
+      "required": [
+        "entries",
+        "lights",
+        "chosen"
+      ],
       "properties": {
-        "entries": { "$ref": "#/$defs/entryIds" },
-        "lights": { "type": "array", "items": { "$ref": "#/$defs/displayLight" } },
-        "chosen": { "type": "array", "items": { "type": "string" } }
+        "entries": {
+          "$ref": "evaluation.schema.json#/$defs/entryIds"
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/displayLight"
+          }
+        },
+        "chosen": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     }
   }

@@ -8,14 +8,7 @@
   "additionalProperties": false,
   "required": ["jurisdiction", "cases"],
   "$defs": {
-    "factValue": {
-      "oneOf": [
-        { "type": "string", "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$" },
-        { "type": "number" },
-        { "type": "boolean" }
-      ]
-    },
-    "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)?$" }
+    "entryId": { "$ref": "applicability.schema.json#/$defs/entryId" }
   },
   "properties": {
     "note": { "type": "string" },
@@ -31,12 +24,10 @@
           "name": { "type": "string", "minLength": 1 },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "facts": {
+            "$comment": "A FactRecord (schema/fact-record.schema.json, ADR 0014); a case asserts at least one fact.",
             "type": "object",
             "minProperties": 1,
-            "additionalProperties": false,
-            "patternProperties": {
-              "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/factValue" }
-            }
+            "$ref": "fact-record.schema.json"
           },
           "expect": {
             "type": "array",

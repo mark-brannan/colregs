@@ -3,7 +3,7 @@
   "$id": "https://github.com/mark-brannan/colregs/schema/fact-record.schema.json",
   "title": "FactRecord",
   "description": "What a consumer asserts about one vessel at one moment: the input evaluateDisplay reads (ADR 0011 §2, ADR 0014). Structure only -- which fact keys exist and which values each takes is data/facts.json's, checked in the tests; see docs/adr/0006-json-schema-and-identifier-diff.md.",
-  "$comment": "The same shape as a case's `facts` in schema/applicability-fixtures.schema.json, stated once here so an operation can name it.",
+  "$comment": "A case's `facts` in schema/applicability-fixtures.schema.json is this shape plus minProperties: 1 -- a fixture must assert something; an evaluation input need not, and `{}` is a record that asserts nothing. Values are string, number or boolean, as data/facts.json declares them; null and positions belong to the situation classes.",
   "type": "object",
   "additionalProperties": false,
   "patternProperties": {
@@ -14,9 +14,16 @@
   "$defs": {
     "factValue": {
       "oneOf": [
-        { "type": "string", "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$" },
-        { "type": "number" },
-        { "type": "boolean" }
+        {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
       ]
     }
   }

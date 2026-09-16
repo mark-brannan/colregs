@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/situation-fixtures.schema.json",
   "title": "fixtures/situation-fixtures.json",
-  "description": "Two-subject situation fixtures (ADR 0005, REQ-CAT-5). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md. Namespace resolution (every kin:/geo:/hist: key declared in facts.json) stays in the tests.",
+  "description": "Two-subject situation fixtures (ADR 0005, REQ-CAT-5). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md. A case's situation is schema/situation.schema.json; namespace resolution (every kin:/geo:/hist: key declared in facts.json) stays in the tests.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -13,20 +13,10 @@
   ],
   "$defs": {
     "entryId": {
-      "type": "string",
-      "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$"
+      "$ref": "applicability.schema.json#/$defs/entryId"
     },
     "modality": {
-      "type": "string",
-      "enum": [
-        "shall",
-        "may",
-        "shall-if-practicable",
-        "conditional",
-        "exempt",
-        "shall-not",
-        "shall-not-impede"
-      ]
+      "$ref": "applicability.schema.json#/$defs/modality"
     },
     "expectItem": {
       "oneOf": [
@@ -50,109 +40,6 @@
           }
         }
       ]
-    },
-    "scalar": {
-      "oneOf": [
-        {
-          "type": "string",
-          "pattern": "^[a-z][a-z0-9_]*:[a-z0-9_]+$"
-        },
-        {
-          "type": "number"
-        },
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "latitude",
-            "longitude"
-          ],
-          "properties": {
-            "latitude": {
-              "type": "number",
-              "minimum": -90,
-              "maximum": 90
-            },
-            "longitude": {
-              "type": "number",
-              "minimum": -180,
-              "maximum": 180
-            }
-          }
-        }
-      ]
-    },
-    "factRecord": {
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^fact:[a-z0-9_]+$": {
-          "$ref": "#/$defs/scalar"
-        }
-      }
-    },
-    "kinRecord": {
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^kin:[a-z0-9_]+$": {
-          "$ref": "#/$defs/scalar"
-        }
-      }
-    },
-    "geoRecord": {
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^geo:[a-z0-9_]+$": {
-          "$ref": "#/$defs/scalar"
-        }
-      }
-    },
-    "histRecord": {
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^hist:[a-z0-9_]+$": {
-          "$ref": "#/$defs/scalar"
-        }
-      }
-    },
-    "envRecord": {
-      "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^env:[a-z0-9_]+$": {
-          "$ref": "#/$defs/scalar"
-        }
-      }
-    },
-    "vessel": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "fact"
-      ],
-      "properties": {
-        "fact": {
-          "$ref": "#/$defs/factRecord"
-        },
-        "kin": {
-          "$ref": "#/$defs/kinRecord"
-        },
-        "geo": {
-          "$ref": "#/$defs/geoRecord"
-        },
-        "hist": {
-          "$ref": "#/$defs/histRecord"
-        }
-      }
     }
   },
   "properties": {
@@ -286,31 +173,8 @@
             }
           },
           "situation": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "own"
-            ],
-            "properties": {
-              "own": {
-                "$ref": "#/$defs/vessel"
-              },
-              "other": {
-                "$ref": "#/$defs/vessel"
-              },
-              "pair": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "geo": {
-                    "$ref": "#/$defs/geoRecord"
-                  },
-                  "env": {
-                    "$ref": "#/$defs/envRecord"
-                  }
-                }
-              }
-            }
+            "$comment": "A Situation (schema/situation.schema.json, ADR 0014).",
+            "$ref": "situation.schema.json"
           }
         }
       }

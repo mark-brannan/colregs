@@ -2,10 +2,12 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/trace.schema.json",
   "title": "Trace",
-  "description": "The situation over time: the window evaluateConduct reads (ADR 0012 §2, ADR 0014). Non-empty, `t_s` strictly increasing on the caller's clock, the same two vessels throughout; the ordering is checked by the engine's validator, the identity is the caller's. Structure only.",
+  "description": "The situation over time: the window evaluateConduct reads (ADR 0012 §2, ADR 0014). A conforming implementation rejects an empty samples list, a `t_s` that does not strictly increase, and `other` present in some samples and absent in others; `t_s` is seconds on the caller's clock, read as differences only, and the pair's identity is the caller's, since a Situation names no vessel. Structure only.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["samples"],
+  "required": [
+    "samples"
+  ],
   "properties": {
     "samples": {
       "type": "array",
@@ -13,10 +15,17 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["t_s", "situation"],
+        "required": [
+          "t_s",
+          "situation"
+        ],
         "properties": {
-          "t_s": { "type": "number" },
-          "situation": { "$ref": "situation.schema.json" }
+          "t_s": {
+            "type": "number"
+          },
+          "situation": {
+            "$ref": "situation.schema.json"
+          }
         }
       }
     }
