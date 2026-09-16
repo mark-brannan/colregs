@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/operations.schema.json",
+  "title": "data/operations.json",
+  "description": "The engine interface colregs owns (ADR 0014): one operation per verb ADR 0011 and ADR 0012 name, each binding its positional inputs and its result to a schema under schema/, its entry-id companion, and the fixture cases that exercise it. Structure only -- that every schema reference resolves and every fixture file is bound is checked in the tests.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "operations"
+  ],
+  "$defs": {
+    "verb": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9]*$"
+    },
+    "schemaRef": {
+      "$comment": "A file under schema/, optionally with a JSON pointer into it; relative to the package root.",
+      "type": "string",
+      "pattern": "^schema/[a-z0-9-]+\\.schema\\.json(#/[^#]+)?$"
+    },
+    "adr": {
+      "type": "string",
+      "pattern": "^[0-9]{4}$"
+    }
+  },
+  "properties": {
+    "note": {
+      "type": "string"
+    },
+    "operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z][A-Za-z0-9]*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "adr",
+            "inputs",
+            "output",
+            "fixtures"
+          ],
+          "properties": {
+            "adr": {
+              "$ref": "#/$defs/adr"
+            },
+            "inputs": {
+              "$comment": "Positional, in call order. Anything a binding accepts after them (an options bag, a data override) is the binding's own and is not named here.",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "schema"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "schema": {
+                    "$ref": "#/$defs/schemaRef"
+                  }
+                }
+              }
+            },
+            "output": {
+              "$ref": "#/$defs/schemaRef"
+            },
+            "companion": {
+              "$comment": "The verb that takes the same inputs and answers only the applied entry ids -- the fixture contract, since every fixture case `expect`s entry ids.",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "verb",
+                "output"
+              ],
+              "properties": {
+                "verb": {
+                  "$ref": "#/$defs/verb"
+                },
+                "output": {
+                  "$ref": "#/$defs/schemaRef"
+                }
+              }
+            },
+            "fixtures": {
+              "$comment": "Each binds a fixture file whose `cases[]` carry this operation's inputs, in order, under the `case_inputs` keys, and the expected answer under `expect` -- the companion's entry ids unless `expect` names another schema. A case's `status` and `jurisdiction` are the fixture file's own and are read there. Empty until a fixture file for the input exists.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "case_inputs"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "pattern": "^fixtures/[a-z0-9-]+\\.json$"
+                  },
+                  "case_inputs": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9_]*$"
+                    }
+                  },
+                  "expect": {
+                    "$ref": "#/$defs/schemaRef"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/conduct-evaluation.schema.json",
+  "title": "ConductEvaluation",
+  "description": "The result of evaluateConduct: one verdict per applied conduct entry per subject over the window the caller handed over, and the Rule 13(d)/17 phase changes seen (ADR 0012 §3, ADR 0014). Structure only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "colregs",
+    "window",
+    "applied",
+    "verdicts",
+    "phases"
+  ],
+  "properties": {
+    "colregs": {
+      "$ref": "evaluation.schema.json#/$defs/colregs"
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from_s",
+        "to_s",
+        "samples"
+      ],
+      "properties": {
+        "from_s": {
+          "type": "number"
+        },
+        "to_s": {
+          "type": "number"
+        },
+        "samples": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "applied": {
+      "$ref": "evaluation.schema.json#/$defs/entryIds"
+    },
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/verdict"
+      }
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/phaseChange"
+      }
+    }
+  },
+  "$defs": {
+    "subject": {
+      "type": "string",
+      "enum": [
+        "own",
+        "other"
+      ]
+    },
+    "verdict": {
+      "$comment": "`pending`: the window ended before the duty could be judged. An entry that never attached is absent, not pending.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "subject",
+        "verdict"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "evaluation.schema.json#/$defs/entryId"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "kept",
+            "breached",
+            "pending"
+          ]
+        },
+        "attached_at_s": {
+          "type": "number"
+        },
+        "decided_at_s": {
+          "type": "number"
+        },
+        "robustness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit"
+          ],
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "phaseChange": {
+      "$comment": "`phase` is a paragraph cite, never an entry id: several phases have no entry.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "phase",
+        "at_s"
+      ],
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "phase": {
+          "$ref": "evaluation.schema.json#/$defs/paragraphCite"
+        },
+        "at_s": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

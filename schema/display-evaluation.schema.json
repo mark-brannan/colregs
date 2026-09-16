@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/display-evaluation.schema.json",
+  "title": "DisplayEvaluation",
+  "description": "The result of evaluateDisplay: every complete lawful display for one vessel, alternatives unresolved (REQ-MODEL-8), with the data it was read against (ADR 0011 §1, ADR 0014). Structure only; the $defs shared with the other envelopes live in schema/evaluation.schema.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "colregs",
+    "applied",
+    "exempted",
+    "excluded",
+    "overridden",
+    "displays",
+    "optional_additions",
+    "modalities",
+    "categories",
+    "provenance"
+  ],
+  "properties": {
+    "colregs": {
+      "$ref": "evaluation.schema.json#/$defs/colregs"
+    },
+    "applied": {
+      "$ref": "evaluation.schema.json#/$defs/entryIds"
+    },
+    "exempted": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "excluded": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "overridden": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "displays": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/display"
+      }
+    },
+    "optional_additions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "lights",
+          "cite"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "evaluation.schema.json#/$defs/entryId"
+          },
+          "via": {
+            "$ref": "evaluation.schema.json#/$defs/entryId"
+          },
+          "lights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayLight"
+            }
+          },
+          "cite": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "optionalAdditions": {
+      "deprecated": true,
+      "$comment": "Renamed to optional_additions (ADR 0011 §4); an implementation may still emit both.",
+      "type": "array",
+      "items": {
+        "$ref": "#/properties/optional_additions/items"
+      }
+    },
+    "modalities": {
+      "$ref": "evaluation.schema.json#/$defs/modalities"
+    },
+    "categories": {
+      "$ref": "evaluation.schema.json#/$defs/categories"
+    },
+    "provenance": {
+      "$ref": "evaluation.schema.json#/$defs/provenance"
+    }
+  },
+  "$defs": {
+    "displayLight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "source_entry",
+        "modality"
+      ],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/lightRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/entryId"
+        },
+        "sourceEntry": {
+          "deprecated": true,
+          "$comment": "Renamed to source_entry (ADR 0011 §4).",
+          "$ref": "evaluation.schema.json#/$defs/entryId"
+        },
+        "via": {
+          "$ref": "evaluation.schema.json#/$defs/entryId"
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
+      }
+    },
+    "display": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entries",
+        "lights",
+        "chosen"
+      ],
+      "properties": {
+        "entries": {
+          "$ref": "evaluation.schema.json#/$defs/entryIds"
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/displayLight"
+          }
+        },
+        "chosen": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

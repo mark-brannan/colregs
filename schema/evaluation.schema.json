@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/evaluation.schema.json",
+  "title": "Evaluation",
+  "description": "The $defs every result envelope shares (ADR 0014): the colregs provenance stamp, what an evaluation read, entry-id and paragraph-cite vocabularies. No instance validates against the root; the envelopes under schema/*-evaluation.schema.json and the operations manifest $ref into $defs here.",
+  "$defs": {
+    "entryId": {
+      "$ref": "applicability.schema.json#/$defs/entryId"
+    },
+    "entryIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entryId"
+      }
+    },
+    "paragraphCite": {
+      "$comment": "A Rules paragraph path, the vocabulary of `phase` and `breaches` (ADR 0011 §4); the pattern is data/rules.json's paragraph key, and the tests hold the two equal.",
+      "type": "string",
+      "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
+    },
+    "colregs": {
+      "$comment": "`resolved`: the data is the implementation's own colregs dependency and `version` describes it exactly. `caller`: the caller supplied the data and `version` names only the release the implementation resolved.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "source"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "resolved",
+            "caller"
+          ]
+        }
+      }
+    },
+    "byEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "by"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/entryId"
+        },
+        "by": {
+          "$ref": "#/$defs/entryId"
+        }
+      }
+    },
+    "byEntryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/byEntry"
+      }
+    },
+    "modalities": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
+      }
+    },
+    "categories": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$": {
+          "$ref": "#/$defs/ruleCategory"
+        }
+      }
+    },
+    "ruleCategory": {
+      "$ref": "applicability.schema.json#/$defs/ruleCategory"
+    },
+    "representedParagraph": {
+      "$comment": "One of data/applicability.json's represented_paragraphs without its note: an evaluation carries the identity, not the prose.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "jurisdiction",
+        "cite",
+        "category"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/entryId"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "pattern": "^[a-z]+(/[a-z]+)*$"
+        },
+        "cite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "care",
+            "meta"
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "$comment": "What an evaluation read, and therefore what its answer does not cover: the categories it matched, the jurisdictions offered, and the paragraphs no verb computes.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluated_categories",
+        "jurisdictions",
+        "represented"
+      ],
+      "properties": {
+        "evaluated_categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleCategory"
+          }
+        },
+        "jurisdictions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z]+(/[a-z]+)*$"
+          }
+        },
+        "represented": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/representedParagraph"
+          }
+        }
+      }
+    }
+  }
+}

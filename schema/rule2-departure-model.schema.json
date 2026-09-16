@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/rule2-departure-model.schema.json",
+  "title": "Rule2DepartureModel",
+  "description": "One solved region grid, named immutably by `version`, the positional second input of evaluateRule2Departure (ADR 0012 §4, ADR 0014). Only `version`, `colregs_version`, the solver parameters and the `regions` encoding are API; any other field is the artefact's own, so additional properties are allowed. Structure only.",
+  "type": "object",
+  "required": [
+    "version",
+    "colregs_version",
+    "dynamics",
+    "horizon_s",
+    "cadence_s",
+    "separation_m",
+    "information",
+    "adversary"
+  ],
+  "allOf": [
+    {
+      "$ref": "#/$defs/solverParameters"
+    }
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "colregs_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/region"
+      }
+    }
+  },
+  "$defs": {
+    "solverParameters": {
+      "$comment": "The axes the Rule 2 sensitivity matrix varies (colregs Q-17 to Q-22); the field set is a claim about what that matrix is.",
+      "type": "object",
+      "properties": {
+        "dynamics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "horizon_s": {
+          "type": "number"
+        },
+        "cadence_s": {
+          "type": "number"
+        },
+        "separation_m": {
+          "type": "number"
+        },
+        "information": {
+          "type": "string",
+          "enum": [
+            "full",
+            "partial"
+          ]
+        },
+        "adversary": {
+          "type": "string",
+          "enum": [
+            "compliant",
+            "physics"
+          ]
+        }
+      }
+    },
+    "status": {
+      "$comment": "The status alphabet is colregs' (ADR 0005 §5), not an engine's to rename: not-flagged, model-rule-conflict and no-robust-policy-in-model name R0, R1 and R2; inconclusive-in-model names none.",
+      "type": "string",
+      "enum": [
+        "not-flagged",
+        "model-rule-conflict",
+        "no-robust-policy-in-model",
+        "inconclusive-in-model"
+      ]
+    },
+    "advisory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "margin_m",
+        "breaches",
+        "envelope"
+      ],
+      "properties": {
+        "action": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "alter_deg": {
+              "type": "number"
+            },
+            "sog_kn": {
+              "type": "number"
+            }
+          }
+        },
+        "margin_m": {
+          "type": "number"
+        },
+        "breaches": {
+          "type": "array",
+          "items": {
+            "$ref": "evaluation.schema.json#/$defs/paragraphCite"
+          }
+        },
+        "envelope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "holds_until_s"
+          ],
+          "properties": {
+            "holds_until_s": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "region": {
+      "$comment": "Regions of situation space as predicates over the flat `<subject>:<class>:<key>` namespace, first match wins, no match is inconclusive-in-model.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "when",
+        "status"
+      ],
+      "properties": {
+        "when": {
+          "$ref": "applicability.schema.json#/$defs/situationWhen"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "advisories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/advisory"
+          }
+        },
+        "assumptions_violated": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

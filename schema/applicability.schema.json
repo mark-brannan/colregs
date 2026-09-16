@@ -7,6 +7,20 @@
   "additionalProperties": false,
   "required": ["entries"],
   "$defs": {
+    "ruleCategory": {
+      "type": "string",
+      "enum": [
+        "definition",
+        "standard",
+        "scope",
+        "display",
+        "classification",
+        "precedence",
+        "conduct",
+        "care",
+        "meta"
+      ]
+    },
     "entryId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*(-[a-z0-9]+)*$" },
     "modality": {
       "type": "string",
@@ -345,8 +359,7 @@
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "cite": { "type": "string", "minLength": 1 },
           "category": {
-            "type": "string",
-            "enum": ["definition", "standard", "scope", "display", "classification", "precedence", "conduct", "care", "meta"]
+            "$ref": "#/$defs/ruleCategory"
           },
           "subjects": { "type": "integer", "const": 2 },
           "when": { "$ref": "#/$defs/situationWhen" },

@@ -31,6 +31,8 @@ const geometry = load('data/geometry.json')
 const deprecated = load('data/deprecated-identifiers.json')
 const versionStamp = load('data/version.json')
 const fixtures = load('fixtures/applicability-fixtures.json')
+const situationFixturesFile = load('fixtures/situation-fixtures.json')
+const operations = load('data/operations.json')
 // Display catalogs (ADR 0003) -- one file per language under data/i18n/.
 const catalogFiles = readdirSync(new URL('../data/i18n', import.meta.url)).filter((f) => f.endsWith('.json'))
 const catalogs = catalogFiles.map((f) => [`data/i18n/${f}`, load(`data/i18n/${f}`)])
@@ -163,17 +165,129 @@ const schemaTargets = [
   ['data/deprecated-identifiers.json', deprecated, loadSchema('deprecated-identifiers.schema.json')],
   ['data/version.json', versionStamp, loadSchema('version.schema.json')],
   ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
-  ['fixtures/situation-fixtures.json', load('fixtures/situation-fixtures.json'), loadSchema('situation-fixtures.schema.json')],
+  ['fixtures/situation-fixtures.json', situationFixturesFile, loadSchema('situation-fixtures.schema.json')],
+  ['data/operations.json', operations, loadSchema('operations.schema.json')],
   ...catalogs.map(([file, data]) => [file, data, loadSchema('i18n-catalog.schema.json')]),
 ]
 
+// Every schema file is registered under its $id before anything compiles, so
+// a `$ref` from one schema file into another (the result envelopes reuse
+// applicability.schema.json's entryId and modality, ADR 0014) resolves; one
+// corpus schema validates several corpus files, so registration is by file,
+// not per target.
+const schemaFiles = readdirSync(new URL('../schema', import.meta.url)).filter((f) => f.endsWith('.schema.json'))
+const schemaById = new Map(schemaFiles.map((f) => { const s = loadSchema(f); return [s.$id, { file: f, schema: s }] }))
+const ajv = new Ajv2020({ allErrors: true, strict: true })
+for (const { schema } of schemaById.values()) ajv.addSchema(schema)
+const SCHEMA_BASE = 'https://github.com/mark-brannan/colregs/schema/'
+const validatorFor = (file) => ajv.getSchema(`${SCHEMA_BASE}${file.replace(/^schema\//, '')}`)
+const check = (validate, data, what) =>
+  assert.ok(validate(data), `${what} fails ${validate.schemaEnv?.baseId ?? validate.schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
+
 test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
-  const ajv = new Ajv2020({ allErrors: true, strict: true })
-  for (const [file, data, schema] of schemaTargets) {
-    // One corpus schema validates several corpus files; Ajv refuses to compile the same $id twice.
-    const validate = ajv.getSchema(schema.$id) ?? ajv.compile(schema)
-    const ok = validate(data)
-    assert.ok(ok, `${file} fails ${schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`)
+  for (const [file, data, schema] of schemaTargets) check(ajv.getSchema(schema.$id), data, file)
+})
+
+test('schema: every schema file names itself by $id and compiles, cross-file $refs included', () => {
+  for (const f of schemaFiles) {
+    const s = loadSchema(f)
+    assert.equal(s.$id, `${SCHEMA_BASE}${f}`, `${f}: $id does not name the file`)
+    assert.ok(ajv.getSchema(s.$id), `${f} does not compile`)
+  }
+})
+
+// --- operations (ADR 0014) --------------------------------------------------
+// data/operations.json is the engine interface colregs owns: verb -> input
+// schemas -> result schema -> companion -> fixture file. The schema checks its
+// shape; these tests check that every reference lands and that the fixture
+// binding is real -- each bound case's input validates against the verb's
+// input schema, and each `expect` against the companion's output.
+const ops = Object.entries(operations.operations)
+const resolvePointer = (doc, pointer) =>
+  pointer.split('/').slice(1).map((seg) => seg.replace(/~1/g, '/').replace(/~0/g, '~')).reduce((o, seg) => o?.[seg], doc)
+const schemaRefResolves = (ref, what) => {
+  const [file, pointer] = ref.split('#')
+  const path = new URL(`../${file}`, import.meta.url)
+  assert.ok(existsSync(path), `${what}: ${file} does not exist`)
+  const doc = loadSchema(file.replace(/^schema\//, ''))
+  if (pointer) assert.ok(resolvePointer(doc, pointer) !== undefined, `${what}: ${ref} does not resolve`)
+  const validate = ajv.getSchema(`${SCHEMA_BASE}${file.replace(/^schema\//, '')}${pointer ? `#${pointer}` : ''}`)
+  assert.ok(validate, `${what}: no compiled validator for ${ref}`)
+  return validate
+}
+
+test('operations: every input, output and companion schema reference resolves', () => {
+  for (const [verb, op] of ops) {
+    for (const input of op.inputs) schemaRefResolves(input.schema, `${verb}.inputs.${input.name}`)
+    schemaRefResolves(op.output, `${verb}.output`)
+    if (op.companion) schemaRefResolves(op.companion.output, `${verb}.companion`)
+  }
+})
+
+test('operations: verbs and companion verbs are one namespace, no name twice', () => {
+  const names = ops.flatMap(([verb, op]) => [verb, ...(op.companion ? [op.companion.verb] : [])])
+  assert.deepEqual(names.filter((n, i) => names.indexOf(n) !== i), [])
+})
+
+test('operations: every verb ADR 0011 and 0012 name is an operation', () => {
+  assert.deepEqual(Object.keys(operations.operations).sort(), ['evaluateConduct', 'evaluateDisplay', 'evaluateEncounter', 'evaluateRule2Departure'])
+})
+
+test('operations: every fixture file is bound to a verb, and every bound case fits the verb\'s input and companion output', () => {
+  const fixtureFiles = readdirSync(new URL('../fixtures', import.meta.url)).filter((f) => f.endsWith('.json')).map((f) => `fixtures/${f}`)
+  const bound = new Set()
+  for (const [verb, op] of ops) {
+    for (const fx of op.fixtures) {
+      bound.add(fx.file)
+      assert.ok(fixtureFiles.includes(fx.file), `${verb}: ${fx.file} does not exist`)
+      assert.equal(fx.case_inputs.length, op.inputs.length, `${verb}: ${fx.file} binds ${fx.case_inputs.length} case keys to ${op.inputs.length} inputs`)
+      const inputSchemas = op.inputs.map((input) => schemaRefResolves(input.schema, verb))
+      const expectRef = fx.expect ?? op.companion?.output
+      const expectSchema = expectRef && schemaRefResolves(expectRef, verb)
+      for (const c of load(fx.file).cases) {
+        fx.case_inputs.forEach((key, i) => {
+          assert.ok(c[key] !== undefined, `${verb}: ${fx.file} case '${c.name}' has no ${key}`)
+          check(inputSchemas[i], c[key], `${verb}: ${fx.file} case '${c.name}' ${key}`)
+        })
+        // A situation fixture may expect `{ entry, modality }`; the companion answers the ids.
+        if (expectSchema) check(expectSchema, c.expect.map((e) => (typeof e === 'string' ? e : e.entry)), `${verb}: ${fx.file} case '${c.name}' expect`)
+      }
+    }
+  }
+  assert.deepEqual(fixtureFiles.filter((f) => !bound.has(f)), [], 'fixture files no operation binds')
+})
+
+// A patternProperties key cannot $ref, so the two vocabularies that key
+// envelope maps are copies of their source patterns; held equal here.
+test('operations: the paragraph-cite and entry-id patterns are their source schemas\' own', () => {
+  const commons = loadSchema('evaluation.schema.json').$defs
+  assert.deepEqual(Object.keys(loadSchema('rules.schema.json').properties.paragraphs.patternProperties), [commons.paragraphCite.pattern])
+  const entryId = loadSchema('applicability.schema.json').$defs.entryId.pattern
+  for (const map of ['modalities', 'categories']) assert.deepEqual(Object.keys(commons[map].patternProperties), [entryId], map)
+})
+
+// The result envelopes have no data file to validate here, so each is
+// smoke-tested with one hand-written instance that must pass and `{}`, which
+// must not. The contract that matters -- real engine output validating
+// against these schemas -- can only run where an engine is.
+const colregs = { version: '0.0.0', source: 'resolved' }
+const provenance = { evaluated_categories: ['display'], jurisdictions: ['intl'], represented: [{ id: '2a', jurisdiction: 'intl', cite: '2(a)', category: 'care' }] }
+const encounter = { colregs, applied: ['13a'], scope: ['11'], encounter: 'overtaking', risk_of_collision: { asserted: true, by: ['7a'] }, roles: { own: [{ role: 'give-way', by: '13a' }], other: [] }, overridden: [], modalities: { '13a': 'shall' }, categories: { '13a': 'precedence' }, provenance }
+const parameters = { dynamics: ['unicycle'], horizon_s: 600, cadence_s: 1, separation_m: 500, information: 'full', adversary: 'physics' }
+const envelopeExamples = {
+  'display-evaluation.schema.json': { colregs, applied: ['23a'], exempted: [], excluded: [], overridden: [], displays: [{ entries: ['23a'], lights: [{ spec: { light: 'light:masthead' }, source_entry: '23a', modality: 'shall' }], chosen: [] }], optional_additions: [], modalities: { '23a': 'shall' }, categories: { '23a': 'display' }, provenance },
+  'encounter-evaluation.schema.json': encounter,
+  'conduct-evaluation.schema.json': { colregs, window: { from_s: 0, to_s: 60, samples: 2 }, applied: ['16'], verdicts: [{ id: '16', subject: 'own', verdict: 'pending', attached_at_s: 0 }], phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }] },
+  'rule2-departure-finding.schema.json': { status: 'not-flagged', rules: encounter, advisories: [{ action: { alter_deg: 30 }, margin_m: 800, breaches: ['17(c)'], envelope: { holds_until_s: 120 } }], model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] } },
+  'trace.schema.json': { samples: [{ t_s: 0, situation: { own: { fact: { 'fact:propulsion': 'propulsion:power' } } } }] },
+  'rule2-departure-model.schema.json': { version: 'grid-0', colregs_version: '0.0.0', ...parameters, regions: [{ when: { 'own:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' }], artefact_only: true },
+}
+
+test('operations: smoke -- each result and input envelope accepts a hand-written instance and refuses an empty one', () => {
+  for (const [file, example] of Object.entries(envelopeExamples)) {
+    const validate = validatorFor(file)
+    check(validate, example, `${file} example`)
+    assert.ok(!validate({}), `${file} accepts {}`)
   }
 })
 
