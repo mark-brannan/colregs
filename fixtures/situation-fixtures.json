@@ -15,7 +15,7 @@
   "bare": "rule:23a_i",
   "with_modality": {
    "entry": "rule:23a_ii",
-   "modality": "may"
+   "modality": "modality:may"
   }
  },
  "case_status": {
@@ -29,7 +29,7 @@
   {
    "name": "crossing: self power-driven, other fine on the starboard bow",
    "status": "binding",
-   "narrative": "Two power-driven vessels in sight of one another, other bearing 040 relative at 3 nm on a steady bearing and crossing right to left ahead. Self has the other on her own starboard side, so self is the give-way vessel under Rule 15 and Rule 16 governs the action; the other is stand-on under Rule 17. Rule 15 is not transcribed yet, so this asserts nothing. Binding since Rules 7(d), 13, 14 and 15 landed: rule:15a:crossing is the encounter, rule:15a:keep_out_of_the_way is the role, rule:7d_i is the steady bearing, and rule:8f_iii is Rule 8(f)(iii) denying the stand-on vessel any privilege from a shall-not-impede duty she is not owed. Rules 16 and 17 are `conduct` and are still not modelled.",
+   "narrative": "Two power-driven vessels in sight of one another, other bearing 040 relative at 3 nm on a steady bearing and crossing right to left ahead. Self has the other on her own starboard side, so self is the give-way vessel under Rule 15 and Rule 16 governs the action; the other is stand-on under Rule 17. Rule 15 is not transcribed yet, so this asserts nothing. Binding since Rules 7(d), 13, 14 and 15 landed: rule:15a:crossing is the encounter, rule:15a:keep_out_of_the_way is the role, rule:7d_i is the steady bearing, and rule:8f_iii is Rule 8(f)(iii) denying the stand-on vessel any privilege from a shall-not-impede duty she is not owed. Rules 16 and 17 are `category:conduct` and are still not modelled.",
    "expect": [
     "rule:4",
     "rule:11",
@@ -105,13 +105,13 @@
    "roles": {
     "self": [
      {
-      "role": "give-way",
+      "role": "role:give-way",
       "by": "rule:15a:keep_out_of_the_way"
      }
     ],
     "other": [
      {
-      "role": "stand-on",
+      "role": "role:stand-on",
       "by": "rule:15a:keep_out_of_the_way"
      }
     ]
@@ -525,7 +525,7 @@
     "rule:11",
     {
      "entry": "rule:18d_i",
-     "modality": "shall-if-practicable"
+     "modality": "modality:shall-if-practicable"
     },
     "rule:4"
    ],
@@ -736,7 +736,7 @@
     "rule:11",
     {
      "entry": "rule:18d_i",
-     "modality": "shall-if-practicable"
+     "modality": "modality:shall-if-practicable"
     },
     "rule:4"
    ],
@@ -876,7 +876,7 @@
     "rule:11",
     {
      "entry": "rule:18c_i",
-     "modality": "shall-if-practicable"
+     "modality": "modality:shall-if-practicable"
     },
     "rule:4"
    ],
@@ -914,7 +914,7 @@
     "rule:11",
     {
      "entry": "rule:18c_ii",
-     "modality": "shall-if-practicable"
+     "modality": "modality:shall-if-practicable"
     },
     "rule:4"
    ],
@@ -952,7 +952,7 @@
     "rule:11",
     {
      "entry": "rule:18d_i",
-     "modality": "shall-if-practicable"
+     "modality": "modality:shall-if-practicable"
     },
     "rule:4"
    ],
@@ -1572,7 +1572,7 @@
     "rule:11",
     {
      "entry": "rule:18d_i",
-     "modality": "shall-if-practicable"
+     "modality": "modality:shall-if-practicable"
     },
     "rule:4"
    ],
@@ -1610,7 +1610,7 @@
     "rule:11",
     {
      "entry": "rule:18c_i",
-     "modality": "shall-if-practicable"
+     "modality": "modality:shall-if-practicable"
     },
     "rule:4"
    ],
@@ -1936,7 +1936,7 @@
     "rule:4",
     {
      "entry": "rule:9b",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     }
    ],
    "situation": {
@@ -1979,11 +1979,11 @@
     "rule:4",
     {
      "entry": "rule:9b",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     },
     {
      "entry": "rule:9c",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     }
    ],
    "situation": {
@@ -2024,11 +2024,11 @@
    "expect": [
     {
      "entry": "rule:10i",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     },
     {
      "entry": "rule:10j",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     },
     "rule:11",
     "rule:4"
@@ -2071,7 +2071,7 @@
    "expect": [
     {
      "entry": "rule:10j",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     },
     "rule:11",
     "rule:4"
@@ -2116,7 +2116,7 @@
     "rule:4",
     {
      "entry": "rule:9b",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     }
    ],
    "situation": {
@@ -2198,7 +2198,7 @@
     "rule:4",
     {
      "entry": "rule:10j",
-     "modality": "shall-not-impede"
+     "modality": "modality:shall-not-impede"
     }
    ],
    "situation": {
@@ -3771,13 +3771,13 @@
    "roles": {
     "self": [
      {
-      "role": "stand-on",
+      "role": "role:stand-on",
       "by": "rule:15a:keep_out_of_the_way"
      }
     ],
     "other": [
      {
-      "role": "give-way",
+      "role": "role:give-way",
       "by": "rule:15a:keep_out_of_the_way"
      }
     ]
@@ -3861,13 +3861,13 @@
    "roles": {
     "self": [
      {
-      "role": "stand-on",
+      "role": "role:stand-on",
       "by": "rule:18a_i"
      }
     ],
     "other": [
      {
-      "role": "give-way",
+      "role": "role:give-way",
       "by": "rule:18a_i"
      }
     ]
@@ -3944,13 +3944,13 @@
    "roles": {
     "self": [
      {
-      "role": "stand-on",
+      "role": "role:stand-on",
       "by": "rule:13a"
      }
     ],
     "other": [
      {
-      "role": "give-way",
+      "role": "role:give-way",
       "by": "rule:13a"
      }
     ]
@@ -4016,7 +4016,7 @@
   }
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",
- "expect_scope": "`expect` names the non-`display` entries a situation selects -- `scope`, `precedence` and `classification`. Display entries are deliberately out of scope here: a situation carries `self.fact`, so every Part C entry that matches that vessel would otherwise have to be repeated in every Part B fixture, and fixtures/applicability-fixtures.json is already the contract for those. A situation fixture asserts what the pair produces, not what self shows.",
- "collapse_note": "Four expected ids changed in the PR that gave the predicate language `any_of` and `not`: `9b-small`/`9b-sail` collapsed to `rule:9b` and `10j-small`/`10j-sail` to `rule:10j`, because 9(b)'s and 10(j)'s disjunctive subjects no longer need an entry apiece. Every other expected id is unchanged. `rule:18d_i`'s expected modality moved from `shall-not-impede` to `shall-if-practicable`: the duty now lives in `effect.self` and the modality carries the 'if the circumstances of the case admit' caveat the entry used to drop.",
+ "expect_scope": "`expect` names the non-`category:display` entries a situation selects -- `category:scope`, `category:precedence` and `category:classification`. Display entries are deliberately out of scope here: a situation carries `self.fact`, so every Part C entry that matches that vessel would otherwise have to be repeated in every Part B fixture, and fixtures/applicability-fixtures.json is already the contract for those. A situation fixture asserts what the pair produces, not what self shows.",
+ "collapse_note": "Four expected ids changed in the PR that gave the predicate language `any_of` and `not`: `9b-small`/`9b-sail` collapsed to `rule:9b` and `10j-small`/`10j-sail` to `rule:10j`, because 9(b)'s and 10(j)'s disjunctive subjects no longer need an entry apiece. Every other expected id is unchanged. `rule:18d_i`'s expected modality moved from `modality:shall-not-impede` to `modality:shall-if-practicable`: the duty now lives in `effect.self` and the modality carries the 'if the circumstances of the case admit' caveat the entry used to drop.",
  "geometry_note": "The bearings, headings and speeds of every case that states its kinematics are a consistent set, and since the consistency check landed (Q-48, REQ-VERIFY-8) the suite enforces that rather than trusting the author. The two relative bearings are two readings of one line of sight, so self's bearing plus self's heading plus 180 equals the aspect plus the other's heading, modulo 360; where positions are stated they reproduce the range and both bearings; and the pair's cpa, tcpa and bearing rate are the ones the two headings and speeds produce, to the tolerances `data/facts.json` declares under `situation.geometry.consistency`. Positions are still omitted from the cases added with Rules 12-15: range and bearing are given directly, inventing a latitude to derive them from would assert more than the case knows, and the heading equation checks what the case does state. When the check landed every case that stated speeds failed the motion equations -- the pair numbers had been placeholders -- and they were re-derived; the head-on case was recast on a steady bearing and the 13(d) latch case lost `rule:7d_i`, both recorded in their narratives. Everything else, and every other expected id, is unchanged."
 }

@@ -25,7 +25,7 @@
     },
     "strings": {
       "type": "object",
-      "description": "One section per vocabulary. Identifier vocabularies (light) are keyed by the identifier itself, as documented in docs/identifiers.md; closed vocabularies (modality) by their bare value, as stored in data/applicability.json. Values are static strings: no interpolation, no plurals -- the consumer's i18n system owns composition.",
+      "description": "One section per vocabulary. Every section is keyed by the identifier itself, as documented in docs/identifiers.md -- light identifiers (light:) and closed-vocabulary identifiers (modality:, and any of role:/encounter:/category: that gain a catalog section) alike, as stored in data/applicability.json. Values are static strings: no interpolation, no plurals -- the consumer's i18n system owns composition.",
       "additionalProperties": false,
       "properties": {
         "light": {
@@ -35,7 +35,7 @@
         },
         "modality": {
           "type": "object",
-          "propertyNames": { "pattern": "^[a-z]+(-[a-z]+)*$" },
+          "propertyNames": { "pattern": "^modality:[a-z]+(-[a-z]+)*$" },
           "additionalProperties": { "$ref": "#/$defs/label" }
         }
       }

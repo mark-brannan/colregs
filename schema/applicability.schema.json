@@ -10,21 +10,21 @@
     "ruleCategory": {
       "type": "string",
       "enum": [
-        "definition",
-        "standard",
-        "scope",
-        "display",
-        "classification",
-        "precedence",
-        "conduct",
-        "care",
-        "meta"
+        "category:definition",
+        "category:standard",
+        "category:scope",
+        "category:display",
+        "category:classification",
+        "category:precedence",
+        "category:conduct",
+        "category:care",
+        "category:meta"
       ]
     },
     "ruleId": { "type": "string", "pattern": "^rule:[0-9]+[a-z]?(_[ivx]+)*(:[a-z][a-z0-9_]*)?$" },
     "modality": {
       "type": "string",
-      "enum": ["shall", "may", "shall-if-practicable", "conditional", "exempt", "shall-not", "shall-not-impede"]
+      "enum": ["modality:shall", "modality:may", "modality:shall-if-practicable", "modality:conditional", "modality:exempt", "modality:shall-not", "modality:shall-not-impede"]
     },
     "predicateValue": {
       "oneOf": [
@@ -101,7 +101,7 @@
     },
     "effectRole": {
       "type": "string",
-      "enum": ["give-way", "stand-on", "shall-not-impede", "keep-clear", "none"]
+      "enum": ["role:give-way", "role:stand-on", "role:shall-not-impede", "role:keep-clear", "role:none"]
     },
     "effect": {
       "oneOf": [
@@ -135,7 +135,7 @@
           "properties": {
             "encounter": {
               "type": "string",
-              "enum": ["head-on", "crossing", "overtaking", "none"]
+              "enum": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"]
             }
           }
         },
@@ -230,48 +230,48 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "shall",
-        "may",
-        "shall-if-practicable",
-        "conditional",
-        "exempt",
-        "shall-not",
-        "shall-not-impede"
+        "modality:shall",
+        "modality:may",
+        "modality:shall-if-practicable",
+        "modality:conditional",
+        "modality:exempt",
+        "modality:shall-not",
+        "modality:shall-not-impede"
       ],
       "properties": {
-        "shall": { "type": "string" },
-        "may": { "type": "string" },
-        "shall-if-practicable": { "type": "string" },
-        "conditional": { "type": "string" },
-        "exempt": { "type": "string" },
-        "shall-not": { "type": "string" },
-        "shall-not-impede": { "type": "string" }
+        "modality:shall": { "type": "string" },
+        "modality:may": { "type": "string" },
+        "modality:shall-if-practicable": { "type": "string" },
+        "modality:conditional": { "type": "string" },
+        "modality:exempt": { "type": "string" },
+        "modality:shall-not": { "type": "string" },
+        "modality:shall-not-impede": { "type": "string" }
       }
     },
     "categories": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "definition",
-        "standard",
-        "scope",
-        "display",
-        "classification",
-        "precedence",
-        "conduct",
-        "care",
-        "meta"
+        "category:definition",
+        "category:standard",
+        "category:scope",
+        "category:display",
+        "category:classification",
+        "category:precedence",
+        "category:conduct",
+        "category:care",
+        "category:meta"
       ],
       "properties": {
-        "definition": { "type": "string" },
-        "standard": { "type": "string" },
-        "scope": { "type": "string" },
-        "display": { "type": "string" },
-        "classification": { "type": "string" },
-        "precedence": { "type": "string" },
-        "conduct": { "type": "string" },
-        "care": { "type": "string" },
-        "meta": { "type": "string" }
+        "category:definition": { "type": "string" },
+        "category:standard": { "type": "string" },
+        "category:scope": { "type": "string" },
+        "category:display": { "type": "string" },
+        "category:classification": { "type": "string" },
+        "category:precedence": { "type": "string" },
+        "category:conduct": { "type": "string" },
+        "category:care": { "type": "string" },
+        "category:meta": { "type": "string" }
       }
     },
     "effects": {
@@ -283,24 +283,24 @@
         "roles": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["give-way", "stand-on", "shall-not-impede", "keep-clear", "none"],
+          "required": ["role:give-way", "role:stand-on", "role:shall-not-impede", "role:keep-clear", "role:none"],
           "properties": {
-            "give-way": { "type": "string" },
-            "stand-on": { "type": "string" },
-            "shall-not-impede": { "type": "string" },
-            "keep-clear": { "type": "string" },
-            "none": { "type": "string" }
+            "role:give-way": { "type": "string" },
+            "role:stand-on": { "type": "string" },
+            "role:shall-not-impede": { "type": "string" },
+            "role:keep-clear": { "type": "string" },
+            "role:none": { "type": "string" }
           }
         },
         "encounters": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["head-on", "crossing", "overtaking", "none"],
+          "required": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"],
           "properties": {
-            "head-on": { "type": "string" },
-            "crossing": { "type": "string" },
-            "overtaking": { "type": "string" },
-            "none": { "type": "string" }
+            "encounter:head-on": { "type": "string" },
+            "encounter:crossing": { "type": "string" },
+            "encounter:overtaking": { "type": "string" },
+            "encounter:none": { "type": "string" }
           }
         },
         "classification_shape": { "type": "string" }
@@ -329,7 +329,7 @@
           "id": { "$ref": "#/$defs/ruleId" },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "cite": { "type": "string", "minLength": 1 },
-          "category": { "type": "string", "enum": ["care", "meta"] },
+          "category": { "type": "string", "enum": ["category:care", "category:meta"] },
           "note": { "type": "string", "minLength": 1 }
         }
       }

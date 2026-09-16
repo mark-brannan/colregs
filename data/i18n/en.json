@@ -19,9 +19,9 @@
       "light:all_round": "All-round light"
     },
     "modality": {
-      "shall": "Required",
-      "may": "Permitted",
-      "shall-if-practicable": "Required if practicable"
+      "modality:shall": "Required",
+      "modality:may": "Permitted",
+      "modality:shall-if-practicable": "Required if practicable"
     }
   }
 }

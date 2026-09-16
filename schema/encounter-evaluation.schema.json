@@ -30,10 +30,10 @@
       "$comment": "Absent when no classification entry fired: cannot say, not none (Q-43).",
       "type": "string",
       "enum": [
-        "head-on",
-        "crossing",
-        "overtaking",
-        "none"
+        "encounter:head-on",
+        "encounter:crossing",
+        "encounter:overtaking",
+        "encounter:none"
       ]
     },
     "risk_of_collision": {
