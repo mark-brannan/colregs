@@ -169,7 +169,7 @@ const schemaTargets = [
 
 // Every schema file is registered under its $id before anything compiles, so
 // a `$ref` from one schema file into another (the result envelopes reuse
-// applicability.schema.json's entryId and modality, ADR 0014) resolves; one
+// applicability.schema.json's ruleId and modality, ADR 0014) resolves; one
 // corpus schema validates several corpus files, so registration is by file,
 // not per target.
 const schemaFiles = readdirSync(new URL('../schema', import.meta.url)).filter((f) => f.endsWith('.schema.json'))
@@ -259,8 +259,8 @@ test('operations: every fixture file is bound to a verb, and every bound case fi
 test('operations: the paragraph-cite and entry-id patterns are their source schemas\' own', () => {
   const commons = loadSchema('evaluation.schema.json').$defs
   assert.deepEqual(Object.keys(loadSchema('rules.schema.json').properties.paragraphs.patternProperties), [commons.paragraphCite.pattern])
-  const entryId = loadSchema('applicability.schema.json').$defs.ruleId.pattern
-  for (const map of ['modalities', 'categories']) assert.deepEqual(Object.keys(commons[map].patternProperties), [entryId], map)
+  const ruleId = loadSchema('applicability.schema.json').$defs.ruleId.pattern
+  for (const map of ['modalities', 'categories']) assert.deepEqual(Object.keys(commons[map].patternProperties), [ruleId], map)
 })
 
 // The result envelopes have no data file to validate here, so each is
