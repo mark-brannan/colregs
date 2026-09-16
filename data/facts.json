@@ -479,7 +479,7 @@
     "fact": "the per-vessel fact record above, unchanged and unprefixed inside the record. `own` and `other` only.",
     "kin": "kinematic state: where a vessel is, where it is pointing, how fast it is going and turning, and what it handles like. `own` and `other` only.",
     "geo": "relative geometry. Under `own`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
-    "hist": "what has already been true of this encounter and latches. `own` and `other` only; directional.",
+    "hist": "what has already been true of this encounter and persists. `own` and `other` only; directional.",
     "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed."
    },
    "bare_key": "A key with no subject segment means `own:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
