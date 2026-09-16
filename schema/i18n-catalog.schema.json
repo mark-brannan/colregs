@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/i18n-catalog.schema.json",
   "title": "data/i18n/*.json",
-  "description": "Display catalog for one BCP 47 language: UI strings for identifier vocabularies (light names, fact-axis labels, modality labels, image captions), not legal text -- see docs/adr/0003-language-as-a-dimension.md 'Display catalogs'.",
+  "description": "Display catalog for one BCP 47 language: UI strings for the closed vocabularies the package emits (lights, modalities, roles, encounters, jurisdictions, closed-list fact values), not legal text -- see docs/adr/0003-language-as-a-dimension.md 'Display catalogs' and REQ-LANG-6.",
   "type": "object",
   "additionalProperties": false,
   "required": ["language", "provenance", "strings"],
@@ -25,17 +25,38 @@
     },
     "strings": {
       "type": "object",
-      "description": "One section per vocabulary. Every section is keyed by the identifier itself, as documented in docs/identifiers.md -- light identifiers (light:) and closed-vocabulary identifiers (modality:, and any of role:/encounter:/category: that gain a catalog section) alike, as stored in data/applicability.json. Values are static strings: no interpolation, no plurals -- the consumer's i18n system owns composition.",
+      "description": "One section per vocabulary (REQ-LANG-6, REQ-LANG-9's ruling docs/adr/0017). Every section is keyed by the identifier itself, as documented in docs/identifiers.md -- light, modality, role and encounter identifiers carry a type prefix; jurisdiction and closed-list fact values are keyed by their own bare or fact-prefixed form. Values are static strings: no interpolation, no plurals -- the consumer's i18n system owns composition.",
       "additionalProperties": false,
       "properties": {
-        "light": {
+        "lights": {
           "type": "object",
           "propertyNames": { "pattern": "^light:[a-z_]+$" },
           "additionalProperties": { "$ref": "#/$defs/label" }
         },
-        "modality": {
+        "modalities": {
           "type": "object",
           "propertyNames": { "pattern": "^modality:[a-z]+(-[a-z]+)*$" },
+          "additionalProperties": { "$ref": "#/$defs/label" }
+        },
+        "roles": {
+          "type": "object",
+          "propertyNames": { "pattern": "^role:[a-z]+(-[a-z]+)*$" },
+          "additionalProperties": { "$ref": "#/$defs/label" }
+        },
+        "encounters": {
+          "type": "object",
+          "propertyNames": { "pattern": "^encounter:[a-z]+(-[a-z]+)*$" },
+          "additionalProperties": { "$ref": "#/$defs/label" }
+        },
+        "jurisdictions": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z]+(/[a-z]+)*$" },
+          "additionalProperties": { "$ref": "#/$defs/label" }
+        },
+        "facts": {
+          "type": "object",
+          "description": "Closed-list fact-value labels only (Tier A): propulsion, activity, position, rule18_class, dynamics, obstruction_side, wind_side. Field names (fact:length_m, geo:tcpa_s, ...) have no closed list behind them and are never catalogued here -- form-label text and unit/number formatting are the consumer's.",
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_]*:[a-z][a-z0-9_]*$" },
           "additionalProperties": { "$ref": "#/$defs/label" }
         }
       }
