@@ -53,10 +53,10 @@ Neither consumer lives in this repo.
 | **paragraph path** | The citation unit: `27(a)(i)`, `25(d)(ii)`. Not the rule number. |
 | **fact record** | A set of facts about one vessel at one moment; the input. |
 | **entry** | One applicability record: predicate → lights/refs → modality → citation. |
-| **modality** | `shall` / `may` / `shall-if-practicable`. |
+| **modality** | `modality:shall` / `modality:may` / `modality:shall-if-practicable`. |
 | **jurisdiction** | A body of rules: `intl`, `us/inland`, `ca/inland`, … |
 | **delta** | A jurisdiction's departures from the international text. |
-| **identifier** | Any name the data is addressed by: entry id, paragraph path, light id, fact key, fact value, relation name. |
+| **identifier** | Any name the data is addressed by: entry id, paragraph path, light id, fact key, fact value, relation name, modality/role/encounter/category value, jurisdiction value. |
 
 ---
 
@@ -68,7 +68,7 @@ Neither consumer lives in this repo.
   applicability entry and every rule-text record, expressed as
   `<country-or-body>/<waters>` with `intl` as the reserved base value.
   Examples: `intl`, `us/inland`, `us/great-lakes`, `us/western-rivers`,
-  `ca/inland`, `de/binnen`, `eu/cevni`.
+  `ca/inland`, `de/binnen`, `eu/cevni`. The jurisdiction value is itself an identifier, unprefixed and immutable under REQ-MODEL-10 (ADR 0017).
 - **REQ-SCOPE-3** — A jurisdiction MUST be expressible as a *delta*: entries
   absent from a jurisdiction's data inherit from `intl`. A jurisdiction MUST
   NOT require restating the whole body of rules. Inheritance is "unless
@@ -168,7 +168,7 @@ Four layers, each independently addressable.
   - `rel:in_lieu_of` — legal alternatives for the same fact record;
   - `rel:excludes` — mutual exclusion, including across rules; symmetric
     (A excludes B implies B excludes A), and no participating entry MAY be
-    forceful (`shall`/`shall-if-practicable`) — a directed "this one
+    forceful (`modality:shall`/`modality:shall-if-practicable`) — a directed "this one
     prevails" is `rel:overrides` (ADR 0007), not `rel:excludes`;
   - `rel:exempts` — one entry lifting another's obligation;
   - `rel:conditional_includes` — import or alternatives, gated on a predicate.
@@ -297,27 +297,27 @@ towards, not because the shape is settled.
   two-subject entries and defaulted for the rest; no record in `rules.json`
   carries one, so a paragraph with no entry is uncategorised)** —
   Every rule paragraph record MUST carry exactly one `category` from the
-  closed set `scope`, `definition`, `standard`, `display`,
-  `classification`, `precedence`, `conduct`, `care`, `meta`. The field
-  defaults to `display`, so existing entries are correct unedited. CI MUST
+  closed set `category:scope`, `category:definition`, `category:standard`, `category:display`,
+  `category:classification`, `category:precedence`, `category:conduct`, `category:care`, `category:meta`. The field
+  defaults to `category:display`, so existing entries are correct unedited. CI MUST
   fail on a value outside the set. Where a paragraph plays a second role,
   that role MUST be expressed as a relation (REQ-CAT-3), never as a second
   category.
-- **REQ-CAT-2** — `care` and `meta` paragraphs (Rules 2(a) and 2(b)) MUST NOT
+- **REQ-CAT-2** — `category:care` and `category:meta` paragraphs (Rules 2(a) and 2(b)) MUST NOT
   be applicability entries. They MUST be recorded in a registry sibling to
   `known_omissions`, stating that the package represents them and evaluates
-  neither. CI MUST fail on a `care` or `meta` paragraph that appears as an
+  neither. CI MUST fail on a `category:care` or `category:meta` paragraph that appears as an
   entry.
-- **REQ-CAT-3** **(unimplemented in part — `shall-not` has no entry yet)** —
-  The modality vocabulary MUST admit `shall-not` and `shall-not-impede`
-  alongside `shall`, `may`, `shall-if-practicable`, `conditional` and
-  `exempt`, and the relation vocabulary MUST admit `rel:overrides` as a
+- **REQ-CAT-3** **(unimplemented in part — `modality:shall-not` has no entry yet)** —
+  The modality vocabulary MUST admit `modality:shall-not` and `modality:shall-not-impede`
+  alongside `modality:shall`, `modality:may`, `modality:shall-if-practicable`, `modality:conditional` and
+  `modality:exempt`, and the relation vocabulary MUST admit `rel:overrides` as a
   sixth verb beside REQ-MODEL-7's five. Both remain closed sets; CI MUST
   fail on a value outside them, and on a cycle in `rel:overrides`.
 - **REQ-CAT-4** — A two-subject rule MUST read a **situation record**:
   two per-vessel fact records, a kinematic state per vessel, relative
   geometry, and history. The per-vessel fact record MUST NOT change to accommodate it, and kinematic
-  state MUST be a distinct fact class — a consumer that reads only `display`
+  state MUST be a distinct fact class — a consumer that reads only `category:display`
   entries MUST NOT be required to supply one. Adding the situation record
   MUST leave every existing fixture valid unedited.
 - **REQ-CAT-5** — A situation MUST NOT be expressible in the current
@@ -357,20 +357,20 @@ towards, not because the shape is settled.
   an `illustrative` case that names an entry.
 
 - **REQ-CAT-8** — A two-subject entry MUST state an `effect` and MUST NOT
-  state `lights`. For a `precedence` entry the effect MUST be a role per
-  subject, `{self, other}`, from the closed set `give-way`, `stand-on`,
-  `shall-not-impede`, `keep-clear`, `none`; for a `scope` entry it MUST name
+  state `lights`. For a `category:precedence` entry the effect MUST be a role per
+  subject, `{self, other}`, from the closed set `role:give-way`, `role:stand-on`,
+  `role:shall-not-impede`, `role:keep-clear`, `role:none`; for a `category:scope` entry it MUST name
   the part, the section and the rules that section governs; for a
-  `classification` entry it MUST carry exactly one key, either `encounter`
-  from the closed set `head-on`, `crossing`, `overtaking`, `none`, or
-  `risk_of_collision`, whose only value is `true`. `stand-on` MUST
-  appear only as the counterpart of `give-way`, and the counterpart of
-  `shall-not-impede` MUST be `none` — Rule 8(f)(iii) is why. CI MUST fail on a
+  `category:classification` entry it MUST carry exactly one key, either `encounter`
+  from the closed set `encounter:head-on`, `encounter:crossing`, `encounter:overtaking`, `encounter:none`, or
+  `risk_of_collision`, whose only value is `true`. `role:stand-on` MUST
+  appear only as the counterpart of `role:give-way`, and the counterpart of
+  `role:shall-not-impede` MUST be `role:none` — Rule 8(f)(iii) is why. CI MUST fail on a
   role or an encounter outside its set, on an effect whose shape does not match
   its category, and on a `rel:overrides` that resolves to no entry, points at an
   entry of a different category, or closes a cycle. `✎` pencil, with the rest of
   §4.1.
-- **REQ-CAT-9** — The `classification` entries for Rules 13, 14 and 15 MUST
+- **REQ-CAT-9** — The `category:classification` entries for Rules 13, 14 and 15 MUST
   **partition** the pair's relative geometry: for any situation those entries
   all reach, exactly one encounter type MUST apply — never two, never none.
   The crossing sector MUST NOT be enumerated; it MUST be derived, as the
@@ -447,7 +447,7 @@ See ADR 0003.
   from the other, and no property beyond the language of the text — not
   source, audience, nor legal applicability — MUST be inferred from a tag.
 - **REQ-LANG-2** — Identifiers — entry ids, fact values, light ids,
-  paragraph paths, relation names — MUST be language-neutral and MUST NOT
+  paragraph paths, relation names, modality/role/encounter/category values — MUST be language-neutral and MUST NOT
   be localized. Translations attach to identifiers; they never replace them.
   Identifiers are schema keywords, not display strings: each vocabulary
   distinguishes machine identifier, display label (catalog), and definition,
@@ -805,7 +805,7 @@ Tracked here until resolved; each becomes an ADR.
   this package: a making-way indicator, and `design.maxSpeed`.
 - **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
   Three gates (`rule:23a_ii`, `rule:26b_ii`, `rule:30c`'s `fact:length_m` thresholds) live only in
-  `modality_by`, not in the entry's `when` — they flip `shall` to `may`, not
+  `modality_by`, not in the entry's `when` — they flip `modality:shall` to `modality:may`, not
   which entries apply. The fixture format only asserts applying entry ids, not
   expected modality, so there is no way to fixture these three without
   extending the schema to carry expected modality per entry. Not done
@@ -956,7 +956,7 @@ listed here, one line each, because the ADR is what makes them live. Most are
 - **Q-14** — Which category does each paragraph take? The proposal's table is
   a first cut; settled paragraph by paragraph as Rules 1–19 are transcribed.
   PR #24 settles the first sixteen and departs from the table once: 13(a) is
-  `precedence`, not `classification` (`Q-37`).
+  `category:precedence`, not `category:classification` (`Q-37`).
 - **Q-15** — Which verification tool discharges each category (Alloy, Z3, TLA+,
   STL, Rocq)? Settled by building one proof per category, not by argument.
   *(engine)*
@@ -1004,7 +1004,7 @@ listed here, one line each, because the ADR is what makes them live. Most are
 - **Q-26** — How large is the relative-frame state space? The 10⁴–10⁶ figure
   is a back-of-envelope guess; settled by a worksheet. *(engine)*
 - **Q-27** — What are the field names for `category`, `subjects`, `when`,
-  `effect` and the widened `modality`? Settled when the first non-`display`
+  `effect` and the widened `modality`? Settled when the first non-`category:display`
   entry lands, and cheap to change until then.
   Unchanged by PR #22, which names none of those five. The names it
   does fix — `situation`, the four classes, the three subjects — are
@@ -1028,14 +1028,14 @@ listed here, one line each, because the ADR is what makes them live. Most are
 - **Q-29** — What are the file names and schemas for the invariants file and
   the region grid, and how does a level-3 invariant carry `jurisdiction`?
   Settled when the first invariant is written down.
-- **Q-30** — What does the `care`/`meta` registry look like as a file — its
+- **Q-30** — What does the `category:care`/`category:meta` registry look like as a file — its
   name, its schema, and its relationship to `known_omissions`? Settled by
   REQ-CAT-2's implementation, which is the next data change after this ADR.
 
   **Decided in pencil, PR #23.** The registry is `represented_paragraphs`,
   a sibling array to `known_omissions` in `data/applicability.json`. Each
   record: `id` (paragraph-derived, e.g. `2a`), `jurisdiction`, `cite`,
-  `category` (`care` or `meta`), and a one-sentence `note`; no `when`, no
+  `category` (`category:care` or `category:meta`), and a one-sentence `note`; no `when`, no
   `lights` — a registry record states that the paragraph is represented
   and evaluated by nothing here, never a predicate. Holds the `2(a)` and
   `2(b)` records this PR adds. `✎` under `docs/conventions.md`: the file
@@ -1049,8 +1049,8 @@ here rather than in a commit message. All pencil.
 
 **Decided in pencil 2026-09-04 (PR #24)**, answering the data half of `Q-27`:
 the field names are `category`, `subjects` and `effect`, and `effect` is
-`{self, other}` roles for a `precedence` entry and `{part, section,
-applies_rules}` for a `scope` one. Written up in `docs/identifiers.md`
+`{self, other}` roles for a `category:precedence` entry and `{part, section,
+applies_rules}` for a `category:scope` one. Written up in `docs/identifiers.md`
 §"Effects", required by `REQ-CAT-8`, and exercised by
 `fixtures/situation-fixtures.json`. `Q-28`'s namespace is settled for good by
 the same PR — Rule 18 is written against it and it held, with one addition:
@@ -1062,13 +1062,13 @@ named that gap before the class existed.
 - **Q-31** — `modality` is a single closed value, and 18(c), 18(d)(i) and 9(a)
   each carry two deontic qualifications at once: a practicability caveat
   ("so far as possible", "if the circumstances of the case admit") *and* the
-  duty itself. 18(c) is expressible because `shall-if-practicable` already
+  duty itself. 18(c) is expressible because `modality:shall-if-practicable` already
   exists; 18(d)(i) is not, and its caveat is dropped with a `gap` note on the
   entry. Settled by deciding whether practicability is a second field beside
   `modality` rather than a value inside it — which is the same question
   `modality_by` answers for the light rules, and should probably be answered
   the same way. **Narrowed, not settled, 2026-09-04 (PR #25):** 18(d)(i) is now
-  `shall-if-practicable` with `effect.self: shall-not-impede`, so the two
+  `modality:shall-if-practicable` with `effect.self: role:shall-not-impede`, so the two
   qualifications sit in two fields and neither is dropped. That works only
   because this duty happens to be a *role*, which `effect` already carries;
   9(a)'s "if the circumstances of the case admit" has no second field to move
@@ -1086,7 +1086,7 @@ named that gap before the class existed.
   `rule18_class:fishing` by 3(d), and the 27(c) tow that severely restricts the
   pair — the one the old predicates could not catch at all — to
   `rule18_class:ram`, via a new boolean `fact:tow_restricts_deviation`. Every
-  Rule 18, 9 and 10 entry reads the class; no `precedence` entry reads
+  Rule 18, 9 and 10 entry reads the class; no `category:precedence` entry reads
   `fact:activity` any more, and a test enforces that. `fact:activity` itself is
   unchanged and no entry that reads it was touched. What is *not* settled: the
   eighth rank Rule 18 distinguishes is the seaplane of 3(e), and it has no
@@ -1116,7 +1116,7 @@ named that gap before the class existed.
   alternative was declined: it would have produced a predicate no reader could
   check against the rule text, to avoid a language feature the rules themselves
   use in plain words.
-- **Q-34** — A `shall-not-impede` entry names a duty toward `other`, but the
+- **Q-34** — A `modality:shall-not-impede` entry names a duty toward `other`, but the
   paragraphs identify the protected vessel by a property this package does not
   carry: "a vessel which can safely navigate only within a narrow channel"
   (9(b), 9(d)), "any vessel following a traffic lane" (10(i), 10(j)), and a
@@ -1142,37 +1142,37 @@ named that gap before the class existed.
   predicate reads only facts, so entry `rule:8f_iii` reads the risk-of-collision half
   alone and applies to every pair with risk of collision. Settled by deciding
   whether a norm may read another norm's effect, which is the same question a
-  `conduct` monitor will ask about role and phase.
+  `category:conduct` monitor will ask about role and phase.
 - **Q-36** — Rule 18(a)(iv) and 18(d)(i) are both in force between a sailing
   vessel and a vessel constrained by her draught: the CBD vessel gives way, and
   the sailing vessel must not impede her. Neither overrides the other and the
-  model records both, so one subject holds `stand-on` and `shall-not-impede`
+  model records both, so one subject holds `role:stand-on` and `role:shall-not-impede`
   at once. The test suite pins it as a finding rather than asserting it away.
   Settled by reading 8(f)(ii) against the cases, not by picking a role.
-- **Q-37** — 13(a) is `classification` in ADR 0005 §1 and in the proposal's
+- **Q-37** — 13(a) is `category:classification` in ADR 0005 §1 and in the proposal's
   first-cut table, but it is the one paragraph of Rule 13 that assigns a role
-  and a `classification` entry has nowhere to put one. Entry `rule:13a` is
-  `precedence` here, with 13(b)'s sector test left for the `classification`
+  and a `category:classification` entry has nowhere to put one. Entry `rule:13a` is
+  `category:precedence` here, with 13(b)'s sector test left for the `category:classification`
   entry that would set the `hist:was_overtaking` latch. Settled with the rest
   of `Q-14`, paragraph by paragraph.
 
   **Closed in pencil 2026-09-04 (PR #26).** 13(b) is now written, as *two*
-  `classification` entries rather than one — one per subject — because the
+  `category:classification` entries rather than one — one per subject — because the
   encounter type belongs to the pair and reading aspect alone classified the
-  overtaken vessel's side of the same encounter as a crossing. 13(a) stays `precedence`, and its predicate now carries both
+  overtaken vessel's side of the same encounter as a crossing. 13(a) stays `category:precedence`, and its predicate now carries both
   halves of "any vessel overtaking any other": the 13(b) sector and the 13(d)
   latch, as an `any_of`, which closes the gap the entry recorded. 13(d) is a
-  third `classification` entry, reading history and no geometry at all. The
+  third `category:classification` entry, reading history and no geometry at all. The
   split confirms the thing ADR 0005 §1 was really defending — one category per
   paragraph. **Reversed in part, 2026-09-16:** ADR 0015 as rewritten makes
   13(b) one symmetric entry, `rule:13b`, reading the same sector object on
-  either subject under `any_of`. 13(a) staying `precedence` is untouched.
+  either subject under `any_of`. 13(a) staying `category:precedence` is untouched.
 - **Q-38** — 9(d), 18(d)(ii), 18(e), 18(f)(ii), 1(a)–(e) and 20(b)–(c) are
   recorded in `known_omissions` rather than modelled: 9(d) needs the channel's
   axis, 18(e) needs a fact for being a seaplane, 20(b)–(c) need time of day,
   and 1(a)–(e) are addressed to an authority rather than to a vessel. Settled
   one at a time as the facts they need land; none blocks the rest of Part B.
-- **Q-39** — Rule 4's `scope` entry has an empty `when`, because "any condition
+- **Q-39** — Rule 4's `category:scope` entry has an empty `when`, because "any condition
   of visibility" is the absence of a condition. That makes it unfalsifiable —
   `REQ-VERIFY-3`'s "excluded by at least one fixture" half cannot be satisfied
   and the test exempts it explicitly. Settled by deciding whether an ungated
@@ -1181,17 +1181,17 @@ named that gap before the class existed.
 
 ### From the classification norms (PR #26)
 
-Rules 7(d), 12, 13(b)–(d), 14 and 15 are the first `classification` entries and
-the second family of `precedence` ones. All pencil. What the model expressed is
+Rules 7(d), 12, 13(b)–(d), 14 and 15 are the first `category:classification` entries and
+the second family of `category:precedence` ones. All pencil. What the model expressed is
 written up in `docs/identifiers.md` §"Effects"; what it could not is here.
 
-- **Q-40** — **Rule 12 is `precedence`, not `classification`.** ADR 0005 §1 and
-  the proposal's table both file it under `classification`; it produces a role
+- **Q-40** — **Rule 12 is `category:precedence`, not `category:classification`.** ADR 0005 §1 and
+  the proposal's table both file it under `category:classification`; it produces a role
   — "one of them shall keep out of the way of the other" — and a
   classification effect has nowhere to put one, which is `Q-37`'s argument
   applied a second time. Two sailing vessels are still in a head-on, a crossing
   or an overtaking; Rule 12 says which of them gives way, not what kind of
-  meeting it is. 12(b) is a `definition` and is the cite on `kin:wind_side`
+  meeting it is. 12(b) is a `category:definition` and is the cite on `kin:wind_side`
   rather than an entry. The second half of the question is narrower and worse:
   12(a) says "two sailing vessels", which is 3(c), but entries the three Rule 12 entries
   read `rule18_class:sail` instead, so a vessel engaged in fishing under sail
@@ -1255,7 +1255,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   which is still how the fixtures are written and is what makes these six
   overrides observable rather than invisible.
 
-  The category half — Rule 12 as `precedence` — is unchanged and stays with
+  The category half — Rule 12 as `category:precedence` — is unchanged and stays with
   `Q-14`.
 - **Q-41** — **13(c) and 14(c) invert the absent-fact rule.** "When a vessel is
   in any doubt as to whether she is overtaking, she shall assume that this is
@@ -1316,14 +1316,14 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   the same question `Q-39` asks about an ungated norm, from the other end.
 
   **Decided in pencil 2026-09-05 (PR #36): the head-on classification cites
-  14(b), and 14(a) is `conduct`.** The question assumed 14(b) produced no
+  14(b), and 14(a) is `category:conduct`.** The question assumed 14(b) produced no
   effect of its own. It produces the only effect the entry has: "such a
   situation shall be deemed to exist when…" is the deeming test, and
-  `{"encounter": "head-on"}` is what a deeming test yields — exactly as
+  `{"encounter": "encounter:head-on"}` is what a deeming test yields — exactly as
   `rule:13b` cites 13(b), the deeming paragraph,
   and not 13(a). 14(a) states the situation in words ("reciprocal or nearly
   reciprocal courses") and imposes the duty ("each shall alter her course to
-  starboard"); the duty is `conduct`, and the words are what 14(b) makes
+  starboard"); the duty is `category:conduct`, and the words are what 14(b) makes
   checkable. So the entry is `rule:14b`, cites 14(b), and reads nothing 14(b) does
   not fix; 14(a) joins `known_omissions` as conduct beside 18(d)(ii), and
   the `14a` id it displaced is gone with the rest of the citation-derived ids
@@ -1351,7 +1351,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   Not approximated with a range or a bearing: past and clear is a seamanship
   judgement of the same kind as risk of collision, and a threshold for it would
   be a number invented rather than declared. Settled by whatever settles the
-  `conduct` monitors, which are the things that watch a duty end rather than
+  `category:conduct` monitors, which are the things that watch a duty end rather than
   begin.
 
   **Ruled 2026-09-08:** while one vessel holds the latch, 13(a)'s sector

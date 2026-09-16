@@ -143,14 +143,14 @@ paragraphs prevails is a relation.
 | `rel:exempts` | the referenced requirement does not apply (30(e)) |
 | `rel:overrides` | this paragraph's requirement prevails over the referenced one's when both apply (Rule 18; Rule 26(a) over Rule 30's anchor lights) |
 
-Modality is `shall`, `may`, `shall-if-practicable`, `shall-not`,
-`shall-not-impede`, or `conditional` with a `modality_by` table when it turns
+Modality is `modality:shall`, `modality:may`, `modality:shall-if-practicable`, `modality:shall-not`,
+`modality:shall-not-impede`, or `modality:conditional` with a `modality_by` table when it turns
 on a fact.
 
 Most entries read one vessel and produce lights. The Part B entries read
 **two**, a situation rather than a fact record, and produce an `effect`:
 which section governs, which vessel gives way, whether the encounter is
-`head-on`, `crossing` or `overtaking`. They address each vessel through a
+`encounter:head-on`, `encounter:crossing` or `encounter:overtaking`. They address each vessel through a
 subject segment (`self:fact:activity`, `other:fact:propulsion`,
 `pair:geo:in_sight`); a key with no subject means `self:`. The encounter
 sectors partition relative bearing, so no crossing sector is enumerated and

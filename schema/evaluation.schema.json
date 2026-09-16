@@ -108,8 +108,8 @@
         "category": {
           "type": "string",
           "enum": [
-            "care",
-            "meta"
+            "category:care",
+            "category:meta"
           ]
         }
       }

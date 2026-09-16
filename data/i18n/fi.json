@@ -17,9 +17,9 @@
       "light:all_round": "Ympäri näköpiirin näkyvä valo"
     },
     "modality": {
-      "shall": "Pakollinen",
-      "may": "Sallittu",
-      "shall-if-practicable": "Pakollinen, jos mahdollista"
+      "modality:shall": "Pakollinen",
+      "modality:may": "Sallittu",
+      "modality:shall-if-practicable": "Pakollinen, jos mahdollista"
     }
   }
 }

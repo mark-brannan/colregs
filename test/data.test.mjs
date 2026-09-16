@@ -127,7 +127,7 @@ function withDerived(s) {
 // absence of a condition -- so an unfiltered evaluator would select it for
 // every fact record in applicability-fixtures.json. REQ-CAT-1's `display`
 // default is what makes the filter well-defined for the entries that predate it.
-const isDisplay = (e) => (e.category ?? 'display') === 'display'
+const isDisplay = (e) => (e.category ?? 'category:display') === 'category:display'
 // Jurisdiction is a dimension, not a fork (REQ-SCOPE-2/3): a jurisdiction sees
 // `intl` plus its own (self) deltas, and `intl` sees only itself. Without this filter
 // a national entry would be selected for a fact record evaluated under the
@@ -268,11 +268,11 @@ test('operations: the paragraph-cite and entry-id patterns are their source sche
 // must not. The contract that matters -- real engine output validating
 // against these schemas -- can only run where an engine is.
 const colregs = { version: '0.0.0', source: 'resolved' }
-const provenance = { evaluated_categories: ['display'], jurisdictions: ['intl'], represented: [{ id: 'rule:2a', jurisdiction: 'intl', cite: '2(a)', category: 'care' }] }
-const encounter = { colregs, applied: ['rule:13b'], scope: ['rule:11'], encounter: 'overtaking', risk_of_collision: { asserted: true, by: ['rule:13b'] }, roles: { self: [{ role: 'give-way', by: 'rule:13a' }], other: [] }, overridden: [], modalities: { 'rule:13b': 'shall' }, categories: { 'rule:13b': 'precedence' }, provenance }
+const provenance = { evaluated_categories: ['category:display'], jurisdictions: ['intl'], represented: [{ id: 'rule:2a', jurisdiction: 'intl', cite: '2(a)', category: 'category:care' }] }
+const encounter = { colregs, applied: ['rule:13b'], scope: ['rule:11'], encounter: 'encounter:overtaking', risk_of_collision: { asserted: true, by: ['rule:13b'] }, roles: { self: [{ role: 'role:give-way', by: 'rule:13a' }], other: [] }, overridden: [], modalities: { 'rule:13b': 'modality:shall' }, categories: { 'rule:13b': 'category:precedence' }, provenance }
 const parameters = { dynamics: ['unicycle'], horizon_s: 600, cadence_s: 1, separation_m: 500, information: 'full', adversary: 'physics' }
 const envelopeExamples = {
-  'display-evaluation.schema.json': { colregs, applied: ['rule:23a_i'], exempted: [], excluded: [], overridden: [], displays: [{ entries: ['rule:23a_i'], lights: [{ spec: { light: 'light:masthead' }, source_entry: 'rule:23a_i', modality: 'shall' }], chosen: [] }], optional_additions: [], modalities: { 'rule:23a_i': 'shall' }, categories: { 'rule:23a_i': 'display' }, provenance },
+  'display-evaluation.schema.json': { colregs, applied: ['rule:23a_i'], exempted: [], excluded: [], overridden: [], displays: [{ entries: ['rule:23a_i'], lights: [{ spec: { light: 'light:masthead' }, source_entry: 'rule:23a_i', modality: 'modality:shall' }], chosen: [] }], optional_additions: [], modalities: { 'rule:23a_i': 'modality:shall' }, categories: { 'rule:23a_i': 'category:display' }, provenance },
   'encounter-evaluation.schema.json': encounter,
   'conduct-evaluation.schema.json': { colregs, window: { from_s: 0, to_s: 60, samples: 2 }, applied: ['rule:13a'], verdicts: [{ id: 'rule:13a', subject: 'self', verdict: 'pending', attached_at_s: 0 }], phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }] },
   'rule2-departure-finding.schema.json': { status: 'not-flagged', rules: encounter, advisories: [{ action: { alter_deg: 30 }, margin_m: 800, breaches: ['17(c)'], envelope: { holds_until_s: 120 } }], model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] } },
@@ -767,7 +767,7 @@ test('no represented_paragraphs record carries a `when` or `lights`', () => {
 
 test('every represented_paragraphs record has category care or meta', () => {
   for (const r of appl.represented_paragraphs ?? []) {
-    assert.ok(['care', 'meta'].includes(r.category), `${r.id} has category ${r.category}, expected care or meta`)
+    assert.ok(['category:care', 'category:meta'].includes(r.category), `${r.id} has category ${r.category}, expected category:care or category:meta`)
   }
 })
 
@@ -779,7 +779,7 @@ test('no care or meta paragraph appears as an applicability entry (REQ-CAT-2)', 
 })
 
 test('categories vocabulary is a closed set of the nine ADR-0005 names', () => {
-  const expected = ['definition', 'standard', 'scope', 'display', 'classification', 'precedence', 'conduct', 'care', 'meta']
+  const expected = ['category:definition', 'category:standard', 'category:scope', 'category:display', 'category:classification', 'category:precedence', 'category:conduct', 'category:care', 'category:meta']
   assert.deepEqual(Object.keys(appl.categories).sort(), expected.sort())
 })
 
@@ -1467,16 +1467,16 @@ test('Q-49: hist:was_overtaking resolves out of sight; rule:13d does not fire', 
 // checks the shape of the new entries or replays the situation fixtures through
 // `matchesSituation` above -- the same evaluator, not a second one.
 const twoSubject = appl.entries.filter((e) => (e.subjects ?? 1) > 1)
-const precedence = appl.entries.filter((e) => e.category === 'precedence')
+const precedence = appl.entries.filter((e) => e.category === 'category:precedence')
 
 test('REQ-CAT-1: every entry category is one of the nine, and display is the default', () => {
   const names = new Set(Object.keys(appl.categories))
   for (const e of appl.entries) {
-    assert.ok(names.has(e.category ?? 'display'), `${e.id}: unknown category ${e.category}`)
+    assert.ok(names.has(e.category ?? 'category:display'), `${e.id}: unknown category ${e.category}`)
   }
   assert.ok(twoSubject.length > 0, 'no two-subject entry exists; this file is meant to be checking some')
   for (const e of twoSubject) {
-    assert.ok(['scope', 'precedence', 'classification'].includes(e.category),
+    assert.ok(['category:scope', 'category:precedence', 'category:classification'].includes(e.category),
       `${e.id}: subjects > 1 with category ${e.category}`)
     assert.equal(e.subjects, 2, `${e.id}: only 1 and 2 subjects are modelled`)
     assert.ok(!('lights' in e), `${e.id}: a two-subject entry produces an effect, never lights`)
@@ -1508,22 +1508,22 @@ test('every effect is shaped for its category and names declared roles', () => {
   const roles = new Set(Object.keys(appl.effects.roles))
   for (const e of twoSubject) {
     assert.ok(e.effect, `${e.id}: a two-subject entry must state an effect`)
-    if (e.category === 'precedence') {
+    if (e.category === 'category:precedence') {
       assert.deepEqual(Object.keys(e.effect).sort(), ['other', 'self'], `${e.id}: precedence effect shape`)
       for (const [subject, role] of Object.entries(e.effect)) {
         assert.ok(roles.has(role), `${e.id}: ${subject} takes undeclared role ${role}`)
       }
       // `stand-on` is Rule 17, which attaches only where the counterpart is to
       // keep out of the way. A shall-not-impede duty confers nothing (8(f)(iii)).
-      if (e.effect.other === 'stand-on') {
-        assert.equal(e.effect.self, 'give-way',
+      if (e.effect.other === 'role:stand-on') {
+        assert.equal(e.effect.self, 'role:give-way',
           `${e.id}: the counterpart of stand-on is give-way; 8(f)(iii) is why shall-not-impede pairs with none`)
       }
-      if (e.effect.self === 'shall-not-impede') {
-        assert.equal(e.effect.other, 'none',
+      if (e.effect.self === 'role:shall-not-impede') {
+        assert.equal(e.effect.other, 'role:none',
           `${e.id}: shall-not-impede confers no role on the other vessel (8(f)(iii))`)
       }
-    } else if (e.category === 'classification') {
+    } else if (e.category === 'category:classification') {
       // Two shapes under one category, and exactly one key either way: Rule
       // 7(d) answers whether risk exists and Rules 13-15 answer what kind of
       // encounter this is. A merged shape would have made every encounter
@@ -1581,7 +1581,7 @@ test('rel:excludes is reciprocated and never carries a forceful modality (ADR 00
       assert.ok((excl.get(t) ?? []).includes(id), `${id} excludes ${t}, but ${t} does not exclude ${id} back`)
     }
   }
-  const forceful = new Set(['shall', 'shall-if-practicable'])
+  const forceful = new Set(['modality:shall', 'modality:shall-if-practicable'])
   for (const [id, targets] of excl) {
     if (targets.length === 0) continue
     const e = byId.get(id)
@@ -1637,7 +1637,7 @@ test('REQ-VERIFY-3: every two-subject entry is exercised by a fixture and exclud
 // situation. So every property below is checked over the pooled roles of the
 // situation and its swap, after rel:overrides has resolved what it can.
 const swap = (s) => ({ self: s.other ?? {}, other: s.self ?? {}, pair: s.pair ?? {} })
-const FORCEFUL = new Set(['shall', 'shall-if-practicable', 'shall-not-impede', 'shall-not'])
+const FORCEFUL = new Set(['modality:shall', 'modality:shall-if-practicable', 'modality:shall-not-impede', 'modality:shall-not'])
 
 // Roles the applying entries assign, keyed by the subject of the *original*
 // situation: 'A' is self as the fixture wrote it, 'B' is the other vessel.
@@ -1664,13 +1664,13 @@ function resolve_(pool) {
 // deliberately not one of them: 18(d) really does lay it on a vessel that is
 // simultaneously stand-on under 18(a), and the test below pins that rather than
 // asserting it away.
-const HELM_ROLES = new Set(['give-way', 'stand-on', 'keep-clear'])
+const HELM_ROLES = new Set(['role:give-way', 'role:stand-on', 'role:keep-clear'])
 
 function rolesFor(c, subject) {
   const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
   const roles = new Map()
   for (const r of pool) {
-    if (!r[subject] || r[subject] === 'none') continue
+    if (!r[subject] || r[subject] === 'role:none') continue
     roles.set(r[subject], [...(roles.get(r[subject]) ?? []), r.entry.id])
   }
   return roles
@@ -1683,7 +1683,7 @@ test('ADR 0016: a case that states roles states the pooled, resolved roles of bo
   for (const c of stated) {
     const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
     for (const [subject, side] of [['A', 'self'], ['B', 'other']]) {
-      const got = pool.filter((r) => r[subject] && r[subject] !== 'none').map((r) => ({ role: r[subject], by: r.entry.id }))
+      const got = pool.filter((r) => r[subject] && r[subject] !== 'role:none').map((r) => ({ role: r[subject], by: r.entry.id }))
       assert.deepEqual(got.sort((x, y) => key(x).localeCompare(key(y))), [...c.roles[side]].sort((x, y) => key(x).localeCompare(key(y))), `${c.name}: ${side}`)
     }
   }
@@ -1709,18 +1709,18 @@ test('precedence: 18(d) lays shall-not-impede on a vessel Rule 18 also makes sta
   // records the pair honestly and declines to pick.
   const c = bindingCases.find((x) => x.name === '18 matrix: self sailing, other constrained by her draught, in sight')
   assert.ok(c, 'the sail-vs-CBD matrix cell is the one this asserts against')
-  assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r).sort(), ['shall-not-impede', 'stand-on'])
-  assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r).sort(), ['give-way'])
+  assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r).sort(), ['role:shall-not-impede', 'role:stand-on'])
+  assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r).sort(), ['role:give-way'])
   // ...and the same pair read from the other side is the same finding, not a
   // second one: the entries are symmetric under the swap.
   const d = bindingCases.find((x) => x.name === '18 matrix: self constrained by her draught, other sailing, in sight')
-  assert.deepEqual([...rolesFor(d, 'B')].map(([r]) => r).sort(), ['shall-not-impede', 'stand-on'])
+  assert.deepEqual([...rolesFor(d, 'B')].map(([r]) => r).sort(), ['role:shall-not-impede', 'role:stand-on'])
 })
 
 test('precedence: never both give-way, never both stand-on', () => {
   for (const c of bindingCases) {
     const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
-    for (const role of ['give-way', 'stand-on']) {
+    for (const role of ['role:give-way', 'role:stand-on']) {
       const a = pool.some((r) => r.A === role)
       const b = pool.some((r) => r.B === role)
       assert.ok(!(a && b), `${c.name}: both vessels are ${role}`)
@@ -1744,7 +1744,7 @@ test('precedence: Rule 18 is a partial order — NUC and RAM are unordered', () 
 test('scope: a situation selects exactly one Part B section, and it tracks in-sight', () => {
   for (const c of bindingCases) {
     const sections = appl.entries
-      .filter((e) => e.category === 'scope' && matchesSituation(e.when, c.situation))
+      .filter((e) => e.category === 'category:scope' && matchesSituation(e.when, c.situation))
       .map((e) => e.effect.section)
     assert.ok(sections.includes('I'), `${c.name}: Section I is ungated and must always apply`)
     const inSight = c.situation.pair?.geo?.['geo:in_sight']
@@ -1765,7 +1765,7 @@ test('scope: a situation selects exactly one Part B section, and it tracks in-si
 // first. The sweep is two-dimensional because the encounter type is a function
 // of both subjects' bearings -- self's, and the aspect -- and reading one alone
 // is the mistake rule:13b exists to prevent.
-const classification = appl.entries.filter((e) => e.category === 'classification')
+const classification = appl.entries.filter((e) => e.category === 'category:classification')
 const encounterEntries = classification.filter((e) => 'encounter' in e.effect)
 const CONSTANTS = facts.situation.constants
 const FROM = CONSTANTS.overtaking_sector_from_deg.value
@@ -1850,8 +1850,8 @@ test('classification: head-on, crossing and overtaking partition relative bearin
       if (got.size !== 1) { bad.push(`${ownRel}/${aspect}: ${[...got].join(',') || 'nothing'}`); continue }
       // ...and it is the right one, computed from the constants rather than
       // read back off the data.
-      const want = inSector(ownRel) || inSector(aspect) ? 'overtaking'
-        : inCone(ownRel) && inCone(aspect) ? 'head-on' : 'crossing'
+      const want = inSector(ownRel) || inSector(aspect) ? 'encounter:overtaking'
+        : inCone(ownRel) && inCone(aspect) ? 'encounter:head-on' : 'encounter:crossing'
       if (!got.has(want)) bad.push(`${ownRel}/${aspect}: ${[...got]} not ${want}`)
     }
   }
@@ -1865,20 +1865,20 @@ test('classification: the 112.5 and 22.5-abaft edges land exactly where 13(b) pu
   // fixtures either side of each edge are the data-level record of the same
   // fact.
   const at = (ownRel, aspect) => [...encountersFor(sweepSituation({ ownRel, aspect }))]
-  assert.deepEqual(at(300, FROM), ['crossing'], 'exactly 22.5 abaft the beam is not yet overtaking')
-  assert.deepEqual(at(350, FROM + 0.1), ['overtaking'])
-  assert.deepEqual(at(10, TO), ['crossing'], 'the mirror edge, and equally exclusive')
-  assert.deepEqual(at(10, TO - 0.1), ['overtaking'])
+  assert.deepEqual(at(300, FROM), ['encounter:crossing'], 'exactly 22.5 abaft the beam is not yet overtaking')
+  assert.deepEqual(at(350, FROM + 0.1), ['encounter:overtaking'])
+  assert.deepEqual(at(10, TO), ['encounter:crossing'], 'the mirror edge, and equally exclusive')
+  assert.deepEqual(at(10, TO - 0.1), ['encounter:overtaking'])
   // The same edge read on self's bearing, which is the overtaken vessel's side.
-  assert.deepEqual(at(FROM, 5), ['crossing'])
-  assert.deepEqual(at(FROM + 0.1, 5), ['overtaking'])
+  assert.deepEqual(at(FROM, 5), ['encounter:crossing'])
+  assert.deepEqual(at(FROM + 0.1, 5), ['encounter:overtaking'])
   // The head-on cone is closed at its edge and one twentieth of a degree wide
   // of it is a crossing -- and it takes both subjects, which is 14(b).
-  assert.deepEqual(at(HALF, 360 - HALF), ['head-on'])
-  assert.deepEqual(at(HALF + 0.05, 360 - HALF), ['crossing'])
-  assert.deepEqual(at(HALF, 360 - HALF - 0.05), ['crossing'])
-  assert.deepEqual(at(0, 0), ['head-on'], 'dead ahead of each other')
-  assert.deepEqual(at(180, 180), ['overtaking'], 'dead astern is the middle of the sector')
+  assert.deepEqual(at(HALF, 360 - HALF), ['encounter:head-on'])
+  assert.deepEqual(at(HALF + 0.05, 360 - HALF), ['encounter:crossing'])
+  assert.deepEqual(at(HALF, 360 - HALF - 0.05), ['encounter:crossing'])
+  assert.deepEqual(at(0, 0), ['encounter:head-on'], 'dead ahead of each other')
+  assert.deepEqual(at(180, 180), ['encounter:overtaking'], 'dead astern is the middle of the sector')
 })
 
 test('classification: 13(d) holds the encounter at overtaking however the bearing drifts', () => {
@@ -1892,7 +1892,7 @@ test('classification: 13(d) holds the encounter at overtaking however the bearin
     for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
       for (let aspect = 0; aspect < 360; aspect += 0.5) {
         const got = encountersFor(aim(s, ownRel, aspect))
-        if (got.size !== 1 || !got.has('overtaking')) bad.push(`${ownRel}/${aspect}: ${[...got]}`)
+        if (got.size !== 1 || !got.has('encounter:overtaking')) bad.push(`${ownRel}/${aspect}: ${[...got]}`)
       }
     }
     assert.deepEqual(bad.slice(0, 8), [], `${bad.length} bearings escape the 13(d) latch`)
@@ -1900,7 +1900,7 @@ test('classification: 13(d) holds the encounter at overtaking however the bearin
   // The case the latch was written for, and the one the fixture illustrates:
   // a bearing that has drawn out of the sector entirely.
   const drifted = sweepSituation({ ownRel: 90, aspect: 250, latchOwn: true })
-  assert.deepEqual([...encountersFor(drifted)], ['overtaking'])
+  assert.deepEqual([...encountersFor(drifted)], ['encounter:overtaking'])
   assert.equal(matchesSituation(byId.get('rule:13b').when, drifted), false,
     'the sector test no longer holds, which is exactly when 13(d) is load-bearing')
   assert.equal(matchesSituation(byId.get('rule:13a').when, drifted), true,
@@ -2156,7 +2156,7 @@ test('precedence: never both give-way, never both stand-on, no two helm roles, o
               bad.push(`${where}: both bearings to ${side(ownRel)} on a steady bearing`); continue
             }
             const pool = forcefulPool(s)
-            for (const role of ['give-way', 'stand-on']) {
+            for (const role of ['role:give-way', 'role:stand-on']) {
               if (bothHold(pool, role)) bad.push(`${where}: both ${role}`)
             }
             // ...and no vessel is told two things about her helm once
@@ -2165,7 +2165,7 @@ test('precedence: never both give-way, never both stand-on, no two helm roles, o
               const helm = new Set(pool.map((r) => r[subject]).filter((x) => HELM_ROLES.has(x)))
               if (helm.size > 1) bad.push(`${where}: ${subject} holds ${[...helm].join(' and ')} (${pool.filter((r) => HELM_ROLES.has(r[subject])).map((r) => r.entry.id).join(', ')})`)
             }
-            gaveWayA += pool.some((r) => r.A === 'give-way'); gaveWayB += pool.some((r) => r.B === 'give-way')
+            gaveWayA += pool.some((r) => r.A === 'role:give-way'); gaveWayB += pool.some((r) => r.B === 'role:give-way')
             checked++
           }
         }
@@ -2187,7 +2187,7 @@ test('Q-48: the both-starboard crossing that breaks the property is a record the
   // risk of collision is claimed. 15(a) then names both vessels.
   const s = statedSituation({ ownRel: 45, otherHeading: norm360(45 + 180 - 45), ownSog: 12, otherSog: 10 })
   Object.assign(s.pair.geo, { 'geo:bearing_change_deg_min': 0, 'geo:cpa_m': 0, 'geo:tcpa_s': 400 })
-  assert.ok(bothHold(forcefulPool(s), 'give-way'), 'the counterexample no longer reproduces; is rule:15a:keep_out_of_the_way still two-sided?')
+  assert.ok(bothHold(forcefulPool(s), 'role:give-way'), 'the counterexample no longer reproduces; is rule:15a:keep_out_of_the_way still two-sided?')
   // ...and no positive speeds produce that steady bearing, so the record is
   // one the motion equations refuse, whatever speeds it claims.
   const found = inconsistencies(s)
@@ -2218,8 +2218,8 @@ test('Q-48 residual: 7(d)(i)\'s tolerance admits a slow starboard-to-starboard p
   assert.ok(Math.abs(s.pair.geo['geo:bearing_change_deg_min']) < appreciable, 'the bearing rate is inside 7(d)(i)')
   assert.ok(s.pair.geo['geo:cpa_m'] > 100, 'and yet they pass clear')
   assert.ok(matchesSituation(byId.get('rule:7d_i').when, s), '7(d)(i) deems risk')
-  assert.deepEqual([...encountersFor(s)], ['crossing'])
-  assert.ok(bothHold(forcefulPool(s), 'give-way'), 'both vessels are give-way -- the residual this test pins')
+  assert.deepEqual([...encountersFor(s)], ['encounter:crossing'])
+  assert.ok(bothHold(forcefulPool(s), 'role:give-way'), 'both vessels are give-way -- the residual this test pins')
 })
 
 // --- who governs over Rules 12 and 15 (Q-40) --------------------------------
@@ -2248,12 +2248,12 @@ test('Q-40: Rule 12 reads 3(c)\'s sailing vessel, and every norm that governs ov
   // The two fixtures written for it resolve the way the overrides say.
   const under18 = bindingCases.find((c) => c.name.startsWith('12 under 18(b)(iii)'))
   assert.ok(under18)
-  assert.deepEqual([...rolesFor(under18, 'A')].map(([r]) => r), ['stand-on'], 'fishing under sail: stand-on, 12(a)(i) displaced')
-  assert.deepEqual([...rolesFor(under18, 'B')].map(([r]) => r), ['give-way'])
+  assert.deepEqual([...rolesFor(under18, 'A')].map(([r]) => r), ['role:stand-on'], 'fishing under sail: stand-on, 12(a)(i) displaced')
+  assert.deepEqual([...rolesFor(under18, 'B')].map(([r]) => r), ['role:give-way'])
   const over12 = bindingCases.find((c) => c.name.startsWith('13 over 12'))
   assert.ok(over12)
-  assert.deepEqual([...rolesFor(over12, 'A')].map(([r]) => r), ['give-way'], 'the overtaking vessel gives way, 12(a)(ii) displaced')
-  assert.deepEqual([...rolesFor(over12, 'B')].map(([r]) => r), ['stand-on'])
+  assert.deepEqual([...rolesFor(over12, 'A')].map(([r]) => r), ['role:give-way'], 'the overtaking vessel gives way, 12(a)(ii) displaced')
+  assert.deepEqual([...rolesFor(over12, 'B')].map(([r]) => r), ['role:stand-on'])
 })
 
 test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm that meets it overrides it', () => {
@@ -2306,8 +2306,8 @@ test('Q-40: Rule 15 reads 3(b)\'s power-driven vessel, and every Rule 18 norm th
   for (const [name, note] of [['15 between two fishing vessels', 'two fishing vessels'], ['15 between NUC and RAM', 'NUC and RAM']]) {
     const c = bindingCases.find((x) => x.name.startsWith(name))
     assert.ok(c, `${name}: fixture missing`)
-    assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r), ['give-way'], `${note}: self has the other to starboard`)
-    assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r), ['stand-on'], `${note}: the other stands on`)
+    assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r), ['role:give-way'], `${note}: self has the other to starboard`)
+    assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r), ['role:stand-on'], `${note}: the other stands on`)
   }
 })
 

@@ -24,6 +24,17 @@ but it is a name in a namespace and a consumer reads the paragraph out of
 Paragraph-keying is argued in ADR 0001 and required by REQ-MODEL-4; nothing
 here reopens either.
 
+**Jurisdiction values sit beside paragraph paths in this class, and for the
+same reason.** `intl` and `us/inland` are not names this package coined:
+jurisdiction is a coordinate with REQ-SCOPE-2's own `<body>/<waters>`
+grammar, its left segment borrowed from ISO 3166, the whole value doubling
+as a corpus key and a `data/text/` filesystem path — its sibling axis,
+`language`, is a bare BCP 47 tag for the same reason. A jurisdiction value
+is immutable under REQ-MODEL-10 like any identifier here — renaming
+`us/inland` would break every stored provenance and corpus path — it just
+carries no prefix, because the grammar that owns it already keeps it stable
+and collision-free (ADR 0017).
+
 **Vocabulary identifiers carry a type prefix.** These names are this
 package's own — nothing in COLREGS calls anything `masthead` or `nuc`. They
 share one flat string space across five files, and before the prefix they
@@ -31,7 +42,11 @@ collided in it: `towing` was simultaneously a light id (Rule 21(d)) and an
 `activity` value (Rule 24(a)), so a consumer holding the string `towing`
 could not say what it was a name *for* without knowing which field it came
 out of. The prefix makes the namespace part of the identifier, which
-resolves that collision by construction rather than by convention.
+resolves that collision by construction rather than by convention. The same
+shape recurs inside the closed vocabularies themselves: `shall-not-impede`
+names both a modality and a role, and `none` names both a role and an
+encounter — resolved the identical way, `modality:shall-not-impede` and
+`role:shall-not-impede` being two names rather than one (ADR 0017).
 
 ## The scheme
 
@@ -42,6 +57,10 @@ resolves that collision by construction rather than by convention.
 | `fact:<key>` | fact keys — the input vocabulary (`data/facts.json`) | `fact:activity`, `fact:length_m`, `fact:making_way`, `fact:on_mooring_buoy` |
 | `<fact>:<value>` | values of an enumerated fact | `activity:nuc`, `position:anchored`, `propulsion:sail`, `obstruction_side:port` |
 | `rel:<name>` | the five relation verbs (`data/applicability.json`) | `rel:includes`, `rel:in_lieu_of`, `rel:exempts` |
+| `modality:<value>` | modality values (`data/applicability.json` `modalities`) | `modality:shall`, `modality:may` |
+| `role:<value>` | effect role values (`data/applicability.json` `effects.roles`) | `role:give-way`, `role:none` |
+| `encounter:<value>` | effect encounter values (`data/applicability.json` `effects.encounters`) | `encounter:head-on`, `encounter:none` |
+| `category:<value>` | entry category values (`data/applicability.json` `categories`) | `category:precedence`, `category:display` |
 
 The prefix names the namespace the identifier lives in. For a fact *value*
 that namespace is the fact itself, written bare: `activity:nuc`, not
@@ -72,9 +91,9 @@ for a better idea, logging the change. What would settle it: the first
 two-subject entry — Rule 18 — actually being written against it. This
 section answers `Q-28`.
 
-A `display` entry reads one vessel. A `classification` or `precedence`
-entry reads two, and needs to say *whose* `fact:activity` it means. The form
-is three segments:
+A `category:display` entry reads one vessel. A `category:classification` or
+`category:precedence` entry reads two, and needs to say *whose*
+`fact:activity` it means. The form is three segments:
 
 ```
 <subject>:<class>:<key>
@@ -139,7 +158,7 @@ is a subject swap, not a second fact. Rule 13(b)'s overtaking sector is then
 `other:geo:rel_bearing_deg` in (112.5, 247.5) — self more than 22.5° abaft
 the other vessel's beam — written once, in the units the rule itself uses.
 Swapping `self` and `other` throughout a predicate reverses the encounter,
-which is exactly the operation a `precedence` rule needs and the reason to
+which is exactly the operation a `category:precedence` rule needs and the reason to
 prefer a subject namespace over two parallel vocabularies.
 
 The directional and the pair geometry are redundant with `kin:` wherever both
@@ -166,7 +185,7 @@ hands the duty to the wrong vessel. So the latch is a fact:
 
 - `self:hist:was_overtaking` — this subject was, earlier in this encounter,
   an overtaking vessel with respect to the other.
-- `self:hist:latched_at_s` — how long ago that attached, for a `conduct`
+- `self:hist:latched_at_s` — how long ago that attached, for a `category:conduct`
   monitor. A predicate at a point does not read it.
 
 History is directional — it is *self* that was overtaking — so it takes a
@@ -183,41 +202,41 @@ keys would have broken.
 ## Effects `✎`
 
 **Pencil** (`docs/conventions.md`): ADR 0005 puts the whole two-subject shape
-there. What would settle it: a second family of `precedence` paragraphs —
+there. What would settle it: a second family of `category:precedence` paragraphs —
 Rules 12, 14 and 15 — written against it. **Written, and it held with one
-addition**: Rules 7(d) and 13–15 are the first `classification` entries, and a
+addition**: Rules 7(d) and 13–15 are the first `category:classification` entries, and a
 classification produces neither a role nor a section, so the table below grows
-a third row. Rule 12 turned out to be `precedence` and not `classification`
+a third row. Rule 12 turned out to be `category:precedence` and not `category:classification`
 (below). This section answers the data half of `Q-27` and is required by
 `REQ-CAT-8`.
 
-A `display` entry produces `lights`. A `scope` or `precedence` entry produces
+A `category:display` entry produces `lights`. A `category:scope` or `category:precedence` entry produces
 an **effect**, and the shape of the effect is fixed by the category:
 
 | category | effect |
 |---|---|
-| `scope` | `{"part", "section", "applies_rules"}` — which section of which Part governs, and the rules it contains |
-| `precedence` | `{"self": <role>, "other": <role>}` — one role per subject |
-| `classification` | `{"encounter": <encounter>}` **or** `{"risk_of_collision": true}` — exactly one key |
+| `category:scope` | `{"part", "section", "applies_rules"}` — which section of which Part governs, and the rules it contains |
+| `category:precedence` | `{"self": <role>, "other": <role>}` — one role per subject |
+| `category:classification` | `{"encounter": <encounter>}` **or** `{"risk_of_collision": true}` — exactly one key |
 
-Five roles, a closed set: `give-way`, `stand-on`, `shall-not-impede`,
-`keep-clear`, `none`. They are declared in `data/applicability.json` under
-`effects`, and they are **not identifiers** — like modality and jurisdiction
-values they are a closed vocabulary of their own, outside what `REQ-MODEL-10`
-binds.
+Five roles, a closed set: `role:give-way`, `role:stand-on`,
+`role:shall-not-impede`, `role:keep-clear`, `role:none`. They are declared
+in `data/applicability.json` under `effects`, and, like modality and
+category, they are identifiers: prefixed closed vocabularies `REQ-MODEL-10`
+binds (ADR 0017).
 
 ### Encounters, and why a classification effect has two shapes
 
-Four encounters, a closed set like the roles: `head-on` (Rule 14), `crossing`
-(Rule 15), `overtaking` (Rule 13) and `none`. They are declared in
-`data/applicability.json` under `effects.encounters` and, like the roles, they
-are not identifiers.
+Four encounters, a closed set like the roles: `encounter:head-on` (Rule 14),
+`encounter:crossing` (Rule 15), `encounter:overtaking` (Rule 13) and
+`encounter:none`. They are declared in `data/applicability.json` under
+`effects.encounters` and, like the roles, they are identifiers.
 
-A `classification` effect carries **exactly one key**, and which key it is
+A `category:classification` effect carries **exactly one key**, and which key it is
 depends on which question the paragraph answers. Rule 7(d)(i) answers *does
 risk of collision exist* and produces `{"risk_of_collision": true}`; Rules 13,
 14 and 15 answer *what kind of encounter is this* and produce an `encounter`.
-ADR 0005 gives both questions to `classification` — "relative geometry,
+ADR 0005 gives both questions to `category:classification` — "relative geometry,
 history → encounter type, risk of collision" — and the two do not merge. A
 single shape would have made every encounter entry state a risk it does not
 decide, and 15(a)'s crossing test reads `pair:geo:risk_of_collision` as an
@@ -226,7 +245,7 @@ input rather than producing it.
 There is no `{"risk_of_collision": false}` and there never will be. 7(a) makes
 risk a judgement on all available means and deems it to exist in any doubt, so
 an entry can add a ground for risk and nothing in this package can deny one.
-`none` is declared as an encounter for the completeness of the vocabulary and
+`encounter:none` is declared for the completeness of the vocabulary and
 no entry produces it: an encounter type is asserted by a paragraph, and the
 absence of one is the absence of an entry rather than an entry with a null
 value.
@@ -242,17 +261,17 @@ subjects' bearings in half-degree steps and asserts exactly one encounter at
 each of the 518 400 points; the Alloy version of the same property lives in
 `colregs-engine`.
 
-### Rule 12 is `precedence`, not `classification`
+### Rule 12 is `category:precedence`, not `category:classification`
 
 ADR 0005 §1 and the proposal's first-cut table file Rule 12 under
-`classification`. It is `precedence` here, for the reason `Q-37` gives for
+`category:classification`. It is `category:precedence` here, for the reason `Q-37` gives for
 13(a): **12(a) produces a role, and a classification effect has nowhere to put
 one.** "One of them shall keep out of the way of the other" is give-way and
 stand-on in the effect vocabulary that already exists, and it is not an
 encounter type — two sailing vessels meeting are still in a head-on, a
 crossing or an overtaking, and Rule 12 says which of them gives way rather
 than which kind of meeting it is. Rule 12 has no deeming paragraph at all:
-12(b) defines the windward side and is a `definition`, so it is the cite on the
+12(b) defines the windward side and is a `category:definition`, so it is the cite on the
 `kin:wind_side` fact rather than an entry.
 
 The category is `Q-14`'s to settle paragraph by paragraph and this is two more
@@ -280,18 +299,18 @@ that checkable: a Rule 18 entry meets Rule 15 when it assigns a helm role and
 neither subject is gated to a sailing vessel, and every such entry must carry
 the override, so a Rule 18 paragraph added later cannot join Rule 15 silently.
 
-**The effect names both subjects, and that is the point.** A `precedence`
+**The effect names both subjects, and that is the point.** A `category:precedence`
 entry is evaluated from self's side, so 18(a)(i) says self gives way *and* the
 other vessel stands on. Writing only self's half would lose Rule 17, which
 attaches to the counterpart of a give-way duty and to nothing else. So
-`stand-on` appears only opposite `give-way`, and the counterpart of
-`shall-not-impede` is always `none` — that is 8(f)(iii) in the data: a vessel
-whose passage is not to be impeded acquires no privilege by it. `none` is
+`role:stand-on` appears only opposite `role:give-way`, and the counterpart of
+`role:shall-not-impede` is always `role:none` — that is 8(f)(iii) in the data: a vessel
+whose passage is not to be impeded acquires no privilege by it. `role:none` is
 written rather than omitted, because a norm that confers nothing on a subject
-is a finding and not an absence: NUC against RAM is `none` on both sides, and
+is a finding and not an absence: NUC against RAM is `role:none` on both sides, and
 that is Rule 18's partial order rather than a gap in the table.
 
-`keep-clear` is one role for the two duties 18(e) and 18(f)(i) impose together
+`role:keep-clear` is one role for the two duties 18(e) and 18(f)(i) impose together
 — keep well clear, and avoid impeding navigation. The vocabulary cannot
 separate them and does not pretend to.
 
@@ -391,11 +410,6 @@ implemented in the reference evaluator and asserted by the fixtures.
 
 ## What is not an identifier
 
-- **Modality values** (`shall`, `may`, `shall-if-practicable`,
-  `conditional`, `exempt`) and **jurisdiction values** (`intl`,
-  `us/inland`) are their own closed vocabularies, defined in §2 of the
-  requirements and not part of the identifier space REQ-MODEL-10 binds. So are
-  the **role** and **encounter** values of an effect.
 - **Constants** — `situation.constants` in `data/facts.json`: the numbers a
   Part B predicate needs and the Rules do not always give
   (`appreciable_bearing_change_deg_min`, `head_on_half_angle_deg`, the two
