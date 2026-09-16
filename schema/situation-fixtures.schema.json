@@ -193,15 +193,15 @@
             "$ref": "situation.schema.json"
           },
           "roles": {
-            "$comment": "The pooled, resolved roles of both subjects (ADR 0016). `expect` stays the own-frame entry ids.",
+            "$comment": "The pooled, resolved roles of both subjects (ADR 0016). `expect` stays the self-frame entry ids.",
             "type": "object",
             "additionalProperties": false,
             "required": [
-              "own",
+              "self",
               "other"
             ],
             "properties": {
-              "own": {
+              "self": {
                 "type": "array",
                 "items": {
                   "$ref": "#/$defs/subjectRole"

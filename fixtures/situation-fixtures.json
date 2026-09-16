@@ -103,7 +103,7 @@
     }
    },
    "roles": {
-    "own": [
+    "self": [
      {
       "role": "give-way",
       "by": "rule:15a:keep_out_of_the_way"
@@ -3758,9 +3758,9 @@
    }
   },
   {
-   "name": "crossing: own power-driven, other fine on the port bow -- own is the stand-on vessel (ADR 0016)",
+   "name": "crossing: self power-driven, other fine on the port bow -- self is the stand-on vessel (ADR 0016)",
    "status": "binding",
-   "narrative": "The mirror of the crossing above: the same two vessels, the other now bearing 320 relative at 3 nm on a steady bearing. The other has own on her starboard side, so own stands on under Rule 17 and the other gives way. No entry names own stand-on from her own seat; the role is rule:15a:keep_out_of_the_way read in the swapped frame, which is why this case states `roles` (ADR 0016, #141).",
+   "narrative": "The mirror of the crossing above: the same two vessels, the other now bearing 320 relative at 3 nm on a steady bearing. The other has self on her starboard side, so self stands on under Rule 17 and the other gives way. No entry names self stand-on from her own seat; the role is rule:15a:keep_out_of_the_way read in the swapped frame, which is why this case states `roles` (ADR 0016, #141).",
    "expect": [
     "rule:4",
     "rule:11",
@@ -3769,7 +3769,7 @@
     "rule:15a:crossing"
    ],
    "roles": {
-    "own": [
+    "self": [
      {
       "role": "stand-on",
       "by": "rule:15a:keep_out_of_the_way"
@@ -3783,7 +3783,7 @@
     ]
    },
    "situation": {
-    "own": {
+    "self": {
      "fact": {
       "fact:propulsion": "propulsion:power",
       "fact:activity": "activity:none",
@@ -3848,9 +3848,9 @@
    }
   },
   {
-   "name": "18(a)(i) over 15(a) across frames: own not under command, ordinary power vessel on own's starboard bow (ADR 0016)",
+   "name": "18(a)(i) over 15(a) across frames: self not under command, ordinary power vessel on self's starboard bow (ADR 0016)",
    "status": "binding",
-   "narrative": "Own is not under command, under power, with an ordinary power-driven vessel crossing from her starboard bow. From own's seat Rule 15 alone applies and would make her give way; 18(a)(i) fires only from the other vessel's seat, and its rel:overrides against rule:15a:keep_out_of_the_way reaches across the frames. Pooled, own stands on and the other gives way. One-seat evaluation tells both to give way (#141).",
+   "narrative": "Self is not under command, under power, with an ordinary power-driven vessel crossing from her starboard bow. From self's seat Rule 15 alone applies and would make her give way; 18(a)(i) fires only from the other vessel's seat, and its rel:overrides against rule:15a:keep_out_of_the_way reaches across the frames. Pooled, self stands on and the other gives way. One-seat evaluation tells both to give way (#141).",
    "expect": [
     "rule:4",
     "rule:11",
@@ -3859,7 +3859,7 @@
     "rule:15a:keep_out_of_the_way"
    ],
    "roles": {
-    "own": [
+    "self": [
      {
       "role": "stand-on",
       "by": "rule:18a_i"
@@ -3873,7 +3873,7 @@
     ]
    },
    "situation": {
-    "own": {
+    "self": {
      "fact": {
       "fact:propulsion": "propulsion:power",
       "fact:activity": "activity:nuc",
@@ -3930,9 +3930,9 @@
    }
   },
   {
-   "name": "13(a) over 18(a)(iv) across frames: own power-driven, a sailing vessel overtaking her from the starboard quarter (ADR 0016)",
+   "name": "13(a) over 18(a)(iv) across frames: self power-driven, a sailing vessel overtaking her from the starboard quarter (ADR 0016)",
    "status": "binding",
-   "narrative": "Own is an ordinary power-driven vessel making 3 knots; a sailing vessel comes up from 160 relative at 12 knots. From own's seat 18(a)(iv) applies and would make her keep out of the way; 13(a) fires only from the sailing vessel's seat, and its rel:overrides against rule:18a_iv reaches across the frames. Pooled, the overtaking vessel gives way and own stands on (ADR 0016, #141).",
+   "narrative": "Self is an ordinary power-driven vessel making 3 knots; a sailing vessel comes up from 160 relative at 12 knots. From self's seat 18(a)(iv) applies and would make her keep out of the way; 13(a) fires only from the sailing vessel's seat, and its rel:overrides against rule:18a_iv reaches across the frames. Pooled, the overtaking vessel gives way and self stands on (ADR 0016, #141).",
    "expect": [
     "rule:4",
     "rule:11",
@@ -3942,7 +3942,7 @@
     "rule:18a_iv"
    ],
    "roles": {
-    "own": [
+    "self": [
      {
       "role": "stand-on",
       "by": "rule:13a"
@@ -3956,7 +3956,7 @@
     ]
    },
    "situation": {
-    "own": {
+    "self": {
      "fact": {
       "fact:propulsion": "propulsion:power",
       "fact:activity": "activity:none",
