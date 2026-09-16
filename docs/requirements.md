@@ -476,13 +476,13 @@ See ADR 0003.
   with the file's internal metadata. Silence MUST NOT imply coverage (the
   language mirror of REQ-SCOPE-6).
 - **REQ-LANG-6** — Display strings for the closed vocabularies the package
-  emits (light, modality, role, encounter, jurisdiction, fact values) MUST be
-  addressable via stable string keys with per-language catalogs, separate from
-  legal corpora; not being an identifier does not exclude a vocabulary.
-  Catalog entries are static strings — no interpolation, plural or gender
-  grammar, and MUST carry provenance (contributors, reviewers, review date,
-  licence). Definitions stay untranslated in structural files, not catalogued;
-  a label lives only in the catalog.
+  emits (light, modality, role, encounter, jurisdiction, fact values, and
+  image captions **(unimplemented — no catalog yet)**) MUST be addressable
+  via stable string keys with per-language catalogs, separate from legal
+  corpora; not being an identifier does not exclude a vocabulary. Catalog
+  entries are static strings — no interpolation, plural or gender grammar —
+  and MUST carry provenance (contributors, reviewers, review date, licence);
+  definitions stay untranslated in structural files, not catalogued.
 - **REQ-LANG-7** — The package MUST NOT encode a language fallback policy,
   and MUST NOT silently substitute one corpus for another. Text is only
   addressable inside a corpus, so every textual unit a consumer retrieves

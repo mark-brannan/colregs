@@ -298,7 +298,7 @@ test('operations: smoke -- each result and input envelope accepts a hand-written
   }
 })
 
-// REQ-LANG-2's closed-list fact values (Tier A, docs/i18n rulings on colregs#120):
+// REQ-LANG-2's closed-list fact values (Tier A):
 // every enumerated fact axis in data/facts.json declares its closed list under
 // a `values` array of prefixed identifiers -- collecting every such array,
 // wherever it sits (axes, enums, derived, kinematics modifiers), is exactly the
