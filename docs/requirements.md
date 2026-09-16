@@ -983,8 +983,16 @@ listed here, one line each, because the ADR is what makes them live. Most are
   it have to be computed at runtime? Settled by the first two-vessel
   computation's cost. *(engine)*
 - **Q-23** — Is Rule 2(b) a duty where departure is necessary, and does the
-  departing vessel bear the burden? Settled by reading the cases (*The Bywell
-  Castle*, *Boy Andrew v St Rognvald*, both unverified), not by advocacy.
+  departing vessel bear the burden? Partly settled: yes and yes, per
+  *Evergreen Marine (UK) Ltd v Nautical Challenge Ltd* ("Ever Smart") [2021]
+  UKSC 6, paras 60, 66–67 (2(b) is a conjunctive special-circumstance-plus-
+  immediate-danger test, not a gap-filler for the steering rules), and
+  *Crowley Marine Services Inc. v. Maritrans Inc.*, 447 F.3d 719 (9th Cir.
+  2006) (burden on the departing vessel; no pre-emptive departure). 2(a) is
+  confirmed a standing responsibility clause, not an authorisation. The
+  taxonomy of which circumstances qualify (draught, lee shore, manoeuvring
+  limits) remains unsourced; *The Bywell Castle* and *Boy Andrew v St
+  Rognvald* are still unread. *colregs-engine* issue #83.
 - **Q-24** — Are the four worked illustrations (R0, R1, R2,
   `inconclusive-in-model`) actually in the regions they are said to be in?
   They fix meanings, not numbers; settled by computing them. *(engine)*
