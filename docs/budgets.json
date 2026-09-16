@@ -20,7 +20,7 @@
     "pending": [],
     "docs/adr/0013-corpus-files-with-editions.md": 95,
     "docs/adr/0014-engine-interface-owned-by-colregs.md": 110,
-    "docs/adr/0015-entry-ids-are-names.md": 210,
+    "docs/adr/0015-rule-ids-are-paragraph-keys.md": 210,
     "docs/timeline.md": 130,
     "docs/maritime-sources.md": 130
   },
@@ -59,14 +59,10 @@
       "data/applicability.json#/entries/62/note",
       "data/applicability.json#/entries/63/note",
       "data/applicability.json#/entries/64/note",
-      "data/applicability.json#/entries/64/gap",
       "data/applicability.json#/entries/65/note",
-      "data/applicability.json#/entries/65/gap",
       "data/applicability.json#/entries/66/note",
       "data/applicability.json#/entries/67/note",
       "data/applicability.json#/entries/68/note",
-      "data/applicability.json#/entries/68/gap",
-      "data/applicability.json#/entries/69/note",
       "data/facts.json#/derived/note",
       "data/facts.json#/derived/fact:rule18_class/note",
       "data/facts.json#/derived/fact:rule18_class/decode/1/note",
@@ -138,16 +134,6 @@
       ]
     },
     "grandfathered": [
-      {
-        "file": "data/applicability.json",
-        "hash": "447b3984d57b",
-        "match": "PR #24"
-      },
-      {
-        "file": "data/applicability.json",
-        "hash": "5ff9d39319b8",
-        "match": "PR #24"
-      },
       {
         "file": "docs/conventions.md",
         "hash": "d1f1ed997431",

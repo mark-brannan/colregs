@@ -12,8 +12,8 @@
     "cases"
   ],
   "$defs": {
-    "entryId": {
-      "$ref": "applicability.schema.json#/$defs/entryId"
+    "ruleId": {
+      "$ref": "applicability.schema.json#/$defs/ruleId"
     },
     "modality": {
       "$ref": "applicability.schema.json#/$defs/modality"
@@ -21,7 +21,7 @@
     "expectItem": {
       "oneOf": [
         {
-          "$ref": "#/$defs/entryId"
+          "$ref": "#/$defs/ruleId"
         },
         {
           "type": "object",
@@ -32,7 +32,7 @@
           ],
           "properties": {
             "entry": {
-              "$ref": "#/$defs/entryId"
+              "$ref": "#/$defs/ruleId"
             },
             "modality": {
               "$ref": "#/$defs/modality"
@@ -87,7 +87,7 @@
           "type": "string"
         },
         "bare": {
-          "$ref": "#/$defs/entryId"
+          "$ref": "#/$defs/ruleId"
         },
         "with_modality": {
           "type": "object",
@@ -98,7 +98,7 @@
           ],
           "properties": {
             "entry": {
-              "$ref": "#/$defs/entryId"
+              "$ref": "#/$defs/ruleId"
             },
             "modality": {
               "$ref": "#/$defs/modality"

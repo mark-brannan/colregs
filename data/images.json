@@ -21,7 +21,7 @@
     "23(d)(ii)"
    ],
    "entries": [
-    "entry:power_under_7m_slow"
+    "rule:23d_ii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -59,9 +59,9 @@
     "24(b)"
    ],
    "entries": [
-    "entry:power_forward_masthead",
-    "entry:power_second_masthead",
-    "entry:pushing_composite_unit"
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:24b"
    ],
    "depicts": "provision",
    "transcript": [
@@ -94,7 +94,7 @@
     "23(a)(ii)"
    ],
    "entries": [
-    "entry:power_second_masthead"
+    "rule:23a_ii"
    ],
    "depicts": "exception",
    "transcript": [
@@ -127,7 +127,7 @@
     "23(b)"
    ],
    "entries": [
-    "entry:air_cushion_non_displacement"
+    "rule:23b"
    ],
    "depicts": "provision",
    "transcript": [
@@ -160,7 +160,7 @@
     "23(d)(i)"
    ],
    "entries": [
-    "entry:power_under_12m"
+    "rule:23d_i"
    ],
    "depicts": "provision",
    "transcript": [
@@ -215,8 +215,8 @@
     "24(a)(i)"
    ],
    "entries": [
-    "entry:towing_mastheads",
-    "entry:towing_light"
+    "rule:24a_i",
+    "rule:24a_ii_iv"
    ],
    "depicts": "provision",
    "transcript": [
@@ -249,7 +249,7 @@
     "24(a)(v)"
    ],
    "entries": [
-    "entry:towing_mastheads_long_tow"
+    "rule:24a_i:exceeds_200m"
    ],
    "depicts": "provision",
    "transcript": [
@@ -314,7 +314,7 @@
     "24(e)"
    ],
    "entries": [
-    "entry:being_towed"
+    "rule:24e"
    ],
    "depicts": "provision",
    "transcript": [
@@ -437,7 +437,7 @@
     "25(a)"
    ],
    "entries": [
-    "entry:sail_sidelights_sternlight"
+    "rule:25a"
    ],
    "depicts": "provision",
    "transcript": [
@@ -466,7 +466,7 @@
     "25(b)"
    ],
    "entries": [
-    "entry:sail_combined_lantern"
+    "rule:25b"
    ],
    "depicts": "provision",
    "transcript": [
@@ -498,7 +498,7 @@
     "25(c)"
    ],
    "entries": [
-    "entry:sail_red_over_green"
+    "rule:25c"
    ],
    "depicts": "provision",
    "transcript": [
@@ -531,7 +531,7 @@
     "25(d)(i)"
    ],
    "entries": [
-    "entry:sail_under_7m"
+    "rule:25d_i"
    ],
    "depicts": "provision",
    "transcript": [
@@ -564,7 +564,7 @@
     "25(d)(ii)"
    ],
    "entries": [
-    "entry:under_oars"
+    "rule:25d_ii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -629,7 +629,7 @@
     "26(b)(i)"
    ],
    "entries": [
-    "entry:trawling_green_over_white"
+    "rule:26b_i"
    ],
    "depicts": "provision",
    "transcript": [
@@ -665,7 +665,7 @@
     "26(b)(iii)"
    ],
    "entries": [
-    "entry:trawling_making_way"
+    "rule:26b_iii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -701,7 +701,7 @@
     "26(c)(iii)"
    ],
    "entries": [
-    "entry:fishing_making_way"
+    "rule:26c_iii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -740,7 +740,7 @@
     "27(a)(i)"
    ],
    "entries": [
-    "entry:nuc_red_over_red"
+    "rule:27a_i"
    ],
    "depicts": "provision",
    "transcript": [
@@ -776,7 +776,7 @@
     "27(a)(iii)"
    ],
    "entries": [
-    "entry:nuc_making_way"
+    "rule:27a_iii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -812,7 +812,7 @@
     "27(b)(iii)"
    ],
    "entries": [
-    "entry:ram_making_way"
+    "rule:27b_iii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -849,7 +849,7 @@
     "27(b)(iv)"
    ],
    "entries": [
-    "entry:ram_anchored"
+    "rule:27b_iv"
    ],
    "depicts": "provision",
    "transcript": [
@@ -924,7 +924,7 @@
     "27(d)(ii)"
    ],
    "entries": [
-    "entry:ram_underwater_obstruction"
+    "rule:27d"
    ],
    "depicts": "provision",
    "transcript": [
@@ -967,7 +967,7 @@
     "27(d)(ii)"
    ],
    "entries": [
-    "entry:ram_underwater_obstruction"
+    "rule:27d"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1069,7 +1069,7 @@
     "27(f)"
    ],
    "entries": [
-    "entry:mine_clearance"
+    "rule:27f"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1106,7 +1106,7 @@
     "28"
    ],
    "entries": [
-    "entry:cbd"
+    "rule:28"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1142,7 +1142,7 @@
     "29(a)(i)"
    ],
    "entries": [
-    "entry:pilot"
+    "rule:29a"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1175,7 +1175,7 @@
     "29(a)(iii)"
    ],
    "entries": [
-    "entry:pilot"
+    "rule:29a"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1210,7 +1210,7 @@
     "30(b)"
    ],
    "entries": [
-    "entry:anchored_under_50m"
+    "rule:30b"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1246,7 +1246,7 @@
     "30(c)"
    ],
    "entries": [
-    "entry:anchored"
+    "rule:30a"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1281,7 +1281,7 @@
     "30(d)"
    ],
    "entries": [
-    "entry:aground_red_over_red"
+    "rule:30d_i"
    ],
    "depicts": "provision",
    "transcript": [

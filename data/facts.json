@@ -549,7 +549,7 @@
     ],
     "cite": "12(b)",
     "cite_pending": null,
-    "note": "Which side this vessel has the wind on, which 12(b) defines as the side opposite that on which the mainsail is carried, or for a square-rigged vessel the side opposite the largest fore-and-aft sail. `wind_side:unknown` is not a missing value: it is 12(a)(iii)'s case, a vessel with the wind on the port side who cannot determine with certainty which side the other has it on, and entry entry:sail_port_tack_uncertain_gives_way reads it. An absent fact would be silence, and silence satisfies nothing. Declared in `kin` rather than in the fact record because a display consumer never supplies it and the fact record does not change for Part B (REQ-CAT-4) -- but it is a sailing state and not kinematics, which is recorded as strain in Q-44 rather than fixed by widening the class.",
+    "note": "Which side this vessel has the wind on, which 12(b) defines as the side opposite that on which the mainsail is carried, or for a square-rigged vessel the side opposite the largest fore-and-aft sail. `wind_side:unknown` is not a missing value: it is 12(a)(iii)'s case, a vessel with the wind on the port side who cannot determine with certainty which side the other has it on, and entry rule:12a_iii reads it. An absent fact would be silence, and silence satisfies nothing. Declared in `kin` rather than in the fact record because a display consumer never supplies it and the fact record does not change for Part B (REQ-CAT-4) -- but it is a sailing state and not kinematics, which is recorded as strain in Q-44 rather than fixed by widening the class.",
     "actuable": false,
     "signalk": null
    }
@@ -562,7 +562,7 @@
      "unit": "deg",
      "cite": "13(b)",
      "cite_pending": null,
-     "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's own heading. Under `own` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- own is more than 22.5 degrees abaft the other vessel's beam. The two sector edges are declared once in `constants` below (`overtaking_sector_from_deg`, `overtaking_sector_to_deg`) and entries entry:overtaking, entry:being_overtaken and entry:crossing all read them, so the sector and its complement cannot drift apart.",
+     "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's own heading. Under `own` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- own is more than 22.5 degrees abaft the other vessel's beam. The two sector edges are declared once in `constants` below (`overtaking_sector_from_deg`, `overtaking_sector_to_deg`) and entries rule:13b and rule:15a:crossing both read them, so the sector and its complement cannot drift apart.",
      "actuable": false,
      "signalk": null
     },
@@ -590,7 +590,7 @@
      "unit": "deg/min",
      "cite": "7(d)(i)",
      "cite_pending": null,
-     "note": "Rate of change of the compass bearing between the two vessels, signed. Rule 7(d)(i): a bearing that does not appreciably change means risk of collision exists. The Rules do not say what appreciably means; `constants.appreciable_bearing_change_deg_min` fixes it in pencil and entry entry:steady_bearing is the only reader.",
+     "note": "Rate of change of the compass bearing between the two vessels, signed. Rule 7(d)(i): a bearing that does not appreciably change means risk of collision exists. The Rules do not say what appreciably means; `constants.appreciable_bearing_change_deg_min` fixes it in pencil and entry rule:7d_i is the only reader.",
      "actuable": false,
      "signalk": null
     },
@@ -721,7 +721,7 @@
     "status": "pencil",
     "cite": null,
     "cite_pending": "7(d)(i)",
-    "note": "Rule 7(d)(i) deems risk of collision to exist if the compass bearing of an approaching vessel 'does not appreciably change', and nowhere says what appreciably means. Read as a magnitude: entry entry:steady_bearing gates on the open interval (-1.0, 1.0) so a bearing drawing out either way is treated alike, because the paragraph asks whether the bearing changes and not which way.",
+    "note": "Rule 7(d)(i) deems risk of collision to exist if the compass bearing of an approaching vessel 'does not appreciably change', and nowhere says what appreciably means. Read as a magnitude: entry rule:7d_i gates on the open interval (-1.0, 1.0) so a bearing drawing out either way is treated alike, because the paragraph asks whether the bearing changes and not which way.",
     "settled_by": "A source that fixes the figure -- Cockcroft & Lameijer, or an administration's guidance -- or a sensitivity sweep in colregs-engine showing which values change a region finding. Until then it is one session's number and any session may change it."
    },
    "head_on_half_angle_deg": {

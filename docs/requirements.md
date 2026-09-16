@@ -79,7 +79,7 @@ Neither consumer lives in this repo.
   exists. That bar is about suppression, not licensing: it is independent of
   REQ-PROV-2 and ADR 0010, and it binds whether a jurisdiction's text ships or
   is withheld. A delta that only *adds* entries is exempt: it suppresses nothing,
-  so the Q-11 hazard cannot arise from it (ADR 0008, `entry:mooring_buoy`/`entry:mooring_buoy_under_50m`).
+  so the Q-11 hazard cannot arise from it (ADR 0008, `rule:30a:mooring_buoy`/`rule:30b:mooring_buoy`).
   A delta that suppresses or replaces an `intl` entry still waits.
 - **REQ-SCOPE-4** — Adding a jurisdiction MUST be additive. It MUST NOT require
   a schema change or edits to existing `intl` entries.
@@ -156,7 +156,7 @@ Four layers, each independently addressable.
   identifiers do not.
 - **REQ-MODEL-4** — **Applicability entries**: `when` (predicate over facts) →
   lights or refs → modality → citation → jurisdiction. Every entry MUST have a
-  stable id, a name in the `entry:` namespace (`entry:sail_under_7m`; ADR 0015).
+  stable id, a paragraph key in the `rule:` namespace (`rule:25d_i`; ADR 0015).
 - **REQ-MODEL-5** — Gates MUST be expressed as predicates over facts
   (`fact:length_m < 7`), never as pre-enumerated tuples or configuration counts. Any
   count of "configurations" is an output of evaluation, never an input to the
@@ -187,8 +187,8 @@ Four layers, each independently addressable.
   ADR 0005 §4.
 - **REQ-MODEL-12** — `rel:conditional_includes` currently carries three
   distinct shapes under one relation name: a bare `one_of` alternative set
-  (`entry:under_oars`), a gated alternative set (`when` + `one_of`, `entry:mine_clearance`), and a gated
-  import with its own citation (`when` + `rel:includes` + `cite`, `entry:pilot`). Which
+  (`rule:25d_ii`), a gated alternative set (`when` + `one_of`, `rule:27f`), and a gated
+  import with its own citation (`when` + `rel:includes` + `cite`, `rule:29a`). Which
   behaviour applies is inferred from which keys are present. This is a
   **soft** requirement — the data is correct today and the tests cover it,
   so nothing is broken. It is recorded because a third jurisdiction adding
@@ -211,7 +211,7 @@ Four layers, each independently addressable.
     denoted, MUST be marked deprecated in data with the version that
     deprecated it, and MUST NOT be removed in the same major version.
   - **Mutating** one is forbidden. This covers the obvious case (renaming
-    `entry:sail_combined_lantern`) and the dangerous quiet one: an identifier keeping its spelling
+    `rule:25b`) and the dangerous quiet one: an identifier keeping its spelling
     while changing what it denotes — a paragraph path repointed at
     different text, a fact value narrowed, a light id reassigned. A
     consumer cannot detect this, and every stored citation becomes silently
@@ -233,8 +233,8 @@ Four layers, each independently addressable.
   The baseline was first set at `0.1.1` on 2026-08-30, the day after the
   package was seeded, so that the identifier review this requirement calls
   for could happen at all. It was moved to `1.0.0` by Solace's ruling on
-  #121 (ADR 0015, 2026-09-16), which discarded every citation-derived entry
-  id in favour of a name.
+  #121 (ADR 0015, 2026-09-16), which reshaped every entry id into a
+  paragraph key in the `rule:` namespace.
 
   From `1.0.0` the baseline is **fixed**. It MUST NOT be moved, raised,
   re-stated in a later version, or joined by a second baseline clause.
@@ -244,9 +244,9 @@ Four layers, each independently addressable.
   normative.
 
   `test/data.test.mjs` pins the baseline literal and asserts it is stated
-  exactly once. The identifier diff against the last release (ADR 0006) is
-  dormant until the first release tag at or after the baseline, and says so
-  when it skips. A build has no access to git history, so it cannot see the
+  exactly once. There is no identifier diff against the last release: ADR 0006
+  proposed one, ADR 0015 removed it pre-1.0, and it returns with the baseline
+  tag if at all. A build has no access to git history, so it cannot see the
   number being *edited* in place; a test that reconstructed history to
   check would cost more than it is worth and would still pass on a rewritten
   history. What it can refuse is a **second** baseline clause, which is the
@@ -275,15 +275,16 @@ Four layers, each independently addressable.
     art; see `docs/identifiers.md` for the reasoning and the trap in `ram`.
 
   ADR 0015 (Solace's ruling on #121, 2026-09-16) reopened the first two
-  bullets: entry ids are names now. They stand as the audit's record.
+  bullets: an entry id is a paragraph key in the `rule:` namespace now, and
+  the suffix taxonomy went with it. They stand as the audit's record.
 - **REQ-MODEL-11** — Deprecated identifiers MUST be recorded as data — a
   registry naming each retired identifier, what it denoted, the version that
   deprecated it, and its replacement where one exists. Prose in a changelog
   MUST NOT stand in for it: a consumer pinned to an old version needs to
-  resolve a stale identifier mechanically. The registry is
-  `data/deprecated-identifiers.json`, schema-validated
-  (`schema/deprecated-identifiers.schema.json`, ADR 0006); it ships empty
-  until the first identifier is retired.
+  resolve a stale identifier mechanically. **The registry is absent until
+  `1.0.0`.** ADR 0015 deleted it, and the diff that read it: nothing before
+  the baseline is immutable, so nothing before it can be retired, and an
+  empty file with a dormant test is a mechanism that cannot fire.
 
 ### 4.1 Rule categories and the situation record
 
@@ -803,7 +804,7 @@ Tracked here until resolved; each becomes an ADR.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
 - **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
-  Three gates (`entry:power_second_masthead`, `entry:trawling_masthead`, `entry:anchored_deck_lights`'s `fact:length_m` thresholds) live only in
+  Three gates (`rule:23a_ii`, `rule:26b_ii`, `rule:30c`'s `fact:length_m` thresholds) live only in
   `modality_by`, not in the entry's `when` — they flip `shall` to `may`, not
   which entries apply. The fixture format only asserts applying entry ids, not
   expected modality, so there is no way to fixture these three without
@@ -816,8 +817,8 @@ Tracked here until resolved; each becomes an ADR.
   id asserts nothing, so `applicability-fixtures.json` stays byte-identical
   and needs no migration; REQ-CAT-7 states the rule and
   `fixtures/situation-fixtures.json` carries the worked example. What is left
-  is not a decision but the work: writing the boundary fixtures for `entry:power_second_masthead`,
-  `entry:trawling_masthead` and `entry:anchored_deck_lights` in the new form. Pencil, so a session that finds a
+  is not a decision but the work: writing the boundary fixtures for `rule:23a_ii`,
+  `rule:26b_ii` and `rule:30c` in the new form. Pencil, so a session that finds a
   better shape may change it, logging the change; settled for good by those
   three fixtures actually landing.
 - **Q-6** — The treaty-language facts behind §5 (en/fr authentic, es/ru
@@ -875,7 +876,7 @@ Tracked here until resolved; each becomes an ADR.
   `24(d)`, `24(f)`, `24(g)`, `24(i)`, `25(d)(i)`, `25(d)(ii)`, `25(e)`,
   `26(d)`, `30(e)`), plus one structural path-mismatch (`23(d)(i)` — the
   Inland equivalent sits at bare `23(d)`, not `23(d)(i)`), one whole-rule
-  clean absence (`entry:cbd`, "[Reserved]" in Inland), and two clean intl-only
+  clean absence (`rule:28`, "[Reserved]" in Inland), and two clean intl-only
   absences. Secondary claim (amendment history): also refuted — the WIG
   amendment (A.910(22), 2001) explicitly renumbers, displacing the
   pre-existing `23(c)` (small-vessel alternative lights) to `23(d)`; a 1981
@@ -1129,8 +1130,8 @@ named that gap before the class existed.
   protected-vessel property is a per-vessel fact, consumer-supplied like
   `pair:env:narrow_channel` and `pair:env:traffic_lane` are.** `fact:confined_to_channel`
   and `fact:following_traffic_lane` name it, in the same shape as the existing
-  `fact:near_channel` and `fact:obstruction_exists`; entries `entry:narrow_channel_small_or_sail`, `entry:traffic_lane_fishing` and
-  `entry:traffic_lane_small_or_sail` now read `other:fact:confined_to_channel`/`other:fact:following_traffic_lane`
+  `fact:near_channel` and `fact:obstruction_exists`; entries `rule:9b`, `rule:10i` and
+  `rule:10j` now read `other:fact:confined_to_channel`/`other:fact:following_traffic_lane`
   and their `gap` fields are closed. `9(d)` has no entry yet, so it inherits
   the same fact when one is written. **18(d)(i) is deliberately left open**:
   "exhibiting the signals in Rule 28" is a display-compliance fact rather than
@@ -1138,7 +1139,7 @@ named that gap before the class existed.
   CLAUDE.md "Coverage") — settling it is a narrower, separate decision.
 - **Q-35** — 8(f)(iii)'s antecedent is "a vessel, the passage of which is not to
   be impeded" — the *output* of another norm, not a fact. A precedence
-  predicate reads only facts, so entry `entry:not_impeded_remains_obliged` reads the risk-of-collision half
+  predicate reads only facts, so entry `rule:8f_iii` reads the risk-of-collision half
   alone and applies to every pair with risk of collision. Settled by deciding
   whether a norm may read another norm's effect, which is the same question a
   `conduct` monitor will ask about role and phase.
@@ -1150,22 +1151,22 @@ named that gap before the class existed.
   Settled by reading 8(f)(ii) against the cases, not by picking a role.
 - **Q-37** — 13(a) is `classification` in ADR 0005 §1 and in the proposal's
   first-cut table, but it is the one paragraph of Rule 13 that assigns a role
-  and a `classification` entry has nowhere to put one. Entry `entry:overtaking_gives_way` is
+  and a `classification` entry has nowhere to put one. Entry `rule:13a` is
   `precedence` here, with 13(b)'s sector test left for the `classification`
   entry that would set the `hist:was_overtaking` latch. Settled with the rest
   of `Q-14`, paragraph by paragraph.
 
   **Closed in pencil 2026-09-04 (PR #26).** 13(b) is now written, as *two*
-  `classification` entries rather than one — `entry:overtaking` and
-  `entry:being_overtaken` — because the encounter type belongs to the pair and reading
-  aspect alone classified the overtaken vessel's side of the same encounter as
-  a crossing. 13(a) stays `precedence`, and its predicate now carries both
+  `classification` entries rather than one — one per subject — because the
+  encounter type belongs to the pair and reading aspect alone classified the
+  overtaken vessel's side of the same encounter as a crossing. 13(a) stays `precedence`, and its predicate now carries both
   halves of "any vessel overtaking any other": the 13(b) sector and the 13(d)
   latch, as an `any_of`, which closes the gap the entry recorded. 13(d) is a
   third `classification` entry, reading history and no geometry at all. The
   split confirms the thing ADR 0005 §1 was really defending — one category per
-  paragraph — and costs one paragraph two entries, which the entry-id suffix
-  scheme was already built for.
+  paragraph. **Reversed in part, 2026-09-16:** ADR 0015 as rewritten makes
+  13(b) one symmetric entry, `rule:13b`, reading the same sector object on
+  either subject under `any_of`. 13(a) staying `precedence` is untouched.
 - **Q-38** — 9(d), 18(d)(ii), 18(e), 18(f)(ii), 1(a)–(e) and 20(b)–(c) are
   recorded in `known_omissions` rather than modelled: 9(d) needs the channel's
   axis, 18(e) needs a fact for being a seaplane, 20(b)–(c) need time of day,
@@ -1226,21 +1227,21 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
 
   **Decided in pencil 2026-09-05 (PR #46): Rule 15 reads 3(b), and Rule 18
   overrides it too.** The same question answered the other way for Rule 15.
-  `entry:crossing_gives_way` kept the four Rule 18 ranks — NUC, RAM, fishing and WIG —
+  `rule:15a:keep_out_of_the_way` kept the four Rule 18 ranks — NUC, RAM, fishing and WIG —
   out of Rule 15 by negating them on both subjects in its own predicate; the
   negation is gone, both subjects gate on `fact:propulsion: propulsion:power`
-  which is 3(b), and the 18(a)(i)–(iii) entries, the two 18(c) entries and `entry:wig_keeps_well_clear` carry
+  which is 3(b), and the 18(a)(i)–(iii) entries, the two 18(c) entries and `rule:18f_i` carry
   `rel:overrides` against it. The gate was not merely the relation said in
   the wrong place. It produced the right roles wherever Rule 18 speaks and
   *no* role at all where Rule 18 is silent: two vessels engaged in fishing
   under power, and a vessel not under command crossing one restricted in her
   ability to manoeuvre under power, are pairs Rule 18 does not order, and
   neither vessel took a helm role from any entry. Both are fixtures now, and
-  both failed on the data before the change — `entry:crossing` classified the
+  both failed on the data before the change — `rule:15a:crossing` classified the
   encounter and nothing assigned a role. What it leaves is Rule 12's residue
   again: on those unordered pairs Rule 15 lays a give-way duty on a vessel
   that may be unable to discharge it, which is Rule 2's region and is
-  recorded, not gated. `entry:overtaking_gives_way` needs no override against `entry:crossing_gives_way` — the
+  recorded, not gated. `rule:13a` needs no override against `rule:15a:keep_out_of_the_way` — the
   entry excludes every overtaking by the `hist:was_overtaking` latch and by
   13(b)'s sector — and a test pins that absence so it stays a reason rather
   than an oversight. The hand-list of six is asserted complete by a derived
@@ -1281,7 +1282,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   judgement. Settled by deciding whether the vocabulary gains one — `Q-31`'s
   neighbour, not its duplicate.
 - **Q-43** — **The partition needs history to be present, and says nothing when
-  it is absent.** `entry:head_on` and `entry:crossing` are gated on `hist:was_overtaking`
+  it is absent.** `rule:14b` and `rule:15a:crossing` are gated on `hist:was_overtaking`
   being `false` on both subjects, which is 13(d)'s requirement and the only way
   the three encounter types stay disjoint once the latch is set. Because absent
   is absent, a situation that omits the fact is classified as *no encounter at
@@ -1319,15 +1320,14 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   effect of its own. It produces the only effect the entry has: "such a
   situation shall be deemed to exist when…" is the deeming test, and
   `{"encounter": "head-on"}` is what a deeming test yields — exactly as
-  `entry:overtaking` and `entry:being_overtaken` cite 13(b), the deeming paragraph,
+  `rule:13b` cites 13(b), the deeming paragraph,
   and not 13(a). 14(a) states the situation in words ("reciprocal or nearly
   reciprocal courses") and imposes the duty ("each shall alter her course to
   starboard"); the duty is `conduct`, and the words are what 14(b) makes
-  checkable. So the entry is `entry:head_on`, cites 14(b), and reads nothing 14(b) does
+  checkable. So the entry is `rule:14b`, cites 14(b), and reads nothing 14(b) does
   not fix; 14(a) joins `known_omissions` as conduct beside 18(d)(ii), and
-  `14a` was retired in `retired_entry_ids` and, because v0.1.3 shipped it,
-  recorded in `data/deprecated-identifiers.json` with `14b` as its replacement
-  — the registry's first record (REQ-MODEL-11), discarded by ADR 0015. The
+  the `14a` id it displaced is gone with the rest of the citation-derived ids
+  and leaves no record behind it (ADR 0015). The
   general question — whether a paragraph with no effect of its own gets an
   entry — is `Q-39`'s and is untouched; this paragraph turned out not to be an
   instance of it.
@@ -1335,7 +1335,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   vessel to be overtaking when *coming up with* another from more than 22.5°
   abaft her beam. That is `own:kin:sog_kn` against `other:kin:sog_kn`, and the
   predicate language compares a fact to a constant and never one fact to
-  another — the same wall `entry:sail_windward_gives_way` hits on "both have the wind on the same side",
+  another — the same wall `rule:12a_ii` hits on "both have the wind on the same side",
   which it gets over only because that comparison has two values to enumerate
   and this one has infinitely many. `pair:geo:tcpa_s > 0` stands in: the pair
   is closing, and closing from abaft the beam is coming up. It excludes the
@@ -1347,7 +1347,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
 - **Q-47** — **13(d)'s latch never clears.** The paragraph runs "until she is
   finally past and clear", nothing in the fact vocabulary carries that, and so
   in this model `hist:was_overtaking` is set by a consumer and cleared by a
-  consumer while entry `entry:overtaking_until_past_and_clear` classifies an overtaking for as long as it stands.
+  consumer while entry `rule:13d` classifies an overtaking for as long as it stands.
   Not approximated with a range or a bearing: past and clear is a seamanship
   judgement of the same kind as risk of collision, and a threshold for it would
   be a number invented rather than declared. Settled by whatever settles the
@@ -1358,7 +1358,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   test is suppressed on the other, newly-gaining vessel — once overtaking,
   always overtaking, per 13(d)'s own text, so a geometry test that would
   newly name a second give-way vessel must not fire while the first still
-  holds the role by history alone. `entry:overtaking_gives_way`'s sector branch now also reads
+  holds the role by history alone. `rule:13a`'s sector branch now also reads
   `other:hist:was_overtaking: false`; the closing fixture in
   `fixtures/situation-fixtures.json` is the case this closes — a vessel
   drops back onto the latch-holder's own stern, and only the latch-holder
@@ -1370,7 +1370,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   fixture — can state a pair of bearings that no two headings produce, and the
   entries will classify it without complaint. It bites in one visible place:
   where both vessels have the other on the starboard side, which cannot happen
-  on a collision course, `entry:crossing_gives_way` applies to both of them and the "never
+  on a collision course, `rule:15a:keep_out_of_the_way` applies to both of them and the "never
   both give-way" property fails. The fixtures added here are built from a
   heading and a bearing so that they are consistent by construction, and the
   file says so; the model is not. Settled by deciding whether the record gains
@@ -1393,7 +1393,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   and speeds. Two cases could not keep their story: the R1 head-on had both
   vessels with the other to starboard, which no speeds make a steady bearing,
   and is recast as one; the 13(d) latch case is 400 m abeam with the CPA
-  already past, and lost `entry:steady_bearing`. The partition sweep now constructs positions
+  already past, and lost `rule:7d_i`. The partition sweep now constructs positions
   and headings for every bearing pair and is consistent at every point. The
   "never both give-way" property is asserted over a sweep of steady-bearing
   geometries — every relative bearing, several speed pairs, both intercept
@@ -1410,12 +1410,12 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   the relative quantities as derived facts stays open in the block's
   `settled_by`.
 
-- **Q-49** — **Must `entry:overtaking_until_past_and_clear`'s effect cross the Section II/III boundary for Rule 19(d)(i) to be expressible?**
-  - *broad* — drop `entry:overtaking_until_past_and_clear`'s `pair:geo:in_sight` gate so `encounter: overtaking` is visible in Section III; breaks the scope invariant.
-  - *narrow* — `entry:overtaking_until_past_and_clear` stays gated; a 19(d)(i) entry reads `own:hist:was_overtaking`/`other:hist:was_overtaking` directly, as `entry:head_on` and `entry:crossing` already do.
+- **Q-49** — **Must `rule:13d`'s effect cross the Section II/III boundary for Rule 19(d)(i) to be expressible?**
+  - *broad* — drop `rule:13d`'s `pair:geo:in_sight` gate so `encounter: overtaking` is visible in Section III; breaks the scope invariant.
+  - *narrow* — `rule:13d` stays gated; a 19(d)(i) entry reads `own:hist:was_overtaking`/`other:hist:was_overtaking` directly, as `rule:14b` and `rule:15a:crossing` already do.
   - Default: narrow (nothing changes).
   - Recommendation: narrow — the test named below shows the fact resolves out of sight
-    (`Q-49: hist:was_overtaking resolves out of sight; entry:overtaking_until_past_and_clear does not fire`, `test/data.test.mjs`).
+    (`Q-49: hist:was_overtaking resolves out of sight; rule:13d does not fire`, `test/data.test.mjs`).
 
 ### From the Part B invariants (P4.1)
 
@@ -1428,8 +1428,8 @@ nothing is blocked while open.
   *Wide:* they attach whenever in sight and the geometry holds — Rule 11 is the
   only gate Section II states — so a vessel overtaking a mile clear abeam is
   give-way and Rule 16 binds her. *Narrow:* Section II's duties attach only with
-  risk of collision; 14 and 15 are emphasis. Default **wide**: `entry:overtaking_gives_way`, `entry:overtaking`, `entry:being_overtaken`,
-  `entry:overtaking_until_past_and_clear` and every Rule 18 entry read `in_sight` only. No recommendation.
+  risk of collision; 14 and 15 are emphasis. Default **wide**: `rule:13a`, `rule:13b`,
+  `rule:13d` and every Rule 18 entry read `in_sight` only. No recommendation.
 - **Q-51** — **What arms 13(d)'s latch?** *A:* 13(b)'s deeming, at the first
   state the geometry holds. *B:* 13(a)'s duty actually attaching. They differ
   where the geometry holds but a condition on 13(a) does not — `Q-50`'s
@@ -1437,7 +1437,7 @@ nothing is blocked while open.
   duty attaches. KIVELI [2025] EWHC 1185 (Admlty) holds the analogous Rule 14
   latch arms on risk of collision and then persists; no authority was found on
   overtaking geometry with no risk of collision. Free to reverse: four entries
-  (`entry:overtaking_gives_way`, `entry:overtaking`, `entry:being_overtaken`, `entry:overtaking_until_past_and_clear`) and their fixtures, and nothing consumes the one
+  (`rule:13a`, `rule:13b`, `rule:13d`) and their fixtures, and nothing consumes the one
   state this changes the answer for. Settled by: a decision on Rule 13 itself,
   or Cockcroft & Lameijer on whether overtaking status needs risk of
   collision.
@@ -1447,8 +1447,8 @@ nothing is blocked while open.
   other Section II classification attaches. Both preserve the duty; they differ
   on encounter type, which Rule 17's phases and 14(a) hang off.
   Pencilled **broad** ✎ (Solace, 2026-09-14), which is also the data's
-  default: `entry:overtaking_until_past_and_clear` yields `encounter: overtaking` from history alone, `entry:head_on` and
-  `entry:crossing` gate on `was_overtaking: false`. 13(a)'s "notwithstanding"
+  default: `rule:13d` yields `encounter: overtaking` from history alone, `rule:14b` and
+  `rule:15a:crossing` gate on `was_overtaking: false`. 13(a)'s "notwithstanding"
   already displaces Rule 14; eCOLREGs states the broad reading as conventional.
   Settled by: a case or commentary on an overtaking becoming a head-on; none
   found.
@@ -1477,7 +1477,7 @@ nothing is blocked while open.
   Not in sight *and* not in or near restricted visibility (clear weather, beyond
   visual range, radar contact) is outside Rule 11 and 19(a): Section I only.
   *Hole:* represent it; a fact for "in or near restricted visibility" is owed.
-  *Closed:* treat not-in-sight as Section III. Default **closed**: `entry:restricted_visibility` drops
+  *Closed:* treat not-in-sight as Section III. Default **closed**: `rule:19a` drops
   the second conjunct, recorded as a `gap`. Recommend **hole**: the default is
   safe for a switching consumer and unsafe for a traceability claim.
 - **Q-57** — **The baseline for "keep her course and speed"?** 17(a)(i) fixes

@@ -8,7 +8,7 @@
   "additionalProperties": false,
   "required": ["jurisdiction", "cases"],
   "$defs": {
-    "entryId": { "$ref": "applicability.schema.json#/$defs/entryId" }
+    "ruleId": { "$ref": "applicability.schema.json#/$defs/ruleId" }
   },
   "properties": {
     "note": { "type": "string" },
@@ -31,7 +31,7 @@
           },
           "expect": {
             "type": "array",
-            "items": { "$ref": "#/$defs/entryId" }
+            "items": { "$ref": "#/$defs/ruleId" }
           }
         }
       }

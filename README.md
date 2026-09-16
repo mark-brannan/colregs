@@ -35,7 +35,6 @@ data/facts.json          the fact record, and how to decode SignalK navigation.s
 data/applicability.json  predicate -> lights, each entry also carrying modality, citation, jurisdiction
 data/geometry.json       Annex I: heights, spacings, colour, intensity
 data/images.json         every image, its source, and what it illustrates
-data/deprecated-identifiers.json  retired identifiers: what they denoted, when, and their replacement
 images/                  38 USCG diagrams + 5 arc GIFs
 fixtures/                fact records and the entries that apply to them
 ```
@@ -82,13 +81,13 @@ loses.
 
 **Applicability entries.** Each is a predicate over facts, a set of lights or
 references to other entries, a modality, a citation, and a jurisdiction. Every
-entry has an id (`entry:sail_combined_lantern`, `entry:nuc_making_way`) a consumer can point at.
+entry has an id (`rule:25b`, `rule:27a_iii`) a consumer can point at.
 
 **Identifiers.** Paragraph paths carry no prefix, because the path *is* the
-citation. Every other id names its namespace: `entry:anchored`,
+citation. Every other id names its namespace: `rule:30a`,
 `light:masthead`, `fact:activity`, `activity:nuc`, `rel:in_lieu_of`. Every
-identifier is immutable from 1.0.0; retirements go through
-[`data/deprecated-identifiers.json`](data/deprecated-identifiers.json). See
+identifier is immutable from 1.0.0; before then it may be renamed or
+discarded outright, and the deprecation registry is absent. See
 [`docs/identifiers.md`](docs/identifiers.md).
 
 ## Design

@@ -21,8 +21,7 @@
         "meta"
       ]
     },
-    "entryId": { "type": "string", "pattern": "^entry:[a-z][a-z0-9_]*$" },
-    "paragraphDerivedId": { "type": "string", "pattern": "^[0-9]+[a-z0-9]*$" },
+    "ruleId": { "type": "string", "pattern": "^rule:[0-9]+[a-z]?(_[ivx]+)*(:[a-z][a-z0-9_]*)?$" },
     "modality": {
       "type": "string",
       "enum": ["shall", "may", "shall-if-practicable", "conditional", "exempt", "shall-not", "shall-not-impede"]
@@ -189,20 +188,20 @@
         "one_of": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/entryId" }
+          "items": { "$ref": "#/$defs/ruleId" }
         },
         "rel:includes": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/entryId" }
+          "items": { "$ref": "#/$defs/ruleId" }
         },
         "cite": { "type": "string", "minLength": 1 }
       }
     },
-    "entryIdList": {
+    "ruleIdList": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/entryId" }
+      "items": { "$ref": "#/$defs/ruleId" }
     }
   },
   "properties": {
@@ -327,24 +326,11 @@
         "additionalProperties": false,
         "required": ["id", "jurisdiction", "cite", "category", "note"],
         "properties": {
-          "id": { "$ref": "#/$defs/paragraphDerivedId" },
+          "id": { "$ref": "#/$defs/ruleId" },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "cite": { "type": "string", "minLength": 1 },
           "category": { "type": "string", "enum": ["care", "meta"] },
           "note": { "type": "string", "minLength": 1 }
-        }
-      }
-    },
-    "retired_entry_ids": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["ids"],
-      "properties": {
-        "note": { "type": "string" },
-        "ids": {
-          "type": "object",
-          "propertyNames": { "$ref": "#/$defs/entryId" },
-          "additionalProperties": { "type": "string", "minLength": 1 }
         }
       }
     },
@@ -356,7 +342,7 @@
         "additionalProperties": false,
         "required": ["id", "jurisdiction", "cite", "when", "modality"],
         "properties": {
-          "id": { "$ref": "#/$defs/entryId" },
+          "id": { "$ref": "#/$defs/ruleId" },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "cite": { "type": "string", "minLength": 1 },
           "category": {
@@ -380,16 +366,16 @@
           "note": { "type": "string" },
           "gap": { "type": "string", "minLength": 1 },
           "no_gate_note": { "type": "string", "minLength": 1 },
-          "rel:includes": { "$ref": "#/$defs/entryIdList" },
+          "rel:includes": { "$ref": "#/$defs/ruleIdList" },
           "rel:conditional_includes": {
             "type": "array",
             "minItems": 1,
             "items": { "$ref": "#/$defs/conditionalInclude" }
           },
-          "rel:in_lieu_of": { "$ref": "#/$defs/entryIdList" },
-          "rel:excludes": { "$ref": "#/$defs/entryIdList" },
-          "rel:exempts": { "$ref": "#/$defs/entryIdList" },
-          "rel:overrides": { "$ref": "#/$defs/entryIdList" }
+          "rel:in_lieu_of": { "$ref": "#/$defs/ruleIdList" },
+          "rel:excludes": { "$ref": "#/$defs/ruleIdList" },
+          "rel:exempts": { "$ref": "#/$defs/ruleIdList" },
+          "rel:overrides": { "$ref": "#/$defs/ruleIdList" }
         },
         "allOf": [
           {

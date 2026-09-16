@@ -21,10 +21,10 @@
       "$ref": "evaluation.schema.json#/$defs/colregs"
     },
     "applied": {
-      "$ref": "evaluation.schema.json#/$defs/entryIds"
+      "$ref": "evaluation.schema.json#/$defs/ruleIds"
     },
     "scope": {
-      "$ref": "evaluation.schema.json#/$defs/entryIds"
+      "$ref": "evaluation.schema.json#/$defs/ruleIds"
     },
     "encounter": {
       "$comment": "Absent when no classification entry fired: cannot say, not none (Q-43).",
@@ -48,7 +48,7 @@
           "type": "boolean"
         },
         "by": {
-          "$ref": "evaluation.schema.json#/$defs/entryIds"
+          "$ref": "evaluation.schema.json#/$defs/ruleIds"
         }
       }
     },
@@ -95,7 +95,7 @@
           "$ref": "applicability.schema.json#/$defs/effectRole"
         },
         "by": {
-          "$ref": "evaluation.schema.json#/$defs/entryId"
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
         }
       }
     },
