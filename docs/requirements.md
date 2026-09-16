@@ -353,8 +353,8 @@ towards, not because the shape is settled.
   MAY state `roles`, the pooled two-frame answer for both subjects (ADR
   0016). An `illustrative` case MUST assert no entries and MUST NOT join the
   replay. CI MUST fail on an undeclared fact, an unresolvable key, an unknown
-  entry id or modality, a stated role the pooled read does not yield, and on an `illustrative` case that
-  names an entry.
+  entry id or modality, a stated role the pooled read does not yield, and on
+  an `illustrative` case that names an entry.
 
 - **REQ-CAT-8** — A two-subject entry MUST state an `effect` and MUST NOT
   state `lights`. For a `precedence` entry the effect MUST be a role per
