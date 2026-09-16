@@ -962,6 +962,11 @@ listed here, one line each, because the ADR is what makes them live. Most are
   invariant that does not fit. *(engine)*
 - **Q-17** — What separation distance *d* defines the "safe" level? Fixed to
   one value to start; settled by the sensitivity matrix of Q-22. *(engine)*
+  One data point: `docs/maritime-sources.md`'s MAIB *Polesie*/*Verity* report
+  cites UK case law putting close-quarters at a ~12-minute TCPA and adapts a
+  suggested-TCPA table (its Figure 16) from *A Guide to the Collision
+  Avoidance Rules* — not a d in metres, but a real-world anchor for the
+  sensitivity matrix.
 - **Q-18** — What is the dynamics model, and what is the list of dynamics
   classes (tanker, ferry, yacht, …)? Settled by the first two-vessel
   computation; the class list is a data question once it stabilises.
@@ -983,8 +988,10 @@ listed here, one line each, because the ADR is what makes them live. Most are
   it have to be computed at runtime? Settled by the first two-vessel
   computation's cost. *(engine)*
 - **Q-23** — Is Rule 2(b) a duty where departure is necessary, and does the
-  departing vessel bear the burden? Settled by reading the cases (*The Bywell
-  Castle*, *Boy Andrew v St Rognvald*, both unverified), not by advocacy.
+  departing vessel bear the burden? Partly settled — yes and yes — by
+  `docs/maritime-sources.md`'s *Ever Smart* and *Crowley* entries; the
+  taxonomy of qualifying circumstances, and *The Bywell Castle* and *Boy
+  Andrew v St Rognvald*, are still unread. *colregs-engine* issue #83.
 - **Q-24** — Are the four worked illustrations (R0, R1, R2,
   `inconclusive-in-model`) actually in the regions they are said to be in?
   They fix meanings, not numbers; settled by computing them. *(engine)*
