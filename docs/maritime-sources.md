@@ -15,7 +15,7 @@ question the rule text leaves open.
 - **Evergreen Marine (UK) Ltd v Nautical Challenge Ltd ("Ever Smart" / "Alexandra 1") [2021] UKSC 6**. Frames Section II as a scheme about steady-bearing *collision* situations, with Rule 13 inside that taxonomy ([56]–[57]); leans against treating an engaged rule as inapplicable ([68]); describes Rule 17's obligations as qualified stages, predicates on the current state, with keep-course-and-speed accommodating manoeuvres such as slowing to pick up a pilot ([61]–[62]). Not asked when Rule 13 arms, and did not decide it. Separately, at [60] and [66]–[67], settles `Q-23`'s asymmetry: Rule 2(a) is a standing responsibility clause that authorises nothing, while Rule 2(b) is a conjunctive test — special circumstance *and* immediate danger — and rejects Rule 2 as a gap-filler for the steering rules.
   <https://caselaw.nationalarchives.gov.uk/uksc/2021/6>
 - **Crowley Marine Services Inc. v. Maritrans Inc., 447 F.3d 719 (9th Cir. 2006)**. `Q-23`: the burden of justifying a Rule 2(b) departure falls on the departing vessel, and the departure must respond to an immediate danger already created — a pre-emptive departure does not qualify (n.6).
-  <http://cdn.ca9.uscourts.gov/datastore/opinions/2006/05/08/0435724.pdf>
+  <https://cdn.ca9.uscourts.gov/datastore/opinions/2006/05/08/0435724.pdf>
 
 ## Commentary and guidance
 

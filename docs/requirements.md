@@ -962,6 +962,11 @@ listed here, one line each, because the ADR is what makes them live. Most are
   invariant that does not fit. *(engine)*
 - **Q-17** — What separation distance *d* defines the "safe" level? Fixed to
   one value to start; settled by the sensitivity matrix of Q-22. *(engine)*
+  One data point: `docs/maritime-sources.md`'s MAIB *Polesie*/*Verity* report
+  cites UK case law putting close-quarters at a ~12-minute TCPA and adapts a
+  suggested-TCPA table (its Figure 16) from *A Guide to the Collision
+  Avoidance Rules* — not a d in metres, but a real-world anchor for the
+  sensitivity matrix.
 - **Q-18** — What is the dynamics model, and what is the list of dynamics
   classes (tanker, ferry, yacht, …)? Settled by the first two-vessel
   computation; the class list is a data question once it stabilises.
