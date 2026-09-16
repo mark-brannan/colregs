@@ -181,7 +181,7 @@ is an enumerated fact, so its values follow the bare-fact-name rule above:
 Rule 13(d) is the reason history is a class and not a note. Once a vessel is
 overtaking, a subsequent alteration of the bearing does not make her a
 crossing vessel; the instantaneous geometry, read alone, says otherwise and
-hands the duty to the wrong vessel. So the latch is a fact:
+hands the duty to the wrong vessel. So overtaking history is a fact:
 
 - `self:hist:was_overtaking` — this subject was, earlier in this encounter,
   an overtaking vessel with respect to the other.
