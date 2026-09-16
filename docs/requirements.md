@@ -350,10 +350,10 @@ towards, not because the shape is settled.
   `expect` MUST be either a bare entry id — the published one-subject form,
   asserting nothing about modality — or `{entry, modality}` naming the
   modality that entry is expected to carry, which is what Q-5 needs. A case
-  whose `status` is `illustrative` MUST assert no entries and MUST NOT join
-  the fixture replay; it fixes the shape and the namespace before the
-  entries exist. CI MUST fail on an undeclared fact, an unresolvable key, an
-  unknown entry id, an unknown modality, and on an `illustrative` case that
+  MAY state `roles`, the pooled two-frame answer for both subjects (ADR
+  0016). An `illustrative` case MUST assert no entries and MUST NOT join the
+  replay. CI MUST fail on an undeclared fact, an unresolvable key, an unknown
+  entry id or modality, a stated role the pooled read does not yield, and on an `illustrative` case that
   names an entry.
 
 - **REQ-CAT-8** — A two-subject entry MUST state an `effect` and MUST NOT

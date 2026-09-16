@@ -760,7 +760,7 @@ paragraph of its own.
 
 `13(a)`, `15(a)`, `12(a)`, `18(a)–(c)` with 18's chapeau · precedence, derived
 · single-state · `✎`, asserted over consistent steady bearings only
-(`REQ-VERIFY-8`)
+(`REQ-VERIFY-8`), over the pooled two-frame read of ADR 0016
 
 **Invariant.** At every state, after every `rel:overrides` is applied, no pair
 holds `give-way` on both subjects, and none holds `stand-on` on both.
@@ -786,7 +786,8 @@ P2.2.
 
 ### INV-PB-one-role-source — a vessel holds one helm role at a time
 
-`13(a)`, `18` chapeau, with 16 and 17 · precedence, derived · single-state · `✎`
+`13(a)`, `18` chapeau, with 16 and 17 · precedence, derived · single-state · `✎`,
+over the pooled two-frame read of ADR 0016
 
 **Invariant.** After every `rel:overrides` is applied, no vessel holds both
 `give-way` and `stand-on` with respect to the same other vessel at the same
