@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.3.1](https://github.com/mark-brannan/colregs/compare/v0.3.0...v0.3.1) (2026-09-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* rule ids are paragraph keys in the rule: namespace (ADR 0015) ([#136](https://github.com/mark-brannan/colregs/issues/136))
+
+### Added
+
+* display-catalog schema and an English example (ADR 0003 step 2) ([#101](https://github.com/mark-brannan/colregs/issues/101)) ([3f5a4de](https://github.com/mark-brannan/colregs/commit/3f5a4de51d4e7dc01ec7662684f736bbf647a8e1))
+* engine interface owned by colregs — operations manifest and result schemas (ADR 0014) ([#129](https://github.com/mark-brannan/colregs/issues/129)) ([91114bc](https://github.com/mark-brannan/colregs/commit/91114bc34f3a3942383357a1e5fc7372ad41d084))
+* entry ids are names in the entry: namespace (ADR 0015) ([#132](https://github.com/mark-brannan/colregs/issues/132)) ([34db10c](https://github.com/mark-brannan/colregs/commit/34db10cc2ee7919358e4630fb294725f137106ac))
+* rule ids are paragraph keys in the rule: namespace (ADR 0015) ([#136](https://github.com/mark-brannan/colregs/issues/136)) ([a331e84](https://github.com/mark-brannan/colregs/commit/a331e843ebb6e3a923452581c4e0accba2c37e85))
+
+
+### Fixed
+
+* stop release-please from bumping minor version pre-1.0 ([#123](https://github.com/mark-brannan/colregs/issues/123)) ([8f83f63](https://github.com/mark-brannan/colregs/commit/8f83f6393c7eaa7f23180c898380c41685ff2eb1))
+
 ## [0.3.0](https://github.com/mark-brannan/colregs/compare/v0.2.4...v0.3.0) (2026-09-14)
 
 
