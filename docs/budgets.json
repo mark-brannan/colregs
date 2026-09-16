@@ -19,7 +19,8 @@
     "required": true,
     "pending": [],
     "docs/adr/0013-corpus-files-with-editions.md": 95,
-    "docs/timeline.md": 130
+    "docs/timeline.md": 130,
+    "docs/maritime-sources.md": 130
   },
   "json_prose": {
     "targets": [
