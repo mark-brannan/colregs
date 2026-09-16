@@ -433,6 +433,9 @@ implemented in the reference evaluator and asserted by the fixtures.
   words. It is deliberately not a light reference and does not resolve to
   one.
 
+Not being an identifier says nothing about whether a vocabulary gets a
+catalog label; see REQ-LANG-6.
+
 ## This does not reverse GATE-5
 
 GATE-5 declined a CI-enforced terminology glossary, permanently, for the

@@ -8,7 +8,7 @@
     "review_date": "2026-09-15"
   },
   "strings": {
-    "light": {
+    "lights": {
       "light:masthead": "Mastovalo",
       "light:sidelight_starboard": "Oikea sivuvalo",
       "light:sidelight_port": "Vasen sivuvalo",
@@ -16,7 +16,7 @@
       "light:towing": "Hinausvalo",
       "light:all_round": "Ympäri näköpiirin näkyvä valo"
     },
-    "modality": {
+    "modalities": {
       "modality:shall": "Pakollinen",
       "modality:may": "Sallittu",
       "modality:shall-if-practicable": "Pakollinen, jos mahdollista"

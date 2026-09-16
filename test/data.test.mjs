@@ -298,17 +298,52 @@ test('operations: smoke -- each result and input envelope accepts a hand-written
   }
 })
 
+// REQ-LANG-2's closed-list fact values (Tier A):
+// every enumerated fact axis in data/facts.json declares its closed list under
+// a `values` array of prefixed identifiers -- collecting every such array,
+// wherever it sits (axes, enums, derived, kinematics modifiers), is exactly the
+// Tier A set, with no hand-maintained list to drift from the data.
+function closedFactValues(node, out = new Set()) {
+  if (node && typeof node === 'object') {
+    if (Array.isArray(node.values) && node.values.length > 0 && node.values.every((v) => typeof v === 'string' && v.includes(':'))) {
+      for (const v of node.values) out.add(v)
+    }
+    for (const v of Object.values(node)) closedFactValues(v, out)
+  }
+  return out
+}
+
 // Each catalog section is keyed by one vocabulary and every key must resolve
 // to that vocabulary's own source, so a misspelt key cannot ship. Adding a
 // vocabulary (fact, image) is one entry here and one property in the schema.
 const catalogVocabularies = {
-  light: new Set(Object.keys(lights.lights)),
-  modality: new Set(loadSchema('applicability.schema.json').$defs.modality.enum),
+  lights: new Set(Object.keys(lights.lights)),
+  modalities: new Set(Object.keys(appl.modalities)),
+  roles: new Set(Object.keys(appl.effects.roles)),
+  encounters: new Set(Object.keys(appl.effects.encounters)),
+  jurisdictions: new Set(Object.keys(editions.jurisdictions)),
+  facts: closedFactValues(facts),
 }
 
 test('i18n: the language inside a display catalog matches its filename', () => {
   for (const [file, cat] of catalogs) {
     assert.equal(cat.language, file.slice('data/i18n/'.length, -'.json'.length), `${file}: language is ${cat.language}`)
+  }
+})
+
+// REQ-LANG-11: exactly one language is declared reference-complete in package
+// metadata, and CI fails if its catalog omits any value the package can emit.
+// Every other catalog may be partial -- the key-resolution test below is the
+// only other gate on it.
+test('i18n: REQ-LANG-11 -- the declared reference language is complete', () => {
+  const { referenceLanguage } = pkg.colregs
+  assert.ok(referenceLanguage, 'package.json colregs.referenceLanguage is not declared')
+  const file = `data/i18n/${referenceLanguage}.json`
+  const cat = catalogs.find(([f]) => f === file)?.[1]
+  assert.ok(cat, `${file} does not exist for the declared reference language`)
+  for (const [section, known] of Object.entries(catalogVocabularies)) {
+    const present = new Set(Object.keys(cat.strings[section] ?? {}))
+    for (const key of known) assert.ok(present.has(key), `${file}: ${section} is missing reference label for ${key}`)
   }
 })
 

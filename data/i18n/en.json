@@ -7,10 +7,10 @@
     "reviewed_by": [
       "mark-brannan"
     ],
-    "review_date": "2026-09-13"
+    "review_date": "2026-09-16"
   },
   "strings": {
-    "light": {
+    "lights": {
       "light:masthead": "Masthead light",
       "light:sidelights": "Sidelights",
       "light:sidelight_starboard": "Starboard sidelight",
@@ -22,10 +22,72 @@
       "light:torch": "Electric torch or lighted lantern",
       "light:deck_lights": "Working or equivalent lights"
     },
-    "modality": {
+    "modalities": {
       "modality:shall": "Required",
       "modality:may": "Permitted",
-      "modality:shall-if-practicable": "Required if practicable"
+      "modality:shall-if-practicable": "Required if practicable",
+      "modality:conditional": "Conditional",
+      "modality:exempt": "Exempt",
+      "modality:shall-not": "Prohibited",
+      "modality:shall-not-impede": "Must not impede"
+    },
+    "roles": {
+      "role:give-way": "Give way",
+      "role:stand-on": "Stand on",
+      "role:shall-not-impede": "Must not impede",
+      "role:keep-clear": "Keep clear",
+      "role:none": "No role"
+    },
+    "encounters": {
+      "encounter:head-on": "Head-on",
+      "encounter:crossing": "Crossing",
+      "encounter:overtaking": "Overtaking",
+      "encounter:none": "No encounter"
+    },
+    "jurisdictions": {
+      "intl": "International",
+      "us/inland": "US Inland"
+    },
+    "facts": {
+      "propulsion:power": "Power-driven",
+      "propulsion:sail": "Sailing",
+      "propulsion:oars": "Oars",
+      "activity:none": "None",
+      "activity:fishing": "Fishing",
+      "activity:trawling": "Trawling",
+      "activity:towing": "Towing",
+      "activity:pushing": "Pushing",
+      "activity:being_towed": "Being towed",
+      "activity:nuc": "Not under command",
+      "activity:ram": "Restricted in her ability to manoeuvre",
+      "activity:ram_underwater": "Restricted in her ability to manoeuvre, engaged in underwater operations",
+      "activity:cbd": "Constrained by her draught",
+      "activity:mine": "Engaged in minesweeping",
+      "activity:pilot": "Engaged on pilotage duty",
+      "activity:diving": "Engaged in diving operations",
+      "position:underway": "Underway",
+      "position:anchored": "At anchor",
+      "position:aground": "Aground",
+      "position:moored": "Moored",
+      "rule18_class:nuc": "Not under command",
+      "rule18_class:ram": "Restricted in ability to manoeuvre",
+      "rule18_class:fishing": "Fishing",
+      "rule18_class:wig": "Wing-in-ground craft",
+      "rule18_class:cbd": "Constrained by draught",
+      "rule18_class:sail": "Sailing vessel",
+      "rule18_class:power": "Power-driven vessel",
+      "dynamics:tanker": "Tanker",
+      "dynamics:cargo": "Cargo ship",
+      "dynamics:ferry": "Ferry",
+      "dynamics:fishing": "Fishing vessel",
+      "dynamics:yacht": "Yacht",
+      "dynamics:rib": "RIB",
+      "dynamics:unknown": "Unknown",
+      "obstruction_side:port": "Port",
+      "obstruction_side:starboard": "Starboard",
+      "wind_side:port": "Port",
+      "wind_side:starboard": "Starboard",
+      "wind_side:unknown": "Unknown"
     }
   }
 }

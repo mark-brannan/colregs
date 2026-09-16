@@ -475,24 +475,21 @@ See ADR 0003.
   resolve to a known paragraph path, and on a corpus filename that disagrees
   with the file's internal metadata. Silence MUST NOT imply coverage (the
   language mirror of REQ-SCOPE-6).
-- **REQ-LANG-6** **(unimplemented — no display catalogs exist)** — Display
-  strings for the identifier vocabularies (light names, fact-value labels,
-  modality labels, image captions) MUST be addressable via stable string keys
-  with per-language catalogs, separate from legal corpora. Catalog entries are
-  static strings: no interpolation, plural or gender grammar — message
-  composition belongs to the consumer's i18n system, and this package MUST NOT
-  grow one. Each catalog MUST carry lightweight provenance: contributors,
-  reviewers, review date, licence. Maintainer notes inside structural files
-  are working documentation, not display strings, not part of the localization
-  surface, and stay untranslated.
-- **REQ-LANG-7** **(unimplemented in part — no fallback policy is encoded, but
-  the mixed-corpus statement is missing from the package documentation)** — The
-  package MUST NOT encode a language fallback policy, and MUST NOT silently
-  substitute one corpus for another. Text is only addressable inside a corpus,
-  so every textual unit a consumer retrieves is attributable to its corpus;
-  package documentation MUST state that a mixed-corpus rendering is never a
-  single authoritative edition. Choice and fallback beyond that are the
-  consumer's (the language mirror of REQ-CONS-3).
+- **REQ-LANG-6** — Display strings for the closed vocabularies the package
+  emits (light, modality, role, encounter, jurisdiction, fact values, and
+  image captions **(unimplemented — no catalog yet)**) MUST be addressable
+  via stable string keys with per-language catalogs, separate from legal
+  corpora; not being an identifier does not exclude a vocabulary. Catalog
+  entries are static strings — no interpolation, plural or gender grammar —
+  and MUST carry provenance (contributors, reviewers, review date, licence);
+  definitions stay untranslated in structural files, not catalogued.
+- **REQ-LANG-7** — The package MUST NOT encode a language fallback policy,
+  and MUST NOT silently substitute one corpus for another. Text is only
+  addressable inside a corpus, so every textual unit a consumer retrieves
+  is attributable to its corpus; package documentation MUST state that a
+  mixed-corpus rendering is never a single authoritative edition. Choice
+  and fallback beyond that are the consumer's (the language mirror of
+  REQ-CONS-3).
 - **REQ-LANG-8** — A `community`-tier corpus MUST record who produced and
   who reviewed it. Machine translation without named human review MUST NOT
   be accepted.
@@ -508,6 +505,9 @@ See ADR 0003.
   reflects. The two MAY differ — a corpus transcribed from an older
   consolidation is legitimate — but the difference MUST be machine-visible,
   never silent.
+- **REQ-LANG-11** — Exactly one language MUST be declared reference-complete;
+  CI MUST fail if its catalog omits an emitted value. Other catalogs MAY be
+  partial, gated only by the existing key-resolution check.
 
 ---
 
