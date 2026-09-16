@@ -129,12 +129,8 @@
   }
  ],
  "retired_entry_ids": {
-  "note": "Entry ids that existed and no longer do. REQ-MODEL-10 makes an identifier immutable, which means a retired id is never reused for a different entry -- recorded here so that a later session cannot reuse one by accident. The first four retirements cost no consumer anything since nothing had shipped yet; `14a` is the first to have shipped (v0.1.3), so it is deprecated rather than dropped -- see data/deprecated-identifiers.json.",
+  "note": "Entry ids that existed and no longer do. REQ-MODEL-10 forbids reusing a retired id for a different entry -- recorded here so a later session doesn't. `9b-small`/`9b-sail`/`10j-small`/`10j-sail` never shipped, so they're gone, not tracked. `14a` shipped (v0.1.3), so it's deprecated, not dropped -- see data/deprecated-identifiers.json.",
   "ids": {
-   "9b-small": "Collapsed into `9b` when `any_of` gave the predicate language a disjunction; 9(b)'s subject needed two entries only because a `when` was a conjunction.",
-   "9b-sail": "Collapsed into `9b`, same reason.",
-   "10j-small": "Collapsed into `10j`, same reason.",
-   "10j-sail": "Collapsed into `10j`, same reason.",
    "14a": "Renamed `14b` when the head-on classification moved its cite from 14(a) to 14(b), the deeming paragraph it reads; 14(a) is conduct and is in known_omissions. Shipped in v0.1.3, so it is the first record in data/deprecated-identifiers.json (REQ-MODEL-11). Q-45."
   }
  },
@@ -1719,7 +1715,7 @@
    "rel:overrides": [
     "18a4"
    ],
-   "note": "9(b)'s subject is disjunctive -- 'a vessel of less than 20 metres in length or a sailing vessel' -- and used to take two entries, `9b-small` and `9b-sail`, because a `when` was a conjunction. `any_of` is that disjunction (Q-33), so the paragraph is one entry again and the entry id is the plain citation-derived one. The two suffixed ids are retired and not reused (REQ-MODEL-10). The gate is `fact:propulsion` and not `rule18_class:sail`: 9(b)'s subject is a sailing vessel in the ordinary sense and 9(c) covers fishing vessels separately, so borrowing Rule 18's rank here would quietly move a fishing vessel under sail from one paragraph to the other. `other:fact:confined_to_channel` closes Q-34: the entry now reads which vessel the paragraph protects instead of assuming it from the encounter being in a channel at all."
+   "note": "9(b)'s subject is disjunctive -- 'a vessel of less than 20 metres in length or a sailing vessel' -- and used to take two entries, `9b-small` and `9b-sail`, because a `when` was a conjunction. `any_of` is that disjunction (Q-33), so the paragraph is one entry again and the entry id is the plain citation-derived one. The gate is `fact:propulsion` and not `rule18_class:sail`: 9(b)'s subject is a sailing vessel in the ordinary sense and 9(c) covers fishing vessels separately, so borrowing Rule 18's rank here would quietly move a fishing vessel under sail from one paragraph to the other. `other:fact:confined_to_channel` closes Q-34: the entry now reads which vessel the paragraph protects instead of assuming it from the encounter being in a channel at all."
   },
   {
    "id": "9c",
@@ -1799,7 +1795,7 @@
    "rel:overrides": [
     "18a4"
    ],
-   "note": "The same collapse as 9b, and the same disjunctive subject. 10(j)'s object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read. `10j-small` and `10j-sail` are retired and not reused. `other:fact:following_traffic_lane` closes Q-34, same as 10i."
+   "note": "The same collapse as 9b, and the same disjunctive subject. 10(j)'s object is narrower than 9(b)'s -- a power-driven vessel -- so `other:fact:propulsion` is read. `other:fact:following_traffic_lane` closes Q-34, same as 10i."
   },
   {
    "id": "7d1",
