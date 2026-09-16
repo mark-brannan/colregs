@@ -180,7 +180,7 @@ are the cross-implementation contract: an implementation in any language
 should reproduce those exactly.
 [`data/operations.json`](data/operations.json) names the verbs an engine
 implements and binds each to its input schema, its result schema and the
-fixture file that exercises it ([ADR 0014](docs/adr/0014-engine-interface-owned-by-colregs.md)).
+fixture file that exercises it ([ADR 0015](docs/adr/0015-engine-interface-owned-by-colregs.md)).
 
 ## Provenance and licence
 

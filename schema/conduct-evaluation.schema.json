@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/conduct-evaluation.schema.json",
   "title": "ConductEvaluation",
-  "description": "The result of evaluateConduct: one verdict per applied conduct entry per subject over the window the caller handed over, and the Rule 13(d)/17 phase changes seen (ADR 0012 §3, ADR 0014). Structure only.",
+  "description": "The result of evaluateConduct: one verdict per applied conduct entry per subject over the window the caller handed over, and the Rule 13(d)/17 phase changes seen (ADR 0012 §3, ADR 0015). Structure only.",
   "type": "object",
   "additionalProperties": false,
   "required": [

@@ -24,7 +24,7 @@
           "name": { "type": "string", "minLength": 1 },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "facts": {
-            "$comment": "A FactRecord (schema/fact-record.schema.json, ADR 0014); a case asserts at least one fact.",
+            "$comment": "A FactRecord (schema/fact-record.schema.json, ADR 0015); a case asserts at least one fact.",
             "type": "object",
             "minProperties": 1,
             "$ref": "fact-record.schema.json"

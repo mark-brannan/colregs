@@ -167,7 +167,7 @@ resolution, and validation of the situation record.
 | `own` required, `other`/`Subject.fact` per colregs 0.2.0's fixture schema | ✎ | revised 2026-09-07 from "own/other both required"; Mark to confirm before ink |
 | `appliedEncounterEntries` as the fixture-replay companion | ✎ | the situation-fixture replay being written |
 | Field names snake_case with unit suffixes across both ADRs; `EntryId`/`ParagraphCite` alias `string` for ids and cites | ✎ | the rename's alias window closing; a consumer arguing the compiler should enforce the two apart |
-| `EncounterEvaluation` field set (§4); `categories` and `provenance` added 2026-09-16 beyond the block above, as `DisplayEvaluation` carries them — colregs-engine 0.1.5 built them and ADR 0014's `encounter-evaluation.schema.json` is now the shape | ✎ | building it; Q-35, Q-36, Q-43 in colregs |
+| `EncounterEvaluation` field set (§4); `categories` and `provenance` added 2026-09-16 beyond the block above, as `DisplayEvaluation` carries them — colregs-engine 0.1.5 built them and ADR 0015's `encounter-evaluation.schema.json` is now the shape | ✎ | building it; Q-35, Q-36, Q-43 in colregs |
 | `encounter` absent vs the ADR 0005 §5 status alphabet | ✎ | Q-43 |
 | `conduct` is a separate package, not a third verb | ✎ | superseded by ADR 0012: a third and fourth verb, in this package |
 | Geometry-consistency validation (REQ-VERIFY-8) in the engine's validator | ? | deciding whether it is data-suite-only |

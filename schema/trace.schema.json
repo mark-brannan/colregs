@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/trace.schema.json",
   "title": "Trace",
-  "description": "The situation over time: the window evaluateConduct reads (ADR 0012 §2, ADR 0014). A conforming implementation rejects an empty samples list, a `t_s` that does not strictly increase, and `other` present in some samples and absent in others; `t_s` is seconds on the caller's clock, read as differences only, and the pair's identity is the caller's, since a Situation names no vessel. Structure only.",
+  "description": "The situation over time: the window evaluateConduct reads (ADR 0012 §2, ADR 0015). A conforming implementation rejects an empty samples list, a `t_s` that does not strictly increase, and `other` present in some samples and absent in others; `t_s` is seconds on the caller's clock, read as differences only, and the pair's identity is the caller's, since a Situation names no vessel. Structure only.",
   "type": "object",
   "additionalProperties": false,
   "required": [
