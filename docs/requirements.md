@@ -1153,7 +1153,7 @@ named that gap before the class existed.
   first-cut table, but it is the one paragraph of Rule 13 that assigns a role
   and a `category:classification` entry has nowhere to put one. Entry `rule:13a` is
   `category:precedence` here, with 13(b)'s sector test left for the `category:classification`
-  entry that would set the `hist:was_overtaking` latch. Settled with the rest
+  entry that would set the `hist:was_overtaking` overtaking-history fact. Settled with the rest
   of `Q-14`, paragraph by paragraph.
 
   **Closed in pencil 2026-09-04 (PR #26).** 13(b) is now written, as *two*
@@ -1161,7 +1161,7 @@ named that gap before the class existed.
   encounter type belongs to the pair and reading aspect alone classified the
   overtaken vessel's side of the same encounter as a crossing. 13(a) stays `category:precedence`, and its predicate now carries both
   halves of "any vessel overtaking any other": the 13(b) sector and the 13(d)
-  latch, as an `any_of`, which closes the gap the entry recorded. 13(d) is a
+  overtaking history, as an `any_of`, which closes the gap the entry recorded. 13(d) is a
   third `category:classification` entry, reading history and no geometry at all. The
   split confirms the thing ADR 0005 §1 was really defending — one category per
   paragraph. **Reversed in part, 2026-09-16:** ADR 0015 as rewritten makes
@@ -1242,7 +1242,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   again: on those unordered pairs Rule 15 lays a give-way duty on a vessel
   that may be unable to discharge it, which is Rule 2's region and is
   recorded, not gated. `rule:13a` needs no override against `rule:15a:keep_out_of_the_way` — the
-  entry excludes every overtaking by the `hist:was_overtaking` latch and by
+  entry excludes every overtaking by the `hist:was_overtaking` overtaking history and by
   13(b)'s sector — and a test pins that absence so it stays a reason rather
   than an oversight. The hand-list of six is asserted complete by a derived
   check: every Rule 18 entry that assigns a helm role and does not gate a
@@ -1284,7 +1284,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
 - **Q-43** — **The partition needs history to be present, and says nothing when
   it is absent.** `rule:14b` and `rule:15a:crossing` are gated on `hist:was_overtaking`
   being `false` on both subjects, which is 13(d)'s requirement and the only way
-  the three encounter types stay disjoint once the latch is set. Because absent
+  the three encounter types stay disjoint once the overtaking history is set. Because absent
   is absent, a situation that omits the fact is classified as *no encounter at
   all* rather than as a head-on or a crossing. That is conservative in the
   right direction and completely silent, which is the wrong way to be
@@ -1344,7 +1344,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   in seamanship and is one here. Settled by deciding whether the language gains
   fact-to-fact comparison — a bigger change than `not` and `any_of` were, and
   not one to make for a single paragraph.
-- **Q-47** — **13(d)'s latch never clears.** The paragraph runs "until she is
+- **Q-47** — **13(d)'s overtaking history never clears.** The paragraph runs "until she is
   finally past and clear", nothing in the fact vocabulary carries that, and so
   in this model `hist:was_overtaking` is set by a consumer and cleared by a
   consumer while entry `rule:13d` classifies an overtaking for as long as it stands.
@@ -1354,14 +1354,14 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   `category:conduct` monitors, which are the things that watch a duty end rather than
   begin.
 
-  **Ruled 2026-09-08:** while one vessel holds the latch, 13(a)'s sector
-  test is suppressed on the other, newly-gaining vessel — once overtaking,
-  always overtaking, per 13(d)'s own text, so a geometry test that would
-  newly name a second give-way vessel must not fire while the first still
-  holds the role by history alone. `rule:13a`'s sector branch now also reads
-  `other:hist:was_overtaking: false`; the closing fixture in
+  **Ruled 2026-09-08:** while one vessel's overtaking history stands, 13(a)'s
+  sector test is suppressed on the other, newly-gaining vessel — once
+  overtaking, always overtaking, per 13(d)'s own text, so a geometry test
+  that would newly name a second give-way vessel must not fire while the
+  first still holds the role by history alone. `rule:13a`'s sector branch now
+  also reads `other:hist:was_overtaking: false`; the closing fixture in
   `fixtures/situation-fixtures.json` is the case this closes — a vessel
-  drops back onto the latch-holder's own stern, and only the latch-holder
+  drops back onto the history-holder's own stern, and only the history-holder
   gives way.
 - **Q-48** — **Nothing checks that a situation is geometrically possible.**
   `self:geo:rel_bearing_deg`, `other:geo:rel_bearing_deg`, the two
@@ -1392,7 +1392,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   bearing-rate values were placeholders. They were re-derived from the headings
   and speeds. Two cases could not keep their story: the R1 head-on had both
   vessels with the other to starboard, which no speeds make a steady bearing,
-  and is recast as one; the 13(d) latch case is 400 m abeam with the CPA
+  and is recast as one; the 13(d) overtaking-history case is 400 m abeam with the CPA
   already past, and lost `rule:7d_i`. The partition sweep now constructs positions
   and headings for every bearing pair and is consistent at every point. The
   "never both give-way" property is asserted over a sweep of steady-bearing
@@ -1430,18 +1430,18 @@ nothing is blocked while open.
   give-way and Rule 16 binds her. *Narrow:* Section II's duties attach only with
   risk of collision; 14 and 15 are emphasis. Default **wide**: `rule:13a`, `rule:13b`,
   `rule:13d` and every Rule 18 entry read `in_sight` only. No recommendation.
-- **Q-51** — **What arms 13(d)'s latch?** *A:* 13(b)'s deeming, at the first
+- **Q-51** — **What arms 13(d)'s overtaking history?** *A:* 13(b)'s deeming, at the first
   state the geometry holds. *B:* 13(a)'s duty actually attaching. They differ
   where the geometry holds but a condition on 13(a) does not — `Q-50`'s
-  surface. Pencilled **B** ✎ (Solace, 2026-09-14): the latch arms when the
+  surface. Pencilled **B** ✎ (Solace, 2026-09-14): the overtaking history arms when the
   duty attaches. KIVELI [2025] EWHC 1185 (Admlty) holds the analogous Rule 14
-  latch arms on risk of collision and then persists; no authority was found on
+  history arms on risk of collision and then persists; no authority was found on
   overtaking geometry with no risk of collision. Free to reverse: four entries
   (`rule:13a`, `rule:13b`, `rule:13d`) and their fixtures, and nothing consumes the one
   state this changes the answer for. Settled by: a decision on Rule 13 itself,
   or Cockcroft & Lameijer on whether overtaking status needs risk of
   collision.
-- **Q-52** — **What does 13(d)'s latch forbid?** *Narrow:* reclassification to
+- **Q-52** — **What does 13(d)'s overtaking history forbid?** *Narrow:* reclassification to
   *crossing* only, as the paragraph says, leaving head-on to Rule 14 on the
   geometry of the moment. *Broad:* the encounter stays an overtaking and no
   other Section II classification attaches. Both preserve the duty; they differ
@@ -1459,16 +1459,16 @@ nothing is blocked while open.
   flags any other alteration. No default (Rule 17 has no entry). Recommend
   **exception**: 17(a)(ii) describes an action, not a proviso, and leaves a
   monitor something to check — a drafting argument, not a source.
-- **Q-54** — **Are Rule 17's phases monotone?** *Latching:* one three-valued
-  monotone latch per stand-on vessel per encounter; late compliance does not
-  take the permission away. *Re-evaluating:* each phase is a predicate on the
-  current state and the vessel may fall back — and must she then hold her *new*
-  course and speed? TLC distinguishes them on a four-state trace, so settle
-  before P4.2. No default. Recommend **latching**: one late alteration does not
-  restore reliance — an argument from purpose, not a source.
+- **Q-54** — **Are Rule 17's phases monotone?** *Monotone:* one three-valued
+  marker per stand-on vessel per encounter; late compliance does not take the
+  permission away. *Re-evaluating:* each phase is a predicate on the current
+  state and the vessel may fall back — must she then hold her *new* course
+  and speed? TLC distinguishes them on a four-state trace. **Ruled
+  2026-09-16:** monotone — permission or duty, once arisen, survives belated
+  compliance; a fall-back needs a baseline the Rules lack (`Q-57`). No holding on point (colregs#72); *Ever Smart* [2021] UKSC 6 para 61 has the obligation cease at 17(a)(ii)/17(b) with no revival — consistent with monotone, not a ruling on it.
 - **Q-55** — **What does a visibility transition do to Section II state?**
   Rule 11 and 19(a) switch on the current state; no paragraph says what
-  becomes of a 13(d) latch or a Rule 17 phase. *Persisting:* they belong to the
+  becomes of a 13(d) overtaking history or a Rule 17 phase. *Persisting:* they belong to the
   encounter and survive the fog. *Resetting:* Section II starts afresh on the
   geometry when sight is regained — the reclassification 13(d) forbids, via
   visibility. No default (nothing is temporal). Recommend **persisting**, which
