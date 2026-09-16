@@ -459,7 +459,7 @@
   ]
  },
  "situation": {
-  "note": "The input a two-subject rule reads (ADR 0005, REQ-CAT-4). A situation wraps two per-vessel fact records without changing either: `own.fact` and `other.fact` are exactly the record above, key for key. Beside them sit three new fact classes -- kinematic state (`kin:`), relative geometry (`geo:`) and history (`hist:`) -- which no `display` entry reads, so a consumer that only shows lights never constructs a situation and never supplies one of these.",
+  "note": "The input a two-subject rule reads (ADR 0005, REQ-CAT-4). A situation wraps two per-vessel fact records without changing either: `self.fact` and `other.fact` are exactly the record above, key for key. Beside them sit three new fact classes -- kinematic state (`kin:`), relative geometry (`geo:`) and history (`hist:`) -- which no `display` entry reads, so a consumer showing only lights never builds a situation or supplies one of these.",
   "status": "pencil",
   "adr": "0005",
   "requirements": [
@@ -471,19 +471,19 @@
    "form": "<subject>:<class>:<key>",
    "doc": "docs/identifiers.md, section 'Two subjects'",
    "subjects": {
-    "own": "the vessel the rule addresses -- the subject of every one-subject entry in applicability.json today",
-    "other": "the vessel own is in an encounter with",
+    "self": "the vessel the rule addresses -- the subject of every one-subject entry in applicability.json today",
+    "other": "the vessel self is in an encounter with",
     "pair": "the encounter itself. Only facts that are symmetric between the two vessels live here."
    },
    "classes": {
-    "fact": "the per-vessel fact record above, unchanged and unprefixed inside the record. `own` and `other` only.",
-    "kin": "kinematic state: where a vessel is, where it is pointing, how fast it is going and turning, and what it handles like. `own` and `other` only.",
-    "geo": "relative geometry. Under `own`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
-    "hist": "what has already been true of this encounter and persists. `own` and `other` only; directional.",
+    "fact": "the per-vessel fact record above, unchanged and unprefixed inside the record. `self` and `other` only.",
+    "kin": "kinematic state: where a vessel is, where it is pointing, how fast it is going and turning, and what it handles like. `self` and `other` only.",
+    "geo": "relative geometry. Under `self`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
+    "hist": "what has already been true of this encounter and persists. `self` and `other` only; directional.",
     "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed."
    },
-   "bare_key": "A key with no subject segment means `own:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
-   "directional_note": "Swapping `own` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `own:geo:rel_bearing_deg` is the bearing of the other vessel off own's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing."
+   "bare_key": "A key with no subject segment means `self:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
+   "directional_note": "Swapping `self` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `self:geo:rel_bearing_deg` is the bearing of the other vessel off self's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing."
   },
   "kinematics": {
    "note": "A new fact class, not an extension of the fact record (ADR 0005 sec. 2). Absolute quantities, in the world frame, one set per vessel. `kin:dynamics` is the one exception left uncited -- it is not a COLREGS concept and no paragraph will ever justify it.",
@@ -536,7 +536,7 @@
     ],
     "cite": null,
     "cite_pending": null,
-    "note": "What the vessel handles like -- the manoeuvring envelope a solver bounds own's actions by. Not a COLREGS concept and deliberately not derivable from the three axes: two power-driven vessels underway have identical facts and unrelated turning circles. The value list is a first cut and is Q-18; `dynamics:unknown` is the honest default and must stay in the set.",
+    "note": "What the vessel handles like -- the manoeuvring envelope a solver bounds self's actions by. Not a COLREGS concept and deliberately not derivable from the three axes: two power-driven vessels underway have identical facts and unrelated turning circles. The value list is a first cut and is Q-18; `dynamics:unknown` is the honest default and must stay in the set.",
     "actuable": false,
     "signalk": null
    },
@@ -562,7 +562,7 @@
      "unit": "deg",
      "cite": "13(b)",
      "cite_pending": null,
-     "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's own heading. Under `own` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- own is more than 22.5 degrees abaft the other vessel's beam. The two sector edges are declared once in `constants` below (`overtaking_sector_from_deg`, `overtaking_sector_to_deg`) and entries rule:13b and rule:15a:crossing both read them, so the sector and its complement cannot drift apart.",
+     "note": "Bearing of the *other* subject, 0-360 clockwise from this subject's own (self) heading. Under `self` this is relative bearing; under `other` it is aspect. Rule 13(b)'s overtaking sector is `other:geo:rel_bearing_deg` in (112.5, 247.5) -- self is more than 22.5 degrees abaft the other vessel's beam. The two sector edges are declared once in `constants` below (`overtaking_sector_from_deg`, `overtaking_sector_to_deg`) and entries rule:13b and rule:15a:crossing both read them, so the sector and its complement cannot drift apart.",
      "actuable": false,
      "signalk": null
     },
@@ -633,10 +633,10 @@
     "status": "pencil",
     "note": "The relative geometry is redundant with the kinematic state, and a record may state a set that no two vessels can occupy (Q-48). A situation is geometrically consistent when every quantity it states agrees with every other under the equations below; a quantity the record does not state constrains nothing, so a record with bearings and no headings is not inconsistent, only unchecked. The suite enforces this on every situation fixture and on every situation its sweeps construct (REQ-VERIFY-8). This block is the definition, so that an engine applying the same check before it classifies applies this one and not a private one.",
     "equations": {
-     "headings": "own:geo:rel_bearing_deg + own:kin:heading_deg + 180 == other:geo:rel_bearing_deg + other:kin:heading_deg (mod 360). Both bearings are of the same line of sight, read from its two ends, so this needs no positions.",
+     "headings": "self:geo:rel_bearing_deg + self:kin:heading_deg + 180 == other:geo:rel_bearing_deg + other:kin:heading_deg (mod 360). Both bearings are of the same line of sight, read from its two ends, so this needs no positions.",
      "positions": "The great-circle range and the initial bearings between the two kin:position values reproduce pair:geo:range_m and, less each subject's heading, both geo:rel_bearing_deg.",
-     "motion": "With each vessel moving along her heading at her kin:sog_kn, the relative velocity in own's frame reproduces pair:geo:cpa_m, pair:geo:tcpa_s and pair:geo:bearing_change_deg_min, the last positive when the compass bearing of the other from own is increasing. The range and own's relative bearing the motion starts from are the stated pair:geo:range_m and own:geo:rel_bearing_deg, or, where the record leaves either out, the values the two kin:position fix. Course over ground is taken as heading: the record carries no set or drift.",
-     "steady_bearing": "A consequence of `motion` worth stating because Rule 15 rests on it: on a steady bearing with both vessels making way, own's speed times the sine of her relative bearing equals minus the other's speed times the sine of the aspect, so the two bearings lie on opposite sides. Two vessels each with the other on her starboard side are never on a collision course, which is why 15(a) never lays give-way on both -- and the suite asserts that over a sweep of steady-bearing geometries rather than over free bearings."
+     "motion": "With each vessel moving along her heading at her kin:sog_kn, the relative velocity in self's frame reproduces pair:geo:cpa_m, pair:geo:tcpa_s and pair:geo:bearing_change_deg_min, the last positive when the compass bearing of the other from self is increasing. The range and self's relative bearing the motion starts from are the stated pair:geo:range_m and self:geo:rel_bearing_deg, or, where the record leaves either out, the values the two kin:position fix. Course over ground is taken as heading: the record carries no set or drift.",
+     "steady_bearing": "A consequence of `motion` worth stating because Rule 15 rests on it: on a steady bearing with both vessels making way, self's speed times the sine of her relative bearing equals minus the other's speed times the sine of the aspect, so the two bearings lie on opposite sides. Two vessels each with the other on her starboard side are never on a collision course, which is why 15(a) never lays give-way on both -- and the suite asserts that over a sweep of steady-bearing geometries rather than over free bearings."
     },
     "tolerances": {
      "bearing_deg": 1.0,
@@ -653,7 +653,7 @@
    }
   },
   "history": {
-   "note": "The situation is not memoryless: Rule 13(d) carries forward a classification that the instantaneous geometry would later contradict. History is directional -- it is own that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
+   "note": "The situation is not memoryless: Rule 13(d) carries forward a classification that the instantaneous geometry would later contradict. History is directional -- it is self that was or was not the overtaking vessel -- so it takes a subject segment like the fact record does.",
    "hist:was_overtaking": {
     "type": "boolean",
     "cite": "13(d)",
@@ -673,9 +673,9 @@
    }
   },
   "record": {
-   "note": "The shape, as an illustration rather than a schema. `own.fact` and `other.fact` hold the fact record defined above, verbatim. `own` and `other` carry directional geometry; `pair` carries only the symmetric geometry. Absent is absent: a missing key never satisfies a constraint, exactly as in the one-subject evaluator.",
+   "note": "The shape, as an illustration rather than a schema. `self.fact` and `other.fact` hold the fact record defined above, verbatim. `self` and `other` carry directional geometry; `pair` carries only the symmetric geometry. Absent is absent: a missing key never satisfies a constraint, exactly as in the one-subject evaluator.",
    "shape": {
-    "own": {
+    "self": {
      "fact": "<the fact record above>",
      "kin": "<kinematics>",
      "geo": "<directional geometry>",
@@ -727,7 +727,7 @@
    "head_on_half_angle_deg": {
     "value": 11.25,
     "unit": "deg",
-    "fact": "own:geo:rel_bearing_deg and other:geo:rel_bearing_deg",
+    "fact": "self:geo:rel_bearing_deg and other:geo:rel_bearing_deg",
     "status": "pencil",
     "cite": null,
     "cite_pending": "14(b)",

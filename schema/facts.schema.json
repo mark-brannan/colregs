@@ -578,12 +578,12 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "own",
+                "self",
                 "other",
                 "pair"
               ],
               "properties": {
-                "own": {
+                "self": {
                   "type": "string"
                 },
                 "other": {
@@ -716,12 +716,12 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "own",
+                "self",
                 "other",
                 "pair"
               ],
               "properties": {
-                "own": {
+                "self": {
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {

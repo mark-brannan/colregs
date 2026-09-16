@@ -46,7 +46,7 @@ suffix naming what distinguishes them.
 A **situation** is the record of `REQ-CAT-4` and `REQ-CAT-6`: two per-vessel
 fact records, a kinematic state each, relative geometry, history and the
 environment, addressed as `<subject>:<class>:<key>`, subject in
-`own`/`other`/`pair`. A **trace** is a sequence of situations for one ordered
+`self`/`other`/`pair`. A **trace** is a sequence of situations for one ordered
 pair, sampled at *t*₀ < *t*₁ < … . Each invariant is a property of one state
 ("at every state") or relates two or more ("at every state after", "from the
 first state at which") — the whole content of §4.1's `conduct` category, and
@@ -74,8 +74,8 @@ latches the result against the geometry that follows.
 `13(b)` under 11 · classification · single-state · `✎`
 
 **Invariant.** At any state at which the two vessels are in sight of one
-another and both underway, own is deemed to be overtaking other exactly when
-own is coming up with other and own bears, from other, more than 22.5° abaft
+another and both underway, self is deemed to be overtaking other exactly when
+self is coming up with other and self bears, from other, more than 22.5° abaft
 other's beam — `other:geo:rel_bearing_deg` strictly inside (112.5°, 247.5°).
 The sector is open at both ends (*more than* 22.5°: a vessel on the edge is
 not overtaking); its edges are the forward edges of Rule 21(c)'s sternlight
@@ -93,7 +93,7 @@ arc, which 13(b)'s second limb states in light terms.
 
 `13(b)` · classification, derived · single-state · `✎`
 
-**Invariant.** Where `INV-13b` holds of own with respect to other, the
+**Invariant.** Where `INV-13b` holds of self with respect to other, the
 encounter type of the pair is `overtaking` read from *either* subject: the
 vessel being overtaken is in an overtaking, not a crossing, though the
 overtaking vessel bears forward of her beam.
@@ -127,13 +127,13 @@ well as Rules 14 and 15.
 `13(d)` · classification · temporal, a state to every later state of the
 encounter · `✎`
 
-**Invariant.** Let *s* be the first state of an encounter at which own is
+**Invariant.** Let *s* be the first state of an encounter at which self is
 deemed to be overtaking other. At every state of that encounter after *s*,
-until own is finally past and clear, the encounter type of the pair is
+until self is finally past and clear, the encounter type of the pair is
 `overtaking` whatever the relative bearings then are; in particular it is not
 `crossing`, and the tests of Rules 14 and 15 do not apply to the pair.
 
-- **State remembered.** One directional boolean per subject per encounter (own
+- **State remembered.** One directional boolean per subject per encounter (self
   was, earlier in this encounter, the overtaking vessel), plus the time of *s*
   for a monitor that says when the duty attached; window *s* to finally past and
   clear. Reading only the current state is wrong in the direction the paragraph
@@ -144,7 +144,7 @@ until own is finally past and clear, the encounter type of the pair is
   model's is its segmentation, and no bearing or range is invented here.
 - **Readings in doubt.** Two: what arms the latch, `Q-51`; what it forbids,
   `Q-52`.
-- Entries: `rule:13d`, reading `own`/`other:hist:was_overtaking` and no geometry; the
+- Entries: `rule:13d`, reading `self`/`other:hist:was_overtaking` and no geometry; the
   `was_overtaking: false` gates on `rule:14b`, `rule:15a:crossing`, `rule:15a:keep_out_of_the_way`
   implement `Q-52`'s *broad* reading. Settled by `Q-51`, `Q-52`, then TLC on a
   three-state trace of an overtaking drawing out onto the bow.
@@ -153,15 +153,15 @@ until own is finally past and clear, the encounter type of the pair is
 
 `13(d)` second limb · precedence · temporal, as `INV-13d` · `✎`
 
-**Invariant.** With *s* as in `INV-13d`, at every state after *s* until own is
-finally past and clear, own holds `give-way` and other `stand-on`, whatever the
+**Invariant.** With *s* as in `INV-13d`, at every state after *s* until self is
+finally past and clear, self holds `give-way` and other `stand-on`, whatever the
 bearings. Separate from `INV-13d` because the two limbs come apart: a reading
 on which 13(d) forbids only the *crossing* reclassification still preserves
 the duty by its second clause, and a formalisation deriving role from encounter
 type alone cannot distinguish `Q-52`'s readings.
 
 - **State remembered.** As `INV-13d`.
-- Entries: `rule:13a`'s `any_of` second limb, `own:hist:was_overtaking: true` — role
+- Entries: `rule:13a`'s `any_of` second limb, `self:hist:was_overtaking: true` — role
   asserted from the latch directly, keeping the limbs separable. Settled by
   `Q-52`.
 
@@ -176,7 +176,7 @@ type alone cannot distinguish `Q-52`'s readings.
 **Invariant.** At any state at which two power-driven vessels are in sight,
 both underway, with risk of collision, and neither latched under `INV-13d`, a
 head-on situation is deemed to exist exactly when each sees the other ahead or
-nearly ahead: `own:geo:rel_bearing_deg` and `other:geo:rel_bearing_deg` each
+nearly ahead: `self:geo:rel_bearing_deg` and `other:geo:rel_bearing_deg` each
 in [0°, 11.25°] ∪ [348.75°, 360°).
 
 - **Both bearings, not one.** 14(b)'s lights limb is a statement about the
@@ -241,7 +241,7 @@ vessel which has the other on her own starboard side holds `give-way` and the
 other holds `stand-on`.
 
 - **Undetermined term.** "On her own starboard side" has no sector in the
-  paragraph; the data reads `own:geo:rel_bearing_deg` in (0°, 112.5°], its upper
+  paragraph; the data reads `self:geo:rel_bearing_deg` in (0°, 112.5°], its upper
   edge 13(b)'s constant, so it is checkable against the partition.
 - Entries: `rule:15a:keep_out_of_the_way`, plus six `rel:overrides` from Rule 18 entries, since
   Rule 18's chapeau excepts Rules 9, 10 and 13 and no others.
@@ -255,7 +255,7 @@ bearings only
 under `INV-15a-give-way`.
 
 - **Why it is not free.** Both-starboard is a consistent *record* and an
-  impossible *situation* on a steady bearing: own's speed times the sine of her
+  impossible *situation* on a steady bearing: self's speed times the sine of her
   relative bearing equals minus other's speed times the sine of the aspect, so
   the bearings lie on opposite sides. A theorem at zero bearing rate, an
   observation elsewhere.
@@ -703,7 +703,7 @@ action in ample time.
 
 **Invariant.** Where `INV-19d-action`'s action is an alteration of course,
 then so far as possible the vessel shall not alter course to port for a vessel
-forward of her beam — `own:geo:rel_bearing_deg` in (270°, 360°) ∪ [0°, 90°) —
+forward of her beam — `self:geo:rel_bearing_deg` in (270°, 360°) ∪ [0°, 90°) —
 other than for a vessel being overtaken.
 
 - **The exception reaches across the switch.** "A vessel being overtaken" is
@@ -718,7 +718,7 @@ other than for a vessel being overtaken.
 
 **Invariant.** Where `INV-19d-action`'s action is an alteration of course,
 then so far as possible the vessel shall not alter course toward a vessel
-abeam or abaft her beam — `own:geo:rel_bearing_deg` in [90°, 270°].
+abeam or abaft her beam — `self:geo:rel_bearing_deg` in [90°, 270°].
 
 - **"Toward"** is the sign of the alteration against the other's bearing, not
   the resulting heading: toward when it reduces her relative bearing off the bow

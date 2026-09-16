@@ -328,10 +328,10 @@ towards, not because the shape is settled.
 - **REQ-CAT-6** — The situation record MUST be declared in
   `data/facts.json` under `situation`, and MUST address each vessel's facts
   through the subject namespace of `docs/identifiers.md`:
-  `<subject>:<class>:<key>`, subject from `own`/`other`/`pair`, class from
-  `fact`/`kin`/`geo`/`hist`/`env`. A key with no subject segment MUST mean `own:`,
+  `<subject>:<class>:<key>`, subject from `self`/`other`/`pair`, class from
+  `fact`/`kin`/`geo`/`hist`/`env`. A key with no subject segment MUST mean `self:`,
   so that every predicate and fixture published today is a valid situation
-  predicate unedited. `own:fact:*` and `other:fact:*` MUST resolve to the
+  predicate unedited. `self:fact:*` and `other:fact:*` MUST resolve to the
   per-vessel fact record key for key, with no key renamed or copied.
   `pair` MUST carry only classes whose facts are symmetric between the two
   vessels; `env` — where the encounter is happening — is `pair`-only for that
@@ -358,7 +358,7 @@ towards, not because the shape is settled.
 
 - **REQ-CAT-8** — A two-subject entry MUST state an `effect` and MUST NOT
   state `lights`. For a `precedence` entry the effect MUST be a role per
-  subject, `{own, other}`, from the closed set `give-way`, `stand-on`,
+  subject, `{self, other}`, from the closed set `give-way`, `stand-on`,
   `shall-not-impede`, `keep-clear`, `none`; for a `scope` entry it MUST name
   the part, the section and the rules that section governs; for a
   `classification` entry it MUST carry exactly one key, either `encounter`
@@ -1010,19 +1010,19 @@ listed here, one line each, because the ADR is what makes them live. Most are
   does fix — `situation`, the four classes, the three subjects — are
   REQ-CAT-6's and are equally pencil.
 - **Q-28** — What namespace distinguishes the two subjects of a two-subject
-  entry (`own:` / `other:` is the working proposal)? No such segment exists in
+  entry (`self:` / `other:` is the working proposal)? No such segment exists in
   `docs/identifiers.md`; settled before Rule 18 lands, and it is an
   identifier decision under REQ-MODEL-10.
   **Decided in pencil 2026-09-04** (PR #22): `<subject>:<class>:<key>`
-  with subject `own`/`other`/`pair` and class `fact`/`kin`/`geo`/`hist`, and a
-  bare key meaning `own:`. Written up in `docs/identifiers.md` §"Two
+  with subject `self`/`other`/`pair` and class `fact`/`kin`/`geo`/`hist`, and a
+  bare key meaning `self:`. Written up in `docs/identifiers.md` §"Two
   subjects", required by REQ-CAT-6, and exercised by
   `fixtures/situation-fixtures.json`. Three things the working proposal did
   not have: a third subject, because range and in-sight belong to the
   encounter and not to either vessel; a class segment, so kinematics and
   history are new classes rather than new fact keys; and the bare-key default,
   which is what makes the whole thing additive under REQ-MODEL-10 — no
-  existing identifier is renamed or repointed, and `own`/`other`/`pair` become
+  existing identifier is renamed or repointed, and `self`/`other`/`pair` become
   reserved at the head of the identifier space, which is the only cost.
   Settled for good by Rule 18 being written against it.
 - **Q-29** — What are the file names and schemas for the invariants file and
@@ -1049,7 +1049,7 @@ here rather than in a commit message. All pencil.
 
 **Decided in pencil 2026-09-04 (PR #24)**, answering the data half of `Q-27`:
 the field names are `category`, `subjects` and `effect`, and `effect` is
-`{own, other}` roles for a `precedence` entry and `{part, section,
+`{self, other}` roles for a `precedence` entry and `{part, section,
 applies_rules}` for a `scope` one. Written up in `docs/identifiers.md`
 §"Effects", required by `REQ-CAT-8`, and exercised by
 `fixtures/situation-fixtures.json`. `Q-28`'s namespace is settled for good by
@@ -1068,7 +1068,7 @@ named that gap before the class existed.
   `modality` rather than a value inside it — which is the same question
   `modality_by` answers for the light rules, and should probably be answered
   the same way. **Narrowed, not settled, 2026-09-04 (PR #25):** 18(d)(i) is now
-  `shall-if-practicable` with `effect.own: shall-not-impede`, so the two
+  `shall-if-practicable` with `effect.self: shall-not-impede`, so the two
   qualifications sit in two fields and neither is dropped. That works only
   because this duty happens to be a *role*, which `effect` already carries;
   9(a)'s "if the circumstances of the case admit" has no second field to move
@@ -1333,7 +1333,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   instance of it.
 - **Q-46** — **"Coming up with" is a comparison of two facts.** 13(b) deems a
   vessel to be overtaking when *coming up with* another from more than 22.5°
-  abaft her beam. That is `own:kin:sog_kn` against `other:kin:sog_kn`, and the
+  abaft her beam. That is `self:kin:sog_kn` against `other:kin:sog_kn`, and the
   predicate language compares a fact to a constant and never one fact to
   another — the same wall `rule:12a_ii` hits on "both have the wind on the same side",
   which it gets over only because that comparison has two values to enumerate
@@ -1364,7 +1364,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   drops back onto the latch-holder's own stern, and only the latch-holder
   gives way.
 - **Q-48** — **Nothing checks that a situation is geometrically possible.**
-  `own:geo:rel_bearing_deg`, `other:geo:rel_bearing_deg`, the two
+  `self:geo:rel_bearing_deg`, `other:geo:rel_bearing_deg`, the two
   `kin:heading_deg` and the two `kin:sog_kn` are six facts related by two
   equations, and the situation record enforces neither. A consumer — or a
   fixture — can state a pair of bearings that no two headings produce, and the
@@ -1381,7 +1381,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   **Decided in pencil 2026-09-05: the record gains a consistency check,
   declared in data and enforced in the suite.** `data/facts.json` declares the
   equations under `situation.geometry.consistency` — the two relative bearings
-  are two readings of one line of sight (`own + own heading + 180 ≡ aspect +
+  are two readings of one line of sight (`self + self heading + 180 ≡ aspect +
   other heading`), positions reproduce range and both bearings, and the two
   headings and speeds reproduce CPA, TCPA and bearing rate — with tolerances,
   and `REQ-VERIFY-8` requires the suite to apply them. A quantity a record does
@@ -1398,7 +1398,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   "never both give-way" property is asserted over a sweep of steady-bearing
   geometries — every relative bearing, several speed pairs, both intercept
   solutions — where it is a theorem rather than an observation:
-  `u·sin(own bearing) = −v·sin(aspect)`, so the two bearings lie on opposite
+  `u·sin(self bearing) = −v·sin(aspect)`, so the two bearings lie on opposite
   sides and 15(a) can name only one vessel. The both-starboard counterexample
   is pinned as a record the check rejects. What is *not* settled, and is
   pinned too: the theorem is exact only at a bearing rate of zero, and
@@ -1412,7 +1412,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
 
 - **Q-49** — **Must `rule:13d`'s effect cross the Section II/III boundary for Rule 19(d)(i) to be expressible?**
   - *broad* — drop `rule:13d`'s `pair:geo:in_sight` gate so `encounter: overtaking` is visible in Section III; breaks the scope invariant.
-  - *narrow* — `rule:13d` stays gated; a 19(d)(i) entry reads `own:hist:was_overtaking`/`other:hist:was_overtaking` directly, as `rule:14b` and `rule:15a:crossing` already do.
+  - *narrow* — `rule:13d` stays gated; a 19(d)(i) entry reads `self:hist:was_overtaking`/`other:hist:was_overtaking` directly, as `rule:14b` and `rule:15a:crossing` already do.
   - Default: narrow (nothing changes).
   - Recommendation: narrow — the test named below shows the fact resolves out of sight
     (`Q-49: hist:was_overtaking resolves out of sight; rule:13d does not fire`, `test/data.test.mjs`).

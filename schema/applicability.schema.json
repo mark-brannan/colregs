@@ -95,7 +95,7 @@
       },
       "patternProperties": {
         "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
-        "^(own|other):(fact|kin|geo|hist):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
+        "^(self|other):(fact|kin|geo|hist):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
         "^pair:(geo|env):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
       }
     },
@@ -122,9 +122,9 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["own", "other"],
+          "required": ["self", "other"],
           "properties": {
-            "own": { "$ref": "#/$defs/effectRole" },
+            "self": { "$ref": "#/$defs/effectRole" },
             "other": { "$ref": "#/$defs/effectRole" }
           }
         },

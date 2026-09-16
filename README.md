@@ -151,8 +151,8 @@ Most entries read one vessel and produce lights. The Part B entries read
 **two**, a situation rather than a fact record, and produce an `effect`:
 which section governs, which vessel gives way, whether the encounter is
 `head-on`, `crossing` or `overtaking`. They address each vessel through a
-subject segment (`own:fact:activity`, `other:fact:propulsion`,
-`pair:geo:in_sight`); a key with no subject means `own:`. The encounter
+subject segment (`self:fact:activity`, `other:fact:propulsion`,
+`pair:geo:in_sight`); a key with no subject means `self:`. The encounter
 sectors partition relative bearing, so no crossing sector is enumerated and
 none can drift. [`docs/identifiers.md`](docs/identifiers.md) has the
 vocabulary, [`docs/part-b-invariants.md`](docs/part-b-invariants.md) the
