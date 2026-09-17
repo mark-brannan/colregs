@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/i18n-catalog.schema.json",
   "title": "data/i18n/*.json",
-  "description": "Display catalog for one BCP 47 language: UI strings for the closed vocabularies the package emits (lights, modalities, roles, encounters, jurisdictions, closed-list fact values), not legal text -- see docs/adr/0003-language-as-a-dimension.md 'Display catalogs' and REQ-LANG-6.",
+  "description": "Display catalog for one BCP 47 language: UI strings for the closed vocabularies the package emits (lights, shapes, modalities, roles, encounters, jurisdictions, closed-list fact values), not legal text -- see docs/adr/0003-language-as-a-dimension.md 'Display catalogs' and REQ-LANG-6.",
   "type": "object",
   "additionalProperties": false,
   "required": ["language", "provenance", "strings"],
@@ -31,6 +31,11 @@
         "lights": {
           "type": "object",
           "propertyNames": { "pattern": "^light:[a-z_]+$" },
+          "additionalProperties": { "$ref": "#/$defs/label" }
+        },
+        "shapes": {
+          "type": "object",
+          "propertyNames": { "pattern": "^shape:[a-z_]+$" },
           "additionalProperties": { "$ref": "#/$defs/label" }
         },
         "modalities": {

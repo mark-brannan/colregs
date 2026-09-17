@@ -1204,6 +1204,14 @@
    "rule": "30",
    "jurisdiction": "intl"
   },
+  "30(d)(ii)": {
+   "path": "30(d)(ii)",
+   "rule": "30",
+   "jurisdiction": "intl",
+   "images": [
+    "NRHB_30_dii.png"
+   ]
+  },
   "30(e)": {
    "path": "30(e)",
    "rule": "30",

@@ -253,21 +253,28 @@
   "color": "black",
   "ball": {
    "min_diameter_m": 0.6,
-   "cite": "AnxI.6(a)(i)"
+   "cite": "AnxI.6(a)(i)",
+   "shape": "shape:ball"
   },
   "cone": {
    "min_base_diameter_m": 0.6,
    "height_equals_diameter": true,
-   "cite": "AnxI.6(a)(ii)"
+   "cite": "AnxI.6(a)(ii)",
+   "shapes": [
+    "shape:cone_up",
+    "shape:cone_down"
+   ]
   },
   "cylinder": {
    "min_diameter_m": 0.6,
    "height_multiple_of_diameter": 2,
-   "cite": "AnxI.6(a)(iii)"
+   "cite": "AnxI.6(a)(iii)",
+   "shape": "shape:cylinder"
   },
   "diamond": {
    "composition": "two cones with a common base",
-   "cite": "AnxI.6(a)(iv)"
+   "cite": "AnxI.6(a)(iv)",
+   "shape": "shape:diamond"
   },
   "vertical_spacing_min_m": 1.5,
   "small_vessel_relief": {

@@ -54,9 +54,10 @@ encounter — resolved the identical way, `modality:shall-not-impede` and
 |---|---|---|
 | `rule:<paragraph-slug>` | applicability entries (`data/applicability.json`) | `rule:30a`, `rule:24a_i:exceeds_200m`, `rule:15a:keep_out_of_the_way` |
 | `light:<id>` | light definitions (`data/lights.json`) | `light:masthead`, `light:sidelight_starboard`, `light:all_round` |
+| `shape:<id>` | day-shape definitions (`data/shapes.json`) | `shape:ball`, `shape:cone_down`, `shape:diamond` |
 | `fact:<key>` | fact keys — the input vocabulary (`data/facts.json`) | `fact:activity`, `fact:length_m`, `fact:making_way`, `fact:on_mooring_buoy` |
 | `<fact>:<value>` | values of an enumerated fact | `activity:nuc`, `position:anchored`, `propulsion:sail`, `obstruction_side:port` |
-| `rel:<name>` | the five relation verbs (`data/applicability.json`) | `rel:includes`, `rel:in_lieu_of`, `rel:exempts` |
+| `rel:<name>` | the six relation verbs (`data/applicability.json`) | `rel:includes`, `rel:in_lieu_of`, `rel:exempts` |
 | `modality:<value>` | modality values (`data/applicability.json` `modalities`) | `modality:shall`, `modality:may` |
 | `role:<value>` | effect role values (`data/applicability.json` `effects.roles`) | `role:give-way`, `role:none` |
 | `encounter:<value>` | effect encounter values (`data/applicability.json` `effects.encounters`) | `encounter:head-on`, `encounter:none` |
@@ -69,11 +70,10 @@ so naming the fact is what disambiguates it; naming the class as well would
 add a segment that never varies.
 
 **There is no version segment.** No `colregs.v1:activity:nuc`. A version in
-the identifier churns every id at a major bump — including the ones that
-did not change — which destroys exactly the stability REQ-MODEL-10 exists
-to provide, and forces every consumer to rewrite stored references for
-changes that did not affect them. Breaking changes are signalled by the
-package version, which is where a consumer already looks.
+the identifier churns every id at a major bump — including the ones that did
+not change — which destroys exactly the stability REQ-MODEL-10 exists to
+provide, and forces every consumer to rewrite stored references for changes
+that did not affect them. The package version signals breaking changes.
 
 Only enumerated facts have a value namespace. Numeric facts
 (`fact:length_m`) take numbers and booleans (`fact:composite_unit`) take

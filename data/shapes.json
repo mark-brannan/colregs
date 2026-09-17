@@ -1,0 +1,67 @@
+{
+ "jurisdiction": "intl",
+ "note": "The day shapes an applicability entry names by id, the counterpart of lights.json under REQ-PART-2: Rule 20(c) makes them the daytime signal, Annex I 6 fixes their form and size. `svg` draws each at Annex I's minimum dimensions with 1 user unit = 1 m, so a consumer scales rather than redraws; the orientation is in the id because the Rules prescribe it (a cone apex downwards is 25(e), apex upwards 26(c)(ii)).",
+ "shapes": {
+  "shape:ball": {
+   "term": "ball",
+   "cite": "AnxI.6(a)(i)",
+   "color": "black",
+   "min_diameter_m": 0.6,
+   "projection": "circle",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 0.6 0.6\"><circle cx=\"0.3\" cy=\"0.3\" r=\"0.3\" fill=\"#000\"/></svg>",
+   "annex1": true
+  },
+  "shape:cone_up": {
+   "term": "cone, apex upwards",
+   "cite": "AnxI.6(a)(ii)",
+   "color": "black",
+   "min_base_diameter_m": 0.6,
+   "height_equals_diameter": true,
+   "projection": "triangle, apex up",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 0.6 0.6\"><path d=\"M0.3 0 L0.6 0.6 L0 0.6 Z\" fill=\"#000\"/></svg>",
+   "annex1": true
+  },
+  "shape:cone_down": {
+   "term": "cone, apex downwards",
+   "cite": "AnxI.6(a)(ii)",
+   "color": "black",
+   "same_dimensions_as": "shape:cone_up",
+   "projection": "triangle, apex down",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 0.6 0.6\"><path d=\"M0 0 L0.6 0 L0.3 0.6 Z\" fill=\"#000\"/></svg>",
+   "annex1": true
+  },
+  "shape:cylinder": {
+   "term": "cylinder",
+   "cite": "AnxI.6(a)(iii)",
+   "color": "black",
+   "min_diameter_m": 0.6,
+   "height_multiple_of_diameter": 2,
+   "projection": "rectangle, twice as high as wide",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 0.6 1.2\"><rect x=\"0\" y=\"0\" width=\"0.6\" height=\"1.2\" fill=\"#000\"/></svg>",
+   "annex1": true
+  },
+  "shape:diamond": {
+   "term": "diamond",
+   "cite": "AnxI.6(a)(iv)",
+   "color": "black",
+   "composition": "two cones with a common base",
+   "components": [
+    "shape:cone_down",
+    "shape:cone_up"
+   ],
+   "projection": "rhombus, twice as high as wide",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 0.6 1.2\"><path d=\"M0.3 0 L0.6 0.6 L0.3 1.2 L0 0.6 Z\" fill=\"#000\"/></svg>",
+   "annex1": true
+  },
+  "shape:flag_a": {
+   "term": "rigid replica of International Code flag A",
+   "cite": "27(e)(ii)",
+   "color": "white and blue",
+   "min_height_m": 1,
+   "projection": "swallow-tailed flag, white at the hoist and blue at the fly",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1.2 1\"><path d=\"M0 0 H0.6 V1 H0 Z\" fill=\"#fff\" stroke=\"#000\" stroke-width=\"0.01\"/><path d=\"M0.6 0 H1.2 L0.95 0.5 L1.2 1 H0.6 Z\" fill=\"#0033a0\"/></svg>",
+   "annex1": false,
+   "note": "Not an Annex I shape: 27(e)(ii) prescribes it by name and fixes only its height and all-round visibility."
+  }
+ }
+}

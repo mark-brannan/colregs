@@ -1,9 +1,9 @@
 {
- "conditions": "night (Rule 20(b): sunset to sunrise), and by 20(c) in restricted visibility by day. Day shapes are not in this release.",
+ "conditions": "Night by default (Rule 20(b): sunset to sunrise): a light entry reads no time fact, so it is in force for every record. Day shapes (Rule 20(c)) read `fact:time: time:day`, so a record that states it selects the shapes as well as the lights; the 20(b) gate on the lights is a known omission.",
  "relations": {
-  "rel:includes": "import another entry's lights, their modality and its scalar gates, never its axes (ADR 0019)",
-  "rel:conditional_includes": "import lights when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks exactly one, or none under a `may` carrier (ADR 0019)",
-  "rel:in_lieu_of": "this entry's lights replace the referenced entries' lights; two entries whose targets intersect are alternatives to each other (ADR 0019)",
+  "rel:includes": "import another entry's lights and shapes, their modality and its scalar gates, never its axes (ADR 0019)",
+  "rel:conditional_includes": "import lights and shapes when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks exactly one, or none under a `may` carrier (ADR 0019)",
+  "rel:in_lieu_of": "this entry's lights and shapes replace the referenced entries' lights; two entries whose targets intersect are alternatives to each other (ADR 0019)",
   "rel:excludes": "the referenced entries must not be shown at the same time; a constraint on one display, never a removal (ADR 0019)",
   "rel:exempts": "the referenced entries are not required; reaches an entry in force, never an import (ADR 0019)",
   "rel:overrides": "the superiority relation: the referencing norm's obligation displaces the referenced norm's when both apply; reaches an entry in force, never an import (ADR 0019)"
@@ -62,9 +62,9 @@
    "why": "Outside the settled table; expressible as activity=towing plus activity=ram."
   },
   {
-   "cite": "27(g)",
-   "what": "Vessels under 12 m, except when diving, need not exhibit the Rule 27 lights and shapes.",
-   "why": "A cross-cutting exemption over the whole 27 family; no entry in the table."
+   "cite": "25(e)",
+   "what": "Under us/inland a vessel of less than 12 m proceeding under sail and power is not required to exhibit the 25(e) cone (33 CFR 83.25(e)).",
+   "why": "rule:25e is inherited from intl unchanged; the Inland relief is a us/inland entry not yet written, so under us/inland the cone is asserted for every length."
   },
   {
    "cite": "31",
@@ -93,8 +93,8 @@
   },
   {
    "cite": "1(a), 1(b), 1(c), 1(d), 1(e), 20(b), 20(c)",
-   "what": "The remaining `category:scope` paragraphs: the waters the Rules apply to, special rules made by an authority, the adoption of traffic separation schemes, the special-construction determination, and the sunset-to-sunrise and restricted-visibility gates on the light rules.",
-   "why": "None of them reads a fact this package declares. 1(a) needs a fact about the waters; 1(b)/(c)/(e) are about an authority's determination, which is closer to the jurisdiction dimension of ADR 0001 than to a predicate; 1(d) is not addressed to a vessel at all; 20(b)/(c) need time of day and visibility, and applicability.json's `conditions` note already records that night is assumed rather than gated. Deferred to a later PR with 4, 11 and 19(a) landing first."
+   "what": "The remaining `category:scope` paragraphs: the waters the Rules apply to, special rules made by an authority, the adoption of traffic separation schemes, the special-construction determination, and the sunset-to-sunrise gate on the light rules.",
+   "why": "None of them reads a fact this package declares. 1(a) needs a fact about the waters; 1(b)/(c)/(e) are about an authority's determination, which is closer to the jurisdiction dimension of ADR 0001 than to a predicate; 1(d) is not addressed to a vessel at all; 20(b) needs time of day and 20(c) visibility as well; `fact:time` now exists and the day-shape entries read it, but no light entry does, so `conditions` records that night is assumed for lights rather than gated. Deferred to a later PR with 4, 11 and 19(a) landing first."
   },
   {
    "cite": "7(d)(ii)",
@@ -1209,6 +1209,15 @@
       "rule:30a",
       "rule:30b"
      ]
+    },
+    {
+     "when": {
+      "fact:time": "time:day"
+     },
+     "rel:includes": [
+      "rule:30a:ball"
+     ],
+     "cite": "30(d)"
     }
    ],
    "modality": "modality:shall",
@@ -1252,7 +1261,8 @@
    "lights": [],
    "rel:exempts": [
     "rule:30a",
-    "rule:30b"
+    "rule:30b",
+    "rule:30a:ball"
    ],
    "modality": "modality:exempt"
   },
@@ -2274,6 +2284,410 @@
    ],
    "modality": "modality:shall",
    "note": "The underway-gated half of rule:24c:towing_lights's display, split out so the import reads only sidelights and towing lights, never the sternlight rule:23a_iii_iv still carries for the unreplaced intl paragraph (ADR 0019 point 3: an import reads a referenced entry's lights, never its axes, so the two must stay separate entries rather than one gated by activity elsewhere)."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:24a_v",
+   "cite": "24(a)(v)",
+   "when": {
+    "fact:activity": "activity:towing",
+    "fact:tow_length_m": {
+     "gt": 200
+    },
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:diamond",
+     "count": 1,
+     "position": "where it can best be seen"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_24_av.png"
+   ]
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:24e:exceeds_200m",
+   "cite": "24(e)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:tow_length_m": {
+     "gt": 200
+    },
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:diamond",
+     "count": 1,
+     "position": "where it can best be seen"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_24_eiii.png"
+   ],
+   "notes": "24(e)(iii): the towed vessel reads the same fact:tow_length_m as the vessel towing her."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:25e",
+   "cite": "25(e)",
+   "when": {
+    "fact:propulsion": "propulsion:power",
+    "fact:position": "position:underway",
+    "fact:motorsailing": true,
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:cone_down",
+     "count": 1,
+     "position": "forward, where it can best be seen"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_25_e.png"
+   ]
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:26b_i:two_cones",
+   "cite": "26(b)(i)",
+   "when": {
+    "fact:activity": "activity:trawling",
+    "fact:position": {
+     "not": "position:aground"
+    },
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:cone_down",
+     "count": 1,
+     "position": "upper"
+    },
+    {
+     "shape": "shape:cone_up",
+     "count": 1,
+     "position": "lower, apexes together"
+    }
+   ],
+   "rel:overrides": [
+    "rule:30a:ball"
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_26_b.png"
+   ],
+   "notes": "The day half of 26(b)(i); Rule 26(a) prevails over the Rule 30 anchor ball as rule:26b_i does over the anchor lights."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:26c_i:two_cones",
+   "cite": "26(c)(i)",
+   "when": {
+    "fact:activity": "activity:fishing",
+    "fact:position": {
+     "not": "position:aground"
+    },
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:cone_down",
+     "count": 1,
+     "position": "upper"
+    },
+    {
+     "shape": "shape:cone_up",
+     "count": 1,
+     "position": "lower, apexes together"
+    }
+   ],
+   "rel:overrides": [
+    "rule:30a:ball"
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_26_ciii.png"
+   ]
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:26c_ii:cone",
+   "cite": "26(c)(ii)",
+   "when": {
+    "fact:activity": "activity:fishing",
+    "fact:position": {
+     "not": "position:aground"
+    },
+    "fact:gear_extent_m": {
+     "gt": 150
+    },
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:cone_up",
+     "count": 1,
+     "position": "in the direction of the gear"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_26_ciii.png"
+   ]
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:27a_ii",
+   "cite": "27(a)(ii)",
+   "when": {
+    "fact:activity": "activity:nuc",
+    "fact:position": "position:underway",
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:ball",
+     "count": 2,
+     "arrangement": "vertical",
+     "position": "where it can best be seen"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_27_a.png"
+   ]
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:27b_ii",
+   "cite": "27(b)(ii)",
+   "when": {
+    "fact:activity": "activity:ram",
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:ball",
+     "count": 1,
+     "position": "upper"
+    },
+    {
+     "shape": "shape:diamond",
+     "count": 1,
+     "position": "middle"
+    },
+    {
+     "shape": "shape:ball",
+     "count": 1,
+     "position": "lower"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_27_biii.png"
+   ],
+   "notes": "Except a vessel engaged in mine clearance operations (27(f))."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:27d:shapes",
+   "cite": "27(d)",
+   "when": {
+    "fact:activity": "activity:ram_underwater",
+    "fact:obstruction_exists": true,
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:ball",
+     "count": 2,
+     "arrangement": "vertical",
+     "position": "on the side on which the obstruction exists"
+    },
+    {
+     "shape": "shape:diamond",
+     "count": 2,
+     "arrangement": "vertical",
+     "position": "on the side on which another vessel may pass"
+    }
+   ],
+   "rel:includes": [
+    "rule:27b_ii"
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_27_d.png",
+    "NRHB_27_diii.png"
+   ],
+   "notes": "27(d)(iii): when at anchor these shapes are shown instead of Rule 30's."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:27e_ii",
+   "cite": "27(e)(ii)",
+   "when": {
+    "fact:activity": "activity:diving",
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:flag_a",
+     "count": 1,
+     "position": "where it is visible all round",
+     "note": "not less than 1 m in height"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:27d:shapes"
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_27_eii.png"
+   ],
+   "notes": "Only when the vessel's size makes the full 27(d) display impracticable."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:27f:three_balls",
+   "cite": "27(f)",
+   "when": {
+    "fact:activity": "activity:mine",
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:ball",
+     "count": 3,
+     "position": "one near the foremast head and one at each end of the fore yard"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_27_f.png"
+   ],
+   "notes": "The day half of rule:27f: by day the Rule 23(a) lights are not carried, and the Rule 30 anchor ball applies to her at anchor by its own predicate, so nothing is imported."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:28:cylinder",
+   "cite": "28",
+   "when": {
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:underway",
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:cylinder",
+     "count": 1,
+     "position": "where it can best be seen"
+    }
+   ],
+   "modality": "modality:may",
+   "images": [
+    "NRHB_28.png"
+   ],
+   "notes": "International Rules only, and underway only, for the reasons rule:28 gives."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:30a:ball",
+   "cite": "30(a)",
+   "when": {
+    "fact:position": "position:anchored",
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:ball",
+     "count": 1,
+     "position": "in the fore part"
+    }
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_30_d.png",
+    "NRHB_30_a.png"
+   ],
+   "notes": "30(a)(i)'s ball; 30(b) offers no day alternative, so this is the only anchor shape."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:30d_ii",
+   "cite": "30(d)(ii)",
+   "when": {
+    "fact:position": "position:aground",
+    "fact:length_m": {
+     "gte": 12
+    },
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:ball",
+     "count": 3,
+     "arrangement": "vertical",
+     "position": "where it can best be seen"
+    }
+   ],
+   "modality": "modality:shall-if-practicable",
+   "images": [
+    "NRHB_30_dii.png"
+   ],
+   "notes": "The three balls are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them, as from rule:30d_i; the 30(a) ball still reaches her through rule:30d."
+  },
+  {
+   "jurisdiction": "intl",
+   "id": "rule:27g",
+   "cite": "27(g)",
+   "when": {
+    "fact:activity": [
+     "activity:nuc",
+     "activity:ram",
+     "activity:mine"
+    ],
+    "fact:length_m": {
+     "lt": 12
+    }
+   },
+   "lights": [],
+   "rel:exempts": [
+    "rule:27a_i",
+    "rule:27a_ii",
+    "rule:27a_iii",
+    "rule:27b_i",
+    "rule:27b_ii",
+    "rule:27b_iii",
+    "rule:27b_iv",
+    "rule:27d",
+    "rule:27d:shapes",
+    "rule:27f",
+    "rule:27f:three_balls"
+   ],
+   "modality": "modality:exempt",
+   "notes": "Diving (27(e)) is the paragraph's own exception and is not listed; activity:ram_underwater reads as activity:ram."
   }
  ],
  "suppressions": [

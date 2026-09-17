@@ -22,6 +22,14 @@
       "light:torch": "Electric torch or lighted lantern",
       "light:deck_lights": "Working or equivalent lights"
     },
+    "shapes": {
+      "shape:ball": "Ball",
+      "shape:cone_up": "Cone, apex up",
+      "shape:cone_down": "Cone, apex down",
+      "shape:cylinder": "Cylinder",
+      "shape:diamond": "Diamond",
+      "shape:flag_a": "Flag A (rigid replica)"
+    },
     "modalities": {
       "modality:shall": "Required",
       "modality:may": "Permitted",
@@ -87,7 +95,9 @@
       "obstruction_side:starboard": "Starboard",
       "wind_side:port": "Port",
       "wind_side:starboard": "Starboard",
-      "wind_side:unknown": "Unknown"
+      "wind_side:unknown": "Unknown",
+      "time:day": "Day",
+      "time:night": "Night"
     }
   }
 }

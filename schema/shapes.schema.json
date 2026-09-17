@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/shapes.schema.json",
+  "title": "data/shapes.json",
+  "description": "The day shapes (Rule 20(c), Annex I 6) an applicability entry names by id, with their dimensions and a reference SVG. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jurisdiction", "shapes"],
+  "properties": {
+    "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+    "note": { "type": "string" },
+    "shapes": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^shape:[a-z_]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["term", "cite", "color", "projection", "svg", "annex1"],
+          "properties": {
+            "term": { "type": "string", "minLength": 1 },
+            "cite": { "type": "string", "minLength": 1 },
+            "color": { "type": "string", "minLength": 1 },
+            "min_diameter_m": { "type": "number", "exclusiveMinimum": 0 },
+            "min_base_diameter_m": { "type": "number", "exclusiveMinimum": 0 },
+            "min_height_m": { "type": "number", "exclusiveMinimum": 0 },
+            "height_equals_diameter": { "type": "boolean" },
+            "height_multiple_of_diameter": { "type": "number", "exclusiveMinimum": 0 },
+            "composition": { "type": "string" },
+            "components": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "type": "string", "pattern": "^shape:[a-z_]+$" }
+            },
+            "same_dimensions_as": { "type": "string", "pattern": "^shape:[a-z_]+$" },
+            "projection": { "type": "string", "minLength": 1 },
+            "svg": { "type": "string", "pattern": "^<svg [\\s\\S]*</svg>$" },
+            "annex1": { "type": "boolean" },
+            "note": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
