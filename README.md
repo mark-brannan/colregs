@@ -59,11 +59,13 @@ mooring buoy, lives only under `us/inland`
 ([ADR 0008](docs/adr/0008-mooring-buoy-modifier.md)); two the Inland Rules
 deliberately lack, Rule 28 and 23(d)(ii), are tombstoned there
 ([ADR 0018](docs/adr/0018-jurisdiction-delta-is-a-merge-patch.md)); one it
-spells differently, 23(d), replaces the international entry. Its Part C
-skeleton is a delta of the same kind: the paths whose text differs, the
-paths only it has, the three it lacks
+spells differently, 23(d), replaces the international entry, and one it
+states differently, the towing lights that replace 24(c)'s sternlight, is
+tombstoned and replaced under its own id. Its Part C skeleton is a delta of
+the same kind: the paths whose text differs, the paths only it has, the
+three it lacks
 ([ADR 0020](docs/adr/0020-skeleton-is-a-delta.md)). That is the whole of
-`us/inland` today: six records and a skeleton, not yet a model of the
+`us/inland` today: seven records and a skeleton, not yet a model of the
 Inland Rules; its text and the entries for its own paths are the next work.
 
 ## The layers
