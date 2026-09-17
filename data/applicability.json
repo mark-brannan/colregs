@@ -2696,6 +2696,12 @@
   },
   {
    "jurisdiction": "us/inland",
+   "suppresses": "rule:28:cylinder",
+   "cite": "28",
+   "why": "The day half of rule:28: 33 CFR 83.28 is [Reserved], so the cylinder is deliberately absent under us/inland as the three red lights are (Q-11, ADR 0018)."
+  },
+  {
+   "jurisdiction": "us/inland",
    "suppresses": "rule:23d_ii",
    "cite": "23(d)(ii)",
    "why": "33 CFR 83.23(d) is a single paragraph with no counterpart to the under-7 m, 7 kn exception of 23(d)(ii); the exception is deliberately absent under us/inland (Q-11, ADR 0018)."

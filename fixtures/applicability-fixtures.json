@@ -936,6 +936,18 @@
    "expect": []
   },
   {
+   "name": "constrained by draft, US Inland, by day: the cylinder is suppressed with the lights",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:cbd",
+    "fact:position": "position:underway",
+    "fact:length_m": 200,
+    "fact:time": "time:day"
+   },
+   "expect": []
+  },
+  {
    "name": "6 m outboard, max speed 6 kn, US Inland: 23(d)(ii) has no Inland counterpart, 23(d)(i) is replaced by 23(d), 23(a) is inherited",
    "jurisdiction": "us/inland",
    "facts": {
