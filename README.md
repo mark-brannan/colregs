@@ -31,8 +31,9 @@ data/editions.json       which edition of which instrument each jurisdiction is 
 data/text/               rule text, one corpus per edition x language x source
 data/corpora.json        index of those corpora and how much each covers
 data/lights.json         the six Rule 21 lights: colour, arc, Rule 22 range
+data/shapes.json         the Annex I day shapes: dimensions and a reference SVG each
 data/facts.json          the fact record, and how to decode SignalK navigation.state
-data/applicability.json  predicate -> lights, each entry also carrying modality, citation, jurisdiction
+data/applicability.json  predicate -> lights or day shapes, each entry also carrying modality, citation, jurisdiction
 data/geometry.json       Annex I: heights, spacings, colour, intensity
 data/images.json         every image, its source, and what it illustrates
 images/                  38 USCG diagrams + 5 arc GIFs
@@ -53,6 +54,9 @@ lawful option comes back and none is picked. Selection belongs to the consumer.
 Every rule with a machine-checkable consequence: Part B conduct, Part C
 lights and shapes, Part D sound and light signals, and Annex I geometry.
 `intl` is the base; `us/inland`, `ca/inland` and `eu/cevni` are deltas on it.
+Today the data holds Part C for `intl`, lights and day shapes alike: a
+record that states `fact:time: time:day` selects the shapes; one that states
+no time selects the lights, night being assumed rather than gated.
 [`docs/requirements.md`](docs/requirements.md) is the numbered contract for
 all of it. One case the Convention cannot state, a vessel made fast to a
 mooring buoy, lives only under `us/inland`
@@ -80,7 +84,9 @@ rather than paraphrased — evaluation never reads the text.
 
 **Light definitions.** Rule 21's lights with colour, arc as a bearing range,
 and Rule 22 range by length band. Bearings run clockwise from right ahead; an
-arc whose `from_deg` exceeds its `to_deg` wraps through the bow.
+arc whose `from_deg` exceeds its `to_deg` wraps through the bow. The day
+shapes are the same kind of record: Annex I's dimensions and an SVG drawn at
+them, 1 unit = 1 m, so a renderer scales rather than redraws.
 
 **Facts.** Three orthogonal axes (`fact:propulsion`, `fact:activity`,
 `fact:position`), a `fact:making_way` modifier, and scalars such as
@@ -90,7 +96,7 @@ SignalK's `navigation.state` onto the axes and names what the flattening
 loses.
 
 **Applicability entries.** Each is a predicate over facts, a set of lights or
-references to other entries, a modality, a citation, and a jurisdiction. Every
+day shapes or references to other entries, a modality, a citation, and a jurisdiction. Every
 entry has an id (`rule:25b`, `rule:27a_iii`) a consumer can point at.
 
 **Identifiers.** Paragraph paths carry no prefix, because the path *is* the
@@ -151,9 +157,9 @@ paragraphs prevails is a relation.
 
 | relation | meaning |
 |---|---|
-| `rel:includes` | import the referenced entry's lights, their modality and its scalar gates — never its axes (ADR 0019) |
-| `rel:conditional_includes` | import lights when the stated `when` holds; `one_of` is a set of legal alternatives, exactly one per display, or none under a `may` carrier |
-| `rel:in_lieu_of` | this entry's lights replace the referenced entries' lights; two entries replacing overlapping sets are alternatives to each other |
+| `rel:includes` | import the referenced entry's lights and shapes, their modality and its scalar gates — never its axes (ADR 0019) |
+| `rel:conditional_includes` | import lights and shapes when the stated `when` holds; `one_of` is a set of legal alternatives, exactly one per display, or none under a `may` carrier |
+| `rel:in_lieu_of` | this entry's lights or shapes replace the referenced entries'; two entries replacing overlapping sets are alternatives to each other |
 | `rel:excludes` | must not be shown together: a pick-one between alternatives, never one obligation vetoing another; a constraint on one display, never a removal |
 | `rel:exempts` | the referenced requirement does not apply (30(e)); reaches an entry in force, never an import |
 | `rel:overrides` | this paragraph's requirement prevails over the referenced one's when both apply (Rule 18; Rule 26(a) over Rule 30's anchor lights); reaches an entry in force, never an import |

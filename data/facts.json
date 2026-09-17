@@ -71,6 +71,12 @@
    "refines": "fact:position=position:moored",
    "note": "Made fast to a mooring buoy rather than to the shore. Rule 3(i) makes both 'moored', and the Convention prescribes no lights for either. Only a jurisdiction that deems a buoy-moored vessel to be at anchor reads it -- US Inland, 33 CFR 90.5 -- so under intl it selects nothing.",
    "actuable": true
+  },
+  "fact:motorsailing": {
+   "type": "boolean",
+   "refines": "fact:propulsion=propulsion:power",
+   "note": "Proceeding under sail when also being propelled by machinery. Rule 3(c) makes her a power-driven vessel, so the lights are Rule 23's; 25(e)'s cone is the only signal that reads this.",
+   "actuable": true
   }
  },
  "numerics": {
@@ -174,6 +180,15 @@
    ],
    "cite": "27(d)(i)",
    "actuable": false
+  },
+  "fact:time": {
+   "values": [
+    "time:day",
+    "time:night"
+   ],
+   "cite": "20(d)",
+   "actuable": true,
+   "note": "Rule 20(d)'s gate (shapes by day; 20(b) gates the lights from sunset to sunrise). Only the day-shape entries read it (`time:day`); a light entry reads no time fact and is in force for every record, so `time:night` selects nothing on its own -- the 20(b) gate on lights is a known omission in applicability.json."
   }
  },
  "derived": {
