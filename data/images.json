@@ -157,10 +157,12 @@
     "Power Driven Vessel less than 12m"
    ],
    "paragraphs": [
-    "23(d)(i)"
+    "23(d)(i)",
+    "23(d)"
    ],
    "entries": [
-    "rule:23d_i"
+    "rule:23d_i",
+    "rule:23d"
    ],
    "depicts": "provision",
    "transcript": [
@@ -196,7 +198,10 @@
    ],
    "description": "Twenty-odd flat hatch covers fill a long straight-sided cargo deck between a forward deckhouse with bridge windows and an after machinery house with a squat funnel: a Great Lakes bulk carrier. She is drawn from above and off the starboard bow, stem to the right, the hull closed by a dashed waterline and no sea beneath. A white lobe caps the short mast on the after house, a second sits on the mast above the forward bridge, and red and green lobes stand either side of that bridge front. No day shapes or inset panels appear.",
    "shapes": [],
-   "unmapped_reason": "illustrates a paragraph outside this release's scope (inland-only, or a rule family not in the table)"
+   "paragraphs": [
+    "23(e)"
+   ],
+   "depicts": "provision"
   },
   "NRHB_24_a.png": {
    "file": "NRHB_24_a.png",
@@ -416,7 +421,10 @@
    ],
    "description": "Square push knees on a small tug are set hard against the flat end of a long box barge, the two drawn as one unit running from upper left to lower right. The view is from above and off the port quarter, with a dashed waterline and no sea. On the tug two white lobes stand in a line on the mast, a green strip runs along the near side of her bridge and a red lobe shows beyond, and two yellow lobes burn one above the other on a staff at her stern. At the head of the tow two yellow lobes sit together with a red lobe outboard and a green lobe on the near side.",
    "shapes": [],
-   "unmapped_reason": "illustrates a paragraph outside this release's scope (inland-only, or a rule family not in the table)"
+   "paragraphs": [
+    "24(j)"
+   ],
+   "depicts": "provision"
   },
   "NRHB_25_a.png": {
    "file": "NRHB_25_a.png",

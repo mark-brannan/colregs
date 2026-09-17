@@ -13,6 +13,54 @@
       "type": "string"
     },
     "paragraphs": {
+      "$ref": "#/$defs/paragraphs"
+    },
+    "deltas": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Per-jurisdiction skeleton deltas over `paragraphs` (ADR 0020): own paragraphs by path, suppressed paths, everything else inherited.",
+      "patternProperties": {
+        "^[a-z]+(/[a-z]+)+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "paragraphs",
+            "suppressions"
+          ],
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "paragraphs": {
+              "$ref": "#/$defs/paragraphs"
+            },
+            "suppressions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "why"
+                ],
+                "properties": {
+                  "path": {
+                    "$ref": "evaluation.schema.json#/$defs/paragraphCite"
+                  },
+                  "why": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "paragraphs": {
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
