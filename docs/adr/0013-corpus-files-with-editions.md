@@ -53,6 +53,25 @@ anyone has checked, and the `us/inland@2014` edition is recalled, not
 verified, and says so. That is the honest cost of this option and the reason
 to look at both.
 
+## Considered and declined (amendment, 2026-09-16)
+
+Four designs additive on option B, declined for now rather than on
+principle — each recorded in requirements.md §10 as a timed gate, closing
+event the first national text whose edition cannot be determined:
+
+- **Validity intervals on editions (`in_force_until`).** (GATE-7)
+  `superseded_by` plus `in_force` already infers validity for every
+  edition on file; a dedicated field would duplicate that inference.
+- **A per-source publication record separate from the edition, FRBR
+  manifestation.** (GATE-8) `source` lives on the corpus and one edition
+  has one source per jurisdiction today; nothing distinguishes yet.
+- **A content digest per corpus for verification.** (GATE-9)
+  `edition_status` already flags an unchecked corpus; a digest adds
+  tamper/drift detection nothing on file has needed.
+- **A skeleton per edition, instead of one shared skeleton.** (GATE-10)
+  Low risk today: no amendment has ever renumbered a rule (GATE-1's
+  verified history). The trigger is the first one that does.
+
 ## Consequences
 
 - Breaking file layout (REQ-PKG-4): `data/rules.json` no longer carries
