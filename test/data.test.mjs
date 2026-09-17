@@ -202,29 +202,33 @@ const ownModality = (e, f) =>
 
 // The signal kinds an entry contributes: its own, plus the ones it imports.
 // `rel:exempts`, `rel:excludes`, `rel:in_lieu_of` and `rel:overrides` are not
-// imports (ADR 0019), so they add nothing here.
-const signalKinds = (e, seen = new Set()) => {
+// imports (ADR 0019), so they add nothing here. With `f` given, a conditional
+// branch counts only when its own `when` holds against those facts; omitting
+// `f` is the structural mode used to check a shift's reach independent of any
+// one fact record.
+const signalKinds = (e, f, seen = new Set()) => {
   const kinds = new Set()
   if (!e || seen.has(e.id)) return kinds
   seen.add(e.id)
   if ((e.lights ?? []).length > 0) kinds.add('lights')
   if ((e.shapes ?? []).length > 0) kinds.add('shapes')
+  const conditional = (e['rel:conditional_includes'] ?? []).filter((c) => !f || matches(c.when, f))
   const imported = [...(e['rel:includes'] ?? []),
-    ...(e['rel:conditional_includes'] ?? []).flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])])]
-  for (const id of imported) for (const k of signalKinds(byId.get(id), seen)) kinds.add(k)
+    ...conditional.flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])])]
+  for (const id of imported) for (const k of signalKinds(byId.get(id), f, seen)) kinds.add(k)
   return kinds
 }
 // A shift reaches an entry whose signals are all of the kind it names; an
 // entry that shows both kinds, or neither, is outside it.
-const reaches = (shift, e) => {
-  const kinds = signalKinds(e)
+const reaches = (shift, e, f) => {
+  const kinds = signalKinds(e, f)
   return kinds.size > 0 && [...kinds].every((k) => k === shift.applies_to)
 }
 const shiftsFor = (f, j) => (appl.modality_shifts ?? [])
   .filter((s) => (s.jurisdiction === j || s.jurisdiction === 'intl') && matches(s.when, f))
 const modalityOf = (e, f, j = 'intl') => {
   let m = ownModality(e, f)
-  for (const s of shiftsFor(f, j)) if (reaches(s, e)) m = s.map[m] ?? m
+  for (const s of shiftsFor(f, j)) if (reaches(s, e, f)) m = s.map[m] ?? m
   return m
 }
 
