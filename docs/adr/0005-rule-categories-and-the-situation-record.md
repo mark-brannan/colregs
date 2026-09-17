@@ -270,12 +270,9 @@ is not the same thing as the lights she shows.
   did not merely put the reason somewhere a test could not read it — it lost
   the cases where the displacing paragraph is silent.
 
-- **2026-09-17, ADR 0022 — Part D is `category:display`, and the situation
-  record gains a fifth class, `act`.** §1 left Part D uncategorised pending
-  REQ-PART-3's ADR. A signal is what an entry produces, so the category is
-  `display`; Rule 34's entries read a situation and say so with `subjects: 2`.
-  §2's four classes become five: `act` is what a subject is doing now, stated
-  by the consumer, and no `display` entry reading one vessel needs it. `Q-1`.
+- **2026-09-17, ADR 0022 — Part D is `category:display`; the situation
+  record gains a sixth class, `act`.** §1 left Part D uncategorised. A signal
+  is what an entry produces; `act` is what a subject is doing now. `Q-1`.
 
 ## What is unchanged
 

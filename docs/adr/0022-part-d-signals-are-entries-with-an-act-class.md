@@ -50,7 +50,7 @@ of fact: stated by the vessel, about now.
    key is `signal`, a sibling of `lights` and `shapes`, and REQ-PART-2's
    rule holds for it: the parts differ only in the vocabulary they emit.
 
-2. **`act`, a fifth class of the situation record**, beside `fact`, `kin`,
+2. **`act`, a sixth class of the situation record**, beside `fact`, `kin`,
    `geo`, `hist` and `env`: what a subject is doing or intending at this
    instant. `self` and `other`; the other's acts are what self hears, decoded
    by the consumer as the other's lights already are into `other:fact:`.
