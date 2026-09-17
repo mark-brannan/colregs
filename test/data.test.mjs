@@ -1085,6 +1085,16 @@ test('every represented_paragraphs record has category care, meta or scope', () 
   }
 })
 
+// The category vocabulary is one `$def`; this holds the envelope to the data.
+test('every represented_paragraphs record validates as an evaluation envelope representedParagraph (REQ-CAT-2)', () => {
+  const validate = ajv.getSchema(`${SCHEMA_BASE}evaluation.schema.json#/$defs/representedParagraph`)
+  assert.ok(validate, 'evaluation.schema.json#/$defs/representedParagraph does not resolve')
+  for (const r of appl.represented_paragraphs ?? []) {
+    const { note, ...carried } = r
+    check(validate, carried, `represented_paragraphs ${r.id}`)
+  }
+})
+
 test('no represented paragraph appears as an applicability entry (REQ-CAT-2)', () => {
   const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite))
   for (const e of appl.entries) {
