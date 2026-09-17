@@ -1426,21 +1426,19 @@ nothing is blocked while open.
 - **Q-50** — **Does risk of collision gate Rules 13 and 18?** 14(a) and 15(a)
   say "so as to involve risk of collision"; Rule 13 and Rule 18 do not.
   *Wide:* they attach whenever in sight and the geometry holds — Rule 11 is the
-  only gate Section II states — so a vessel overtaking a mile clear abeam is
-  give-way and Rule 16 binds her. *Narrow:* Section II's duties attach only with
+  only gate Section II states. *Narrow:* Section II's duties attach only with
   risk of collision; 14 and 15 are emphasis. Default **wide**: `rule:13a`, `rule:13b`,
-  `rule:13d` and every Rule 18 entry read `in_sight` only. No recommendation.
+  `rule:13d` and every Rule 18 entry read `in_sight` only. **Ruled
+  2026-09-17:** wide — the window is the encounter itself. A pair the engine is
+  evaluating is an encounter, at whatever range suits the vessels; inside it 13
+  and 18 attach on sight and geometry alone, and how close is clear stays a
+  monitor parameter. *The Nowy Sacz* [1977] 2 Lloyd's Rep 91 (CA) holds risk
+  of collision unnecessary for the overtaking rule; *Meghna Princess* [2017]
+  SGHC 220 [56] restates it; nothing found on Rule 18 either way (colregs#72).
 - **Q-51** — **What arms 13(d)'s overtaking history?** *A:* 13(b)'s deeming, at the first
   state the geometry holds. *B:* 13(a)'s duty actually attaching. They differ
-  where the geometry holds but a condition on 13(a) does not — `Q-50`'s
-  surface. Pencilled **B** ✎ (Solace, 2026-09-14): the overtaking history arms when the
-  duty attaches. KIVELI [2025] EWHC 1185 (Admlty) holds the analogous Rule 14
-  history arms on risk of collision and then persists; no authority was found on
-  overtaking geometry with no risk of collision. Free to reverse: four entries
-  (`rule:13a`, `rule:13b`, `rule:13d`) and their fixtures, and nothing consumes the one
-  state this changes the answer for. Settled by: a decision on Rule 13 itself,
-  or Cockcroft & Lameijer on whether overtaking status needs risk of
-  collision.
+  only on `Q-50`'s surface. **Ruled 2026-09-17:** B, closed by `Q-50` wide —
+  with no gate between geometry and duty the two readings coincide (colregs#72).
 - **Q-52** — **What does 13(d)'s overtaking history forbid?** *Narrow:* reclassification to
   *crossing* only, as the paragraph says, leaving head-on to Rule 14 on the
   geometry of the moment. *Broad:* the encounter stays an overtaking and no
