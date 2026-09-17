@@ -1416,6 +1416,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   - Default: narrow (nothing changes).
   - Recommendation: narrow — the test named below shows the fact resolves out of sight
     (`Q-49: hist:was_overtaking resolves out of sight; rule:13d does not fire`, `test/data.test.mjs`).
+- **Q-58** — **Do the Rule 18/12 role entries need `other:hist:was_overtaking: false`, like `rule:13a` and `rule:15a:keep_out_of_the_way` (Q-47)?** The nine `18a*`/`18b*`/`18c*` and three `12a*` entries carry no such gate, and `rule:13a` overrides them only when *self* holds the history; when the *other* holds it, self is named give-way under Rule 18 or 12 while 13(a) puts the duty on the other alone. Default **ungated** (nothing changes), recorded as a `gap` on the twelve. Recommend **gated**, in Q-47's shape: 13(a)'s 'notwithstanding' and Rule 18's own exception for Rule 13 both displace these entries, and Q-47 already ruled the history decides who holds the role. colregs-engine#75 (closed) read the table as self-centric and recommended a consumer swap subjects for the other's duty; that answers the other's role, not self's wrong one. `colregs#117`.
 
 ### From the Part B invariants (P4.1)
 
