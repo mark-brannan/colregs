@@ -48,6 +48,84 @@
           }
         }
       }
+    },
+    "deltas": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Per-jurisdiction skeleton deltas over `paragraphs` (ADR 0020): own paragraphs by path, suppressed paths, everything else inherited.",
+      "patternProperties": {
+        "^[a-z]+(/[a-z]+)+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "paragraphs",
+            "suppressions"
+          ],
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "paragraphs": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "rule",
+                    "jurisdiction"
+                  ],
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
+                    },
+                    "rule": {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    },
+                    "jurisdiction": {
+                      "type": "string",
+                      "pattern": "^[a-z]+(/[a-z]+)*$"
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "minItems": 1
+                    }
+                  }
+                }
+              }
+            },
+            "suppressions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "why"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
+                  },
+                  "why": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

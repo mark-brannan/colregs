@@ -13,6 +13,32 @@ const corporaIndex = load('data/corpora.json')
 const editions = load('data/editions.json')
 const editionOf = (id) => Object.values(editions.jurisdictions).flatMap((j) => Object.entries(j.editions)).find(([k]) => k === id)?.[1]
 const jurisdictionOf = (editionId) => editionId.split('@')[0]
+// RFC 7396 (JSON Merge Patch), the pseudocode from section 2, verbatim in
+// spirit: objects merge recursively, `null` deletes, anything else replaces.
+const mergePatch = (target, patch) => {
+  if (patch === null || typeof patch !== 'object' || Array.isArray(patch)) return patch
+  const out = (target !== null && typeof target === 'object' && !Array.isArray(target)) ? { ...target } : {}
+  for (const [k, v] of Object.entries(patch)) {
+    if (v === null) delete out[k]
+    else out[k] = mergePatch(out[k], v)
+  }
+  return out
+}
+// ADR 0020: the skeleton is a delta too. A jurisdiction's resolved skeleton is
+// the merge patch over intl's paragraphs: its own rows present (a restated
+// path merges field by field, so an unstated `images` is inherited), the
+// paths it suppresses `null`, and a path the delta does not mention is
+// inherited whole. `intl` is the base and has no delta.
+const skeletonPatch = (d) => {
+  const patch = { ...d.paragraphs }
+  for (const s of d.suppressions) patch[s.path] = null
+  return patch
+}
+const skeletonOf = (j) => rules.deltas?.[j] ? mergePatch(rules.paragraphs, skeletonPatch(rules.deltas[j])) : rules.paragraphs
+const skeletonJurisdictions = () => ['intl', ...Object.keys(rules.deltas ?? {})]
+// A paragraph record wherever it is stated: the base, or any delta's own rows.
+const statedParagraph = (path) =>
+  rules.paragraphs[path] ?? Object.values(rules.deltas ?? {}).map((d) => d.paragraphs[path]).find(Boolean)
 const corpora = Object.fromEntries(Object.entries(corporaIndex.corpora).map(([id, e]) => [id, load(`data/${e.file}`)]))
 // The reference corpus: today's text, relabelled for what it is (ADR 0003 step 1).
 const EN_US = 'intl@2016.en-US.uscg'
@@ -412,12 +438,12 @@ test('corpus schema: a corpus with a withheld paragraph requires source.retrieve
 // and filenames agree with the metadata inside each file -------------------
 test('REQ-LANG-5: every corpus paragraph and gap resolves to a skeleton path, and none is both', () => {
   for (const [id, c] of Object.entries(corpora)) {
+    const sk = skeletonOf(jurisdictionOf(c.edition))
     for (const path of Object.keys(c.paragraphs)) {
-      assert.ok(rules.paragraphs[path], `${id}: paragraph ${path} is not a skeleton path`)
-      assert.equal(rules.paragraphs[path].jurisdiction, jurisdictionOf(c.edition), `${id}: ${path} belongs to another jurisdiction`)
+      assert.ok(sk[path], `${id}: paragraph ${path} is not a skeleton path under ${jurisdictionOf(c.edition)}`)
     }
     for (const g of c.gaps ?? []) {
-      assert.ok(rules.paragraphs[g.path], `${id}: gap ${g.path} is not a skeleton path`)
+      assert.ok(sk[g.path], `${id}: gap ${g.path} is not a skeleton path under ${jurisdictionOf(c.edition)}`)
       assert.ok(!c.paragraphs[g.path], `${id}: ${g.path} is both a gap and present`)
     }
   }
@@ -451,16 +477,20 @@ test('ADR 0013: corpus id, file path and data/corpora.json agree with the metada
 })
 
 test('REQ-LANG-10 / GATE-2: every edition a corpus or the skeleton names is registered, under its own jurisdiction', () => {
+  const statedIn = new Set([
+    ...Object.values(rules.paragraphs).map((p) => p.jurisdiction),
+    ...Object.keys(rules.deltas ?? {}),
+  ])
   for (const [jur, j] of Object.entries(editions.jurisdictions)) {
     for (const ed of Object.keys(j.editions)) assert.equal(jurisdictionOf(ed), jur, `${ed} is registered under ${jur}`)
     if (j.skeleton) {
       assert.ok(j.editions[j.skeleton], `${jur}: skeleton edition ${j.skeleton} is not registered`)
-      assert.ok(Object.values(rules.paragraphs).some((p) => p.jurisdiction === jur), `${jur}: declares a skeleton edition but has no paragraphs`)
+      assert.ok(statedIn.has(jur), `${jur}: declares a skeleton edition but has no paragraphs`)
     } else {
-      assert.ok(!Object.values(rules.paragraphs).some((p) => p.jurisdiction === jur), `${jur}: has paragraphs but declares no skeleton edition`)
+      assert.ok(!statedIn.has(jur), `${jur}: has paragraphs but declares no skeleton edition`)
     }
   }
-  for (const jur of new Set(Object.values(rules.paragraphs).map((p) => p.jurisdiction))) {
+  for (const jur of statedIn) {
     assert.ok(editions.jurisdictions[jur], `${jur}: in the skeleton but not in data/editions.json`)
   }
   for (const [id, c] of Object.entries(corpora)) {
@@ -759,17 +789,31 @@ test('drift: lights already shown never silently admit an undeclared candidate e
 })
 
 // --- integrity -----------------------------------------------------------
-test('every entry cites a paragraph that exists in rules.json', () => {
-  const check = (where, cite) => {
+test('every entry cites a paragraph that exists in rules.json, under its own jurisdiction', () => {
+  const check = (where, cite, j) => {
     const head = cite.split('-')[0].trim()
-    assert.ok(rules.paragraphs[head], `${where} cites missing paragraph ${head}`)
+    assert.ok(skeletonOf(j)[head], `${where} cites missing paragraph ${head} under ${j}`)
   }
   for (const e of appl.entries) {
-    check(e.id, e.cite)
+    check(e.id, e.cite, e.jurisdiction)
     // A conditional_includes branch may carry its own cite (rule:29a's (ii)/(iii),
     // rule:27f's two branches); it is a citation like any other and must resolve.
     for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
-      if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite)
+      if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite, e.jurisdiction)
+    }
+  }
+})
+
+// ADR 0020: an inherited entry stands on an inherited path. If a jurisdiction's
+// skeleton drops the path an intl entry cites, that entry cannot be in force
+// there by silence -- it is tombstoned (and, where the norm survives under
+// another path, replaced) or the skeleton is wrong.
+test('ADR 0020: every entry in force under a jurisdiction cites a path in that jurisdiction\'s skeleton', () => {
+  for (const j of skeletonJurisdictions()) {
+    const sk = skeletonOf(j)
+    for (const e of appl.entries.filter((e) => inJurisdiction(e, j))) {
+      const head = e.cite.split('-')[0].trim()
+      assert.ok(sk[head], `${j}: ${e.id} is in force but cites ${head}, which ${j} suppresses`)
     }
   }
 })
@@ -790,17 +834,6 @@ test('suppressions: every tombstone names an intl entry, a registered jurisdicti
   }
 })
 
-// RFC 7396 (JSON Merge Patch), the pseudocode from section 2, verbatim in
-// spirit: objects merge recursively, `null` deletes, anything else replaces.
-const mergePatch = (target, patch) => {
-  if (patch === null || typeof patch !== 'object' || Array.isArray(patch)) return patch
-  const out = (target !== null && typeof target === 'object' && !Array.isArray(target)) ? { ...target } : {}
-  for (const [k, v] of Object.entries(patch)) {
-    if (v === null) delete out[k]
-    else out[k] = mergePatch(out[k], v)
-  }
-  return out
-}
 
 test('ADR 0018: each jurisdiction is an RFC 7396 merge patch over intl, and applying it reproduces the evaluator\'s view', () => {
   const byIdOf = (list) => Object.fromEntries(list.map((e) => [e.id, e]))
@@ -823,6 +856,40 @@ test('ADR 0018: each jurisdiction is an RFC 7396 merge patch over intl, and appl
     for (const id of Object.keys(patch)) {
       if (patch[id] !== null) assert.ok(!intl[id], `${j}: ${id} restates an intl entry instead of inheriting it`)
     }
+  }
+})
+
+test('ADR 0020: each jurisdiction\'s skeleton is an RFC 7396 merge patch over intl, well-formed and minimal', () => {
+  for (const [j, d] of Object.entries(rules.deltas ?? {})) {
+    assert.notEqual(j, 'intl', 'intl is the base and has no delta')
+    assert.ok(editions.jurisdictions[j]?.skeleton, `${j}: has a skeleton delta but declares no skeleton edition`)
+    const seen = new Set()
+    for (const s of d.suppressions) {
+      assert.ok(rules.paragraphs[s.path], `${j}: suppresses ${s.path}, which intl does not have`)
+      assert.ok(!d.paragraphs[s.path], `${j}: ${s.path} is both suppressed and stated`)
+      assert.ok(!seen.has(s.path), `${j}: ${s.path} is suppressed twice`)
+      seen.add(s.path)
+    }
+    for (const [path, p] of Object.entries(d.paragraphs)) {
+      assert.equal(p.path, path, `${j}: ${path} is keyed under another path`)
+      assert.equal(p.jurisdiction, j, `${j}: ${path} is stated here but carries jurisdiction ${p.jurisdiction}`)
+      assert.ok(path.startsWith(`${p.rule}(`) || path === p.rule, `${j}: ${path} is not a path of Rule ${p.rule}`)
+      // A restated path is an override: same spelling, different text, and
+      // its corpus must carry the words. A verbatim copy of intl would be a
+      // restatement REQ-SCOPE-3 forbids, which the corpus test catches once
+      // the text is on file; here the record itself may not say more than intl's.
+      if (rules.paragraphs[path]) assert.equal(rules.paragraphs[path].rule, p.rule, `${j}: ${path} changes rule number`)
+    }
+    // The resolved skeleton is the patch applied; a corpus, an entry and a
+    // fixture under this jurisdiction all key into it and nothing else.
+    const resolved = mergePatch(rules.paragraphs, skeletonPatch(d))
+    for (const s of d.suppressions) assert.ok(!resolved[s.path], `${j}: ${s.path} survives its own suppression`)
+    for (const path of Object.keys(d.paragraphs)) assert.equal(resolved[path].jurisdiction, j, `${j}: ${path} resolves to another jurisdiction`)
+    for (const path of Object.keys(rules.paragraphs)) {
+      if (!(path in skeletonPatch(d))) assert.deepEqual(resolved[path], rules.paragraphs[path], `${j}: ${path} is unmentioned but not inherited whole`)
+    }
+    const own = Object.keys(d.paragraphs).length + d.suppressions.length
+    assert.ok(own > 0, `${j}: an empty delta is intl restated`)
   }
 })
 
@@ -938,13 +1005,14 @@ test('images: every entry that cites a figure cites one depicting its provision'
       assert.ok(entry.images?.includes(name), `${name} names ${id}, which does not cite it back`)
     }
     for (const id of rec.paragraphs ?? []) {
-      assert.ok(rules.paragraphs[id], `${name} names paragraph ${id}, which does not exist`)
-      assert.ok(rules.paragraphs[id].images?.includes(name), `${name} names ${id}, which does not cite it back`)
+      assert.ok(statedParagraph(id), `${name} names paragraph ${id}, which does not exist`)
+      assert.ok(statedParagraph(id).images?.includes(name), `${name} names ${id}, which does not cite it back`)
     }
   }
   // The same check on the paragraph side, so a paragraph cannot be illustrated
   // only by its exception either.
-  for (const [id, para] of Object.entries(rules.paragraphs)) {
+  const stated = [rules.paragraphs, ...Object.values(rules.deltas ?? {}).map((d) => d.paragraphs)].flatMap(Object.entries)
+  for (const [id, para] of stated) {
     const shown = para.images ?? []
     if (shown.length === 0) continue
     for (const name of shown) {

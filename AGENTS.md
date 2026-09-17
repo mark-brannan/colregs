@@ -75,7 +75,9 @@ these files, which `test/data.test.mjs` enforces exhaustively:
   `intl` is the reserved base; other jurisdictions are deltas — entries
   they don't override are inherited, and `suppressions[]` tombstones the
   ones they deliberately lack (ADR 0018, an RFC 7396 merge patch by id).
-  `us/inland` holds four records; nothing else is populated.
+  The skeleton is a delta the same way: `rules.json` `deltas[<jur>]` states
+  own paths and suppressed ones, silence inherits (ADR 0020). `us/inland`
+  holds seven records and a Part C skeleton delta; nothing else is populated.
 - **Predicates, not enumerations.** Gates are `{gte, gt, lte, lt}` /
   list-membership / equality over facts, never pre-built configuration lists.
 - **Entries compose.** Multiple entries normally apply to one fact record

@@ -936,7 +936,7 @@
    "expect": []
   },
   {
-   "name": "6 m outboard, max speed 6 kn, US Inland: 23(d)(ii) has no Inland counterpart, 23(d)(i) and 23(a) are inherited",
+   "name": "6 m outboard, max speed 6 kn, US Inland: 23(d)(ii) has no Inland counterpart, 23(d)(i) is replaced by 23(d), 23(a) is inherited",
    "jurisdiction": "us/inland",
    "facts": {
     "fact:propulsion": "propulsion:power",
@@ -949,7 +949,7 @@
     "rule:23a_i",
     "rule:23a_ii",
     "rule:23a_iii_iv",
-    "rule:23d_i"
+    "rule:23d"
    ]
   },
   {
@@ -964,6 +964,22 @@
    "expect": [
     "rule:30a",
     "rule:30c"
+   ]
+  },
+  {
+   "name": "same yacht motoring, US Inland: 23(d)(i) is replaced by Inland 23(d)",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 11.6
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:23d"
    ]
   }
  ]

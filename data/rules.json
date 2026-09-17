@@ -1,5 +1,5 @@
 {
- "note": "Language-neutral skeleton: paragraph paths, rule numbers, jurisdictions and figures, keyed by paragraph path. The edition each jurisdiction consolidates is declared in data/editions.json; the words live in data/text/ corpora, one per edition x language x source -- ADR 0003, ADR 0013.",
+ "note": "Language-neutral skeleton: paragraph paths, rule numbers, jurisdictions and figures, keyed by paragraph path; a non-intl jurisdiction is a merge patch under `deltas` -- own paragraphs, suppressed paths, silence inherits (ADR 0020).",
  "paragraphs": {
   "1(a)": {
    "path": "1(a)",
@@ -1218,6 +1218,216 @@
    "path": "31",
    "rule": "31",
    "jurisdiction": "intl"
+  }
+ },
+ "deltas": {
+  "us/inland": {
+   "note": "33 CFR Part 83 Subpart C as a delta on intl: a path is here when its text differs from intl or has no intl counterpart; a suppressed path is one the CFR does not spell; every other Part C path is inherited. Rows from the diff in docs/verification/2026-08-30-q6-q8.md; text lands with the corpus -- ADR 0020.",
+   "paragraphs": {
+    "21(a)": {
+     "path": "21(a)",
+     "rule": "21",
+     "jurisdiction": "us/inland"
+    },
+    "21(b)": {
+     "path": "21(b)",
+     "rule": "21",
+     "jurisdiction": "us/inland"
+    },
+    "21(g)": {
+     "path": "21(g)",
+     "rule": "21",
+     "jurisdiction": "us/inland"
+    },
+    "22(a)": {
+     "path": "22(a)",
+     "rule": "22",
+     "jurisdiction": "us/inland"
+    },
+    "22(b)": {
+     "path": "22(b)",
+     "rule": "22",
+     "jurisdiction": "us/inland"
+    },
+    "22(c)": {
+     "path": "22(c)",
+     "rule": "22",
+     "jurisdiction": "us/inland"
+    },
+    "23(b)": {
+     "path": "23(b)",
+     "rule": "23",
+     "jurisdiction": "us/inland"
+    },
+    "23(d)": {
+     "path": "23(d)",
+     "rule": "23",
+     "jurisdiction": "us/inland",
+     "images": [
+      "NRHB_23_di.png"
+     ]
+    },
+    "23(e)": {
+     "path": "23(e)",
+     "rule": "23",
+     "jurisdiction": "us/inland",
+     "images": [
+      "NRHB_23_e.png"
+     ]
+    },
+    "24(c)": {
+     "path": "24(c)",
+     "rule": "24",
+     "jurisdiction": "us/inland"
+    },
+    "24(d)": {
+     "path": "24(d)",
+     "rule": "24",
+     "jurisdiction": "us/inland"
+    },
+    "24(f)": {
+     "path": "24(f)",
+     "rule": "24",
+     "jurisdiction": "us/inland"
+    },
+    "24(g)": {
+     "path": "24(g)",
+     "rule": "24",
+     "jurisdiction": "us/inland"
+    },
+    "24(i)": {
+     "path": "24(i)",
+     "rule": "24",
+     "jurisdiction": "us/inland"
+    },
+    "24(j)": {
+     "path": "24(j)",
+     "rule": "24",
+     "jurisdiction": "us/inland",
+     "images": [
+      "NRHB_24_j.png"
+     ]
+    },
+    "24(j)(i)": {
+     "path": "24(j)(i)",
+     "rule": "24",
+     "jurisdiction": "us/inland"
+    },
+    "24(j)(ii)": {
+     "path": "24(j)(ii)",
+     "rule": "24",
+     "jurisdiction": "us/inland"
+    },
+    "25(d)(i)": {
+     "path": "25(d)(i)",
+     "rule": "25",
+     "jurisdiction": "us/inland"
+    },
+    "25(d)(ii)": {
+     "path": "25(d)(ii)",
+     "rule": "25",
+     "jurisdiction": "us/inland"
+    },
+    "25(e)": {
+     "path": "25(e)",
+     "rule": "25",
+     "jurisdiction": "us/inland"
+    },
+    "26(d)": {
+     "path": "26(d)",
+     "rule": "26",
+     "jurisdiction": "us/inland"
+    },
+    "26(f)": {
+     "path": "26(f)",
+     "rule": "26",
+     "jurisdiction": "us/inland"
+    },
+    "26(f)(i)": {
+     "path": "26(f)(i)",
+     "rule": "26",
+     "jurisdiction": "us/inland"
+    },
+    "26(f)(ii)": {
+     "path": "26(f)(ii)",
+     "rule": "26",
+     "jurisdiction": "us/inland"
+    },
+    "26(f)(iii)": {
+     "path": "26(f)(iii)",
+     "rule": "26",
+     "jurisdiction": "us/inland"
+    },
+    "27(c)": {
+     "path": "27(c)",
+     "rule": "27",
+     "jurisdiction": "us/inland"
+    },
+    "27(d)(iv)": {
+     "path": "27(d)(iv)",
+     "rule": "27",
+     "jurisdiction": "us/inland"
+    },
+    "28": {
+     "path": "28",
+     "rule": "28",
+     "jurisdiction": "us/inland"
+    },
+    "29(b)": {
+     "path": "29(b)",
+     "rule": "29",
+     "jurisdiction": "us/inland"
+    },
+    "30(e)": {
+     "path": "30(e)",
+     "rule": "30",
+     "jurisdiction": "us/inland"
+    },
+    "30(g)": {
+     "path": "30(g)",
+     "rule": "30",
+     "jurisdiction": "us/inland"
+    },
+    "30(h)": {
+     "path": "30(h)",
+     "rule": "30",
+     "jurisdiction": "us/inland"
+    },
+    "30(i)": {
+     "path": "30(i)",
+     "rule": "30",
+     "jurisdiction": "us/inland"
+    },
+    "30(j)": {
+     "path": "30(j)",
+     "rule": "30",
+     "jurisdiction": "us/inland"
+    },
+    "30(k)": {
+     "path": "30(k)",
+     "rule": "30",
+     "jurisdiction": "us/inland"
+    },
+    "30(l)": {
+     "path": "30(l)",
+     "rule": "30",
+     "jurisdiction": "us/inland"
+    }
+   },
+   "suppressions": [
+    {
+     "path": "23(d)(i)",
+     "why": "33 CFR 83.23(d) has no lettered subparagraphs; the under-12 m content sits at bare 23(d), which this delta carries (ADR 0020)."
+    },
+    {
+     "path": "23(d)(ii)",
+     "why": "No CFR counterpart to the under-7 m, 7 kn exception (ADR 0018)."
+    },
+    {
+     "path": "23(d)(iii)",
+     "why": "No CFR counterpart to the off-centreline masthead-light provision; the CFR states it inside 21(a) and 21(b) instead (ADR 0020)."
+    }
+   ]
   }
  }
 }
