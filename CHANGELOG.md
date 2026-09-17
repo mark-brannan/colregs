@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.4](https://github.com/mark-brannan/colregs/compare/v0.3.3...v0.3.4) (2026-09-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **data:** the skeleton is a delta; us/inland Part C skeleton lands (ADR 0020) ([#163](https://github.com/mark-brannan/colregs/issues/163))
+
+### Added
+
+* **data:** the skeleton is a delta; us/inland Part C skeleton lands (ADR 0020) ([#163](https://github.com/mark-brannan/colregs/issues/163)) ([ec1a35f](https://github.com/mark-brannan/colregs/commit/ec1a35fb06bb1f45374bfcff2a0eda575fabf21d))
+* **data:** us/inland Rule 24(c) towing lights — the first verified replace case ([#162](https://github.com/mark-brannan/colregs/issues/162)) ([3577fb9](https://github.com/mark-brannan/colregs/commit/3577fb967bfb92f574b700ab1ed0af4282d5f46b))
+
+
+### Fixed
+
+* drop excluded from display-evaluation envelope (ADR 0019 [#156](https://github.com/mark-brannan/colregs/issues/156)) ([#171](https://github.com/mark-brannan/colregs/issues/171)) ([62cdc53](https://github.com/mark-brannan/colregs/commit/62cdc53ddfaca10946a6af76d0d3f8664e052933))
+
 ## [0.3.3](https://github.com/mark-brannan/colregs/compare/v0.3.2...v0.3.3) (2026-09-17)
 
 
