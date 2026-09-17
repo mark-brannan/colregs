@@ -1457,9 +1457,9 @@ nothing is blocked while open.
   a monitor then flags nothing. *Exception:* the duty stands and a departure is
   lawful only as action to avoid collision by her manoeuvre alone; a monitor
   flags any other alteration. No default (Rule 17 has no entry). **Ruled
-  2026-09-16:** exception — once it is clear she must act, she must act to
-  avoid collision and nothing else is licensed; 17(a)(ii)'s "may" and 17(b)'s
-  "shall" stand as written. Purpose, not source (colregs#72); read with `Q-54`.
+  2026-09-16:** exception — the 17(a)(i) duty stands and a departure is lawful
+  only as action to avoid collision; a monitor flags any other alteration.
+  Purpose, not source (colregs#72); read with `Q-54`.
 - **Q-54** — **Are Rule 17's phases monotone?** *Monotone:* one three-valued
   marker per stand-on vessel per encounter; late compliance does not take the
   permission away. *Re-evaluating:* each phase is a predicate on the current
