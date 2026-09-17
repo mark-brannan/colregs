@@ -96,7 +96,7 @@ artefact, the Java sense of interface against implementation:
 | item | level | what would settle it |
 |---|---|---|
 | Options 2 and 3, not 1 or 4–10 | ✎ | this ADR accepted |
-| Manifest shape: positional `inputs`, `output`, `companion`, `fixtures[].case_inputs` and `expect` | ✎ | the engine generator consuming it; the first conduct or Rule 2 fixture |
+| Manifest shape: positional `inputs`, `output`, `companion`, `fixtures[].case_inputs` and `expect` | ✎ | `companion` removed and `expect` required by ADR 0023; the first conduct or departure fixture |
 | Envelope schemas transcribed from `types.ts`, envelope changes land here first | ✎ | the first envelope change after the follow-up |
 | Cross-file `$ref` between schema files | ✎ | a consumer whose validator cannot register a schema set |
 | Deprecated aliases optional in the schema, required in the engine | ✎ | the engine dropping them |

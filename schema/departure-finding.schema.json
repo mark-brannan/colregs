@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/mark-brannan/colregs/schema/rule2-departure-finding.schema.json",
-  "title": "Rule2DepartureFinding",
-  "description": "The result of evaluateRule2Departure: what a named grid found for a situation, with the rule-derived obligations unchanged beside it and the model that made the claim (ADR 0012 §4, ADR 0014). Advisories are ranked best margin first and are empty under no-robust-policy-in-model. Structure only.",
+  "$id": "https://github.com/mark-brannan/colregs/schema/departure-finding.schema.json",
+  "title": "DepartureFinding",
+  "description": "The result of evaluateDeparture: what a named grid found for a situation, with the rule-derived obligations unchanged beside it and the model that made the claim (ADR 0012 §4, ADR 0014). Advisories are ranked best margin first and are empty under no-robust-policy-in-model. Structure only.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -13,7 +13,7 @@
   ],
   "properties": {
     "status": {
-      "$ref": "rule2-departure-model.schema.json#/$defs/status"
+      "$ref": "departure-model.schema.json#/$defs/status"
     },
     "rules": {
       "$ref": "encounter-evaluation.schema.json"
@@ -21,7 +21,7 @@
     "advisories": {
       "type": "array",
       "items": {
-        "$ref": "rule2-departure-model.schema.json#/$defs/advisory"
+        "$ref": "departure-model.schema.json#/$defs/advisory"
       }
     },
     "model": {
@@ -47,7 +47,7 @@
           "type": "object",
           "allOf": [
             {
-              "$ref": "rule2-departure-model.schema.json#/$defs/solverParameters"
+              "$ref": "departure-model.schema.json#/$defs/solverParameters"
             }
           ],
           "required": [

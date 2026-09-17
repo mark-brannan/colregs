@@ -1,5 +1,5 @@
 {
-  "note": "The engine interface colregs owns: each verb ADR 0011 and ADR 0012 name, what it reads, what it answers, its entry-id companion and the fixture cases that bind it (ADR 0014).",
+  "note": "The engine interface colregs owns (ADR 0014, ADR 0023): six operations, one per thing evaluated, each with what it reads, what it answers, and the fixture cases that bind it. A replay compares a case's `expect` to the answer's `applied` unless the fixture file says otherwise.",
   "operations": {
     "evaluateDisplay": {
       "adr": "0011",
@@ -10,16 +10,13 @@
         }
       ],
       "output": "schema/display-evaluation.schema.json",
-      "companion": {
-        "verb": "appliedDisplayEntries",
-        "output": "schema/evaluation.schema.json#/$defs/ruleIds"
-      },
       "fixtures": [
         {
           "file": "fixtures/applicability-fixtures.json",
           "case_inputs": [
             "facts"
-          ]
+          ],
+          "expect": "schema/evaluation.schema.json#/$defs/ruleIds"
         }
       ]
     },
@@ -32,16 +29,13 @@
         }
       ],
       "output": "schema/encounter-evaluation.schema.json",
-      "companion": {
-        "verb": "appliedEncounterEntries",
-        "output": "schema/evaluation.schema.json#/$defs/ruleIds"
-      },
       "fixtures": [
         {
           "file": "fixtures/situation-fixtures.json",
           "case_inputs": [
             "situation"
-          ]
+          ],
+          "expect": "schema/evaluation.schema.json#/$defs/ruleIds"
         }
       ]
     },
@@ -54,13 +48,9 @@
         }
       ],
       "output": "schema/conduct-evaluation.schema.json",
-      "companion": {
-        "verb": "appliedConductEntries",
-        "output": "schema/evaluation.schema.json#/$defs/ruleIds"
-      },
       "fixtures": []
     },
-    "evaluateRule2Departure": {
+    "evaluateDeparture": {
       "adr": "0012",
       "inputs": [
         {
@@ -69,10 +59,36 @@
         },
         {
           "name": "model",
-          "schema": "schema/rule2-departure-model.schema.json"
+          "schema": "schema/departure-model.schema.json"
         }
       ],
-      "output": "schema/rule2-departure-finding.schema.json",
+      "output": "schema/departure-finding.schema.json",
+      "fixtures": []
+    },
+    "evaluateScene": {
+      "adr": "0023",
+      "inputs": [
+        {
+          "name": "scene",
+          "schema": "schema/scene.schema.json"
+        }
+      ],
+      "output": "schema/scene-evaluation.schema.json",
+      "fixtures": []
+    },
+    "reduceTraffic": {
+      "adr": "0023",
+      "inputs": [
+        {
+          "name": "self",
+          "schema": "schema/situation.schema.json#/$defs/subject"
+        },
+        {
+          "name": "others",
+          "schema": "schema/scene.schema.json#/$defs/subjects"
+        }
+      ],
+      "output": "schema/traffic-facts.schema.json",
       "fixtures": []
     }
   }

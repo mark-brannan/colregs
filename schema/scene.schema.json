@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/scene.schema.json",
+  "title": "Scene",
+  "description": "Self and every other vessel at one instant: the input evaluateScene reads (ADR 0023; the layer above the pair, colregs#135). Each (self, others[i]) pair is a Situation, with pairs[i] as its `pair`; roles stay pairwise, and the rest of the traffic is reduced to TrafficFacts. Structure only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["self", "others"],
+  "properties": {
+    "self": { "$ref": "situation.schema.json#/$defs/subject" },
+    "others": { "$ref": "#/$defs/subjects" },
+    "pairs": {
+      "$comment": "One per element of `others`, in order, when present.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "geo": { "$ref": "situation.schema.json#/$defs/geoRecord" },
+          "env": { "$ref": "situation.schema.json#/$defs/envRecord" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "subjects": {
+      "$comment": "The `others` input of reduceTraffic as well as of a Scene.",
+      "type": "array",
+      "items": { "$ref": "situation.schema.json#/$defs/subject" }
+    }
+  }
+}

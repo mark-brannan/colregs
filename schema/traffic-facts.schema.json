@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/traffic-facts.schema.json",
+  "title": "TrafficFacts",
+  "description": "Other traffic reduced to facts about self's options, per sector around self: the answer of reduceTraffic and the `traffic` class of a Situation (ADR 0023). Not vessels: a Situation stays two-vessel, and these flatten to `traffic:<sector>:<key>` in the predicate namespace. Every field is pencil until the reduction is written. Structure only.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "ahead": { "$ref": "#/$defs/sector" },
+    "starboard": { "$ref": "#/$defs/sector" },
+    "astern": { "$ref": "#/$defs/sector" },
+    "port": { "$ref": "#/$defs/sector" }
+  },
+  "$defs": {
+    "sector": {
+      "$comment": "count: vessels in the sector other than `other`. nearest_nm: range to the nearest of them. foreclosed: whether a helm action into this sector is foreclosed by that traffic.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "count": { "type": "integer", "minimum": 0 },
+        "nearest_nm": { "type": "number", "minimum": 0 },
+        "foreclosed": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -190,7 +190,7 @@ trace becomes a fixture; a certified grid, a `Rule2DepartureModel`.
 
 | item | level | what would settle it |
 |---|---|---|
-| Two more verbs, one per input, in this package | ✎ | Mark's confirmation; supersedes ADR 0011's "separate package" row |
+| Two more verbs, one per input, in this package | ✎ | Mark's confirmation; supersedes ADR 0011's "separate package" row; `evaluateRule2Departure` is `evaluateDeparture` from ADR 0023 |
 | `Trace` an object over `TraceSample[]`, `t_s` on the caller's clock, pair identity the caller's | ✎ | the first trace fixture |
 | `hist:was_overtaking` a caller-supplied snapshot fact, never engine-derived | ✎ | Q-47; the first conduct monitor |
 | `ConductVerdict` alphabet `kept`/`breached`/`pending`; absent is absent | ✎ | the first STL monitor being written |

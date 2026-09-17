@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/operations.schema.json",
   "title": "data/operations.json",
-  "description": "The engine interface colregs owns (ADR 0014): one operation per verb ADR 0011 and ADR 0012 name, each binding its positional inputs and its result to a schema under schema/, its entry-id companion, and the fixture cases that exercise it. Structure only -- that every schema reference resolves and every fixture file is bound is checked in the tests.",
+  "description": "The engine interface colregs owns (ADR 0014, ADR 0023): one operation per thing evaluated, each binding its positional inputs and its answer to a schema under schema/, and the fixture cases that exercise it. Structure only -- that every schema reference resolves and every fixture file is bound is checked in the tests.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -70,32 +70,16 @@
             "output": {
               "$ref": "#/$defs/schemaRef"
             },
-            "companion": {
-              "$comment": "The verb that takes the same inputs and answers only the applied entry ids -- the fixture contract, since every fixture case `expect`s entry ids.",
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "verb",
-                "output"
-              ],
-              "properties": {
-                "verb": {
-                  "$ref": "#/$defs/verb"
-                },
-                "output": {
-                  "$ref": "#/$defs/schemaRef"
-                }
-              }
-            },
             "fixtures": {
-              "$comment": "Each binds a fixture file whose `cases[]` carry this operation's inputs, in order, under the `case_inputs` keys, and the expected answer under `expect` -- the companion's entry ids unless `expect` names another schema. A case's `status` and `jurisdiction` are the fixture file's own and are read there. Empty until a fixture file for the input exists.",
+              "$comment": "Each binds a fixture file whose `cases[]` carry this operation's inputs, in order, under the `case_inputs` keys, and the expected answer under `expect`, whose schema `expect` names. A replay compares it to the answer's `applied` unless the fixture file says otherwise. A case's `status` and `jurisdiction` are the fixture file's own and are read there. Empty until a fixture file for the input exists.",
               "type": "array",
               "items": {
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
                   "file",
-                  "case_inputs"
+                  "case_inputs",
+                  "expect"
                 ],
                 "properties": {
                   "file": {
