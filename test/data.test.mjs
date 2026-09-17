@@ -810,6 +810,30 @@ test('every entry cites a paragraph that exists in rules.json, under its own jur
   }
 })
 
+// A conditional_includes branch fires only once its own `when` holds on top of
+// the carrier's, so the lights it imports are only ever needed if the union of
+// the two could not have produced them already. If the imported entry's own
+// `when` is a key-value subset of that union, the selection pass would have
+// delivered those lights regardless -- the include is either a mistake or a
+// second path to the same lights every consumer must dedupe.
+// PR #162 briefly carried one (rule:24c:towing_lights importing
+// rule:24c:underway_lights); 14ef529 removed it by ruling.
+test('conditional_includes: an imported entry is never already in force under the branch', () => {
+  for (const e of appl.entries) {
+    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+      const union = { ...(e.when ?? {}), ...(c.when ?? {}) }
+      for (const t of c['rel:includes'] ?? []) {
+        const target = byId.get(t)
+        const tWhen = target?.when ?? {}
+        const isSubset = Object.entries(tWhen).every(([k, v]) => JSON.stringify(union[k]) === JSON.stringify(v))
+        assert.ok(!isSubset,
+          `${e.id} rel:conditional_includes[${i}] imports ${t}, which is already in force under ` +
+          `${JSON.stringify(union)}; the selection pass would deliver its lights regardless`)
+      }
+    }
+  }
+})
+
 // ADR 0020: an inherited entry stands on an inherited path. If a jurisdiction's
 // skeleton drops the path an intl entry cites, that entry cannot be in force
 // there by silence -- it is tombstoned (and, where the norm survives under
