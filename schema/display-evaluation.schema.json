@@ -9,7 +9,6 @@
     "colregs",
     "applied",
     "exempted",
-    "excluded",
     "overridden",
     "displays",
     "optional_additions",
@@ -25,9 +24,6 @@
       "$ref": "evaluation.schema.json#/$defs/ruleIds"
     },
     "exempted": {
-      "$ref": "evaluation.schema.json#/$defs/byEntryList"
-    },
-    "excluded": {
       "$ref": "evaluation.schema.json#/$defs/byEntryList"
     },
     "overridden": {
