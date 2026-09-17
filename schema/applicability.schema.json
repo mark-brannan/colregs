@@ -21,6 +21,15 @@
         "category:meta"
       ]
     },
+    "representedCategory": {
+      "$comment": "The categories a represented paragraph may carry: no verb computes them. `category:care` and `category:meta` read everything; a `category:scope` paragraph that shifts another rule's modality rather than producing a signal of its own (ADR 0021) is represented too.",
+      "type": "string",
+      "enum": [
+        "category:care",
+        "category:meta",
+        "category:scope"
+      ]
+    },
     "ruleId": { "type": "string", "pattern": "^rule:[0-9]+[a-z]?(_[ivx]+)*(:[a-z][a-z0-9_]*)?$" },
     "modality": {
       "type": "string",
@@ -386,7 +395,7 @@
           "id": { "$ref": "#/$defs/ruleId" },
           "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
           "cite": { "type": "string", "minLength": 1 },
-          "category": { "type": "string", "enum": ["category:care", "category:meta", "category:scope"] },
+          "category": { "$ref": "#/$defs/representedCategory" },
           "note": { "type": "string", "minLength": 1 }
         }
       }

@@ -106,11 +106,7 @@
           "minLength": 1
         },
         "category": {
-          "type": "string",
-          "enum": [
-            "category:care",
-            "category:meta"
-          ]
+          "$ref": "applicability.schema.json#/$defs/representedCategory"
         }
       }
     },
