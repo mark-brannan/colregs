@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { isDeepStrictEqual } from 'node:util'
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import Ajv2020 from 'ajv/dist/2020.js'
@@ -314,7 +315,7 @@ const provenance = { evaluated_categories: ['category:display'], jurisdictions: 
 const encounter = { colregs, applied: ['rule:13b'], scope: ['rule:11'], encounter: 'encounter:overtaking', risk_of_collision: { asserted: true, by: ['rule:13b'] }, roles: { self: [{ role: 'role:give-way', by: 'rule:13a' }], other: [] }, overridden: [], modalities: { 'rule:13b': 'modality:shall' }, categories: { 'rule:13b': 'category:precedence' }, provenance }
 const parameters = { dynamics: ['unicycle'], horizon_s: 600, cadence_s: 1, separation_m: 500, information: 'full', adversary: 'physics' }
 const envelopeExamples = {
-  'display-evaluation.schema.json': { colregs, applied: ['rule:23a_i'], exempted: [], excluded: [], overridden: [], displays: [{ entries: ['rule:23a_i'], lights: [{ spec: { light: 'light:masthead' }, source_entry: 'rule:23a_i', modality: 'modality:shall' }], chosen: [] }], optional_additions: [], modalities: { 'rule:23a_i': 'modality:shall' }, categories: { 'rule:23a_i': 'category:display' }, provenance },
+  'display-evaluation.schema.json': { colregs, applied: ['rule:23a_i'], exempted: [], overridden: [], displays: [{ entries: ['rule:23a_i'], lights: [{ spec: { light: 'light:masthead' }, source_entry: 'rule:23a_i', modality: 'modality:shall' }], chosen: [] }], optional_additions: [], modalities: { 'rule:23a_i': 'modality:shall' }, categories: { 'rule:23a_i': 'category:display' }, provenance },
   'encounter-evaluation.schema.json': encounter,
   'conduct-evaluation.schema.json': { colregs, window: { from_s: 0, to_s: 60, samples: 2 }, applied: ['rule:13a'], verdicts: [{ id: 'rule:13a', subject: 'self', verdict: 'pending', attached_at_s: 0 }], phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }] },
   'rule2-departure-finding.schema.json': { status: 'not-flagged', rules: encounter, advisories: [{ action: { alter_deg: 30 }, margin_m: 800, breaches: ['17(c)'], envelope: { holds_until_s: 120 } }], model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] } },
@@ -806,6 +807,34 @@ test('every entry cites a paragraph that exists in rules.json, under its own jur
     // rule:27f's two branches); it is a citation like any other and must resolve.
     for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
       if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite, e.jurisdiction)
+    }
+  }
+})
+
+// A conditional_includes branch fires only once its own `when` holds on top of
+// the carrier's, so the lights it imports are only ever needed if the union of
+// the two could not have produced them already. If the imported entry's own
+// `when` is a key-value subset of that union, the selection pass would have
+// delivered those lights regardless -- the include is either a mistake or a
+// second path to the same lights every consumer must dedupe. A redundant
+// import like this is a mistake, not a valid pattern.
+test('conditional_includes: an imported entry is never already in force under the branch', () => {
+  for (const e of appl.entries) {
+    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+      const union = { ...(e.when ?? {}), ...(c.when ?? {}) }
+      // one_of is exempt by design (ADR 0019 point 2): an option already in
+      // force by its own predicate legitimately discharges the set -- 30(a)/
+      // 30(b) apply to a 27(b)(iv) vessel because they apply to her, not
+      // because 27(b)(iv) redirects her to them. Only rel:includes is an
+      // unconditional import, so only it is checked here.
+      for (const t of c['rel:includes'] ?? []) {
+        const target = byId.get(t)
+        const tWhen = target?.when ?? {}
+        const isSubset = Object.entries(tWhen).every(([k, v]) => isDeepStrictEqual(union[k], v))
+        assert.ok(!isSubset,
+          `${e.id} rel:conditional_includes[${i}] imports ${t}, which is already in force under ` +
+          `${JSON.stringify(union)}; the selection pass would deliver its lights regardless`)
+      }
     }
   }
 })

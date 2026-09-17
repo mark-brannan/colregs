@@ -639,8 +639,7 @@ specification until 1.0.
 
 ### Open gates
 
-Each gate names the declined design, the closing event, and the trigger.
-
+Each names the declined design, closing event, and trigger.
 - **GATE-1 — `paragraph_id` split from `citation_path`**
   (ADR 0003, declined; REQ-LANG-3, REQ-PKG-4).
   *Closing event*: the 1.0 tag. Before it, splitting the two is a
@@ -764,8 +763,9 @@ Each gate names the declined design, the closing event, and the trigger.
   unlikely short of major success. Recorded regardless: "unlikely" is not
   a closing event (REQ-GATE-1).
 
-Gates whose closing event is "none" are recorded because a future reader
-will otherwise re-ask whether they were merely deferred. They were not.
+Four gates from ADR 0013 (option B), *closing event* for all four the first national text whose edition cannot be determined: **GATE-7 — validity intervals on editions (`in_force_until`)**, trigger an edition superseded with no successor to bound it; **GATE-8 — a per-source publication record separate from the edition (FRBR manifestation)**, trigger two published sources for one edition that disagree; **GATE-9 — a content digest per corpus for verification**, trigger a corpus differing from its cited source with no edition or source change; **GATE-10 — a skeleton per edition**, trigger the first amendment that deletes or renumbers a path.
+
+Gates whose closing event is "none" are recorded because a future reader will otherwise re-ask whether they were merely deferred. They were not.
 
 ### Gate status is data
 
@@ -1416,6 +1416,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   - Default: narrow (nothing changes).
   - Recommendation: narrow — the test named below shows the fact resolves out of sight
     (`Q-49: hist:was_overtaking resolves out of sight; rule:13d does not fire`, `test/data.test.mjs`).
+- **Q-58** — **Do the Rule 18/12 role entries need `other:hist:was_overtaking: false`, like `rule:13a` and `rule:15a:keep_out_of_the_way` (Q-47)?** The nine `18a*`/`18b*`/`18c*` and three `12a*` entries carry no such gate, and `rule:13a` overrides them only when *self* holds the history; when the *other* holds it, self is named give-way under Rule 18 or 12 while 13(a) puts the duty on the other alone. Default **ungated** (nothing changes), recorded as a `gap` on the twelve. Recommend **gated**, in Q-47's shape: 13(a)'s 'notwithstanding' and Rule 18's own exception for Rule 13 both displace these entries, and Q-47 already ruled the history decides who holds the role. colregs-engine#75 (closed) read the table as self-centric and recommended a consumer swap subjects for the other's duty; that answers the other's role, not self's wrong one. `colregs#117`.
 
 ### From the Part B invariants (P4.1)
 

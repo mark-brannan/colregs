@@ -11,6 +11,7 @@
     "first-non-english-corpus": "the second corpus of any one jurisdiction, which in practice is the first non-English text",
     "first-community-translation-of-national-corpus": "the first `community`-tier translation of a `national`-tier corpus",
     "first-external-contribution": "the first merged contribution from someone other than the copyright holder",
+    "first-undated-national-edition": "the first national text whose edition cannot be determined",
     "none": "the decline does not get cheaper or dearer with time; recorded so it is not re-read as merely deferred"
   },
   "statuses": {
@@ -79,6 +80,46 @@
       "status": "open",
       "settled_by": null,
       "note": "ADR 0004 settles the code licence (MIT \u2192 Apache-2.0) and leaves the data licence open. Already-published npm versions stay under the licence they shipped with; the gate governs future releases only, and is held open deliberately by REQ-PROV-7's CONTRIBUTING.md terms (DCO-style certification plus a relicensing grant); a CLA-assistant bot is the upgrade path if contributors arrive."
+    },
+    {
+      "id": "GATE-7",
+      "title": "validity intervals on editions (`in_force_until`)",
+      "declined_in": "docs/adr/0013-corpus-files-with-editions.md",
+      "closing_event": "first-undated-national-edition",
+      "trigger": "an edition superseded with no successor edition registered to bound it \u2014 repeal without replacement, or two editions of one jurisdiction whose validity ranges cannot be ordered from `superseded_by` alone",
+      "status": "open",
+      "settled_by": null,
+      "note": "Declined alongside ADR 0013 (option B, GATE-2 adopted): `superseded_by` plus `in_force` infers validity for every edition on file today. An explicit `in_force_until` is additive, not a rewrite, so paying for it before a case needs it buys nothing."
+    },
+    {
+      "id": "GATE-8",
+      "title": "a per-source publication record separate from the edition (FRBR manifestation)",
+      "declined_in": "docs/adr/0013-corpus-files-with-editions.md",
+      "closing_event": "first-undated-national-edition",
+      "trigger": "two distinct published sources for the same edition that disagree \u2014 e.g. an official gazette printing and a codifier's republication of the same edition differing in errata \u2014 so \"the source\" stops being a property of the edition",
+      "status": "open",
+      "settled_by": null,
+      "note": "Declined alongside ADR 0013: today `source` lives on the corpus and one edition has one source per jurisdiction. A manifestation layer is additive when a second publication record is actually needed."
+    },
+    {
+      "id": "GATE-9",
+      "title": "a content digest per corpus for verification",
+      "declined_in": "docs/adr/0013-corpus-files-with-editions.md",
+      "closing_event": "first-undated-national-edition",
+      "trigger": "a corpus found to differ from its cited source with no accompanying edition or source change \u2014 silent drift a hash would have caught and prose review did not",
+      "status": "open",
+      "settled_by": null,
+      "note": "Declined alongside ADR 0013: `edition_status` (verified/claimed/unknown, this ADR's before-merge item 1) already flags an unchecked corpus. A digest adds tamper/drift detection on top, which nothing on file today has needed."
+    },
+    {
+      "id": "GATE-10",
+      "title": "a skeleton per edition",
+      "declined_in": "docs/adr/0013-corpus-files-with-editions.md",
+      "closing_event": "first-undated-national-edition",
+      "trigger": "the first amendment that deletes or renumbers a path",
+      "status": "open",
+      "settled_by": null,
+      "note": "Declined alongside ADR 0013: one shared `data/rules.json` skeleton is low risk because no amendment has ever renumbered a rule (seven IMO amendments since 1972, none doing so). A per-edition skeleton is the fallback the day one does."
     }
   ]
 }
