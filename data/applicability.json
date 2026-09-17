@@ -2234,22 +2234,12 @@
      "arrangement": "vertical"
     }
    ],
-   "rel:conditional_includes": [
-    {
-     "when": {
-      "fact:position": "position:underway"
-     },
-     "rel:includes": [
-      "rule:24c:underway_lights"
-     ]
-    }
-   ],
    "rel:in_lieu_of": [
     "rule:23a_i",
     "rule:23a_ii"
    ],
    "modality": "modality:shall",
-   "note": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights for a vessel pushing ahead or towing alongside; masthead is unconditional like rule:24c, sidelights and towing lights join only once underway via rule:24c:underway_lights, and rule:24c is suppressed and replaced here rather than edited (REQ-SCOPE-4, Q-11, ADR 0018 point 3)."
+   "note": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights for a vessel pushing ahead or towing alongside; masthead is unconditional like rule:24c, sidelights and towing lights join only once underway as the sibling entry rule:24c:underway_lights (own predicate, no import, so nothing double-counts), and rule:24c is suppressed and replaced here rather than edited (REQ-SCOPE-4, Q-11, ADR 0018 point 3)."
   },
   {
    "id": "rule:24c:underway_lights",
