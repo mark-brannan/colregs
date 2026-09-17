@@ -115,6 +115,11 @@
    "cite": "28",
    "what": "Under us/inland a record carrying activity:cbd selects nothing: rule:28 is suppressed and the Rule 23(a) entries it imported read activity:none.",
    "why": "'Constrained by her draft' is not an Inland status, so the record is out of vocabulary there and the package does not pick a reading for it; a consumer that decodes SignalK for inland waters maps it to activity:none (ADR 0018)."
+  },
+  {
+   "cite": "24(j)",
+   "what": "On the Western Rivers (and waters the Secretary specifies), a vessel pushing ahead or towing alongside shows sidelights and two towing lights only -- no masthead lights -- displacing the 24(c) chapeau this package otherwise models for all of us/inland.",
+   "why": "No `fact:waters` exists yet (REQ-SCOPE-5), so the Western Rivers carve-out can't be expressed as a predicate today. `rule:24c:towing_lights` therefore asserts masthead lights across all of us/inland, over-broad on those waters the same way the inherited rule:24c was before this PR replaced it -- not a regression, but the first entry sourced to 83.24(c) itself, so the gap is worth declaring rather than leaving implicit."
   }
  ],
  "represented_paragraphs": [
@@ -2213,6 +2218,50 @@
     "NRHB_23_di.png"
    ],
    "note": "33 CFR 83.23(d) is the under-12 m provision as a single paragraph, not (d)(i): the norm is intl 23(d)(i), the path is not, so the intl entry is tombstoned and this one replaces it (ADR 0018 point 3, ADR 0020)."
+  },
+  {
+   "id": "rule:24c:towing_lights",
+   "jurisdiction": "us/inland",
+   "cite": "24(c)",
+   "when": {
+    "fact:activity": "activity:pushing",
+    "fact:composite_unit": false
+   },
+   "lights": [
+    {
+     "light": "light:masthead",
+     "count": 2,
+     "arrangement": "vertical"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:23a_i",
+    "rule:23a_ii"
+   ],
+   "modality": "modality:shall",
+   "note": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights for a vessel pushing ahead or towing alongside; masthead is unconditional like rule:24c, sidelights and towing lights join only once underway as the sibling entry rule:24c:underway_lights (own predicate, no import, so nothing double-counts), and rule:24c is suppressed and replaced here rather than edited (REQ-SCOPE-4, Q-11, ADR 0018 point 3)."
+  },
+  {
+   "id": "rule:24c:underway_lights",
+   "jurisdiction": "us/inland",
+   "cite": "24(c)",
+   "when": {
+    "fact:activity": "activity:pushing",
+    "fact:composite_unit": false,
+    "fact:position": "position:underway"
+   },
+   "lights": [
+    {
+     "light": "light:sidelights"
+    },
+    {
+     "light": "light:towing",
+     "count": 2,
+     "arrangement": "vertical"
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "The underway-gated half of rule:24c:towing_lights's display, split out so the import reads only sidelights and towing lights, never the sternlight rule:23a_iii_iv still carries for the unreplaced intl paragraph (ADR 0019 point 3: an import reads a referenced entry's lights, never its axes, so the two must stay separate entries rather than one gated by activity elsewhere)."
   }
  ],
  "suppressions": [
@@ -2233,6 +2282,12 @@
    "suppresses": "rule:23d_ii",
    "cite": "23(d)(ii)",
    "why": "33 CFR 83.23(d) is a single paragraph with no counterpart to the under-7 m, 7 kn exception of 23(d)(ii); the exception is deliberately absent under us/inland (Q-11, ADR 0018)."
+  },
+  {
+   "jurisdiction": "us/inland",
+   "suppresses": "rule:24c",
+   "cite": "24(c)",
+   "why": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights in a vertical line, so rule:24c does not hold as stated under us/inland; rule:24c:towing_lights is the replacement (Q-11, ADR 0018 point 3)."
   }
  ]
 }
