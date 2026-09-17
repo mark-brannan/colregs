@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { isDeepStrictEqual } from 'node:util'
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import Ajv2020 from 'ajv/dist/2020.js'
@@ -815,17 +816,21 @@ test('every entry cites a paragraph that exists in rules.json, under its own jur
 // the two could not have produced them already. If the imported entry's own
 // `when` is a key-value subset of that union, the selection pass would have
 // delivered those lights regardless -- the include is either a mistake or a
-// second path to the same lights every consumer must dedupe.
-// PR #162 briefly carried one (rule:24c:towing_lights importing
-// rule:24c:underway_lights); 14ef529 removed it by ruling.
+// second path to the same lights every consumer must dedupe. A redundant
+// import like this is a mistake, not a valid pattern.
 test('conditional_includes: an imported entry is never already in force under the branch', () => {
   for (const e of appl.entries) {
     for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
       const union = { ...(e.when ?? {}), ...(c.when ?? {}) }
+      // one_of is exempt by design (ADR 0019 point 2): an option already in
+      // force by its own predicate legitimately discharges the set -- 30(a)/
+      // 30(b) apply to a 27(b)(iv) vessel because they apply to her, not
+      // because 27(b)(iv) redirects her to them. Only rel:includes is an
+      // unconditional import, so only it is checked here.
       for (const t of c['rel:includes'] ?? []) {
         const target = byId.get(t)
         const tWhen = target?.when ?? {}
-        const isSubset = Object.entries(tWhen).every(([k, v]) => JSON.stringify(union[k]) === JSON.stringify(v))
+        const isSubset = Object.entries(tWhen).every(([k, v]) => isDeepStrictEqual(union[k], v))
         assert.ok(!isSubset,
           `${e.id} rel:conditional_includes[${i}] imports ${t}, which is already in force under ` +
           `${JSON.stringify(union)}; the selection pass would deliver its lights regardless`)
