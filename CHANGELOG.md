@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.3](https://github.com/mark-brannan/colregs/compare/v0.3.2...v0.3.3) (2026-09-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **data:** rename colregs_term to term in lights.json, drop name ([#152](https://github.com/mark-brannan/colregs/issues/152))
+* **data:** jurisdiction delta is an RFC 7396 merge patch; tombstones land for us/inland (ADR 0018) ([#149](https://github.com/mark-brannan/colregs/issues/149))
+
+### Added
+
+* **data:** jurisdiction delta is an RFC 7396 merge patch; tombstones land for us/inland (ADR 0018) ([#149](https://github.com/mark-brannan/colregs/issues/149)) ([ff4756f](https://github.com/mark-brannan/colregs/commit/ff4756fb5c6310ed09d8c0b534a2adbcd4aac63f))
+* **data:** rename colregs_term to term in lights.json, drop name ([#152](https://github.com/mark-brannan/colregs/issues/152)) ([199e6b3](https://github.com/mark-brannan/colregs/commit/199e6b31e09b15051a2e2ed6b2ccb336c23291a2)), closes [#120](https://github.com/mark-brannan/colregs/issues/120)
+
 ## [0.3.2](https://github.com/mark-brannan/colregs/compare/v0.3.1...v0.3.2) (2026-09-16)
 
 
