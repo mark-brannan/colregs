@@ -115,6 +115,11 @@
    "cite": "28",
    "what": "Under us/inland a record carrying activity:cbd selects nothing: rule:28 is suppressed and the Rule 23(a) entries it imported read activity:none.",
    "why": "'Constrained by her draft' is not an Inland status, so the record is out of vocabulary there and the package does not pick a reading for it; a consumer that decodes SignalK for inland waters maps it to activity:none (ADR 0018)."
+  },
+  {
+   "cite": "24(j)",
+   "what": "On the Western Rivers (and waters the Secretary specifies), a vessel pushing ahead or towing alongside shows sidelights and two towing lights only -- no masthead lights -- displacing the 24(c) chapeau this package otherwise models for all of us/inland.",
+   "why": "No `fact:waters` exists yet (REQ-SCOPE-5), so the Western Rivers carve-out can't be expressed as a predicate today. `rule:24c:towing_lights` therefore asserts masthead lights across all of us/inland, over-broad on those waters the same way the inherited rule:24c was before this PR replaced it -- not a regression, but the first entry sourced to 83.24(c) itself, so the gap is worth declaring rather than leaving implicit."
   }
  ],
  "represented_paragraphs": [
@@ -2244,7 +2249,7 @@
     "rule:23a_ii"
    ],
    "modality": "modality:shall",
-   "note": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights for a vessel pushing ahead or towing alongside; masthead is unconditional like rule:24c, sidelights and towing lights join only once underway via rule:24c:underway_lights (issue #137 review), and rule:24c is suppressed and replaced here rather than edited (REQ-SCOPE-4, Q-11, ADR 0018 point 3)."
+   "note": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights for a vessel pushing ahead or towing alongside; masthead is unconditional like rule:24c, sidelights and towing lights join only once underway via rule:24c:underway_lights, and rule:24c is suppressed and replaced here rather than edited (REQ-SCOPE-4, Q-11, ADR 0018 point 3)."
   },
   {
    "id": "rule:24c:underway_lights",

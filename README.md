@@ -65,7 +65,7 @@ tombstoned and replaced under its own id. Its Part C skeleton is a delta of
 the same kind: the paths whose text differs, the paths only it has, the
 three it lacks
 ([ADR 0020](docs/adr/0020-skeleton-is-a-delta.md)). That is the whole of
-`us/inland` today: six records and a skeleton, not yet a model of the
+`us/inland` today: seven records and a skeleton, not yet a model of the
 Inland Rules; its text and the entries for its own paths are the next work.
 
 ## The layers
