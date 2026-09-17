@@ -1416,7 +1416,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   - Default: narrow (nothing changes).
   - Recommendation: narrow — the test named below shows the fact resolves out of sight
     (`Q-49: hist:was_overtaking resolves out of sight; rule:13d does not fire`, `test/data.test.mjs`).
-- **Q-58** — **Do the Rule 18/12 role entries need `other:hist:was_overtaking: false`, like `rule:13a` and `rule:15a:keep_out_of_the_way` (Q-47)?** The nine `18a*`/`18b*`/`18c*` and three `12a*` entries carry no such gate, and `rule:13a` overrides them only when *self* holds the history. Default **ungated**, recorded as a `gap` on the twelve. Fix is colregs-engine#75's question. `colregs#117`.
+- **Q-58** — **Do the Rule 18/12 role entries need `other:hist:was_overtaking: false`, like `rule:13a` and `rule:15a:keep_out_of_the_way` (Q-47)?** The nine `18a*`/`18b*`/`18c*` and three `12a*` entries carry no such gate, and `rule:13a` overrides them only when *self* holds the history; when the *other* holds it, self is named give-way under Rule 18 or 12 while 13(a) puts the duty on the other alone. Default **ungated** (nothing changes), recorded as a `gap` on the twelve. Recommend **gated**, in Q-47's shape: 13(a)'s 'notwithstanding' and Rule 18's own exception for Rule 13 both displace these entries, and Q-47 already ruled the history decides who holds the role. colregs-engine#75 (closed) read the table as self-centric and recommended a consumer swap subjects for the other's duty; that answers the other's role, not self's wrong one. `colregs#117`.
 
 ### From the Part B invariants (P4.1)
 
@@ -1481,9 +1481,12 @@ nothing is blocked while open.
   *Closed:* treat not-in-sight as Section III. Default **closed**: `rule:19a` drops
   the second conjunct, recorded as a `gap`. Recommend **hole**: the default is
   safe for a switching consumer and unsafe for a traceability claim.
-- **Q-57** — **The baseline for "keep her course and speed"?** 17(a)(i) fixes no instant. *Attachment:* course and speed when the role attached; any later
-  change is a departure — checkable, occasionally absurd. *Steady state:* the vessel's settled condition, so a turn in progress may complete — seamanlike,
-  and needs a definition of "settled" the Rules lack. No default. Recommend **attachment**, with the departure tolerance an explicit monitor parameter.
+- **Q-57** — **The baseline for "keep her course and speed"?** 17(a)(i) fixes
+  no instant. *Attachment:* course and speed when the role attached; any later
+  change is a departure — checkable, occasionally absurd. *Steady state:* the
+  vessel's settled condition, so a turn in progress may complete — seamanlike,
+  and needs a definition of "settled" the Rules lack. No default. Recommend
+  **attachment**, with the departure tolerance an explicit monitor parameter.
 
 Two decisions taken in pencil, reversible in one edit: the invariants live in
 their own document under `REQ-INV-1`–`REQ-INV-7` (§4.2 says why), and the id
