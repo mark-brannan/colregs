@@ -26,6 +26,12 @@ question the rule text leaves open.
 - **Nautical Institute — *Action by the Stand-On Vessel*** (Seaways case study). The stand-on vessel's stages as taught; does not reach whether they are reversible.
   <https://www.nautinst.org/resources-page/200115-action-by-the-stand-on-vessel.html>
 - **USCG Navigation Rules (Amalgamated)**. <https://www.navcen.uscg.gov/navigation-rules-amalgamated>
+- **Steamship Mutual — *Navigation in Restricted Visibility***. Confirms Section II reapplies once vessels are in sight of one another again; silent on whether status accumulated before the loss of sight (a `Q-51`/`Q-52` classification, a `Q-54` Rule 17 stage) carries forward.
+  <https://www.steamshipmutual.com/publications/articles/restrictedvisibility0109>
+- **Britannia P&I — *Navigation in restricted visibility***. No stand-on vessel exists under Rule 19; also silent on status continuity across the transition.
+  <https://britanniapandi.com/en_gb/guidance/navigation-in-restricted-visibility/>
+- **Professional Mariner — *Overtaking or crossing? Don't assume what other ship will do***. The Rule 13(d) bearing-shift overtaking history, discussed only within continuous visual contact.
+  <https://professionalmariner.com/overtaking-or-crossing-dont-assume-what-other-ship-will-do/>
 
 ## Marine incident analysis
 
@@ -47,6 +53,16 @@ ambiguous give-way/stand-on roles are what the Rules are written against.
   <https://www.bahamasmaritime.com/wp-content/uploads/2026/02/2026-5-Polesie-Verity-ReportAndAnnexes.pdf>
 - IMO GISIS Marine Casualties and Incidents module. Not a paper but a source class: the mandatory-reporting database of marine safety investigation reports. Ground truth for real COLREGS-relevant incidents.
   <https://www.imo.org/en/OurWork/IIIS/Pages/Marine-Safety-Investigation-reports.aspx>
+- NTSB/MAR-16/01 — *Conti Peridot*/*Carla Maersk* collision, Houston Ship Channel. Occurred entirely within restricted visibility; no in-sight phase, no Rule 13/17 discussion. Checked for `Q-55` and found not on point.
+  <https://www.ntsb.gov/investigations/AccidentReports/Reports/MAR1601.pdf>
+- Dutch Safety Board — *Collision in Restricted Visibility* (*VB Seal*/*Gulholmen*, Maasmond, 2026). Rules appendix cites only Rules 6 and 19; the encounter never had an in-sight phase. Checked for `Q-55` and found not on point.
+  <https://onderzoeksraad.nl/wp-content/uploads/2026/07/collision-in-restricted-visibility.pdf>
+- TSB Canada M23C0143 — ferry *Svanoy*. Fog/lookout casualty; no Section II status question arises.
+  <https://www.tsb.gc.ca/eng/rapports-reports/marine/2023/m23c0143/m23c0143.html>
+- SWZ Maritime on Nautical Institute MARS 202601 (near-miss in fog). Operational-failure summary only; no rule-regime discussion.
+  <https://swzmaritime.nl/news/2026/02/13/near-vessel-collision-in-fog/> · MARS index: <https://www.nautinst.org/technical-resources/mars.html>
+- Marine Insight — fog/TSS-turn collision write-up. Overtaking occurred entirely within fog; no visibility transition at issue.
+  <https://www.marineinsight.com/real-life-incident-vessels-collide-in-dense-fog-during-sudden-tss-turn/>
 
 ## Known gaps
 
@@ -55,4 +71,5 @@ ambiguous give-way/stand-on roles are what the Rules are written against.
   manoeuvrability, shoal water, a lee shore, set, visibility or sea state.
 - Two standard texts — Cockcroft & Lameijer, *A Guide to the Collision Avoidance Rules*, and Farwell's *Rules of the Nautical Road* — are not online. Either may settle how the stages of a close-quarters encounter are divided, and whether they are treated as irreversible.
 - Several of the questions in `docs/requirements.md` §11 appear unlitigated: overtaking geometry with no risk of collision, an overtaking situation becoming a head-on, resumption of course by a stand-on vessel that has acted, and the fate of accumulated Section II state across a visibility transition.
+- `Q-55` (visibility transition): checked casualty reports, P&I guidance and trade-press commentary beyond the sources above — no authority found in either direction on whether a `Q-51`/`Q-52` classification or a `Q-54` Rule 17 stage survives a restricted-visibility interruption or resets on regaining sight. Deferred indefinitely, 2026-09-16; Cockcroft & Lameijer and Farwell (both already listed above as unreachable) remain the most plausible sources to settle it.
 - BAILII refuses automated access. Use the National Archives Find Case Law service: <https://caselaw.nationalarchives.gov.uk/>
