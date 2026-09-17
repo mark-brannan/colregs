@@ -111,12 +111,9 @@ the rest without redesign.
 - **REQ-PART-4** — ~~Steering and sailing rules (Part B) are OUT of v1 scope and
   MAY never be modelled; they govern conduct between two vessels, not the
   appearance of one, and the fact record is single-vessel by construction.~~
-  **Superseded by ADR 0005** (2026-09-04), and kept here rather than deleted
-  per the preamble's ID-stability rule. Part B remains out of v1 scope —
-  REQ-PART-1 still orders Part C first, and no Part B data lands with the
-  ADR — but "MAY never be modelled" does not survive: the obstacle it named,
-  a single-vessel fact record, is met by the situation record of REQ-CAT-4
-  without changing that record. Replaced by REQ-CAT-1..5 (§4.1).
+  **Superseded by ADR 0005** (2026-09-04); replaced by REQ-CAT-1..5 (§4.1).
+  Part B stays out of v1 scope (REQ-PART-1 still orders Part C first), but
+  the situation record of REQ-CAT-4 removes the single-vessel obstacle.
 
 ---
 
@@ -186,18 +183,13 @@ Four layers, each independently addressable.
   `rel:overrides`. A gate doing a relation's job silently drops every pair the
   displacing paragraph is silent about (fishing against fishing under Rule 18).
   ADR 0005 §4.
-- **REQ-MODEL-12** — `rel:conditional_includes` currently carries three
-  distinct shapes under one relation name: a bare `one_of` alternative set
-  (`rule:25d_ii`), a gated alternative set (`when` + `one_of`, `rule:27f`), and a gated
-  import with its own citation (`when` + `rel:includes` + `cite`, `rule:29a`). Which
-  behaviour applies is inferred from which keys are present. This is a
-  **soft** requirement — the data is correct today and the tests cover it,
-  so nothing is broken. It is recorded because a third jurisdiction adding
-  a fourth shape is how the inference stops being obvious, and because a
-  relation whose semantics depend on key presence cannot be validated by
-  schema. Before a non-`intl` jurisdiction lands, either split the relation
-  or add an explicit discriminant. Recorded as accepted risk until then
-  (Q-10).
+- **REQ-MODEL-12** — `rel:conditional_includes` carries three shapes under
+  one name, inferred from which keys are present: a bare `one_of`
+  (`rule:25d_ii`), a gated `one_of` (`rule:27f`), and a gated import with its
+  own `cite` (`rule:29a`). **Soft**: the data is correct and tested, but a
+  relation whose semantics depend on key presence cannot be schema-validated.
+  Before a non-`intl` jurisdiction lands, split the relation or add a
+  discriminant. Accepted risk until then (Q-10).
 - **REQ-MODEL-8** — Alternatives MUST be first-class. Where the rules permit a
   choice, the data MUST express all lawful options with their differing
   modalities and gates, and MUST NOT pick one.
@@ -228,56 +220,23 @@ Four layers, each independently addressable.
 
   **Immutability baseline: `1.0.0`.** The prohibitions above bind every
   identifier present in `colregs@1.0.0` and every identifier introduced
-  from then on. Identifiers as they stood before `1.0.0` are outside the
-  baseline: while the package is pre-1.0 the schema is being designed, and
-  an identifier may be renamed or discarded without a deprecation record.
-  The baseline was first set at `0.1.1` on 2026-08-30, the day after the
-  package was seeded, so that the identifier review this requirement calls
-  for could happen at all. It was moved to `1.0.0` by Solace's ruling on
-  #121 (ADR 0015, 2026-09-16), which reshaped every entry id into a
-  paragraph key in the `rule:` namespace.
+  from then on. Before `1.0.0` the schema is being designed, and an
+  identifier may be renamed or discarded without a deprecation record.
+  First set at `0.1.1` (2026-08-30) so the identifier audit could happen;
+  moved to `1.0.0` by Solace's ruling on #121 (ADR 0015, 2026-09-16).
 
   From `1.0.0` the baseline is **fixed**. It MUST NOT be moved, raised,
   re-stated in a later version, or joined by a second baseline clause.
   Without that, "move the baseline" is a silent escape hatch from
-  REQ-MODEL-10 and the exception becomes the pattern — a specification that
-  can suspend its own prohibition by editing one number is advisory, not
-  normative.
+  REQ-MODEL-10 and the exception becomes the pattern.
+  `test/data.test.mjs` pins the literal and refuses a second clause — the
+  form the escape hatch actually takes. There is no identifier diff against
+  the last release: ADR 0006 proposed one, ADR 0015 removed it pre-1.0.
 
-  `test/data.test.mjs` pins the baseline literal and asserts it is stated
-  exactly once. There is no identifier diff against the last release: ADR 0006
-  proposed one, ADR 0015 removed it pre-1.0, and it returns with the baseline
-  tag if at all. A build has no access to git history, so it cannot see the
-  number being *edited* in place; a test that reconstructed history to
-  check would cost more than it is worth and would still pass on a rewritten
-  history. What it can refuse is a **second** baseline clause, which is the
-  form the escape hatch actually takes — nobody deletes the recorded reason
-  for the first exception in order to grant themselves a second. Editing
-  the pinned literal is possible, but it is no longer silent: it fails the
-  suite and must be done deliberately, in a reviewable diff.
-
-  **Recorded review — identifier audit, 2026-08-30.** REQ-MODEL-10 binds a
-  vocabulary that had never been reviewed as a vocabulary. The audit that
-  the baseline authorises is that review; `docs/identifiers.md` states what
-  it changed. What it examined and deliberately did **not** change is
-  recorded here so it is not re-opened as an oversight:
-  - **The entry-id suffix taxonomy** — `23a1`, `24a-m2`, `24a-rest`,
-    `26b-mw`, `30d-red`. The suffixes are not drawn from one scheme
-    (ordinal, masthead count, fact abbreviation, colour) because the
-    paragraphs they disambiguate do not divide on one axis. A uniform
-    scheme would have to be ordinal, which would make every id opaque to
-    the reader who has the rule text in front of them, for no gain to a
-    machine that only ever compares them for equality. Kept as they are.
-  - **`24a-m2` / `24a-m3`** — the two-or-three masthead split. The
-    cardinality is stated in 24(a)(i) itself ("two masthead lights … three
-    such lights" by tow length), so the suffix names something the law
-    names, not a modelling convenience of this package.
-  - **`nuc`, `cbd`, `ram`, `ram_underwater`** — kept unspelled as terms of
-    art; see `docs/identifiers.md` for the reasoning and the trap in `ram`.
-
-  ADR 0015 (Solace's ruling on #121, 2026-09-16) reopened the first two
-  bullets: an entry id is a paragraph key in the `rule:` namespace now, and
-  the suffix taxonomy went with it. They stand as the audit's record.
+  **Recorded review — identifier audit, 2026-08-30.** `docs/identifiers.md`
+  states what it changed, and why `nuc`, `cbd`, `ram` and `ram_underwater`
+  stay unspelled. Its two kept findings on entry-id suffixes were reopened
+  and superseded by ADR 0015.
 - **REQ-MODEL-11** — Deprecated identifiers MUST be recorded as data — a
   registry naming each retired identifier, what it denoted, the version that
   deprecated it, and its replacement where one exists. Prose in a changelog
@@ -645,72 +604,32 @@ Each names the declined design, closing event, and trigger.
   *Closing event*: the 1.0 tag. Before it, splitting the two is a
   mechanical rewrite of cross-references in a package with no stable-API
   promise. After it, every consumer's lookup path breaks.
-  *Trigger*: any paragraph path that keeps its spelling while changing what
-  text it denotes — the mutation REQ-MODEL-10 forbids outright, which is
-  why the collision has to be resolved in the schema rather than absorbed.
-  Two ways that happens, both now checked against primary sources
-  ([verification](verification/2026-08-30-q6-q8.md)):
-  - **Amendment renumbering — verified real, not hypothetical.** The
-    original "believed never since 1972" premise is refuted: A.910(22)
-    (2001) displaced the old `23(c)` to `23(d)` when WIG lighting took its
-    path, and A.464(XII) (1981) relettered `24(g)`→`24(h)` and
-    `27(d)(iv)`→`(iii)`. Two of seven amendments renumbered Part C.
-  - **Cross-jurisdiction divergence — verified present, and NOT this
-    gate's trigger.** The 15 same-path-different-text rows in the 33 CFR 83
-    diff are the *jurisdiction dimension working as designed* (REQ-MODEL-1
-    stores both texts, keyed by jurisdiction) — the effective identifier is
-    (jurisdiction, path), so they are not REQ-MODEL-10 mutations. This
-    route is retired, not merely dormant: divergence between two
-    jurisdictions at one point in time can never fire the trigger. The
-    residue that is genuinely structural — `23(d)(i)` having no Inland
-    counterpart path, Rule 28 "[Reserved]" — is a delta-model problem
-    (Q-11), not a repoint.
-  - **National renumbering across releases — live, and the second real
-    route.** A national body renumbering its own amalgamation is the same
-    within-jurisdiction repoint as an IMO amendment: if `us/inland 24(c)`
-    denotes different text in vN+1 than it did in vN, that is a mutation
-    REQ-MODEL-10 forbids, jurisdiction dimension or not. The trigger is
-    *within one jurisdiction across releases*, on either route — not
-    between jurisdictions at one moment.
-  *Ruling, 2026-08-30*: the gate does not flip on today's data — no
-  published path has changed denotation. But with the "rare, believed
-  never" premise gone (real base rate: twice in seven amendments), the
-  pre-1.0 re-take **leans adopt**, decided in the second-jurisdiction
-  bundle alongside GATE-2 and Q-10. Final call is the maintainer's at that
-  point.
-  *This gate is open on timing, not on outcome.* A real-world respelling —
-  a citation keeping its spelling while denoting different text —
-  **forces** the split: REQ-MODEL-10 forbids repointing and forbids reuse,
-  so no third option exists. The re-take, if the trigger fires, is
-  therefore predetermined:
-  - The split lands and it is a **major version**.
-  - Identifiers in the new major are **defined incompatible** with
-    identifiers of the prior major. A consumer MUST NOT assume a
-    same-spelled path denotes the same text across the boundary.
-  - An optional **prior → new identifier mapping** MAY ship alongside.
-    REQ-MODEL-11's deprecation registry, with its replacement pointers, is
-    the seed of that mapping and exists for this reason.
-  What remains open is only whether the trigger ever fires, and whether
-  the split lands pre-emptively or on demand.
-  *Re-take required before 1.0* (REQ-GATE-3), and re-checked in the
-  second-jurisdiction bundle — justified by Q-11 and GATE-2, no longer by
-  a cross-jurisdiction trigger route.
+  *Trigger*: a paragraph path that keeps its spelling while changing what
+  text it denotes, *within one jurisdiction across releases* — the mutation
+  REQ-MODEL-10 forbids. Two routes, both verified against primary sources
+  ([verification](verification/2026-08-30-q6-q8.md)): IMO amendment
+  renumbering (A.910(22) displaced `23(c)` to `23(d)`; A.464(XII)
+  relettered `24(g)` and `27(d)(iv)` — two of seven amendments), and a
+  national body renumbering its own amalgamation. Cross-jurisdiction
+  divergence at one moment is NOT a trigger: the 33 CFR 83 rows are the
+  jurisdiction dimension working as designed (REQ-MODEL-1), and the
+  structural residue (`23(d)(i)`, Rule 28 "[Reserved]") is Q-11's.
+  *Ruling, 2026-08-30*: no published path has changed denotation, so the
+  gate does not flip on today's data; with the "believed never" premise
+  gone, the pre-1.0 re-take **leans adopt**, decided in the
+  second-jurisdiction bundle with GATE-2 and Q-10. If the trigger fires the
+  outcome is predetermined, since REQ-MODEL-10 forbids both repoint and
+  reuse: the split lands as a **major version**; identifiers across the
+  boundary are **defined incompatible**, and a consumer MUST NOT assume a
+  same-spelled path denotes the same text; a prior → new mapping MAY ship,
+  seeded by REQ-MODEL-11's registry. *Re-take required before 1.0*
+  (REQ-GATE-3).
 
 - ~~**GATE-2 — instrument → edition → corpus as first-class layers**~~
-  (ADR 0003, declined; the adopted 80% is REQ-LANG-10). **Re-taken and
-  adopted, ADR 0013** — ahead of its due date (translation #1): the
-  edition registry lands directly, rather than waiting for the trigger
-  below to fire.
-  *Closing event, as declined*: the second corpus of any one jurisdiction
-  — which, read against ADR 0003's sequencing, means **the first
-  non-English corpus**, not a distant milestone. A French or Finnish text
-  of `intl` is a second corpus of `intl`. With one corpus, re-homing it
-  under an edition parent is a single file move; the cost scales with
-  corpora × languages immediately thereafter.
-  *Trigger, as declined*: a jurisdiction publishing two editions in force
-  concurrently — an old and a new text running in parallel through a
-  transition period. REQ-LANG-10's declared amendment state makes such a
-  pair machine-visible, which is what gave this trigger its foothold.
+  (ADR 0003, declined; REQ-LANG-10 adopted the 80%). **Re-taken and
+  adopted, ADR 0013**, ahead of its closing event as declined — the first
+  non-English corpus of a jurisdiction; trigger as declined, two editions
+  of one jurisdiction in force concurrently.
 
 - **GATE-3 — legal-status × translation-status as two enums**
   (ADR 0003, half-adopted: one tier for legal authority in REQ-LANG-3,
@@ -748,22 +667,25 @@ Each names the declined design, closing event, and trigger.
   soliciting translations is the express purpose of the language work, so
   this door closes early and hard.
   *Trigger*: deciding the data side wants CC0 or CC BY 4.0 separately from
-  the code (REQ-PROV-4). Tracked as Q-9; ADR 0004 settles the code licence
-  and deliberately leaves this open.
-  Two refinements the gate carries:
-  - Already-published npm versions are irreversibly under the licence they
-    shipped with. The gate governs future releases only.
-  - The gate is **held open deliberately**, by the mechanism adopted in
-    REQ-PROV-7: `CONTRIBUTING.md` terms, agreed by opening a pull request,
-    carrying a DCO-style certification *and* a licence grant sufficient to
-    relicense. The grant is the part that holds the gate open. Implied
-    assent is weaker than recorded assent; a CLA-assistant bot is the
-    upgrade path if contributors arrive (ADR 0004).
-  *Expected to stay open indefinitely* — external contributors are
-  unlikely short of major success. Recorded regardless: "unlikely" is not
-  a closing event (REQ-GATE-1).
+  the code (REQ-PROV-4; Q-9). Already-published npm versions stay under
+  the licence they shipped with. The gate is **held open deliberately** by
+  REQ-PROV-7's licence grant; a CLA-assistant bot is the upgrade path if
+  contributors arrive (ADR 0004). "Unlikely" is not a closing event
+  (REQ-GATE-1), so it is recorded regardless.
 
-Four gates from ADR 0013 (option B), *closing event* for all four the first national text whose edition cannot be determined: **GATE-7 — validity intervals on editions (`in_force_until`)**, trigger an edition superseded with no successor to bound it; **GATE-8 — a per-source publication record separate from the edition (FRBR manifestation)**, trigger two published sources for one edition that disagree; **GATE-9 — a content digest per corpus for verification**, trigger a corpus differing from its cited source with no edition or source change; **GATE-10 — a skeleton per edition**, trigger the first amendment that deletes or renumbers a path.
+Four gates declined by ADR 0013 (option B). *Closing event*, for all four:
+the first national text whose edition cannot be determined.
+
+- **GATE-7 — validity intervals on editions (`in_force_until`)**.
+  *Trigger*: an edition superseded with no successor to bound it.
+- **GATE-8 — a per-source publication record separate from the edition
+  (FRBR manifestation)**.
+  *Trigger*: two published sources for one edition that disagree.
+- **GATE-9 — a content digest per corpus for verification**.
+  *Trigger*: a corpus differing from its cited source with no edition or
+  source change.
+- **GATE-10 — a skeleton per edition**.
+  *Trigger*: the first amendment that deletes or renumbers a path.
 
 Gates whose closing event is "none" are recorded because a future reader will otherwise re-ask whether they were merely deferred. They were not.
 
@@ -790,158 +712,66 @@ Tracked here until resolved; each becomes an ADR.
   event dimension? Blocks REQ-PART-3.
 - **Q-2** — Are the USCG scans the educational payload, or a stopgap until
   light geometry is rendered from data? Affects how hard REQ-PROV-5 is pushed.
-- **Q-3** — Jurisdiction licence terms are **unverified**: US public domain,
-  UK OGL v3.0, AU CC BY 4.0, DE §5 UrhG *amtliche Werke*, CA Reproduction of
-  Federal Law Order, EU/UNECE CEVNI unclear. REQ-PROV-2 blocks each until
-  checked against the primary source. CEVNI is the one most likely to fail.
-  **Verified 2026-09-05** against the primary sources for every jurisdiction
-  except CEVNI — see ADR 0001 Amendments (2026-09-05). CEVNI remains open:
-  unece.org was unreachable from the checking host, and the UN's default
-  terms (personal, non-commercial use only) block it until written
-  permission or a national transposition is chosen instead.
-  **Ruled 2026-09-09 (ADR 0010):** this blocks CEVNI's *text*, not CEVNI.
-  A jurisdiction may be modelled in full with its text withheld, so no
-  session should treat `eu/cevni` as unimplementable.
+- **Q-3** — Jurisdiction licence terms. **Verified 2026-09-05** against
+  the primary sources for every jurisdiction except CEVNI (ADR 0001
+  Amendments). CEVNI stays open: the UN's default terms (personal,
+  non-commercial) block it until written permission or a national
+  transposition is chosen. **Ruled 2026-09-09 (ADR 0010):** that blocks
+  CEVNI's *text*, not `eu/cevni`; a jurisdiction may be modelled in full
+  with its text withheld.
 - **Q-4** — Two upstream SignalK spec asks are outstanding and independent of
   this package: a making-way indicator, and `design.maxSpeed`.
-- **Q-5** — REQ-VERIFY-5 asks for boundary fixtures on every numeric gate.
-  Three gates (`rule:23a_ii`, `rule:26b_ii`, `rule:30c`'s `fact:length_m` thresholds) live only in
-  `modality_by`, not in the entry's `when` — they flip `modality:shall` to `modality:may`, not
-  which entries apply. The fixture format only asserts applying entry ids, not
-  expected modality, so there is no way to fixture these three without
-  extending the schema to carry expected modality per entry. Not done
-  speculatively; blocks a clean REQ-VERIFY-5 pass on these three gates until
-  decided.
-  **Decided in pencil 2026-09-04** (PR #22), as part of the situation
-  fixture schema: an element of `expect` is either a bare entry id, exactly as
-  today, or `{entry, modality}`. The two forms are interchangeable and a bare
-  id asserts nothing, so `applicability-fixtures.json` stays byte-identical
-  and needs no migration; REQ-CAT-7 states the rule and
-  `fixtures/situation-fixtures.json` carries the worked example. What is left
-  is not a decision but the work: writing the boundary fixtures for `rule:23a_ii`,
-  `rule:26b_ii` and `rule:30c` in the new form. Pencil, so a session that finds a
-  better shape may change it, logging the change; settled for good by those
-  three fixtures actually landing.
-- **Q-6** — The treaty-language facts behind §5 (en/fr authentic, es/ru
-  deposited translations, ar/zh via IMO official languages) are recalled, not
-  verified. Verify against the Convention's final clauses and IMO's current
-  practice before the first non-English corpus lands.
-  **Verified 2026-08-30** against the UNTS deposit (Vol. 1050, I-15824,
-  Article IX) — en/fr authentic and es/ru deposited translations both
-  confirmed verbatim; ar/zh confirmed as a mechanism (IMO's six official
-  languages) with a catalogued Chinese edition, Arabic edition indicated but
-  not independently re-fetched. See
-  [docs/verification/2026-08-30-q6-q8.md](verification/2026-08-30-q6-q8.md#claim-3-q-6--verified-arabic-component-partially).
-- **Q-7** — Reproduction terms per language corpus are unverified, and this —
-  not translation effort — sequences the work. IMO's consolidated
-  six-language editions are sold publications and probably NOT reproducible;
-  the UNTS deposit (en/fr authentic texts) and national gazettes (Finlex,
-  BOE, …) are the likely lawful sources. REQ-PROV-2 blocks each corpus until
-  its source's terms are checked and recorded. Answerable **per language**,
-  not only as a whole: clearing one candidate source unblocks that corpus
-  alone, which is the cheap path when a demo needs a specific language
-  early.
-  **BOE (`es`) and Finlex (`fi`) verified clean, 2026-09-09 and 2026-09-12**
-  (ADR 0001 amendments) — both permit the reuse REQ-PROV-2 needs. The UNTS
-  deposit (`en`/`fr`) is confirmed **blocked**, not merely unverified: no
-  UNTS-specific rights statement exists, and the reachable terms are the
-  same personal/non-commercial, no-derivative-works terms that block CEVNI.
-  `es` is the cheapest language to ship the first non-`intl` corpus; UNTS
-  needs written UN permission or a national republication before `en`/`fr`
-  can use the deposit route.
-- **Q-8** — Does the paragraph path survive the first national amalgamation?
-  GATE-1's accepted risk rests on paragraph paths being immutable
-  (REQ-MODEL-10) — adding and deprecating are fine, but a path that keeps its
-  spelling while changing what text it points at breaks every citation and
-  every `cite` in `applicability.json`. The threat is not primarily a future
-  amendment. It is the **second jurisdiction**: while `intl` is the only
-  populated one, path and citation are trivially identical, and the question
-  cannot fail. The US Inland rules deliberately parallel COLREGS rule
-  numbering but are known to diverge below rule level (Rules 9, 15, 24 and
-  34 are the usual examples). Check 33 CFR 83 against `rules.json` paragraph
-  by paragraph **before `us/inland` lands**, not at 1.0.
-  - If paths survive, GATE-1's accepted risk is earned rather than
-    assumed, and the 1.0 re-take is a confirmation.
-  - If they do not, GATE-1 flips to *adopt*, and the split must land
-    before the second jurisdiction rather than after.
-  - Secondary, and much weaker: whether any COLREGS amendment has ever
-    renumbered a Part C paragraph. Recalled as never — the WIG amendment
-    *inserted* 23(c) rather than renumbering around it — but 50 quiet
-    years is not a guarantee about the next amendment. Worth a check
-    against the IMO amendment resolutions, not worth blocking on.
-
-  **Verified 2026-08-30**, both parts, against primary sources — see
-  [docs/verification/2026-08-30-q6-q8.md](verification/2026-08-30-q6-q8.md).
-  Primary claim (33 CFR 83 vs `data/rules.json`): of 90 Part C paths, 15
-  are same-spelling-different-text mutations (`22(a)/(b)/(c)`, `24(c)`,
-  `24(d)`, `24(f)`, `24(g)`, `24(i)`, `25(d)(i)`, `25(d)(ii)`, `25(e)`,
-  `26(d)`, `30(e)`), plus one structural path-mismatch (`23(d)(i)` — the
-  Inland equivalent sits at bare `23(d)`, not `23(d)(i)`), one whole-rule
-  clean absence (`rule:28`, "[Reserved]" in Inland), and two clean intl-only
-  absences. Secondary claim (amendment history): also refuted — the WIG
-  amendment (A.910(22), 2001) explicitly renumbers, displacing the
-  pre-existing `23(c)` (small-vessel alternative lights) to `23(d)`; a 1981
-  amendment (A.464(XII)) separately relettered `24(g)`→`24(h)` and
-  `27(d)(iv)`→`27(d)(iii)`. Both findings feed the GATE-1 re-take, not
-  decided here.
-- **Q-12** — REQ-MODEL-10 has a **baseline off-by-one**, recorded here
-  because the requirement as written forbids work already approved. It
-  binds any identifier that "has shipped in a released version";
-  `colregs@0.1.1` was published 2026-08-29, so every identifier in it is
-  already bound — including the ones the identifier audit reviewed and
-  cleared for change (type-prefixing the vocabulary class:
-  `light:masthead`, `activity:nuc`). Fix by naming the baseline:
-  immutability binds from a stated version forward, with 0.1.1 explicitly
-  outside it and the reason recorded. The baseline itself MUST be
-  immutable: stated exactly once, never moved. A movable baseline is the
-  quiet escape hatch from REQ-MODEL-10 — one recorded exception is a
-  correction; a second is a pattern. This is a defect in the requirement,
-  not a reason to skip the rename; it must land in the same pre-1.0 PR as
-  the rename it authorises, and before that PR renames anything. The audit
-  itself — six findings, all verified against `data/*.json`, three kept
-  with rationale (`nuc`/`cbd`/`ram` as terms of art, the entry-id suffix
-  taxonomy, `24a-m2`/`24a-m3` whose cardinality is stated in 24(a)(i)
-  itself) — is REQ-MODEL-10's recorded review of the identifiers it binds,
-  and is on PR #4.
-
-  **Resolved 2026-08-30.** REQ-MODEL-10 now states the baseline (`0.1.1`,
-  outside it, with the reason) and the hardening that makes the exception
-  safe: the baseline is set exactly once and MUST NOT be moved, raised,
-  re-stated, or joined by a second clause. `test/data.test.mjs` pins the
-  literal and asserts a single statement; the requirement records why the
-  cross-version half is not asserted. The three accepted findings are
-  written up as REQ-MODEL-10's recorded review rather than left on a pull
-  request, and the changed one is `docs/identifiers.md`.
+- **Q-5** — REQ-VERIFY-5's boundary fixtures for the three `modality_by`
+  thresholds (`rule:23a_ii`, `rule:26b_ii`, `rule:30c`) need an expected
+  modality per entry, which the fixture format could not state.
+  **Decided in pencil 2026-09-04** (PR #22): an element of `expect` is a
+  bare entry id or `{entry, modality}` (REQ-CAT-7), so
+  `applicability-fixtures.json` needs no migration. What is left is the
+  work: the three fixtures; settled for good when they land.
+- **Q-6** — The treaty-language facts behind §5. **Verified 2026-08-30**
+  against the UNTS deposit (Vol. 1050, I-15824, Article IX): en/fr
+  authentic and es/ru deposited translations confirmed; ar/zh confirmed as a
+  mechanism (IMO's six official languages), Arabic not independently
+  re-fetched
+  ([verification](verification/2026-08-30-q6-q8.md#claim-3-q-6--verified-arabic-component-partially)).
+- **Q-7** — Reproduction terms per language corpus sequence the work, and
+  are answerable **per language**: clearing one source unblocks that corpus
+  alone. **BOE (`es`) and Finlex (`fi`) verified clean, 2026-09-09 and
+  2026-09-12** (ADR 0001 amendments). The UNTS deposit (`en`/`fr`) is
+  confirmed **blocked**: the reachable terms are the same
+  personal/non-commercial, no-derivative-works terms that block CEVNI, so
+  `en`/`fr` need written UN permission or a national republication.
+- **Q-8** — Does the paragraph path survive the first national
+  amalgamation? The threat is the second jurisdiction, not a future
+  amendment: while `intl` is the only populated one the question cannot
+  fail. **Verified 2026-08-30** against primary sources
+  ([verification](verification/2026-08-30-q6-q8.md)): of 90 Part C paths in
+  33 CFR 83, 15 are same-spelling-different-text, one is a structural
+  mismatch (`23(d)(i)`), Rule 28 is "[Reserved]", two are clean absences;
+  and amendments have renumbered Part C twice (A.910(22), A.464(XII)).
+  Both findings feed GATE-1's re-take, not decided here.
+- **Q-12** — REQ-MODEL-10's **baseline off-by-one**: as first written it
+  bound every identifier in `colregs@0.1.1`, including the ones the audit
+  had cleared for renaming. **Resolved 2026-08-30**: REQ-MODEL-10 names the
+  baseline, stated exactly once and immovable, and `test/data.test.mjs`
+  pins it; the audit is REQ-MODEL-10's recorded review, and the changed
+  identifiers are in `docs/identifiers.md`.
 - **Q-10** — Split `rel:conditional_includes`, or add a discriminant?
-  REQ-MODEL-12 records the overload; this is the unresolved half. Splitting
-  it names each behaviour and lets a schema validate the shape, at the cost
-  of a sixth and seventh relation verb in a vocabulary CLAUDE.md already
-  warns is easy to confuse. A discriminant key is cheaper and keeps the
-  verb count down. Neither is urgent: the trigger is the second
-  jurisdiction, the same as GATE-2 and Q-8, so the three should be decided
-  together rather than one at a time.
+  REQ-MODEL-12 records the overload. A split lets a schema validate the
+  shape at the cost of two more relation verbs; a discriminant key is
+  cheaper. Not urgent: the trigger is the second jurisdiction, as for
+  GATE-2 and Q-8, so the three are decided together.
 - **Q-9** — Is Apache-2.0 the right outbound licence for a *data*
-  compilation, or should the data carry CC0 / CC BY 4.0 separately from
-  the code (REQ-PROV-4)? ADR 0004 settles the code licence and leaves this
-  open deliberately — the data question was never put. GATE-6's trigger;
-  must be settled before the contribution path opens. The CLA/DCO half of
-  that question is now answered by REQ-PROV-7.
-- **Q-11** — What is the delta suppression mechanism? REQ-SCOPE-3's
-  inheritance-by-absence is verified unsafe as stated: 33 CFR 83 leaves
-  Rule 28 "[Reserved]" and has no counterpart for `23(d)(ii)`/`(iii)`
-  ([verification](verification/2026-08-30-q6-q8.md), Claim 1), so a
-  `us/inland` delta that is merely silent there would inherit the `intl`
-  entries and assert international obligations on inland waters.
-  **Resolved 2026-09-16, ADR 0018.** Tombstones: `suppressions[]` in
-  `data/applicability.json`, one record per (jurisdiction, `intl` entry),
-  and the whole delta is an RFC 7396 merge patch by entry id, proven by
-  test; the two verified Inland absences are the first tombstones. The hold
-  on non-`intl` jurisdictions is lifted (CEVNI: structure unblocked on both
-  counts, this and ADR 0010). GATE-1, Q-10, Q-8 stay open on their triggers.
-  Also from the same verification pass, tracked on the global board rather
-  than here: four transcription defects in `data/rules.json` itself
-  (`21(a)`, `21(b)`, `23(b)`, `29(b)`) — a data fix, not a design
-  question.
+  compilation, or should the data carry CC0 / CC BY 4.0 separately
+  (REQ-PROV-4)? ADR 0004 settles the code licence and leaves this open.
+  GATE-6's trigger; the CLA/DCO half is answered by REQ-PROV-7.
+- **Q-11** — What is the delta suppression mechanism? Inheritance by
+  absence is verified unsafe: 33 CFR 83 leaves Rule 28 "[Reserved]" and has
+  no `23(d)(ii)`/`(iii)`, so a silent `us/inland` delta would assert
+  international obligations on inland waters. **Resolved 2026-09-16, ADR
+  0018**: tombstones in `suppressions[]`, the delta an RFC 7396 merge patch
+  proven by test (REQ-SCOPE-3). The hold on non-`intl` jurisdictions is
+  lifted; GATE-1, Q-10 and Q-8 stay open on their triggers.
 
 ### From ADR 0005 (pencilled items)
 
@@ -965,11 +795,8 @@ listed here, one line each, because the ADR is what makes them live. Most are
   invariant that does not fit. *(engine)*
 - **Q-17** — What separation distance *d* defines the "safe" level? Fixed to
   one value to start; settled by the sensitivity matrix of Q-22. *(engine)*
-  One data point: `docs/maritime-sources.md`'s MAIB *Polesie*/*Verity* report
-  cites UK case law putting close-quarters at a ~12-minute TCPA and adapts a
-  suggested-TCPA table (its Figure 16) from *A Guide to the Collision
-  Avoidance Rules* — not a d in metres, but a real-world anchor for the
-  sensitivity matrix.
+  One anchor: the MAIB *Polesie*/*Verity* report in `docs/maritime-sources.md`
+  puts close-quarters at a ~12-minute TCPA and adapts a suggested-TCPA table.
 - **Q-18** — What is the dynamics model, and what is the list of dynamics
   classes (tanker, ferry, yacht, …)? Settled by the first two-vessel
   computation; the class list is a data question once it stabilises.
@@ -1005,138 +832,70 @@ listed here, one line each, because the ADR is what makes them live. Most are
   is a back-of-envelope guess; settled by a worksheet. *(engine)*
 - **Q-27** — What are the field names for `category`, `subjects`, `when`,
   `effect` and the widened `modality`? Settled when the first non-`category:display`
-  entry lands, and cheap to change until then.
-  Unchanged by PR #22, which names none of those five. The names it
-  does fix — `situation`, the four classes, the three subjects — are
-  REQ-CAT-6's and are equally pencil.
+  entry lands, and cheap to change until then. The data half is answered
+  below (PR #24); `situation`, the classes and the subjects are REQ-CAT-6's.
 - **Q-28** — What namespace distinguishes the two subjects of a two-subject
-  entry (`self:` / `other:` is the working proposal)? No such segment exists in
-  `docs/identifiers.md`; settled before Rule 18 lands, and it is an
-  identifier decision under REQ-MODEL-10.
-  **Decided in pencil 2026-09-04** (PR #22): `<subject>:<class>:<key>`
-  with subject `self`/`other`/`pair` and class `fact`/`kin`/`geo`/`hist`, and a
-  bare key meaning `self:`. Written up in `docs/identifiers.md` §"Two
-  subjects", required by REQ-CAT-6, and exercised by
-  `fixtures/situation-fixtures.json`. Three things the working proposal did
-  not have: a third subject, because range and in-sight belong to the
-  encounter and not to either vessel; a class segment, so kinematics and
-  history are new classes rather than new fact keys; and the bare-key default,
-  which is what makes the whole thing additive under REQ-MODEL-10 — no
-  existing identifier is renamed or repointed, and `self`/`other`/`pair` become
-  reserved at the head of the identifier space, which is the only cost.
-  Settled for good by Rule 18 being written against it.
+  entry? **Decided in pencil 2026-09-04** (PR #22):
+  `<subject>:<class>:<key>`, bare key meaning `self:`, in
+  `docs/identifiers.md` §"Two subjects" and REQ-CAT-6; additive under
+  REQ-MODEL-10 at the cost of reserving `self`/`other`/`pair`. Settled for
+  good by Rule 18 being written against it (PR #24).
 - **Q-29** — What are the file names and schemas for the invariants file and
   the region grid, and how does a level-3 invariant carry `jurisdiction`?
   Settled when the first invariant is written down.
 - **Q-30** — What does the `category:care`/`category:meta` registry look like as a file — its
   name, its schema, and its relationship to `known_omissions`? Settled by
-  REQ-CAT-2's implementation, which is the next data change after this ADR.
-
-  **Decided in pencil, PR #23.** The registry is `represented_paragraphs`,
-  a sibling array to `known_omissions` in `data/applicability.json`. Each
-  record: `id` (paragraph-derived, e.g. `2a`), `jurisdiction`, `cite`,
-  `category` (`category:care` or `category:meta`), and a one-sentence `note`; no `when`, no
-  `lights` — a registry record states that the paragraph is represented
-  and evaluated by nothing here, never a predicate. Holds the `2(a)` and
-  `2(b)` records this PR adds. `✎` under `docs/conventions.md`: the file
-  name and schema stay open to a better idea, logged when changed.
+  REQ-CAT-2's implementation. **Decided in pencil, PR #23**: the registry
+  is `represented_paragraphs`, a sibling array to `known_omissions` in
+  `data/applicability.json` — `id`, `jurisdiction`, `cite`, `category` and
+  a one-sentence `note`; no `when`, no `lights`. `✎` file name and schema
+  stay open to a better idea.
 
 ### From the first two-subject data (PR #24)
 
 Rules 4, 11, 19(a) and 18(a)–(f) are the first entries written against ADR
-0005's model. What the model expressed, and what it could not, is recorded
-here rather than in a commit message. All pencil.
-
-**Decided in pencil 2026-09-04 (PR #24)**, answering the data half of `Q-27`:
-the field names are `category`, `subjects` and `effect`, and `effect` is
-`{self, other}` roles for a `category:precedence` entry and `{part, section,
-applies_rules}` for a `category:scope` one. Written up in `docs/identifiers.md`
-§"Effects", required by `REQ-CAT-8`, and exercised by
-`fixtures/situation-fixtures.json`. `Q-28`'s namespace is settled for good by
-the same PR — Rule 18 is written against it and it held, with one addition:
-a fifth class `env`, `pair`-only, because a narrow channel and a traffic
-separation scheme are properties of the water and belong to neither vessel
-nor to the pair's geometry. `fixtures/situation-fixtures.json` had already
-named that gap before the class existed.
+0005's model. All pencil. **Decided in pencil 2026-09-04 (PR #24)**, the data
+half of `Q-27`: the field names are `category`, `subjects` and `effect`
+(`docs/identifiers.md` §"Effects", `REQ-CAT-8`). One addition to `Q-28`'s
+namespace: a fifth class `env`, `pair`-only, because a narrow channel or a
+traffic separation scheme is a property of the water.
 
 - **Q-31** — `modality` is a single closed value, and 18(c), 18(d)(i) and 9(a)
-  each carry two deontic qualifications at once: a practicability caveat
-  ("so far as possible", "if the circumstances of the case admit") *and* the
-  duty itself. 18(c) is expressible because `modality:shall-if-practicable` already
-  exists; 18(d)(i) is not, and its caveat is dropped with a `gap` note on the
-  entry. Settled by deciding whether practicability is a second field beside
-  `modality` rather than a value inside it — which is the same question
-  `modality_by` answers for the light rules, and should probably be answered
-  the same way. **Narrowed, not settled, 2026-09-04 (PR #25):** 18(d)(i) is now
-  `modality:shall-if-practicable` with `effect.self: role:shall-not-impede`, so the two
-  qualifications sit in two fields and neither is dropped. That works only
-  because this duty happens to be a *role*, which `effect` already carries;
-  9(a)'s "if the circumstances of the case admit" has no second field to move
-  into, and the general question is untouched.
+  each carry a practicability caveat *and* the duty itself. Settled by
+  deciding whether practicability is a second field beside `modality`, as
+  `modality_by` is for the light rules. **Narrowed, not settled, 2026-09-04
+  (PR #25):** 18(d)(i) is `modality:shall-if-practicable` with
+  `effect.self: role:shall-not-impede`, which works only because that duty
+  is a role; 9(a)'s caveat has no second field, and the general question is
+  untouched.
 - **Q-32** — **decided in pencil 2026-09-04 (PR #25): a derived fact.**
-  `fact:activity` is a *display* axis: it says what lights a vessel shows, not
-  what her rank is under Rule 18, and the two disagree. `fact:rule18_class` is
-  the rank, declared in a new `derived` section of `data/facts.json` with a
-  decode table that is its definition, in the same style as the SignalK
-  `navigation.state` table. Seven values — `rule18_class:nuc`, `:ram`,
-  `:fishing`, `:wig`, `:cbd`, `:sail`, `:power` — each cited to the Rule 3
-  paragraph that defines it. The three cases this question named are decoded
-  rather than hand-listed: `activity:mine` (27(f)) and `activity:diving`
-  (27(e)) to `rule18_class:ram` by 3(g), `activity:trawling` to
-  `rule18_class:fishing` by 3(d), and the 27(c) tow that severely restricts the
-  pair — the one the old predicates could not catch at all — to
-  `rule18_class:ram`, via a new boolean `fact:tow_restricts_deviation`. Every
-  Rule 18, 9 and 10 entry reads the class; no `category:precedence` entry reads
-  `fact:activity` any more, and a test enforces that. `fact:activity` itself is
-  unchanged and no entry that reads it was touched. What is *not* settled: the
-  eighth rank Rule 18 distinguishes is the seaplane of 3(e), and it has no
-  value here because there is no fact for being a seaplane — 18(e) stays in
-  `known_omissions`. A vessel under oars decodes to nothing, deliberately: Rule
-  18 does not rank her, and 25(d)(ii) is a lights permission rather than a
-  rank. Both are recorded in the fact's own `undecodable` list. The
-  alternatives — a second refinement table, or a per-value attribute on the
-  activity axis — were declined because both would have put the rank back
-  inside the display axis, which is the thing this question says is the
-  mistake.
+  `fact:activity` says what lights a vessel shows, not her rank under Rule
+  18. `fact:rule18_class` is the rank, declared under `derived` in
+  `data/facts.json` with a decode table as its definition, seven values
+  each cited to Rule 3; `activity:mine`, `activity:diving`,
+  `activity:trawling` and the 27(c) tow (`fact:tow_restricts_deviation`)
+  decode instead of being hand-listed. Every Rule 18, 9 and 10 entry reads
+  the class, and a test forbids a `category:precedence` entry reading
+  `fact:activity`. Not settled: the seaplane of 3(e) (18(e) stays in
+  `known_omissions`); a vessel under oars decodes to nothing, deliberately.
 - **Q-33** — **decided in pencil 2026-09-04 (PR #25): the predicate language
-  grows `not` and `any_of`.** A `when` was a conjunction with no negation and
-  no disjunction, and Rule 18 needed both. `{"not": C}` is a constraint on one
-  fact; `any_of` is disjunction, holding sub-predicates as a key of a `when`
-  and constraints as the value of a fact. Both are implemented in `satisfies`
-  and one shared walker, so the one-subject and two-subject evaluators get them
-  without a second copy. **`not` over an absent fact is unsatisfied**, like
-  every constraint over an absent fact, so `{"not": C}` and `C` are both false
-  where the fact is missing and the language is not classical there — the point
-  being that a duty is never laid on a vessel because a consumer left a field
-  out. That is also why `not` is a constraint and never a key of a `when`: a
-  predicate-level negation would be satisfied by silence. 18(d)(i) and the
-  18(a) family are now written as the negations their paragraphs state, over
-  `fact:rule18_class` rather than over the activity axis; 9(b) and 10(j) each
-  collapse from two entries to one with `any_of`. The generated-complement
-  alternative was declined: it would have produced a predicate no reader could
-  check against the rule text, to avoid a language feature the rules themselves
-  use in plain words.
-- **Q-34** — A `modality:shall-not-impede` entry names a duty toward `other`, but the
-  paragraphs identify the protected vessel by a property this package does not
-  carry: "a vessel which can safely navigate only within a narrow channel"
-  (9(b), 9(d)), "any vessel following a traffic lane" (10(i), 10(j)), and a
-  CBD vessel "exhibiting the signals in Rule 28" (18(d)(i)). `pair:env:*` says
-  where the encounter is, not which vessel is confined to it, so those entries
-  are wider than their paragraphs and could assert a duty owed to a third
-  vessel. Settled by deciding whether the protected-vessel property is a
-  per-vessel fact, and whether it is a fact at all or a consumer's judgement.
-
-  **Decided in pencil 2026-09-05, for the 9(b)/9(d) and 10(i)/10(j) half: the
-  protected-vessel property is a per-vessel fact, consumer-supplied like
-  `pair:env:narrow_channel` and `pair:env:traffic_lane` are.** `fact:confined_to_channel`
-  and `fact:following_traffic_lane` name it, in the same shape as the existing
-  `fact:near_channel` and `fact:obstruction_exists`; entries `rule:9b`, `rule:10i` and
-  `rule:10j` now read `other:fact:confined_to_channel`/`other:fact:following_traffic_lane`
-  and their `gap` fields are closed. `9(d)` has no entry yet, so it inherits
-  the same fact when one is written. **18(d)(i) is deliberately left open**:
-  "exhibiting the signals in Rule 28" is a display-compliance fact rather than
-  a vessel-identity one, and this package models night lights only (see
-  CLAUDE.md "Coverage") — settling it is a narrower, separate decision.
+  grows `not` and `any_of`.** `{"not": C}` is a constraint on one fact,
+  never a key of a `when`; `any_of` is disjunction at either level. **`not`
+  over an absent fact is unsatisfied**, like every constraint, so a duty is
+  never laid on a vessel because a consumer left a field out. 18(d)(i) and
+  the 18(a) family are written as the negations their paragraphs state;
+  9(b) and 10(j) each collapse to one entry. A generated complement was
+  declined: no reader could check it against the rule text.
+- **Q-34** — A `modality:shall-not-impede` entry names a duty toward
+  `other`, but 9(b), 9(d), 10(i), 10(j) and 18(d)(i) identify the protected
+  vessel by a property this package did not carry, so the entries were
+  wider than their paragraphs. **Decided in pencil 2026-09-05, for the
+  9/10 half: a per-vessel, consumer-supplied fact** —
+  `fact:confined_to_channel` and `fact:following_traffic_lane`, read as
+  `other:fact:*` by `rule:9b`, `rule:10i` and `rule:10j`; 9(d) inherits it
+  when written. **18(d)(i) is left open**: "exhibiting the signals in Rule
+  28" is a display-compliance fact and this package models night lights
+  only.
 - **Q-35** — 8(f)(iii)'s antecedent is "a vessel, the passage of which is not to
   be impeded" — the *output* of another norm, not a fact. A precedence
   predicate reads only facts, so entry `rule:8f_iii` reads the risk-of-collision half
@@ -1155,18 +914,12 @@ named that gap before the class existed.
   `category:precedence` here, with 13(b)'s sector test left for the `category:classification`
   entry that would set the `hist:was_overtaking` overtaking-history fact. Settled with the rest
   of `Q-14`, paragraph by paragraph.
-
-  **Closed in pencil 2026-09-04 (PR #26).** 13(b) is now written, as *two*
-  `category:classification` entries rather than one — one per subject — because the
-  encounter type belongs to the pair and reading aspect alone classified the
-  overtaken vessel's side of the same encounter as a crossing. 13(a) stays `category:precedence`, and its predicate now carries both
-  halves of "any vessel overtaking any other": the 13(b) sector and the 13(d)
-  overtaking history, as an `any_of`, which closes the gap the entry recorded. 13(d) is a
-  third `category:classification` entry, reading history and no geometry at all. The
-  split confirms the thing ADR 0005 §1 was really defending — one category per
-  paragraph. **Reversed in part, 2026-09-16:** ADR 0015 as rewritten makes
-  13(b) one symmetric entry, `rule:13b`, reading the same sector object on
-  either subject under `any_of`. 13(a) staying `category:precedence` is untouched.
+  **Closed in pencil 2026-09-04 (PR #26).** 13(a) stays
+  `category:precedence`, reading the 13(b) sector and the 13(d) history as
+  an `any_of`; 13(b) and 13(d) are `category:classification` entries, which
+  confirms ADR 0005 §1's one category per paragraph. **Reversed in part,
+  2026-09-16:** ADR 0015 makes 13(b) one symmetric entry, `rule:13b`,
+  reading the same sector object on either subject.
 - **Q-38** — 9(d), 18(d)(ii), 18(e), 18(f)(ii), 1(a)–(e) and 20(b)–(c) are
   recorded in `known_omissions` rather than modelled: 9(d) needs the channel's
   axis, 18(e) needs a fact for being a seaplane, 20(b)–(c) need time of day,
@@ -1185,78 +938,26 @@ Rules 7(d), 12, 13(b)–(d), 14 and 15 are the first `category:classification` e
 the second family of `category:precedence` ones. All pencil. What the model expressed is
 written up in `docs/identifiers.md` §"Effects"; what it could not is here.
 
-- **Q-40** — **Rule 12 is `category:precedence`, not `category:classification`.** ADR 0005 §1 and
-  the proposal's table both file it under `category:classification`; it produces a role
-  — "one of them shall keep out of the way of the other" — and a
-  classification effect has nowhere to put one, which is `Q-37`'s argument
-  applied a second time. Two sailing vessels are still in a head-on, a crossing
-  or an overtaking; Rule 12 says which of them gives way, not what kind of
-  meeting it is. 12(b) is a `category:definition` and is the cite on `kin:wind_side`
-  rather than an entry. The second half of the question is narrower and worse:
-  12(a) says "two sailing vessels", which is 3(c), but entries the three Rule 12 entries
-  read `rule18_class:sail` instead, so a vessel engaged in fishing under sail
-  falls out of Rule 12 — because letting her in would have given her a give-way
-  duty under 12(a) and a stand-on role under 18(b)(iii) with no override
-  between them. Narrowed deliberately and recorded on each entry. Settled with
-  the rest of `Q-14`, and by deciding whether Rule 18 overrides Rules 12–15 the
-  way Rules 9, 10 and 13 override Rule 18 — a `rel:overrides` nobody has yet
-  written down. *Which mechanism* is settled: REQ-MODEL-13 makes it a
-  relation, not a gate, because Rule 12 and Rule 15 do apply to the vessel and
-  Rule 18 only displaces the role.
-
-  **Decided in pencil 2026-09-05 (PR #35): Rule 12 reads 3(c), and Rules 13
-  and 18 override it.** The three Rule 12 entries gate both subjects on
-  `fact:propulsion: propulsion:sail`, which is 3(c)'s sailing vessel, and no
-  longer on `rule18_class:sail`; a vessel engaged in fishing under sail, or
-  not under command under sail, is inside Rule 12 as the paragraph says. The
-  conflict the narrowing was avoiding is resolved the way the Rules resolve
-  it: Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so every
-  Rule 18 norm that can be in force between two sailing vessels — 18(b)(i)–(iii)
-  from the ordinary sailing vessel's side, 18(c)(i)–(ii) from the fishing
-  vessel's — carries `rel:overrides` against the three Rule 12 entries. 13(a), being
-  "notwithstanding" the whole of Sections I and II, overrides them too, which
-  it had to: two sailing vessels in an overtaking held 13(a)'s and 12(a)(ii)'s
-  roles at once and nothing had noticed. Two fixtures and a sweep over sailing
-  fleets — every tack and windward combination, plain and with one vessel
-  ranked by Rule 18 — assert never both give-way, never both stand-on, and no
-  two helm roles after resolution. What it leaves: between two sailing vessels
-  Rule 18 does not order — one not under command, one restricted in her
-  ability to manoeuvre — Rule 12 is now the only norm in force, and it lays a
-  helm duty on a vessel that may be unable to discharge it; that is Rule 2's
-  region (ADR 0005 §5) and is recorded, not gated.
-
+- **Q-40** — **Rule 12 is `category:precedence`, not `category:classification`.**
+  It produces a role, and a classification effect has nowhere to put one
+  (`Q-37`'s argument again); 12(b) is a `category:definition`, the cite on
+  `kin:wind_side`. The category half stays with `Q-14`. The mechanism for
+  Rule 18 over Rules 12–15 is settled by REQ-MODEL-13: a relation, not a
+  gate, because Rules 12 and 15 do apply and Rule 18 only displaces the role.
+  **Decided in pencil 2026-09-05 (PR #35): Rule 12 reads 3(c), and Rules
+  13 and 18 override it.** The three Rule 12 entries gate on
+  `fact:propulsion: propulsion:sail`, so a fishing vessel under sail is
+  inside Rule 12 as the paragraph says; 18(b)(i)–(iii), 18(c)(i)–(ii) and
+  13(a) carry `rel:overrides` against them.
   **Decided in pencil 2026-09-05 (PR #46): Rule 15 reads 3(b), and Rule 18
-  overrides it too.** The same question answered the other way for Rule 15.
-  `rule:15a:keep_out_of_the_way` kept the four Rule 18 ranks — NUC, RAM, fishing and WIG —
-  out of Rule 15 by negating them on both subjects in its own predicate; the
-  negation is gone, both subjects gate on `fact:propulsion: propulsion:power`
-  which is 3(b), and the 18(a)(i)–(iii) entries, the two 18(c) entries and `rule:18f_i` carry
-  `rel:overrides` against it. The gate was not merely the relation said in
-  the wrong place. It produced the right roles wherever Rule 18 speaks and
-  *no* role at all where Rule 18 is silent: two vessels engaged in fishing
-  under power, and a vessel not under command crossing one restricted in her
-  ability to manoeuvre under power, are pairs Rule 18 does not order, and
-  neither vessel took a helm role from any entry. Both are fixtures now, and
-  both failed on the data before the change — `rule:15a:crossing` classified the
-  encounter and nothing assigned a role. What it leaves is Rule 12's residue
-  again: on those unordered pairs Rule 15 lays a give-way duty on a vessel
-  that may be unable to discharge it, which is Rule 2's region and is
-  recorded, not gated. `rule:13a` needs no override against `rule:15a:keep_out_of_the_way` — the
-  entry excludes every overtaking by the `hist:was_overtaking` overtaking history and by
-  13(b)'s sector — and a test pins that absence so it stays a reason rather
-  than an oversight. The hand-list of six is asserted complete by a derived
-  check: every Rule 18 entry that assigns a helm role and does not gate a
-  subject to a sailing vessel must carry the override, so a Rule 18 paragraph
-  written later cannot join Rule 15 silently. The steady-bearing sweep gained
-  power fleets — each rank on one side, on both sides, and against each other
-  rank — and every one of the six overrides fails the sweep when removed. The
-  fixtures file's `override_note` stays as it is: it says `expect` names every
-  entry a situation selects, including one a `rel:overrides` then displaces,
-  which is still how the fixtures are written and is what makes these six
-  overrides observable rather than invisible.
-
-  The category half — Rule 12 as `category:precedence` — is unchanged and stays with
-  `Q-14`.
+  overrides it too.** `rule:15a:keep_out_of_the_way` no longer negates the
+  Rule 18 ranks in its own predicate — that gate gave *no* role on pairs
+  Rule 18 does not order, which two fixtures now pin. A derived check
+  asserts every Rule 18 entry that assigns a helm role carries the
+  override, and the steady-bearing sweep fails when any is removed. What
+  both leave: on a pair Rule 18 does not order, Rule 12 or 15 lays a helm
+  duty on a vessel that may be unable to discharge it — Rule 2's region
+  (ADR 0005 §5), recorded, not gated.
 - **Q-41** — **13(c) and 14(c) invert the absent-fact rule.** "When a vessel is
   in any doubt as to whether she is overtaking, she shall assume that this is
   the case" is a duty that fires on the *absence* of knowledge, and the
@@ -1269,146 +970,61 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   present — `wind_side:unknown`. Settled by deciding whether "in doubt" is a
   fact of the situation at all; if it is, it is one fact and it closes three
   paragraphs.
-- **Q-42** — **7(d)(ii) is recorded, not modelled.** "Risk may sometimes exist
-  even when an appreciable bearing change is evident, particularly when
-  approaching a very large vessel or a tow or when approaching a vessel at
-  close range." Two of the three limbs have no fact behind them — the Rules
-  give no length for "very large" and no distance for "close range", so both
-  would be numbers this package invented rather than thresholds on a quantity a
-  paragraph names, which is what saves 7(d)(i)'s constant. The third limb, a
-  tow, is expressible. It is not written alone because the modality is the real
-  obstacle: "may sometimes exist" is neither a deeming rule nor a permission,
-  and the vocabulary has no value for an instruction to the mariner's
-  judgement. Settled by deciding whether the vocabulary gains one — `Q-31`'s
-  neighbour, not its duplicate.
-- **Q-43** — **The partition needs history to be present, and says nothing when
-  it is absent.** `rule:14b` and `rule:15a:crossing` are gated on `hist:was_overtaking`
-  being `false` on both subjects, which is 13(d)'s requirement and the only way
-  the three encounter types stay disjoint once the overtaking history is set. Because absent
-  is absent, a situation that omits the fact is classified as *no encounter at
-  all* rather than as a head-on or a crossing. That is conservative in the
-  right direction and completely silent, which is the wrong way to be
-  conservative: a consumer who forgets one boolean gets an empty answer that
-  looks like a lawful one. The neighbouring finding: two sailing vessels get no
-  encounter type either, because Rules 14 and 15 are gated on two power-driven
-  vessels and Rule 12 has no deeming paragraph — that one is a property of the
-  Rules rather than of the model. Settled by deciding whether an engine may
-  distinguish "no encounter" from "cannot say", which is the status alphabet of
-  ADR 0005 §5 and belongs to `colregs-engine`.
-- **Q-44** — **`kin:wind_side` is not kinematics.** Rule 12 needs to know which
-  side each vessel has the wind on. It is a per-vessel Part B fact, so it
-  cannot go in the fact record (`REQ-CAT-4`: the record does not change, and a
-  display consumer must never be asked for it) and it cannot go in `pair` (it
-  is not symmetric), which leaves `kin` — a class whose declared meaning is
-  where a vessel is, where she is pointing, how fast she is going and turning,
-  and what she handles like. A sailing vessel's tack is none of those. Filed
-  there rather than fixed by widening the class note, because widening it would
-  make `kin` mean "per-vessel and not in the fact record", which is a
-  description of the leftovers and not of a class. Settled by the second
-  per-vessel Part B fact that is not kinematics: one is an awkwardness, two is
-  a missing class.
-- **Q-45** — **One entry, two paragraphs.** `14a` cites 14(a), which states the
-  situation, and reads 14(b), which fixes the geometry that deems it to exist.
-  The paragraph is supposed to be the unit (ADR 0001), and Rule 13 splits the
-  same way into two entries only because 13(a) also produces a role. Here there
-  is nothing for a second entry to produce. Settled by deciding whether a
-  deeming paragraph that produces no effect of its own gets an entry anyway —
-  the same question `Q-39` asks about an ungated norm, from the other end.
-
-  **Decided in pencil 2026-09-05 (PR #36): the head-on classification cites
-  14(b), and 14(a) is `category:conduct`.** The question assumed 14(b) produced no
-  effect of its own. It produces the only effect the entry has: "such a
-  situation shall be deemed to exist when…" is the deeming test, and
-  `{"encounter": "encounter:head-on"}` is what a deeming test yields — exactly as
-  `rule:13b` cites 13(b), the deeming paragraph,
-  and not 13(a). 14(a) states the situation in words ("reciprocal or nearly
-  reciprocal courses") and imposes the duty ("each shall alter her course to
-  starboard"); the duty is `category:conduct`, and the words are what 14(b) makes
-  checkable. So the entry is `rule:14b`, cites 14(b), and reads nothing 14(b) does
-  not fix; 14(a) joins `known_omissions` as conduct beside 18(d)(ii), and
-  the `14a` id it displaced is gone with the rest of the citation-derived ids
-  and leaves no record behind it (ADR 0015). The
-  general question — whether a paragraph with no effect of its own gets an
-  entry — is `Q-39`'s and is untouched; this paragraph turned out not to be an
-  instance of it.
-- **Q-46** — **"Coming up with" is a comparison of two facts.** 13(b) deems a
-  vessel to be overtaking when *coming up with* another from more than 22.5°
-  abaft her beam. That is `self:kin:sog_kn` against `other:kin:sog_kn`, and the
-  predicate language compares a fact to a constant and never one fact to
-  another — the same wall `rule:12a_ii` hits on "both have the wind on the same side",
-  which it gets over only because that comparison has two values to enumerate
-  and this one has infinitely many. `pair:geo:tcpa_s > 0` stands in: the pair
-  is closing, and closing from abaft the beam is coming up. It excludes the
-  vessel drawing away astern, which is the case that mattered, and admits a
-  pair closing because the vessel ahead has stopped, which is not an overtaking
-  in seamanship and is one here. Settled by deciding whether the language gains
-  fact-to-fact comparison — a bigger change than `not` and `any_of` were, and
+- **Q-42** — **7(d)(ii) is recorded, not modelled.** "Very large vessel"
+  and "close range" have no quantity a paragraph names, so both would be
+  invented numbers; a tow is expressible, but "may sometimes exist" is
+  neither a deeming rule nor a permission and the vocabulary has no value
+  for an instruction to the mariner's judgement. Settled by deciding
+  whether it gains one — `Q-31`'s neighbour, not its duplicate.
+- **Q-43** — **The partition needs history to be present, and says nothing
+  when it is absent.** `rule:14b` and `rule:15a:crossing` gate on
+  `hist:was_overtaking` being `false` on both subjects, so a situation that
+  omits the fact is classified as *no encounter at all* — conservative and
+  silent, which is the wrong way to be conservative. Two sailing vessels get
+  no encounter type either, a property of the Rules. Settled by deciding
+  whether an engine may distinguish "no encounter" from "cannot say" — the
+  status alphabet of ADR 0005 §5, `colregs-engine`'s.
+- **Q-44** — **`kin:wind_side` is not kinematics.** It cannot go in the fact
+  record (`REQ-CAT-4`) or in `pair` (not symmetric), which leaves `kin`,
+  whose declared meaning it does not fit. Filed rather than fixed by
+  widening the class note. Settled by the second per-vessel Part B fact that
+  is not kinematics: one is an awkwardness, two is a missing class.
+- **Q-45** — **One entry, two paragraphs.** The head-on entry cited 14(a),
+  which states the situation, and read 14(b), which deems it. **Decided in
+  pencil 2026-09-05 (PR #36): the entry is `rule:14b`**, since the deeming
+  test is the only effect it has (as `rule:13b` cites 13(b)); 14(a)'s duty
+  is `category:conduct` and joins `known_omissions`. Whether a paragraph
+  with no effect of its own gets an entry is `Q-39`'s and is untouched.
+- **Q-46** — **"Coming up with" is a comparison of two facts.**
+  `self:kin:sog_kn` against `other:kin:sog_kn`, and the predicate language
+  compares a fact to a constant only. `pair:geo:tcpa_s > 0` stands in: it
+  excludes the vessel drawing away astern, and admits a pair closing because
+  the vessel ahead has stopped. Settled by deciding whether the language
+  gains fact-to-fact comparison — a bigger change than `not` and `any_of`,
   not one to make for a single paragraph.
-- **Q-47** — **13(d)'s overtaking history never clears.** The paragraph runs "until she is
-  finally past and clear", nothing in the fact vocabulary carries that, and so
-  in this model `hist:was_overtaking` is set by a consumer and cleared by a
-  consumer while entry `rule:13d` classifies an overtaking for as long as it stands.
-  Not approximated with a range or a bearing: past and clear is a seamanship
-  judgement of the same kind as risk of collision, and a threshold for it would
-  be a number invented rather than declared. Settled by whatever settles the
-  `category:conduct` monitors, which are the things that watch a duty end rather than
-  begin.
-
-  **Ruled 2026-09-08:** while one vessel's overtaking history stands, 13(a)'s
-  sector test is suppressed on the other, newly-gaining vessel — once
-  overtaking, always overtaking, per 13(d)'s own text, so a geometry test
-  that would newly name a second give-way vessel must not fire while the
-  first still holds the role by history alone. `rule:13a`'s sector branch now
-  also reads `other:hist:was_overtaking: false`; the closing fixture in
-  `fixtures/situation-fixtures.json` is the case this closes — a vessel
-  drops back onto the history-holder's own stern, and only the history-holder
-  gives way.
-- **Q-48** — **Nothing checks that a situation is geometrically possible.**
-  `self:geo:rel_bearing_deg`, `other:geo:rel_bearing_deg`, the two
-  `kin:heading_deg` and the two `kin:sog_kn` are six facts related by two
-  equations, and the situation record enforces neither. A consumer — or a
-  fixture — can state a pair of bearings that no two headings produce, and the
-  entries will classify it without complaint. It bites in one visible place:
-  where both vessels have the other on the starboard side, which cannot happen
-  on a collision course, `rule:15a:keep_out_of_the_way` applies to both of them and the "never
-  both give-way" property fails. The fixtures added here are built from a
-  heading and a bearing so that they are consistent by construction, and the
-  file says so; the model is not. Settled by deciding whether the record gains
-  a consistency check, whether the relative quantities become derived facts
-  like `fact:rule18_class` — computed from the two kinematic states rather than
-  supplied beside them — or whether it is the consumer's problem and says so.
-
+- **Q-47** — **13(d)'s overtaking history never clears.** "Finally past and
+  clear" is a seamanship judgement, so `hist:was_overtaking` is set and
+  cleared by a consumer and `rule:13d` classifies an overtaking for as long
+  as it stands. Settled by whatever settles the `category:conduct` monitors.
+  **Ruled 2026-09-08:** while one vessel's history stands, 13(a)'s sector
+  test is suppressed on the other, newly-gaining vessel — once overtaking,
+  always overtaking. `rule:13a`'s sector branch reads
+  `other:hist:was_overtaking: false`; the closing fixture in
+  `fixtures/situation-fixtures.json` is the case.
+- **Q-48** — **Nothing checked that a situation is geometrically possible.**
+  Six facts related by two equations, enforced nowhere, so a both-starboard
+  crossing made `rule:15a:keep_out_of_the_way` apply to both vessels.
   **Decided in pencil 2026-09-05: the record gains a consistency check,
-  declared in data and enforced in the suite.** `data/facts.json` declares the
-  equations under `situation.geometry.consistency` — the two relative bearings
-  are two readings of one line of sight (`self + self heading + 180 ≡ aspect +
-  other heading`), positions reproduce range and both bearings, and the two
-  headings and speeds reproduce CPA, TCPA and bearing rate — with tolerances,
-  and `REQ-VERIFY-8` requires the suite to apply them. A quantity a record does
-  not state constrains nothing, so the check says "not inconsistent" rather
-  than "possible" where a record is sparse. What it found: all sixteen fixtures
-  that state kinematics satisfied the heading and position equations, and every
-  one of them failed the motion equations, because their CPA, TCPA and
-  bearing-rate values were placeholders. They were re-derived from the headings
-  and speeds. Two cases could not keep their story: the R1 head-on had both
-  vessels with the other to starboard, which no speeds make a steady bearing,
-  and is recast as one; the 13(d) overtaking-history case is 400 m abeam with the CPA
-  already past, and lost `rule:7d_i`. The partition sweep now constructs positions
-  and headings for every bearing pair and is consistent at every point. The
-  "never both give-way" property is asserted over a sweep of steady-bearing
-  geometries — every relative bearing, several speed pairs, both intercept
-  solutions — where it is a theorem rather than an observation:
-  `u·sin(self bearing) = −v·sin(aspect)`, so the two bearings lie on opposite
-  sides and 15(a) can name only one vessel. The both-starboard counterexample
-  is pinned as a record the check rejects. What is *not* settled, and is
-  pinned too: the theorem is exact only at a bearing rate of zero, and
-  7(d)(i)'s pencilled 1°/min admits a slow, close, starboard-to-starboard
-  passing just outside the head-on cone on which risk is deemed and both
-  vessels are give-way. That is 14(c)'s doubt case and belongs with `Q-41`,
-  not here. Of the three options this question named, "the consumer's problem"
-  is closed — the definition a consumer would need is now in the data — and
-  the relative quantities as derived facts stays open in the block's
-  `settled_by`.
+  declared in data and enforced in the suite.** `data/facts.json` declares
+  the equations under `situation.geometry.consistency` with tolerances, and
+  `REQ-VERIFY-8` requires the suite to apply them; a sparse record is "not
+  inconsistent", not "possible". The "never both give-way" property is
+  asserted over a steady-bearing sweep, where it is a theorem
+  (`u·sin(self bearing) = −v·sin(aspect)`), and the both-starboard case is
+  pinned as a record the check rejects. Pinned too, not settled: at
+  7(d)(i)'s pencilled 1°/min a slow starboard-to-starboard passing has both
+  vessels give-way — 14(c)'s doubt case, with `Q-41`. Relative quantities
+  as derived facts stays open in the block's `settled_by`.
 
 - **Q-49** — **Must `rule:13d`'s effect cross the Section II/III boundary for Rule 19(d)(i) to be expressible?**
   - *broad* — drop `rule:13d`'s `pair:geo:in_sight` gate so `encounter: overtaking` is visible in Section III; breaks the scope invariant.
@@ -1488,12 +1104,8 @@ nothing is blocked while open.
   and needs a definition of "settled" the Rules lack. No default. Recommend
   **attachment**, with the departure tolerance an explicit monitor parameter.
 
-Two decisions taken in pencil, reversible in one edit: the invariants live in
-their own document under `REQ-INV-1`–`REQ-INV-7` (§4.2 says why), and the id
-scheme is `REQ-INV-2`'s — cheap to change until P4.2 cites an id from a TLA+
-module, expensive after.
-
-A third, ruled rather than pencil: **`docs/part-b-invariants.md` stays
-hand-written Markdown; no derived JSON registry.** Ruled 2026-09-08. Revisit
-only if P4.2's TLA+ needs to cite `INV-` ids mechanically; the cost then is one
-file's worth of tooling, not a re-derivation of the ids.
+Two decisions in pencil, cheap until a TLA+ module cites an id: the invariants
+live in their own document (`REQ-INV-1`–`REQ-INV-7`, §4.2) and the id scheme is
+`REQ-INV-2`'s. One ruled (2026-09-08): **`docs/part-b-invariants.md` stays
+hand-written Markdown; no derived JSON registry** unless P4.2 needs to cite
+`INV-` ids mechanically.
