@@ -981,6 +981,20 @@
     "rule:23a_iii_iv",
     "rule:23d"
    ]
+  },
+  {
+   "name": "pushing ahead, not a composite unit, US Inland: 24(c)(iii) replaces the sternlight with two towing lights",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:composite_unit": false
+   },
+   "expect": [
+    "rule:24c:towing_lights"
+   ]
   }
  ]
 }

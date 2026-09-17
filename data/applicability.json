@@ -2213,6 +2213,36 @@
     "NRHB_23_di.png"
    ],
    "note": "33 CFR 83.23(d) is the under-12 m provision as a single paragraph, not (d)(i): the norm is intl 23(d)(i), the path is not, so the intl entry is tombstoned and this one replaces it (ADR 0018 point 3, ADR 0020)."
+  },
+  {
+   "id": "rule:24c:towing_lights",
+   "jurisdiction": "us/inland",
+   "cite": "24(c)",
+   "when": {
+    "fact:activity": "activity:pushing",
+    "fact:composite_unit": false
+   },
+   "lights": [
+    {
+     "light": "light:masthead",
+     "count": 2,
+     "arrangement": "vertical"
+    },
+    {
+     "light": "light:sidelights"
+    },
+    {
+     "light": "light:towing",
+     "count": 2,
+     "arrangement": "vertical"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:23a_i",
+    "rule:23a_ii"
+   ],
+   "modality": "modality:shall",
+   "note": "33 CFR 83.24(c)(iii) replaces the international paragraph's sternlight with two towing lights in a vertical line for a power-driven vessel pushing ahead or towing alongside; (i) masthead lights and (ii) sidelights are unchanged from the international text. Content differs at the same cite, so rule:24c is suppressed under us/inland and replaced here under its own id rather than edited (REQ-SCOPE-4, Q-11, ADR 0018 point 3)."
   }
  ],
  "suppressions": [
@@ -2233,6 +2263,12 @@
    "suppresses": "rule:23d_ii",
    "cite": "23(d)(ii)",
    "why": "33 CFR 83.23(d) is a single paragraph with no counterpart to the under-7 m, 7 kn exception of 23(d)(ii); the exception is deliberately absent under us/inland (Q-11, ADR 0018)."
+  },
+  {
+   "jurisdiction": "us/inland",
+   "suppresses": "rule:24c",
+   "cite": "24(c)",
+   "why": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights in a vertical line, so rule:24c does not hold as stated under us/inland; rule:24c:towing_lights is the replacement (Q-11, ADR 0018 point 3)."
   }
  ]
 }
