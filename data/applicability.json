@@ -2180,9 +2180,48 @@
    ],
    "modality": "modality:may",
    "note": "The under-50 m alternative, on the same 33 CFR 90.5 deeming that brings rule:30a:mooring_buoy in. It is a separate entry because widening rule:30b's predicate would edit an intl entry to carry a national delta, which REQ-SCOPE-4 forbids."
+  },
+  {
+   "id": "rule:23d",
+   "jurisdiction": "us/inland",
+   "cite": "23(d)",
+   "when": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": {
+     "lt": 12
+    }
+   },
+   "lights": [
+    {
+     "light": "light:all_round",
+     "color": "white",
+     "count": 1
+    },
+    {
+     "light": "light:sidelights"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv"
+   ],
+   "modality": "modality:may",
+   "images": [
+    "NRHB_23_di.png"
+   ],
+   "note": "33 CFR 83.23(d) is the under-12 m provision as a single paragraph, not (d)(i): the norm is intl 23(d)(i), the path is not, so the intl entry is tombstoned and this one replaces it (ADR 0018 point 3, ADR 0020)."
   }
  ],
  "suppressions": [
+  {
+   "jurisdiction": "us/inland",
+   "suppresses": "rule:23d_i",
+   "cite": "23(d)(i)",
+   "why": "33 CFR 83.23(d) has no (i); the same norm is rule:23d at bare 23(d), so this is a replace, not an absence (ADR 0018, ADR 0020)."
+  },
   {
    "jurisdiction": "us/inland",
    "suppresses": "rule:28",
