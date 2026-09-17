@@ -188,7 +188,7 @@
    ],
    "cite": "20(d)",
    "actuable": true,
-   "note": "Rule 20(d)'s gate (shapes by day; 20(b) gates the lights from sunset to sunrise). Only the day-shape entries read it (`time:day`); a light entry reads no time fact and is in force for every record, so `time:night` selects nothing on its own -- the 20(b) gate on lights is a known omission in applicability.json."
+   "note": "Rule 20(d)'s gate: only the day-shape entries read it (`time:day`); a light entry reads no time fact and is in force for every record, so `time:night` selects nothing on its own. Not a gate on the lights: by Q-33 an absent fact fails every constraint, so it would silence every light for a record that omits time, and 20(c) keeps the lights by day anyway (issue #182)."
   }
  },
  "derived": {
