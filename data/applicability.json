@@ -3,7 +3,7 @@
  "relations": {
   "rel:includes": "import another entry's lights and shapes, their modality and its scalar gates, never its axes (ADR 0019)",
   "rel:conditional_includes": "import lights and shapes when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks exactly one, or none under a `may` carrier (ADR 0019)",
-  "rel:in_lieu_of": "this entry's lights and shapes replace the referenced entries' lights; two entries whose targets intersect are alternatives to each other (ADR 0019)",
+  "rel:in_lieu_of": "this entry's lights or shapes replace the referenced entries'; two entries whose targets intersect are alternatives to each other (ADR 0019)",
   "rel:excludes": "the referenced entries must not be shown at the same time; a constraint on one display, never a removal (ADR 0019)",
   "rel:exempts": "the referenced entries are not required; reaches an entry in force, never an import (ADR 0019)",
   "rel:overrides": "the superiority relation: the referencing norm's obligation displaces the referenced norm's when both apply; reaches an entry in force, never an import (ADR 0019)"
