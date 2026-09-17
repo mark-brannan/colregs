@@ -47,11 +47,15 @@ Solace ruled on issue #137 on 2026-09-17: `us/inland`, Part C, before v1.
 
 5. **`us/inland` lands with its Part C skeleton delta**, every row from
    `docs/verification/2026-08-30-q6-q8.md`: 19 restated paths (the 18
-   differing plus `28`), 17 Inland-only paths, and `23(d)(i)`, `23(d)(ii)`,
-   `23(d)(iii)` suppressed. Sub-paragraphs are stated only where the diff
-   names them; `24(f)`'s Inland `(iii)` waits for the corpus, as `intl`'s
-   own `24(f)` is one row. `NRHB_23_e.png` and `NRHB_24_j.png` are mapped to
-   `23(e)` and `24(j)` and stop being unmapped.
+   differing plus `28`), 18 Inland-only paths, and `23(d)(i)`, `23(d)(ii)`,
+   `23(d)(iii)` suppressed. A new sub-paragraph is stated when `intl`
+   already carries sibling sub-rows of that parent; where `intl`'s parent is
+   one row, the parent is restated and the sub-paragraph waits for the
+   corpus. So `24(f)`'s Inland `(iii)` and `22(d)`'s Inland `(ii)` wait
+   (`24(f)`, `22(d)` are one row each in `intl`), while `24(g)(v)` is stated
+   (`intl`'s `24(g)(i)` is a sibling row). `NRHB_23_e.png` and
+   `NRHB_24_j.png` are mapped to `23(e)` and `24(j)` and stop being
+   unmapped.
 
 6. **The first replace lands with it.** Inland 83.23(d) is the under-12 m
    provision as one paragraph; `23(d)(i)` is not a path there. Point 4
@@ -63,7 +67,7 @@ Solace ruled on issue #137 on 2026-09-17: `us/inland`, Part C, before v1.
 
 - The Inland corpus can now be filled: every path it will carry resolves.
   Text is 17 U.S.C. 105, so REQ-PROV-2 does not gate it. That is the next PR.
-- `us/inland` is now six applicability records and a skeleton delta of 39
+- `us/inland` is now six applicability records and a skeleton delta of 40
   rows. README's coverage statement says so; it is still not a model of the
   Inland Rules until the entries for the restated paths land.
 - The skeleton edition `us/inland@2014` is declared and still recalled, not

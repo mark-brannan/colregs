@@ -19,7 +19,7 @@
     "us/inland@2014": {
      "amended_through": "79 FR 37898 (2014 final rule)",
      "in_force": "2014-08-01",
-     "note": "Recalled, not verified against the Federal Register; the Part C skeleton delta is verified against eCFR -- REQ-LANG-10, ADR 0020."
+     "note": "Provisional edition id: the Part C skeleton delta was verified against current eCFR text, not the 2014 final rule. Cornell's own source credit on 83.24 runs through 84 FR 30878 (June 28, 2019); this id and amended_through are unverified against the Federal Register and will be corrected or renamed once the corpus fetch settles which amendment the text reflects -- REQ-LANG-10, ADR 0020."
     }
    }
   }

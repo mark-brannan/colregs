@@ -39,6 +39,12 @@ const skeletonJurisdictions = () => ['intl', ...Object.keys(rules.deltas ?? {})]
 // A paragraph record wherever it is stated: the base, or any delta's own rows.
 const statedParagraph = (path) =>
   rules.paragraphs[path] ?? Object.values(rules.deltas ?? {}).map((d) => d.paragraphs[path]).find(Boolean)
+// Every row that states a path, base and delta alike -- a reverse-cite check
+// (does this figure name a row that names it back?) must accept any of them,
+// since a restated delta row can carry a figure the intl row it shares a path
+// with does not.
+const statedParagraphs = (path) =>
+  [rules.paragraphs[path], ...Object.values(rules.deltas ?? {}).map((d) => d.paragraphs[path])].filter(Boolean)
 const corpora = Object.fromEntries(Object.entries(corporaIndex.corpora).map(([id, e]) => [id, load(`data/${e.file}`)]))
 // The reference corpus: today's text, relabelled for what it is (ADR 0003 step 1).
 const EN_US = 'intl@2016.en-US.uscg'
@@ -876,8 +882,8 @@ test('ADR 0020: each jurisdiction\'s skeleton is an RFC 7396 merge patch over in
       assert.ok(path.startsWith(`${p.rule}(`) || path === p.rule, `${j}: ${path} is not a path of Rule ${p.rule}`)
       // A restated path is an override: same spelling, different text, and
       // its corpus must carry the words. A verbatim copy of intl would be a
-      // restatement REQ-SCOPE-3 forbids, which the corpus test catches once
-      // the text is on file; here the record itself may not say more than intl's.
+      // restatement REQ-SCOPE-3 forbids, which the corpus test will need to
+      // catch; here the record itself may not say more than intl's.
       if (rules.paragraphs[path]) assert.equal(rules.paragraphs[path].rule, p.rule, `${j}: ${path} changes rule number`)
     }
     // The resolved skeleton is the patch applied; a corpus, an entry and a
@@ -1006,7 +1012,7 @@ test('images: every entry that cites a figure cites one depicting its provision'
     }
     for (const id of rec.paragraphs ?? []) {
       assert.ok(statedParagraph(id), `${name} names paragraph ${id}, which does not exist`)
-      assert.ok(statedParagraph(id).images?.includes(name), `${name} names ${id}, which does not cite it back`)
+      assert.ok(statedParagraphs(id).some((row) => row.images?.includes(name)), `${name} names ${id}, which does not cite it back`)
     }
   }
   // The same check on the paragraph side, so a paragraph cannot be illustrated

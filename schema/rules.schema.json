@@ -45,8 +45,7 @@
                 ],
                 "properties": {
                   "path": {
-                    "type": "string",
-                    "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
+                    "$ref": "evaluation.schema.json#/$defs/paragraphCite"
                   },
                   "why": {
                     "type": "string",
