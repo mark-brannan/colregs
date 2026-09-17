@@ -639,8 +639,7 @@ specification until 1.0.
 
 ### Open gates
 
-Each gate names the declined design, the closing event, and the trigger.
-
+Each names the declined design, closing event, and trigger.
 - **GATE-1 — `paragraph_id` split from `citation_path`**
   (ADR 0003, declined; REQ-LANG-3, REQ-PKG-4).
   *Closing event*: the 1.0 tag. Before it, splitting the two is a
@@ -764,8 +763,9 @@ Each gate names the declined design, the closing event, and the trigger.
   unlikely short of major success. Recorded regardless: "unlikely" is not
   a closing event (REQ-GATE-1).
 
-Gates whose closing event is "none" are recorded because a future reader
-will otherwise re-ask whether they were merely deferred. They were not.
+Four gates from ADR 0013 (option B), *closing event* for all four the first national text whose edition cannot be determined: **GATE-7 — validity intervals on editions (`in_force_until`)**, trigger an edition superseded with no successor to bound it; **GATE-8 — a per-source publication record separate from the edition (FRBR manifestation)**, trigger two published sources for one edition that disagree; **GATE-9 — a content digest per corpus for verification**, trigger a corpus differing from its cited source with no edition or source change; **GATE-10 — a skeleton per edition**, trigger the first amendment that deletes or renumbers a path.
+
+Gates whose closing event is "none" are recorded because a future reader will otherwise re-ask whether they were merely deferred. They were not.
 
 ### Gate status is data
 
