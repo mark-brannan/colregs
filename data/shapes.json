@@ -1,6 +1,6 @@
 {
  "jurisdiction": "intl",
- "note": "The day shapes an applicability entry names by id, the counterpart of lights.json under REQ-PART-2: Rule 20(c) makes them the daytime signal, Annex I 6 fixes their form and size. `svg` draws each at Annex I's minimum dimensions with 1 user unit = 1 m, so a consumer scales rather than redraws; the orientation is in the id because the Rules prescribe it (a cone apex downwards is 25(e), apex upwards 26(c)(ii)).",
+ "note": "The day shapes an applicability entry names by id, the counterpart of lights.json under REQ-PART-2: Rule 20(d) makes them the daytime signal, Annex I 6 fixes their form and size. `svg` draws each at Annex I's minimum dimensions with 1 user unit = 1 m, so a consumer scales rather than redraws; the orientation is in the id because the Rules prescribe it (a cone apex downwards is 25(e), apex upwards 26(c)(ii)).",
  "shapes": {
   "shape:ball": {
    "term": "ball",

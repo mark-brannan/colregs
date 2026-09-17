@@ -1,5 +1,5 @@
 {
- "conditions": "Night by default (Rule 20(b): sunset to sunrise): a light entry reads no time fact, so it is in force for every record. Day shapes (Rule 20(c)) read `fact:time: time:day`, so a record that states it selects the shapes as well as the lights; the 20(b) gate on the lights is a known omission.",
+ "conditions": "Night by default (Rule 20(b): sunset to sunrise): a light entry reads no time fact, so it is in force for every record. Day shapes (Rule 20(d)) read `fact:time: time:day`, so a record that states it selects the shapes as well as the lights; the 20(b) gate on the lights is a known omission.",
  "relations": {
   "rel:includes": "import another entry's lights and shapes, their modality and its scalar gates, never its axes (ADR 0019)",
   "rel:conditional_includes": "import lights and shapes when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks exactly one, or none under a `may` carrier (ADR 0019)",
@@ -1209,19 +1209,10 @@
       "rule:30a",
       "rule:30b"
      ]
-    },
-    {
-     "when": {
-      "fact:time": "time:day"
-     },
-     "rel:includes": [
-      "rule:30a:ball"
-     ],
-     "cite": "30(d)"
     }
    ],
    "modality": "modality:shall",
-   "notes": "30(d)'s lead-in requires the 30(a)/(b) anchor lights unconditionally, with no length gate; only the two red lights below (30(d)(i)-(ii)) are subject to the 30(f) exemption."
+   "notes": "30(d)'s lead-in requires the 30(a)/(b) anchor lights unconditionally, with no length gate; only the two red lights below (30(d)(i)-(ii)) are subject to the 30(f) exemption. By day she shows 30(d)(ii)'s three balls alone, not the anchor ball: 30(d) imports the 'lights' of 30(a)/(b), where 30(e) and 30(f) say 'lights or shape(s)' when they mean both, and NRHB_30_dii.png draws no anchor ball."
   },
   {
    "id": "rule:30d_i",
@@ -2656,7 +2647,7 @@
    "images": [
     "NRHB_30_dii.png"
    ],
-   "notes": "The three balls are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them, as from rule:30d_i; the 30(a) ball still reaches her through rule:30d."
+   "notes": "The three balls are 'shall, if practicable'. 30(f) exempts vessels under 12 m from them, as from rule:30d_i; by day she then shows no shape at all, since 30(d) imports 30(a)/(b)'s lights, not the ball (rule:30d)."
   },
   {
    "jurisdiction": "intl",
