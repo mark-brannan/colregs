@@ -10,14 +10,14 @@
    "tier": "national",
    "paragraphs": 212
   },
-  "intl@2016.fi.finlex": {
-   "file": "text/intl/2016/fi.finlex.json",
-   "edition": "intl@2016",
-   "edition_status": "claimed",
+  "intl@1977.fi.finlex": {
+   "file": "text/intl/1977/fi.finlex.json",
+   "edition": "intl@1977",
+   "edition_status": "verified",
    "language": "fi",
    "source_id": "finlex",
    "tier": "national",
-   "paragraphs": 0
+   "paragraphs": 195
   },
   "intl@2016.es.boe": {
    "file": "text/intl/2016/es.boe.json",
