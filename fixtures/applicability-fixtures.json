@@ -993,7 +993,25 @@
     "fact:composite_unit": false
    },
    "expect": [
-    "rule:24c:towing_lights"
+    "rule:24c:towing_lights",
+    "rule:24c:underway_lights"
+   ]
+  },
+  {
+   "name": "pushing ahead, not a composite unit, at anchor, US Inland (issue #137 review: sidelights/towing lights are underway-gated, masthead only at anchor)",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:position": "position:anchored",
+    "fact:length_m": 30,
+    "fact:composite_unit": false
+   },
+   "expect": [
+    "rule:24c:towing_lights",
+    "rule:30a",
+    "rule:30b",
+    "rule:30c"
    ]
   }
  ]
