@@ -294,7 +294,7 @@ test('operations: every fixture file is bound to a verb, and every bound case fi
 // envelope maps are copies of their source patterns; held equal here.
 test('operations: the paragraph-cite and entry-id patterns are their source schemas\' own', () => {
   const commons = loadSchema('evaluation.schema.json').$defs
-  assert.deepEqual(Object.keys(loadSchema('rules.schema.json').properties.paragraphs.patternProperties), [commons.paragraphCite.pattern])
+  assert.deepEqual(Object.keys(loadSchema('rules.schema.json').$defs.paragraphs.patternProperties), [commons.paragraphCite.pattern])
   const ruleId = loadSchema('applicability.schema.json').$defs.ruleId.pattern
   for (const map of ['modalities', 'categories']) assert.deepEqual(Object.keys(commons[map].patternProperties), [ruleId], map)
 })

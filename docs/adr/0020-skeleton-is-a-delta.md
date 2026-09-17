@@ -63,7 +63,7 @@ Solace ruled on issue #137 on 2026-09-17: `us/inland`, Part C, before v1.
 
 - The Inland corpus can now be filled: every path it will carry resolves.
   Text is 17 U.S.C. 105, so REQ-PROV-2 does not gate it. That is the next PR.
-- `us/inland` is now seven applicability records and a skeleton delta of 39
+- `us/inland` is now six applicability records and a skeleton delta of 39
   rows. README's coverage statement says so; it is still not a model of the
   Inland Rules until the entries for the restated paths land.
 - The skeleton edition `us/inland@2014` is declared and still recalled, not
