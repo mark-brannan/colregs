@@ -1,5 +1,5 @@
 {
- "note": "Fact records and the applicability entry ids that apply to each, under the International rules: at night unless the record states `fact:time: time:day`, which adds the day shapes. An implementation in any language that consumes data/applicability.json should reproduce these exactly, using the predicate semantics in README.md.",
+ "note": "Fact records and the applicability entry ids that apply to each, under the International rules: at night unless the record states `fact:time: time:day`, which adds the day shapes. An `expect` element is a bare entry id, or `{entry, modality}` asserting the modality that entry carries once `modality_by` and `modality_shifts` are applied. An implementation in any language should reproduce these exactly, using README.md's predicate semantics.",
  "jurisdiction": "intl",
  "cases": [
   {
@@ -1597,6 +1597,91 @@
     "fact:time": "time:day"
    },
    "expect": []
+  },
+  {
+   "name": "20(c): trawler 30 m by day in restricted visibility -- the lights stay shall, the cones stay shall",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 30,
+    "fact:time": "time:day",
+    "fact:visibility": "visibility:restricted"
+   },
+   "expect": [
+    {
+     "entry": "rule:26b_i",
+     "modality": "modality:shall"
+    },
+    {
+     "entry": "rule:26b_ii",
+     "modality": "modality:may"
+    },
+    {
+     "entry": "rule:26b_iii",
+     "modality": "modality:shall"
+    },
+    {
+     "entry": "rule:26b_i:two_cones",
+     "modality": "modality:shall"
+    }
+   ]
+  },
+  {
+   "name": "20(c): trawler 30 m by day in good visibility -- the lights become may, the cones stay shall (20(d))",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 30,
+    "fact:time": "time:day",
+    "fact:visibility": "visibility:good"
+   },
+   "expect": [
+    {
+     "entry": "rule:26b_i",
+     "modality": "modality:may"
+    },
+    {
+     "entry": "rule:26b_ii",
+     "modality": "modality:may"
+    },
+    {
+     "entry": "rule:26b_iii",
+     "modality": "modality:may"
+    },
+    {
+     "entry": "rule:26b_i:two_cones",
+     "modality": "modality:shall"
+    }
+   ]
+  },
+  {
+   "name": "20(c): trawler 30 m in good visibility, no time stated -- the night default is untouched",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:trawling",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 30,
+    "fact:visibility": "visibility:good"
+   },
+   "expect": [
+    {
+     "entry": "rule:26b_i",
+     "modality": "modality:shall"
+    },
+    {
+     "entry": "rule:26b_ii",
+     "modality": "modality:may"
+    },
+    {
+     "entry": "rule:26b_iii",
+     "modality": "modality:shall"
+    }
+   ]
   }
  ]
 }
