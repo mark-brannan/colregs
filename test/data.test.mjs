@@ -372,7 +372,6 @@ const envelopeExamples = {
   'departure-finding.schema.json': { status: 'not-flagged', rules: encounter, advisories: [{ action: { alter_deg: 30 }, margin_m: 800, breaches: ['17(c)'], envelope: { holds_until_s: 120 } }], model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] } },
   'trace.schema.json': { samples: [{ t_s: 0, situation: { self: { fact: { 'fact:propulsion': 'propulsion:power' } } } }] },
   'departure-model.schema.json': { version: 'grid-0', colregs_version: '0.0.0', ...parameters, regions: [{ when: { 'self:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' }], artefact_only: true },
-  'traffic-facts.schema.json': { ahead: { count: 1, nearest_nm: 0.8, foreclosed: true }, port: { count: 0 } },
   'scene.schema.json': { self: { fact: { 'fact:propulsion': 'propulsion:power' } }, others: [{ fact: { 'fact:propulsion': 'propulsion:sail' } }], pairs: [{ geo: { 'geo:in_sight': true } }] },
   'scene-evaluation.schema.json': { pairs: [encounter], traffic: { starboard: { count: 2, nearest_nm: 1.2, foreclosed: false } }, conflicts: [{ duty: 'role:give-way', to: 0, blocked_by: [1] }] },
 }
@@ -383,6 +382,16 @@ test('operations: smoke -- each result and input envelope accepts a hand-written
     check(validate, example, `${file} example`)
     assert.ok(!validate({}), `${file} accepts {}`)
   }
+})
+
+// The one answer that is legitimately empty: no other traffic reduces to no
+// sector facts (ADR 0023), so `{}` must pass and a malformed sector must not.
+test('operations: traffic-facts accepts an empty reduction and refuses a malformed sector', () => {
+  const validate = validatorFor('traffic-facts.schema.json')
+  check(validate, {}, 'traffic-facts.schema.json empty')
+  check(validate, { ahead: { count: 1, nearest_nm: 0.8, foreclosed: true }, port: { count: 0 } }, 'traffic-facts.schema.json example')
+  assert.ok(!validate({ ahead: { count: -1 } }), 'traffic-facts.schema.json accepts a negative count')
+  assert.ok(!validate({ abeam: {} }), 'traffic-facts.schema.json accepts an unknown sector')
 })
 
 // REQ-LANG-2's closed-list fact values (Tier A):
