@@ -148,6 +148,7 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "shape": { "type": "string", "pattern": "^shape:[a-z_]+$" },
             "min_diameter_m": { "type": "number" },
             "cite": { "type": "string" }
           }
@@ -156,6 +157,7 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "shapes": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^shape:[a-z_]+$" } },
             "min_base_diameter_m": { "type": "number" },
             "height_equals_diameter": { "type": "boolean" },
             "cite": { "type": "string" }
@@ -165,6 +167,7 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "shape": { "type": "string", "pattern": "^shape:[a-z_]+$" },
             "min_diameter_m": { "type": "number" },
             "height_multiple_of_diameter": { "type": "number" },
             "cite": { "type": "string" }
@@ -174,6 +177,7 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "shape": { "type": "string", "pattern": "^shape:[a-z_]+$" },
             "composition": { "type": "string" },
             "cite": { "type": "string" }
           }

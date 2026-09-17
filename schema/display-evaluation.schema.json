@@ -61,6 +61,12 @@
           "cite": {
             "type": "string",
             "minLength": 1
+          },
+          "shapes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayShape"
+            }
           }
         }
       }
@@ -135,6 +141,36 @@
           "items": {
             "type": "string"
           }
+        },
+        "shapes": {
+          "$comment": "The day shapes of the display (REQ-PART-2). Absent when the record states no fact:time: time:day, or from an implementation that predates shapes.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/displayShape"
+          }
+        }
+      }
+    },
+    "displayShape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "source_entry",
+        "modality"
+      ],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/shapeRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "via": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
         }
       }
     }
