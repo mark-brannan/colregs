@@ -476,7 +476,7 @@ See ADR 0003.
   with the file's internal metadata. Silence MUST NOT imply coverage (the
   language mirror of REQ-SCOPE-6).
 - **REQ-LANG-6** — Display strings for the closed vocabularies the package
-  emits (light, modality, role, encounter, jurisdiction, fact values, and
+  emits (light, shape, modality, role, encounter, jurisdiction, fact values, and
   image captions **(unimplemented — no catalog yet)**) MUST be addressable
   via stable string keys with per-language catalogs, separate from legal
   corpora; not being an identifier does not exclude a vocabulary. Catalog

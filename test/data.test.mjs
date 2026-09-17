@@ -56,6 +56,7 @@ const enUS = corpora[EN_US]
 // override it explains stands on the cite alone.
 const verbatim = (path) => enUS.paragraphs[path]?.text !== undefined
 const lights = load('data/lights.json')
+const shapes = load('data/shapes.json')
 const facts = load('data/facts.json')
 const appl = load('data/applicability.json')
 const images = load('data/images.json')
@@ -199,6 +200,7 @@ const schemaTargets = [
   ['data/editions.json', editions, loadSchema('editions.schema.json')],
   ...Object.entries(corporaIndex.corpora).map(([id, e]) => [`data/${e.file}`, corpora[id], loadSchema('corpus.schema.json')]),
   ['data/lights.json', lights, loadSchema('lights.schema.json')],
+  ['data/shapes.json', shapes, loadSchema('shapes.schema.json')],
   ['data/facts.json', facts, loadSchema('facts.schema.json')],
   ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
   ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
@@ -351,6 +353,7 @@ function closedFactValues(node, out = new Set()) {
 // vocabulary (fact, image) is one entry here and one property in the schema.
 const catalogVocabularies = {
   lights: new Set(Object.keys(lights.lights)),
+  shapes: new Set(Object.keys(shapes.shapes)),
   modalities: new Set(Object.keys(appl.modalities)),
   roles: new Set(Object.keys(appl.effects.roles)),
   encounters: new Set(Object.keys(appl.effects.encounters)),
@@ -758,8 +761,11 @@ test('fact:rule18_class: no precedence entry hand-lists an activity value any mo
 // its own predicate rules out the fixture's facts (the forward direction
 // correctly ruled it out) or because the data explicitly declares it related
 // to an entry that IS shown (a declared alternative, not a silent gap).
+// A signal is a light or a day shape (REQ-PART-2): the two vocabularies are
+// tagged so a ball and a light with the same JSON never collide.
 function lightSig(e) {
-  return (e.lights ?? []).map((l) => JSON.stringify(l)).sort()
+  return [...(e.lights ?? []).map((l) => `light ${JSON.stringify(l)}`),
+          ...(e.shapes ?? []).map((s) => `shape ${JSON.stringify(s)}`)].sort()
 }
 const relatedIds = new Map(appl.entries.map((e) => [e.id, new Set()]))
 const relate = (a, b) => { relatedIds.get(a)?.add(b); relatedIds.get(b)?.add(a) }
@@ -774,7 +780,7 @@ for (const e of appl.entries) {
   }
 }
 
-test('drift: lights already shown never silently admit an undeclared candidate entry', () => {
+test('drift: signals already shown never silently admit an undeclared candidate entry', () => {
   for (const c of fixtures.cases) {
     const shownIds = new Set(c.expect)
     const shown = new Set(appl.entries.filter((e) => shownIds.has(e.id)).flatMap(lightSig))
@@ -789,9 +795,33 @@ test('drift: lights already shown never silently admit an undeclared candidate e
       const excludedByFacts = !matches(e.when, c.facts)
       const declared = [...shownIds].some((id) => relatedIds.get(e.id)?.has(id))
       assert.ok(excludedByFacts || declared,
-        `${c.name}: ${e.id}'s lights are already fully shown but it is neither ` +
+        `${c.name}: ${e.id}'s signals are already fully shown but it is neither ` +
         `ruled out by facts nor a declared relation of {${[...shownIds].join(',')}}`)
     }
+  }
+})
+
+// REQ-VERIFY-3 for the one-subject entries: each is selected by a fixture
+// under a jurisdiction it is in force in, and left out by another.
+test('REQ-VERIFY-3: every display entry is exercised by a fixture and excluded by another', () => {
+  for (const e of appl.entries.filter(isDisplay)) {
+    const cases = fixtures.cases.filter((c) => inJurisdiction(e, c.jurisdiction ?? fixtures.jurisdiction))
+    assert.ok(cases.some((c) => c.expect.includes(e.id)), `${e.id} is selected by no fixture`)
+    assert.ok(cases.some((c) => !c.expect.includes(e.id)), `${e.id} is excluded by no fixture`)
+  }
+})
+
+// REQ-PART-2: a day shape is the same entry model as a light, gated by the
+// one fact that separates them. Every entry that emits a shape reads
+// fact:time = time:day; no entry that emits a light reads fact:time at all,
+// because the 20(b) gate on lights is a declared omission, not a predicate.
+test('REQ-PART-2: shapes read fact:time = time:day, lights read no time fact', () => {
+  for (const e of appl.entries) {
+    if ((e.shapes ?? []).length > 0) {
+      assert.equal(e.when['fact:time'], 'time:day', `${e.id} emits shapes without reading fact:time = time:day`)
+      assert.equal((e.lights ?? []).length, 0, `${e.id} emits both lights and shapes`)
+    }
+    if ((e.lights ?? []).length > 0) assert.ok(!('fact:time' in e.when), `${e.id} emits lights and reads fact:time`)
   }
 })
 
@@ -961,6 +991,20 @@ test('every light named by an entry is defined in lights.json', () => {
   }
 })
 
+test('every shape named by an entry, by shapes.json itself, or by geometry.json is defined in shapes.json', () => {
+  for (const e of appl.entries) {
+    for (const s of e.shapes ?? []) assert.ok(shapes.shapes[s.shape], `${e.id} uses undefined shape ${s.shape}`)
+  }
+  for (const [id, rec] of Object.entries(shapes.shapes)) {
+    for (const c of rec.components ?? []) assert.ok(shapes.shapes[c], `${id} has undefined component ${c}`)
+    if (rec.same_dimensions_as) assert.ok(shapes.shapes[rec.same_dimensions_as], `${id} refers to undefined shape ${rec.same_dimensions_as}`)
+  }
+  for (const rec of Object.values(geometry.shapes)) {
+    if (rec === null || typeof rec !== 'object') continue
+    for (const id of [rec.shape, ...(rec.shapes ?? [])].filter(Boolean)) assert.ok(shapes.shapes[id], `geometry.json Annex I 6 names undefined shape ${id}`)
+  }
+})
+
 // --- represented_paragraphs (REQ-CAT-2): care/meta paragraphs, never entries ---
 test('every represented_paragraphs record cites a paragraph that exists in rules.json', () => {
   for (const r of appl.represented_paragraphs ?? []) {
@@ -1085,6 +1129,22 @@ test('images: shapes are drawn from the closed day-shape vocabulary', () => {
   for (const [name, rec] of Object.entries(images.images)) {
     assert.ok(Array.isArray(rec.shapes), `${name}: shapes is missing or not an array`)
     for (const s of rec.shapes) assert.ok(vocabulary.has(s), `${name}: shape "${s}" is outside the vocabulary`)
+  }
+})
+
+// A figure an entry cites draws every shape the entry emits: images.json
+// records what the USCG plate shows, so the entry's shapes are checked against
+// the drawing rather than transcribed from the rule text alone.
+test('images: a figure cited by a shape entry draws the shapes the entry emits', () => {
+  const drawn = { 'shape:ball': 'ball', 'shape:diamond': 'diamond', 'shape:cone_up': 'cone-up', 'shape:cone_down': 'cone-down', 'shape:cylinder': 'cylinder', 'shape:flag_a': 'flag-a' }
+  const tally = (list) => list.reduce((m, s) => m.set(s, (m.get(s) ?? 0) + 1), new Map())
+  for (const e of appl.entries) {
+    if (!(e.shapes?.length > 0)) continue
+    const emitted = tally(e.shapes.flatMap((s) => Array(s.count ?? 1).fill(drawn[s.shape])))
+    for (const name of e.images ?? []) {
+      const shown = tally(images.images[name].shapes)
+      for (const [s, n] of emitted) assert.ok((shown.get(s) ?? 0) >= n, `${e.id} emits ${n} ${s} but ${name} draws ${shown.get(s) ?? 0}`)
+    }
   }
 })
 

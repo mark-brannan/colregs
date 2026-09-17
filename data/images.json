@@ -254,7 +254,8 @@
     "24(a)(v)"
    ],
    "entries": [
-    "rule:24a_i:exceeds_200m"
+    "rule:24a_i:exceeds_200m",
+    "rule:24a_v"
    ],
    "depicts": "provision",
    "transcript": [
@@ -365,6 +366,9 @@
    "description": "Slab sides with a rubbing strake, an open framed well along the deck, two low boxes and a stub post at the far end make her a dumb box-hulled deck barge under tow. She lies from above and off the port quarter, running away to the upper left, with a two-legged bridle leading from her near corner out of frame to the right and a dashed waterline for sea. A white lobe stands on a short staff at the far end; at the leading corner a red lobe shows outboard and a green lobe below on the near side. The panel at right holds one black diamond on a vertical line.",
    "shapes": [
     "diamond"
+   ],
+   "entries": [
+    "rule:24e:exceeds_200m"
    ]
   },
   "NRHB_24_f.png": {
@@ -615,6 +619,9 @@
    "description": "Set against a plain white ground, a sloop-rigged yacht carries mainsail and headsail on a single mast above a low coachroof and a fine counter. She is drawn from above and off the starboard bow, stem to the right, on a dashed waterline with no sea. No lights are coloured anywhere on her: instead a small black cone hangs point down in the fore triangle, and the same shape is repeated large in the upper left corner, a solid black triangle apex downward on a vertical line. The frame is ruled as a plain rectangle.",
    "shapes": [
     "cone-down"
+   ],
+   "entries": [
+    "rule:25e"
    ]
   },
   "NRHB_26_b.png": {
@@ -637,7 +644,8 @@
     "26(b)(i)"
    ],
    "entries": [
-    "rule:26b_i"
+    "rule:26b_i",
+    "rule:26b_i:two_cones"
    ],
    "depicts": "provision",
    "transcript": [
@@ -709,7 +717,9 @@
     "26(c)(iii)"
    ],
    "entries": [
-    "rule:26c_iii"
+    "rule:26c_iii",
+    "rule:26c_i:two_cones",
+    "rule:26c_ii:cone"
    ],
    "depicts": "provision",
    "transcript": [
@@ -748,7 +758,8 @@
     "27(a)(i)"
    ],
    "entries": [
-    "rule:27a_i"
+    "rule:27a_i",
+    "rule:27a_ii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -820,7 +831,8 @@
     "27(b)(iii)"
    ],
    "entries": [
-    "rule:27b_iii"
+    "rule:27b_iii",
+    "rule:27b_ii"
    ],
    "depicts": "provision",
    "transcript": [
@@ -932,7 +944,8 @@
     "27(d)(ii)"
    ],
    "entries": [
-    "rule:27d"
+    "rule:27d",
+    "rule:27d:shapes"
    ],
    "depicts": "provision",
    "transcript": [
@@ -975,7 +988,8 @@
     "27(d)(ii)"
    ],
    "entries": [
-    "rule:27d"
+    "rule:27d",
+    "rule:27d:shapes"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1056,6 +1070,9 @@
    "description": "On plain white ground within a ruled frame lies a small open motor boat: hard top on posts above a centre console, open cockpit aft, wide flare forward and a low freeboard. The view is from above and off the port bow, stem to the right, with no waterline and no sea drawn. She shows no coloured lights at all. Her only marking is the flag on a staff at the stemhead, swallow-tailed and held stiff, blue on the half nearest the staff and white on the fly. No day-shape panel accompanies the drawing.",
    "shapes": [
     "flag-a"
+   ],
+   "entries": [
+    "rule:27e_ii"
    ]
   },
   "NRHB_27_f.png": {
@@ -1077,7 +1094,8 @@
     "27(f)"
    ],
    "entries": [
-    "rule:27f"
+    "rule:27f",
+    "rule:27f:three_balls"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1114,7 +1132,8 @@
     "28"
    ],
    "entries": [
-    "rule:28"
+    "rule:28",
+    "rule:28:cylinder"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1218,7 +1237,8 @@
     "30(b)"
    ],
    "entries": [
-    "rule:30b"
+    "rule:30b",
+    "rule:30a:ball"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1254,7 +1274,8 @@
     "30(c)"
    ],
    "entries": [
-    "rule:30a"
+    "rule:30a",
+    "rule:30a:ball"
    ],
    "depicts": "provision",
    "transcript": [
@@ -1286,10 +1307,12 @@
     "Vessel Aground"
    ],
    "paragraphs": [
-    "30(d)"
+    "30(d)",
+    "30(d)(ii)"
    ],
    "entries": [
-    "rule:30d_i"
+    "rule:30d_i",
+    "rule:30d_ii"
    ],
    "depicts": "provision",
    "transcript": [

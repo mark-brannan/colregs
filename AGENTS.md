@@ -46,8 +46,10 @@ these files, which `test/data.test.mjs` enforces exhaustively:
 - **`data/lights.json`** — the Rule 21 lights: colour, bearing arc, Rule 22
   range. Referenced by id (`light:masthead`, `light:sidelight_starboard`, …) from
   applicability entries.
+- **`data/shapes.json`** — the day shapes (Annex I 6): dimensions and a
+  reference SVG. Referenced by id (`shape:ball`, `shape:cone_down`, …).
 - **`data/applicability.json`** — the core table: `entries[]`, each
-  `when` (predicate over facts) → `lights` → `modality` → `cite`
+  `when` (predicate over facts) → `lights` or `shapes` → `modality` → `cite`
   (paragraph path) → `jurisdiction`. Entries cross-reference each other by
   id via `rel:includes` / `rel:conditional_includes` / `rel:in_lieu_of` /
   `rel:excludes` / `rel:exempts` / `rel:overrides` (semantics in README.md — **read it before
@@ -103,7 +105,7 @@ every fact an entry reads is declared in `facts.json`, and every light's
 
 **When adding or editing an applicability entry**, all of the following
 need to stay consistent or a test will catch it: the `cite` must exist in
-`rules.json`, every `light` id must exist in `lights.json`, every
+`rules.json`, every `light` or `shape` id must exist in `lights.json` or `shapes.json`, every
 cross-referenced entry id must exist, every fact key in `when` must be
 declared in `facts.json`, and (REQ-VERIFY-3/5) it should be exercised by at
 least one fixture and excluded by at least one other, with fixtures on both
@@ -123,8 +125,9 @@ doesn't self-cancel at 1.0 — someone has to deliberately remove it then.
 
 ## Coverage (changes as jurisdictions/parts land — check README.md, not this file, for current state)
 
-Part C lights (Rules 20–31), `intl` jurisdiction, night only. Day shapes, Part D
-signals, and every non-`intl` jurisdiction are modelled for but not yet present.
+Part C lights and day shapes (Rules 20–31), `intl` jurisdiction; a record
+reads as night unless it states `fact:time: time:day`. Part D signals and
+every non-`intl` jurisdiction are modelled for but not yet present.
 
 ## Prose budget
 
