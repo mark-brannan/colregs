@@ -1,0 +1,881 @@
+{
+ "id": "intl@1977.fi.finlex",
+ "edition": "intl@1977",
+ "edition_status": "verified",
+ "language": "fi",
+ "source_id": "finlex",
+ "tier": "national",
+ "normalization": "NFC",
+ "source": {
+  "publisher": "Finlex (Oikeusministeriö), Suomen säädöskokoelman sopimussarja",
+  "title": "Asetus kansainvälisistä säännöistä yhteentörmäämisen ehkäisemiseksi merellä vuonna 1972 tehdyn yleissopimuksen voimaansaattamisesta, SopS 30/1977",
+  "url": "https://www.finlex.fi/fi/sopimukset/sopsteksti/1977/19770030",
+  "retrieved": "2026-09-16"
+ },
+ "rights": {
+  "source_text": "Tekijänoikeuslaki 404/1961 §9: no copyright in treaties and their official translations",
+  "redistribution_basis": "Finlex FAQ: published materials carry no usage restriction; open data CC BY 4.0",
+  "package_licence": "Apache-2.0"
+ },
+ "note": "REQ-LANG-10: verified against the source, which predates several IMO amendments in intl@2016 (Rule 3(m), 8(f), 10(d)(ii)/(k)/(l), 18(f), 22(d), 23(d), 24(g)-(i), 27(e)(i), 30(f)); missing paragraphs are listed in gaps, not reconstructed.",
+ "gaps": [
+  {
+   "path": "3(m)",
+   "reason": "Wing-In-Ground (WIG) craft were not part of the 1972 Convention as originally adopted; the term was added by a later IMO amendment (post-dates this 1977 promulgation)."
+  },
+  {
+   "path": "8(f)(i)",
+   "reason": "the duty not to impede another vessel's passage (Rule 8(f)) was added by a later IMO amendment; absent from the 1972 text as promulgated in 1977."
+  },
+  {
+   "path": "8(f)(ii)",
+   "reason": "see 8(f)(i): Rule 8(f) post-dates this 1977 promulgation."
+  },
+  {
+   "path": "8(f)(iii)",
+   "reason": "see 8(f)(i): Rule 8(f) post-dates this 1977 promulgation."
+  },
+  {
+   "path": "10(d)(ii)",
+   "reason": "the inshore traffic zone exception (Rule 10(d)(ii)) was added by a later amendment; the 1977 text's 10(d) has only the prohibition now numbered 10(d)(i)."
+  },
+  {
+   "path": "10(k)",
+   "reason": "the restricted-manoeuvrability exception for safety-of-navigation operations (Rule 10(k)) was added by a later amendment; absent from the 1977 text."
+  },
+  {
+   "path": "10(l)",
+   "reason": "the restricted-manoeuvrability exception for cable/pipeline operations (Rule 10(l)) was added by a later amendment; absent from the 1977 text."
+  },
+  {
+   "path": "18(f)(i)",
+   "reason": "the WIG craft give-way duty (Rule 18(f)) was added by a later amendment, contemporaneous with the Rule 3(m) WIG craft definition; both post-date this 1977 text."
+  },
+  {
+   "path": "18(f)(ii)",
+   "reason": "see 18(f)(i): Rule 18(f) post-dates this 1977 promulgation."
+  },
+  {
+   "path": "22(d)",
+   "reason": "the minimum light range for an inconspicuous, partly submerged tow (Rule 22(d)) was added by a later amendment together with Rule 24(g); absent from the 1977 text."
+  },
+  {
+   "path": "23(d)(i)",
+   "reason": "WIG craft lights (Rule 23(d)) were added by a later amendment, contemporaneous with Rule 3(m); absent from the 1977 text."
+  },
+  {
+   "path": "23(d)(ii)",
+   "reason": "see 23(d)(i): Rule 23(d) post-dates this 1977 promulgation."
+  },
+  {
+   "path": "23(d)(iii)",
+   "reason": "see 23(d)(i): Rule 23(d) post-dates this 1977 promulgation."
+  },
+  {
+   "path": "24(g)",
+   "reason": "lights for an inconspicuous, partly submerged tow (Rule 24(g)) were added by a later amendment; the 1977 text's own lettering runs (a)-(f) then directly to the paragraph now renumbered 24(h), confirming the insertion happened after 1977."
+  },
+  {
+   "path": "24(g)(i)",
+   "reason": "see 24(g): the paragraph was not yet inserted in the 1977 text."
+  },
+  {
+   "path": "24(i)",
+   "reason": "the exemption for a vessel not normally engaged in towing operations (Rule 24(i)) was added by a later amendment; absent from the 1977 text."
+  },
+  {
+   "path": "27(e)(i)",
+   "reason": "the three-all-round-lights alternative for diving operations (Rule 27(e)(i)) was added by a later amendment; the 1977 text's Rule 27(e) specifies only the flag 'A' day signal, now 27(e)(ii)."
+  },
+  {
+   "path": "30(d)(i)",
+   "reason": "not present as separate source text; mirrors the same gap already recorded (undeclared) in the en-US corpus, where Rule 30(d) embeds this content inline in a single field rather than splitting it out."
+  },
+  {
+   "path": "30(f)",
+   "reason": "the small-vessel exemption for a vessel aground (Rule 30(f)) was added by a later amendment; absent from the 1977 text."
+  }
+ ],
+ "paragraphs": {
+  "1(a)": {
+   "rule_title": "Soveltaminen",
+   "text": "Nämä säännöt koskevat kaikkia aluksia avomerellä ja kaikilla siihen yhteydessä olevilla kulkuvesillä, joilla merialukset voivat liikennöidä."
+  },
+  "1(b)": {
+   "rule_title": "Soveltaminen",
+   "text": "Nämä säännöt eivät estä soveltamasta erityisiä määräyksiä, joita asianomainen viranomainen on antanut noudatettaviksi ankkurointialueilla, satamissa, joissa, järvissä tai sisäisillä kulkuvesillä, jotka ovat yhteydessä avomereen ja joilla merialukset voivat liikennöidä. Tällaisten erityisten määräysten on oltava mahdollisimman yhdenmukaiset näiden sääntöjen kanssa."
+  },
+  "1(c)": {
+   "rule_title": "Soveltaminen",
+   "text": "Nämä säännöt eivät estä sellaisten erityisten määräysten soveltamista, joita jonkin maan hallitus on antanut sota-alusten tai saattueena kulkevien alusten muista asema- tai merkkivaloista taikka äänimerkeistä tai laivueena kalastusta harjoittavien kalastusalusten muista asema- tai merkkivaloista. Siinä määrin kuin mahdollista, nämä muut asema- tai merkkivalot taikka äänimerkit eivät saa erehdyttävästi muistuttaa muualla näissä säännöissä määrättyjä valoja tai äänimerkkejä."
+  },
+  "1(d)": {
+   "rule_title": "Soveltaminen",
+   "text": "Järjestö voi hyväksyä reittijakojärjestelmiä sovellettaviksi näiden sääntöjen mukaisesti."
+  },
+  "1(e)": {
+   "rule_title": "Soveltaminen",
+   "text": "Milloin asianomainen hallitus on todennut, että erikoisrakenteinen tai erikoistehtäviin tarkoitettu alus ei voi täysin täyttää kaikkia näiden sääntöjen määräyksiä valojen tai merkkikuvioiden lukumäärästä, sijainnista, näkyvyydestä tai valosektorista taikka äänimerkkilaitteiden sijainnista ja laadusta aluksen erityisen toiminnan siitä häiriintymättä, on kyseisen aluksen noudatettava sellaisia muita valojen tai merkkikuvioiden lukumäärää, sijaintia, näkyvyyttä tai valosektoria taikka äänimerkkilaitteiden sijaintia ja laatua koskevia määräyksiä, joiden sen kotimaan hallitus on sellaisen aluksen kohdalta katsonut mahdollisimman läheisesti vastaavan näitä sääntöjä."
+  },
+  "2(a)": {
+   "rule_title": "Vastuu",
+   "text": "Nämä säännöt eivät vapauta alusta tai sen isäntää, päällikköä tai laivaväkeä seuraamuksista, jotka ovat johtuneet näiden sääntöjen noudattamatta jättämisestä taikka merimiestavan tai tapaukseen liittyvien erityisten olosuhteiden edellyttämän varotoimen laiminlyömisestä."
+  },
+  "2(b)": {
+   "rule_title": "Vastuu",
+   "text": "Näitä sääntöjä tulkittaessa ja sovellettaessa on kiinnitettävä asianmukaista huomiota kaikkiin navigoimisen ja yhteentörmäämisen vaaroihin sekä kaikkiin erityisiin asianhaaroihin, niihin luettuina kysymyksessä olevien alusten rajoitetut ohjailumahdollisuudet, jotka välittömän vaaran välttämiseksi saattavat tehdä poikkeamisen näistä säännöistä välttämättömäksi."
+  },
+  "3(a)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Alus tarkoittaa jokaista uivaa laitetta, myös alusta ilman uppoamaa sekä vesilentokonetta, jota käytetään tai voidaan käyttää vesitse tapahtuvaan kuljetukseen."
+  },
+  "3(b)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Konealus tarkoittaa jokaista alusta, jota kuljettaa koneisto."
+  },
+  "3(c)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Purjealus tarkoittaa jokaista purjehtivaa alusta edellyttäen, ettei kuljetuskoneistoa, jos sellainen on asennettu alukseen, käytetä."
+  },
+  "3(d)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Alus, joka harjoittaa kalastusta, tarkoittaa alusta, joka kalastaa verkoilla, siimoilla, laahusnuotalla tai muulla kalanpyydyksellä, joka rajoittaa sen ohjailukykyä, mutta ei tarkoita alusta, joka kalastaa vetosiimoilla tai muulla kalanpyydyksellä, joka ei rajoita sen ohjailukykyä."
+  },
+  "3(e)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Vesilentokone tarkoittaa jokaista ilmaalusta, joka on rakennettu vedessä ohjailua varten."
+  },
+  "3(f)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Ohjailukyvytön alus tarkoittaa alusta, joka erityisten olosuhteiden takia ei voi ohjailla näiden sääntöjen vaatimusten mukaan eikä näin ollen kykene väistämään muita aluksia."
+  },
+  "3(g)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Alus, jonka ohjailukyky on rajoitettu, tarkoittaa alusta, joka työnsä luonteen rajoittaman ohjailukyvyn takia ei voi ohjailla näiden sääntöjen vaatimusten mukaan eikä näin ollen kykene väistämään muita aluksia. Seuraavien alusten katsotaan olevan aluksia, joiden ohjailukyky on rajoitettu: 1) alus, joka on laskemassa, huoltamassa tai nostamassa merimerkkiä, vedenalaista kaapelia tai putkijohtoa; 2) alus, joka on suorittamassa ruoppausta, merenmittausta tai vedenalaista työtä; 3) alus, joka on kulussa ollessaan suorittamassa varastojen täydennystä taikka henkilöiden, muonan tai lastin siirtoa; 4) alus, joka on lähettämässä tai vastaanottamassa ilma-alusta; 5) alus, joka suorittaa miinanraivausta; 6) alus, joka suorittaa sen laatuista hinausta, että sekä hinaavan aluksen että hinattavan kyky poiketa suunnastaan on tuntuvasti rajoitettu."
+  },
+  "3(h)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Alus, jonka liikkumista rajoittaa sen syväys, tarkoittaa konealusta, jonka syväys käytettävään kulkuveden syvyyteen nähden tuntuvasti rajoittaa sen kykyä poiketa ohjaamastaan suunnasta."
+  },
+  "3(i)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Alus on kulussa, kun se ei ole ankkuroituna, maihin kiinnitettynä eikä karilla."
+  },
+  "3(j)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Aluksen pituus ja leveys tarkoittavat sen suurinta pituutta ja suurinta leveyttä."
+  },
+  "3(k)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Alusten katsotaan olevan toistensa näkyvissä vain silloin, kun toinen voidaan näkemällä havaita toisesta."
+  },
+  "3(l)": {
+   "rule_title": "Yleiset määritelmät",
+   "text": "Rajoitettu näkyvyys tarkoittaa kaikkia olosuhteita, jolloin näkyvyys on sumun, usvan, lumi- tai rankkasateen, hiekkamyrskyn tai muun samanlaisen syyn rajoittama."
+  },
+  "4": {
+   "rule_title": "Soveltaminen",
+   "text": "Tämän osaston sääntöjä sovelletaan kaikissa näkyvyysolosuhteissa."
+  },
+  "5": {
+   "rule_title": "Tähystys",
+   "text": "Jokaisen aluksen on aina pidettävä asianmukaista näkö- ja kuulotähystystä sekä pyrittävä kaikin vallitsevissa olosuhteissa käytettävissä olevin keinoin tilanteen ja yhteentörmäämisvaaran perinpohjaiseen arviointiin."
+  },
+  "6": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "Jokaisen aluksen on aina kuljettava turvallisella nopeudella niin että se voi suorittaa asianmukaisen ja tehokkaan toimenpiteen yhteentörmäämisen välttämiseksi ja pysähtyä vallitseviin olosuhteisiin nähden sopivalla etäisyydellä. Turvallista nopeutta arvioitaessa on muun muassa seuraavat tekijät otettava huomioon:"
+  },
+  "6(a)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "Kaikkien alusten:"
+  },
+  "6(a)(i)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "vallitseva näkyvyys;"
+  },
+  "6(a)(ii)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "liikenteen tiheys mukaan luettuna kalastus- tai muiden alusten ruuhkautumat;"
+  },
+  "6(a)(iii)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "aluksen ohjailukyky, jolloin erityistä huomiota on kiinnitettävä pysähtymismatkaan ja kääntymiskykyyn vallitsevissa olosuhteissa;"
+  },
+  "6(a)(iv)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "taustavalaistuksen esiintyminen pimeän aikana, kuten valot maista tai omien valojen heijastukset;"
+  },
+  "6(a)(v)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "vallitseva tuuli, merenkäynti ja virta sekä merenkulullisten vaarojen läheisyys;"
+  },
+  "6(a)(vi)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "aluksen syväys suhteessa käytettävissä olevan kulkuveden syvyyteen."
+  },
+  "6(b)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "Toimivalla tutkalla varustettujen alusten lisäksi:"
+  },
+  "6(b)(i)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "tutkalaitteiden ominaisuudet, tehokkuus ja rajoitukset;"
+  },
+  "6(b)(ii)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "tutkassa käytetyn etäisyysasteikon asettamat rajoitukset;"
+  },
+  "6(b)(iii)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "merenkäynnin, sään ja muiden häiriötekijöiden vaikutus tutkahavaintoihin."
+  },
+  "6(b)(iv)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "mahdollisuus, ettei tutkassa havaita riittävällä etäisyydellä pieniä aluksia, jäätä ja muita kelluvia esineitä;"
+  },
+  "6(b)(v)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "tutkassa havaittujen alusten lukumäärä, sijainti ja liikkeet;"
+  },
+  "6(b)(vi)": {
+   "rule_title": "Turvallinen nopeus",
+   "text": "näkyvyyden tarkempi arviointi, mikä voi olla mahdollista käytettäessä tutkaa määrittämään etäisyyksiä läheisyydessä oleviin aluksiin tai muihin esineisiin."
+  },
+  "7(a)": {
+   "rule_title": "Yhteentörmäämisen vaara",
+   "text": "Jokaisen aluksen on käytettävä kaikki vallitsevaan tilanteeseen ja olosuhteisiin sopivat keinot ratkaistakseen, onko yhteentörmäämisen vaara olemassa. Jos sen olemassaolosta syntyy epäröintiä, on yhteentörmäämisen vaaran katsottava olevan olemassa."
+  },
+  "7(b)": {
+   "rule_title": "Yhteentörmäämisen vaara",
+   "text": "Jos aluksella on toimintakelpoinen tutkalaite, sitä on käytettävä asianmukaisella tavalla mukaan lukien kaukohavainnot aikaisen varoituksen saamiseksi yhteentörmäämisvaarasta sekä tutkamerkinnänpito tai muu samankaltainen järjestelmällinen havaittujen kohteiden tarkkailu."
+  },
+  "7(c)": {
+   "rule_title": "Yhteentörmäämisen vaara",
+   "text": "Olettamuksia ei saa perustaa puutteellisiin havaintoihin eikä varsinkaan puutteellisiin tutkahavaintoihin."
+  },
+  "7(d)": {
+   "rule_title": "Yhteentörmäämisen vaara",
+   "text": "Ratkaistaessa, onko yhteentörmäämisen vaara olemassa, on muun muassa seuraavat seikat otettava huomioon:"
+  },
+  "7(d)(i)": {
+   "rule_title": "Yhteentörmäämisen vaara",
+   "text": "yhteentörmäämisen vaaran katsotaan olevan olemassa, jollei kompassisuuntima lähestyvään alukseen huomattavasti muutu;"
+  },
+  "7(d)(ii)": {
+   "rule_title": "Yhteentörmäämisen vaara",
+   "text": "yhteentörmäämisen vaara voi erinäisissä tapauksissa olla olemassa siitä huolimatta, että suuntiman muutos on huomattava, varsinkin lähestyttäessä hyvin suurta alusta tai hinausta tai lähestyttäessä alusta hyvin läheltä."
+  },
+  "8(a)": {
+   "rule_title": "Toimenpiteet yhteentörmäämisen välttämiseksi",
+   "text": "Jokainen toimenpide yhteentörmäämisen välttämiseksi on, milloin olosuhteet sen sallivat, suoritettava epäröimättä ja varmasti, hyvissä ajoin ja hyvää merimiestapaa noudattaen."
+  },
+  "8(b)": {
+   "rule_title": "Toimenpiteet yhteentörmäämisen välttämiseksi",
+   "text": "Jokaisen suunnan ja/tai nopeuden muutoksen yhteentörmäämisen välttämiseksi on, milloin olosuhteet sen sallivat, oltava niin suuri, että se on helposti havaittavissa toisesta aluksesta joko näköhavaintona tai tutkassa; peräkkäisiä vähäisiä suunnan ja/tai nopeuden muutoksia on vältettävä."
+  },
+  "8(c)": {
+   "rule_title": "Toimenpiteet yhteentörmäämisen välttämiseksi",
+   "text": "Jos tilaa on riittävästi, saattaa suunnan muutos yksinään olla tehokkain toimenpide välttää lähitilanne edellyttäen, että se suoritetaan hyvissä ajoin, on riittävän suuri eikä johda toiseen lähitilanteeseen."
+  },
+  "8(d)": {
+   "rule_title": "Toimenpiteet yhteentörmäämisen välttämiseksi",
+   "text": "Toimenpiteen, johon on ryhdytty yhteentörmäämisen välttämiseksi toisen aluksen kanssa, on oltava sellainen, että toinen alus sivuutetaan turvallisen välimatkan päässä. Toimenpiteen vaikutusta on huolellisesti seurattava, kunnes alus on lopullisesti sivuutettu ja selvitty siitä."
+  },
+  "8(e)": {
+   "rule_title": "Toimenpiteet yhteentörmäämisen välttämiseksi",
+   "text": "Jos yhteentörmäämisen välttämiseksi on tarpeen tai jos tilanteen arviointi vaatii enemmän aikaa, aluksen on vähennettävä nopeutta tai pysähdyttävä kokonaan pysäyttämällä koneisto tai ottamalla takaisin."
+  },
+  "9(a)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Ahtaan kulkuväylän suuntaisesti kulkevan aluksen on pysyttävä niin lähellä kuin on turvallista ja käytännössä mahdollista sitä kulkuväylän ulkoreunaa, joka on aluksen oikealla puolella."
+  },
+  "9(b)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Pituudeltaan alle 20 metrin alus tai purjealus ei saa estää sellaisen aluksen kulkua, joka voi navigoida turvallisesti vain itse ahtaassa kulkuväylässä."
+  },
+  "9(c)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Alus, joka harjoittaa kalastusta, ei saa estää minkään itse ahtaassa kulkuväylässä navigoivan aluksen kulkua."
+  },
+  "9(d)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Alus ei saa ylittää ahdasta kulkuväylää, jos ylitys estää sellaisen aluksen kulkua, joka voi navigoida turvallisesti vain itse kulkuväylässä. Jälkimmäinen alus voi antaa 34 säännön d kappaleessa määrätyn äänimerkin, jos se on epävarma ylittävän aluksen aikeista."
+  },
+  "9(e)(i)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Milloin ahtaassa kulkuväylässä ohitus voi tapahtua ainoastaan ohitettavan aluksen ryhdyttyä toimenpiteisiin turvallisen ohituksen varmistamiseksi, ohitusta aikovan aluksen on ilmaistava aikomuksensa antamalla 34 säännön c kappaleen 1 kohdassa määrätty asianmukainen äänimerkki. Ohitettavan aluksen on, jos se suostuu ohitukseen, annettava 34 säännön c kappaleen 2 kohdassa määrätty asianmukainen äänimerkki ja ryhdyttävä toimenpiteisiin turvallisen ohituksen varmistamiseksi. Epäröidessään se voi antaa 34 säännön d kappaleessa määrätyn äänimerkin."
+  },
+  "9(e)(ii)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Tämä sääntö ei vapauta ohittavaa alusta 13 säännössä määrätystä velvollisuudesta."
+  },
+  "9(f)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Aluksen, joka lähestyy sellaista ahtaan kulkuväylän mutkaa tai aluetta, missä muita aluksia saattaa olla välissä olevan, näkyvyyttä haittaavan esteen takana, on navigoitava erityisen valppaasti ja varovasti sekä annettava 34 säännön e kappaleessa määrätty asianmukainen äänimerkki."
+  },
+  "9(g)": {
+   "rule_title": "Ahtaat kulkuväylät",
+   "text": "Jokaisen aluksen on, milloin olosuhteet sen sallivat, vältettävä ankkurointia ahtaassa kulkuväylässä."
+  },
+  "10(a)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Tätä sääntöä sovelletaan järjestön hyväksymiin reittijakojärjestelmiin."
+  },
+  "10(b)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Reittijakojärjestelmää käyttävän aluksen on:"
+  },
+  "10(b)(i)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "kuljettava asianomaisen liikennekaistan yleisen liikennesuunnan mukaan;"
+  },
+  "10(b)(ii)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "mahdollisuuksien mukaan pysyttävä erillään liikennejakolinjasta tai -vyöhykkeestä;"
+  },
+  "10(b)(iii)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "yleensä saavuttava liikennekaistalle tai lähdettävä siitä kaistan päätepisteiden kautta, mutta saapuessaan kaistalle sivulta tai lähtiessään kaistalta sivulle, on se tehtävä mahdollisimman pienessä kulmassa yleiseen liikennesuuntaan nähden."
+  },
+  "10(c)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Aluksen on mahdollisuuksien mukaan vältettävä liikennekaistojen ylitystä, mutta milloin se on välttämätöntä, on ylitys suoritettava yleiseen liikennesuuntaan nähden niin suorassa kulmassa kuin mahdollista."
+  },
+  "10(d)(i)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Rannikkoliikennevyöhykkeitä ei yleensä saa käyttää sellainen kauttakulkuliikenne, joka voi turvallisesti käyttää läheisen reittijakojärjestelmän asianmukaista liikennekaistaa."
+  },
+  "10(e)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Muu kuin ylittävä alus ei yleensä saa mennä liikennejakovyöhykkeeseen tai ylittää jakolinjaa paitsi:"
+  },
+  "10(e)(i)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "hätätapauksissa välittömän vaaran välttämiseksi;"
+  },
+  "10(e)(ii)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "harjoittaakseen kalastusta itse liikennejakovyöhykkeessä."
+  },
+  "10(f)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Aluksen, joka navigoi reittijakojärjestelmien päätepisiteiden lähettyvillä, on noudatettava erityistä varovaisuutta."
+  },
+  "10(g)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Aluksen on mahdollisuuksien mukaan vältettävä ankkurointia reittijakojärjestelmässä tai sen päätepisteiden lähettyvillä."
+  },
+  "10(h)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Aluksen, joka ei käytä reittijakojärjestelmää, on kierrettävä se mahdollisimman kaukaa."
+  },
+  "10(i)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Alus, joka harjoittaa kalastusta, ei saa estää minkään liikennekaistaa käyttävän aluksen kulkua."
+  },
+  "10(j)": {
+   "rule_title": "Reittijakojärjestelmät",
+   "text": "Pituudeltaan alle 20 metrin alus tai purjealus ei saa estää liikennekaistaa käyttävän konealuksen turvallista kulkua."
+  },
+  "11": {
+   "rule_title": "Soveltaminen",
+   "text": "Tämän osaston sääntöjä sovelletaan toistensa näkyvissä oleviin aluksiin."
+  },
+  "12(a)": {
+   "rule_title": "Purjealukset",
+   "text": "Kun kaksi purjealusta lähestyy toisiaan niin, että yhteentörmäämisen vaara saattaa syntyä, toisen aluksen on väistettävä toista seuraavasti:"
+  },
+  "12(a)(i)": {
+   "rule_title": "Purjealukset",
+   "text": "kun aluksilla on tuuli eri puolilta, on sen aluksen, jolla on tuuli vasemmalta puolelta, väistettävä toista;"
+  },
+  "12(a)(ii)": {
+   "rule_title": "Purjealukset",
+   "text": "kun aluksilla on tuuli samalta puolelta, on sen aluksen, joka on tuulen puolella, väistettävä alusta, joka on suojan puolella;"
+  },
+  "12(a)(iii)": {
+   "rule_title": "Purjealukset",
+   "text": "jos alus, jolla on tuuli vasemmalta puolelta, näkee aluksen tuulen puolella eikä varmuudella kykene päättämään, onko toisella aluksella tuuli vasemmalta tai oikealta puolelta, on sen väistettävä toista alusta."
+  },
+  "12(b)": {
+   "rule_title": "Purjealukset",
+   "text": "Tätä sääntöä sovellettaessa on tuulen puolena pidettävä sen puolen vastakkaista puolta, jolla isopurje pidetään, tai raakapurjealuksen ollessa kysymyksessä, sen puolen vastakkaista puolta, jolla suurin pitkittäispurje pidetään."
+  },
+  "13(a)": {
+   "rule_title": "Ohitus",
+   "text": "Sen estämättä, mitä tämän osaston säännöissä muutoin on määrätty, jokaisen aluksen, joka ohittaa toista alusta, on väistettävä ohitettavaa alusta."
+  },
+  "13(b)": {
+   "rule_title": "Ohitus",
+   "text": "Alusta on pidettävä ohittavana aluksena, kun se lähestyy toista alusta jostakin suunnasta enemmän kuin 22,5 astetta tämän poikkiviivan perän puolelta eli toisin sanoen on sellaisessa asemassa ohitettavaan alukseen nähden, että se yöllä voisi nähdä ainoastaan tämän perävalon mutta ei sen kumpaakaan sivuvaloa."
+  },
+  "13(c)": {
+   "rule_title": "Ohitus",
+   "text": "Jos alus on epävarma siitä, onko se toiseen alukseen nähden ohittava alus, sen on pidettävä itseään ohittavana aluksena ja toimittava sen mukaisesti."
+  },
+  "13(d)": {
+   "rule_title": "Ohitus",
+   "text": "Mikään myöhempi muutos näiden kahden aluksen välisessä suuntimassa ei tee ohittavasta aluksesta alusta, joka näiden sääntöjen tarkoittamassa mielessä leikkaa toisen aluksen suunnan, eikä vapauta sitä velvollisuudesta pysytellä erillään ohittamastaan aluksesta ennen kuin se on lopullisesti ohittanut tämän ja selviytynyt siitä."
+  },
+  "14(a)": {
+   "rule_title": "Keulat vastakkain -tilanne",
+   "text": "Kun kaksi konealusta lähestyy toisiaan vastakkaisilta tai lähes vastakkaisilta suunnilta niin, että yhteentörmäämisen vaara saattaa syntyä, kummankin aluksen on muutettava suuntaansa oikealle niin, että ne sivuuttavat toisensa vasen sivu vasenta sivua vastaan."
+  },
+  "14(b)": {
+   "rule_title": "Keulat vastakkain -tilanne",
+   "text": "Tällaisen tilanteen katsotaan olevan olemassa, kun alus näkee toisen aluksen suoraan edessään tai melkein suoraan edessään ja yöllä nähdessään toisen aluksen mastovalot linjassa tai melkein linjassa ja/tai molemmat sivuvalot sekä päivällä nähdessään toisen aluksen vastaavasta näkökulmasta."
+  },
+  "14(c)": {
+   "rule_title": "Keulat vastakkain -tilanne",
+   "text": "Jos alus on epävarma siitä, onko tällainen tilanne olemassa, sen on pidettävä tilannetta sellaisena ja toimittava sen mukaisesti."
+  },
+  "15(a)": {
+   "rule_title": "Leikkaavat suunnat",
+   "text": "Kun kahden konealuksen suunnat leikkaavat toisensa niin, että siihen liittyy yhteentörmäämisen vaara, on sen aluksen, jonka oikealla puolella toinen alus on, väistettävä toista alusta ja, jos olosuhteet sen sallivat, vältettävä menemästä toisen keulan editse."
+  },
+  "16": {
+   "rule_title": "Väistämisvelvollisen aluksen toimenpiteet",
+   "text": "Jokaisen aluksen, joka on velvollinen väistämään toista alusta, on, mikäli mahdollista, hyvissä ajoin ryhdyttävä tehokkaisiin toimenpiteisiin selviytyäkseen toisesta aluksesta."
+  },
+  "17(a)(i)": {
+   "rule_title": "Sen aluksen toimenpiteet, joka ei ole väistämisvelvollinen",
+   "text": "Milloin toinen kahdesta aluksesta on velvollinen väistämään, on toisen pidettävä suuntansa ja nopeutensa."
+  },
+  "17(a)(ii)": {
+   "rule_title": "Sen aluksen toimenpiteet, joka ei ole väistämisvelvollinen",
+   "text": "Jälkimmäinen alus voi kuitenkin ryhtyä toimenpiteisiin yhteentörmäämisen välttämiseksi yksinomaan omalla ohjailutoimenpiteellä niin pian kuin on ilmeistä, että väistämisvelvollinen alus ei ryhdy näiden sääntöjen vaatimiin asianmukaisiin toimenpiteisiin."
+  },
+  "17(b)": {
+   "rule_title": "Sen aluksen toimenpiteet, joka ei ole väistämisvelvollinen",
+   "text": "Jos alus, joka on velvollinen pitämään suuntansa ja nopeutensa, huomaa jostakin syystä joutuneensa niin lähelle toista alusta, ettei yhteentörmäämistä voida yksistään väistämisvelvollisen aluksen toimenpiteillä välttää, on myös sen ryhdyttävä sellaisiin toimenpiteisiin, joilla yhteentörmääminen parhaiten voidaan estää."
+  },
+  "17(c)": {
+   "rule_title": "Sen aluksen toimenpiteet, joka ei ole väistämisvelvollinen",
+   "text": "Konealus, joka tilanteessa, jossa alusten suunnat leikkaavat toisensa, ryhtyy tämän säännön a kappaleen 2 kohdan mukaisiin toimenpiteisiin yhteentörmäämisen välttämiseksi toisen konealuksen kanssa, ei saa, mikäli olosuhteet sen sallivat, muuttaa suuntaansa vasemmalle itsestään vasemmalla Puolella olevan aluksen vuoksi."
+  },
+  "17(d)": {
+   "rule_title": "Sen aluksen toimenpiteet, joka ei ole väistämisvelvollinen",
+   "text": "Tämä sääntö ei vapauta väistämisvelvollista alusta sen väistämisvelvollisuudesta."
+  },
+  "18": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "Jollei 9, 10 ja 13 säännössä toisin määrätä:"
+  },
+  "18(a)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "Kulussa olevan konealuksen on väistettävä:"
+  },
+  "18(a)(i)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "ohjailukyvytöntä alusta;"
+  },
+  "18(a)(ii)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "alusta, jonka ohjailukyky on rajoitettu;"
+  },
+  "18(a)(iii)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "alusta, joka harjoittaa kalastusta;"
+  },
+  "18(a)(iv)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "purjealusta."
+  },
+  "18(b)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "Kulussa olevan Purjealuksen on väistettävä:"
+  },
+  "18(b)(i)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "ohjailukyvytöntä alusta;"
+  },
+  "18(b)(ii)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "alusta, jonka ohjailukyky on rajoitettu;"
+  },
+  "18(b)(iii)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "alusta, joka harjoittaa kalastusta."
+  },
+  "18(c)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "Kulussa olevan aluksen, joka harjoittaa kalastusta, on, mikäli mahdollista, väistettävä:"
+  },
+  "18(c)(i)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "ohjailukyvytöntä alusta;"
+  },
+  "18(c)(ii)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "alusta, jonka ohjailukyky on rajoitettu."
+  },
+  "18(d)(i)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "Jokaisen aluksen, lukuun ottamatta ohjailukyvytöntä alusta tai alusta, jonka ohjailukyky on rajoitettu, on, mikäli olosuhteet sen sallivat, vältettävä estämästä sellaisen aluksen turvallista kulkua, jonka liikkuminen on sen syväyksen rajoittama ja joka näyttää 28 säännön mukaisia merkkejä."
+  },
+  "18(d)(ii)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "Aluksen, jonka liikkuminen on sen syväyksen rajoittama, on navigoitava erityisellä varovaisuudella ottaen huomioon erikoistilanteensa."
+  },
+  "18(e)": {
+   "rule_title": "Alusten keskinäiset velvollisuudet",
+   "text": "Vedessä olevan vesilentokoneen on yleensä pysyteltävä erillään kaikista aluksista ja vältettävä estämästä näiden navigointia. Tilanteissa, joissa yhteentörmäämisen vaara on olemassa, vesilentokoneen on kuitenkin noudatettava tämän osan sääntöjä."
+  },
+  "19(a)": {
+   "rule_title": "Alusten toiminta näkyvyyden ollessa rajoitettu",
+   "text": "Tätä sääntöä sovelletaan aluksiin, jotka eivät ole (toistensa näkyvissä navigoidessaan alueella, jolla näkyvyys on rajoitettu, tai sen läheisyydessä."
+  },
+  "19(b)": {
+   "rule_title": "Alusten toiminta näkyvyyden ollessa rajoitettu",
+   "text": "Jokaisen aluksen on kuljettava vallitsevaan tilanteeseen ja rajoitetusta näkyvyydestä johtuviin olosuhteisiin soveltuvalla turvallisella nopeudella. Konealuksen koneiden on oltava välittömästi ohjailuvalmiina."
+  },
+  "19(c)": {
+   "rule_title": "Alusten toiminta näkyvyyden ollessa rajoitettu",
+   "text": "Jokaisen aluksen on Kiinnitettävä asianmukaista huomiota vallitsevaan tilanteeseen ja rajoitetusta näkyvyydestä johtuviin olosuhteisiin noudattaessaan tämän osan I osaston sääntöjä."
+  },
+  "19(d)": {
+   "rule_title": "Alusten toiminta näkyvyyden ollessa rajoitettu",
+   "text": "Aluksen, joka ainoastaan tutkan avulla toteaa toisen aluksen, on arvioitava, onko lähitilanne kehittymässä ja/tai onko yhteentörmäämisen vaara olemassa. Milloin näin on, aluksen on ryhdyttävä väistötoimenpiteisiin hyvissä ajoin ja, jos tämä toimenpide on suunnanmuutos, on mikäli mahdollista vältettävä:"
+  },
+  "19(d)(i)": {
+   "rule_title": "Alusten toiminta näkyvyyden ollessa rajoitettu",
+   "text": "suunnanmuutosta vasemmalle poikkiviivan keulan puolella olevan aluksen takia, lukuun ottamatta ohitettavaa alusta;"
+  },
+  "19(d)(ii)": {
+   "rule_title": "Alusten toiminta näkyvyyden ollessa rajoitettu",
+   "text": "suunnanmuutosta poikkiviivan kohdalla tai sen perän puolella olevaa alusta kohti."
+  },
+  "19(e)": {
+   "rule_title": "Alusten toiminta näkyvyyden ollessa rajoitettu",
+   "text": "Ellei ole todettu, ettei yhteentörmäämisen vaaraa ole olemassa, on jokaisen aluksen, joka kuulee toisen aluksen sumumerkin ilmeisesti poikkiviivansa keulan puolelta tai joka ei voi välttää lähitilannetta poikkiviivansa keulan puolella olevan aluksen kanssa, vähennettävä nopeutensa vähimpään mahdolliseen, jolla se voi pitää suuntansa. Jos on välttämätöntä, aluksen on pysähdyttävä kokonaan ja joka tapauksessa navigoitava äärimmäisen varovasti, kunnes yhteentörmäämisen vaara on ohi."
+  },
+  "20(a)": {
+   "rule_title": "Soveltaminen",
+   "text": "Tämän osan sääntöjä on noudatettava kaikissa sääolosuhteissa."
+  },
+  "20(b)": {
+   "rule_title": "Soveltaminen",
+   "text": "Valoja koskevia sääntöjä on noudatettava auringonlaskusta auringonnousuun, eikä sinä aikana saa näyttää muita valoja, paitsi sellaisia, joita ei voida erehtyä käsittämään näissä säännöissä määrätyiksi valoiksi tai jotka eivät heikennä niiden näkyvyyttä tai tunnusten selvyyttä eivätkä haittaa asianmukaista tähystystä."
+  },
+  "20(c)": {
+   "rule_title": "Soveltaminen",
+   "text": "Näissä säännöissä määrättyjä valoja, milloin ne on asennettu, on näkyvyyden ollessa rajoitettu näytettävä myös auringonnoususta auringonlaskuun, ja niitä voidaan näyttää kaikissa muissakin olosuhteissa, joissa se katsotaan tarpeelliseksi."
+  },
+  "20(d)": {
+   "rule_title": "Soveltaminen",
+   "text": "Merkkikuvioita koskevia sääntöjä on noudatettava päivällä."
+  },
+  "20(e)": {
+   "rule_title": "Soveltaminen",
+   "text": "Näissä säännöissä määrättyjen valojen ja merkkikuvioiden on täytettävä näiden sääntöjen I liitteen määräykset."
+  },
+  "21(a)": {
+   "rule_title": "Määritelmät",
+   "text": "Mastovalo tarkoittaa aluksen pitkittäiskeskiviivan yläpuolelle asetettua valkoista valoa, joka näkyy keskeytymättömänä 225 asteen suuruisessa näköpiirin kaaressa ja on niin asennettu, että se näkyy suoraan keulasta 22,5 astetta aluksen poikkiviivan perän puolelle kummallakin sivulla."
+  },
+  "21(b)": {
+   "rule_title": "Määritelmät",
+   "text": "Sivuvalot tarkoittavat vihreää valoa oikealla sivulla ja punaista valoa vasemmalla sivulla, jotka molemmat näkyvät keskeytymättömänä 112,5 asteen suuruisessa näköpiirin kaaressa ja ovat niin asennetut, että ne näkyvät suoraan edestä 22,5 astetta aluksen poikkiviivan perän puolelle vastaavasti oikealla ja vasemmalla puolella. Pituudeltaan alle 20 metrin aluksessa voidaan sivuvalot asentaa yhdistettyyn lyhtyyn aluksen pitkittäiskeskiviivalle."
+  },
+  "21(c)": {
+   "rule_title": "Määritelmät",
+   "text": "Perävalo tarkoittaa niin lähelle aluksen perää kuin mahdollista asetettua valkoista valoa, joka näkyy keskeytymättömänä 135 asteen suuruisessa näköpiirin kaaressa ja on niin asennettu, että se näkyy 67,5 astetta suoraan perästä aluksen kummallekin puolelle."
+  },
+  "21(d)": {
+   "rule_title": "Määritelmät",
+   "text": "Hinausvalo tarkoittaa keltaista valoa, jolla on samat ominaisuudet kuin tämän säännön c kappaleessa määritellyllä perävalolla."
+  },
+  "21(e)": {
+   "rule_title": "Määritelmät",
+   "text": "Ympäri näköpiirin näkyvä valo tarkoittaa valoa, joka näkyy keskeytymättömänä 360 asteen suuruisessa näköpiirin kaaressa."
+  },
+  "21(f)": {
+   "rule_title": "Määritelmät",
+   "text": "Vilkkuvalo tarkoittaa valoa, joka säännöllisin väliajoin vilkkuu 120 kertaa tai enemmän minuutissa."
+  },
+  "22": {
+   "rule_title": "Valojen näkyvyys",
+   "text": "Näissä säännöissä määrätyillä valoilla on oltava näiden sääntöjen I liitteen 8 kohdan määräysten mukainen voima näkyäkseen seuraavilla vähimmäisetäisyyksillä:"
+  },
+  "22(a)": {
+   "rule_title": "Valojen näkyvyys",
+   "text": "Pituudeltaan vähintään 50 metrin aluksessa: --  mastovalo, 6 meripeninkulmaa; --  sivuvalo, 3 meripeninkulmaa; --  perävalo, 3 meripeninkulmaa; --  hinausvalo, 3 meripeninkulmaa; --  valkoinen, punainen, vihreä tai keltainen ympäri näköpiirin näkyvä valo, 3 meripeninkulmaa."
+  },
+  "22(b)": {
+   "rule_title": "Valojen näkyvyys",
+   "text": "Pituudeltaan vähintään 12 metrin mutta alle 50 metrin aluksessa: --  mastovalo, 5 meripeninkulmaa; paitsi pituudeltaan alle 20 metrin aluksessa 3 meripeninkulmaa; -  sivuvalo, 2 meripeninkulmaa; -  perävalo, 2 meripeninkulmaa; -  hinausvalo, 2 meripeninkulmaa; -  valkoinen, punainen, vihreä tai keltainen ympäri näköpiirin näkyvä valo, 2 meripeninkulmaa."
+  },
+  "22(c)": {
+   "rule_title": "Valojen näkyvyys",
+   "text": "Pituudeltaan alle 12 metrin aluksessa: -  mastovalo, 2 meripeninkulmaa; -  sivuvalo, 1 meripeninkulma; -  perävalo, 2 meripeninkulmaa; -  hinausvalo, 2 meripeninkulmaa; -  valkoinen, Punainen, vihreä tai keltainen ympäri näköpiirin näkyvä valo, 2 meripeninkulmaa."
+  },
+  "23(a)": {
+   "rule_title": "Kulussa olevat konealukset",
+   "text": "Kulussa olevan konealuksen on näytettävä seuraavia valoja:"
+  },
+  "23(a)(i)": {
+   "rule_title": "Kulussa olevat konealukset",
+   "text": "mastovalo aluksen keulaosassa;"
+  },
+  "23(a)(ii)": {
+   "rule_title": "Kulussa olevat konealukset",
+   "text": "toinen mastovalo perän puolella ja korkeammalla kuin keulaosassa oleva mastovalo; pituudeltaan alle 50 metrin alus ei ole velvollinen näyttämään tällaista valoa, mutta voi sitä näyttää;"
+  },
+  "23(a)(iii)": {
+   "rule_title": "Kulussa olevat konealukset",
+   "text": "sivuvalot;"
+  },
+  "23(a)(iv)": {
+   "rule_title": "Kulussa olevat konealukset",
+   "text": "perävalo."
+  },
+  "23(b)": {
+   "rule_title": "Kulussa olevat konealukset",
+   "text": "Ilmatyynyaluksen on liikkuessaan ilman uppoamaa näytettävä tämän säännön a kappaleessa määrättyjen valojen lisäksi ympäri näköpiirin näkyvää keltaista vilkkuvaloa."
+  },
+  "23(c)": {
+   "rule_title": "Kulussa olevat konealukset",
+   "text": "Pituudeltaan alle 7 metrin konealus, jonka suurin nopeus on enintään 7 solmua, voi tämän säännön a kappaleessa määrättyjen valojen asemesta näyttää ympäri näköpiirin näkyvää valkoista valoa. Tällaisen aluksen on, milloin mahdollista, näytettävä myös sivuvaloja."
+  },
+  "24(a)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "Hinaavan konealuksen on näytettävä seuraavia valoja ja merkkikuvioita:"
+  },
+  "24(a)(i)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "kaksi mastovaloa pystysuoraan päällekkäin aluksen keulaosassa 23 säännön a kappaleen 1 kohdassa määrätyn valon asemesta ja kun hinauksen pituus hinaavan aluksen perästä hinattavan perään on enemmän kuin 200 metriä, kolme tällaista valoa pystysuoraan päällekkäin;"
+  },
+  "24(a)(ii)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "sivuvalot;"
+  },
+  "24(a)(iii)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "perävalo;"
+  },
+  "24(a)(iv)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "hinausvalo pystysuoraan perävalon yläpuolella;"
+  },
+  "24(a)(v)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "kaksoiskartio, parhaiten näkyvässä paikassa, jos hinauksen pituus on enemmän kuin 200 metriä."
+  },
+  "24(b)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "Milloin työntävä ja työnnettävä alus ovat jäykästi kiinnitettyinä toisiinsa muodostaen yhdistelmäyksikön, ne on katsottava yhdeksi konealukseksi ja niiden on näytettävä 23 (säännössä määrättyjä valoja."
+  },
+  "24(c)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "Lukuun ottamatta yhdistelmäyksikköä on konealuksen, joka työntää tai hinaa sivulla, näytettävä seuraavia valoja: 1) kaksi mastovaloa pystysuoraan päällekkäin aluksen keulaosassa 23 säännön a kappaleen 1 kohdassa määrätyn valon asemesta; 2) sivuvalot; 3) perävalo."
+  },
+  "24(d)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "Konealukseen, johon sovelletaan tämän säännön a ja c kappaletta, on myös sovellettava 23 säännön a kappaleen 2 kohtaa."
+  },
+  "24(e)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "Aluksen tai esineen, jota hinataan, on näytettävä seuraavia valoja ja merkkikuvioita: 1) sivuvalot; 2) perävalo; 3) kaksoiskartio, parhaiten näkyvässä paikassa, jos hinauksen pituus on enemmän kuin 200 metriä."
+  },
+  "24(f)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "Edellyttäen, että useita aluksia hinataan sivulta tai työnnetään ryhmässä, niiden on näytettävä valoja kuin ne olisivat yksi alus, 1) aluksen, jota työnnetään ja joka ei ole osana yhdistelmäyksiköstä, on näytettävä sivuvaloja keulaosassa; 2) aluksen, jota hinataan sivulla, on näytettävä perävaloa ja keulaosassa sivuvaloja."
+  },
+  "24(h)": {
+   "rule_title": "Hinaaminen ja työntäminen",
+   "text": "Milloin jonkin pätevän syyn takia hinattavan aluksen tai esineen ei ole käytännössä mahdollista näyttää tämän säännön e kappaleessa määrättyjä valoja, on ryhdyttävä kaikkiin mahdollisiin toimenpiteisiin hinattavan aluksen tai esineen valaisemiseksi tai ainakin sen osoittamiseksi, että läheisyydessä on alus tai esine ilman valoja."
+  },
+  "25(a)": {
+   "rule_title": "Kulussa olevat purjealukset ja soutuveneet",
+   "text": "Kulussa olevan purjealuksen on näytettävä seuraavia valoja: 1) sivuvalot; 2) perävalo."
+  },
+  "25(b)": {
+   "rule_title": "Kulussa olevat purjealukset ja soutuveneet",
+   "text": "Pituudeltaan alle 12 metrin purjealuksessa voidaan pitää tämän säännön a kappaleessa määrätyt valot yhdistetyssä lyhdyssä maston huipussa tai lähellä huippua parhaiten näkyvässä paikassa."
+  },
+  "25(c)": {
+   "rule_title": "Kulussa olevat purjealukset ja soutuveneet",
+   "text": "Tämän säännön a kappaleessa määrättyjen valojen lisäksi kulussa oleva purjealus voi näyttää mastonsa huipussa tai lähellä huippua, parhaiten näkyvässä paikassa, kahta pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää valoa, joista ylempi on punainen ja alempi vihreä. Näitä valoja ei saa näyttää yhtäaikaisesti tämän säännön b kappaleessa sallitun yhdistetyn lyhdyn kanssa."
+  },
+  "25(d)(i)": {
+   "rule_title": "Kulussa olevat purjealukset ja soutuveneet",
+   "text": "Pituudeltaan alle 7 metrin purjeveneen on, milloin käytännössä mahdollista, näytettävä tämän säännön a tai b kappaleessa määrättyjä valoja, mutta jollei se näytä niitä, sen on pidettävä valmiina saatavilla valkoista valoa näyttävä sähkölamppu tai sytytetty lyhty, jota on näytettävä riittävän hyvissä ajoin yhteentörmäämisen ehkäisemiseksi."
+  },
+  "25(d)(ii)": {
+   "rule_title": "Kulussa olevat purjealukset ja soutuveneet",
+   "text": "Soutuvene voi näyttää tässä säännössä purjealuksille määrättyjä valoja, mutta jollei se näytä niitä, sen on pidettävä valmiina saatavilla valkoista valoa näyttävä sähkölamppu tai sytytetty lyhty, jota on näytettävä riittävän hyvissä ajoin yhteentörmäämisen ehkäisemiseksi"
+  },
+  "25(e)": {
+   "rule_title": "Kulussa olevat purjealukset ja soutuveneet",
+   "text": "Aluksen, joka kulkee purjein käyttäen samalla kuljetusvoimanaan konetta, on näytettävä keulaosassaan parhaiten näkyvässä paikassa kartiota kärki alaspäin."
+  },
+  "26(a)": {
+   "rule_title": "Kalastusalukset",
+   "text": "Aluksen, joka harjoittaa kalastusta, on kulussa tai ankkuroituna ollessaan näytettävä vain tässä säännössä määrättyjä valoja ja merkkikuvioita."
+  },
+  "26(b)": {
+   "rule_title": "Kalastusalukset",
+   "text": "Aluksen, joka harjoittaa laahuskalastusta, jolla tarkoitetaan laahusnuotan tai muun pyydyksen vetämistä veden halki, on näytettävä:"
+  },
+  "26(b)(i)": {
+   "rule_title": "Kalastusalukset",
+   "text": "kahta pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää valoa, joista ylempi on vihreä ja alempi valkoinen, tai merkkikuviota, jonka muodostaa kaksi pystysuoraan päällekkäin kärjet vastakkain olevaa kartiota; pituudeltaan alle 20 metrin alus voi tämän merkkikuvion asemesta näyttää koria;"
+  },
+  "26(b)(ii)": {
+   "rule_title": "Kalastusalukset",
+   "text": "mastovaloa perän puolella ja korkeammalla kuin ympäri näköpiirin näkyvä vihreä valo; pituudeltaan alle 50 metrin alus ei ole velvollinen näyttämään tällaista valoa mutta voi näyttää sitä;"
+  },
+  "26(b)(iii)": {
+   "rule_title": "Kalastusalukset",
+   "text": "liikkuessaan veden halki tässä kappaleessa määrättyjen valojen lisäksi sivuvaloja ja perävaloa."
+  },
+  "26(c)": {
+   "rule_title": "Kalastusalukset",
+   "text": "Aluksen, joka harjoittaa muuta kalastusta kuin laahuskalastusta, on näytettävä:"
+  },
+  "26(c)(i)": {
+   "rule_title": "Kalastusalukset",
+   "text": "kahta pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää valoa, joista ylempi on punainen ja alempi valkoinen, tai merkkikuviota, jonka muodostaa kaksi pystysuoraan päällekkäin kärjet vastakkain olevaa kartiota; pituudeltaan alle 20 metrin alus voi tämän merkkikuvion asemesta näyttää koria;"
+  },
+  "26(c)(ii)": {
+   "rule_title": "Kalastusalukset",
+   "text": "milloin pyydykset ulottuvat pitemmälle kuin 150 metriä vaakasuoraan aluksesta, ympäri näköpiirin näkyvää valkoista valoa tai kartiota kärki ylöspäin pyydyksen suuntaan;"
+  },
+  "26(c)(iii)": {
+   "rule_title": "Kalastusalukset",
+   "text": "liikkuessaan veden halki tässä kappaleessa määrättyjen valojen lisäksi sivuvaloja ja perävaloa."
+  },
+  "26(d)": {
+   "rule_title": "Kalastusalukset",
+   "text": "Alus, joka harjoittaa kalastusta välittomästi toisten kalastusta harjoittavien alusten läheisyydessä, voi näyttää näiden sääntöjen II liitteessä mainittuja lisävaloja."
+  },
+  "26(e)": {
+   "rule_title": "Kalastusalukset",
+   "text": "Alus, kun se ei harjoita kalastusta, ei saa näyttää tässä säännössä määrättyjä valoja tai merkkikuvioita vaan ainoastaan vastaavan pituiselle alukselle määrättyjä valoja tai merkkikuvioita."
+  },
+  "27(a)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Ohjailukyvyttömän aluksen on näytettävä:"
+  },
+  "27(a)(i)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "kahta pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää punaista valoa, parhaiten näkyvässä paikassa;"
+  },
+  "27(a)(ii)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "kahta pystysuoraan päällekkäin olevaa palloa tai pallon muotoista merkkikuviota, parhaiten näkyvässä paikassa;"
+  },
+  "27(a)(iii)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "liikkuessaan veden halki, tässä kappaleessa määrättyjen valojen lisäksi sivuvaloja ja perävaloa."
+  },
+  "27(b)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Aluksen, jonka ohjailukyky on rajoitettu, lukuun ottamatta miinanraivausta suorittavaa alusta, on näytettävä:"
+  },
+  "27(b)(i)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "kolmea pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää valoa, parhaiten näkyvässä paikassa. Ylimmän ja alimman näistä valoista on oltava punainen sekä keskimmäisen valkoinen;"
+  },
+  "27(b)(ii)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "kolmea pystysuoraan päällekkäin olevaa merkkikuviota parhaiten näkyvässä paikassa. Ylimmän ja alimman näistä merkkikuvioista on oltava palloja sekä keskimmäisen kaksoiskartio;"
+  },
+  "27(b)(iii)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "liikkuessaan veden halki tämän kappaleen 1 kohdassa määrättyjen valojen lisäksi mastovaloja, sivuvaloja ja perävaloa;"
+  },
+  "27(b)(iv)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "ankkuroituna ollessaan tämän kappaleen 1 ja 2 kohdassa määrättyjen valojen tai merkkikuvioiden lisäksi valoa, valoja tai merkkikuviota, joista määrätään 30 säännössä."
+  },
+  "27(c)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Aluksen, joka suorittaa senlaatuista hinausta, ettei se voi poiketa suunnastaan, on näytettävä tämän säännön b kappaleen 1 ja 2 kohdassa määrättyjen valojen ja merkkikuvioiden lisäksi valoja tai merkkikuviota, joista määrätään 24 säännön a kappaleessa."
+  },
+  "27(d)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Ruoppausta tai vedenalaista työtä suorittavan aluksen, jonka ohjailukyky on rajoitettu, on näytettävä tämän säännön b kappaleessa määrättyjä valoja ja merkkikuvioita ja on tämän lisäksi, kun este on olemassa, näytettävä:"
+  },
+  "27(d)(i)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "kahta pystysuoraan päällekkäin olevaa ympäri näköpiirin näkyvää punaista valoa tai kahta Pystysuoraan päällekkäin olevaa palloa osoittamaan sitä puolta, jolla on este;"
+  },
+  "27(d)(ii)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "kahta pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää vihreää valoa tai kahta pystysuoraan päällekkäin olevaa kaksoiskartiota osoittamaan sitä puolta, jolta ohitus voi tapahtua;"
+  },
+  "27(d)(iii)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "aluksen, johon tämän kappaleen määräyksiä sovelletaan, on näytettävä ankkuroituna ollessaan 30 säännössä määrättyjen valojen tai merkkikuvion asemesta tämän kappaleen 1 ja 2 kohdassa määrättyjä valoja tai merkkikuvioita."
+  },
+  "27(e)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Milloin sukellustoimintaa harjoitetaan sen kokoiselta alukselta, että sen on käytännössä mahdotonta näyttää tämän säännön d kappaleessa määrättyjä merkkikuvioita, on aluksen näytettävä kansainvälistä viestilippua A vähintään 1 metrin korkuisena levynä."
+  },
+  "27(e)(ii)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "On varmistauduttava siitä, että merkkikuvio näkyy ympäri näköpiirin."
+  },
+  "27(f)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Aluksen, joka suorittaa miinanraivausta, on näytettävä 23 säännössä konealukselle määrättyjen valojen lisäksi kolmea ympäri näköpiirin näkyvää vihreää valoa tai kolmea palloa. Yhtä näistä valoista tai merkkikuvioista on näytettävä keulamaston huipussa tai lähellä huippua ja yhtä keularaa\\\"an kummassakin nokassa. Nämä valot tai merkkikuviot osoittavat, että toisen aluksen on vaarallista tulla 1000 metriä lähemmäksi miinanraivaajan peräpuolta tai 500 metriä lähemmäksi sen kumpaakaan sivua."
+  },
+  "27(g)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Pituudeltaan alle 7 metrin alus ei ole velvollinen näyttämään tässä säännössä määrättyjä valoja."
+  },
+  "27(h)": {
+   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
+   "text": "Tässä säännössä määrätyt valot ja merkkikuviot eivät ole hädässä olevien ja apua pyytävien alusten merkkejä. Sellaiset merkit määritellään näiden sääntöjen IV liitteessä."
+  },
+  "28": {
+   "rule_title": "Alukset, joiden liikkuminen on syväyksen rajoittama",
+   "text": "Alus, jonka liikkumista rajoittaa sen syväys, voi konealukselle 23 säännössä määrättyjen valojen lisäksi näyttää, parhaiten näkyvässä paikassa, lieriötä tai kolmea pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää punaista valoa."
+  },
+  "29(a)": {
+   "rule_title": "Luotsialukset",
+   "text": "Luotsaustehtävissä olevan aluksen on näytettävä:"
+  },
+  "29(a)(i)": {
+   "rule_title": "Luotsialukset",
+   "text": "maston huipussa tai lähellä huippua, kahta pystysuoraan päällekkäin olevaa, ympäri näköpiirin näkyvää valoa, joista ylempi on valkoinen ja alempi punainen;"
+  },
+  "29(a)(ii)": {
+   "rule_title": "Luotsialukset",
+   "text": "kulussa ollessaan lisäksi sivuvaloja ja perävaloa;"
+  },
+  "29(a)(iii)": {
+   "rule_title": "Luotsialukset",
+   "text": "ankkuroituna ollessaan 1 kohdassa määrättyjen valojen lisäksi ankkurivaloa, valoja tai merkkikuviota."
+  },
+  "29(b)": {
+   "rule_title": "Luotsialukset",
+   "text": "Luotsialuksen, kun se ei ole luotsaustehtävissä, on näytettävä valoja tai merkkikuvioita, jotka on määrätty vastaavanlaiselle ja samanpituiselle alukselle."
+  },
+  "30(a)": {
+   "rule_title": "Ankkuroidut ja karilla olevat alukset",
+   "text": "Aluksen on ankkuroituna ollessaan näytettävä parhaiten näkyvässä paikassa: 1) keulaosassa ympäri näköpiirin näkyvää valkoista valoa tai palloa; 2) perässä tai lähellä perää ja 1 kohdassa määrättyä valoa alempana ympäri näköpiirin näkyvää valkoista valoa."
+  },
+  "30(b)": {
+   "rule_title": "Ankkuroidut ja karilla olevat alukset",
+   "text": "Pituudeltaan alle 50 metrin alus voi näyttää tämän säännön a kappaleessa määrättyjen valojen asemesta, parhaiten näkyvässä paikassa, ympäri näköpiirin näkyvää valkoista valoa."
+  },
+  "30(c)": {
+   "rule_title": "Ankkuroidut ja karilla olevat alukset",
+   "text": "Ankkuroituna ollessaan alus voi käyttää ja pituudeltaan vähintään 100 metrin aluksen on käytettävä myös saatavissa olevia työ- tai vastaavia valoja kansien valaisemiseksi."
+  },
+  "30(d)": {
+   "rule_title": "Ankkuroidut ja karilla olevat alukset",
+   "text": "Karilla olevan aluksen on näytettävä tämän säännön a tai b kappaleessa määrättyjä valoja sekä lisäksi parhaiten näkyvässä paikassa: 1) kahta ympäri näköpiirin näkyvää punaista valoa pystysuoraan päällekkäin; 2) kolmea palloa pystysuoraan päällekkäin."
+  },
+  "30(e)": {
+   "rule_title": "Ankkuroidut ja karilla olevat alukset",
+   "text": "Pituudeltaan alle 7 metrin alus ollessaan ankkuroituna tai karilla palkassa, joka ei ole ahtaassa väylässä, kulkuvedessä tai ankkurointipaikassa tai näiden läheisyydessä tai missä muut alukset yleensä liikennöivät, ei ole velvollinen näyttämään tämän säännön a, b tai d kappaleessa määrättyjä valoja tai merkkikuvioita."
+  },
+  "31": {
+   "rule_title": "Vesilentokoneet",
+   "text": "Milloin vesilentokoneen on käytännössä mahdotonta näyttää valoja ja merkkikuvioita siten kuin tämän osan säännöissä on määrätty niiden tunnuksista ja sijoituksista, sen on näytettävä valoja ja merkkikuvioita, joiden tunnukset ja sijoitukset mahdollisimman läheisesti vastaavat niitä."
+  }
+ }
+}
