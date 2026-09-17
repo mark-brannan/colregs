@@ -107,7 +107,8 @@ the rest without redesign.
 - **REQ-PART-3** — Sound and light signals (Part D, Rules 32–37) SHOULD be
   representable by the same entry model. Where they are not — signals are
   event-triggered rather than state-derived — the divergence MUST be recorded
-  as an ADR before any Part D data is written.
+  as an ADR before any Part D data is written. ADR 0022 is that record: the
+  divergence is one fact class, `act`, not a dimension.
 - **REQ-PART-4** — ~~Steering and sailing rules (Part B) are OUT of v1 scope and
   MAY never be modelled; they govern conduct between two vessels, not the
   appearance of one, and the fact record is single-vessel by construction.~~
@@ -289,7 +290,7 @@ towards, not because the shape is settled.
   `data/facts.json` under `situation`, and MUST address each vessel's facts
   through the subject namespace of `docs/identifiers.md`:
   `<subject>:<class>:<key>`, subject from `self`/`other`/`pair`, class from
-  `fact`/`kin`/`geo`/`hist`/`env`. A key with no subject segment MUST mean `self:`,
+  `fact`/`kin`/`geo`/`hist`/`env`/`act` (`act` pencilled by ADR 0022). A key with no subject segment MUST mean `self:`,
   so that every predicate and fixture published today is a valid situation
   predicate unedited. `self:fact:*` and `other:fact:*` MUST resolve to the
   per-vessel fact record key for key, with no key renamed or copied.
@@ -709,7 +710,12 @@ other, so the prose and the registry cannot drift apart.
 Tracked here until resolved; each becomes an ADR.
 
 - **Q-1** — Do Part D sound signals fit the entry model, or do they need an
-  event dimension? Blocks REQ-PART-3.
+  event dimension? Blocks REQ-PART-3. **Decided in pencil 2026-09-17
+  (ADR 0022): they fit.** Rule 35 is state over facts the record carries;
+  Rule 34(a)–(d) reads what self is doing, an `act` class of the situation
+  record supplied by the consumer like `fact:making_way`, not an event
+  stream. Settled by the first Rule 34 entry landing against
+  `evaluateEncounter`.
 - **Q-2** — Are the USCG scans the educational payload, or a stopgap until
   light geometry is rendered from data? Affects how hard REQ-PROV-5 is pushed.
 - **Q-3** — Jurisdiction licence terms. **Verified 2026-09-05** against
