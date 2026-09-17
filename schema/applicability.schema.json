@@ -22,7 +22,7 @@
       ]
     },
     "representedCategory": {
-      "$comment": "The categories a represented paragraph may carry: no verb computes them. `category:care` and `category:meta` read everything; a `category:scope` paragraph that shifts another rule's modality rather than producing a signal of its own (ADR 0021) is represented too.",
+      "$comment": "The categories a represented paragraph may carry. Shared with the evaluation envelope; ADR 0021 admitted `category:scope`.",
       "type": "string",
       "enum": [
         "category:care",

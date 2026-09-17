@@ -1085,11 +1085,7 @@ test('every represented_paragraphs record has category care, meta or scope', () 
   }
 })
 
-// The enum in the evaluation envelope drifted behind the data once: ADR 0021
-// added the two `category:scope` records and every engine conformance case
-// that carried them failed schema validation. Both enums are now one `$def`,
-// and this replays the real records through the envelope's own subschema so a
-// future category cannot reach the data without reaching the envelope.
+// The category vocabulary is one `$def`; this holds the envelope to the data.
 test('every represented_paragraphs record validates as an evaluation envelope representedParagraph (REQ-CAT-2)', () => {
   const validate = ajv.getSchema(`${SCHEMA_BASE}evaluation.schema.json#/$defs/representedParagraph`)
   assert.ok(validate, 'evaluation.schema.json#/$defs/representedParagraph does not resolve')
