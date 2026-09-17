@@ -9,6 +9,11 @@
      "amended_through": "A.1085(28)",
      "in_force": "2016-01-01",
      "note": "2013 amendment (Part F) verified on imo.org; the resolution number and date are recalled, not yet verified against the resolution text -- REQ-LANG-10."
+    },
+    "intl@1977": {
+     "amended_through": "none (original 1972 text as promulgated)",
+     "in_force": "1977-07-15",
+     "note": "The 1972 Convention as promulgated in Finland (SopS 30/1977), before any IMO amendment. Verified against the Finlex text itself (REQ-LANG-10): it lacks Rule 3(m), 8(f), 10(d)(ii)/(k)/(l), 18(f), 22(d), 23(c), 23(d)(i)/(iii), 24(g)-(i), 27(e)(i) and 30(f); its own 23(c) is the paragraph now numbered 23(d)(ii) and its 24(g) the one now numbered 24(h). The corpus gaps say which amendment each belongs to."
     }
    }
   },
