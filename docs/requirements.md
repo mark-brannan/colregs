@@ -165,14 +165,14 @@ Four layers, each independently addressable.
 - **REQ-MODEL-6** — Entries MUST compose. Multiple entries applying to one fact
   record is the normal case, not an error (Rule 28 is "in addition to" Rule 23).
 - **REQ-MODEL-7** — Five relations MUST be supported:
-  - `rel:includes` — import another entry's **lights only**, never its predicate;
-  - `rel:in_lieu_of` — legal alternatives for the same fact record;
+  - `rel:includes` — import another entry's lights, modality and scalar gates, never its axes (ADR 0019);
+  - `rel:in_lieu_of` — legal alternatives for the same fact record; overlapping targets are alternatives to each other (ADR 0019);
   - `rel:excludes` — mutual exclusion, including across rules; symmetric
     (A excludes B implies B excludes A), and no participating entry MAY be
     forceful (`modality:shall`/`modality:shall-if-practicable`) — a directed "this one
-    prevails" is `rel:overrides` (ADR 0007), not `rel:excludes`;
-  - `rel:exempts` — one entry lifting another's obligation;
-  - `rel:conditional_includes` — import or alternatives, gated on a predicate.
+    prevails" is `rel:overrides` (ADR 0007), not `rel:excludes`; a constraint on one display, never a removal (ADR 0019);
+  - `rel:exempts` — one entry lifting another's obligation; reaches an entry in force, never an import (ADR 0019);
+  - `rel:conditional_includes` — import or alternatives, gated on a predicate; a `one_of` yields exactly one per display, or none under a `may` carrier (ADR 0019).
   The five are not interchangeable; README.md holds the working semantics.
 - **REQ-MODEL-13** — Where a condition goes is not a style choice. A
   condition on whether a paragraph *applies to this vessel at all* MUST be in
