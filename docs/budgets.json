@@ -27,7 +27,8 @@
     "docs/adr/0019-relation-reach-and-import-reads.md": 110,
     "docs/timeline.md": 130,
     "docs/maritime-sources.md": 130,
-    "docs/decisions.md": 40
+    "docs/decisions.md": 40,
+    "docs/adr/0020-skeleton-is-a-delta.md": 110
   },
   "json_prose": {
     "targets": [
