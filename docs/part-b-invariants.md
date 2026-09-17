@@ -396,7 +396,9 @@ without further action by the give-way vessel.
 - **Formally.** Reachability over the stand-on vessel's manoeuvring envelope:
   `Safe(s, σ_own, σ_other)` of ADR 0005 §5 with the give-way strategy set
   unconstrained — the first Part B invariant needing `kin:dynamics`.
-- **Reading in doubt.** Suspension or exception: `Q-53`.
+- **Ruled reading.** Exception, not suspension (`Q-53`, 2026-09-16): the
+  17(a)(i) duty stands and the only lawful departure is action to avoid
+  collision; a checker flags any other alteration.
 
 ### INV-17b — phase 3: the stand-on vessel shall act
 

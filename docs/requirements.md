@@ -1456,9 +1456,10 @@ nothing is blocked while open.
   *Suspension:* "may, however" lifts the duty once non-compliance is apparent;
   a monitor then flags nothing. *Exception:* the duty stands and a departure is
   lawful only as action to avoid collision by her manoeuvre alone; a monitor
-  flags any other alteration. No default (Rule 17 has no entry). Recommend
-  **exception**: 17(a)(ii) describes an action, not a proviso, and leaves a
-  monitor something to check — a drafting argument, not a source.
+  flags any other alteration. No default (Rule 17 has no entry). **Ruled
+  2026-09-16:** exception — once it is clear she must act, she must act to
+  avoid collision and nothing else is licensed; 17(a)(ii)'s "may" and 17(b)'s
+  "shall" stand as written. Purpose, not source (colregs#72); read with `Q-54`.
 - **Q-54** — **Are Rule 17's phases monotone?** *Monotone:* one three-valued
   marker per stand-on vessel per encounter; late compliance does not take the
   permission away. *Re-evaluating:* each phase is a predicate on the current
@@ -1471,8 +1472,9 @@ nothing is blocked while open.
   becomes of a 13(d) overtaking history or a Rule 17 phase. *Persisting:* they belong to the
   encounter and survive the fog. *Resetting:* Section II starts afresh on the
   geometry when sight is regained — the reclassification 13(d) forbids, via
-  visibility. No default (nothing is temporal). Recommend **persisting**, which
-  `INV-13d`'s "same encounter" is written for; likeliest surprising TLC trace.
+  visibility. No default (nothing is temporal). **Deferred indefinitely** (Solace,
+  2026-09-16): no authority either way (colregs#72); scenario contrived. Lean, not
+  ruling: **resetting** — a new encounter after the fog; persisting withdrawn.
 - **Q-56** — **The third visibility state: a hole, or closed by the model?**
   Not in sight *and* not in or near restricted visibility (clear weather, beyond
   visual range, radar contact) is outside Rule 11 and 19(a): Section I only.
@@ -1494,7 +1496,5 @@ module, expensive after.
 
 A third, ruled rather than pencil: **`docs/part-b-invariants.md` stays
 hand-written Markdown; no derived JSON registry.** Ruled 2026-09-08. Revisit
-only if P4.2's TLA+ needs to cite `INV-` ids mechanically — the id scheme
-just above is already the cheap-to-change half of that trigger, so the
-revisit costs one file's worth of tooling, not a re-derivation of the ids
-themselves.
+only if P4.2's TLA+ needs to cite `INV-` ids mechanically; the cost then is one
+file's worth of tooling, not a re-derivation of the ids.
