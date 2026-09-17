@@ -126,8 +126,10 @@ doesn't self-cancel at 1.0 — someone has to deliberately remove it then.
 ## Coverage (changes as jurisdictions/parts land — check README.md, not this file, for current state)
 
 Part C lights and day shapes (Rules 20–31), `intl` jurisdiction; a record
-reads as night unless it states `fact:time: time:day`. Part D signals and
-every non-`intl` jurisdiction are modelled for but not yet present.
+reads as night unless it states `fact:time: time:day`, and by day Rule 20(c)
+makes the lights `modality:may` in good visibility rather than silencing them
+(ADR 0021). Part D signals and every non-`intl` jurisdiction are modelled for
+but not yet present.
 
 ## Prose budget
 

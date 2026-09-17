@@ -188,7 +188,16 @@
    ],
    "cite": "20(d)",
    "actuable": true,
-   "note": "Rule 20(d)'s gate: only the day-shape entries read it (`time:day`); a light entry reads no time fact and is in force for every record, so `time:night` selects nothing on its own. Not a gate on the lights: by Q-33 an absent fact fails every constraint, so it would silence every light for a record that omits time, and 20(c) keeps the lights by day anyway."
+   "note": "Rule 20(d)'s gate: only the day-shape entries read it (`time:day`). A light entry reads no time fact and is in force for every record, which is Rule 20(b)'s night default, so `time:night` selects nothing on its own. By day the lights are not silenced but shifted: 20(c) makes a light `modality:may` where `fact:visibility` is `visibility:good` and leaves it `modality:shall` in restricted visibility (ADR 0021)."
+  },
+  "fact:visibility": {
+   "values": [
+    "visibility:good",
+    "visibility:restricted"
+   ],
+   "cite": "3(l)",
+   "actuable": true,
+   "note": "Rule 3(l): visibility restricted by fog, mist, falling snow, heavy rainstorms, sandstorms or any similar cause. Read by the 20(c) modality shift, so it is a fact of one vessel's own record rather than of a pair -- a display consumer never builds a situation. A two-subject rule reads it as `self:fact:visibility` or `other:fact:visibility`; whether 19(a)'s second conjunct does is Q-56, open."
   }
  },
  "derived": {

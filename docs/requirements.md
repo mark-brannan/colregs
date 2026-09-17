@@ -727,7 +727,10 @@ Tracked here until resolved; each becomes an ADR.
   **Decided in pencil 2026-09-04** (PR #22): an element of `expect` is a
   bare entry id or `{entry, modality}` (REQ-CAT-7), so
   `applicability-fixtures.json` needs no migration. What is left is the
-  work: the three fixtures; settled for good when they land.
+  work: the three fixtures; settled for good when they land. **The form
+  reached the applicability fixtures 2026-09-16 (ADR 0021)**, with a
+  resolver in the suite that reads `modality_by` and `modality_shifts`;
+  the three boundary fixtures are still to write.
 - **Q-6** — The treaty-language facts behind §5. **Verified 2026-08-30**
   against the UNTS deposit (Vol. 1050, I-15824, Article IX): en/fr
   authentic and es/ru deposited translations confirmed; ar/zh confirmed as a
@@ -849,7 +852,10 @@ listed here, one line each, because the ADR is what makes them live. Most are
   is `represented_paragraphs`, a sibling array to `known_omissions` in
   `data/applicability.json` — `id`, `jurisdiction`, `cite`, `category` and
   a one-sentence `note`; no `when`, no `lights`. `✎` file name and schema
-  stay open to a better idea.
+  stay open to a better idea. **Widened 2026-09-16 (ADR 0021)** to
+  `category:scope`, for `20(b)` and `20(c)`: what a record states is that
+  the paragraph is in the model and is no entry, as true of a scope
+  paragraph as of a care or meta one.
 
 ### From the first two-subject data (PR #24)
 
@@ -920,11 +926,15 @@ traffic separation scheme is a property of the water.
   confirms ADR 0005 §1's one category per paragraph. **Reversed in part,
   2026-09-16:** ADR 0015 makes 13(b) one symmetric entry, `rule:13b`,
   reading the same sector object on either subject.
-- **Q-38** — 9(d), 18(d)(ii), 18(e), 18(f)(ii), 1(a)–(e) and 20(b)–(c) are
+- **Q-38** — 9(d), 18(d)(ii), 18(e), 18(f)(ii) and 1(a)–(e) are
   recorded in `known_omissions` rather than modelled: 9(d) needs the channel's
-  axis, 18(e) needs a fact for being a seaplane, 20(b)–(c) need time of day,
-  and 1(a)–(e) are addressed to an authority rather than to a vessel. Settled
-  one at a time as the facts they need land; none blocks the rest of Part B.
+  axis, 18(e) needs a fact for being a seaplane, and 1(a)–(e) are addressed to
+  an authority rather than to a vessel. Settled one at a time as the facts they
+  need land; none blocks the rest of Part B. **20(b)–(c) landed 2026-09-16
+  (ADR 0021)** and are `represented_paragraphs` records: 20(b) is the night
+  default the table already was, 20(c) a `modality_shifts` record that makes a
+  light `modality:may` by day in good visibility. `fact:visibility` is the fact
+  that had to exist; `fact:time` already did.
 - **Q-39** — Rule 4's `category:scope` entry has an empty `when`, because "any condition
   of visibility" is the absence of a condition. That makes it unfalsifiable —
   `REQ-VERIFY-3`'s "excluded by at least one fixture" half cannot be satisfied
@@ -1093,10 +1103,12 @@ nothing is blocked while open.
 - **Q-56** — **The third visibility state: a hole, or closed by the model?**
   Not in sight *and* not in or near restricted visibility (clear weather, beyond
   visual range, radar contact) is outside Rule 11 and 19(a): Section I only.
-  *Hole:* represent it; a fact for "in or near restricted visibility" is owed.
-  *Closed:* treat not-in-sight as Section III. Default **closed**: `rule:19a` drops
-  the second conjunct, recorded as a `gap`. Recommend **hole**: the default is
-  safe for a switching consumer and unsafe for a traceability claim.
+  *Hole:* represent it — `fact:visibility` now exists for it, declared per
+  vessel for Rule 20(c) (ADR 0021). *Closed:* treat not-in-sight as Section III.
+  Default **closed**: `rule:19a` drops the second conjunct, recorded as a `gap`.
+  Recommend **hole**: the default is safe for a switching consumer and unsafe
+  for a traceability claim. What is open is the reading — whether 19(a)'s second
+  conjunct reads the fact, and of which subject — not the vocabulary.
 - **Q-57** — **The baseline for "keep her course and speed"?** 17(a)(i) fixes
   no instant. *Attachment:* course and speed when the role attached; any later
   change is a departure — checkable, occasionally absurd. *Steady state:* the

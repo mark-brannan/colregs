@@ -97,7 +97,9 @@
       "wind_side:starboard": "Starboard",
       "wind_side:unknown": "Unknown",
       "time:day": "Day",
-      "time:night": "Night"
+      "time:night": "Night",
+      "visibility:good": "Good visibility",
+      "visibility:restricted": "Restricted visibility"
     }
   }
 }

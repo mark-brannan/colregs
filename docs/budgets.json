@@ -28,7 +28,8 @@
     "docs/timeline.md": 130,
     "docs/maritime-sources.md": 130,
     "docs/decisions.md": 40,
-    "docs/adr/0020-skeleton-is-a-delta.md": 110
+    "docs/adr/0020-skeleton-is-a-delta.md": 110,
+    "docs/adr/0021-rule-20c-is-a-modality-shift.md": 135
   },
   "json_prose": {
     "targets": [
@@ -47,7 +48,6 @@
     "max_chars": 450,
     "grandfathered": [
       "data/applicability.json#/effects/note",
-      "data/applicability.json#/known_omissions/9/why",
       "data/applicability.json#/known_omissions/10/why",
       "data/applicability.json#/known_omissions/11/why",
       "data/applicability.json#/entries/43/note",

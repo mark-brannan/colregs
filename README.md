@@ -56,7 +56,10 @@ lights and shapes, Part D sound and light signals, and Annex I geometry.
 `intl` is the base; `us/inland`, `ca/inland` and `eu/cevni` are deltas on it.
 Today the data holds Part C for `intl`, lights and day shapes alike: a
 record that states `fact:time: time:day` selects the shapes; one that states
-no time selects the lights, night being assumed rather than gated.
+no time selects the lights, night being assumed rather than gated. By day the
+lights are not silenced — Rule 20(c) makes them permitted in good visibility
+and leaves them required in restricted
+([ADR 0021](docs/adr/0021-rule-20c-is-a-modality-shift.md)).
 [`docs/requirements.md`](docs/requirements.md) is the numbered contract for
 all of it. One case the Convention cannot state, a vessel made fast to a
 mooring buoy, lives only under `us/inland`
@@ -166,7 +169,12 @@ paragraphs prevails is a relation.
 
 Modality is `modality:shall`, `modality:may`, `modality:shall-if-practicable`, `modality:shall-not`,
 `modality:shall-not-impede`, or `modality:conditional` with a `modality_by` table when it turns
-on a fact.
+on a fact. A `modality_shifts` record is the other half: a paragraph that
+changes the modality of the signals other entries prescribe rather than
+prescribing signals of its own. It carries a predicate, the signal kind it
+reaches and a map from modality to modality, and applies after the entry's own
+modality has resolved — Rule 20(c) is the one in the data, making a light
+`modality:may` by day in good visibility and leaving the day shapes alone.
 
 Most entries read one vessel and produce lights. The Part B entries read
 **two**, a situation rather than a fact record, and produce an `effect`:

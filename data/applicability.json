@@ -1,5 +1,5 @@
 {
- "conditions": "Night by default (Rule 20(b): sunset to sunrise): a light entry reads no time fact, so it is in force for every record. Day shapes (Rule 20(d)) read `fact:time: time:day`, so a record that states it selects the shapes as well as the lights; the 20(b) gate on the lights is a known omission.",
+ "conditions": "Night by default (Rule 20(b): sunset to sunrise): a light entry reads no time fact, so it is in force for every record, at `modality:shall`. Day shapes (Rule 20(d)) read `fact:time: time:day`, so a record that states it selects the shapes as well as the lights. By day, 20(c) shifts rather than gates: `modality_shifts` makes a light `modality:may` in good visibility and leaves it `modality:shall` in restricted (ADR 0021).",
  "relations": {
   "rel:includes": "import another entry's lights and shapes, their modality and its scalar gates, never its axes (ADR 0019)",
   "rel:conditional_includes": "import lights and shapes when the stated `when` holds; `one_of` is a set of legal alternatives among which the vessel picks exactly one, or none under a `may` carrier (ADR 0019)",
@@ -92,9 +92,9 @@
    "why": "Not a precedence norm: it maps a WIG on the surface onto `propulsion:power` for the rest of Part B, which is a classification or a decode-table statement rather than a role in a pair. 18(f)(i) -- the phase that does change the roles -- is entry rule:18f_i."
   },
   {
-   "cite": "1(a), 1(b), 1(c), 1(d), 1(e), 20(b), 20(c)",
-   "what": "The remaining `category:scope` paragraphs: the waters the Rules apply to, special rules made by an authority, the adoption of traffic separation schemes, the special-construction determination, and the sunset-to-sunrise gate on the light rules.",
-   "why": "None of them reads a fact this package declares. 1(a) needs a fact about the waters; 1(b)/(c)/(e) are about an authority's determination, which is closer to the jurisdiction dimension of ADR 0001 than to a predicate; 1(d) is not addressed to a vessel at all; 20(b) needs time of day and 20(c) visibility as well; `fact:time` now exists and the day-shape entries read it, but no light entry does, so `conditions` records that night is assumed for lights rather than gated. Not a `time:night` gate on the light entries: Q-33 makes an absent fact unsatisfy every constraint, so the gate would silence every light for a record that omits time, and 20(c) keeps the lights by day anyway (shall in restricted visibility, may otherwise). The faithful model is a modality shift on `time:day`."
+   "cite": "1(a), 1(b), 1(c), 1(d), 1(e)",
+   "what": "The remaining `category:scope` paragraphs: the waters the Rules apply to, special rules made by an authority, the adoption of traffic separation schemes, and the special-construction determination.",
+   "why": "None of them reads a fact this package declares. 1(a) needs a fact about the waters; 1(b)/(c)/(e) are about an authority's determination, which is closer to the jurisdiction dimension of ADR 0001 than to a predicate; 1(d) is not addressed to a vessel at all."
   },
   {
    "cite": "7(d)(ii)",
@@ -136,6 +136,20 @@
    "cite": "2(b)",
    "category": "category:meta",
    "note": "Names the region where a departure from the Rules may be necessary; scoped to level-1/2 invariant violations and computed offline by a solver as a region of situation space, never evaluated here as a predicate."
+  },
+  {
+   "id": "rule:20b",
+   "jurisdiction": "intl",
+   "cite": "20(b)",
+   "category": "category:scope",
+   "note": "The lights are complied with from sunset to sunrise. Represented by the shape of the table rather than by a predicate: a light entry reads no time fact, so it is in force for every record. A `time:night` gate would be the wrong reading twice over -- it would silence every light for every record that omits time (Q-33), and 20(c) keeps the lights in force by day (ADR 0021)."
+  },
+  {
+   "id": "rule:20c",
+   "jurisdiction": "intl",
+   "cite": "20(c)",
+   "category": "category:scope",
+   "note": "By day a prescribed light is required in restricted visibility and permitted otherwise. Represented as a modality shift (`modality_shifts`, ADR 0021) rather than as an entry: it produces no signal of its own and changes the modality of the lights the other entries prescribe. The tail qualification, `when it is deemed necessary`, is the mariner's judgement and no fact carries it; `modality:may` lays no duty either way."
   }
  ],
  "entries": [
@@ -1323,8 +1337,8 @@
      "19"
     ]
    },
-   "gap": "19(a) is 'not in sight of one another AND navigating in or near an area of restricted visibility'. Only the first conjunct is a fact; there is no fact for being in or near an area of restricted visibility, and it is a property of the water rather than of either vessel or of the pair's geometry. This entry is therefore wider than the paragraph: it selects Section III for any pair not in sight. Recorded rather than silently narrowed.",
-   "note": "The complement of 11. Rule 3(l) defines restricted visibility; nothing in facts.json carries it."
+   "gap": "19(a) is 'not in sight of one another AND navigating in or near an area of restricted visibility'. Only the first conjunct is read here. 3(l)'s condition is now `fact:visibility`, declared per vessel for 20(c) (ADR 0021); whether this entry's second conjunct reads it, and from which subject, is Q-56. So the entry stays wider than the paragraph: it selects Section III for any pair not in sight. Recorded rather than silently narrowed.",
+   "note": "The complement of 11. Rule 3(l)'s condition is `fact:visibility`, declared for the Rule 20(c) modality shift and deliberately not read here; see `gap`."
   },
   {
    "id": "rule:18a_i",
@@ -2711,6 +2725,23 @@
    "suppresses": "rule:24c",
    "cite": "24(c)",
    "why": "33 CFR 83.24(c)(iii) replaces the international sternlight with two towing lights in a vertical line, so rule:24c does not hold as stated under us/inland; rule:24c:towing_lights is the replacement (Q-11, ADR 0018 point 3)."
+  }
+ ],
+ "modality_shifts": [
+  {
+   "id": "shift:20c",
+   "jurisdiction": "intl",
+   "cite": "20(c)",
+   "applies_to": "lights",
+   "when": {
+    "fact:time": "time:day",
+    "fact:visibility": "visibility:good"
+   },
+   "map": {
+    "modality:shall": "modality:may",
+    "modality:shall-if-practicable": "modality:may"
+   },
+   "note": "Rule 20(c): by day the prescribed lights are required in restricted visibility and permitted in all other circumstances. Applied to a light after its own modality resolves, `modality_by` included, and never to a shape (20(d)). Both facts must hold for the shift to fire, so a record that omits either keeps `modality:shall`: a permission is never granted by a missing field, the mirror of Q-33."
   }
  ]
 }

@@ -70,6 +70,10 @@ const catalogFiles = readdirSync(new URL('../data/i18n', import.meta.url)).filte
 const catalogs = catalogFiles.map((f) => [`data/i18n/${f}`, load(`data/i18n/${f}`)])
 
 const byId = new Map(appl.entries.map((e) => [e.id, e]))
+// An `expect` element is a bare entry id or {entry, modality} (Q-5, REQ-CAT-7):
+// the id is what a replay compares, the modality what a case also asserts.
+const entryId = (x) => (typeof x === 'string' ? x : x.entry)
+const expectIds = (c) => c.expect.map(entryId)
 
 // --- reference evaluator -------------------------------------------------
 // An entry applies when every constraint in its `when` is satisfied by the
@@ -183,7 +187,58 @@ const applying = (f, j = 'intl') =>
 test('fixtures: every fact record selects exactly the expected entries', () => {
   for (const c of fixtures.cases) {
     const j = c.jurisdiction ?? fixtures.jurisdiction
-    assert.deepEqual(applying(c.facts, j).sort(), [...c.expect].sort(), c.name)
+    assert.deepEqual(applying(c.facts, j).sort(), expectIds(c).sort(), c.name)
+  }
+})
+
+// --- modality resolution (REQ-CAT-3, ADR 0021) ------------------------------
+// An entry's own modality, or the first `modality_by` branch whose predicate
+// holds. Rule 20(c) then shifts it: a `modality_shifts` record changes the
+// modality of signals the entries prescribe rather than prescribing its own.
+const ownModality = (e, f) =>
+  e.modality === 'modality:conditional'
+    ? (e.modality_by ?? []).find((m) => matches(m.when, f))?.modality
+    : e.modality
+
+// The signal kinds an entry contributes: its own, plus the ones it imports.
+// `rel:exempts`, `rel:excludes`, `rel:in_lieu_of` and `rel:overrides` are not
+// imports (ADR 0019), so they add nothing here. With `f` given, a conditional
+// branch counts only when its own `when` holds against those facts; omitting
+// `f` is the structural mode used to check a shift's reach independent of any
+// one fact record.
+const signalKinds = (e, f, seen = new Set()) => {
+  const kinds = new Set()
+  if (!e || seen.has(e.id)) return kinds
+  seen.add(e.id)
+  if ((e.lights ?? []).length > 0) kinds.add('lights')
+  if ((e.shapes ?? []).length > 0) kinds.add('shapes')
+  const conditional = (e['rel:conditional_includes'] ?? []).filter((c) => !f || matches(c.when, f))
+  const imported = [...(e['rel:includes'] ?? []),
+    ...conditional.flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])])]
+  for (const id of imported) for (const k of signalKinds(byId.get(id), f, seen)) kinds.add(k)
+  return kinds
+}
+// A shift reaches an entry whose signals are all of the kind it names; an
+// entry that shows both kinds, or neither, is outside it.
+const reaches = (shift, e, f) => {
+  const kinds = signalKinds(e, f)
+  return kinds.size > 0 && [...kinds].every((k) => k === shift.applies_to)
+}
+const shiftsFor = (f, j) => (appl.modality_shifts ?? [])
+  .filter((s) => (s.jurisdiction === j || s.jurisdiction === 'intl') && matches(s.when, f))
+const modalityOf = (e, f, j = 'intl') => {
+  let m = ownModality(e, f)
+  for (const s of shiftsFor(f, j)) if (reaches(s, e, f)) m = s.map[m] ?? m
+  return m
+}
+
+test('fixtures: an expected modality is the one the entry resolves to (Q-5, ADR 0021)', () => {
+  for (const c of fixtures.cases) {
+    const j = c.jurisdiction ?? fixtures.jurisdiction
+    for (const x of c.expect) {
+      if (typeof x === 'string') continue
+      assert.equal(modalityOf(byId.get(x.entry), c.facts, j), x.modality, `${c.name}: ${x.entry}`)
+    }
   }
 })
 
@@ -292,7 +347,7 @@ test('operations: every fixture file is bound to a verb, and every bound case fi
           check(inputSchemas[i], c[key], `${verb}: ${fx.file} case '${c.name}' ${key}`)
         })
         // A situation fixture may expect `{ entry, modality }`; the companion answers the ids.
-        if (expectSchema) check(expectSchema, c.expect.map((e) => (typeof e === 'string' ? e : e.entry)), `${verb}: ${fx.file} case '${c.name}' expect`)
+        if (expectSchema) check(expectSchema, c.expect.map(entryId), `${verb}: ${fx.file} case '${c.name}' expect`)
       }
     }
   }
@@ -782,7 +837,7 @@ for (const e of appl.entries) {
 
 test('drift: signals already shown never silently admit an undeclared candidate entry', () => {
   for (const c of fixtures.cases) {
-    const shownIds = new Set(c.expect)
+    const shownIds = new Set(expectIds(c))
     const shown = new Set(appl.entries.filter((e) => shownIds.has(e.id)).flatMap(lightSig))
     const j = c.jurisdiction ?? fixtures.jurisdiction
     for (const e of appl.entries) {
@@ -806,8 +861,8 @@ test('drift: signals already shown never silently admit an undeclared candidate 
 test('REQ-VERIFY-3: every display entry is exercised by a fixture and excluded by another', () => {
   for (const e of appl.entries.filter(isDisplay)) {
     const cases = fixtures.cases.filter((c) => inJurisdiction(e, c.jurisdiction ?? fixtures.jurisdiction))
-    assert.ok(cases.some((c) => c.expect.includes(e.id)), `${e.id} is selected by no fixture`)
-    assert.ok(cases.some((c) => !c.expect.includes(e.id)), `${e.id} is excluded by no fixture`)
+    assert.ok(cases.some((c) => expectIds(c).includes(e.id)), `${e.id} is selected by no fixture`)
+    assert.ok(cases.some((c) => !expectIds(c).includes(e.id)), `${e.id} is excluded by no fixture`)
   }
 })
 
@@ -962,10 +1017,10 @@ test('suppressions: every tombstone is exercised by a fixture that would otherwi
   for (const s of appl.suppressions ?? []) {
     const target = byId.get(s.suppresses)
     const hit = fixtures.cases.some((c) => (c.jurisdiction ?? fixtures.jurisdiction) === s.jurisdiction &&
-      matches(target.when, c.facts) && !c.expect.includes(s.suppresses))
+      matches(target.when, c.facts) && !expectIds(c).includes(s.suppresses))
     assert.ok(hit, `${s.jurisdiction} suppresses ${s.suppresses} but no ${s.jurisdiction} fixture matches its predicate and omits it`)
     const inherits = fixtures.cases.some((c) => (c.jurisdiction ?? fixtures.jurisdiction) === 'intl' &&
-      matches(target.when, c.facts) && c.expect.includes(s.suppresses))
+      matches(target.when, c.facts) && expectIds(c).includes(s.suppresses))
     assert.ok(inherits, `${s.suppresses} is tombstoned in ${s.jurisdiction} but no intl fixture shows it in force at the base`)
   }
 })
@@ -1005,7 +1060,11 @@ test('every shape named by an entry, by shapes.json itself, or by geometry.json 
   }
 })
 
-// --- represented_paragraphs (REQ-CAT-2): care/meta paragraphs, never entries ---
+// --- represented_paragraphs (REQ-CAT-2): paragraphs in the model, never entries ---
+// Care and meta paragraphs are the original tenants (Rule 2(a), 2(b)). ADR 0021
+// adds the two `category:scope` paragraphs of Rule 20: 20(b) is the night
+// default the table already is, and 20(c) is a modality shift rather than a
+// signal of its own. Neither is an entry, and neither is an omission.
 test('every represented_paragraphs record cites a paragraph that exists in rules.json', () => {
   for (const r of appl.represented_paragraphs ?? []) {
     const head = r.cite.split('-')[0].trim()
@@ -1020,17 +1079,79 @@ test('no represented_paragraphs record carries a `when` or `lights`', () => {
   }
 })
 
-test('every represented_paragraphs record has category care or meta', () => {
+test('every represented_paragraphs record has category care, meta or scope', () => {
   for (const r of appl.represented_paragraphs ?? []) {
-    assert.ok(['category:care', 'category:meta'].includes(r.category), `${r.id} has category ${r.category}, expected category:care or category:meta`)
+    assert.ok(['category:care', 'category:meta', 'category:scope'].includes(r.category), `${r.id} has category ${r.category}, expected category:care, category:meta or category:scope`)
   }
 })
 
-test('no care or meta paragraph appears as an applicability entry (REQ-CAT-2)', () => {
+test('no represented paragraph appears as an applicability entry (REQ-CAT-2)', () => {
   const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite))
   for (const e of appl.entries) {
-    assert.ok(!representedCites.has(e.cite), `${e.id} cites ${e.cite}, a care/meta paragraph; it must be in represented_paragraphs, not entries`)
+    assert.ok(!representedCites.has(e.cite), `${e.id} cites ${e.cite}, a represented paragraph; it must be in represented_paragraphs, not entries`)
   }
+})
+
+test('no represented paragraph is also a known omission', () => {
+  const omitted = new Set((appl.known_omissions ?? []).flatMap((o) => o.cite.split(',').map((x) => x.trim())))
+  for (const r of appl.represented_paragraphs ?? []) {
+    assert.ok(!omitted.has(r.cite), `${r.cite} is both represented and recorded as an omission`)
+  }
+})
+
+// --- modality shifts (ADR 0021) ---------------------------------------------
+test('ADR 0021: every modality shift resolves -- id, cite and map', () => {
+  const declaredModalities = new Set(Object.keys(appl.modalities))
+  const ids = new Set(appl.entries.map((e) => e.id))
+  const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite))
+  for (const s of appl.modality_shifts ?? []) {
+    assert.ok(!ids.has(s.id), `${s.id} collides with an entry id`)
+    assert.ok(rules.paragraphs[s.cite], `${s.id} cites missing paragraph ${s.cite}`)
+    // A shift is the representation of its paragraph, so the registry carries
+    // it for the same reason it carries 2(a): the model states what it covers.
+    assert.ok(representedCites.has(s.cite), `${s.id} cites ${s.cite}, which no represented_paragraphs record names`)
+    for (const [from, to] of Object.entries(s.map)) {
+      assert.ok(declaredModalities.has(from), `${s.id} maps undeclared modality ${from}`)
+      assert.ok(declaredModalities.has(to), `${s.id} maps ${from} to undeclared modality ${to}`)
+      assert.ok(!['modality:conditional', 'modality:exempt'].includes(from),
+        `${s.id} maps ${from}: conditional resolves before a shift, and an exemption is not a duty to weaken`)
+    }
+  }
+})
+
+// A signal a shift reaches either has its modality named in the map, or is
+// already as weak as the shift would make it. So a light entry added later
+// with an unmapped duty fails here rather than silently keeping `shall` by day.
+const UNSHIFTED = new Set(['modality:may', 'modality:exempt'])
+test('ADR 0021: a shift says what becomes of every duty it reaches', () => {
+  for (const s of appl.modality_shifts ?? []) {
+    for (const e of appl.entries.filter(isDisplay)) {
+      if (!reaches(s, e)) continue
+      const resolved = e.modality === 'modality:conditional'
+        ? (e.modality_by ?? []).map((m) => m.modality) : [e.modality]
+      for (const m of resolved) {
+        assert.ok(m in s.map || UNSHIFTED.has(m), `${s.id} does not say what ${e.id}'s ${m} becomes`)
+      }
+    }
+  }
+})
+
+test('REQ-VERIFY-3: every modality shift is fired by a fixture and left unfired by another', () => {
+  for (const s of appl.modality_shifts ?? []) {
+    const fires = fixtures.cases.filter((c) => matches(s.when, c.facts))
+    assert.ok(fires.length > 0, `${s.id} is fired by no fixture`)
+    assert.ok(fires.length < fixtures.cases.length, `${s.id} is left unfired by no fixture`)
+  }
+})
+
+test('ADR 0021: a shift reaches the lights an entry imports, and never a shape', () => {
+  // The two halves of the trawler by day: rule:26b_iii shows no light of its
+  // own and imports 23(a)(iii)/(iv), so 20(c) reaches it; the cones are 20(d)'s
+  // and are not reached however the visibility reads.
+  const shift = (appl.modality_shifts ?? []).find((x) => x.id === 'shift:20c')
+  assert.ok(shift, 'shift:20c is the worked example these assert against')
+  assert.ok(reaches(shift, byId.get('rule:26b_iii')), 'an entry whose only signals are imported lights is reached')
+  assert.ok(!reaches(shift, byId.get('rule:26b_i:two_cones')), 'a shape entry is never reached by a lights shift')
 })
 
 test('categories vocabulary is a closed set of the nine ADR-0005 names', () => {
@@ -1187,6 +1308,10 @@ test('every fact a predicate reads is declared in facts.json', () => {
       for (const k of keysOf(row.when)) assert.ok(declared.has(k), `${key} decode[${i}]: undeclared fact ${k}`)
     }
   }
+  // A modality shift reads the fact record the same way an entry does.
+  for (const s of appl.modality_shifts ?? []) {
+    for (const k of keysOf(s.when)) assert.ok(declared.has(k), `${s.id}: undeclared fact ${k}`)
+  }
 })
 
 test('every enumerated fact value a predicate names is declared in facts.json', () => {
@@ -1228,6 +1353,7 @@ test('every enumerated fact value a predicate names is declared in facts.json', 
     for (const c of e['rel:conditional_includes'] ?? []) check(e.id, c.when ?? {})
   }
   for (const c of fixtures.cases) check(c.name, c.facts)
+  for (const s of appl.modality_shifts ?? []) check(s.id, s.when)
   // A derived fact's decode table is a predicate too, and its rows produce
   // values that must be declared on the fact they decode to.
   for (const [key, spec] of derivedFacts) {
@@ -1672,7 +1798,7 @@ test('REQ-CAT-5: situation fixtures are well-formed and resolve in the namespace
     // entries. A binding one joins the replay and every id it names must exist.
     if (c.status === 'illustrative') assert.deepEqual(c.expect, [], `${c.name}: illustrative cases assert nothing yet`)
     for (const x of c.expect) {
-      const id = typeof x === 'string' ? x : x.entry
+      const id = entryId(x)
       assert.ok(byId.has(id), `${c.name}: unknown entry ${id}`)
       // Q-5: the optional per-entry modality. A bare id asserts nothing.
       if (typeof x !== 'string') assert.ok(x.modality in appl.modalities, `${c.name}: unknown modality ${x.modality}`)
@@ -1877,7 +2003,7 @@ const bindingCases = situationFixtures.cases.filter((c) => c.status === 'binding
 test('situation fixtures: every situation selects exactly the expected entries', () => {
   assert.ok(bindingCases.length > 0, 'no binding situation fixture; the replay would assert nothing')
   for (const c of bindingCases) {
-    const want = c.expect.map((x) => (typeof x === 'string' ? x : x.entry)).sort()
+    const want = expectIds(c).sort()
     assert.deepEqual(applyingSituation(c.situation).sort(), want, c.name)
   }
 })

@@ -1,14 +1,13 @@
 # Identifiers
 
-Every name the data is addressed by — paragraph path, entry id, light id,
-fact key, fact value, relation name — is an identifier, and REQ-MODEL-10
-makes identifiers immutable from the version stated there onward. This file
-records what the identifiers are and why they are shaped the way they are,
-so that the shape is a decision on file rather than an accident nobody can
-now change.
+Every name the data is addressed by — paragraph path, entry id, light id, fact
+key, fact value, relation name — is an identifier, and REQ-MODEL-10 makes
+identifiers immutable from the version stated there onward. This file records
+what the identifiers are and why they are shaped the way they are, so that the
+shape is a decision on file rather than an accident nobody can now change.
 
-Identifiers are schema keywords, not display strings. They are never
-localized (REQ-LANG-2); translations attach to them.
+Identifiers are schema keywords, not display strings. They are never localized
+(REQ-LANG-2); translations attach to them.
 
 ## Two classes, opposite requirements
 
@@ -57,17 +56,18 @@ encounter — resolved the identical way, `modality:shall-not-impede` and
 | `shape:<id>` | day-shape definitions (`data/shapes.json`) | `shape:ball`, `shape:cone_down`, `shape:diamond` |
 | `fact:<key>` | fact keys — the input vocabulary (`data/facts.json`) | `fact:activity`, `fact:length_m`, `fact:making_way`, `fact:on_mooring_buoy` |
 | `<fact>:<value>` | values of an enumerated fact | `activity:nuc`, `position:anchored`, `propulsion:sail`, `obstruction_side:port` |
+| `shift:<paragraph-slug>` | modality shifts (`data/applicability.json`) | `shift:20c` |
 | `rel:<name>` | the six relation verbs (`data/applicability.json`) | `rel:includes`, `rel:in_lieu_of`, `rel:exempts` |
 | `modality:<value>` | modality values (`data/applicability.json` `modalities`) | `modality:shall`, `modality:may` |
 | `role:<value>` | effect role values (`data/applicability.json` `effects.roles`) | `role:give-way`, `role:none` |
 | `encounter:<value>` | effect encounter values (`data/applicability.json` `effects.encounters`) | `encounter:head-on`, `encounter:none` |
 | `category:<value>` | entry category values (`data/applicability.json` `categories`) | `category:precedence`, `category:display` |
 
-The prefix names the namespace the identifier lives in. For a fact *value*
-that namespace is the fact itself, written bare: `activity:nuc`, not
-`fact:activity:nuc`. A value is only ever meaningful against its own fact,
-so naming the fact is what disambiguates it; naming the class as well would
-add a segment that never varies.
+The prefix names the namespace the identifier lives in; a modality shift takes
+one of its own, being shaped like an entry id and not one (ADR 0021). For a
+fact *value* the namespace is the fact itself, written bare: `activity:nuc`,
+not `fact:activity:nuc`; a value is only meaningful against its own fact, so
+naming the class as well would add a segment that never varies.
 
 **There is no version segment.** No `colregs.v1:activity:nuc`. A version in
 the identifier churns every id at a major bump — including the ones that did

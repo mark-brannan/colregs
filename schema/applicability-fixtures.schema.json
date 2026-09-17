@@ -8,7 +8,23 @@
   "additionalProperties": false,
   "required": ["jurisdiction", "cases"],
   "$defs": {
-    "ruleId": { "$ref": "applicability.schema.json#/$defs/ruleId" }
+    "ruleId": { "$ref": "applicability.schema.json#/$defs/ruleId" },
+    "modality": { "$ref": "applicability.schema.json#/$defs/modality" },
+    "expectItem": {
+      "$comment": "Q-5, decided in pencil 2026-09-04: a bare entry id asserts nothing about modality; `{entry, modality}` names the modality that entry is expected to carry once `modality_by` and `modality_shifts` have been applied. The two forms are interchangeable, so no published case needed migrating.",
+      "oneOf": [
+        { "$ref": "#/$defs/ruleId" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["entry", "modality"],
+          "properties": {
+            "entry": { "$ref": "#/$defs/ruleId" },
+            "modality": { "$ref": "#/$defs/modality" }
+          }
+        }
+      ]
+    }
   },
   "properties": {
     "note": { "type": "string" },
@@ -31,7 +47,7 @@
           },
           "expect": {
             "type": "array",
-            "items": { "$ref": "#/$defs/ruleId" }
+            "items": { "$ref": "#/$defs/expectItem" }
           }
         }
       }

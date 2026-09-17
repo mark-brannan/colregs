@@ -606,9 +606,11 @@ not jointly exhaustive (`INV-19a-third-state`); Rule 19 supplements Section I
 - **Temporal note.** The switch is a function of the current state; a pair may
   cross it and back inside one encounter, and no paragraph says what becomes of
   a 13(d) overtaking history or a Rule 17 phase: `Q-55`.
-- **Undetermined term.** "In or near an area of restricted visibility" has no
-  fact (3(l)'s atmospheric condition is nowhere in `data/facts.json`), so `rule:19a`
-  selects Section III for any pair not in sight — wider — and records a gap.
+- **Undetermined term.** "In or near an area of restricted visibility" is not
+  read. 3(l)'s condition is `fact:visibility`, declared per vessel for Rule
+  20(c) (ADR 0021); whether 19(a)'s second conjunct reads it, and from which
+  subject, is `Q-56`. So `rule:19a` selects Section III for any pair not in
+  sight — wider — and records a gap.
 - Entries: `rule:11`, `rule:19a`, complementary on `pair:geo:in_sight`.
 
 ### INV-19a-noroles — Section III has no give-way and no stand-on vessel
