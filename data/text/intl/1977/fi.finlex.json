@@ -9,7 +9,7 @@
  "source": {
   "publisher": "Finlex (Oikeusministeriö), Suomen säädöskokoelman sopimussarja",
   "title": "Asetus kansainvälisistä säännöistä yhteentörmäämisen ehkäisemiseksi merellä vuonna 1972 tehdyn yleissopimuksen voimaansaattamisesta, SopS 30/1977",
-  "url": "https://www.finlex.fi/fi/sopimukset/sopsteksti/1977/19770030",
+  "url": "https://www.finlex.fi/fi/valtiosopimukset/sopimussarja/1977/30",
   "retrieved": "2026-09-16"
  },
  "rights": {
@@ -17,7 +17,7 @@
   "redistribution_basis": "Finlex FAQ: published materials carry no usage restriction; open data CC BY 4.0",
   "package_licence": "Apache-2.0"
  },
- "note": "REQ-LANG-10: verified against the source, which predates several IMO amendments in intl@2016 (Rule 3(m), 8(f), 10(d)(ii)/(k)/(l), 18(f), 22(d), 23(d), 24(g)-(i), 27(e)(i), 30(f)); missing paragraphs are listed in gaps, not reconstructed.",
+ "note": "REQ-LANG-10: verified against the source, which predates several IMO amendments in intl@2016 (Rule 3(m), 8(f), 10(d)(ii)/(k)/(l), 18(f), 22(d), 23(c)/23(d)(i)/(iii), 24(g)-(i), 27(e)(i), 30(f)); missing paragraphs are listed in gaps, not reconstructed. Its own Rule 23(c) is the small-vessel provision now numbered 23(d)(ii), and its Rule 24 lettering runs (a)-(g), the (g) being the paragraph now numbered 24(h).",
  "gaps": [
   {
    "path": "3(m)",
@@ -60,16 +60,16 @@
    "reason": "the minimum light range for an inconspicuous, partly submerged tow (Rule 22(d)) was added by a later amendment together with Rule 24(g); absent from the 1977 text."
   },
   {
-   "path": "23(d)(i)",
-   "reason": "WIG craft lights (Rule 23(d)) were added by a later amendment, contemporaneous with Rule 3(m); absent from the 1977 text."
+   "path": "23(c)",
+   "reason": "WIG craft lights (Rule 23(c)) were added by a later amendment, contemporaneous with Rule 3(m); absent from the 1977 text, whose own 23(c) is the small-vessel provision now numbered 23(d)(ii)."
   },
   {
-   "path": "23(d)(ii)",
-   "reason": "see 23(d)(i): Rule 23(d) post-dates this 1977 promulgation."
+   "path": "23(d)(i)",
+   "reason": "the under-12-metre lighting option (Rule 23(d)(i)) was added by a later amendment; the 1977 text's 23(c) covers only the under-7-metre, 7-knot case now numbered 23(d)(ii)."
   },
   {
    "path": "23(d)(iii)",
-   "reason": "see 23(d)(i): Rule 23(d) post-dates this 1977 promulgation."
+   "reason": "the displaced masthead/all-round light allowance (Rule 23(d)(iii)) was added by a later amendment; absent from the 1977 text."
   },
   {
    "path": "24(g)",
@@ -85,11 +85,15 @@
   },
   {
    "path": "27(e)(i)",
-   "reason": "the three-all-round-lights alternative for diving operations (Rule 27(e)(i)) was added by a later amendment; the 1977 text's Rule 27(e) specifies only the flag 'A' day signal, now 27(e)(ii)."
+   "reason": "the three-all-round-lights alternative for diving operations (Rule 27(e)(i)) was added by a later amendment; the 1977 text's Rule 27(e) is a single undivided paragraph prescribing only the flag 'A' day signal."
+  },
+  {
+   "path": "27(e)(ii)",
+   "reason": "the 1977 text's Rule 27(e) is one undivided paragraph with no (i)/(ii) subdivision; the flag 'A' text now numbered 27(e)(ii) is carried whole under 27(e), not split."
   },
   {
    "path": "30(d)(i)",
-   "reason": "not present as separate source text; mirrors the same gap already recorded (undeclared) in the en-US corpus, where Rule 30(d) embeds this content inline in a single field rather than splitting it out."
+   "reason": "the 1977 text lists the two aground signals inline within Rule 30(d), with no separate sub-paragraph; the content is carried under 30(d), as the en-US corpus also does."
   },
   {
    "path": "30(f)",
@@ -418,15 +422,15 @@
    "text": "Mikään myöhempi muutos näiden kahden aluksen välisessä suuntimassa ei tee ohittavasta aluksesta alusta, joka näiden sääntöjen tarkoittamassa mielessä leikkaa toisen aluksen suunnan, eikä vapauta sitä velvollisuudesta pysytellä erillään ohittamastaan aluksesta ennen kuin se on lopullisesti ohittanut tämän ja selviytynyt siitä."
   },
   "14(a)": {
-   "rule_title": "Keulat vastakkain -tilanne",
+   "rule_title": "Keulat vastakkain tilanne",
    "text": "Kun kaksi konealusta lähestyy toisiaan vastakkaisilta tai lähes vastakkaisilta suunnilta niin, että yhteentörmäämisen vaara saattaa syntyä, kummankin aluksen on muutettava suuntaansa oikealle niin, että ne sivuuttavat toisensa vasen sivu vasenta sivua vastaan."
   },
   "14(b)": {
-   "rule_title": "Keulat vastakkain -tilanne",
+   "rule_title": "Keulat vastakkain tilanne",
    "text": "Tällaisen tilanteen katsotaan olevan olemassa, kun alus näkee toisen aluksen suoraan edessään tai melkein suoraan edessään ja yöllä nähdessään toisen aluksen mastovalot linjassa tai melkein linjassa ja/tai molemmat sivuvalot sekä päivällä nähdessään toisen aluksen vastaavasta näkökulmasta."
   },
   "14(c)": {
-   "rule_title": "Keulat vastakkain -tilanne",
+   "rule_title": "Keulat vastakkain tilanne",
    "text": "Jos alus on epävarma siitä, onko tällainen tilanne olemassa, sen on pidettävä tilannetta sellaisena ja toimittava sen mukaisesti."
   },
   "15(a)": {
@@ -633,7 +637,7 @@
    "rule_title": "Kulussa olevat konealukset",
    "text": "Ilmatyynyaluksen on liikkuessaan ilman uppoamaa näytettävä tämän säännön a kappaleessa määrättyjen valojen lisäksi ympäri näköpiirin näkyvää keltaista vilkkuvaloa."
   },
-  "23(c)": {
+  "23(d)(ii)": {
    "rule_title": "Kulussa olevat konealukset",
    "text": "Pituudeltaan alle 7 metrin konealus, jonka suurin nopeus on enintään 7 solmua, voi tämän säännön a kappaleessa määrättyjen valojen asemesta näyttää ympäri näköpiirin näkyvää valkoista valoa. Tällaisen aluksen on, milloin mahdollista, näytettävä myös sivuvaloja."
   },
@@ -811,11 +815,7 @@
   },
   "27(e)": {
    "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
-   "text": "Milloin sukellustoimintaa harjoitetaan sen kokoiselta alukselta, että sen on käytännössä mahdotonta näyttää tämän säännön d kappaleessa määrättyjä merkkikuvioita, on aluksen näytettävä kansainvälistä viestilippua A vähintään 1 metrin korkuisena levynä."
-  },
-  "27(e)(ii)": {
-   "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
-   "text": "On varmistauduttava siitä, että merkkikuvio näkyy ympäri näköpiirin."
+   "text": "Milloin sukellustoimintaa harjoitetaan sen kokoiselta alukselta, että sen on käytännössä mahdotonta näyttää tämän säännön d kappaleessa määrättyjä merkkikuvioita, on aluksen näytettävä kansainvälistä viestilippua A vähintään 1 metrin korkuisena levynä. On varmistauduttava siitä, että merkkikuvio näkyy ympäri näköpiirin."
   },
   "27(f)": {
    "rule_title": "Ohjailukyvyttömät alukset tai alukset, joiden ohjailukyky on rajoitettu",
