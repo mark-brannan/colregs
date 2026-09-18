@@ -1,8 +1,15 @@
 # ADR 0023 — The engine's surface is the manifest: six operations, one per thing, nothing beside them
 
-Date: 2026-09-17
-Status: proposed — merging this PR is the ruling; a revert undoes it. The
-one row that reopens ink is marked in the register and is Mark's alone.
+Date: 2026-09-17; reframed as a proposal 2026-09-18
+Status: proposal, not a ruling. Nothing below has been ruled. It is an
+agent's suggestion, in the agent's own voice — not the maintainer's words
+and not the maintainer's decision — held open for a tentative decision
+alongside the other design ADRs of the same week, ADR 0022 (#187) and ADR
+0026 (#195), which are expected to be rewritten together, merged or
+discarded. Merging this PR lands nothing but this file; nothing below is
+built on until it is ruled. One row reopens ink already laid by ADR 0011;
+that row stays the maintainer's call and no agent's, marked as such in the
+register.
 
 ## Context
 
@@ -40,7 +47,7 @@ the same call; no verb throws `NotImplementedError`; and `Situation.traffic`,
 which #82 ruled, fails `schema/situation.schema.json`, which admits `self`,
 `other` and `pair` only.
 
-## Decision
+## What is proposed
 
 1. **The root is the manifest.** Every runtime export of `colregs-engine`
    is an operation in `data/operations.json`, plus `DataVersionMismatchError`
