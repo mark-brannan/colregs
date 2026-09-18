@@ -107,7 +107,9 @@ the rest without redesign.
 - **REQ-PART-3** — Sound and light signals (Part D, Rules 32–37) SHOULD be
   representable by the same entry model. Where they are not — signals are
   event-triggered rather than state-derived — the divergence MUST be recorded
-  as an ADR before any Part D data is written.
+  as an ADR before any Part D **entry** is written. The bar is on the
+  applicability layer, not on REQ-MODEL-1's text: Part D is in the `intl`
+  corpus with no entry citing it (ADR 0026).
 - **REQ-PART-4** — ~~Steering and sailing rules (Part B) are OUT of v1 scope and
   MAY never be modelled; they govern conduct between two vessels, not the
   appearance of one, and the fact record is single-vessel by construction.~~
