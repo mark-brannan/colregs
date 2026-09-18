@@ -30,7 +30,10 @@
     "docs/decisions.md": 40,
     "docs/adr/0020-skeleton-is-a-delta.md": 110,
     "docs/adr/0021-rule-20c-is-a-modality-shift.md": 135,
-    "docs/adr/0022-part-d-signals-are-entries-with-an-act-class.md": 195
+    "docs/adr/0022-part-d-signals-are-entries-with-an-act-class.md": 195,
+    "docs/adr/0026-the-thing-is-signals.md": 170,
+    "docs/adr/INDEX.md": 200,
+    "docs/proposals/README.md": 60
   },
   "json_prose": {
     "targets": [
@@ -100,7 +103,8 @@
       "data/text/**/*.json",
       "fixtures/*.json",
       "test/*.mjs",
-      "docs/**/*.md"
+      "docs/**/*.md",
+      "!docs/proposals/**"
     ],
     "scope": {
       "pr": [
@@ -160,6 +164,7 @@
       "AGENTS.md",
       "CLAUDE.md",
       "docs/**/*.md",
+      "!docs/proposals/**",
       "data/*.json",
       "data/text/**/*.json",
       "fixtures/*.json"

@@ -54,7 +54,10 @@ lawful option comes back and none is picked. Selection belongs to the consumer.
 Every rule with a machine-checkable consequence: Part B conduct, Part C
 lights and shapes, Part D sound and light signals, and Annex I geometry.
 `intl` is the base; `us/inland`, `ca/inland` and `eu/cevni` are deltas on it.
-Today the data holds Part C for `intl`, lights and day shapes alike: a
+The text layer runs further than the entries: the `intl` corpus carries Part D
+(Rules 32-37) verbatim, and no Part D entry is written yet
+([ADR 0026](docs/adr/0026-the-thing-is-signals.md)).
+Today the entries hold Part C for `intl`, lights and day shapes alike: a
 record that states `fact:time: time:day` selects the shapes; one that states
 no time selects the lights, night being assumed rather than gated. By day the
 lights are not silenced — Rule 20(c) makes them permitted in good visibility
