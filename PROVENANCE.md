@@ -60,6 +60,12 @@ publications. Nothing here is authoritative: consult the published rules.
   A reader who needs 34(a) should consult the published rules; this is the
   clearest case in the corpus of why the note at the top of this file is
   there.
+- **Rule 34's quoted meanings mix curly and straight quotes, as the source
+  does.** 34(a) and 34(b)(i) are curly in the source HTML (“I am altering my
+  course to starboard”); 34(c)(i)'s two are straight ("I intend to overtake
+  you on your starboard side"). Both transcribed as found, on the Rule
+  3(l)/3(m) principle above; confirmed against the raw source HTML on
+  2026-09-18. Straight is the corpus norm, 21 paragraphs against four curly.
 - **Inland-only inserts deliberately absent:** the source marks Inland
   text with `‹‹ ››`. Rule 21(a) and 21(b)'s "vessel of less than 12 meters
   … as nearly as practicable to the fore and aft centerline" clauses and

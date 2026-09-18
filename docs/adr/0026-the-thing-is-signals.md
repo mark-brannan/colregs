@@ -156,15 +156,15 @@ Named so the noun above is weighed with it in view; carded, not suggested.
 
 ## Register
 
-Levels are `docs/conventions.md`'s. Only the transcription lands with this
-PR; every design row is unruled and none of them is pencil yet.
+Levels are `docs/conventions.md`'s closed set: pencil means unsettled and
+changeable by anyone on a better idea. Only the transcription row lands here.
 
 | item | level | what would settle it |
 |---|---|---|
 | Rules 32–37 transcribed, International only, no entries | ink | — |
 | `REQ-PART-3`'s bar is on entries, not on the text layer | ✎ | a reader arguing the text layer is "Part D data" |
-| §1 `display` widens; no signals operation (with ADR 0022 §5) | unruled | a Part D entry the display walker cannot evaluate |
-| §2 Rule 34 is not `conduct` | unruled | Rule 34 needing a window, not an instant |
-| §3 the rename to `signals` | unruled, ink | the maintainer's yes or no; the evidence is §"Context" |
-| §4 `lights` / `shapes` / `sounds` as the three output keys | unruled | a ruling on §3, then ADR 0022's own |
+| §1 `display` widens; no signals operation (with ADR 0022 §5) | ✎ | a Part D entry the display walker cannot evaluate |
+| §2 Rule 34 is not `conduct` | ✎ | Rule 34 needing a window, not an instant |
+| §3 the rename to `signals` | ink, the maintainer's | a yes or no; the evidence is §"Context" |
+| §4 `lights` / `shapes` / `sounds` as the three output keys | ✎ | a ruling on §3, then ADR 0022's own |
 | §5 signal-as-observation | ? | the how-observed fact |
