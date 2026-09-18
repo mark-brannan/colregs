@@ -20,7 +20,10 @@ make one.
 ## Promoting one
 
 Merging a proposal settles nothing — it publishes the argument. The ruling is
-the label: put `adr-approved` on the pull request that merges it, and
+the label, and the label is the maintainer's alone: `adr-approved` goes on
+once consensus is reached, applied by the repository owner and by nobody
+else. No agent applies it, asks for it, or treats its absence as an oversight.
+Once it is on the pull request that merged the proposal,
 [`.github/workflows/adr-promote.yml`](../../.github/workflows/adr-promote.yml)
 opens a follow-up pull request that
 
