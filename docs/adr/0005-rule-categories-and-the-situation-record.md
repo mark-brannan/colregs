@@ -270,9 +270,10 @@ is not the same thing as the lights she shows.
   did not merely put the reason somewhere a test could not read it — it lost
   the cases where the displacing paragraph is silent.
 
-- **2026-09-17, ADR 0022 — Part D is `category:display`; the situation
-  record gains a sixth class, `act`.** §1 left Part D uncategorised. A signal
-  is what an entry produces; `act` is what a subject is doing now. `Q-1`.
+- **2026-09-17, PR #187 — Part D is `category:display`; proposes a sixth
+  class, `act`, for the situation record.** §1 left Part D uncategorised. A
+  signal is what an entry produces; `act` is what a subject is doing now.
+  `Q-1`.
 
 ## What is unchanged
 

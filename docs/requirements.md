@@ -291,7 +291,7 @@ towards, not because the shape is settled.
   `data/facts.json` under `situation`, and MUST address each vessel's facts
   through the subject namespace of `docs/identifiers.md`:
   `<subject>:<class>:<key>`, subject from `self`/`other`/`pair`, class from
-  `fact`/`kin`/`geo`/`hist`/`env`/`act` (`act` pencilled by ADR 0022). A key with no subject segment MUST mean `self:`,
+  `fact`/`kin`/`geo`/`hist`/`env`/`act` (`act` pencilled by PR #187). A key with no subject segment MUST mean `self:`,
   so that every predicate and fixture published today is a valid situation
   predicate unedited. `self:fact:*` and `other:fact:*` MUST resolve to the
   per-vessel fact record key for key, with no key renamed or copied.
@@ -711,8 +711,8 @@ other, so the prose and the registry cannot drift apart.
 Tracked here until resolved; each becomes an ADR.
 
 - **Q-1** — Do Part D sound signals fit the entry model, or do they need an
-  event dimension? Blocks REQ-PART-3. **Decided in pencil 2026-09-17
-  (ADR 0022): they fit.** Rule 35 is state over facts the record carries;
+  event dimension? Blocks REQ-PART-3. **Pencilled in PR #187: they fit.**
+  Rule 35 is state over facts the record carries;
   Rule 34(a)–(d) reads what self is doing, an `act` class of the situation
   record supplied by the consumer like `fact:making_way`, not an event
   stream. Settled by the first Rule 34 entry landing against

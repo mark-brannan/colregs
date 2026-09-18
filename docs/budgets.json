@@ -32,7 +32,8 @@
     "docs/adr/0021-rule-20c-is-a-modality-shift.md": 135,
     "docs/adr/0026-the-thing-is-signals.md": 170,
     "docs/adr/INDEX.md": 200,
-    "docs/proposals/README.md": 60
+    "docs/proposals/README.md": 60,
+    "docs/proposals/2026-09-18-part-d-signals-are-entries-with-an-act-class.md": 196
   },
   "json_prose": {
     "targets": [

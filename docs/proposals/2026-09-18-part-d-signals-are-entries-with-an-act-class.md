@@ -1,4 +1,4 @@
-# Part D signals are entries; the trigger is a fact class, not an event dimension
+# Part D signals are entries; the trigger is an act class, not an event dimension
 
 Date: 2026-09-17; reframed as a proposal 2026-09-18
 Status: proposal, not a ruling — an agent's suggestion, held open with ADR
