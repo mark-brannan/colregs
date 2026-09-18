@@ -102,7 +102,8 @@
       "data/text/**/*.json",
       "fixtures/*.json",
       "test/*.mjs",
-      "docs/**/*.md"
+      "docs/**/*.md",
+      "!docs/proposals/**"
     ],
     "scope": {
       "pr": [
@@ -162,6 +163,7 @@
       "AGENTS.md",
       "CLAUDE.md",
       "docs/**/*.md",
+      "!docs/proposals/**",
       "data/*.json",
       "data/text/**/*.json",
       "fixtures/*.json"
