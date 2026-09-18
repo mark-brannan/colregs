@@ -1,14 +1,17 @@
 # How other vessels enter the model
 
-Date: 2026-09-17; reframed as a proposal 2026-09-18
-Level: `?` (open, `docs/conventions.md`). This is a proposal, not an ADR.
-It adopts nothing and supersedes nothing, and it claims no ADR number.
-Nothing in it has been ruled. It records the suggestions of two design
-sessions, one per proposal below, and is held open for a tentative
-decision alongside the other design write-ups of the same week, which are
-expected to be rewritten together, merged or discarded. Merging this PR
-settles nothing. colregs-engine#82 and ADR 0023 are earlier proposals on
-the same ground and are treated the same way.
+Status: a proposal, not an ADR (`docs/proposals/README.md`). Nothing here is
+ruled; it adopts and supersedes nothing. It sets two design sessions'
+suggestions side by side, Proposal A (2026-09-17) and Proposal B
+(2026-09-18), and chooses neither. Merging publishes the argument and
+settles nothing: the ruling is the `adr-approved` label, the maintainer's
+alone. The filename claims the number reserved for this pull request in
+`docs/adr/INDEX.md`; a reservation is not yet a citation.
+
+Open on neighbouring ground, none settled: colregs-engine#82; proposals
+#187 (0022), #191 (0023, reworked in parallel into
+`docs/proposals/0023-surface-is-the-manifest.md`) and #193 (0024). ADR 0026
+(#195) is merged.
 
 ## The question
 
@@ -24,6 +27,11 @@ are open:
    caller ever needs on its own;
 4. where environment (channel, lane, visibility) lives, since it is a place
    and not a property of a pair.
+
+The first is the widest open, and contradicted outright: A keeps `pair`
+as a subject, B holds there is no pair at all.
+Neither is preferred; B is argued at equal length, and most of A rides on
+`pair` surviving.
 
 ## What the Rules say
 
@@ -112,10 +120,10 @@ deriveTrafficFacts(t: Traffic, opts?): TrafficFacts;     // traffic:<sector>:<ke
   sector facts the engine does. It derives `count` and `nearest_nm` per
   sector and no judgement; `foreclosed` is a judgement against the
   departure model's separation and is caller-stated or dropped.
-- **Environment stays on `pair` for now**; where it goes is left to the
-  conduct-input proposal (#193).
+- **Environment stays on `pair` for now**; where it goes is left open to
+  the conduct-input proposal, #193.
 
-Alternatives it rejected: `others?: Vessel[]` on the record with the engine
+Alternatives Proposal A argues against: `others?: Vessel[]` on the record with the engine
 deriving (the three reasons above); dropping `evaluateEncounter` for a
 one-element `Traffic` (callers read `encounters[0]`); `deriveTrafficFacts`
 internal (no engine producer for the departure input); `Traffic { self,
@@ -195,7 +203,7 @@ share one record type or two.
 | is a pair a thing | yes, the third subject, name kept | no; the relation lives on the contact |
 | the two-vessel encounter | its own operation; traffic folds over it | one record; responsibilities per contact, action over all |
 | sector reduction on its own | public, `deriveTrafficFacts` | none; density is a stated circumstance |
-| where environment lives | on `pair` until #193 decides | `circumstances` for the area; a vessel fact for her relation to it; the contact for in sight |
+| where environment lives | on `pair`, pending the conduct-input proposal #193 | `circumstances` for the area; a vessel fact for her relation to it; the contact for in sight |
 | the word `traffic` | the collection and its operation | Rule 10 places and Rule 6 density only |
 | what a radar-only contact is | a `pair` range and a `self` bearing, no fact record | a contact with `observed: radar` and an empty `vessel` |
 | both agree | roles pairwise, action existence not; conflicts are about action; `foreclosed` is a judgement, not geometry |
