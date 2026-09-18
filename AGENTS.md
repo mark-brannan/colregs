@@ -13,7 +13,11 @@ fact record supplied by the consumer.
 requirement IDs (`REQ-SCOPE-2`, `REQ-VERIFY-5`, …) are stable and cited by
 tests. `docs/adr/` records decisions so they aren't re-argued — for the whole
 family (colregs-engine, searoom, nav-wright), one sequence; a bare `ADR NNNN`
-anywhere in the family means this directory. An ADR lands by PR. Read both
+anywhere in the family means this directory. An ADR lands by PR and never
+with a hand-typed number: the argument is written as an unnumbered proposal
+under `docs/proposals/`, and labelling the merging PR `adr-approved` is what
+allocates the number — `docs/adr/INDEX.md` is the register,
+`docs/proposals/README.md` the mechanism. Read both
 before making a design change — don't infer intent from the data alone.
 `docs/identifiers.md` states the naming scheme: paragraph paths are bare,
 every other identifier — an entry, a light, a fact, a relation — carries a
@@ -128,8 +132,8 @@ doesn't self-cancel at 1.0 — someone has to deliberately remove it then.
 Part C lights and day shapes (Rules 20–31), `intl` jurisdiction; a record
 reads as night unless it states `fact:time: time:day`, and by day Rule 20(c)
 makes the lights `modality:may` in good visibility rather than silencing them
-(ADR 0021). Part D signals and every non-`intl` jurisdiction are modelled for
-but not yet present.
+(ADR 0021). Part D (Rules 32-37) is in the `intl` corpus as text and has no
+entries; every non-`intl` jurisdiction is modelled for but not present.
 
 ## Prose budget
 
