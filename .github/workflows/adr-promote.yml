@@ -58,21 +58,21 @@ jobs:
           node-version: 22
 
       # The proposals this merge ADDED. Editing one is not approving it, and
-      # the directory's README is not a proposal.
+      # the directory's README is not a proposal. NUL-delimited and handed to
+      # xargs: a filename never becomes a shell word, so a space or a glob
+      # character in one cannot split it or expand to something else.
       - id: added
         env:
           SHA: ${{ github.event.pull_request.merge_commit_sha }}
         run: |
-          files=$(git diff --diff-filter=A --name-only "$SHA^" "$SHA" \
-            -- 'docs/proposals/*.md' ':!docs/proposals/README.md' | tr '\n' ' ')
-          echo "added $files"
-          echo "files=$files" >> "$GITHUB_OUTPUT"
+          git diff -z --diff-filter=A --name-only "$SHA^" "$SHA" \
+            -- 'docs/proposals/*.md' ':!docs/proposals/README.md' > "$RUNNER_TEMP/added"
+          tr '\0' '\n' < "$RUNNER_TEMP/added"
+          echo "count=$(tr -cd '\0' < "$RUNNER_TEMP/added" | wc -c)" >> "$GITHUB_OUTPUT"
 
       - id: promote
-        if: steps.added.outputs.files != ''
-        env:
-          FILES: ${{ steps.added.outputs.files }}
-        run: node scripts/adr.mjs promote $FILES
+        if: steps.added.outputs.count != '0'
+        run: xargs -0 -a "$RUNNER_TEMP/added" node scripts/adr.mjs promote
 
       - if: steps.promote.outputs.subject != ''
         env:
