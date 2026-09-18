@@ -1,27 +1,34 @@
-# The conduct input as vessels, a plot and conditions
+# The conduct input is vessels, a plot and conditions
 
 Date: 2026-09-17
 Author: Claude (Opus 5), in a session on the colregs domain vocabulary.
-Level: `?` (open, `docs/conventions.md`). This is a proposal, not an ADR.
-It adopts nothing and supersedes nothing, and it claims no ADR number.
-Nothing in it has been ruled. Merging the PR that adds this file records a
-suggestion in the repository — ADR 0012 §2's `Trace` stands as written
-until an ADR says otherwise, and this write-up is not that ADR.
+Level: `?` (open, `docs/conventions.md`).
 
-Read it as an argument, not a boundary. Everything below is one author's
-recommendation, reached by reading the Rules' vocabulary against the shapes
-already in the repository — including the parts written in the flat
-indicative, which is a habit of the form and not a claim of authority.
-Where a sentence sounds like a ruling, that is the author over-reaching;
-the register at the foot is the honest summary, and every row of it is
-open.
+**Nothing here is ruled.** This is a proposal
+([`docs/proposals/README.md`](README.md)), not an ADR: it adopts nothing,
+supersedes nothing, and closes no option. ADR 0012 §2's `Trace` stands as
+written until an ADR says otherwise, and this is not that ADR. Merging
+publishes the argument and settles none of it.
 
-This is also one of a batch of write-ups produced in quick succession by
-agent sessions on adjacent questions. The batch is raw material. Expect it
-to be rewritten from scratch, or dropped, rather than adopted a section at
-a time, and do not build on it or cite it as precedent in the meantime.
-When it becomes a decision, the decision will be stated by whoever rules,
-in their own words, and this file's content is not that.
+The filename claims 0024, reserved in
+[`docs/adr/INDEX.md`](../adr/INDEX.md) because this was cited before its
+text landed; numbers are allocated across parallel sessions, so releasing
+one would collide. The number is in the filename and nowhere else — the H1
+carries none, because a number is a citation and nothing here is citable
+yet.
+
+Read it as an argument, not a boundary: one author's recommendation, from
+reading the Rules' vocabulary against the shapes already in the repository.
+The flat indicative is a habit of the form, not a claim of authority; where
+a sentence sounds like a ruling, that is the author over-reaching, and the
+register at the foot is the honest summary.
+
+It is one of a batch of write-ups by agent sessions on adjacent questions.
+Its open siblings are the proposals #187 (claiming 0022), #191 (0023) and
+#194 (0025); ADR 0026, merged as #195, is the one already in `docs/adr/`
+and is itself an argument rather than a ruling. The batch is raw material —
+expect it rewritten from scratch or dropped rather than adopted a section
+at a time, and do not cite it as precedent meanwhile.
 
 The subject is colregs-engine's public API and the MCP tool contract;
 colregs owns the ADR and the schema (ADR 0014).
@@ -145,7 +152,7 @@ interface Fix {
 
 /** What is true between the two vessels at one sample: range, bearing
  *  change, CPA, TCPA, in-sight, risk of collision. Was `Pair`, less `env`,
- *  which is now `Conditions`. Named in the traffic item; pencil here. */
+ *  which is now `Conditions`. #194 (0025) proposes the name; pencil here. */
 interface Between {
   geo?: PairGeometry;
 }
@@ -156,7 +163,7 @@ interface PlotSample {
   other?: Fix;
   between?: Between;
   /** Reserved. Traffic facts are derived and transient, so the sample is
-   *  their home rather than the window; the traffic item rules the shape. */
+   *  their home rather than the window; #194 (0025) proposes the shape. */
   traffic?: TrafficFacts;
 }
 
@@ -202,8 +209,8 @@ declare function at(circumstances: Circumstances, i: number): Encounter;
 
 Taken together, the split would land in both inputs, and `Vessel` would
 have one meaning — the invariant half, `{ fact, hist }` — rather than one
-meaning per input. A rename of `Situation` to `Encounter`, which is under
-discussion separately, would be where the `Encounter` half of this landed.
+meaning per input. A rename of `Situation` to `Encounter`, proposed in #194
+(0025), would be where the `Encounter` half of this landed.
 
 Inside the engine the change is one line deep: `flattenSituation(s.situation)`
 becomes `flattenSituation(at(circumstances, i))`. The predicate language,
@@ -267,7 +274,7 @@ someone decide, which is the only useful thing this file has to say about
 its own confidence.
 
 | item | what would settle it |
-|---|---|---|
+|---|---|
 | **All of it.** No part of this file has been ruled on | an ADR, written by whoever rules |
 | The three-part split, on SignalK's `design`/`navigation`/`environment` axis | the first conduct fixture authored in it |
 | `Circumstances` for the window, `Conditions` for the third part; the alternative is `ConductInput` for the window and `Circumstances` for the third part (the draft's pencil), which trades the Rules' register for two names a reader cannot confuse | a reader who confuses the two names, or does not |
@@ -275,8 +282,8 @@ its own confidence.
 | `conditions.visibility`/`conditions.time` are the only home in this input; the same key inside `vessels.*.fact` is refused | Q-56 (19(a)'s second conjunct and which subject reads it) |
 | A change in conditions ends the window; the caller splits and the engine does not stitch | the first Rule 19 fixture that crosses the boundary |
 | `at(circumstances, i)` total, and the walker's only contact with the new shape | `validateCircumstances` and the first replayed fixture |
-| `Vessel` means `{ fact, hist }` in both inputs; `Encounter` takes `fix` where `Circumstances` takes `plot` | the `Situation`→`Encounter` rename PR |
-| `Between` for the symmetric half, `env` moved out of it | the traffic item, which owns the name |
-| `PlotSample.traffic` reserved, not specified | the traffic item |
+| `Vessel` means `{ fact, hist }` in both inputs; `Encounter` takes `fix` where `Circumstances` takes `plot` | #194 (0025), which proposes that rename |
+| `Between` for the symmetric half, `env` moved out of it | #194 (0025), the proposal that puts the name up |
+| `PlotSample.traffic` reserved, not specified | #194 (0025) |
 | MCP tool names unchanged, input key renamed | — |
 | `course` vs `heading` in `kin:` is a recorded gap, not decided here | a card; the Rules' "course and speed" against SignalK's COG |
