@@ -11,7 +11,10 @@ numbers unique, no gaps, nothing reused from `origin/main`, and one entry per
 file in this directory.
 
 A `reserved` line holds a number that is allocated but whose text does not
-live here — a number cited elsewhere before its document landed.
+live here — a number cited elsewhere before its document landed. A proposal
+whose filename starts with that number is claiming it: promotion lands it at
+the reserved number and rewrites the line in place. Every other proposal is
+unnumbered and takes the next free number, appended.
 
 - 0001 [Package name, and jurisdiction as a dimension](0001-name-and-jurisdiction-model.md)
 - 0002 [WIG operating-condition gate, and dropping the file-level `jurisdiction` field](0002-wig-gate-and-jurisdiction-field.md)

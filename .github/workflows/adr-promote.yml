@@ -20,9 +20,14 @@ name: Promote approved proposals to ADRs
 # where test/adr.test.mjs checks the number it just allocated. Same App and
 # the same reasoning as release-please.yml.
 
+# `labeled` as well as `closed`: the ruling is the label, and a label added
+# after the merge fires no `closed` event. Both paths converge on the `if:`
+# below, which reads `merged` and the label from the same payload -- so a
+# label on an open pull request does nothing, and a second label on a merged
+# one finds every proposal already moved and promotes nothing.
 on:
   pull_request:
-    types: [closed]
+    types: [closed, labeled]
 
 permissions:
   contents: read

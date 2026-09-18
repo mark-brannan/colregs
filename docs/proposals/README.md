@@ -29,7 +29,15 @@ opens a follow-up pull request that
 - moves its `docs/budgets.json` line budget with it, and
 - appends its entry to [`docs/adr/INDEX.md`](../adr/INDEX.md).
 
-Squash-merging that pull request is what lands the ADR.
+Squash-merging that pull request is what lands the ADR. Labelling after the
+merge works too — the workflow listens for the label as well as the merge,
+and promoting twice is a no-op because the file has already moved.
+
+A number already reserved in `docs/adr/INDEX.md` — one cited before its text
+landed — is claimed by starting the proposal's filename with it,
+`docs/proposals/0022-<slug>.md`. Promotion then lands it at that number and
+rewrites the reserved line in place. A number that is not reserved is
+refused: there is no other way to type one.
 
 ## Why the bot holds the pen
 

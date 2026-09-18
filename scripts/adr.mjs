@@ -13,7 +13,7 @@
 // of colliding on main. test/adr.test.mjs is the guard that says so.
 
 import { execFileSync } from 'node:child_process'
-import { appendFileSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { appendFileSync, existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -48,8 +48,9 @@ export const adrFiles = (root = ROOT) =>
 
 export const nextNumber = (entries) => Math.max(0, ...entries.map((e) => e.n)) + 1
 
-// A proposal may carry a date prefix; an ADR filename never does.
-export const slugOf = (path) => basename(path, '.md').replace(/^\d{4}-\d{2}-\d{2}-/, '')
+// A proposal may carry a date prefix, or a number it is claiming; an ADR
+// filename carries only its own number.
+export const slugOf = (path) => basename(path, '.md').replace(/^(?:\d{4}-\d{2}-\d{2}|\d{4})-/, '')
 
 // The budget key is the path, so a move that leaves it behind fails
 // prose-budget with "budgeted but not on disk". Rewrite the key, not the file.
@@ -59,22 +60,44 @@ function rekeyBudget(root, from, to) {
 }
 
 export function promote(paths, root = ROOT) {
+  // Promotion is idempotent: the workflow can fire again on the same merge
+  // (a second label event), and a proposal already moved is already promoted.
+  const pending = paths.filter((path) => existsSync(join(root, path)))
+  if (pending.length === 0) return []
   const entries = readIndex(root)
-  let n = nextNumber(entries)
+  const reserved = new Map(entries.filter((e) => !e.file).map((e) => [e.n, e]))
+  let free = nextNumber(entries)
   const promoted = []
-  for (const path of paths) {
+  for (const path of pending) {
+    // A numbered proposal filename claims a number the register already
+    // holds reserved -- an ADR cited before its text landed here. Anything
+    // else takes the next free number.
+    const claim = /^(\d{4})-/.exec(basename(path))
+    const held = claim && reserved.get(Number(claim[1]))
+    if (claim && !held) {
+      throw new Error(`${path}: ADR ${claim[1]} is not reserved in ${INDEX}; drop the number and let the next free one be allocated`)
+    }
+    const n = held ? held.n : free++
+    if (held) reserved.delete(n)
     const text = read(path, root)
     if (!text.startsWith('# ')) throw new Error(`${path}: no H1 on the first line; a proposal opens with its title`)
-    const title = text.split('\n', 1)[0].replace(/^# (?:ADR \d{4} — )?/, '')
+    const nl = text.indexOf('\n')
+    const title = (nl === -1 ? text : text.slice(0, nl)).replace(/^# (?:ADR \d{4} — )?/, '')
     const dest = `docs/adr/${pad(n)}-${slugOf(path)}.md`
     git(root, 'mv', path, dest)
-    writeFileSync(join(root, dest), `# ADR ${pad(n)} — ${text.slice(2)}`)
+    writeFileSync(join(root, dest), `# ADR ${pad(n)} — ${title}\n${nl === -1 ? '' : text.slice(nl + 1)}`)
     rekeyBudget(root, path, dest)
-    promoted.push({ n, title, dest, entry: `- ${pad(n)} [${title}](${basename(dest)})` })
-    n += 1
+    promoted.push({ n, title, dest, held, entry: `- ${pad(n)} [${title}](${basename(dest)})` })
   }
-  const index = read(INDEX, root).replace(/\n*$/, '\n')
-  writeFileSync(join(root, INDEX), index + promoted.map((p) => p.entry).join('\n') + '\n')
+  // A claimed number replaces its reserved line where it already sits; a new
+  // one is appended, which is what makes two branches collide in git.
+  let index = read(INDEX, root).replace(/\n*$/, '\n')
+  const appended = []
+  for (const p of promoted) {
+    if (p.held) index = index.replace(`${p.held.line}\n`, `${p.entry}\n`)
+    else appended.push(p.entry)
+  }
+  writeFileSync(join(root, INDEX), index + appended.map((e) => `${e}\n`).join(''))
   return promoted
 }
 
@@ -85,6 +108,10 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(2)
   }
   const promoted = promote(paths)
+  if (promoted.length === 0) {
+    console.log('nothing to promote; every proposal named has already moved')
+    process.exit(0)
+  }
   const subject =
     promoted.length === 1
       ? `docs(adr): promote ${slugOf(promoted[0].dest)} to ADR ${pad(promoted[0].n)}`
