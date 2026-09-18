@@ -48,6 +48,10 @@ publications. Nothing here is authoritative: consult the published rules.
   punctuation was introduced. 34(b)'s `(i)`-`(iii)` and 34(c)'s `(i)`-`(ii)`
   are their own paragraph paths; the unnumbered blast items are inlined into
   the paragraph that introduces them, as Rule 30(a)'s are.
+- **Rule 32(b) reads "about one seconds duration"** where the published
+  COLREGS text has "one second's duration". The source HTML has no
+  apostrophe and no entity standing in for one; transcribed as found,
+  confirmed against the raw source HTML on 2026-09-17.
 - **Two defects in the source's Rule 34(a), kept verbatim:** it reads "When
   vessels are in sight of one," where the published COLREGS text reads "of
   one another", and "One short blasts to mean" where the signal is one blast.
