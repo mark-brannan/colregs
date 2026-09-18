@@ -7,12 +7,14 @@ publications. Nothing here is authoritative: consult the published rules.
 
 - **Source:** USCG Navigation Center, *Navigation Rules, International —
   Inland* (amalgamated), <https://www.navcen.uscg.gov/navigation-rules-amalgamated>
-- **Retrieved:** 2026-09-04 (re-fetched to add Rules 1-19; originally 2026-08-29
-  for Part C)
-- **Scope:** the **International** text only, now covering Parts A and B
-  (Rules 1-19) and Part C (Rules 20-31). The amalgamated page marks
-  inland-only inserts and international-only variants inline; inland text was
-  removed and international variants kept. Nothing was paraphrased.
+- **Retrieved:** 2026-09-17 (re-fetched to add Part D; 2026-09-04 for Rules
+  1-19; originally 2026-08-29 for Part C)
+- **Scope:** the **International** text only, covering Parts A and B
+  (Rules 1-19), Part C (Rules 20-31) and Part D (Rules 32-37). The
+  amalgamated page marks inland-only inserts and international-only variants
+  inline; inland text was removed and international variants kept. Nothing
+  was paraphrased. Rule 35(l) is Inland-only and absent for that reason, as
+  are Rule 34(g) and 34(h).
 - **Rights:** a work of the US Government, not subject to copyright in the
   United States (17 U.S.C. 105).
 - **Known hole:** Rule 24(g)(i) is absent from the source page. Rather than
@@ -37,6 +39,23 @@ publications. Nothing here is authoritative: consult the published rules.
   outside the quotes) is the other, corrected to match the source on
   2026-09-05 after having been transcribed with straight quotes and `craft`
   inside the term.
+- **Part D's Rule 34 is a two-column table, not prose.** Rules 32, 33 and
+  35-37 run as prose on the source page; Rule 34 lays the International and
+  Inland texts side by side, and splits each blast and its meaning across
+  separate rows, some of which span both columns. The International column
+  was read cell by cell out of the raw HTML and rejoined, keeping the
+  source's own en-dash as the separator between list items so that no
+  punctuation was introduced. 34(b)'s `(i)`-`(iii)` and 34(c)'s `(i)`-`(ii)`
+  are their own paragraph paths; the unnumbered blast items are inlined into
+  the paragraph that introduces them, as Rule 30(a)'s are.
+- **Two defects in the source's Rule 34(a), kept verbatim:** it reads "When
+  vessels are in sight of one," where the published COLREGS text reads "of
+  one another", and "One short blasts to mean" where the signal is one blast.
+  Both are transcribed as the source HTML has them rather than silently
+  corrected, on the same principle as the Rule 1(c) and 13(b) quirks above.
+  A reader who needs 34(a) should consult the published rules; this is the
+  clearest case in the corpus of why the note at the top of this file is
+  there.
 - **Inland-only inserts deliberately absent:** the source marks Inland
   text with `‹‹ ››`. Rule 21(a) and 21(b)'s "vessel of less than 12 meters
   … as nearly as practicable to the fore and aft centerline" clauses and

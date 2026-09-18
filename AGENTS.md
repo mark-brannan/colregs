@@ -128,8 +128,8 @@ doesn't self-cancel at 1.0 — someone has to deliberately remove it then.
 Part C lights and day shapes (Rules 20–31), `intl` jurisdiction; a record
 reads as night unless it states `fact:time: time:day`, and by day Rule 20(c)
 makes the lights `modality:may` in good visibility rather than silencing them
-(ADR 0021). Part D signals and every non-`intl` jurisdiction are modelled for
-but not yet present.
+(ADR 0021). Part D (Rules 32-37) is in the `intl` corpus as text and has no
+entries; every non-`intl` jurisdiction is modelled for but not present.
 
 ## Prose budget
 
