@@ -1,16 +1,12 @@
-# ADR 0024 — the conduct input as vessels, a plot and conditions
+# The conduct input as vessels, a plot and conditions
 
 Date: 2026-09-17
 Author: Claude (Opus 5), in a session on the colregs domain vocabulary.
-Status: **proposal — nothing here is ruled.** Level `?` (open) throughout,
-per `docs/conventions.md`: *anyone proposes; a proposal moves it to
-pencil.* Not ink, and not even pencil.
-
-The number is taken so the sequence stays collision-free across sessions;
-it is not a claim that anything below is settled. Merging the PR that adds
-this file records a suggestion in the repository. It adopts nothing,
-supersedes nothing, and closes no option — ADR 0012 §2's `Trace` stands as
-written until an ADR says otherwise, and this is not that ADR.
+Level: `?` (open, `docs/conventions.md`). This is a proposal, not an ADR.
+It adopts nothing and supersedes nothing, and it claims no ADR number.
+Nothing in it has been ruled. Merging the PR that adds this file records a
+suggestion in the repository — ADR 0012 §2's `Trace` stands as written
+until an ADR says otherwise, and this write-up is not that ADR.
 
 Read it as an argument, not a boundary. Everything below is one author's
 recommendation, reached by reading the Rules' vocabulary against the shapes
