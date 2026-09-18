@@ -29,8 +29,7 @@
     "docs/maritime-sources.md": 130,
     "docs/decisions.md": 40,
     "docs/adr/0020-skeleton-is-a-delta.md": 110,
-    "docs/adr/0021-rule-20c-is-a-modality-shift.md": 135,
-    "docs/adr/0024-the-conduct-input-as-vessels-a-plot-and-conditions.md": 300
+    "docs/adr/0021-rule-20c-is-a-modality-shift.md": 135
   },
   "json_prose": {
     "targets": [
