@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/mark-brannan/colregs/schema/departure-model.schema.json",
-  "title": "DepartureModel",
-  "description": "One solved region grid, named immutably by `version`, the positional second input of evaluateDeparture (ADR 0012 §4, ADR 0014). Only `version`, `colregs_version`, the solver parameters and the `regions` encoding are API; any other field is the artefact's own, so additional properties are allowed. Structure only.",
+  "$id": "https://github.com/mark-brannan/colregs/schema/rule2-departure-model.schema.json",
+  "title": "Rule2DepartureModel",
+  "description": "One solved region grid, named immutably by `version`, the positional second input of evaluateRule2Departure (ADR 0012 §4, ADR 0014). Only `version`, `colregs_version`, the solver parameters and the `regions` encoding are API; any other field is the artefact's own, so additional properties are allowed. Structure only.",
   "type": "object",
   "required": [
     "version",

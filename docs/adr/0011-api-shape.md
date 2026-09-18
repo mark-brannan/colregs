@@ -160,12 +160,12 @@ resolution, and validation of the situation record.
 | item | level | what would settle it |
 |---|---|---|
 | Two verbs, one per input; no `classifyEncounter` / `resolvePrecedence` | ink | — |
-| `evaluateDisplay`, `appliedDisplayEntries`, `DisplayEvaluation`, `opts.data`, `colregs.source` | ink | `appliedDisplayEntries` reopened by ADR 0023; the rest stands |
+| `evaluateDisplay`, `appliedDisplayEntries`, `DisplayEvaluation`, `opts.data`, `colregs.source` | ink | — |
 | `FactRecord` keeps its name | ink | — |
 | `Situation` nested by subject and class, generated from `facts.json` | ink | — |
 | Verb name `evaluateEncounter`; result name `EncounterEvaluation` | ✎ | colregs renaming the `pair` subject or the `encounter` effect |
 | `self` required, `other`/`Subject.fact` per colregs 0.2.0's fixture schema | ✎ | revised 2026-09-07 from "own/other both required"; Mark to confirm before ink |
-| `appliedEncounterEntries` as the fixture-replay companion | ✎ | superseded by ADR 0023: the envelope's `applied` is the contract, no companion |
+| `appliedEncounterEntries` as the fixture-replay companion | ✎ | the situation-fixture replay being written |
 | Field names snake_case with unit suffixes across both ADRs; `EntryId`/`ParagraphCite` alias `string` for ids and cites | ✎ | the rename's alias window closing; a consumer arguing the compiler should enforce the two apart |
 | `EncounterEvaluation` field set (§4); `categories` and `provenance` added 2026-09-16 beyond the block above, as `DisplayEvaluation` carries them — colregs-engine 0.1.5 built them and ADR 0014's `encounter-evaluation.schema.json` is now the shape; `roles` is the pooled two-frame read, ADR 0016 | ✎ | building it; Q-35, Q-36, Q-43 in colregs |
 | `encounter` absent vs the ADR 0005 §5 status alphabet | ✎ | Q-43 |

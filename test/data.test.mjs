@@ -295,10 +295,10 @@ test('schema: every schema file names itself by $id and compiles, cross-file $re
 
 // --- operations (ADR 0014) --------------------------------------------------
 // data/operations.json is the engine interface colregs owns: verb -> input
-// schemas -> result schema -> fixture file (ADR 0023). The schema checks its
+// schemas -> result schema -> companion -> fixture file. The schema checks its
 // shape; these tests check that every reference lands and that the fixture
 // binding is real -- each bound case's input validates against the verb's
-// input schema, and each `expect` against the schema the binding names.
+// input schema, and each `expect` against the companion's output.
 const ops = Object.entries(operations.operations)
 const resolvePointer = (doc, pointer) =>
   pointer.split('/').slice(1).map((seg) => seg.replace(/~1/g, '/').replace(/~0/g, '~')).reduce((o, seg) => o?.[seg], doc)
@@ -313,19 +313,24 @@ const schemaRefResolves = (ref, what) => {
   return validate
 }
 
-test('operations: every input, output and expect schema reference resolves', () => {
+test('operations: every input, output and companion schema reference resolves', () => {
   for (const [verb, op] of ops) {
     for (const input of op.inputs) schemaRefResolves(input.schema, `${verb}.inputs.${input.name}`)
     schemaRefResolves(op.output, `${verb}.output`)
-    for (const fx of op.fixtures) schemaRefResolves(fx.expect, `${verb}.fixtures[${fx.file}].expect`)
+    if (op.companion) schemaRefResolves(op.companion.output, `${verb}.companion`)
   }
 })
 
-test('operations: the six operations ADR 0023 names, and no other', () => {
-  assert.deepEqual(Object.keys(operations.operations).sort(), ['evaluateConduct', 'evaluateDeparture', 'evaluateDisplay', 'evaluateEncounter', 'evaluateScene', 'reduceTraffic'])
+test('operations: verbs and companion verbs are one namespace, no name twice', () => {
+  const names = ops.flatMap(([verb, op]) => [verb, ...(op.companion ? [op.companion.verb] : [])])
+  assert.deepEqual(names.filter((n, i) => names.indexOf(n) !== i), [])
 })
 
-test('operations: every fixture file is bound to a verb, and every bound case fits the verb\'s input and expect schema', () => {
+test('operations: every verb ADR 0011 and 0012 name is an operation', () => {
+  assert.deepEqual(Object.keys(operations.operations).sort(), ['evaluateConduct', 'evaluateDisplay', 'evaluateEncounter', 'evaluateRule2Departure'])
+})
+
+test('operations: every fixture file is bound to a verb, and every bound case fits the verb\'s input and companion output', () => {
   const fixtureFiles = readdirSync(new URL('../fixtures', import.meta.url)).filter((f) => f.endsWith('.json')).map((f) => `fixtures/${f}`)
   const bound = new Set()
   for (const [verb, op] of ops) {
@@ -334,14 +339,15 @@ test('operations: every fixture file is bound to a verb, and every bound case fi
       assert.ok(fixtureFiles.includes(fx.file), `${verb}: ${fx.file} does not exist`)
       assert.equal(fx.case_inputs.length, op.inputs.length, `${verb}: ${fx.file} binds ${fx.case_inputs.length} case keys to ${op.inputs.length} inputs`)
       const inputSchemas = op.inputs.map((input) => schemaRefResolves(input.schema, verb))
-      const expectSchema = schemaRefResolves(fx.expect, verb)
+      const expectRef = fx.expect ?? op.companion?.output
+      const expectSchema = expectRef && schemaRefResolves(expectRef, verb)
       for (const c of load(fx.file).cases) {
         fx.case_inputs.forEach((key, i) => {
           assert.ok(c[key] !== undefined, `${verb}: ${fx.file} case '${c.name}' has no ${key}`)
           check(inputSchemas[i], c[key], `${verb}: ${fx.file} case '${c.name}' ${key}`)
         })
-        // A situation fixture may expect `{ entry, modality }`; the replay compares the ids.
-        check(expectSchema, c.expect.map(entryId), `${verb}: ${fx.file} case '${c.name}' expect`)
+        // A situation fixture may expect `{ entry, modality }`; the companion answers the ids.
+        if (expectSchema) check(expectSchema, c.expect.map(entryId), `${verb}: ${fx.file} case '${c.name}' expect`)
       }
     }
   }
@@ -369,11 +375,9 @@ const envelopeExamples = {
   'display-evaluation.schema.json': { colregs, applied: ['rule:23a_i'], exempted: [], overridden: [], displays: [{ entries: ['rule:23a_i'], lights: [{ spec: { light: 'light:masthead' }, source_entry: 'rule:23a_i', modality: 'modality:shall' }], chosen: [] }], optional_additions: [], modalities: { 'rule:23a_i': 'modality:shall' }, categories: { 'rule:23a_i': 'category:display' }, provenance },
   'encounter-evaluation.schema.json': encounter,
   'conduct-evaluation.schema.json': { colregs, window: { from_s: 0, to_s: 60, samples: 2 }, applied: ['rule:13a'], verdicts: [{ id: 'rule:13a', subject: 'self', verdict: 'pending', attached_at_s: 0 }], phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }] },
-  'departure-finding.schema.json': { status: 'not-flagged', rules: encounter, advisories: [{ action: { alter_deg: 30 }, margin_m: 800, breaches: ['17(c)'], envelope: { holds_until_s: 120 } }], model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] } },
+  'rule2-departure-finding.schema.json': { status: 'not-flagged', rules: encounter, advisories: [{ action: { alter_deg: 30 }, margin_m: 800, breaches: ['17(c)'], envelope: { holds_until_s: 120 } }], model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] } },
   'trace.schema.json': { samples: [{ t_s: 0, situation: { self: { fact: { 'fact:propulsion': 'propulsion:power' } } } }] },
-  'departure-model.schema.json': { version: 'grid-0', colregs_version: '0.0.0', ...parameters, regions: [{ when: { 'self:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' }], artefact_only: true },
-  'scene.schema.json': { self: { fact: { 'fact:propulsion': 'propulsion:power' } }, others: [{ fact: { 'fact:propulsion': 'propulsion:sail' } }], pairs: [{ geo: { 'geo:in_sight': true } }] },
-  'scene-evaluation.schema.json': { pairs: [encounter], traffic: { starboard: { count: 2, nearest_nm: 1.2, foreclosed: false } }, conflicts: [{ duty: 'role:give-way', to: 0, blocked_by: [1] }] },
+  'rule2-departure-model.schema.json': { version: 'grid-0', colregs_version: '0.0.0', ...parameters, regions: [{ when: { 'self:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' }], artefact_only: true },
 }
 
 test('operations: smoke -- each result and input envelope accepts a hand-written instance and refuses an empty one', () => {
@@ -382,16 +386,6 @@ test('operations: smoke -- each result and input envelope accepts a hand-written
     check(validate, example, `${file} example`)
     assert.ok(!validate({}), `${file} accepts {}`)
   }
-})
-
-// The one answer that is legitimately empty: no other traffic reduces to no
-// sector facts (ADR 0023), so `{}` must pass and a malformed sector must not.
-test('operations: traffic-facts accepts an empty reduction and refuses a malformed sector', () => {
-  const validate = validatorFor('traffic-facts.schema.json')
-  check(validate, {}, 'traffic-facts.schema.json empty')
-  check(validate, { ahead: { count: 1, nearest_nm: 0.8, foreclosed: true }, port: { count: 0 } }, 'traffic-facts.schema.json example')
-  assert.ok(!validate({ ahead: { count: -1 } }), 'traffic-facts.schema.json accepts a negative count')
-  assert.ok(!validate({ abeam: {} }), 'traffic-facts.schema.json accepts an unknown sector')
 })
 
 // REQ-LANG-2's closed-list fact values (Tier A):
