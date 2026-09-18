@@ -52,6 +52,14 @@ export const nextNumber = (entries) => Math.max(0, ...entries.map((e) => e.n)) +
 // filename carries only its own number.
 export const slugOf = (path) => basename(path, '.md').replace(/^(?:\d{4}-\d{2}-\d{2}|\d{4})-/, '')
 
+// A four-digit prefix claims a number the register holds reserved. A date
+// prefix starts the same way and claims nothing, so it is excluded here --
+// otherwise 2026-01-15-some-idea.md reads as a claim on ADR 2026.
+export const claimOf = (path) => {
+  const m = /^(\d{4})-(?!\d{2}-\d{2}-)/.exec(basename(path))
+  return m ? Number(m[1]) : null
+}
+
 // The budget key is the path, so a move that leaves it behind fails
 // prose-budget with "budgeted but not on disk". Rewrite the key, not the file.
 function rekeyBudget(root, from, to) {
@@ -72,10 +80,10 @@ export function promote(paths, root = ROOT) {
     // A numbered proposal filename claims a number the register already
     // holds reserved -- an ADR cited before its text landed here. Anything
     // else takes the next free number.
-    const claim = /^(\d{4})-/.exec(basename(path))
-    const held = claim && reserved.get(Number(claim[1]))
-    if (claim && !held) {
-      throw new Error(`${path}: ADR ${claim[1]} is not reserved in ${INDEX}; drop the number and let the next free one be allocated`)
+    const claim = claimOf(path)
+    const held = claim !== null && reserved.get(claim)
+    if (claim !== null && !held) {
+      throw new Error(`${path}: ADR ${pad(claim)} is not reserved in ${INDEX}; drop the number and let the next free one be allocated`)
     }
     const n = held ? held.n : free++
     if (held) reserved.delete(n)

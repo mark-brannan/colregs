@@ -40,10 +40,15 @@ concurrency:
 
 jobs:
   promote:
+    # The label event that matters is the one adding `adr-approved`. Without
+    # that clause any later label on an already-approved merged pull request
+    # re-fires this, and the run is only a no-op once the promotion it already
+    # opened has merged -- before that the proposal is still on main.
     if: >-
       github.event.pull_request.merged &&
       github.event.pull_request.base.ref == 'main' &&
-      contains(github.event.pull_request.labels.*.name, 'adr-approved')
+      contains(github.event.pull_request.labels.*.name, 'adr-approved') &&
+      (github.event.action != 'labeled' || github.event.label.name == 'adr-approved')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-github-app-token@v3
@@ -69,7 +74,12 @@ jobs:
       - id: added
         env:
           SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          PR: ${{ github.event.pull_request.number }}
         run: |
+          if git ls-remote --exit-code --heads origin "adr-promote/pr-$PR" >/dev/null; then
+            echo "::notice::adr-promote/pr-$PR is already open; nothing to allocate"
+            echo "count=0" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           git diff -z --diff-filter=A --name-only "$SHA^" "$SHA" \
             -- 'docs/proposals/*.md' ':!docs/proposals/README.md' > "$RUNNER_TEMP/added"
           tr '\0' '\n' < "$RUNNER_TEMP/added"

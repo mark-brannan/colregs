@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { ROOT, INDEX, adrFiles, pad, parseIndex, readIndex } from '../scripts/adr.mjs'
+import { ROOT, INDEX, adrFiles, claimOf, pad, parseIndex, readIndex, slugOf } from '../scripts/adr.mjs'
 
 // docs/adr/INDEX.md is the register of allocated ADR numbers and this is what
 // makes it one. docs/proposals/README.md states the mechanism it guards.
@@ -65,5 +65,14 @@ test('ADR index: no number already allocated on origin/main', { skip: base === n
   for (const e of entries) {
     if (base.some((b) => b.n === e.n)) continue
     assert.ok(e.n > high, `ADR ${pad(e.n)} is already allocated on origin/main; rebase and take the next free number (${pad(high + 1)})`)
+  }
+})
+
+test('ADR proposals: a number prefix is a claim, a date prefix is not', () => {
+  assert.equal(claimOf('docs/proposals/0022-part-d-signals.md'), 22)
+  assert.equal(claimOf('docs/proposals/2026-01-15-some-idea.md'), null)
+  assert.equal(claimOf('docs/proposals/some-idea.md'), null)
+  for (const p of ['docs/proposals/0022-part-d-signals.md', 'docs/proposals/2026-01-15-part-d-signals.md', 'docs/proposals/part-d-signals.md']) {
+    assert.equal(slugOf(p), 'part-d-signals', `${p}: the slug is the same whatever the prefix`)
   }
 })
