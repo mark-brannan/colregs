@@ -1226,6 +1226,156 @@
    "path": "31",
    "rule": "31",
    "jurisdiction": "intl"
+  },
+  "32(a)": {
+   "path": "32(a)",
+   "rule": "32",
+   "jurisdiction": "intl"
+  },
+  "32(b)": {
+   "path": "32(b)",
+   "rule": "32",
+   "jurisdiction": "intl"
+  },
+  "32(c)": {
+   "path": "32(c)",
+   "rule": "32",
+   "jurisdiction": "intl"
+  },
+  "33(a)": {
+   "path": "33(a)",
+   "rule": "33",
+   "jurisdiction": "intl"
+  },
+  "33(b)": {
+   "path": "33(b)",
+   "rule": "33",
+   "jurisdiction": "intl"
+  },
+  "34(a)": {
+   "path": "34(a)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(b)": {
+   "path": "34(b)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(b)(i)": {
+   "path": "34(b)(i)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(b)(ii)": {
+   "path": "34(b)(ii)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(b)(iii)": {
+   "path": "34(b)(iii)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(c)": {
+   "path": "34(c)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(c)(i)": {
+   "path": "34(c)(i)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(c)(ii)": {
+   "path": "34(c)(ii)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(d)": {
+   "path": "34(d)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(e)": {
+   "path": "34(e)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "34(f)": {
+   "path": "34(f)",
+   "rule": "34",
+   "jurisdiction": "intl"
+  },
+  "35": {
+   "path": "35",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(a)": {
+   "path": "35(a)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(b)": {
+   "path": "35(b)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(c)": {
+   "path": "35(c)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(d)": {
+   "path": "35(d)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(e)": {
+   "path": "35(e)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(f)": {
+   "path": "35(f)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(g)": {
+   "path": "35(g)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(h)": {
+   "path": "35(h)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(i)": {
+   "path": "35(i)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(j)": {
+   "path": "35(j)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "35(k)": {
+   "path": "35(k)",
+   "rule": "35",
+   "jurisdiction": "intl"
+  },
+  "36": {
+   "path": "36",
+   "rule": "36",
+   "jurisdiction": "intl"
+  },
+  "37": {
+   "path": "37",
+   "rule": "37",
+   "jurisdiction": "intl"
   }
  },
  "deltas": {

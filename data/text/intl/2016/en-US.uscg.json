@@ -17,7 +17,7 @@
   "redistribution_basis": "17 U.S.C. 105; no attribution required, USCG credited by custom",
   "package_licence": "Apache-2.0"
  },
- "note": "Verbatim International text of COLREGS 72 Parts A and B (Rules 1-19) and Part C (Lights and Shapes, Rules 20-31), plus the Rule 3 definitions those paragraphs depend on. Paragraph path is the citation unit. Inland-only text is not included in this ruleset.",
+ "note": "Verbatim International text of COLREGS 72 Parts A and B (Rules 1-19), Part C (Lights and Shapes, Rules 20-31) and Part D (Sound and Light Signals, Rules 32-37), plus the Rule 3 definitions those paragraphs depend on. Paragraph path is the citation unit. Inland-only text is not included in this ruleset.",
  "gaps": [
   {
    "path": "24(g)(i)",
@@ -872,6 +872,126 @@
   "31": {
    "rule_title": "Seaplanes",
    "text": "Where it is impracticable for a seaplane or a WIG craft to exhibit lights or shapes of the characteristics or in the positions prescribed in Rules 20-31 she shall exhibit lights and shapes as closely similar in characteristics and position as is possible."
+  },
+  "32(a)": {
+   "rule_title": "Definitions",
+   "text": "The word \"whistle\" means any sound signaling appliance capable of producing the prescribed blasts and which complies with the specifications in Annex III to these Rules."
+  },
+  "32(b)": {
+   "rule_title": "Definitions",
+   "text": "The term \"short blast\" means a blast of about one seconds duration."
+  },
+  "32(c)": {
+   "rule_title": "Definitions",
+   "text": "The term \"prolonged blast\" means a blast of from four to six seconds duration."
+  },
+  "33(a)": {
+   "rule_title": "Equipment for Sound Signals",
+   "text": "A vessel of 12 meters or more in length shall be provided with a whistle, a vessel of 20 meters or more in length shall be provided with a bell in addition to a whistle, and a vessel of 100 meters or more in length shall, in addition be provided with a gong, the tone and sound of which cannot be confused with that of the bell. The whistle, bell and gong shall comply with the specifications in Annex III to these Regulations. The bell or gong or both may be replaced by other equipment having the same respective sound characteristics, provided that manual sounding of the prescribed signals shall always be possible."
+  },
+  "33(b)": {
+   "rule_title": "Equipment for Sound Signals",
+   "text": "A vessel of less than 12 meters in length shall not be obliged to carry the sound signaling appliances prescribed in Rule 33(a) but if she does not, she shall be provided with some other means of making an efficient signal."
+  },
+  "34(a)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "When vessels are in sight of one, a power-driven vessel underway, when maneuvering as authorized or required by these Rules, shall indicate that maneuver by the following signals on her whistle: — one short blasts to mean “I am altering my course to starboard”; — two short blasts to mean “I am altering my course to port”; — three short blasts to mean “I am operating astern propulsion”."
+  },
+  "34(b)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "Any vessel may supplement the whistle signals prescribed in Rule 34(a) by light signals, repeated as appropriate, while the maneuver is being carried out:"
+  },
+  "34(b)(i)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "these signals shall have the following significance: — one flash to mean “I am altering my course to starboard”; — two flashes to mean “I am altering my course to port”; — three flashes to mean “I am operating astern propulsion”;"
+  },
+  "34(b)(ii)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "the duration of each flash shall be about one second, the interval between flashes shall be about one second, and the interval between successive signals shall not be less than ten seconds;"
+  },
+  "34(b)(iii)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "the light used for this signal shall, if fitted, be an all-round white, visible at a minimum range of 5 miles, and shall comply with the provisions of Annex I to these Regulations."
+  },
+  "34(c)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "When in sight of one another in a narrow channel or fairway:"
+  },
+  "34(c)(i)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "a vessel intending to overtake another shall in compliance with Rule 9(e)(i) indicate her intention by the following signals on her whistle: — two prolonged blasts followed by one short blast to mean \"I intend to overtake you on your starboard side\"; — two prolonged blasts followed by two short blasts to mean \"I intend to overtake you on your port side\";"
+  },
+  "34(c)(ii)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "the vessel about to be overtaken when acting in accordance with Rule 9(e)(i) shall indicate her agreement by the following signal on her whistle: — one prolonged, one short, one prolonged and one short blast, in that order."
+  },
+  "34(d)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "When vessels in sight of one another are approaching each other and from any cause either vessel fails to understand the intentions or actions of the other, or is in doubt whether sufficient action is being taken by the other to avoid collision, the vessel in doubt shall immediately indicate such doubt by giving at least five short and rapid blasts on the whistle. Such signal may be supplemented by at least five short and rapid flashes."
+  },
+  "34(e)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "A vessel nearing a bend or an area of a channel or fairway where other vessels may be obscured by an intervening obstruction shall sound one prolonged blast. This signal shall be answered with a prolonged blast by any approaching vessel that may be within hearing around the bend or behind the intervening obstruction."
+  },
+  "34(f)": {
+   "rule_title": "Maneuvering and Warning Signals",
+   "text": "If whistles are fitted on a vessel at a distance apart of more than 100 meters, one whistle only shall be used for giving maneuvering and warning signals."
+  },
+  "35": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "In or near an area of restricted visibility, whether by day or night the signals prescribed in this Rule shall be used as follows:"
+  },
+  "35(a)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A power-driven vessel making way through the water shall sound at intervals of not more than 2 minutes one prolonged blast."
+  },
+  "35(b)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A power-driven vessel underway but stopped and making no way through the water shall sound at intervals of no more than 2 minutes two prolonged blasts in succession with an interval of about 2 seconds between them."
+  },
+  "35(c)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A vessel not under command, a vessel restricted in her ability to maneuver, a vessel constrained by her draft, a sailing vessel, a vessel engaged in fishing and a vessel engaged in towing or pushing another vessel shall, instead of the signals prescribed in Rule 35(a) or (b), sound at intervals of not more than 2 minutes three blasts in succession, namely one prolonged followed by two short blasts."
+  },
+  "35(d)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A vessel engaged in fishing, when at anchor, and a vessel restricted in her ability to maneuver when carrying out her work at anchor, shall instead of the signals prescribed in Rule 35(g) sound the signal prescribed in Rule 35(c)."
+  },
+  "35(e)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A vessel towed or if more than one vessel is towed the last vessel of the tow, if manned, shall at intervals of not more than 2 minutes sound four blasts in succession, namely one prolonged followed by three short blasts. When practicable, this signal shall be made immediately after the signal made by the towing vessel."
+  },
+  "35(f)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "When a pushing vessel and a vessel being pushed ahead are rigidly connected in a composite unit they shall be regarded as a power-driven vessel and shall give the signals prescribed in Rule 35(a) or (b)."
+  },
+  "35(g)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A vessel at anchor shall at intervals of not more than 1 minute ring the bell rapidly for about 5 seconds. In a vessel 100 meters or more in length the bell shall be sounded in the forepart of the vessel and immediately after the ringing of the bell the gong shall be sounded rapidly for about 5 seconds in the after part of the vessel. A vessel at anchor may in addition sound three blasts in succession, namely one short, one prolonged and one short blast, to give warning of her position and of the possibility of collision to an approaching vessel."
+  },
+  "35(h)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A vessel aground shall give the bell signal and if required the gong signal prescribed in Rule 35(g) and shall, in addition, give three separate and distinct strokes on the bell immediately before and after the rapid ringing of the bell. A vessel aground may in addition sound an appropriate whistle signal."
+  },
+  "35(i)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A vessel of 12 meters or more but less than 20 meters in length shall not be obliged to give the bell signals prescribed in Rule 35(g) and (h). However, if she does not, she shall make some other efficient sound signal at intervals of not more than 2 minutes."
+  },
+  "35(j)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A vessel of less than 12 meters in length shall not be obliged to give the above mentioned signals but, if she does not, shall make some other efficient sound signal at intervals of not more than 2 minutes."
+  },
+  "35(k)": {
+   "rule_title": "Sound Signals in Restricted Visibility",
+   "text": "A pilot vessel when engaged on pilotage duty may, in addition to the signals prescribed in Rule 35(a), (b) or (g), sound an identity signal consisting of four short blasts."
+  },
+  "36": {
+   "rule_title": "Signals to Attract Attention",
+   "text": "If necessary to attract the attention of another vessel, any vessel may make light or sound signals that cannot be mistaken for any signal authorized elsewhere in these Rules, or may direct the beam of her searchlight in the direction of the danger, in such a way as not to embarrass any vessel. Any light to attract the attention of another vessel shall be such that it cannot be mistaken for any aid to navigation. For the purpose of this Rule the use of high intensity intermittent or revolving lights, such as strobe lights, shall be avoided."
+  },
+  "37": {
+   "rule_title": "Distress Signals",
+   "text": "When a vessel is in distress and requires assistance she shall use or exhibit the signals described in Annex IV to these Rules."
   }
  }
 }
