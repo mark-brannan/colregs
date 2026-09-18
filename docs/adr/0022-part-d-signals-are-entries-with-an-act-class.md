@@ -1,7 +1,9 @@
 # ADR 0022 — Part D signals are entries; the trigger is a fact class, not an event dimension
 
-Date: 2026-09-17
-Status: proposed — merging this PR is the ruling; a revert undoes it. Answers Q-1 in pencil.
+Date: 2026-09-17; reframed as a proposal 2026-09-18
+Status: proposal, not a ruling — an agent's suggestion, held open with ADR
+0023 (#191) and ADR 0026 (#195), to be rewritten together, merged or
+discarded. Nothing below is built on until ruled. Answers Q-1 in pencil.
 
 ## Context
 
@@ -42,7 +44,7 @@ is over the way it knows `fact:making_way`, which is why `actuable_subset`
 says to ask for that rather than derive it. A manoeuvre is the same kind
 of fact: stated by the vessel, about now.
 
-## Decision
+## What is proposed
 
 1. **Part D signals are applicability entries.** Same `when` → output →
    `modality` → `cite` → `jurisdiction` shape, same six relations, same
@@ -125,23 +127,22 @@ Every row fits either candidate model without a special case; they differ only i
 | 35(k) | 1 | state | restricted; `activity:pilot` | 4 short, in addition | may |
 | 36 | — | — | represented | none closed | may |
 
-Three things the table does not carry, left visibly open:
-
-- 34(e)'s *answer* is the same signal from the same entry, fired from the
-  other vessel's own record; the answering *timing* is not modelled, nor is
-  35(e)'s "immediately after the towing vessel's signal".
-- 34(a)'s "as authorized or required by these Rules" is not read. Whether
-  every alteration in sight is within it is doctrine with no source here yet.
-- 35's "in or near" reads `visibility:restricted`, stated by the consumer
-  when near; a `near_restricted` value would settle it if one needs more.
+Three things the table does not carry, left visibly open: 34(e)'s *answer*
+is the same signal from the same entry, fired from the other vessel's own
+record, with the answering *timing* unmodelled, nor is 35(e)'s "immediately
+after the towing vessel's signal"; 34(a)'s "as authorized or required by
+these Rules" is not read, and whether every alteration in sight is within
+it is doctrine with no source here yet; 35's "in or near" reads
+`visibility:restricted`, stated by the consumer when near, and a
+`near_restricted` value would settle it if one needs more.
 
 **On 34(d) and Q-41.** 13(c) and 14(c) are omissions because they make the
-*absence* of a fact assert something, and a `doubt` boolean was named as the
-alternative cost. 34(d) is the other shape: doubt triggers an act, and the
-act — five short blasts — *is* the report of the doubt, already made on the
-whistle. Absence stays silent. Q-41 is not decided here: 13(c) and 14(c)
-stay in `known_omissions`, and whether their "in doubt" is `act:doubt` is
-for that question.
+*absence* of a fact assert something, and a `doubt` boolean was named as
+the alternative cost. 34(d) is the other shape: doubt triggers an act, and
+the act — five short blasts — *is* the report of the doubt, already made
+on the whistle. Absence stays silent. Q-41 is not decided here: 13(c) and
+14(c) stay in `known_omissions`, and whether their "in doubt" is
+`act:doubt` is for that question.
 
 ## Alternatives
 
@@ -179,8 +180,7 @@ for that question.
   the data: elements with durations to synthesize, entries to quiz forward
   (facts → signal) and reverse (signal → `when`), and the encounter panel's
   Rule 34 row from `signals`.
-- **Cost to reverse.** Nothing shipped: delete this file, restore Q-1 and
-  REQ-CAT-6, close the data issue.
+- **Cost to reverse.** Nothing shipped: delete this file, restore Q-1 and REQ-CAT-6, close the data issue.
 
 ## Register
 
