@@ -1,4 +1,4 @@
-# ADR 0024 — The encounter record carries facts, not vessels; traffic is a fold over encounters
+# ADR 0025 — The encounter record carries facts, not vessels; traffic is a fold over encounters
 
 Date: 2026-09-17
 Status: proposed — merging this PR is the ruling; a revert undoes it. It
@@ -41,7 +41,7 @@ Crystal*"). Rule 8's "shall not result in another close-quarters situation"
 is the Rules' own multi-vessel constraint, on an action, not a role.
 
 What the Rules call the two-vessel relation: nothing. They speak from one
-vessel — "the other vessel" (26 body hits), "an approaching vessel"
+vessel — "other vessel" (26 body hits), "an approaching vessel"
 (7(d)(i)), "in sight of one another" (3(k)). `pair` has no row in the
 vocabulary table because there is no Rules' noun to align it with.
 
@@ -94,7 +94,7 @@ PR like `Subject` → `Vessel`. `approach` fails on `in_sight`, mutual and
 not an approach quantity; `relative` collides with the `rel:` prefix.
 
 Keeping `pair` decides nothing about `Pair.env` and `circumstances` (the
-Plot session's question); `between:env:narrow_channel` would have.
+question in #193); `between:env:narrow_channel` would have.
 
 ### 3. The encounter is the unit; traffic is a fold over encounters
 
@@ -109,9 +109,9 @@ interface TrafficEvaluation { colregs: {...}; encounters: EncounterEvaluation[];
                               conflicts: TrafficConflict[]; provenance: EvaluationProvenance; }
 ```
 
-The encounter is not the one-vessel branch of traffic. Three operations take
-an `Encounter` — encounter, conduct (a Plot is encounter records in time),
-departure — and one takes a `Traffic`. Roles are pairwise by the Rules'
+The encounter is not the one-vessel branch of traffic. Three operations read
+an `Encounter` — encounter and departure whole, conduct one per sample of its
+window (#193 §5's `at`) — and one takes a `Traffic`. Roles are pairwise by the Rules'
 text and by the case law; what is not pairwise is whether a compliant action
 exists — Rule 8's close-quarters clause — and that is the conflict report
 and the departure finding, neither of which is a role.
@@ -210,6 +210,11 @@ carries each other's aspect and none of self's bearings.
 - **REQ-CAT-4** gains the traffic class; **REQ-CAT-6** reserves `traffic`
   beside the three subjects. `docs/identifiers.md` §"The three subjects"
   records why `pair` keeps its name.
+- **#193** (the conduct input) nests §1's `Encounter` as `vessels`, `fix`
+  and `conditions`, with `Vessel` the invariant half. Nothing here depends
+  on the nesting: `Traffic { encounters }`, §4's equality check and §3's law
+  hold with `vessels.self` shared and `fix.between` for `pair`. Which
+  nesting stands is #193's PR.
 - **Cost to reverse.** Revert this PR. The two operations are stubs that
   throw, no fixture binds them, and nothing outside the family reads a
   `traffic:` key.
@@ -225,5 +230,6 @@ carries each other's aspect and none of self's bearings.
 | `deriveTrafficFacts(traffic, opts?)` public, the one non-`evaluate` operation | ✎ | a consumer calling `evaluateDeparture` under traffic; or none by 1.0, then remove it |
 | Derived traffic facts are geometric (`count`, `nearest_nm`); `foreclosed` is not derived | ✎ | #105; the first grid that reads a traffic key |
 | `traffic` a reserved head segment, not a subject | ✎ | colregs#192 |
-| `Traffic`, `evaluateTraffic`, `deriveTrafficFacts`, `Vessel`, `Encounter` | ink | Solace, 2026-09-17, the vocabulary rulings |
+| `Vessel`, `Encounter`, `derive` | ink | Solace, 2026-09-17, the vocabulary rulings |
+| `Traffic`, `evaluateTraffic`, `deriveTrafficFacts` | ✎ | follow from "traffic the collection noun" (Solace, 2026-09-17); Solace, by merging |
 | `TrafficEvaluation`; `TrafficConflict` as #82 shaped it, indices into `encounters`; no record-level `traffic` | ✎ | #105's three-vessel fixture |
