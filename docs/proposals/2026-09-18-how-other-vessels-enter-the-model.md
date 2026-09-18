@@ -1,12 +1,14 @@
-# ADR 0025 — How other vessels enter the model
+# How other vessels enter the model
 
 Date: 2026-09-17; reframed as a proposal 2026-09-18
-Status: proposal, not a ruling. Nothing in this document has been ruled.
-It records the suggestions of two design sessions, one per proposal below,
-and is held open for a tentative decision alongside the other design ADRs
-of the same week, which are expected to be rewritten together, merged or
-discarded. Merging this PR settles nothing. colregs-engine#82 and ADR 0023
-are earlier proposals on the same ground and are treated the same way.
+Level: `?` (open, `docs/conventions.md`). This is a proposal, not an ADR.
+It adopts nothing and supersedes nothing, and it claims no ADR number.
+Nothing in it has been ruled. It records the suggestions of two design
+sessions, one per proposal below, and is held open for a tentative
+decision alongside the other design write-ups of the same week, which are
+expected to be rewritten together, merged or discarded. Merging this PR
+settles nothing. colregs-engine#82 and ADR 0023 are earlier proposals on
+the same ground and are treated the same way.
 
 ## The question
 
@@ -200,14 +202,14 @@ share one record type or two.
 
 ## What would settle each
 
-No row below has an owner yet. The column says what evidence would move
-it; the decision is deferred to the rewrite of this week's design ADRs.
+Every row is `?`. The column says what evidence would move it; the
+decision is deferred to the joint rewrite of this week's design write-ups.
 
-| item | evidence that would settle it |
-|---|---|
-| pair as a subject, or the relation on the contact | a fixture the other shape cannot express without loss: a one-sided doubt (12(a)(iii)) for B, a genuinely symmetric fact neither vessel owns for A |
-| encounter as its own operation, or per-contact answers from one record | whether any grid entry ever reads a third vessel to assign a role; today none does |
-| sector facts as a public derivation | a consumer that needs them without an evaluation; today none exists |
-| environment on the pair, on the case, or on the vessel | the first grid entry that must distinguish a vessel following a lane from one crossing it (9(d), 10(c)) |
-| `traffic` as a collection noun | the vocabulary pass's other rulings on collection nouns, taken together |
-| `between`, `contact`, `contacts`, `others`, `circumstances`, `waters` | the same rewrite; none is settled |
+| item | level | evidence that would settle it |
+|---|---|---|
+| pair as a subject, or the relation on the contact | `?` | a fixture the other shape cannot express without loss: a one-sided doubt (12(a)(iii)) for B, a genuinely symmetric fact neither vessel owns for A |
+| encounter as its own operation, or per-contact answers from one record | `?` | whether any grid entry ever reads a third vessel to assign a role; today none does |
+| sector facts as a public derivation | `?` | a consumer that needs them without an evaluation; today none exists |
+| environment on the pair, on the case, or on the vessel | `?` | the first grid entry that must distinguish a vessel following a lane from one crossing it (9(d), 10(c)) |
+| `traffic` as a collection noun | `?` | the vocabulary pass's other rulings on collection nouns, taken together |
+| `between`, `contact`, `contacts`, `others`, `circumstances`, `waters` | `?` | the same rewrite; none is settled |
