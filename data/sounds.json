@@ -1,0 +1,79 @@
+{
+  "jurisdiction": "intl",
+  "note": "The Part D elements: what a signal is made of, as lights.json is what a light display is made of. An element carries its Rule 32 or Annex III duration and the appliance that makes it; an entry in applicability.json sequences them. ADR 0022.",
+  "elements": {
+    "sound:short_blast": {
+      "term": "short blast",
+      "cite": "32(b)",
+      "appliance": "appliance:whistle",
+      "duration_s": { "about": 1 }
+    },
+    "sound:prolonged_blast": {
+      "term": "prolonged blast",
+      "cite": "32(c)",
+      "appliance": "appliance:whistle",
+      "duration_s": { "min": 4, "max": 6 }
+    },
+    "sound:bell_rapid": {
+      "term": "rapid ringing of the bell",
+      "cite": "35(g)",
+      "appliance": "appliance:bell",
+      "duration_s": { "about": 5 },
+      "note": "One element, not a count of strokes: 35(g) states a duration and leaves the stroke rate to the appliance."
+    },
+    "sound:bell_stroke": {
+      "term": "stroke on the bell",
+      "cite": "35(h)",
+      "appliance": "appliance:bell",
+      "note": "A separate and distinct stroke. 35(h) counts these, so no duration is stated and the sequence carries the count."
+    },
+    "sound:gong_rapid": {
+      "term": "rapid sounding of the gong",
+      "cite": "35(g)",
+      "appliance": "appliance:gong",
+      "duration_s": { "about": 5 }
+    },
+    "flash:manoeuvring": {
+      "term": "flash",
+      "cite": "34(b)(ii)",
+      "appliance": "appliance:light",
+      "light": "light:flashing",
+      "color": "white",
+      "arc_deg": 360,
+      "range_nm": 5,
+      "duration_s": { "about": 1 },
+      "gap_s": { "about": 1 },
+      "note": "The manoeuvring light of 34(b)(iii): all-round white, 5 miles, fitted or not. Its character is light:flashing; the sequence, not the light, carries the meaning."
+    }
+  },
+  "appliances": {
+    "note": "Rule 33's carriage thresholds, a standard rather than an entry: what a vessel of a given length is provided with. `alternative` is 33(a)'s replacement clause, `fallback` is 33(b)'s.",
+    "cite": "33(a)",
+    "carriage": [
+      {
+        "appliance": "appliance:whistle",
+        "cite": "33(a)",
+        "when": { "fact:length_m": { "gte": 12 } }
+      },
+      {
+        "appliance": "appliance:bell",
+        "cite": "33(a)",
+        "when": { "fact:length_m": { "gte": 20 } },
+        "alternative": "other equipment having the same sound characteristics, provided manual sounding of the prescribed signals stays possible"
+      },
+      {
+        "appliance": "appliance:gong",
+        "cite": "33(a)",
+        "when": { "fact:length_m": { "gte": 100 } },
+        "alternative": "other equipment having the same sound characteristics, provided manual sounding of the prescribed signals stays possible",
+        "note": "The tone and sound of the gong may not be confused with that of the bell."
+      }
+    ],
+    "fallback": {
+      "cite": "33(b)",
+      "when": { "fact:length_m": { "lt": 12 } },
+      "requirement": "not obliged to carry the appliances of 33(a), but shall be provided with some other means of making an efficient signal"
+    }
+  },
+  "colregs_vocabulary": ["whistle", "short blast", "prolonged blast", "bell", "gong"]
+}

@@ -79,6 +79,13 @@
     },
     "provenance": {
       "$ref": "evaluation.schema.json#/$defs/provenance"
+    },
+    "signals": {
+      "$comment": "Absent where no Rule 34 entry applies; the manoeuvring and warning signals self owes at this instant.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/encounterSignal"
+      }
     }
   },
   "$defs": {
@@ -103,6 +110,31 @@
       "type": "array",
       "items": {
         "$ref": "#/$defs/subjectRole"
+      }
+    },
+    "encounterSignal": {
+      "$comment": "A Part D signal a two-subject display entry produces for self (ADR 0022). Rule 34 is the first display entry to read a situation, so the encounter envelope carries signals in the shape DisplayEvaluation gives lights.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "source_entry",
+        "modality"
+      ],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/signalRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "cite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
       }
     }
   }

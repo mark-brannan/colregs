@@ -52,15 +52,19 @@ these files, which `test/data.test.mjs` enforces exhaustively:
   applicability entries.
 - **`data/shapes.json`** — the day shapes (Annex I 6): dimensions and a
   reference SVG. Referenced by id (`shape:ball`, `shape:cone_down`, …).
+- **`data/sounds.json`** — the Part D signal elements (ADR 0022): duration,
+  appliance, and Rule 33's carriage thresholds. Referenced by id
+  (`sound:short_blast`, `sound:bell_rapid`, `flash:manoeuvring`, …).
 - **`data/applicability.json`** — the core table: `entries[]`, each
-  `when` (predicate over facts) → `lights` or `shapes` → `modality` → `cite`
+  `when` (predicate over facts) → `lights`, `shapes` or `signal` → `modality` → `cite`
   (paragraph path) → `jurisdiction`. Entries cross-reference each other by
   id via `rel:includes` / `rel:conditional_includes` / `rel:in_lieu_of` /
   `rel:excludes` / `rel:exempts` / `rel:overrides` (semantics in README.md — **read it before
   editing an entry's relations**, the six verbs are not interchangeable).
 - **`data/facts.json`** — the input vocabulary: three orthogonal axes
-  (`fact:propulsion`, `fact:activity`, `fact:position`) plus scalar facts, and the
-  `navigation.state` (SignalK) → axes decode table.
+  (`fact:propulsion`, `fact:activity`, `fact:position`) plus scalar facts, the
+  `navigation.state` (SignalK) → axes decode table, and the `situation` classes
+  a two-subject predicate reads — including `act`, what a vessel is doing now.
 - **`data/geometry.json`** — Annex I: heights, spacings, colour, intensity;
   `applies_to_entries` references back into `applicability.json`.
 - **`data/images.json`** — every file in `images/`: source, SHA-256, paragraphs
@@ -109,7 +113,8 @@ every fact an entry reads is declared in `facts.json`, and every light's
 
 **When adding or editing an applicability entry**, all of the following
 need to stay consistent or a test will catch it: the `cite` must exist in
-`rules.json`, every `light` or `shape` id must exist in `lights.json` or `shapes.json`, every
+`rules.json`, every `light`, `shape` or signal `element` id must exist in
+`lights.json`, `shapes.json` or `sounds.json`, every
 cross-referenced entry id must exist, every fact key in `when` must be
 declared in `facts.json`, and (REQ-VERIFY-3/5) it should be exercised by at
 least one fixture and excluded by at least one other, with fixtures on both
@@ -132,8 +137,10 @@ doesn't self-cancel at 1.0 — someone has to deliberately remove it then.
 Part C lights and day shapes (Rules 20–31), `intl` jurisdiction; a record
 reads as night unless it states `fact:time: time:day`, and by day Rule 20(c)
 makes the lights `modality:may` in good visibility rather than silencing them
-(ADR 0021). Part D (Rules 32-37) is in the `intl` corpus as text and has no
-entries; every non-`intl` jurisdiction is modelled for but not present.
+(ADR 0021). Part D sound and light signals (Rules 32-37), `intl`: entries
+emitting a `signal` of elements from `data/sounds.json`, with Rule 34 reading
+the `act` class of the situation record. Every non-`intl` jurisdiction is
+modelled for but not present.
 
 ## Prose budget
 

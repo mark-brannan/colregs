@@ -22,12 +22,15 @@
       ]
     },
     "representedCategory": {
-      "$comment": "The categories a represented paragraph may carry. Shared with the evaluation envelope; ADR 0021 admitted `category:scope`.",
+      "$comment": "The categories a represented paragraph may carry. Shared with the evaluation envelope; ADR 0021 admitted `category:scope`, ADR 0022 the three Part D holds -- Rule 32 defines, Rules 33 and 34(f) are carriage, and Rules 36 and 37 prescribe a signal with no closed vocabulary to emit it from.",
       "type": "string",
       "enum": [
         "category:care",
         "category:meta",
-        "category:scope"
+        "category:scope",
+        "category:definition",
+        "category:standard",
+        "category:display"
       ]
     },
     "ruleId": { "type": "string", "pattern": "^rule:[0-9]+[a-z]?(_[ivx]+)*(:[a-z][a-z0-9_]*)?$" },
@@ -104,7 +107,7 @@
       },
       "patternProperties": {
         "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
-        "^(self|other):(fact|kin|geo|hist):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
+        "^(self|other):(fact|kin|geo|hist|act):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" },
         "^pair:(geo|env):[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
       }
     },
@@ -184,6 +187,48 @@
         "position": { "type": "string" },
         "count": { "type": "integer", "minimum": 1 },
         "arrangement": { "type": "string", "enum": ["vertical"] },
+        "note": { "type": "string" },
+        "modality": { "$ref": "#/$defs/modality" }
+      }
+    },
+    "signalElement": {
+      "$comment": "One element of a signal sequence, named in data/sounds.json. Shaped like lightRef: the element id plus what the citing paragraph states about this occurrence of it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["element"],
+      "properties": {
+        "element": { "type": "string", "pattern": "^(sound|flash):[a-z_]+$" },
+        "count": { "type": "integer", "minimum": 1 },
+        "at_least": { "type": "boolean" },
+        "duration_s": { "type": "number", "exclusiveMinimum": 0 },
+        "gap_s": { "type": "number", "minimum": 0 },
+        "placement": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "signalRef": {
+      "$comment": "A sequence of elements and how often it repeats (ADR 0022). Two sequences are two entries; `gap_s` and `placement` appear only where a paragraph states one.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence"],
+      "properties": {
+        "sequence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/signalElement" }
+        },
+        "repeat": {
+          "$comment": "Rule 35 states a ceiling -- sound it at least this often. 34(b)(ii) states a floor instead: leave at least this long between successive light signals. A repeat may carry either or both.",
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "max_interval_s": { "type": "number", "exclusiveMinimum": 0 },
+            "min_interval_s": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "gap_s": { "type": "number", "minimum": 0 },
+        "rapid": { "type": "boolean" },
         "note": { "type": "string" },
         "modality": { "$ref": "#/$defs/modality" }
       }
@@ -425,6 +470,10 @@
             "minItems": 1,
             "items": { "$ref": "#/$defs/shapeRef" }
           },
+          "signal": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/signalRef" }
+          },
           "effect": { "$ref": "#/$defs/effect" },
           "modality": { "$ref": "#/$defs/modality" },
           "modality_by": { "$ref": "#/$defs/modalityBy" },
@@ -450,20 +499,39 @@
         },
         "allOf": [
           {
+            "$comment": "What an entry produces follows from its category, not from how many vessels it reads. A display entry emits lights, shapes or a signal -- Part D is the third (ADR 0022) -- or imports them; every other category produces an effect and emits nothing. Rule 34 is the first display entry to read two subjects, which is why this discriminates on category.",
             "if": {
-              "properties": { "subjects": { "const": 2 } },
-              "required": ["subjects"]
+              "anyOf": [
+                { "not": { "properties": { "category": {} }, "required": ["category"] } },
+                { "properties": { "category": { "const": "category:display" } }, "required": ["category"] }
+              ]
             },
             "then": {
-              "properties": { "category": {}, "effect": {} },
-              "required": ["category", "effect"],
-              "not": { "properties": { "lights": {} }, "required": ["lights"] }
+              "anyOf": [
+                { "properties": { "lights": {} }, "required": ["lights"] },
+                { "properties": { "shapes": {} }, "required": ["shapes"] },
+                { "properties": { "signal": {} }, "required": ["signal"] },
+                { "properties": { "rel:includes": {} }, "required": ["rel:includes"] },
+                { "properties": { "rel:conditional_includes": {} }, "required": ["rel:conditional_includes"] }
+              ],
+              "not": { "properties": { "effect": {} }, "required": ["effect"] }
             },
             "else": {
-              "properties": { "lights": {} },
-              "required": ["lights"],
-              "not": { "properties": { "effect": {} }, "required": ["effect"] }
+              "properties": { "category": {}, "effect": {}, "subjects": {} },
+              "required": ["category", "effect", "subjects"],
+              "not": {
+                "anyOf": [
+                  { "properties": { "lights": {} }, "required": ["lights"] },
+                  { "properties": { "shapes": {} }, "required": ["shapes"] },
+                  { "properties": { "signal": {} }, "required": ["signal"] }
+                ]
+              }
             }
+          },
+          {
+            "$comment": "A two-subject entry states its category rather than inheriting the display default, so that reading two vessels is never an accident of an omitted key.",
+            "if": { "properties": { "subjects": {} }, "required": ["subjects"] },
+            "then": { "properties": { "category": {} }, "required": ["category"] }
           }
         ]
       }

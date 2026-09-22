@@ -297,7 +297,7 @@ towards, not because the shape is settled.
   per-vessel fact record key for key, with no key renamed or copied.
   `pair` MUST carry only classes whose facts are symmetric between the two
   vessels; `env` — where the encounter is happening — is `pair`-only for that
-  reason and MUST NOT appear under a vessel. Every fact in the `kin`, `geo` and `hist` classes MUST carry
+  reason and MUST NOT appear under a vessel. Every fact in the `kin`, `geo`, `hist`, `env` and `act` classes MUST carry
   `type`, `cite`, `actuable` and `signalk` like the existing scalars, and a
   `null` `cite` MUST carry `cite_pending` naming the paragraph it awaits, or
   an explicit `null` where no paragraph will ever justify it. CI MUST fail

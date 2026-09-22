@@ -481,7 +481,8 @@
         "geometry",
         "history",
         "record",
-        "environment"
+        "environment",
+        "acts"
       ],
       "properties": {
         "note": {
@@ -605,7 +606,8 @@
                 "kin",
                 "geo",
                 "hist",
-                "env"
+                "env",
+                "act"
               ],
               "properties": {
                 "fact": {
@@ -621,6 +623,9 @@
                   "type": "string"
                 },
                 "env": {
+                  "type": "string"
+                },
+                "act": {
                   "type": "string"
                 }
               }
@@ -643,6 +648,20 @@
           },
           "patternProperties": {
             "^kin:[a-z0-9_]+$": {
+              "$ref": "#/$defs/situationFact"
+            }
+          }
+        },
+        "acts": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "note": {
+              "type": "string"
+            }
+          },
+          "patternProperties": {
+            "^act:[a-z0-9_]+$": {
               "$ref": "#/$defs/situationFact"
             }
           }

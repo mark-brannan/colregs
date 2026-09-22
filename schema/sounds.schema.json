@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/sounds.schema.json",
+  "title": "data/sounds.json",
+  "description": "The Part D signal elements and Rule 33's carriage thresholds. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jurisdiction", "elements"],
+  "$defs": {
+    "appliance": {
+      "type": "string",
+      "enum": ["appliance:whistle", "appliance:bell", "appliance:gong", "appliance:light"]
+    },
+    "duration": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "about": { "type": "number", "exclusiveMinimum": 0 },
+        "min": { "type": "number", "exclusiveMinimum": 0 },
+        "max": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "predicateValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "gte": { "type": "number" },
+            "gt": { "type": "number" },
+            "lte": { "type": "number" },
+            "lt": { "type": "number" }
+          }
+        },
+        { "type": "string" },
+        { "type": "boolean" }
+      ]
+    },
+    "when": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^fact:[a-z0-9_]+$": { "$ref": "#/$defs/predicateValue" }
+      }
+    }
+  },
+  "properties": {
+    "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+    "note": { "type": "string" },
+    "elements": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(sound|flash):[a-z_]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["term", "cite", "appliance"],
+          "properties": {
+            "term": { "type": "string", "minLength": 1 },
+            "cite": { "type": "string", "minLength": 1 },
+            "appliance": { "$ref": "#/$defs/appliance" },
+            "duration_s": { "$ref": "#/$defs/duration" },
+            "gap_s": { "$ref": "#/$defs/duration" },
+            "light": { "type": "string", "pattern": "^light:[a-z_]+$" },
+            "color": { "type": "string" },
+            "arc_deg": { "type": "number" },
+            "range_nm": { "type": "number", "exclusiveMinimum": 0 },
+            "note": { "type": "string" }
+          }
+        }
+      }
+    },
+    "appliances": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cite", "carriage"],
+      "properties": {
+        "note": { "type": "string" },
+        "cite": { "type": "string", "minLength": 1 },
+        "carriage": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["appliance", "cite", "when"],
+            "properties": {
+              "appliance": { "$ref": "#/$defs/appliance" },
+              "cite": { "type": "string", "minLength": 1 },
+              "when": { "$ref": "#/$defs/when" },
+              "alternative": { "type": "string", "minLength": 1 },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "fallback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cite", "when", "requirement"],
+          "properties": {
+            "cite": { "type": "string", "minLength": 1 },
+            "when": { "$ref": "#/$defs/when" },
+            "requirement": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "colregs_vocabulary": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
