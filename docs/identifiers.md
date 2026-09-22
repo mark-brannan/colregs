@@ -91,9 +91,9 @@ for a better idea, logging the change. What would settle it: the first
 two-subject entry — Rule 18 — actually being written against it. This
 section answers `Q-28`.
 
-A `category:display` entry reads one vessel. A `category:classification` or
-`category:precedence` entry reads two, and needs to say *whose*
-`fact:activity` it means. The form is three segments:
+A `category:display` entry usually reads one vessel; Rule 34 is the exception
+(ADR 0022). A `category:classification` or `category:precedence` entry always
+reads two, and says *whose* `fact:activity` it means. The form is three segments:
 
 ```
 <subject>:<class>:<key>
