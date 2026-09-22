@@ -316,3 +316,35 @@ test("promote: an H1 that already carries its number is not doubled", () => {
   const [p] = promote(["docs/proposals/0002-part-d.md"], root);
   assert.equal(readAt(root, p.dest).split("\n", 1)[0], "# ADR 0002 — Part D");
 });
+
+test("promote: a bad claim mid-batch moves nothing at all", () => {
+  // The batch is one merge's worth of proposals. Validation runs over all of
+  // them before the first git mv, so a refusal leaves a tree that still
+  // passes the bijection guard above and a retry that still has work to do.
+  const root = fixture("- 0001 [First](0001-first.md)\n", {
+    "a.md": "# A\n",
+    "0009-jumped.md": "# Jumped\n",
+  });
+  assert.throws(
+    () =>
+      promote(["docs/proposals/a.md", "docs/proposals/0009-jumped.md"], root),
+    /ADR 0009 is not reserved/,
+  );
+
+  assert.equal(
+    existsSync(join(root, "docs/proposals/a.md")),
+    true,
+    "the earlier proposal is not moved out from under the refusal",
+  );
+  assert.equal(
+    existsSync(join(root, "docs/adr/0002-a.md")),
+    false,
+    "and nothing lands in docs/adr without a register line",
+  );
+  assert.equal(readAt(root, INDEX), "- 0001 [First](0001-first.md)\n");
+  assert.deepEqual(
+    promote(["docs/proposals/a.md"], root).map((p) => p.n),
+    [2],
+    "so the retry can still promote it",
+  );
+});
