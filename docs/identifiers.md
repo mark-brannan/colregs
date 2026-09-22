@@ -54,8 +54,9 @@ encounter — resolved the identical way, `modality:shall-not-impede` and
 | `rule:<paragraph-slug>` | applicability entries (`data/applicability.json`) | `rule:30a`, `rule:24a_i:exceeds_200m`, `rule:15a:keep_out_of_the_way` |
 | `light:<id>` | light definitions (`data/lights.json`) | `light:masthead`, `light:sidelight_starboard`, `light:all_round` |
 | `shape:<id>` | day-shape definitions (`data/shapes.json`) | `shape:ball`, `shape:cone_down`, `shape:diamond` |
+| `sound:<id>`, `flash:<id>` | signal elements (`data/sounds.json`) | `sound:short_blast`, `sound:bell_rapid`, `flash:manoeuvring` |
 | `fact:<key>` | fact keys — the input vocabulary (`data/facts.json`) | `fact:activity`, `fact:length_m`, `fact:making_way`, `fact:on_mooring_buoy` |
-| `<fact>:<value>` | values of an enumerated fact | `activity:nuc`, `position:anchored`, `propulsion:sail`, `obstruction_side:port` |
+| `<fact>:<value>` | values of an enumerated fact or act | `activity:nuc`, `position:anchored`, `propulsion:sail`, `alter_course:port` |
 | `shift:<paragraph-slug>` | modality shifts (`data/applicability.json`) | `shift:20c` |
 | `rel:<name>` | the six relation verbs (`data/applicability.json`) | `rel:includes`, `rel:in_lieu_of`, `rel:exempts` |
 | `modality:<value>` | modality values (`data/applicability.json` `modalities`) | `modality:shall`, `modality:may` |
@@ -80,8 +81,7 @@ Only enumerated facts have a value namespace. Numeric facts
 `true`/`false`; there is nothing to prefix.
 
 A two-subject predicate prefixes a **subject** segment onto the forms above
-and adds three fact classes of its own (`kin:`, `geo:`, `hist:`). That is
-pencil and is the next section.
+and adds fact classes of its own (`kin:`, `geo:`, `hist:`, `env:`, `act:`), pencil, in the next section.
 
 ## Two subjects `✎`
 
@@ -102,11 +102,11 @@ A `category:display` entry reads one vessel. A `category:classification` or
 | segment | values |
 |---|---|
 | subject | `self`, `other`, `pair` |
-| class | `fact`, `kin`, `geo`, `hist` |
+| class | `fact`, `kin`, `geo`, `hist`, `env` (`pair` only), `act` |
 | key | the identifier as it already exists, or a new one in a new class |
 
 `self:fact:activity`, `other:kin:heading_deg`, `pair:geo:in_sight`,
-`self:hist:was_overtaking`.
+`self:hist:was_overtaking`, `self:act:doubt`.
 
 **A key with no subject segment means `self:`.** This is the whole of the
 backward-compatibility story and it is why the subject is a *prefix* rather

@@ -120,6 +120,16 @@
    "cite": "24(j)",
    "what": "On the Western Rivers (and waters the Secretary specifies), a vessel pushing ahead or towing alongside shows sidelights and two towing lights only -- no masthead lights -- displacing the 24(c) chapeau this package otherwise models for all of us/inland.",
    "why": "No `fact:waters` exists yet (REQ-SCOPE-5), so the Western Rivers carve-out can't be expressed as a predicate today. `rule:24c:towing_lights` therefore asserts masthead lights across all of us/inland, over-broad on those waters the same way the inherited rule:24c was before this PR replaced it -- not a regression, but the first entry sourced to 83.24(c) itself, so the gap is worth declaring rather than leaving implicit."
+  },
+  {
+   "cite": "35(h), 35(i), 35(j), 33(b)",
+   "what": "'An appropriate whistle signal', and 'some other efficient sound signal' at intervals of not more than 2 minutes.",
+   "why": "A prescribed duty with no closed output. The substitute is whatever the vessel has, which is the same shape as Rule 36 and cannot be emitted from a vocabulary."
+  },
+  {
+   "cite": "34(a)",
+   "what": "'When manoeuvring as authorized or required by these Rules' -- the qualification on which alterations 34(a) covers.",
+   "why": "Every entry reads the act alone. Whether an alteration in sight is always within the qualification is doctrine, and no source in this package settles it."
   }
  ],
  "represented_paragraphs": [
@@ -150,6 +160,41 @@
    "cite": "20(c)",
    "category": "category:scope",
    "note": "By day a prescribed light is required in restricted visibility and permitted otherwise. Represented as a modality shift (`modality_shifts`, ADR 0021) rather than as an entry: it produces no signal of its own and changes the modality of the lights the other entries prescribe. The tail qualification, `when it is deemed necessary`, is the mariner's judgement and no fact carries it; `modality:may` lays no duty either way."
+  },
+  {
+   "id": "rule:32",
+   "jurisdiction": "intl",
+   "cite": "32(a)-(c)",
+   "category": "category:definition",
+   "note": "Defines whistle, short blast and prolonged blast. The durations are carried by the elements in data/sounds.json, which is where a consumer reads them; the paragraph itself prescribes no signal."
+  },
+  {
+   "id": "rule:33",
+   "jurisdiction": "intl",
+   "cite": "33(a)-(b)",
+   "category": "category:standard",
+   "note": "Carriage: which appliances a vessel of a given length is provided with, and 33(b)'s fallback below 12 m. A standard like Rule 22's ranges, held in data/sounds.json `appliances` rather than as an entry."
+  },
+  {
+   "id": "rule:34f",
+   "jurisdiction": "intl",
+   "cite": "34(f)",
+   "category": "category:standard",
+   "note": "Where whistles are fitted more than 100 m apart, one only is used for manoeuvring and warning signals. A property of the installation, not of any signal an entry emits."
+  },
+  {
+   "id": "rule:36",
+   "jurisdiction": "intl",
+   "cite": "36",
+   "category": "category:display",
+   "note": "Signals to attract attention have no closed output: 'cannot be mistaken for any signal authorized elsewhere in these Rules' is a constraint on the vocabulary rather than a member of it, so no entry can emit it."
+  },
+  {
+   "id": "rule:37",
+   "jurisdiction": "intl",
+   "cite": "37",
+   "category": "category:display",
+   "note": "Distress signals are Annex IV's, which is not transcribed. Recorded so the paragraph is accounted for rather than silently absent; whether the annexes become entries is not decided here."
   }
  ],
  "entries": [
@@ -2693,6 +2738,746 @@
    ],
    "modality": "modality:exempt",
    "notes": "Diving (27(e)) is the paragraph's own exception and is not listed; activity:ram_underwater reads as activity:ram."
+  },
+  {
+   "id": "rule:35a",
+   "jurisdiction": "intl",
+   "cite": "35(a)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:propulsion": "propulsion:power",
+    "fact:position": "position:underway",
+    "fact:making_way": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 120
+     }
+    }
+   ],
+   "modality": "modality:shall"
+  },
+  {
+   "id": "rule:35b",
+   "jurisdiction": "intl",
+   "cite": "35(b)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:propulsion": "propulsion:power",
+    "fact:position": "position:underway",
+    "fact:making_way": false
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 2,
+       "gap_s": 2
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 120
+     }
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "Underway but stopped: 35(b) is the only Part D paragraph that reads `fact:making_way` false, so a record that omits the fact sounds neither (a) nor (b)."
+  },
+  {
+   "id": "rule:35c",
+   "jurisdiction": "intl",
+   "cite": "35(c)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "any_of": [
+     {
+      "fact:activity": [
+       "activity:nuc",
+       "activity:ram",
+       "activity:cbd",
+       "activity:fishing",
+       "activity:trawling",
+       "activity:towing",
+       "activity:pushing"
+      ]
+     },
+     {
+      "fact:propulsion": "propulsion:sail"
+     }
+    ]
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 2
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 120
+     }
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:35a",
+    "rule:35b"
+   ],
+   "modality": "modality:shall",
+   "note": "One signal for six statuses and the sailing vessel, in lieu of (a) or (b) whether she is making way or not. `activity:ram_underwater` reads as `activity:ram`."
+  },
+  {
+   "id": "rule:35d",
+   "jurisdiction": "intl",
+   "cite": "35(d)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:activity": [
+     "activity:fishing",
+     "activity:trawling",
+     "activity:ram"
+    ]
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 2
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 120
+     }
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:35g"
+   ],
+   "modality": "modality:shall",
+   "note": "The 35(c) signal at anchor, in lieu of the anchor bell. 35(d)'s 'carrying out her work' qualifies the restricted vessel only and no fact carries it, so it is unread."
+  },
+  {
+   "id": "rule:35e",
+   "jurisdiction": "intl",
+   "cite": "35(e)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:activity": "activity:being_towed",
+    "fact:manned": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 3
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 120
+     }
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "The last vessel of the tow, if manned. 'When practicable, immediately after the towing vessel's signal' is a timing between two vessels and is unmodelled."
+  },
+  {
+   "id": "rule:35f",
+   "jurisdiction": "intl",
+   "cite": "35(f)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:composite_unit": true,
+    "fact:position": "position:underway"
+   },
+   "rel:includes": [
+    "rule:35a",
+    "rule:35b"
+   ],
+   "rel:overrides": [
+    "rule:35c"
+   ],
+   "modality": "modality:shall",
+   "note": "Regarded as a power-driven vessel, so it gives (a) or (b) rather than a signal of its own -- whichever the unit's `fact:making_way` selects. A pushing unit is also in 35(c)'s list, and 35(f) is the paragraph that says which of the two she sounds."
+  },
+  {
+   "id": "rule:35g",
+   "jurisdiction": "intl",
+   "cite": "35(g)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:bell_rapid",
+       "count": 1,
+       "duration_s": 5
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 60
+     }
+    }
+   ],
+   "modality": "modality:shall"
+  },
+  {
+   "id": "rule:35g:gong",
+   "jurisdiction": "intl",
+   "cite": "35(g)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:length_m": {
+     "gte": 100
+    }
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:bell_rapid",
+       "count": 1,
+       "duration_s": 5,
+       "placement": "in the forepart of the vessel"
+      },
+      {
+       "element": "sound:gong_rapid",
+       "count": 1,
+       "duration_s": 5,
+       "placement": "in the after part of the vessel"
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 60
+     }
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:35g"
+   ],
+   "modality": "modality:shall",
+   "note": "At 100 m the bell acquires a placement and the gong follows it aft, so the whole signal replaces the bare bell rather than adding to it."
+  },
+  {
+   "id": "rule:35g:warning",
+   "jurisdiction": "intl",
+   "cite": "35(g)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:short_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 1
+      }
+     ]
+    }
+   ],
+   "modality": "modality:may",
+   "note": "35(g)'s third sentence: a separate whistle signal warning an approaching vessel, permitted in addition to the bell and with no interval stated."
+  },
+  {
+   "id": "rule:35h",
+   "jurisdiction": "intl",
+   "cite": "35(h)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:aground"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:bell_stroke",
+       "count": 3
+      },
+      {
+       "element": "sound:bell_rapid",
+       "count": 1,
+       "duration_s": 5
+      },
+      {
+       "element": "sound:bell_stroke",
+       "count": 3
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 60
+     }
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "Three separate and distinct strokes each side of the anchor bell. Aground and anchored are different values of one axis, so this never coincides with 35(g)."
+  },
+  {
+   "id": "rule:35h:gong",
+   "jurisdiction": "intl",
+   "cite": "35(h)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:aground",
+    "fact:length_m": {
+     "gte": 100
+    }
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:bell_stroke",
+       "count": 3
+      },
+      {
+       "element": "sound:bell_rapid",
+       "count": 1,
+       "duration_s": 5,
+       "placement": "in the forepart of the vessel"
+      },
+      {
+       "element": "sound:gong_rapid",
+       "count": 1,
+       "duration_s": 5,
+       "placement": "in the after part of the vessel"
+      },
+      {
+       "element": "sound:bell_stroke",
+       "count": 3
+      }
+     ],
+     "repeat": {
+      "max_interval_s": 60
+     }
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:35h"
+   ],
+   "modality": "modality:shall",
+   "note": "35(h)'s 'if required the gong signal prescribed in Rule 35(g)': the 100 m threshold is 35(g)'s, read here."
+  },
+  {
+   "id": "rule:35i",
+   "jurisdiction": "intl",
+   "cite": "35(i)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:position": [
+     "position:anchored",
+     "position:aground"
+    ],
+    "fact:length_m": {
+     "gte": 12,
+     "lt": 20
+    }
+   },
+   "signal": [],
+   "rel:exempts": [
+    "rule:35g",
+    "rule:35g:gong",
+    "rule:35h",
+    "rule:35h:gong"
+   ],
+   "modality": "modality:exempt",
+   "note": "Not obliged to give the bell signals. The substitute, 'some other efficient sound signal' at not more than 2 minutes, has no closed vocabulary and is a known omission."
+  },
+  {
+   "id": "rule:35j",
+   "jurisdiction": "intl",
+   "cite": "35(j)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:length_m": {
+     "lt": 12
+    }
+   },
+   "signal": [],
+   "rel:exempts": [
+    "rule:35a",
+    "rule:35b",
+    "rule:35c",
+    "rule:35d",
+    "rule:35e",
+    "rule:35f",
+    "rule:35g",
+    "rule:35h"
+   ],
+   "modality": "modality:exempt",
+   "note": "'The above mentioned signals' is 35(a) to (h), so this exempts under way as well as at anchor. The substitute is the same open one as 35(i)'s."
+  },
+  {
+   "id": "rule:35k",
+   "jurisdiction": "intl",
+   "cite": "35(k)",
+   "when": {
+    "fact:visibility": "visibility:restricted",
+    "fact:activity": "activity:pilot"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:short_blast",
+       "count": 4
+      }
+     ]
+    }
+   ],
+   "modality": "modality:may",
+   "note": "An identity signal in addition to (a), (b) or (g), not in lieu of any of them, so it carries no relation."
+  },
+  {
+   "id": "rule:34e",
+   "jurisdiction": "intl",
+   "cite": "34(e)",
+   "when": {
+    "fact:nearing_obscured_bend": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      }
+     ]
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "The one Part D paragraph outside Rule 35 that reads state rather than an act, and the one that reads no visibility. The answering blast is this same entry fired from the other vessel's record; the answering timing is unmodelled."
+  },
+  {
+   "id": "rule:34a:starboard",
+   "jurisdiction": "intl",
+   "cite": "34(a)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:fact:propulsion": "propulsion:power",
+    "self:fact:position": "position:underway",
+    "self:act:alter_course": "alter_course:starboard"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:short_blast",
+       "count": 1
+      }
+     ]
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "I am altering my course to starboard. The first display entry to read two vessels: the signal is self's, the in-sight test is the pair's."
+  },
+  {
+   "id": "rule:34a:port",
+   "jurisdiction": "intl",
+   "cite": "34(a)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:fact:propulsion": "propulsion:power",
+    "self:fact:position": "position:underway",
+    "self:act:alter_course": "alter_course:port"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:short_blast",
+       "count": 2
+      }
+     ]
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "I am altering my course to port."
+  },
+  {
+   "id": "rule:34a:astern",
+   "jurisdiction": "intl",
+   "cite": "34(a)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:fact:propulsion": "propulsion:power",
+    "self:fact:position": "position:underway",
+    "self:act:astern_propulsion": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:short_blast",
+       "count": 3
+      }
+     ]
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "I am operating astern propulsion. No kinematic fact carries this: a vessel going astern on her engines may still be making way ahead."
+  },
+  {
+   "id": "rule:34b:starboard",
+   "jurisdiction": "intl",
+   "cite": "34(b)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:fact:position": "position:underway",
+    "self:act:alter_course": "alter_course:starboard"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "flash:manoeuvring",
+       "count": 1
+      }
+     ],
+     "repeat": {
+      "min_interval_s": 10
+     }
+    }
+   ],
+   "modality": "modality:may",
+   "note": "Any vessel may supplement the whistle with the manoeuvring light, so this reads no propulsion axis where 34(a) reads power."
+  },
+  {
+   "id": "rule:34b:port",
+   "jurisdiction": "intl",
+   "cite": "34(b)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:fact:position": "position:underway",
+    "self:act:alter_course": "alter_course:port"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "flash:manoeuvring",
+       "count": 2
+      }
+     ],
+     "repeat": {
+      "min_interval_s": 10
+     }
+    }
+   ],
+   "modality": "modality:may"
+  },
+  {
+   "id": "rule:34b:astern",
+   "jurisdiction": "intl",
+   "cite": "34(b)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:fact:position": "position:underway",
+    "self:act:astern_propulsion": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "flash:manoeuvring",
+       "count": 3
+      }
+     ],
+     "repeat": {
+      "min_interval_s": 10
+     }
+    }
+   ],
+   "modality": "modality:may"
+  },
+  {
+   "id": "rule:34c_i:starboard",
+   "jurisdiction": "intl",
+   "cite": "34(c)(i)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:env:narrow_channel": true,
+    "self:act:overtake_intent": "overtake_intent:starboard"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 2
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 1
+      }
+     ]
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "I intend to overtake you on your starboard side, under 9(e)(i)."
+  },
+  {
+   "id": "rule:34c_i:port",
+   "jurisdiction": "intl",
+   "cite": "34(c)(i)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:env:narrow_channel": true,
+    "self:act:overtake_intent": "overtake_intent:port"
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 2
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 2
+      }
+     ]
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "I intend to overtake you on your port side, under 9(e)(i)."
+  },
+  {
+   "id": "rule:34c_ii",
+   "jurisdiction": "intl",
+   "cite": "34(c)(ii)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "pair:env:narrow_channel": true,
+    "self:act:overtaking_agreement": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:prolonged_blast",
+       "count": 1
+      },
+      {
+       "element": "sound:short_blast",
+       "count": 1
+      }
+     ]
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "The agreement of the vessel about to be overtaken, in that order. 34(c)(ii) prescribes no signal for refusal; a vessel who does not agree is in doubt, and 34(d) is hers."
+  },
+  {
+   "id": "rule:34d",
+   "jurisdiction": "intl",
+   "cite": "34(d)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:act:doubt": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "sound:short_blast",
+       "count": 5,
+       "at_least": true
+      }
+     ],
+     "rapid": true
+    }
+   ],
+   "modality": "modality:shall",
+   "note": "At least five short and rapid blasts. The act is the report of the doubt, so absence stays silent and asserts nothing; whether 13(c) and 14(c) read this fact is Q-41, open."
+  },
+  {
+   "id": "rule:34d:flashes",
+   "jurisdiction": "intl",
+   "cite": "34(d)",
+   "category": "category:display",
+   "subjects": 2,
+   "when": {
+    "pair:geo:in_sight": true,
+    "self:act:doubt": true
+   },
+   "signal": [
+    {
+     "sequence": [
+      {
+       "element": "flash:manoeuvring",
+       "count": 5,
+       "at_least": true
+      }
+     ],
+     "rapid": true
+    }
+   ],
+   "modality": "modality:may",
+   "note": "34(d)'s second sentence: the whistle signal may be supplemented by at least five short and rapid flashes."
   }
  ],
  "suppressions": [

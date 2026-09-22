@@ -57,6 +57,7 @@ const enUS = corpora[EN_US]
 const verbatim = (path) => enUS.paragraphs[path]?.text !== undefined
 const lights = load('data/lights.json')
 const shapes = load('data/shapes.json')
+const sounds = load('data/sounds.json')
 const facts = load('data/facts.json')
 const appl = load('data/applicability.json')
 const images = load('data/images.json')
@@ -212,6 +213,10 @@ const signalKinds = (e, f, seen = new Set()) => {
   seen.add(e.id)
   if ((e.lights ?? []).length > 0) kinds.add('lights')
   if ((e.shapes ?? []).length > 0) kinds.add('shapes')
+  // Part D (ADR 0022). No shift reaches a signal -- 20(c) is scoped to lights
+  // -- but the kind is named so `reaches` refuses on the kind rather than on
+  // a Rule 35 entry looking like an entry that emits nothing at all.
+  if ((e.signal ?? []).length > 0) kinds.add('signal')
   const conditional = (e['rel:conditional_includes'] ?? []).filter((c) => !f || matches(c.when, f))
   const imported = [...(e['rel:includes'] ?? []),
     ...conditional.flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])])]
@@ -256,6 +261,7 @@ const schemaTargets = [
   ...Object.entries(corporaIndex.corpora).map(([id, e]) => [`data/${e.file}`, corpora[id], loadSchema('corpus.schema.json')]),
   ['data/lights.json', lights, loadSchema('lights.schema.json')],
   ['data/shapes.json', shapes, loadSchema('shapes.schema.json')],
+  ['data/sounds.json', sounds, loadSchema('sounds.schema.json')],
   ['data/facts.json', facts, loadSchema('facts.schema.json')],
   ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
   ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
@@ -820,7 +826,8 @@ test('fact:rule18_class: no precedence entry hand-lists an activity value any mo
 // tagged so a ball and a light with the same JSON never collide.
 function lightSig(e) {
   return [...(e.lights ?? []).map((l) => `light ${JSON.stringify(l)}`),
-          ...(e.shapes ?? []).map((s) => `shape ${JSON.stringify(s)}`)].sort()
+          ...(e.shapes ?? []).map((s) => `shape ${JSON.stringify(s)}`),
+          ...(e.signal ?? []).map((g) => `signal ${JSON.stringify(g)}`)].sort()
 }
 const relatedIds = new Map(appl.entries.map((e) => [e.id, new Set()]))
 const relate = (a, b) => { relatedIds.get(a)?.add(b); relatedIds.get(b)?.add(a) }
@@ -859,7 +866,10 @@ test('drift: signals already shown never silently admit an undeclared candidate 
 // REQ-VERIFY-3 for the one-subject entries: each is selected by a fixture
 // under a jurisdiction it is in force in, and left out by another.
 test('REQ-VERIFY-3: every display entry is exercised by a fixture and excluded by another', () => {
-  for (const e of appl.entries.filter(isDisplay)) {
+  // One-subject only: a Rule 34 entry is a display entry that reads a
+  // situation (ADR 0022), so no fact record can select it and the
+  // situation-fixture replay below is what exercises it.
+  for (const e of appl.entries.filter((x) => isDisplay(x) && (x.subjects ?? 1) === 1)) {
     const cases = fixtures.cases.filter((c) => inJurisdiction(e, c.jurisdiction ?? fixtures.jurisdiction))
     assert.ok(cases.some((c) => expectIds(c).includes(e.id)), `${e.id} is selected by no fixture`)
     assert.ok(cases.some((c) => !expectIds(c).includes(e.id)), `${e.id} is excluded by no fixture`)
@@ -1076,12 +1086,20 @@ test('no represented_paragraphs record carries a `when` or `lights`', () => {
   for (const r of appl.represented_paragraphs ?? []) {
     assert.ok(!('when' in r), `${r.id} carries a \`when\`; care/meta paragraphs are never evaluated as predicates`)
     assert.ok(!('lights' in r), `${r.id} carries \`lights\`; care/meta paragraphs never produce a light output`)
+    assert.ok(!('signal' in r), `${r.id} carries a \`signal\`; a represented paragraph produces no output of any kind`)
   }
 })
 
-test('every represented_paragraphs record has category care, meta or scope', () => {
+// The registry holds a paragraph the model accounts for and never evaluates.
+// ADR 0021 admitted `category:scope`; ADR 0022 admits the three Part D needs --
+// Rule 32 defines the vocabulary, Rules 33 and 34(f) are carriage, and Rules 36
+// and 37 prescribe a signal the package has no closed vocabulary to emit.
+const REGISTRY_CATEGORIES = ['category:care', 'category:meta', 'category:scope',
+  'category:definition', 'category:standard', 'category:display']
+
+test('every represented_paragraphs record has a category the registry admits', () => {
   for (const r of appl.represented_paragraphs ?? []) {
-    assert.ok(['category:care', 'category:meta', 'category:scope'].includes(r.category), `${r.id} has category ${r.category}, expected category:care, category:meta or category:scope`)
+    assert.ok(REGISTRY_CATEGORIES.includes(r.category), `${r.id} has category ${r.category}, which the registry does not admit`)
   }
 })
 
@@ -1427,6 +1445,65 @@ test('every light id outside applicability.json resolves too', () => {
   }
 })
 
+// --- Part D elements (ADR 0022) ---------------------------------------------
+// data/sounds.json is to a signal what lights.json is to a display: the closed
+// element vocabulary an entry sequences. The same three integrity claims hold
+// -- every element an entry names is defined, every element is used, and the
+// one element that is a light resolves in lights.json.
+test('every signal element an entry names is defined in sounds.json', () => {
+  for (const e of appl.entries) {
+    for (const g of e.signal ?? []) {
+      for (const item of g.sequence) {
+        assert.ok(sounds.elements[item.element], `${e.id} sounds undefined element ${item.element}`)
+      }
+    }
+  }
+})
+
+test('every element in sounds.json is sequenced by an entry, cites a paragraph and resolves its light', () => {
+  const used = new Set(appl.entries.flatMap((e) => (e.signal ?? [])
+    .flatMap((g) => g.sequence.map((item) => item.element))))
+  for (const [id, rec] of Object.entries(sounds.elements)) {
+    assert.ok(used.has(id), `${id} is defined but no entry sequences it`)
+    assert.ok(rules.paragraphs[rec.cite.split('-')[0].trim()], `${id} cites missing paragraph ${rec.cite}`)
+    // flash:manoeuvring is a light element: its character is Rule 21(f)'s, so
+    // the id it names must be a real light and not a second definition of one.
+    if (rec.light) assert.ok(lights.lights[rec.light], `${id} names undefined light ${rec.light}`)
+  }
+  for (const c of [...sounds.appliances.carriage, sounds.appliances.fallback]) {
+    assert.ok(rules.paragraphs[c.cite], `sounds.json carriage cites missing paragraph ${c.cite}`)
+  }
+})
+
+// A signal element a paragraph counts (35(h)'s strokes, 34(d)'s five blasts)
+// states no duration of its own; one it times (a blast, the anchor bell) does.
+// Asserted so that a consumer synthesizing from the data never has to guess
+// which of the two it is holding.
+test('ADR 0022: a signal element carries a duration or is counted by the sequence', () => {
+  for (const e of appl.entries) {
+    for (const g of e.signal ?? []) {
+      for (const item of g.sequence) {
+        const rec = sounds.elements[item.element]
+        const timed = rec.duration_s !== undefined || item.duration_s !== undefined
+        const counted = item.count !== undefined
+        assert.ok(timed || counted, `${e.id}: ${item.element} is neither timed nor counted`)
+      }
+    }
+  }
+})
+
+// REQ-PART-2 for Part D: the parts differ only in the vocabulary they emit, so
+// an entry emits one kind and never two, and a signal reads no time fact --
+// Rule 35 is scoped by visibility and 34(e) by a place, neither by day or night.
+test('REQ-PART-2: a signal entry emits no lights or shapes, and reads no time fact', () => {
+  for (const e of appl.entries) {
+    if (!(e.signal ?? []).length && !('signal' in e)) continue
+    assert.equal((e.lights ?? []).length, 0, `${e.id} emits both a signal and lights`)
+    assert.equal((e.shapes ?? []).length, 0, `${e.id} emits both a signal and shapes`)
+    assert.ok(!('fact:time' in e.when), `${e.id} emits a signal and reads fact:time`)
+  }
+})
+
 test('geometry entry references resolve', () => {
   const groups = [geometry.vertical_positioning, geometry.horizontal_positioning,
                   geometry.direction_indicating]
@@ -1727,11 +1804,12 @@ const situationDeclared = {
   },
   hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
   env: new Set(Object.keys(sit.environment).filter((k) => k.startsWith('env:'))),
+  act: new Set(Object.keys(sit.acts).filter((k) => k.startsWith('act:'))),
 }
 
 test('REQ-CAT-4: the situation section declares the classes the namespace names', () => {
   assert.deepEqual([...SUBJECTS].sort(), ['other', 'pair', 'self'])
-  assert.deepEqual([...CLASSES].sort(), ['env', 'fact', 'geo', 'hist', 'kin'])
+  assert.deepEqual([...CLASSES].sort(), ['act', 'env', 'fact', 'geo', 'hist', 'kin'])
   // The fact record is reachable unchanged: `self:fact:*` must resolve to the
   // very keys facts.json already declares, not to a renamed copy of them.
   for (const k of situationDeclared.fact) {
@@ -1744,6 +1822,7 @@ test('REQ-CAT-4: the situation section declares the classes the namespace names'
     ...Object.entries(sit.geometry.symmetric),
     ...Object.entries(sit.history).filter(([k]) => k.startsWith('hist:')),
     ...Object.entries(sit.environment).filter(([k]) => k.startsWith('env:')),
+    ...Object.entries(sit.acts).filter(([k]) => k.startsWith('act:')),
   ]
   assert.ok(shaped.length > 0)
   for (const [k, rec] of shaped) {
@@ -1884,10 +1963,16 @@ test('REQ-CAT-1: every entry category is one of the nine, and display is the def
   }
   assert.ok(twoSubject.length > 0, 'no two-subject entry exists; this file is meant to be checking some')
   for (const e of twoSubject) {
-    assert.ok(['category:scope', 'category:precedence', 'category:classification'].includes(e.category),
+    // Rule 34 is the first display entry to read two vessels (ADR 0022): what
+    // an entry produces follows from its category, not from how many vessels
+    // it reads, so a two-subject display entry emits a signal and no effect.
+    assert.ok(['category:scope', 'category:precedence', 'category:classification', 'category:display'].includes(e.category),
       `${e.id}: subjects > 1 with category ${e.category}`)
     assert.equal(e.subjects, 2, `${e.id}: only 1 and 2 subjects are modelled`)
-    assert.ok(!('lights' in e), `${e.id}: a two-subject entry produces an effect, never lights`)
+    assert.ok('category' in e, `${e.id}: a two-subject entry states its category rather than inheriting the display default`)
+    assert.ok(!('lights' in e), `${e.id}: a two-subject entry never emits lights`)
+    if (isDisplay(e)) assert.ok(!('effect' in e), `${e.id}: a display entry produces a signal, never an effect`)
+    else assert.ok(!('signal' in e), `${e.id}: only a display entry emits a signal`)
   }
 })
 
@@ -1906,6 +1991,7 @@ test('REQ-CAT-6: every fact a two-subject predicate reads resolves in the situat
       assert.ok(CLASSES.has(cls), `${e.id}: unknown class in ${k}`)
       if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${e.id}: pair:${cls} is not symmetric`)
       else assert.ok(cls !== 'env', `${e.id}: env is a fact of the pair, never of a vessel`)
+      if (subject === 'pair') assert.ok(cls !== 'act', `${e.id}: an act belongs to a vessel, never to the pair`)
       const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls]
       assert.ok(declared.has(local), `${e.id}: undeclared ${cls} fact ${local} in ${k}`)
     }
@@ -1914,8 +2000,8 @@ test('REQ-CAT-6: every fact a two-subject predicate reads resolves in the situat
 
 test('every effect is shaped for its category and names declared roles', () => {
   const roles = new Set(Object.keys(appl.effects.roles))
-  for (const e of twoSubject) {
-    assert.ok(e.effect, `${e.id}: a two-subject entry must state an effect`)
+  for (const e of twoSubject.filter((x) => !isDisplay(x))) {
+    assert.ok(e.effect, `${e.id}: a two-subject entry that is not a display entry must state an effect`)
     if (e.category === 'category:precedence') {
       assert.deepEqual(Object.keys(e.effect).sort(), ['other', 'self'], `${e.id}: precedence effect shape`)
       for (const [subject, role] of Object.entries(e.effect)) {
@@ -2001,12 +2087,18 @@ test('rel:excludes is reciprocated and never carries a forceful modality (ADR 00
 })
 
 // --- situation fixture replay (REQ-VERIFY-1 for two-subject data) -----------
-// A situation fixture asserts the non-`display` entries the pair selects. It
-// asserts applicability, not resolution: an entry a rel:overrides displaces is
-// still expected, and the precedence properties below are what resolve it.
+// A situation fixture asserts every entry the pair selects that a one-subject
+// fact record could not have: the non-`display` entries, and -- since ADR 0022
+// -- the display entries that read two subjects, which are Rule 34's. The
+// one-subject display entries stay with the display evaluator above, which is
+// what `evaluateDisplay` answers and what applicability-fixtures.json asserts.
+// This asserts applicability, not resolution: an entry a rel:overrides
+// displaces is still expected, and the precedence properties below resolve it.
 const applyingSituation = (s0) => {
   const s = withDerived(s0)
-  return appl.entries.filter((e) => !isDisplay(e) && matchesSituation(e.when, s)).map((e) => e.id)
+  return appl.entries
+    .filter((e) => (!isDisplay(e) || (e.subjects ?? 1) > 1) && matchesSituation(e.when, s))
+    .map((e) => e.id)
 }
 const bindingCases = situationFixtures.cases.filter((c) => c.status === 'binding')
 

@@ -170,6 +170,16 @@
    "cite": "10(i)",
    "actuable": false,
    "note": "Following a traffic lane of a scheme adopted by the Organization -- 10(i)'s and 10(j)'s protected vessel, read of whichever vessel it is asked of rather than assumed from `pair:env:traffic_lane`. Closes Q-34's 10(i)/10(j) half."
+  },
+  "fact:nearing_obscured_bend": {
+   "cite": "34(e)",
+   "actuable": true,
+   "note": "Nearing a bend, or an area of a channel or fairway where other vessels may be obscured by an intervening obstruction. A place fact in the family of `fact:near_channel`, read of one vessel and set by the helm from the chart."
+  },
+  "fact:manned": {
+   "cite": "35(e)",
+   "actuable": false,
+   "note": "35(e)'s condition on the towed vessel's own signal: the last vessel of a tow sounds it only if she is manned."
   }
  },
  "enums": {
@@ -504,7 +514,8 @@
     "kin": "kinematic state: where a vessel is, where it is pointing, how fast it is going and turning, and what it handles like. `self` and `other` only.",
     "geo": "relative geometry. Under `self`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
     "hist": "what has already been true of this encounter and persists. `self` and `other` only; directional.",
-    "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed."
+    "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed.",
+    "act": "what a subject is doing or intending at this instant, stated by her and not derived. `self` and `other` only; every key is absent unless the consumer supplies it, and absence fires nothing (Q-33)."
    },
    "bare_key": "A key with no subject segment means `self:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
    "directional_note": "Swapping `self` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `self:geo:rel_bearing_deg` is the bearing of the other vessel off self's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing."
@@ -733,6 +744,57 @@
     "cite_pending": null,
     "note": "The encounter is within a traffic separation scheme adopted by the Organization. Does not say which vessel is following a lane -- that further fact is `fact:following_traffic_lane`, read per vessel (Q-34).",
     "actuable": false,
+    "signalk": null
+   }
+  },
+  "acts": {
+   "note": "What a subject is doing or intending now (ADR 0022). An act is stated, never derived: the helm knows the wheel is over the way it knows `fact:making_way`, and astern propulsion has no kinematic signature. Absent unless supplied, so a signal is never demanded because a field was left out.",
+   "act:alter_course": {
+    "type": "enum",
+    "values": [
+     "alter_course:starboard",
+     "alter_course:port"
+    ],
+    "cite": "34(a)",
+    "cite_pending": null,
+    "note": "The vessel is altering her course to the side named. Not `kin:rot_deg_min` past a threshold: a one-degree wander is not an alteration and no paragraph states a rate.",
+    "actuable": true,
+    "signalk": null
+   },
+   "act:astern_propulsion": {
+    "type": "boolean",
+    "cite": "34(a)",
+    "cite_pending": null,
+    "note": "The vessel is operating astern propulsion. Deliberately not kinematic -- a vessel going astern on her engines may still be making way ahead.",
+    "actuable": true,
+    "signalk": null
+   },
+   "act:overtake_intent": {
+    "type": "enum",
+    "values": [
+     "overtake_intent:starboard",
+     "overtake_intent:port"
+    ],
+    "cite": "34(c)(i)",
+    "cite_pending": null,
+    "note": "Intending to overtake on the named side of the vessel ahead, in a narrow channel or fairway, under 9(e)(i).",
+    "actuable": true,
+    "signalk": null
+   },
+   "act:overtaking_agreement": {
+    "type": "boolean",
+    "cite": "34(c)(ii)",
+    "cite_pending": null,
+    "note": "The vessel about to be overtaken agrees, under 9(e)(i). False is not disagreement: 34(c)(ii) prescribes no signal for refusal, and 34(d) is what a vessel in doubt sounds.",
+    "actuable": true,
+    "signalk": null
+   },
+   "act:doubt": {
+    "type": "boolean",
+    "cite": "34(d)",
+    "cite_pending": null,
+    "note": "The vessel fails to understand the other's intentions or actions, or doubts that sufficient action is being taken. The act is the report: five short blasts. Whether 13(c) and 14(c) read this too is Q-41, untouched.",
+    "actuable": true,
     "signalk": null
    }
   },

@@ -54,10 +54,12 @@ lawful option comes back and none is picked. Selection belongs to the consumer.
 Every rule with a machine-checkable consequence: Part B conduct, Part C
 lights and shapes, Part D sound and light signals, and Annex I geometry.
 `intl` is the base; `us/inland`, `ca/inland` and `eu/cevni` are deltas on it.
-The text layer runs further than the entries: the `intl` corpus carries Part D
-(Rules 32-37) verbatim, and no Part D entry is written yet
-([ADR 0026](docs/adr/0026-the-thing-is-signals.md)).
-Today the entries hold Part C for `intl`, lights and day shapes alike: a
+Today the entries hold Part C and Part D for `intl`. Part D's signals are
+entries like any other, keyed on the same paragraph paths: Rule 35 reads the
+vessel's own state, and Rule 34 reads what she is *doing* — an `act` the helm
+states, never a rate of turn this package infers. `data/sounds.json` holds the
+elements a signal is built from, as `lights.json` holds the lights.
+For Part C, lights and day shapes alike: a
 record that states `fact:time: time:day` selects the shapes; one that states
 no time selects the lights, night being assumed rather than gated. By day the
 lights are not silenced — Rule 20(c) makes them permitted in good visibility

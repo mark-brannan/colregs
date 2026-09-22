@@ -1625,6 +1625,14 @@
     {
      "entry": "rule:26b_i:two_cones",
      "modality": "modality:shall"
+    },
+    {
+     "entry": "rule:35a",
+     "modality": "modality:shall"
+    },
+    {
+     "entry": "rule:35c",
+     "modality": "modality:shall"
     }
    ]
   },
@@ -1681,6 +1689,328 @@
      "entry": "rule:26b_iii",
      "modality": "modality:shall"
     }
+   ]
+  },
+  {
+   "name": "Rule 35(a): power-driven 30 m making way in restricted visibility",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:making_way": true
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:35a"
+   ]
+  },
+  {
+   "name": "Rule 35(b): the same vessel underway but stopped -- two prolonged blasts, not one",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:making_way": false
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:35b"
+   ]
+  },
+  {
+   "name": "Rule 35(c): sailing vessel 15 m in restricted visibility",
+   "facts": {
+    "fact:visibility": "visibility:restricted",
+    "fact:propulsion": "propulsion:sail",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 15
+   },
+   "expect": [
+    "rule:25a",
+    "rule:25b",
+    "rule:25c",
+    "rule:35c"
+   ]
+  },
+  {
+   "name": "Rule 35(c): vessel towing 40 m in restricted visibility, making way",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "fact:length_m": 40,
+    "fact:making_way": true,
+    "fact:tow_length_m": 100
+   },
+   "expect": [
+    "rule:24a_i",
+    "rule:24a_ii_iv",
+    "rule:35a",
+    "rule:35c"
+   ]
+  },
+  {
+   "name": "Rule 35(d): vessel engaged in fishing at anchor 30 m in restricted visibility",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:fishing",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:length_m": 30
+   },
+   "expect": [
+    "rule:26c_i",
+    "rule:30a",
+    "rule:30b",
+    "rule:30c",
+    "rule:35d",
+    "rule:35g",
+    "rule:35g:warning"
+   ]
+  },
+  {
+   "name": "Rule 35(e): the last vessel of a tow, manned, in restricted visibility",
+   "facts": {
+    "fact:visibility": "visibility:restricted",
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 40,
+    "fact:manned": true
+   },
+   "expect": [
+    "rule:24e",
+    "rule:35e"
+   ]
+  },
+  {
+   "name": "Rule 35(e): the same tow unmanned -- she sounds nothing",
+   "facts": {
+    "fact:visibility": "visibility:restricted",
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 40,
+    "fact:manned": false
+   },
+   "expect": [
+    "rule:24e"
+   ]
+  },
+  {
+   "name": "Rule 35(f): composite unit making way in restricted visibility",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pushing",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "fact:length_m": 60,
+    "fact:making_way": true,
+    "fact:composite_unit": true
+   },
+   "expect": [
+    "rule:24b",
+    "rule:35a",
+    "rule:35c",
+    "rule:35f"
+   ]
+  },
+  {
+   "name": "Rule 35(g): power-driven 30 m at anchor in restricted visibility -- bell, no gong",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:length_m": 30
+   },
+   "expect": [
+    "rule:30a",
+    "rule:30b",
+    "rule:30c",
+    "rule:35g",
+    "rule:35g:warning"
+   ]
+  },
+  {
+   "name": "Rule 35(g): 150 m at anchor in restricted visibility -- bell forward, gong aft",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:length_m": 150
+   },
+   "expect": [
+    "rule:30a",
+    "rule:30c",
+    "rule:35g",
+    "rule:35g:gong",
+    "rule:35g:warning"
+   ]
+  },
+  {
+   "name": "Rule 35(h): 30 m aground in restricted visibility -- three strokes either side of the bell",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:aground",
+    "fact:length_m": 30
+   },
+   "expect": [
+    "rule:30d",
+    "rule:30d_i",
+    "rule:35h"
+   ]
+  },
+  {
+   "name": "Rule 35(h): 150 m aground in restricted visibility -- the gong is required too",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:aground",
+    "fact:length_m": 150
+   },
+   "expect": [
+    "rule:30d",
+    "rule:30d_i",
+    "rule:35h",
+    "rule:35h:gong"
+   ]
+  },
+  {
+   "name": "Rule 35(i): 15 m at anchor in restricted visibility -- not obliged to ring the bell",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:length_m": 15
+   },
+   "expect": [
+    "rule:30a",
+    "rule:30b",
+    "rule:30c",
+    "rule:35g",
+    "rule:35g:warning",
+    "rule:35i"
+   ]
+  },
+  {
+   "name": "Rule 35(i): 20 m at anchor in restricted visibility -- the exemption stops here",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:length_m": 20
+   },
+   "expect": [
+    "rule:30a",
+    "rule:30b",
+    "rule:30c",
+    "rule:35g",
+    "rule:35g:warning"
+   ]
+  },
+  {
+   "name": "Rule 35(j): 8 m at anchor in restricted visibility -- exempt from all of (a) to (h)",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:anchored",
+    "fact:length_m": 8
+   },
+   "expect": [
+    "rule:30a",
+    "rule:30b",
+    "rule:30c",
+    "rule:35g",
+    "rule:35g:warning",
+    "rule:35j"
+   ]
+  },
+  {
+   "name": "Rule 35(j): 12 m making way in restricted visibility -- the exemption stops here",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "fact:length_m": 12,
+    "fact:making_way": true
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:35a"
+   ]
+  },
+  {
+   "name": "Rule 35(k): pilot vessel on duty 20 m in restricted visibility",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:pilot",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "fact:length_m": 20,
+    "fact:making_way": true
+   },
+   "expect": [
+    "rule:29a",
+    "rule:35a",
+    "rule:35k"
+   ]
+  },
+  {
+   "name": "Rule 34(e): nearing a bend, good visibility -- one prolonged blast and no Rule 35 signal",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:good",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:making_way": true,
+    "fact:nearing_obscured_bend": true
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:34e"
+   ]
+  },
+  {
+   "name": "Rule 34(e): nearing a bend in restricted visibility -- both signals are due",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:visibility": "visibility:restricted",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:making_way": true,
+    "fact:nearing_obscured_bend": true
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:35a",
+    "rule:34e"
    ]
   }
  ]

@@ -99,7 +99,11 @@
       "time:day": "Day",
       "time:night": "Night",
       "visibility:good": "Good visibility",
-      "visibility:restricted": "Restricted visibility"
+      "visibility:restricted": "Restricted visibility",
+      "alter_course:starboard": "Altering course to starboard",
+      "alter_course:port": "Altering course to port",
+      "overtake_intent:starboard": "Intending to overtake to starboard",
+      "overtake_intent:port": "Intending to overtake to port"
     }
   }
 }

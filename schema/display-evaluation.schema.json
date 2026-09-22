@@ -67,6 +67,12 @@
             "items": {
               "$ref": "#/$defs/displayShape"
             }
+          },
+          "signals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displaySignal"
+            }
           }
         }
       }
@@ -148,6 +154,13 @@
           "items": {
             "$ref": "#/$defs/displayShape"
           }
+        },
+        "signals": {
+          "$comment": "The sound and flash signals of the display (ADR 0022). Absent from a record that selects no Part D entry, and from an implementation that predates them.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/displaySignal"
+          }
         }
       }
     },
@@ -162,6 +175,29 @@
       "properties": {
         "spec": {
           "$ref": "applicability.schema.json#/$defs/shapeRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "via": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
+      }
+    },
+    "displaySignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "source_entry",
+        "modality"
+      ],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/signalRef"
         },
         "source_entry": {
           "$ref": "evaluation.schema.json#/$defs/ruleId"
