@@ -1,0 +1,103 @@
+name: Promote approved proposals to ADRs
+
+# The ADR numbering mechanism, release-please's shape: a bot owns the number.
+#
+# A proposal merges unnumbered as docs/proposals/<slug>.md. The ruling is the
+# `adr-approved` label on the pull request that merged it -- and only on the
+# merge, never before -- at which point this workflow moves every proposal
+# that merge ADDED to docs/adr/NNNN-<slug>.md at the next free number, moves
+# its docs/budgets.json key with it, and appends its line to
+# docs/adr/INDEX.md. Nobody types a number, so nobody can type a duplicate.
+# scripts/adr.mjs does the work; docs/proposals/README.md states the contract.
+#
+# It opens a pull request rather than pushing to main. Main requires a pull
+# request, signed commits and linear history with no bypass actors, so a push
+# from a runner is refused outright; squash-merging the promotion is what
+# lands the ADR, the same way merging the release pull request is what ships.
+#
+# The App token, not GITHUB_TOKEN: a pull request opened with the default
+# token fires no workflows, so the promotion would never get CI -- and CI is
+# where test/adr.test.mjs checks the number it just allocated. Same App and
+# the same reasoning as release-please.yml.
+
+# `labeled` as well as `closed`: the ruling is the label, and a label added
+# after the merge fires no `closed` event. Both paths converge on the `if:`
+# below, which reads `merged` and the label from the same payload -- so a
+# label on an open pull request does nothing, and a second label on a merged
+# one finds every proposal already moved and promotes nothing.
+on:
+  pull_request:
+    types: [closed, labeled]
+
+permissions:
+  contents: read
+
+# One allocation at a time. Two promotions racing would read the same INDEX.md
+# and reach for the same number; serialised, the second reads the first's line.
+concurrency:
+  group: adr-promote
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    # The label event that matters is the one adding `adr-approved`. Without
+    # that clause any later label on an already-approved merged pull request
+    # re-fires this, and the run is only a no-op once the promotion it already
+    # opened has merged -- before that the proposal is still on main.
+    if: >-
+      github.event.pull_request.merged &&
+      github.event.pull_request.base.ref == 'main' &&
+      contains(github.event.pull_request.labels.*.name, 'adr-approved') &&
+      (github.event.action != 'labeled' || github.event.label.name == 'adr-approved')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ secrets.RELEASE_PLEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      # The proposals this merge ADDED. Editing one is not approving it, and
+      # the directory's README is not a proposal. NUL-delimited and handed to
+      # xargs: a filename never becomes a shell word, so a space or a glob
+      # character in one cannot split it or expand to something else.
+      - id: added
+        env:
+          SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          if git ls-remote --exit-code --heads origin "adr-promote/pr-$PR" >/dev/null; then
+            echo "::notice::adr-promote/pr-$PR is already open; nothing to allocate"
+            echo "count=0" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          git diff -z --diff-filter=A --name-only "$SHA^" "$SHA" \
+            -- 'docs/proposals/*.md' ':!docs/proposals/README.md' > "$RUNNER_TEMP/added"
+          tr '\0' '\n' < "$RUNNER_TEMP/added"
+          echo "count=$(tr -cd '\0' < "$RUNNER_TEMP/added" | wc -c)" >> "$GITHUB_OUTPUT"
+
+      - id: promote
+        if: steps.added.outputs.count != '0'
+        run: xargs -0 -a "$RUNNER_TEMP/added" node scripts/adr.mjs promote
+
+      - if: steps.promote.outputs.subject != ''
+        env:
+          SUBJECT: ${{ steps.promote.outputs.subject }}
+          PR: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "adr-promote/pr-$PR"
+          git commit -a -m "$SUBJECT" -m "Approved by #$PR. scripts/adr.mjs allocated the number; no human typed one."
+          git push -u origin HEAD
+          gh pr create --base main --fill-first --label documentation

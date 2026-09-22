@@ -25,8 +25,8 @@ once consensus is reached, applied by the repository owner and by nobody
 else. No agent applies it, asks for it, or treats its absence as an oversight.
 Once it is on the pull request that merged the proposal, promotion moves the
 file to `docs/adr/NNNN-<slug>.md` at the next free number, rewrites the H1 to
-`# ADR NNNN — <title>`, moves its `docs/budgets.json` line budget with it, and
-appends its entry to [`docs/adr/INDEX.md`](../adr/INDEX.md). Promoting the
+`# ADR NNNN — <title>`, moves its `docs/budgets.json` line budget with it (or
+sets one at the length it landed at, if it had none), and appends its entry to [`docs/adr/INDEX.md`](../adr/INDEX.md). Promoting the
 same proposal twice is a no-op because the file has already moved.
 
 A number already reserved in `docs/adr/INDEX.md` — one cited before its text
