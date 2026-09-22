@@ -34,6 +34,17 @@
     "docs/adr/INDEX.md": 200,
     "docs/proposals/README.md": 60
   },
+  "delta": {
+    "targets": [
+      "README.md",
+      "RUNBOOK.md",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "docs/**/*.md",
+      "runbooks/*.md",
+      "!docs/proposals/**"
+    ]
+  },
   "json_prose": {
     "targets": [
       "data/*.json",
