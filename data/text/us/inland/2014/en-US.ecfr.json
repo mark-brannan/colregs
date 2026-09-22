@@ -17,6 +17,6 @@
   "redistribution_basis": "17 U.S.C. 105",
   "package_licence": "Apache-2.0"
  },
- "note": "Stub: a second jurisdiction, so the key shape is exercised on both axes; the delta itself waits on Q-11 -- REQ-SCOPE-3.",
+ "note": "Stub: a second jurisdiction, so the key shape is exercised on both axes; the delta mechanism is an RFC 7396 merge patch over intl (ADR 0018, Q-11 resolved).",
  "paragraphs": {}
 }
