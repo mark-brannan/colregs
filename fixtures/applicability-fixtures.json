@@ -506,9 +506,11 @@
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:diving",
     "fact:position": "position:underway",
-    "fact:length_m": 9
+    "fact:length_m": 9,
+    "fact:full_display_impracticable": true
    },
    "expect": [
+    "rule:27b_i",
     "rule:27e_i"
    ]
   },
@@ -1369,11 +1371,63 @@
     "fact:activity": "activity:diving",
     "fact:position": "position:underway",
     "fact:length_m": 9,
+    "fact:time": "time:day",
+    "fact:full_display_impracticable": true
+   },
+   "expect": [
+    "rule:27b_i",
+    "rule:27e_i",
+    "rule:27b_ii",
+    "rule:27e_ii"
+   ]
+  },
+  {
+   "name": "diving from a 9 m vessel able to carry the 27(d) display: 27(g) does not except her",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:diving",
+    "fact:position": "position:underway",
+    "fact:length_m": 9,
+    "fact:full_display_impracticable": false
+   },
+   "expect": [
+    "rule:27b_i"
+   ]
+  },
+  {
+   "name": "diving support vessel, 60 m, making way, obstruction to port: the full 27(d) display",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:diving",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 60,
+    "fact:obstruction_exists": true,
+    "fact:obstruction_side": "obstruction_side:port",
+    "fact:full_display_impracticable": false
+   },
+   "expect": [
+    "rule:27b_i",
+    "rule:27b_iii",
+    "rule:27d"
+   ]
+  },
+  {
+   "name": "diving support vessel, 60 m, making way, no obstruction, by day: 27(b) via 27(d), no flag A",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:diving",
+    "fact:position": "position:underway",
+    "fact:making_way": true,
+    "fact:length_m": 60,
+    "fact:obstruction_exists": false,
+    "fact:full_display_impracticable": false,
     "fact:time": "time:day"
    },
    "expect": [
-    "rule:27e_i",
-    "rule:27e_ii"
+    "rule:27b_i",
+    "rule:27b_iii",
+    "rule:27b_ii"
    ]
   },
   {
