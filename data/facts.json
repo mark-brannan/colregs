@@ -156,6 +156,11 @@
    "cite": "27(d)",
    "actuable": false
   },
+  "fact:full_display_impracticable": {
+   "cite": "27(e)",
+   "actuable": false,
+   "note": "27(e)'s gate: the diving vessel's size makes it impracticable to exhibit all the lights and shapes of 27(d). The Convention leaves that judgement to the vessel and no source reduces it to a length (IMO text and Annex I, 33 CFR 83.27, the UK, Canadian and NZ variants, Cockcroft & Lameijer), so this package asks rather than inventing a threshold, as for 'very large vessel' (Q-42). Absent reads as false: the full 27(d) display."
+  },
   "fact:tow_restricts_deviation": {
    "cite": "27(c)",
    "actuable": false,

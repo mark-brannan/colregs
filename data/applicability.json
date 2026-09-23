@@ -917,7 +917,10 @@
    "jurisdiction": "intl",
    "cite": "27(b)(i)",
    "when": {
-    "fact:activity": "activity:ram"
+    "fact:activity": [
+     "activity:ram",
+     "activity:diving"
+    ]
    },
    "lights": [
     {
@@ -947,7 +950,10 @@
    "jurisdiction": "intl",
    "cite": "27(b)(iii)",
    "when": {
-    "fact:activity": "activity:ram",
+    "fact:activity": [
+     "activity:ram",
+     "activity:diving"
+    ],
     "fact:making_way": true
    },
    "lights": [],
@@ -966,7 +972,10 @@
    "jurisdiction": "intl",
    "cite": "27(b)(iv)",
    "when": {
-    "fact:activity": "activity:ram",
+    "fact:activity": [
+     "activity:ram",
+     "activity:diving"
+    ],
     "fact:position": "position:anchored"
    },
    "lights": [],
@@ -988,7 +997,10 @@
    "jurisdiction": "intl",
    "cite": "27(d)",
    "when": {
-    "fact:activity": "activity:ram_underwater",
+    "fact:activity": [
+     "activity:ram_underwater",
+     "activity:diving"
+    ],
     "fact:obstruction_exists": true
    },
    "lights": [
@@ -1022,7 +1034,8 @@
    "jurisdiction": "intl",
    "cite": "27(e)(i)",
    "when": {
-    "fact:activity": "activity:diving"
+    "fact:activity": "activity:diving",
+    "fact:full_display_impracticable": true
    },
    "lights": [
     {
@@ -1045,10 +1058,13 @@
     }
    ],
    "rel:in_lieu_of": [
-    "rule:27d"
+    "rule:27d",
+    "rule:27b_i",
+    "rule:27b_iii",
+    "rule:27b_iv"
    ],
    "modality": "modality:shall",
-   "notes": "Only when the vessel's size makes the full 27(d) display impracticable."
+   "notes": "27(e) is the small-vessel exception to 27(d), not a display of its own: a vessel engaged in diving operations is engaged in underwater operations and is prescribed the whole of 27(d) -- 27(b)(i)-(iii) and the obstruction lights -- and shows these three lights instead only when `fact:full_display_impracticable` holds. The replaced set is everything 27(d) brings a diving vessel as modelled here, 27(b)(iv) included, because 27(d)(iii) already displaces Rule 30 for her at anchor."
   },
   {
    "id": "rule:27f",
@@ -2527,7 +2543,10 @@
    "id": "rule:27b_ii",
    "cite": "27(b)(ii)",
    "when": {
-    "fact:activity": "activity:ram",
+    "fact:activity": [
+     "activity:ram",
+     "activity:diving"
+    ],
     "fact:time": "time:day"
    },
    "lights": [],
@@ -2559,7 +2578,10 @@
    "id": "rule:27d:shapes",
    "cite": "27(d)",
    "when": {
-    "fact:activity": "activity:ram_underwater",
+    "fact:activity": [
+     "activity:ram_underwater",
+     "activity:diving"
+    ],
     "fact:obstruction_exists": true,
     "fact:time": "time:day"
    },
@@ -2594,7 +2616,8 @@
    "cite": "27(e)(ii)",
    "when": {
     "fact:activity": "activity:diving",
-    "fact:time": "time:day"
+    "fact:time": "time:day",
+    "fact:full_display_impracticable": true
    },
    "lights": [],
    "shapes": [
@@ -2606,13 +2629,14 @@
     }
    ],
    "rel:in_lieu_of": [
-    "rule:27d:shapes"
+    "rule:27d:shapes",
+    "rule:27b_ii"
    ],
    "modality": "modality:shall",
    "images": [
     "NRHB_27_eii.png"
    ],
-   "notes": "Only when the vessel's size makes the full 27(d) display impracticable."
+   "notes": "The day half of rule:27e_i: the rigid flag A instead of 27(d)'s shapes and 27(b)(ii)'s, under the same size gate."
   },
   {
    "jurisdiction": "intl",
@@ -2737,7 +2761,7 @@
     "rule:27f:three_balls"
    ],
    "modality": "modality:exempt",
-   "notes": "Diving (27(e)) is the paragraph's own exception and is not listed; activity:ram_underwater reads as activity:ram."
+   "notes": "Diving (27(e)) is the paragraph's own exception and is not listed; activity:ram_underwater reads as activity:ram. That exception is also why the 27(b) and 27(d) entries name activity:diving explicitly instead of diving refining ram_underwater: this predicate reads ram, a `when` has no conjunction on one key to say 'ram but not diving', and a refinement would have exempted a 9 m diving vessel able to carry the full 27(d) display, which 27(g) does not."
   },
   {
    "id": "rule:35a",
