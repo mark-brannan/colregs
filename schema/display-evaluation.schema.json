@@ -30,6 +30,7 @@
       "$ref": "evaluation.schema.json#/$defs/byEntryList"
     },
     "displays": {
+      "description": "Every complete lawful display. The order is significant: a display whose chosen entry carries the narrower gate comes before the display it stands in lieu of, the base display last (30(b) before 30(a); 23(d)(i) before 23(a)). Derived at evaluation time from `modality`, `when` and `rel:in_lieu_of`; the corpus still picks no option (REQ-MODEL-8).",
       "type": "array",
       "items": {
         "$ref": "#/$defs/display"
