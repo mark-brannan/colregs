@@ -1,0 +1,27 @@
+# npm weekly for the dev deps (grouped: one PR beats N here), github-actions
+# weekly for the workflow pins. Same shape as the sibling repos.
+# commit-message prefixes keep release-please's conventional-commit rule.
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      dependencies:
+        patterns: ['*']
+    commit-message:
+      prefix: build
+      prefix-development: chore
+      include: scope
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: ci
+      include: scope
