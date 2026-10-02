@@ -138,6 +138,10 @@
           "items": {
             "$ref": "#/$defs/representedParagraph"
           }
+        },
+        "known_omissions": {
+          "$comment": "Circumstance classes the fact model does not represent in principle (data/applicability.json's known_omissions registry), surfaced beside represented so a caller can tell the two apart.",
+          "$ref": "applicability.schema.json#/$defs/known_omissions"
         }
       }
     }
