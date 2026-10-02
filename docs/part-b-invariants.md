@@ -87,7 +87,7 @@ arc, which 13(b)'s second limb states in light terms.
 - **Not stated by 13(b).** Risk of collision: `Q-50`.
 - Entries: `rule:13b`;
   `situation.constants.overtaking_sector_from_deg`/`_to_deg` (ink). Settled by
-  P2.2's Alloy sector model: a partition, or a bearing that falls in both.
+  T2's Alloy sector model: a partition, or a bearing that falls in both.
 
 ### INV-13b-pair — overtaking is a property of the pair
 
@@ -415,7 +415,7 @@ to avoid collision. Obligation, not permission; 17(a)(i)'s duty is displaced.
 - **Formally.** The dual of `INV-17a2-permission`: *no* give-way action avoids
   collision against the stand-on vessel holding on. Reachability over
   `kin:dynamics`, not geometry; a distance threshold is a substitute, which is
-  why P4.4 and P4.5 are necessary.
+  why P4.4 and P3.3 are necessary.
 - **Undetermined terms.** "From any cause" admits the stand-on vessel's own
   contribution; "best aid to avoid collision" ranks by an undefined objective.
 
@@ -785,7 +785,7 @@ holds `give-way` on both subjects, and none holds `stand-on` on both.
 **Invariant.** For any pair the three deeming tests all reach, exactly one of
 `overtaking`, `head-on` and `crossing` holds — never two, never none.
 `REQ-CAT-9`'s partition as an invariant; the natural first Alloy invariant for
-P2.2.
+T2.
 
 - **What "all reach" excludes.** Two sailing vessels, no risk of collision, not
   in sight (the Rules); `hist:was_overtaking` absent (the model, `Q-43`).
