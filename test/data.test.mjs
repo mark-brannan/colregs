@@ -2257,7 +2257,7 @@ test('scope: a situation selects exactly one Part B section, and it tracks in-si
   }
 })
 
-// --- the encounter partition (epic P2.2, at the data level) ----------------
+// --- the encounter partition (research-programme T2, at the data level) ----------------
 // Head-on, crossing and overtaking must partition relative bearing: no bearing
 // in two sectors, none in neither. The Alloy version of this property lives in
 // colregs-engine; this is the same property asserted directly over the data, so
