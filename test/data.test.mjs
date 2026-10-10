@@ -1524,6 +1524,13 @@ test('light arcs cover the span they claim', () => {
   }
 })
 
+test('a light stated as a range keeps its bounds ordered', () => {
+  for (const [id, l] of Object.entries(lights.lights)) {
+    if (l.arc_deg_max !== undefined) assert.ok(l.arc_deg_max > l.arc_deg, `${id} arc_deg_max does not exceed arc_deg`)
+    if (l.flashes_per_minute_max !== undefined) assert.ok(l.flashes_per_minute_max >= l.flashes_per_minute_min, `${id} flash-rate bounds are inverted`)
+  }
+})
+
 // --- reversibility gates (REQ-GATE-1..4) -----------------------------------
 // docs/gates.json is the machine-readable status of the §10 gates. It is what
 // blocks a 1.0 tag; requirements.md prose cannot, and did not.
