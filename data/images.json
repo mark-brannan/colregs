@@ -289,6 +289,9 @@
    "paragraphs": [
     "24(d)"
    ],
+   "entries": [
+    "rule:24d"
+   ],
    "depicts": "mixed",
    "transcript": [
     "Power-driven vessel towing astern—length of tow 200 meters or less. The after masthead light is optional for vessel less than 50 meters in length. Same for Inland."
@@ -906,6 +909,10 @@
    ],
    "paragraphs": [
     "27(c)"
+   ],
+   "entries": [
+    "rule:27c",
+    "rule:27c:shapes"
    ],
    "depicts": "provision",
    "transcript": [

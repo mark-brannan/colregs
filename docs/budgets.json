@@ -62,8 +62,8 @@
     "max_chars": 450,
     "grandfathered": [
       "data/applicability.json#/effects/note",
-      "data/applicability.json#/known_omissions/10/why",
-      "data/applicability.json#/known_omissions/11/why",
+      "data/applicability.json#/known_omissions/7/why",
+      "data/applicability.json#/known_omissions/8/why",
       "data/applicability.json#/entries/43/note",
       "data/applicability.json#/entries/44/note",
       "data/applicability.json#/entries/45/note",
