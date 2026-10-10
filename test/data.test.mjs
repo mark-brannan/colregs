@@ -543,6 +543,14 @@ test('REQ-LANG-5: every corpus paragraph and gap resolves to a skeleton path, an
   }
 })
 
+// Silence must not imply coverage (REQ-LANG-5). Scoped to the reference
+// corpus: the others are partial by declaration and carry their own gaps.
+test('REQ-LANG-5: every intl skeleton path has text or a recorded gap in the reference corpus', () => {
+  const accounted = new Set([...Object.keys(enUS.paragraphs), ...(enUS.gaps ?? []).map((g) => g.path)])
+  const silent = Object.keys(skeletonOf('intl')).filter((path) => !accounted.has(path))
+  assert.deepEqual(silent, [], `${EN_US}: skeleton paths with neither a paragraph nor a gap`)
+})
+
 test('ADR 0013: corpus id, file path and data/corpora.json agree with the metadata inside each corpus', () => {
   const onDisk = new Set()
   const walk = (dir) => {
