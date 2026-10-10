@@ -1680,6 +1680,10 @@ const situationFixtures = load('fixtures/situation-fixtures.json')
 const sit = facts.situation
 const SUBJECTS = new Set(Object.keys(sit.namespace.subjects))
 const CLASSES = new Set(Object.keys(sit.namespace.classes))
+// A class listed here is held beside the subjects, not under one: `traffic`
+// is a key of its own at the head of the situation, so it takes no subject
+// segment and a bare key does not default it to `self:`.
+const SUBJECTLESS = new Set(sit.namespace.subjectless_classes)
 // `pair` carries only what is symmetric between the two vessels.
 // `pair` carries what is symmetric between the two vessels: their relative
 // geometry, and where the encounter is happening.
@@ -1693,7 +1697,8 @@ function parseKey(key) {
   let hit = parsedKeys.get(key)
   if (hit === undefined) {
     const seg = key.split(':')
-    const subject = SUBJECTS.has(seg[0]) ? seg.shift() : 'self'
+    // `traffic:<sector>:<key>`: no subject, the sector is a key prefix.
+    const subject = SUBJECTLESS.has(seg[0]) ? null : SUBJECTS.has(seg[0]) ? seg.shift() : 'self'
     hit = { subject, cls: seg[0], local: seg.join(':') }
     parsedKeys.set(key, hit)
   }
@@ -1704,6 +1709,10 @@ function parseKey(key) {
 // fails it, exactly as a missing fact does in the one-subject evaluator.
 function resolve(key, situation) {
   const { subject, cls, local } = parseKey(key)
+  if (subject === null) {
+    const [, sector, ...rest] = local.split(':')
+    return situation?.[cls]?.[sector]?.[rest.join(':')]
+  }
   const held = situation?.[subject]?.[cls]
   return held === undefined ? undefined : held[local]
 }
@@ -1828,11 +1837,13 @@ const situationDeclared = {
   hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
   env: new Set(Object.keys(sit.environment).filter((k) => k.startsWith('env:'))),
   act: new Set(Object.keys(sit.acts).filter((k) => k.startsWith('act:'))),
+  traffic: new Set(Object.keys(sit.traffic).filter((k) => k.startsWith('traffic:'))),
 }
 
 test('REQ-CAT-4: the situation section declares the classes the namespace names', () => {
   assert.deepEqual([...SUBJECTS].sort(), ['other', 'pair', 'self'])
-  assert.deepEqual([...CLASSES].sort(), ['act', 'env', 'fact', 'geo', 'hist', 'kin'])
+  assert.deepEqual([...CLASSES].sort(), ['act', 'env', 'fact', 'geo', 'hist', 'kin', 'traffic'])
+  assert.deepEqual([...SUBJECTLESS], ['traffic'])
   // The fact record is reachable unchanged: `self:fact:*` must resolve to the
   // very keys facts.json already declares, not to a renamed copy of them.
   for (const k of situationDeclared.fact) {
@@ -1846,6 +1857,7 @@ test('REQ-CAT-4: the situation section declares the classes the namespace names'
     ...Object.entries(sit.history).filter(([k]) => k.startsWith('hist:')),
     ...Object.entries(sit.environment).filter(([k]) => k.startsWith('env:')),
     ...Object.entries(sit.acts).filter(([k]) => k.startsWith('act:')),
+    ...Object.entries(sit.traffic).filter(([k]) => k.startsWith('traffic:')),
   ]
   assert.ok(shaped.length > 0)
   for (const [k, rec] of shaped) {
@@ -1894,6 +1906,17 @@ test('REQ-CAT-5: situation fixtures are well-formed and resolve in the namespace
     names.add(c.name)
     assert.ok(situationFixtures.case_status.values.includes(c.status), `${c.name}: bad status`)
     for (const [subject, classes] of Object.entries(c.situation)) {
+      if (SUBJECTLESS.has(subject)) {
+        // `traffic: { <sector>: { <key>: v } }` flattens to `traffic:<sector>:<key>`.
+        for (const [sector, record] of Object.entries(classes)) {
+          for (const [k, v] of Object.entries(record)) {
+            const flat = `${subject}:${sector}:${k}`
+            assert.ok(situationDeclared[subject].has(flat), `${c.name}: undeclared ${subject} fact ${flat}`)
+            assert.equal(resolve(flat, c.situation), v, `${c.name}: ${flat} does not resolve`)
+          }
+        }
+        continue
+      }
       assert.ok(SUBJECTS.has(subject), `${c.name}: unknown subject ${subject}`)
       for (const [cls, record] of Object.entries(classes)) {
         assert.ok(CLASSES.has(cls), `${c.name}: unknown class ${cls}`)
@@ -2010,7 +2033,7 @@ test('REQ-CAT-6: every fact a two-subject predicate reads resolves in the situat
   for (const e of twoSubject) {
     for (const k of factKeys(e.when)) {
       const { subject, cls, local } = parseKey(k)
-      assert.ok(SUBJECTS.has(subject), `${e.id}: unknown subject in ${k}`)
+      assert.ok(subject === null ? SUBJECTLESS.has(cls) : SUBJECTS.has(subject), `${e.id}: unknown subject in ${k}`)
       assert.ok(CLASSES.has(cls), `${e.id}: unknown class in ${k}`)
       if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${e.id}: pair:${cls} is not symmetric`)
       else assert.ok(cls !== 'env', `${e.id}: env is a fact of the pair, never of a vessel`)
@@ -2492,6 +2515,59 @@ test('the declared constants are the numbers the entries actually read', () => {
     if (spec.cite === null) assert.ok(spec.cite_pending, `${k}: null cite with no cite_pending`)
     else assert.ok(rules.paragraphs[spec.cite], `${k}: cites missing paragraph ${spec.cite}`)
     if (spec.status === 'pencil') assert.ok(spec.settled_by, `${k}: pencil with no settled_by`)
+  }
+})
+
+// colregs-engine#82's traffic class: the keys, and the sector boundaries as the
+// edges the Part B entries already gate on. Nothing here is a new number except
+// the cone's mirror edge, and that is checked against its partner.
+test('traffic: every sector carries every key, the schema names the same ones, and the sectors partition the circle', () => {
+  const schema = loadSchema('traffic-facts.schema.json')
+  const sectors = Object.keys(sit.traffic.sectors).filter((k) => k !== 'note')
+  assert.deepEqual(sectors.sort(), Object.keys(schema.properties).sort(), 'facts.json and the schema name different sectors')
+  const keys = Object.keys(schema.$defs.sector.properties)
+  assert.deepEqual([...situationDeclared.traffic].sort(),
+    sectors.flatMap((s) => keys.map((k) => `traffic:${s}:${k}`)).sort(), 'a sector is missing a key, or has an extra one')
+  assert.ok(situationDeclared.traffic.has('traffic:ahead:foreclosed'))
+  for (const [k, rec] of Object.entries(sit.traffic).filter(([k]) => k.startsWith('traffic:'))) {
+    assert.ok(/ADR 0023/.test(rec.note), `${k}: note does not point at ADR 0023`)
+  }
+  assert.equal(sit.traffic.status, 'pencil')
+  assert.ok(sit.traffic.settled_by, 'pencil with no settled_by')
+
+  // The mirror edges are the same distance from the bow as their partners.
+  assert.equal(CONSTANTS.head_on_cone_from_deg.value, 360 - HALF)
+  assert.equal(TO, 360 - FROM)
+
+  // Each edge is a declared constant; a sector's cite is a paragraph.
+  const bounds = Object.fromEntries(sectors.map((s) => {
+    const def = sit.traffic.sectors[s]
+    for (const e of [def.from, def.to]) assert.ok(e in CONSTANTS, `${s}: edge ${e} is not a declared constant`)
+    assert.ok(rules.paragraphs[def.cite], `${s}: cite ${def.cite} not in rules.json`)
+    assert.equal(typeof def.includes_from, 'boolean')
+    assert.equal(typeof def.includes_to, 'boolean')
+    return [s, def]
+  }))
+  const inSector = (s, b) => {
+    const { from, to, includes_from, includes_to } = bounds[s]
+    const lo = CONSTANTS[from].value, hi = CONSTANTS[to].value
+    const above = includes_from ? b >= lo : b > lo
+    const below = includes_to ? b <= hi : b < hi
+    return lo <= hi ? above && below : above || below
+  }
+  const at = (b) => ({ self: { geo: { 'geo:rel_bearing_deg': b } } })
+  const cone = byId.get('rule:14b').when['self:geo:rel_bearing_deg']
+  const keepClear = byId.get('rule:15a:keep_out_of_the_way').when['self:geo:rel_bearing_deg']
+  const overtaking = byId.get('rule:13b').when.any_of[1]['self:geo:rel_bearing_deg']
+  const bearings = [...Array(7201).keys()].map((i) => i / 20) // every 0.05 degree, edges included
+  for (const b of bearings) {
+    const held = sectors.filter((s) => inSector(s, b))
+    assert.equal(held.length, 1, `${b} degrees is in ${held.length} sectors: ${held}`)
+    // ...and the sectors the entries already gate on are those sectors, edge for edge.
+    const m = (gate) => matchesSituation({ 'self:geo:rel_bearing_deg': gate }, at(b))
+    assert.equal(inSector('ahead', b), m(cone), `${b}: ahead differs from rule:14b's cone`)
+    assert.equal(inSector('astern', b), m(overtaking), `${b}: astern differs from rule:13b's sector`)
+    assert.equal(inSector('starboard', b), m(keepClear) && !m(cone), `${b}: starboard differs from rule:15a's give-way side`)
   }
 })
 
