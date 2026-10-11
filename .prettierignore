@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+package-lock.json
+CHANGELOG.md
+.release-please-manifest.json
+# CI workflows are not reformatted by this tool
+.github
+# Vendored official rule texts
+data/text
+# Prose under line budgets (docs/budgets.json) and tables parsed by tests
+docs
