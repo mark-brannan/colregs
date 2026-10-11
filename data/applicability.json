@@ -1894,8 +1894,8 @@
    "subjects": 2,
    "when": {
     "pair:geo:bearing_change_deg_min": {
-     "gt": -1.0,
-     "lt": 1.0
+     "gt": -1,
+     "lt": 1
     },
     "pair:geo:tcpa_s": {
      "gt": 0

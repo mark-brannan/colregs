@@ -31,9 +31,10 @@ note — read it before editing anything a design doc has marked.
 
 ```bash
 npm test              # node --test test/*.mjs — the entire verification surface
+npm run format:check  # prettier --check . (npm run format rewrites)
 ```
 
-There is no build, lint, or type-check step. `test/*.mjs` is the
+There is no build or type-check step. `test/*.mjs` is the
 whole suite; there's no per-test filter script — use Node's own `--test-name-pattern`
 if you need to run one test (e.g. `node --test --test-name-pattern=drift test/data.test.mjs`).
 
