@@ -17,9 +17,7 @@
       "fixtures": [
         {
           "file": "fixtures/applicability-fixtures.json",
-          "case_inputs": [
-            "facts"
-          ]
+          "case_inputs": ["facts"]
         }
       ]
     },
@@ -39,9 +37,7 @@
       "fixtures": [
         {
           "file": "fixtures/situation-fixtures.json",
-          "case_inputs": [
-            "situation"
-          ]
+          "case_inputs": ["situation"]
         }
       ]
     },

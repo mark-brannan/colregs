@@ -1,1470 +1,818 @@
 {
- "note": "Every image in images/, with where it came from, which paragraph or applicability entry it illustrates, and whether the figure shows that clause's provision, its exception, or both. The arc GIFs are decorative; the arcs themselves are data in lights.json.",
- "count": 43,
- "images": {
-  "NRHB_23_Intl_dii.png": {
-   "file": "NRHB_23_Intl_dii.png",
-   "bytes": 175440,
-   "sha256": "4ab742c440084403ae8c78caa1bd863fe21b6c98b311799f0e1bb3f6564aec57",
-   "pixels": [
-    936,
-    582
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_Intl_dii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Power Driven Vessel less than 12m"
-   ],
-   "paragraphs": [
-    "23(d)(ii)"
-   ],
-   "entries": [
-    "rule:23d_ii"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Power-driven vessel of less than 7 meters in length whose maximum speed does not exceed 7 knots. International only."
-   ],
-   "subjects": [
-    "open outboard skiff",
-    "transom-mounted outboard motor",
-    "standing helmsman"
-   ],
-   "description": "A small open skiff: a hard-chined hull with plank thwarts, a slatted floor and an outboard clamped to the transom, worked by a man who stands to the tiller. She is drawn from above and off the port bow, heading down and to the right, her bottom closed by a dashed line with no sea around her. One white lobe burns at the head of a short staff stepped beside the outboard at the after end, and it is the only light drawn: no sidelights, no separate stern light, nothing on the bow. No day shape or inset panel accompanies her, and the rest of the frame is bare ground.",
-   "shapes": []
-  },
-  "NRHB_23_a.png": {
-   "file": "NRHB_23_a.png",
-   "bytes": 316372,
-   "sha256": "d3a57beef206b6055b755849df08e8da8db7fca2f82329f7f436bd311a1f86c7",
-   "pixels": [
-    880,
-    900
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_a.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Air Cushion Vessel in Displacement Mode",
-    "Composite Unit",
-    "Power Driven Vessel Underway 50m or greater"
-   ],
-   "paragraphs": [
-    "23(a)",
-    "23(a)(i)",
-    "23(a)(ii)",
-    "24(b)"
-   ],
-   "entries": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:24b"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Power-driven vessel underway—50 meters or greater in length. Same for Inland."
-   ],
-   "subjects": [
-    "crude oil tanker",
-    "pipe manifold and catwalk",
-    "bridge wings"
-   ],
-   "description": "A tanker: the accommodation block, funnel and mainmast sit right aft, and a pipe manifold with valve stands and a raised catwalk runs the length of a low, flush deck to a stem carrying a jackstaff and a stowed anchor. She is seen from above and off the starboard quarter, heading to the right, the hull closed by a dashed waterline with no sea drawn. A white lobe caps the mast above the bridge, a second stands lower on a short mast well forward along the deck, and a third sits low at the ship's side aft. Red and green lobes hang from the outboard ends of the two bridge wings.",
-   "shapes": []
-  },
-  "NRHB_23_aii.png": {
-   "file": "NRHB_23_aii.png",
-   "bytes": 380798,
-   "sha256": "67ba3533c4de8fe4069c22a8749e6e593486169175c1c34c67862d1630707b55",
-   "pixels": [
-    899,
-    923
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_aii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Power Driven Vessel Underway less than 50m"
-   ],
-   "paragraphs": [
-    "23(a)(ii)"
-   ],
-   "entries": [
-    "rule:23a_ii"
-   ],
-   "depicts": "exception",
-   "transcript": [
-    "Power-driven vessel underway—less than 50 meters in length. Same for International."
-   ],
-   "subjects": [
-    "small motor yacht",
-    "boats in cradles under davits",
-    "raised pilothouse"
-   ],
-   "description": "Portholes and rows of square windows run along a low hull; a two-tier deckhouse carries a raised pilothouse with a short mast, and open boats sit in cradles under davits on the after deck, making her a small motor yacht or utility passenger vessel. The view is from above and off the starboard bow, stem to the right, waterline dashed and no sea drawn. A white lobe caps the mast above the pilothouse, red and green lobes stand out either side of the pilothouse front, and a further white lobe burns low over the fantail aft. Nothing else is drawn beside her.",
-   "shapes": []
-  },
-  "NRHB_23_b.png": {
-   "file": "NRHB_23_b.png",
-   "bytes": 308494,
-   "sha256": "b3b09638393ca550f85642a95874e54bdaaea2ac8327a2cd790b78884f81ed7d",
-   "pixels": [
-    918,
-    573
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_b.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Air Cushion Vessel in Nondisplacement Mode"
-   ],
-   "paragraphs": [
-    "23(b)"
-   ],
-   "entries": [
-    "rule:23b"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Air-cushion vessel when operating in the non-displacement mode—vessel less than 50 meters in length. Same for Inland."
-   ],
-   "subjects": [
-    "air-cushion vehicle",
-    "flexible skirt",
-    "lift fan and propeller pylon"
-   ],
-   "description": "An air-cushion vehicle: a segmented rubber skirt wraps the whole hull, the cabin roof carries a radar scanner and whip aerials, and a tall pylon with a propeller and guard stands right aft. She is drawn from above and off the starboard bow, nose to the right, riding clear of any drawn water. A red lobe stands just abaft the cabin on the far side and a green lobe low on the near side of the hull, with a white lobe on a short staff between them and above. A yellow lobe, drawn as a small rayed star, burns at the top of the after pylon.",
-   "shapes": []
-  },
-  "NRHB_23_di.png": {
-   "file": "NRHB_23_di.png",
-   "bytes": 279055,
-   "sha256": "752aa0da07cfd76e8be7bb64b20bd94bb38b42d35d0553ee861721829e920f8e",
-   "pixels": [
-    925,
-    573
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_di.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Power Driven Vessel less than 12m"
-   ],
-   "paragraphs": [
-    "23(d)(i)",
-    "23(d)"
-   ],
-   "entries": [
-    "rule:23d_i",
-    "rule:23d"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Power-driven vessel of less than 12 meters in length. Same for International."
-   ],
-   "subjects": [
-    "rigid inflatable boat",
-    "outboard motor",
-    "steering console"
-   ],
-   "description": "Inflatable tubes with moulded seams run round a rigid hull, a windscreen and steering console stand amidships with a seated driver at the wheel, and a large outboard hangs on the transom: a rigid inflatable tender. She is seen from above and off the port bow, bow to the right, hull bottom closed by a dashed line with no sea drawn. A single combined lantern sits on a short staff at the bow, its green lobe to the left and red lobe to the right of the staff. One white lobe burns at the head of a thin pole stepped by the outboard aft.",
-   "shapes": []
-  },
-  "NRHB_23_e.png": {
-   "file": "NRHB_23_e.png",
-   "bytes": 360112,
-   "sha256": "0de184ff20ea9b7f9695c7837730c13c1c9cdc3ce7c48d59cea884a5ac8c5044",
-   "pixels": [
-    892,
-    888
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_e.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "transcript": [
-    "Power-driven vessel on Great Lakes."
-   ],
-   "subjects": [
-    "great lakes bulk carrier",
-    "line of hatch covers",
-    "after machinery house and funnel"
-   ],
-   "description": "Twenty-odd flat hatch covers fill a long straight-sided cargo deck between a forward deckhouse with bridge windows and an after machinery house with a squat funnel: a Great Lakes bulk carrier. She is drawn from above and off the starboard bow, stem to the right, the hull closed by a dashed waterline and no sea beneath. A white lobe caps the short mast on the after house, a second sits on the mast above the forward bridge, and red and green lobes stand either side of that bridge front. No day shapes or inset panels appear.",
-   "shapes": [],
-   "paragraphs": [
-    "23(e)"
-   ],
-   "depicts": "provision"
-  },
-  "NRHB_24_a.png": {
-   "file": "NRHB_24_a.png",
-   "bytes": 320798,
-   "sha256": "4ebdd5a119903c73ab6669c8b1c7a9ef57d932a93e7d8851986c6787666c08f1",
-   "pixels": [
-    882,
-    760
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_a.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "paragraphs": [
-    "24(a)",
-    "24(a)(i)"
-   ],
-   "entries": [
-    "rule:24a_i",
-    "rule:24a_ii_iv"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Power-driven vessel towing astern—towing vessel less than 50 meters in length; length of tow 200 meters or less. Same for International."
-   ],
-   "subjects": [
-    "ocean-going towing tug",
-    "towline",
-    "towing mast"
-   ],
-   "description": "Heavy fendering, a low bulwarked working deck and a deckhouse set well aft under a stout mast mark her as a towing tug; a single wire leads out over the after bulwark and away to the upper left. She is drawn from above and off the port quarter, heading to the right, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast, a red lobe on the far side of the wheelhouse and a green lobe on the near side. On the short staff aft a yellow lobe burns above a white one.",
-   "shapes": []
-  },
-  "NRHB_24_av.png": {
-   "file": "NRHB_24_av.png",
-   "bytes": 278415,
-   "sha256": "34aa971cb44d8d1de868c324c88eca6be6aa12241b44544b8302e94de9522257",
-   "pixels": [
-    883,
-    763
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_av.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Power Driven Vessel Towing Astern"
-   ],
-   "paragraphs": [
-    "24(a)(v)"
-   ],
-   "entries": [
-    "rule:24a_i:exceeds_200m",
-    "rule:24a_v"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Power-driven vessel towing astern—towing vessel less than 50 meters in length; length of tow exceeds 200 meters. Same for Inland"
-   ],
-   "subjects": [
-    "ocean-going towing tug",
-    "towline",
-    "day shapes"
-   ],
-   "description": "Fendered bulwarks, a low working deck aft and a heavy mast over a deckhouse set well aft mark an ocean-going towing tug, her towing wire running out over the after bulwark to the upper left. She is viewed from above and off the port quarter, heading right, above a dashed waterline and no drawn sea. Three white lobes stand in a vertical line on the mast, a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one on the after staff. A black diamond stands alone on a vertical line in the panel at right.",
-   "shapes": [
-    "diamond"
-   ]
-  },
-  "NRHB_24_d.png": {
-   "file": "NRHB_24_d.png",
-   "bytes": 141832,
-   "sha256": "f73f6419886dd0e5d1a126c147ab6bc22b352eb836e2f71b6218f9d23cec09c0",
-   "pixels": [
-    758,
-    487
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_d.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Power Driven Vessel Towing Astern"
-   ],
-   "paragraphs": [
-    "24(d)"
-   ],
-   "depicts": "mixed",
-   "transcript": [
-    "Power-driven vessel towing astern—length of tow 200 meters or less. The after masthead light is optional for vessel less than 50 meters in length. Same for Inland."
-   ],
-   "subjects": [
-    "buoy tender",
-    "towing vessel",
-    "after wheelhouse"
-   ],
-   "description": "A long open working deck forward, twin funnels amidships and the wheelhouse set right aft give her the look of a buoy tender pressed into towing. She is drawn small and from above, off the port quarter, bow to the right where an anchor sits in the hawse, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast forward of the wheelhouse, a green strip runs along the near side of the bridge front and a red lobe shows beyond it on the far side. At the after end a yellow lobe burns above a white one on a slender mast.",
-   "shapes": []
-  },
-  "NRHB_24_e.png": {
-   "file": "NRHB_24_e.png",
-   "bytes": 234368,
-   "sha256": "eaaec88135a22ad156ff2a084fd9551c2e50374a3e1b50f46b2f71a4609a7e35",
-   "pixels": [
-    882,
-    528
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_e.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel or Object Being Towed"
-   ],
-   "paragraphs": [
-    "24(e)"
-   ],
-   "entries": [
-    "rule:24e"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel or object being towed—length of tow exceeds 200 meters. Same for Inland."
-   ],
-   "subjects": [
-    "deck cargo barge",
-    "towing bridle",
-    "day shapes"
-   ],
-   "description": "Square-ended and slab-sided, with a rubbing strake round the box hull, stanchions and cross members framing an open well, and two small deck boxes at one end: a dumb deck cargo barge under tow. The view is from above and off the port quarter, the barge running away to the upper left, and a bridle of two wires leads forward from her near corner off the right of the frame. A white lobe burns on a short staff at the far end, and red and green lobes stand at the leading corner nearest the bridle. A black diamond on a vertical line fills the panel at right.",
-   "shapes": [
-    "diamond"
-   ]
-  },
-  "NRHB_24_eiii.png": {
-   "file": "NRHB_24_eiii.png",
-   "bytes": 234588,
-   "sha256": "32a448a4dd09bf6ba88e525ab7a0972c9bc76a9e70d7c9261eeff1454e67c75b",
-   "pixels": [
-    890,
-    510
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_eiii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel or Object Being Towed"
-   ],
-   "paragraphs": [
-    "24(e)"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel or object being towed—length of tow exceeds 200 meters. Same for Inland."
-   ],
-   "subjects": [
-    "deck cargo barge",
-    "towing bridle",
-    "day shapes"
-   ],
-   "description": "Slab sides with a rubbing strake, an open framed well along the deck, two low boxes and a stub post at the far end make her a dumb box-hulled deck barge under tow. She lies from above and off the port quarter, running away to the upper left, with a two-legged bridle leading from her near corner out of frame to the right and a dashed waterline for sea. A white lobe stands on a short staff at the far end; at the leading corner a red lobe shows outboard and a green lobe below on the near side. The panel at right holds one black diamond on a vertical line.",
-   "shapes": [
-    "diamond"
-   ],
-   "entries": [
-    "rule:24e:exceeds_200m"
-   ]
-  },
-  "NRHB_24_f.png": {
-   "file": "NRHB_24_f.png",
-   "bytes": 125000,
-   "sha256": "f6a88a5c6eaf0c10efd2db403969a95b87d1081ce677defd5f40b11209b05b78",
-   "pixels": [
-    704,
-    426
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_f.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel being Pushed Ahead or Alongside"
-   ],
-   "paragraphs": [
-    "24(f)"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel being towed alongside. International only."
-   ],
-   "subjects": [
-    "deck cargo barge",
-    "harbour tug made fast alongside"
-   ],
-   "description": "A small tug lies lashed alongside a square-ended deck barge, her wheelhouse, twin masts and low counter tucked against the barge's far side amidships. Both are drawn from above and off the port quarter, running away to the upper left over a dashed waterline. Two white lobes stand in a line on the tug's mast with a third forward of them, a green strip runs along her bridge front and a red lobe shows abaft it. At the barge's leading corner a red lobe stands outboard and a green lobe lies low on the near side. No day shapes are drawn.",
-   "shapes": []
-  },
-  "NRHB_24_j.png": {
-   "file": "NRHB_24_j.png",
-   "bytes": 123444,
-   "sha256": "e0300a45ffd000f340482ca067963ac9e066f00a2c3680624374343cf5f54dbd",
-   "pixels": [
-    693,
-    436
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_j.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Power Driven Vessel Pushing Ahead on Western R."
-   ],
-   "transcript": [
-    "Vessel being pushed ahead, not being part of a composite unit. Inland only."
-   ],
-   "subjects": [
-    "towboat pushing ahead",
-    "hopper barge",
-    "push knees"
-   ],
-   "description": "Square push knees on a small tug are set hard against the flat end of a long box barge, the two drawn as one unit running from upper left to lower right. The view is from above and off the port quarter, with a dashed waterline and no sea. On the tug two white lobes stand in a line on the mast, a green strip runs along the near side of her bridge and a red lobe shows beyond, and two yellow lobes burn one above the other on a staff at her stern. At the head of the tow two yellow lobes sit together with a red lobe outboard and a green lobe on the near side.",
-   "shapes": [],
-   "paragraphs": [
-    "24(j)"
-   ],
-   "depicts": "provision"
-  },
-  "NRHB_25_a.png": {
-   "file": "NRHB_25_a.png",
-   "bytes": 229286,
-   "sha256": "595be8f4f28824123ca8d755707ad4eadf0475ba04fcbc9d7d91ea0448565e39",
-   "pixels": [
-    904,
-    911
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_a.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Sailing Vessel Underway"
-   ],
-   "paragraphs": [
-    "25(a)"
-   ],
-   "entries": [
-    "rule:25a"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Sailing vessel underway. Same for Inland."
-   ],
-   "subjects": [
-    "sloop-rigged sailing yacht",
-    "mainsail and headsail"
-   ],
-   "description": "One mast, a mainsail on a long boom and a single headsail on the forestay: a sloop-rigged sailing yacht with a low coachroof, a run of deck lights along the topsides and no engine exhaust or propeller drawn. She heels a little, seen from above and off the starboard bow, stem to the right, her bottom closed by a dashed waterline with no sea. A red lobe stands on the topside above the sheerline forward and a green lobe below it on the near bow, and one white lobe burns low over the counter aft. The masthead carries no light and no day shape appears.",
-   "shapes": []
-  },
-  "NRHB_25_b.png": {
-   "file": "NRHB_25_b.png",
-   "bytes": 240677,
-   "sha256": "fd7b0b676efd561cf43b2edf7ad5e51e0dcd7f6afa14a36ac7039f2a24675b91",
-   "pixels": [
-    899,
-    937
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_b.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "paragraphs": [
-    "25(b)"
-   ],
-   "entries": [
-    "rule:25b"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Sailing vessel underway—less than 20 meters in length. Same for International."
-   ],
-   "subjects": [
-    "sloop-rigged sailing yacht",
-    "masthead tricolour lantern"
-   ],
-   "description": "One mast, a mainsail and a single headsail on the forestay mark a sloop-rigged sailing yacht, with a low coachroof, a boom over the cockpit and a fine counter aft. She is drawn from above and off the starboard bow, stem to the right, upright on a dashed waterline with no sea beneath. Every light in the drawing sits at the truck of the mast, where one lantern is coloured as a flat disc in three sectors: green on the left, white in the middle and red on the right. The hull itself is dark; no sidelights burn on the topsides, no light burns over the counter, and no day shape is shown.",
-   "shapes": []
-  },
-  "NRHB_25_c.png": {
-   "file": "NRHB_25_c.png",
-   "bytes": 258208,
-   "sha256": "cc400917553abe53a9bbc09db66e9427e6098c79c401534f3d24ac765776df82",
-   "pixels": [
-    902,
-    902
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_c.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Sailing Vessel Underway"
-   ],
-   "paragraphs": [
-    "25(c)"
-   ],
-   "entries": [
-    "rule:25c"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Sailing vessel underway. Same for Inland."
-   ],
-   "subjects": [
-    "sloop-rigged sailing yacht",
-    "masthead lanterns",
-    "mainsail and headsail"
-   ],
-   "description": "Mainsail, single headsail and one mast mark a sloop-rigged yacht, her coachroof low and her counter fine, seen from above and off the starboard bow with the stem to the right and a dashed waterline for sea. Two broad lobes stand clear above the masthead, red uppermost and green immediately beneath it. Down on the hull a red lobe shows on the topside forward with a green lobe below on the near bow, and a white lobe burns low over the counter aft. No day shape or inset panel is drawn beside her.",
-   "shapes": []
-  },
-  "NRHB_25_d.png": {
-   "file": "NRHB_25_d.png",
-   "bytes": 188278,
-   "sha256": "be9aa5b1803ee3bfef7ea9788a4ed1eb7675744d8cba9a9a7549c1f4872cddba",
-   "pixels": [
-    870,
-    895
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_d.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Sailing Vessel Underway less than 7meters"
-   ],
-   "paragraphs": [
-    "25(d)(i)"
-   ],
-   "entries": [
-    "rule:25d_i"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Sailing vessel underway—less than 7 meters in length. Same for Inland."
-   ],
-   "subjects": [
-    "open sailing dinghy",
-    "hand torch",
-    "single crew"
-   ],
-   "description": "An open sailing dinghy: a beamy hull with a slatted floor, a light unstayed mast well forward and a small sail set on a sprit, with one seated crew holding the sheet and the tiller. She is drawn from above and off the port quarter, bow to the right, her bottom closed by a dashed line and no sea around her. The only light is a torch held up in the crew's hand, drawn as a white wedge spreading forward across the sail. No sidelights and no stern light burn on the hull, and no day shape or inset panel appears.",
-   "shapes": []
-  },
-  "NRHB_25_dii.png": {
-   "file": "NRHB_25_dii.png",
-   "bytes": 274816,
-   "sha256": "a780ba9d1fb21ae5926ce399b25e0f05f05e3dfe158a47c049ddcde458a8628b",
-   "pixels": [
-    868,
-    896
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_dii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel Under Oars"
-   ],
-   "paragraphs": [
-    "25(d)(ii)"
-   ],
-   "entries": [
-    "rule:25d_ii"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel under oars. Same for International."
-   ],
-   "subjects": [
-    "rowing boat",
-    "pair of oars",
-    "hand torch"
-   ],
-   "description": "Two people sit in a small open rowing boat with plank thwarts, slatted floorboards and a pair of oars shipped in rowlocks, one of them pulling while the other faces aft. The boat is seen from above and off the port quarter, bow to the right, with a dashed line for her bottom and no water drawn. The after occupant holds a torch aloft in one hand, and its beam is drawn as a broad white wedge opening upward, the only light in the picture. Nothing burns on the stem or the transom, and no day shape accompanies her.",
-   "shapes": []
-  },
-  "NRHB_25_e.png": {
-   "file": "NRHB_25_e.png",
-   "bytes": 174398,
-   "sha256": "7b23a6a2b681c6a2a1495dde47519783ddaf4b180777de3ab0055bef71217c8d",
-   "pixels": [
-    789,
-    963
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_e.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel Under Sail and Power"
-   ],
-   "paragraphs": [
-    "25(e)"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel proceeding under sail when also being propelled by machinery. Same for Inland except that a vessel of less than 12 meters in length is not required to exhibit the dayshape."
-   ],
-   "subjects": [
-    "sloop-rigged sailing yacht",
-    "black cone day shape"
-   ],
-   "description": "Set against a plain white ground, a sloop-rigged yacht carries mainsail and headsail on a single mast above a low coachroof and a fine counter. She is drawn from above and off the starboard bow, stem to the right, on a dashed waterline with no sea. No lights are coloured anywhere on her: instead a small black cone hangs point down in the fore triangle, and the same shape is repeated large in the upper left corner, a solid black triangle apex downward on a vertical line. The frame is ruled as a plain rectangle.",
-   "shapes": [
-    "cone-down"
-   ],
-   "entries": [
-    "rule:25e"
-   ]
-  },
-  "NRHB_26_b.png": {
-   "file": "NRHB_26_b.png",
-   "bytes": 73807,
-   "sha256": "9d1b2cd40b9e2152dcc3668fa75b4d75383014ad299bd7b2473c6be28d5c65e5",
-   "pixels": [
-    772,
-    388
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_b.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels Engaged in Trawling"
-   ],
-   "paragraphs": [
-    "26(b)",
-    "26(b)(i)"
-   ],
-   "entries": [
-    "rule:26b_i",
-    "rule:26b_i:two_cones"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged in trawling—not making way; vessel over 50 meters in length. Same for International."
-   ],
-   "subjects": [
-    "side trawler",
-    "trawl gallows and warps",
-    "day shapes"
-   ],
-   "description": "Trawl gallows stand at the after end of a sheered hull with a wheelhouse forward, a tall funnel amidships and two warps running out astern to the upper left: a side trawler at work. She is drawn small, from above and off the port quarter, stem to the right, over a dashed waterline with no sea. A green lobe burns above a white lobe on the short mast at the wheelhouse, and a single white lobe caps the taller mast further aft. In the panel at right two solid black cones meet point to point on a vertical line.",
-   "shapes": [
-    "cone-down",
-    "cone-up"
-   ]
-  },
-  "NRHB_26_biii.png": {
-   "file": "NRHB_26_biii.png",
-   "bytes": 81026,
-   "sha256": "12e14b5c281abc4156cf5a5db4092ece5464885f13ec63ac1e7a8e85ee4e8c46",
-   "pixels": [
-    776,
-    402
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_biii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels Engaged in Trawling"
-   ],
-   "paragraphs": [
-    "26(b)(iii)"
-   ],
-   "entries": [
-    "rule:26b_iii"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged in trawling—making way; vessel less than 50 meters in length. Same for Inland."
-   ],
-   "subjects": [
-    "small side trawler",
-    "trawl gantry",
-    "day shapes"
-   ],
-   "description": "Derrick and gantry frames rise over a low working deck, with the wheelhouse aft and a shelter deck forward, marking a small trawler with her gear out. The drawing is a small one, taken from above and off the port quarter with the stem to the right and a dashed waterline beneath. A green lobe stands above a white lobe at the head of the gantry mast, a red lobe shows on the far side of the wheelhouse and a green lobe low on the near side, and a further white lobe burns forward. Two black cones meet point to point on a vertical line in the panel at right.",
-   "shapes": [
-    "cone-down",
-    "cone-up"
-   ]
-  },
-  "NRHB_26_ciii.png": {
-   "file": "NRHB_26_ciii.png",
-   "bytes": 373236,
-   "sha256": "4693c5fa026a2d6652253a913dd74fb71f6865fcfa6fc457dd14feb0d7cfa898",
-   "pixels": [
-    881,
-    776
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_ciii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels Engaged in Fishing Other Than Trawling"
-   ],
-   "paragraphs": [
-    "26(c)(iii)"
-   ],
-   "entries": [
-    "rule:26c_iii",
-    "rule:26c_i:two_cones",
-    "rule:26c_ii:cone"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "When there is outlying gear extending more than 150 meters horizontally from the vessel, an all-round white light or a cone apex upwards in the direction of the gear.",
-    "Vessel engaged in fishing other than trawling—making way. Same for Inland."
-   ],
-   "subjects": [
-    "inshore fishing boat",
-    "derrick and gantry",
-    "day shapes"
-   ],
-   "description": "A raised whaleback forward, an open hatched working deck and a heavy derrick guyed to a short mast over the wheelhouse mark an inshore fishing boat rather than a trawler. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A red lobe burns above a white lobe on the mast, with a red lobe on the far side of the wheelhouse, a green lobe on the near side and a white lobe out forward. Two black cones meet point to point in the right-hand panel, and a separate cone stands point upward at lower left.",
-   "shapes": [
-    "cone-down",
-    "cone-up",
-    "cone-up"
-   ]
-  },
-  "NRHB_27_a.png": {
-   "file": "NRHB_27_a.png",
-   "bytes": 420911,
-   "sha256": "1462fc50b3ca9729e21b65d292233d5fd73ef561f2f664edad116927e61bc568",
-   "pixels": [
-    902,
-    894
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_a.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels Not Under Command"
-   ],
-   "paragraphs": [
-    "27(a)",
-    "27(a)(i)"
-   ],
-   "entries": [
-    "rule:27a_i",
-    "rule:27a_ii"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel not under command—not making way. Same for Inland."
-   ],
-   "subjects": [
-    "container ship",
-    "container stacks",
-    "day shapes"
-   ],
-   "description": "Tiers of boxes stand in rows the whole length of an open hold deck, with a slender flared bow at one end and a tall accommodation block, funnel casing and pole mast at the other: a container ship. She is drawn from above and off the starboard quarter, the bow away to the upper left, lying on a dashed waterline with no sea. Two red lobes burn one above the other on a short mast at the after superstructure, and nothing else is lit: no masthead light, no sidelights, no stern light. The panel at upper right holds two black balls on one vertical line.",
-   "shapes": [
-    "ball",
-    "ball"
-   ]
-  },
-  "NRHB_27_aiii.png": {
-   "file": "NRHB_27_aiii.png",
-   "bytes": 412460,
-   "sha256": "c0b7a9bd3ac00a05cb9fbd9c7e50741d516c27ef3c6a16a687396adac200711a",
-   "pixels": [
-    892,
-    900
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_aiii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels Not Under Command"
-   ],
-   "paragraphs": [
-    "27(a)(iii)"
-   ],
-   "entries": [
-    "rule:27a_iii"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel not under command—making way. Same for International."
-   ],
-   "subjects": [
-    "container ship",
-    "container stacks",
-    "day shapes"
-   ],
-   "description": "Rows of stacked boxes fill the open hold deck of a container ship, her flared bow at the far end and her accommodation block, funnel casing and pole mast at the near end. The view is from above and off the starboard quarter, bow away to the upper left, hull closed by a dashed waterline. Two red lobes stand one above the other on the short mast over the accommodation; a red lobe shows on the far side of the block and a green lobe low on the near side, and a single white lobe burns far forward at the bow. Two black balls on a vertical line fill the panel at upper right.",
-   "shapes": [
-    "ball",
-    "ball"
-   ]
-  },
-  "NRHB_27_biii.png": {
-   "file": "NRHB_27_biii.png",
-   "bytes": 315448,
-   "sha256": "9e3a38238c43a41ad751d508dae74cbbd2f51753ecd84bf3f7a0fc9fca91dcba",
-   "pixels": [
-    880,
-    721
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_biii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel Restricted in Her Ability to Maneuver"
-   ],
-   "paragraphs": [
-    "27(b)(iii)"
-   ],
-   "entries": [
-    "rule:27b_iii",
-    "rule:27b_ii"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel restricted in her ability to maneuver—making way; vessel less than 50 meters in length. Same for Inland."
-   ],
-   "subjects": [
-    "buoy tender",
-    "deck crane and buoy",
-    "day shapes"
-   ],
-   "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship whose bridge and boat deck sit amidships and whose forecastle is cut low for handling gear: a buoy tender. She is drawn from above and off the port bow, stem to the right, over a dashed waterline with no sea. On the mast aft a red lobe stands above a white lobe above a second red lobe; two white lobes burn on the masts amidships, a green lobe shows along the bridge front and a white lobe low at the after end. A black ball, diamond and ball stand on one line at right.",
-   "shapes": [
-    "ball",
-    "diamond",
-    "ball"
-   ]
-  },
-  "NRHB_27_biv.png": {
-   "file": "NRHB_27_biv.png",
-   "bytes": 315752,
-   "sha256": "08ef5d76073b7e486ba0fb1f883c04b817017d16eaff91572174937a40afa813",
-   "pixels": [
-    884,
-    725
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_biv.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel Restricted in Her Ability to Maneuver"
-   ],
-   "paragraphs": [
-    "27(b)(iv)"
-   ],
-   "entries": [
-    "rule:27b_iv"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel restricted in her ability to maneuver—at anchor; vessel less than 50 meters in length. Same for International."
-   ],
-   "subjects": [
-    "buoy tender",
-    "deck crane and buoy",
-    "anchor cable",
-    "day shapes"
-   ],
-   "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship, her bridge and boat deck amidships and a cable leading down from the bow at the right into the water: a buoy tender. The view is from above and off the port bow on a dashed waterline. A red lobe burns above a white lobe above a second red on the mast aft, with a single white lobe forward of them; no sidelights are coloured. Two panels stand at right: a black ball, diamond and ball on one vertical line, and beside it a single black ball on its own line.",
-   "shapes": [
-    "ball",
-    "diamond",
-    "ball",
-    "ball"
-   ]
-  },
-  "NRHB_27_c.png": {
-   "file": "NRHB_27_c.png",
-   "bytes": 326929,
-   "sha256": "db616d37bb9f21c6e625cfbbf728c598a5c0f0ec054b1b33948b9dcd21c57493",
-   "pixels": [
-    924,
-    694
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_c.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Restricted Maneuvering Towing Operation"
-   ],
-   "paragraphs": [
-    "27(c)"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged in towing operation which severely restricts towing vessel and her tow in their ability to deviate from their course—length of tow does not exceed 200 meters; towing vessel less than 50 meters in length. Same for International."
-   ],
-   "subjects": [
-    "ocean-going towing tug",
-    "towline",
-    "day shapes"
-   ],
-   "description": "Fendered bulwarks, a low after working deck and a stout mast over a deckhouse set well aft mark her as an ocean-going towing tug, her wire running out over the after bulwark and away to the upper left. She is seen from above and off the port quarter, heading right, on a dashed waterline with no sea. The mast carries, from the top down, two white lobes, then a red lobe, a white lobe and a second red lobe; a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one aft. A ball, diamond and ball stand in the right-hand panel.",
-   "shapes": [
-    "ball",
-    "diamond",
-    "ball"
-   ]
-  },
-  "NRHB_27_d.png": {
-   "file": "NRHB_27_d.png",
-   "bytes": 167956,
-   "sha256": "a8442834e042db063a02df80570746d25d015d6642ec3c1cfd3e2df3f6e8c68b",
-   "pixels": [
-    871,
-    433
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_d.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Dredging and Underwater Operations"
-   ],
-   "paragraphs": [
-    "27(d)",
-    "27(d)(i)",
-    "27(d)(ii)"
-   ],
-   "entries": [
-    "rule:27d",
-    "rule:27d:shapes"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged in dredging or underwater operations when restricted in ability to maneuver—not making way with an obstruction on the starboard side. Same for Inland."
-   ],
-   "subjects": [
-    "cutter-suction dredger",
-    "dredge ladder",
-    "day shapes"
-   ],
-   "description": "A latticed dredge ladder is swung out and down over one side of a broad, low-freeboard hull whose deckhouse, mast and gantry crowd the after end: a dredger at work. She is drawn from above and off the port bow, the ladder reaching toward the lower left corner and the stem away to the right, on a dashed waterline. Two red lobes stand one above the other at the outboard end of the ladder, two green lobes one above the other on the gantry, and on the after mast a red lobe above a white lobe above a red. Three panels at right carry two balls, a ball-diamond-ball line, and two diamonds.",
-   "shapes": [
-    "ball",
-    "ball",
-    "ball",
-    "diamond",
-    "ball",
-    "diamond",
-    "diamond"
-   ]
-  },
-  "NRHB_27_diii.png": {
-   "file": "NRHB_27_diii.png",
-   "bytes": 162614,
-   "sha256": "02df0e5dfb53037b76da28697d08d78ac0116e3c5e17849e4015f384cbaa5a5a",
-   "pixels": [
-    808,
-    434
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_diii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel Restricted in Her Ability to Maneuver"
-   ],
-   "paragraphs": [
-    "27(d)",
-    "27(d)(i)",
-    "27(d)(ii)"
-   ],
-   "entries": [
-    "rule:27d",
-    "rule:27d:shapes"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged in dredging or underwater operations when restricted in ability to maneuver—making way with an obstruction on the starboard side.  Same for Inland."
-   ],
-   "subjects": [
-    "cutter-suction dredger",
-    "dredge ladder",
-    "day shapes"
-   ],
-   "description": "Working gear crowds a cutter-suction dredger: the latticed ladder swung out and down over one side, the deckhouse, mast and lattice gantry gathered aft, the stem running away to the right. The view is from above and off the port bow, on a dashed waterline with no sea. Two red lobes burn one above the other at the outboard end of the ladder and two green lobes on the gantry, while the after mast carries a red lobe above a white above a red; white lobes stand forward and aft along the deck and a green lobe on the bridge front. Three day-shape panels at right show balls and diamonds.",
-   "shapes": [
-    "ball",
-    "ball",
-    "ball",
-    "diamond",
-    "ball",
-    "diamond",
-    "diamond"
-   ]
-  },
-  "NRHB_27_ei.png": {
-   "file": "NRHB_27_ei.png",
-   "bytes": 301734,
-   "sha256": "be030654330416045c24294eaadd179f6a240fae3ca951cb4e5e47dc1b59d945",
-   "pixels": [
-    934,
-    924
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_ei.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "paragraphs": [
-    "27(e)(ii)"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Small vessel engaged in diving operations by day. Same for Inland."
-   ],
-   "subjects": [
-    "small dive boat",
-    "code flag A",
-    "hard-topped console"
-   ],
-   "description": "Drawn on plain white ground inside a ruled frame, a small open motor boat carries a flat hard top on posts over a centre console, an open cockpit aft and a wide sheer forward. She is seen from above and off the port bow, stem to the right, with no waterline and no sea. No lights are coloured anywhere on her. A single staff stepped at the stemhead carries a stiff swallow-tailed flag, its hoist half solid blue and its fly white, the swallowtail cut deep between the two. Nothing else stands in the frame beside her.",
-   "shapes": [
-    "flag-a"
-   ]
-  },
-  "NRHB_27_eii.png": {
-   "file": "NRHB_27_eii.png",
-   "bytes": 302440,
-   "sha256": "a0002003c0ef3dd60ca35a0e6c09533fe38028b7b30ca19db4485026c162a423",
-   "pixels": [
-    937,
-    921
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_eii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel Engaged in Diving Operations"
-   ],
-   "paragraphs": [
-    "27(e)(ii)"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Small vessel engaged in diving operations by day. Same for Inland."
-   ],
-   "subjects": [
-    "small dive boat",
-    "code flag A",
-    "hard-topped console"
-   ],
-   "description": "On plain white ground within a ruled frame lies a small open motor boat: hard top on posts above a centre console, open cockpit aft, wide flare forward and a low freeboard. The view is from above and off the port bow, stem to the right, with no waterline and no sea drawn. She shows no coloured lights at all. Her only marking is the flag on a staff at the stemhead, swallow-tailed and held stiff, blue on the half nearest the staff and white on the fly. No day-shape panel accompanies the drawing.",
-   "shapes": [
-    "flag-a"
-   ],
-   "entries": [
-    "rule:27e_ii"
-   ]
-  },
-  "NRHB_27_f.png": {
-   "file": "NRHB_27_f.png",
-   "bytes": 213526,
-   "sha256": "e0120ae573b0db557f90fa1d57e8e2a7edaaab712c5bd00ae3805caadb2a2c55",
-   "pixels": [
-    709,
-    705
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_f.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel engaged in mineclearance operations"
-   ],
-   "paragraphs": [
-    "27(f)"
-   ],
-   "entries": [
-    "rule:27f",
-    "rule:27f:three_balls"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged in mine clearance operations—vessel less than 50 meters in length. Same for Inland."
-   ],
-   "subjects": [
-    "mine countermeasures vessel",
-    "yardarm",
-    "day shapes"
-   ],
-   "description": "Twin funnels, a long open deck forward, boats in davits and a bridge set aft under a masted yardarm give a naval look to this ship, a warship at mine clearance work. She is drawn from above and off the port bow, stem to the right, on a dashed waterline with no sea. Green lobes burn at three points: one on the mast below the truck and one at each end of the yardarm. A white lobe stands above them at the masthead, another far forward, and a red lobe at the mast foot. The panel at right shows a black ball above a crossbar carrying two more.",
-   "shapes": [
-    "ball",
-    "ball",
-    "ball"
-   ]
-  },
-  "NRHB_28.png": {
-   "file": "NRHB_28.png",
-   "bytes": 344813,
-   "sha256": "16abb6ccb4352af1ea1772e0157da3090d414ef425fa4f2caeedfc1001b49d9e",
-   "pixels": [
-    893,
-    853
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_28.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels Constrained by Draft"
-   ],
-   "paragraphs": [
-    "28"
-   ],
-   "entries": [
-    "rule:28",
-    "rule:28:cylinder"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel constrained by her draft—underway – 50 meters or greater in length."
-   ],
-   "subjects": [
-    "crude oil tanker",
-    "pipe manifold and catwalk",
-    "cylinder day shape"
-   ],
-   "description": "Accommodation block, funnel and mainmast stand right aft on a crude oil tanker, a manifold of pipes, valve stands and catwalk running the length of a low flush deck to a stem with a jackstaff. She is drawn from above and off the starboard quarter, heading right, with a dashed waterline and no sea. Three red lobes stand one above the other on the mast above the bridge, a white lobe above them at the truck, and further white lobes low at the ship's side aft and on the short mast along the deck. Red and green lobes hang at the bridge wings. A tall black cylinder fills the panel at right.",
-   "shapes": [
-    "cylinder"
-   ]
-  },
-  "NRHB_29_a.png": {
-   "file": "NRHB_29_a.png",
-   "bytes": 272789,
-   "sha256": "4f7dbe2cf1855c54491d0b40602da99dc073150da1a9bb151f236a375a991e68",
-   "pixels": [
-    867,
-    732
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_29_a.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Pilot Vessels"
-   ],
-   "paragraphs": [
-    "29(a)",
-    "29(a)(i)"
-   ],
-   "entries": [
-    "rule:29a"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged on pilotage duty—underway. Same for Inland."
-   ],
-   "subjects": [
-    "pilot cutter",
-    "after wheelhouse",
-    "boarding gear"
-   ],
-   "description": "PILOT is lettered large on the bow of a ship with a long open working deck forward, twin funnels amidships, boats in davits and the wheelhouse set right aft. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A white lobe burns at the head of the short mast abaft the wheelhouse with a red lobe immediately below it, and a second red lobe lower still. A green lobe shows along the bridge front on the near side and a white lobe far forward on the deck. No day shape is drawn.",
-   "shapes": []
-  },
-  "NRHB_29_aiii.png": {
-   "file": "NRHB_29_aiii.png",
-   "bytes": 305420,
-   "sha256": "b4b40080a104add6ec7c0245a0ce327482607c6fefe709b87d0790d6f51f60c7",
-   "pixels": [
-    865,
-    739
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_29_aiii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Pilot Vessels"
-   ],
-   "paragraphs": [
-    "29(a)(iii)"
-   ],
-   "entries": [
-    "rule:29a"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel engaged on pilotage duty—at anchor; vessel of less than 50 meters in length.  Same for International."
-   ],
-   "subjects": [
-    "pilot launch",
-    "wheelhouse",
-    "day shapes"
-   ],
-   "description": "PILOT is lettered on the side of a small launch with a boxy wheelhouse forward, a low open working cockpit aft, lifebuoys on the rail and a tall whip aerial amidships. She is drawn from above and off the port bow, bow to the left, with a line running down from her after end into the water and a soft wash along the hull. A white lobe burns at the head of a staff on the wheelhouse roof with a red lobe beneath it, and a separate white lobe stands on a second, shorter staff beside them. One black ball on a vertical line fills the panel at upper right.",
-   "shapes": [
-    "ball"
-   ]
-  },
-  "NRHB_30_a.png": {
-   "file": "NRHB_30_a.png",
-   "bytes": 349840,
-   "sha256": "09b5477e510b7f09c9a68896b7df0aa2297bff99e16ab2b91b6dd05698d32aaa",
-   "pixels": [
-    863,
-    725
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_a.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels at Anchor"
-   ],
-   "paragraphs": [
-    "30(b)"
-   ],
-   "entries": [
-    "rule:30b",
-    "rule:30a:ball"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel at anchor—less than 50 meters in length. Same for Inland."
-   ],
-   "subjects": [
-    "small motor yacht",
-    "boats in cradles under davits",
-    "day shapes"
-   ],
-   "description": "Square windows and portholes run the length of a low hull, a two-tier deckhouse rises to a pilothouse and mast, and open boats sit in cradles under davits on the after deck: a small motor yacht. The view is from above and off the starboard bow, stem to the right, with a dashed waterline and no sea. One white lobe burns at the head of the short mast above the pilothouse and nothing else is lit; no sidelights and no stern light are coloured. A single black ball hangs on a vertical line in the panel at upper right.",
-   "shapes": [
-    "ball"
-   ]
-  },
-  "NRHB_30_d.png": {
-   "file": "NRHB_30_d.png",
-   "bytes": 253031,
-   "sha256": "364492db5bf7e2440d52c73666bfd3907bc0bc39cf6372d04baf26b83c93beef",
-   "pixels": [
-    702,
-    724
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_d.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessels at Anchor"
-   ],
-   "paragraphs": [
-    "30(a)",
-    "30(c)"
-   ],
-   "entries": [
-    "rule:30a",
-    "rule:30a:ball"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel at anchor with deck illumination. Same for International."
-   ],
-   "subjects": [
-    "crude oil tanker",
-    "illuminated deck",
-    "pipe manifold and catwalk"
-   ],
-   "description": "A crude oil tanker lies with her accommodation block, funnel and mainmast aft and a pipe manifold with valve stands and catwalk running the length of a flush deck to the stem. She lies from above and off the starboard quarter on a dashed waterline, no sea around her. Pale blue washes lie across the deck between the pipelines from end to end, standing for working lights spilled over the plating. A white lobe burns high at the ship's side aft, level with the bridge, and a second white lobe low on the deck well forward. No sidelights are coloured, and one black ball hangs on a vertical line in the panel at upper right.",
-   "shapes": [
-    "ball"
-   ]
-  },
-  "NRHB_30_dii.png": {
-   "file": "NRHB_30_dii.png",
-   "bytes": 46910,
-   "sha256": "ad2c7dba0d300ec2eba891d41245363729cd8546ee3e0a8a715e52f50ef32d3b",
-   "pixels": [
-    513,
-    420
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_dii.png",
-   "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
-   "retrieved": "2026-08-29",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Vessel Aground"
-   ],
-   "paragraphs": [
-    "30(d)",
-    "30(d)(ii)"
-   ],
-   "entries": [
-    "rule:30d_i",
-    "rule:30d_ii"
-   ],
-   "depicts": "provision",
-   "transcript": [
-    "Vessel aground. Same for Inland."
-   ],
-   "subjects": [
-    "crude oil tanker",
-    "pipe manifold and catwalk",
-    "day shapes"
-   ],
-   "description": "Coarsely drawn and pixelated, a crude oil tanker shows her accommodation block and mast aft, pipelines, valve stands and catwalk running the length of the flush deck to a stem at the far right. She sits from above and off the starboard quarter on a dashed waterline, with no sea. Two red lobes stand one above the other on the mast above the bridge, a white lobe burns beyond the bridge on the far side, and a second white lobe low on the deck well forward. Three black balls hang one above another on a single vertical line in the panel at right.",
-   "shapes": [
-    "ball",
-    "ball",
-    "ball"
-   ]
-  },
-  "mastheadarc.gif": {
-   "file": "mastheadarc.gif",
-   "bytes": 14296,
-   "sha256": "c18c2c1121e9d9a13982cea1689a3bbd2679935af38b43df5ac87bfd12de63d5",
-   "pixels": [
-    225,
-    325
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/mastheadarc.gif",
-   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
-   "retrieved": "2026-09-05",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Masthead Light"
-   ],
-   "paragraphs": [
-    "21(a)"
-   ],
-   "depicts": "provision",
-   "transcript": [],
-   "subjects": [
-    "light-arc diagram",
-    "plan-view hull outline"
-   ],
-   "description": "A light-arc diagram: a hull is drawn in plan from directly overhead, bow to the top of the frame, the stem fine and the transom square, with a centreline running its length and a dot-dash beam line crossing it. Sectors are laid round the outline as flat tinted bands. The forward sector is picked out in white and sweeps from dead ahead round both bows to a little abaft each beam, a total of 225 degrees, leaving a wedge open astern. The remaining grey sectors, one on each quarter and one dead astern, are left unhighlighted behind it.",
-   "shapes": []
-  },
-  "portarc.gif": {
-   "file": "portarc.gif",
-   "bytes": 14923,
-   "sha256": "ce9fcb56b3e69d8a17f6db94d1b825a7758bced22bfd152d0eabc1265ed2d471",
-   "pixels": [
-    225,
-    325
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/portarc.gif",
-   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
-   "retrieved": "2026-09-05",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Port SideLight"
-   ],
-   "paragraphs": [
-    "21(b)"
-   ],
-   "depicts": "provision",
-   "transcript": [],
-   "subjects": [
-    "light-arc diagram",
-    "plan-view hull outline"
-   ],
-   "description": "Sectors ring a plan-view hull outline drawn from overhead, bow to the top, with a centreline down the hull and a dot-dash beam line across it. One sector is filled solid red and fades outward at its edges: it lies wholly on the left-hand side of the drawing, running from dead ahead round the port bow to 22.5 degrees abaft the port beam, an arc of 112.5 degrees. The starboard sector, the two quarters and the sector dead astern are left in plain grey, so only the port bow band carries colour in this light-arc diagram.",
-   "shapes": []
-  },
-  "stbdarc.gif": {
-   "file": "stbdarc.gif",
-   "bytes": 15211,
-   "sha256": "3bf14f3a573f1b16d56f96833181cc1e8504f9389a80b776d8c9bddc59af1751",
-   "pixels": [
-    225,
-    325
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/stbdarc.gif",
-   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
-   "retrieved": "2026-09-05",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Starboard SideLight"
-   ],
-   "paragraphs": [
-    "21(b)"
-   ],
-   "depicts": "provision",
-   "transcript": [],
-   "subjects": [
-    "light-arc diagram",
-    "plan-view hull outline"
-   ],
-   "description": "Green fills a single sector of this light-arc diagram, the hull beneath it drawn in plan from overhead with the bow at the top, a centreline down its length and a dot-dash beam line across. The green band lies wholly to the right of the centreline, beginning dead ahead and sweeping round the starboard bow to 22.5 degrees abaft the starboard beam, an arc of 112.5 degrees, its outer edge softened. Grey sectors cover the port bow, both quarters and the water dead astern, and none of them is coloured.",
-   "shapes": []
-  },
-  "sternarc.gif": {
-   "file": "sternarc.gif",
-   "bytes": 14745,
-   "sha256": "fcc2b93ee4509adad0df0e3cb17b11e9f9e181bc96a77acfa789bea489b0836b",
-   "pixels": [
-    225,
-    325
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/sternarc.gif",
-   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
-   "retrieved": "2026-09-05",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Stern Light"
-   ],
-   "paragraphs": [
-    "21(c)"
-   ],
-   "depicts": "provision",
-   "transcript": [],
-   "subjects": [
-    "light-arc diagram",
-    "plan-view hull outline"
-   ],
-   "description": "Aft rather than forward is highlighted in this light-arc diagram: the hull is drawn in plan from overhead, bow to the top, centreline down the middle and a dot-dash beam line across. The sector picked out in white spreads from dead astern round to 67.5 degrees on either quarter, an arc of 135 degrees centred on the stern, and fades at its outer edge. The larger grey band covering both bows and the beams, and the pale wedges on the quarters, are left unhighlighted, so the white lies in the gap between them.",
-   "shapes": []
-  },
-  "towingarc.gif": {
-   "file": "towingarc.gif",
-   "bytes": 14316,
-   "sha256": "8c92b0e55c42cb81ba69d97ddf4f9eb5f24646599c0396a3d8d1ea0881543dc1",
-   "pixels": [
-    225,
-    325
-   ],
-   "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/towingarc.gif",
-   "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
-   "retrieved": "2026-09-05",
-   "rights": "US Government work, public domain (17 U.S.C. 105)",
-   "captions": [
-    "Towing Light"
-   ],
-   "paragraphs": [
-    "21(d)",
-    "24(a)(iv)"
-   ],
-   "depicts": "provision",
-   "transcript": [],
-   "subjects": [
-    "light-arc diagram",
-    "plan-view hull outline"
-   ],
-   "description": "A plan-view hull outline is drawn from overhead with the bow at the top, a centreline running aft and a dot-dash beam line across the middle. Here the coloured sector is yellow, spread over the water astern from one quarter to the other, 67.5 degrees each side of dead astern for an arc of 135 degrees, its edges fading outward. Grey bands round both bows and on the quarters carry no colour. The yellow overlaps the stern of the outline itself, so the after part of the hull sits inside the tinted wedge in this light-arc diagram.",
-   "shapes": []
+  "note": "Every image in images/, with where it came from, which paragraph or applicability entry it illustrates, and whether the figure shows that clause's provision, its exception, or both. The arc GIFs are decorative; the arcs themselves are data in lights.json.",
+  "count": 43,
+  "images": {
+    "NRHB_23_Intl_dii.png": {
+      "file": "NRHB_23_Intl_dii.png",
+      "bytes": 175440,
+      "sha256": "4ab742c440084403ae8c78caa1bd863fe21b6c98b311799f0e1bb3f6564aec57",
+      "pixels": [936, 582],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_Intl_dii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Power Driven Vessel less than 12m"],
+      "paragraphs": ["23(d)(ii)"],
+      "entries": ["rule:23d_ii"],
+      "depicts": "provision",
+      "transcript": [
+        "Power-driven vessel of less than 7 meters in length whose maximum speed does not exceed 7 knots. International only."
+      ],
+      "subjects": ["open outboard skiff", "transom-mounted outboard motor", "standing helmsman"],
+      "description": "A small open skiff: a hard-chined hull with plank thwarts, a slatted floor and an outboard clamped to the transom, worked by a man who stands to the tiller. She is drawn from above and off the port bow, heading down and to the right, her bottom closed by a dashed line with no sea around her. One white lobe burns at the head of a short staff stepped beside the outboard at the after end, and it is the only light drawn: no sidelights, no separate stern light, nothing on the bow. No day shape or inset panel accompanies her, and the rest of the frame is bare ground.",
+      "shapes": []
+    },
+    "NRHB_23_a.png": {
+      "file": "NRHB_23_a.png",
+      "bytes": 316372,
+      "sha256": "d3a57beef206b6055b755849df08e8da8db7fca2f82329f7f436bd311a1f86c7",
+      "pixels": [880, 900],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_a.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": [
+        "Air Cushion Vessel in Displacement Mode",
+        "Composite Unit",
+        "Power Driven Vessel Underway 50m or greater"
+      ],
+      "paragraphs": ["23(a)", "23(a)(i)", "23(a)(ii)", "24(b)"],
+      "entries": ["rule:23a_i", "rule:23a_ii", "rule:24b"],
+      "depicts": "provision",
+      "transcript": [
+        "Power-driven vessel underway—50 meters or greater in length. Same for Inland."
+      ],
+      "subjects": ["crude oil tanker", "pipe manifold and catwalk", "bridge wings"],
+      "description": "A tanker: the accommodation block, funnel and mainmast sit right aft, and a pipe manifold with valve stands and a raised catwalk runs the length of a low, flush deck to a stem carrying a jackstaff and a stowed anchor. She is seen from above and off the starboard quarter, heading to the right, the hull closed by a dashed waterline with no sea drawn. A white lobe caps the mast above the bridge, a second stands lower on a short mast well forward along the deck, and a third sits low at the ship's side aft. Red and green lobes hang from the outboard ends of the two bridge wings.",
+      "shapes": []
+    },
+    "NRHB_23_aii.png": {
+      "file": "NRHB_23_aii.png",
+      "bytes": 380798,
+      "sha256": "67ba3533c4de8fe4069c22a8749e6e593486169175c1c34c67862d1630707b55",
+      "pixels": [899, 923],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_aii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Power Driven Vessel Underway less than 50m"],
+      "paragraphs": ["23(a)(ii)"],
+      "entries": ["rule:23a_ii"],
+      "depicts": "exception",
+      "transcript": [
+        "Power-driven vessel underway—less than 50 meters in length. Same for International."
+      ],
+      "subjects": ["small motor yacht", "boats in cradles under davits", "raised pilothouse"],
+      "description": "Portholes and rows of square windows run along a low hull; a two-tier deckhouse carries a raised pilothouse with a short mast, and open boats sit in cradles under davits on the after deck, making her a small motor yacht or utility passenger vessel. The view is from above and off the starboard bow, stem to the right, waterline dashed and no sea drawn. A white lobe caps the mast above the pilothouse, red and green lobes stand out either side of the pilothouse front, and a further white lobe burns low over the fantail aft. Nothing else is drawn beside her.",
+      "shapes": []
+    },
+    "NRHB_23_b.png": {
+      "file": "NRHB_23_b.png",
+      "bytes": 308494,
+      "sha256": "b3b09638393ca550f85642a95874e54bdaaea2ac8327a2cd790b78884f81ed7d",
+      "pixels": [918, 573],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_b.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Air Cushion Vessel in Nondisplacement Mode"],
+      "paragraphs": ["23(b)"],
+      "entries": ["rule:23b"],
+      "depicts": "provision",
+      "transcript": [
+        "Air-cushion vessel when operating in the non-displacement mode—vessel less than 50 meters in length. Same for Inland."
+      ],
+      "subjects": ["air-cushion vehicle", "flexible skirt", "lift fan and propeller pylon"],
+      "description": "An air-cushion vehicle: a segmented rubber skirt wraps the whole hull, the cabin roof carries a radar scanner and whip aerials, and a tall pylon with a propeller and guard stands right aft. She is drawn from above and off the starboard bow, nose to the right, riding clear of any drawn water. A red lobe stands just abaft the cabin on the far side and a green lobe low on the near side of the hull, with a white lobe on a short staff between them and above. A yellow lobe, drawn as a small rayed star, burns at the top of the after pylon.",
+      "shapes": []
+    },
+    "NRHB_23_di.png": {
+      "file": "NRHB_23_di.png",
+      "bytes": 279055,
+      "sha256": "752aa0da07cfd76e8be7bb64b20bd94bb38b42d35d0553ee861721829e920f8e",
+      "pixels": [925, 573],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_di.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Power Driven Vessel less than 12m"],
+      "paragraphs": ["23(d)(i)", "23(d)"],
+      "entries": ["rule:23d_i", "rule:23d"],
+      "depicts": "provision",
+      "transcript": [
+        "Power-driven vessel of less than 12 meters in length. Same for International."
+      ],
+      "subjects": ["rigid inflatable boat", "outboard motor", "steering console"],
+      "description": "Inflatable tubes with moulded seams run round a rigid hull, a windscreen and steering console stand amidships with a seated driver at the wheel, and a large outboard hangs on the transom: a rigid inflatable tender. She is seen from above and off the port bow, bow to the right, hull bottom closed by a dashed line with no sea drawn. A single combined lantern sits on a short staff at the bow, its green lobe to the left and red lobe to the right of the staff. One white lobe burns at the head of a thin pole stepped by the outboard aft.",
+      "shapes": []
+    },
+    "NRHB_23_e.png": {
+      "file": "NRHB_23_e.png",
+      "bytes": 360112,
+      "sha256": "0de184ff20ea9b7f9695c7837730c13c1c9cdc3ce7c48d59cea884a5ac8c5044",
+      "pixels": [892, 888],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_23_e.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "transcript": ["Power-driven vessel on Great Lakes."],
+      "subjects": [
+        "great lakes bulk carrier",
+        "line of hatch covers",
+        "after machinery house and funnel"
+      ],
+      "description": "Twenty-odd flat hatch covers fill a long straight-sided cargo deck between a forward deckhouse with bridge windows and an after machinery house with a squat funnel: a Great Lakes bulk carrier. She is drawn from above and off the starboard bow, stem to the right, the hull closed by a dashed waterline and no sea beneath. A white lobe caps the short mast on the after house, a second sits on the mast above the forward bridge, and red and green lobes stand either side of that bridge front. No day shapes or inset panels appear.",
+      "shapes": [],
+      "paragraphs": ["23(e)"],
+      "depicts": "provision"
+    },
+    "NRHB_24_a.png": {
+      "file": "NRHB_24_a.png",
+      "bytes": 320798,
+      "sha256": "4ebdd5a119903c73ab6669c8b1c7a9ef57d932a93e7d8851986c6787666c08f1",
+      "pixels": [882, 760],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_a.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "paragraphs": ["24(a)", "24(a)(i)"],
+      "entries": ["rule:24a_i", "rule:24a_ii_iv"],
+      "depicts": "provision",
+      "transcript": [
+        "Power-driven vessel towing astern—towing vessel less than 50 meters in length; length of tow 200 meters or less. Same for International."
+      ],
+      "subjects": ["ocean-going towing tug", "towline", "towing mast"],
+      "description": "Heavy fendering, a low bulwarked working deck and a deckhouse set well aft under a stout mast mark her as a towing tug; a single wire leads out over the after bulwark and away to the upper left. She is drawn from above and off the port quarter, heading to the right, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast, a red lobe on the far side of the wheelhouse and a green lobe on the near side. On the short staff aft a yellow lobe burns above a white one.",
+      "shapes": []
+    },
+    "NRHB_24_av.png": {
+      "file": "NRHB_24_av.png",
+      "bytes": 278415,
+      "sha256": "34aa971cb44d8d1de868c324c88eca6be6aa12241b44544b8302e94de9522257",
+      "pixels": [883, 763],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_av.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Power Driven Vessel Towing Astern"],
+      "paragraphs": ["24(a)(v)"],
+      "entries": ["rule:24a_i:exceeds_200m", "rule:24a_v"],
+      "depicts": "provision",
+      "transcript": [
+        "Power-driven vessel towing astern—towing vessel less than 50 meters in length; length of tow exceeds 200 meters. Same for Inland"
+      ],
+      "subjects": ["ocean-going towing tug", "towline", "day shapes"],
+      "description": "Fendered bulwarks, a low working deck aft and a heavy mast over a deckhouse set well aft mark an ocean-going towing tug, her towing wire running out over the after bulwark to the upper left. She is viewed from above and off the port quarter, heading right, above a dashed waterline and no drawn sea. Three white lobes stand in a vertical line on the mast, a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one on the after staff. A black diamond stands alone on a vertical line in the panel at right.",
+      "shapes": ["diamond"]
+    },
+    "NRHB_24_d.png": {
+      "file": "NRHB_24_d.png",
+      "bytes": 141832,
+      "sha256": "f73f6419886dd0e5d1a126c147ab6bc22b352eb836e2f71b6218f9d23cec09c0",
+      "pixels": [758, 487],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_d.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Power Driven Vessel Towing Astern"],
+      "paragraphs": ["24(d)"],
+      "depicts": "mixed",
+      "transcript": [
+        "Power-driven vessel towing astern—length of tow 200 meters or less. The after masthead light is optional for vessel less than 50 meters in length. Same for Inland."
+      ],
+      "subjects": ["buoy tender", "towing vessel", "after wheelhouse"],
+      "description": "A long open working deck forward, twin funnels amidships and the wheelhouse set right aft give her the look of a buoy tender pressed into towing. She is drawn small and from above, off the port quarter, bow to the right where an anchor sits in the hawse, with a dashed waterline and no sea. Two white lobes stand one above the other on the mast forward of the wheelhouse, a green strip runs along the near side of the bridge front and a red lobe shows beyond it on the far side. At the after end a yellow lobe burns above a white one on a slender mast.",
+      "shapes": []
+    },
+    "NRHB_24_e.png": {
+      "file": "NRHB_24_e.png",
+      "bytes": 234368,
+      "sha256": "eaaec88135a22ad156ff2a084fd9551c2e50374a3e1b50f46b2f71a4609a7e35",
+      "pixels": [882, 528],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_e.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel or Object Being Towed"],
+      "paragraphs": ["24(e)"],
+      "entries": ["rule:24e"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel or object being towed—length of tow exceeds 200 meters. Same for Inland."
+      ],
+      "subjects": ["deck cargo barge", "towing bridle", "day shapes"],
+      "description": "Square-ended and slab-sided, with a rubbing strake round the box hull, stanchions and cross members framing an open well, and two small deck boxes at one end: a dumb deck cargo barge under tow. The view is from above and off the port quarter, the barge running away to the upper left, and a bridle of two wires leads forward from her near corner off the right of the frame. A white lobe burns on a short staff at the far end, and red and green lobes stand at the leading corner nearest the bridle. A black diamond on a vertical line fills the panel at right.",
+      "shapes": ["diamond"]
+    },
+    "NRHB_24_eiii.png": {
+      "file": "NRHB_24_eiii.png",
+      "bytes": 234588,
+      "sha256": "32a448a4dd09bf6ba88e525ab7a0972c9bc76a9e70d7c9261eeff1454e67c75b",
+      "pixels": [890, 510],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_eiii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel or Object Being Towed"],
+      "paragraphs": ["24(e)"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel or object being towed—length of tow exceeds 200 meters. Same for Inland."
+      ],
+      "subjects": ["deck cargo barge", "towing bridle", "day shapes"],
+      "description": "Slab sides with a rubbing strake, an open framed well along the deck, two low boxes and a stub post at the far end make her a dumb box-hulled deck barge under tow. She lies from above and off the port quarter, running away to the upper left, with a two-legged bridle leading from her near corner out of frame to the right and a dashed waterline for sea. A white lobe stands on a short staff at the far end; at the leading corner a red lobe shows outboard and a green lobe below on the near side. The panel at right holds one black diamond on a vertical line.",
+      "shapes": ["diamond"],
+      "entries": ["rule:24e:exceeds_200m"]
+    },
+    "NRHB_24_f.png": {
+      "file": "NRHB_24_f.png",
+      "bytes": 125000,
+      "sha256": "f6a88a5c6eaf0c10efd2db403969a95b87d1081ce677defd5f40b11209b05b78",
+      "pixels": [704, 426],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_f.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel being Pushed Ahead or Alongside"],
+      "paragraphs": ["24(f)"],
+      "depicts": "provision",
+      "transcript": ["Vessel being towed alongside. International only."],
+      "subjects": ["deck cargo barge", "harbour tug made fast alongside"],
+      "description": "A small tug lies lashed alongside a square-ended deck barge, her wheelhouse, twin masts and low counter tucked against the barge's far side amidships. Both are drawn from above and off the port quarter, running away to the upper left over a dashed waterline. Two white lobes stand in a line on the tug's mast with a third forward of them, a green strip runs along her bridge front and a red lobe shows abaft it. At the barge's leading corner a red lobe stands outboard and a green lobe lies low on the near side. No day shapes are drawn.",
+      "shapes": []
+    },
+    "NRHB_24_j.png": {
+      "file": "NRHB_24_j.png",
+      "bytes": 123444,
+      "sha256": "e0300a45ffd000f340482ca067963ac9e066f00a2c3680624374343cf5f54dbd",
+      "pixels": [693, 436],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_24_j.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Power Driven Vessel Pushing Ahead on Western R."],
+      "transcript": ["Vessel being pushed ahead, not being part of a composite unit. Inland only."],
+      "subjects": ["towboat pushing ahead", "hopper barge", "push knees"],
+      "description": "Square push knees on a small tug are set hard against the flat end of a long box barge, the two drawn as one unit running from upper left to lower right. The view is from above and off the port quarter, with a dashed waterline and no sea. On the tug two white lobes stand in a line on the mast, a green strip runs along the near side of her bridge and a red lobe shows beyond, and two yellow lobes burn one above the other on a staff at her stern. At the head of the tow two yellow lobes sit together with a red lobe outboard and a green lobe on the near side.",
+      "shapes": [],
+      "paragraphs": ["24(j)"],
+      "depicts": "provision"
+    },
+    "NRHB_25_a.png": {
+      "file": "NRHB_25_a.png",
+      "bytes": 229286,
+      "sha256": "595be8f4f28824123ca8d755707ad4eadf0475ba04fcbc9d7d91ea0448565e39",
+      "pixels": [904, 911],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_a.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Sailing Vessel Underway"],
+      "paragraphs": ["25(a)"],
+      "entries": ["rule:25a"],
+      "depicts": "provision",
+      "transcript": ["Sailing vessel underway. Same for Inland."],
+      "subjects": ["sloop-rigged sailing yacht", "mainsail and headsail"],
+      "description": "One mast, a mainsail on a long boom and a single headsail on the forestay: a sloop-rigged sailing yacht with a low coachroof, a run of deck lights along the topsides and no engine exhaust or propeller drawn. She heels a little, seen from above and off the starboard bow, stem to the right, her bottom closed by a dashed waterline with no sea. A red lobe stands on the topside above the sheerline forward and a green lobe below it on the near bow, and one white lobe burns low over the counter aft. The masthead carries no light and no day shape appears.",
+      "shapes": []
+    },
+    "NRHB_25_b.png": {
+      "file": "NRHB_25_b.png",
+      "bytes": 240677,
+      "sha256": "fd7b0b676efd561cf43b2edf7ad5e51e0dcd7f6afa14a36ac7039f2a24675b91",
+      "pixels": [899, 937],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_b.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "paragraphs": ["25(b)"],
+      "entries": ["rule:25b"],
+      "depicts": "provision",
+      "transcript": [
+        "Sailing vessel underway—less than 20 meters in length. Same for International."
+      ],
+      "subjects": ["sloop-rigged sailing yacht", "masthead tricolour lantern"],
+      "description": "One mast, a mainsail and a single headsail on the forestay mark a sloop-rigged sailing yacht, with a low coachroof, a boom over the cockpit and a fine counter aft. She is drawn from above and off the starboard bow, stem to the right, upright on a dashed waterline with no sea beneath. Every light in the drawing sits at the truck of the mast, where one lantern is coloured as a flat disc in three sectors: green on the left, white in the middle and red on the right. The hull itself is dark; no sidelights burn on the topsides, no light burns over the counter, and no day shape is shown.",
+      "shapes": []
+    },
+    "NRHB_25_c.png": {
+      "file": "NRHB_25_c.png",
+      "bytes": 258208,
+      "sha256": "cc400917553abe53a9bbc09db66e9427e6098c79c401534f3d24ac765776df82",
+      "pixels": [902, 902],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_c.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Sailing Vessel Underway"],
+      "paragraphs": ["25(c)"],
+      "entries": ["rule:25c"],
+      "depicts": "provision",
+      "transcript": ["Sailing vessel underway. Same for Inland."],
+      "subjects": ["sloop-rigged sailing yacht", "masthead lanterns", "mainsail and headsail"],
+      "description": "Mainsail, single headsail and one mast mark a sloop-rigged yacht, her coachroof low and her counter fine, seen from above and off the starboard bow with the stem to the right and a dashed waterline for sea. Two broad lobes stand clear above the masthead, red uppermost and green immediately beneath it. Down on the hull a red lobe shows on the topside forward with a green lobe below on the near bow, and a white lobe burns low over the counter aft. No day shape or inset panel is drawn beside her.",
+      "shapes": []
+    },
+    "NRHB_25_d.png": {
+      "file": "NRHB_25_d.png",
+      "bytes": 188278,
+      "sha256": "be9aa5b1803ee3bfef7ea9788a4ed1eb7675744d8cba9a9a7549c1f4872cddba",
+      "pixels": [870, 895],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_d.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Sailing Vessel Underway less than 7meters"],
+      "paragraphs": ["25(d)(i)"],
+      "entries": ["rule:25d_i"],
+      "depicts": "provision",
+      "transcript": ["Sailing vessel underway—less than 7 meters in length. Same for Inland."],
+      "subjects": ["open sailing dinghy", "hand torch", "single crew"],
+      "description": "An open sailing dinghy: a beamy hull with a slatted floor, a light unstayed mast well forward and a small sail set on a sprit, with one seated crew holding the sheet and the tiller. She is drawn from above and off the port quarter, bow to the right, her bottom closed by a dashed line and no sea around her. The only light is a torch held up in the crew's hand, drawn as a white wedge spreading forward across the sail. No sidelights and no stern light burn on the hull, and no day shape or inset panel appears.",
+      "shapes": []
+    },
+    "NRHB_25_dii.png": {
+      "file": "NRHB_25_dii.png",
+      "bytes": 274816,
+      "sha256": "a780ba9d1fb21ae5926ce399b25e0f05f05e3dfe158a47c049ddcde458a8628b",
+      "pixels": [868, 896],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_dii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel Under Oars"],
+      "paragraphs": ["25(d)(ii)"],
+      "entries": ["rule:25d_ii"],
+      "depicts": "provision",
+      "transcript": ["Vessel under oars. Same for International."],
+      "subjects": ["rowing boat", "pair of oars", "hand torch"],
+      "description": "Two people sit in a small open rowing boat with plank thwarts, slatted floorboards and a pair of oars shipped in rowlocks, one of them pulling while the other faces aft. The boat is seen from above and off the port quarter, bow to the right, with a dashed line for her bottom and no water drawn. The after occupant holds a torch aloft in one hand, and its beam is drawn as a broad white wedge opening upward, the only light in the picture. Nothing burns on the stem or the transom, and no day shape accompanies her.",
+      "shapes": []
+    },
+    "NRHB_25_e.png": {
+      "file": "NRHB_25_e.png",
+      "bytes": 174398,
+      "sha256": "7b23a6a2b681c6a2a1495dde47519783ddaf4b180777de3ab0055bef71217c8d",
+      "pixels": [789, 963],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_25_e.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel Under Sail and Power"],
+      "paragraphs": ["25(e)"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel proceeding under sail when also being propelled by machinery. Same for Inland except that a vessel of less than 12 meters in length is not required to exhibit the dayshape."
+      ],
+      "subjects": ["sloop-rigged sailing yacht", "black cone day shape"],
+      "description": "Set against a plain white ground, a sloop-rigged yacht carries mainsail and headsail on a single mast above a low coachroof and a fine counter. She is drawn from above and off the starboard bow, stem to the right, on a dashed waterline with no sea. No lights are coloured anywhere on her: instead a small black cone hangs point down in the fore triangle, and the same shape is repeated large in the upper left corner, a solid black triangle apex downward on a vertical line. The frame is ruled as a plain rectangle.",
+      "shapes": ["cone-down"],
+      "entries": ["rule:25e"]
+    },
+    "NRHB_26_b.png": {
+      "file": "NRHB_26_b.png",
+      "bytes": 73807,
+      "sha256": "9d1b2cd40b9e2152dcc3668fa75b4d75383014ad299bd7b2473c6be28d5c65e5",
+      "pixels": [772, 388],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_b.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels Engaged in Trawling"],
+      "paragraphs": ["26(b)", "26(b)(i)"],
+      "entries": ["rule:26b_i", "rule:26b_i:two_cones"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel engaged in trawling—not making way; vessel over 50 meters in length. Same for International."
+      ],
+      "subjects": ["side trawler", "trawl gallows and warps", "day shapes"],
+      "description": "Trawl gallows stand at the after end of a sheered hull with a wheelhouse forward, a tall funnel amidships and two warps running out astern to the upper left: a side trawler at work. She is drawn small, from above and off the port quarter, stem to the right, over a dashed waterline with no sea. A green lobe burns above a white lobe on the short mast at the wheelhouse, and a single white lobe caps the taller mast further aft. In the panel at right two solid black cones meet point to point on a vertical line.",
+      "shapes": ["cone-down", "cone-up"]
+    },
+    "NRHB_26_biii.png": {
+      "file": "NRHB_26_biii.png",
+      "bytes": 81026,
+      "sha256": "12e14b5c281abc4156cf5a5db4092ece5464885f13ec63ac1e7a8e85ee4e8c46",
+      "pixels": [776, 402],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_biii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels Engaged in Trawling"],
+      "paragraphs": ["26(b)(iii)"],
+      "entries": ["rule:26b_iii"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel engaged in trawling—making way; vessel less than 50 meters in length. Same for Inland."
+      ],
+      "subjects": ["small side trawler", "trawl gantry", "day shapes"],
+      "description": "Derrick and gantry frames rise over a low working deck, with the wheelhouse aft and a shelter deck forward, marking a small trawler with her gear out. The drawing is a small one, taken from above and off the port quarter with the stem to the right and a dashed waterline beneath. A green lobe stands above a white lobe at the head of the gantry mast, a red lobe shows on the far side of the wheelhouse and a green lobe low on the near side, and a further white lobe burns forward. Two black cones meet point to point on a vertical line in the panel at right.",
+      "shapes": ["cone-down", "cone-up"]
+    },
+    "NRHB_26_ciii.png": {
+      "file": "NRHB_26_ciii.png",
+      "bytes": 373236,
+      "sha256": "4693c5fa026a2d6652253a913dd74fb71f6865fcfa6fc457dd14feb0d7cfa898",
+      "pixels": [881, 776],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_26_ciii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels Engaged in Fishing Other Than Trawling"],
+      "paragraphs": ["26(c)(iii)"],
+      "entries": ["rule:26c_iii", "rule:26c_i:two_cones", "rule:26c_ii:cone"],
+      "depicts": "provision",
+      "transcript": [
+        "When there is outlying gear extending more than 150 meters horizontally from the vessel, an all-round white light or a cone apex upwards in the direction of the gear.",
+        "Vessel engaged in fishing other than trawling—making way. Same for Inland."
+      ],
+      "subjects": ["inshore fishing boat", "derrick and gantry", "day shapes"],
+      "description": "A raised whaleback forward, an open hatched working deck and a heavy derrick guyed to a short mast over the wheelhouse mark an inshore fishing boat rather than a trawler. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A red lobe burns above a white lobe on the mast, with a red lobe on the far side of the wheelhouse, a green lobe on the near side and a white lobe out forward. Two black cones meet point to point in the right-hand panel, and a separate cone stands point upward at lower left.",
+      "shapes": ["cone-down", "cone-up", "cone-up"]
+    },
+    "NRHB_27_a.png": {
+      "file": "NRHB_27_a.png",
+      "bytes": 420911,
+      "sha256": "1462fc50b3ca9729e21b65d292233d5fd73ef561f2f664edad116927e61bc568",
+      "pixels": [902, 894],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_a.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels Not Under Command"],
+      "paragraphs": ["27(a)", "27(a)(i)"],
+      "entries": ["rule:27a_i", "rule:27a_ii"],
+      "depicts": "provision",
+      "transcript": ["Vessel not under command—not making way. Same for Inland."],
+      "subjects": ["container ship", "container stacks", "day shapes"],
+      "description": "Tiers of boxes stand in rows the whole length of an open hold deck, with a slender flared bow at one end and a tall accommodation block, funnel casing and pole mast at the other: a container ship. She is drawn from above and off the starboard quarter, the bow away to the upper left, lying on a dashed waterline with no sea. Two red lobes burn one above the other on a short mast at the after superstructure, and nothing else is lit: no masthead light, no sidelights, no stern light. The panel at upper right holds two black balls on one vertical line.",
+      "shapes": ["ball", "ball"]
+    },
+    "NRHB_27_aiii.png": {
+      "file": "NRHB_27_aiii.png",
+      "bytes": 412460,
+      "sha256": "c0b7a9bd3ac00a05cb9fbd9c7e50741d516c27ef3c6a16a687396adac200711a",
+      "pixels": [892, 900],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_aiii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels Not Under Command"],
+      "paragraphs": ["27(a)(iii)"],
+      "entries": ["rule:27a_iii"],
+      "depicts": "provision",
+      "transcript": ["Vessel not under command—making way. Same for International."],
+      "subjects": ["container ship", "container stacks", "day shapes"],
+      "description": "Rows of stacked boxes fill the open hold deck of a container ship, her flared bow at the far end and her accommodation block, funnel casing and pole mast at the near end. The view is from above and off the starboard quarter, bow away to the upper left, hull closed by a dashed waterline. Two red lobes stand one above the other on the short mast over the accommodation; a red lobe shows on the far side of the block and a green lobe low on the near side, and a single white lobe burns far forward at the bow. Two black balls on a vertical line fill the panel at upper right.",
+      "shapes": ["ball", "ball"]
+    },
+    "NRHB_27_biii.png": {
+      "file": "NRHB_27_biii.png",
+      "bytes": 315448,
+      "sha256": "9e3a38238c43a41ad751d508dae74cbbd2f51753ecd84bf3f7a0fc9fca91dcba",
+      "pixels": [880, 721],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_biii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel Restricted in Her Ability to Maneuver"],
+      "paragraphs": ["27(b)(iii)"],
+      "entries": ["rule:27b_iii", "rule:27b_ii"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel restricted in her ability to maneuver—making way; vessel less than 50 meters in length. Same for Inland."
+      ],
+      "subjects": ["buoy tender", "deck crane and buoy", "day shapes"],
+      "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship whose bridge and boat deck sit amidships and whose forecastle is cut low for handling gear: a buoy tender. She is drawn from above and off the port bow, stem to the right, over a dashed waterline with no sea. On the mast aft a red lobe stands above a white lobe above a second red lobe; two white lobes burn on the masts amidships, a green lobe shows along the bridge front and a white lobe low at the after end. A black ball, diamond and ball stand on one line at right.",
+      "shapes": ["ball", "diamond", "ball"]
+    },
+    "NRHB_27_biv.png": {
+      "file": "NRHB_27_biv.png",
+      "bytes": 315752,
+      "sha256": "08ef5d76073b7e486ba0fb1f883c04b817017d16eaff91572174937a40afa813",
+      "pixels": [884, 725],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_biv.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel Restricted in Her Ability to Maneuver"],
+      "paragraphs": ["27(b)(iv)"],
+      "entries": ["rule:27b_iv"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel restricted in her ability to maneuver—at anchor; vessel less than 50 meters in length. Same for International."
+      ],
+      "subjects": ["buoy tender", "deck crane and buoy", "anchor cable", "day shapes"],
+      "description": "A heavy crane swings a conical buoy over the foredeck of a broad working ship, her bridge and boat deck amidships and a cable leading down from the bow at the right into the water: a buoy tender. The view is from above and off the port bow on a dashed waterline. A red lobe burns above a white lobe above a second red on the mast aft, with a single white lobe forward of them; no sidelights are coloured. Two panels stand at right: a black ball, diamond and ball on one vertical line, and beside it a single black ball on its own line.",
+      "shapes": ["ball", "diamond", "ball", "ball"]
+    },
+    "NRHB_27_c.png": {
+      "file": "NRHB_27_c.png",
+      "bytes": 326929,
+      "sha256": "db616d37bb9f21c6e625cfbbf728c598a5c0f0ec054b1b33948b9dcd21c57493",
+      "pixels": [924, 694],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_c.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Restricted Maneuvering Towing Operation"],
+      "paragraphs": ["27(c)"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel engaged in towing operation which severely restricts towing vessel and her tow in their ability to deviate from their course—length of tow does not exceed 200 meters; towing vessel less than 50 meters in length. Same for International."
+      ],
+      "subjects": ["ocean-going towing tug", "towline", "day shapes"],
+      "description": "Fendered bulwarks, a low after working deck and a stout mast over a deckhouse set well aft mark her as an ocean-going towing tug, her wire running out over the after bulwark and away to the upper left. She is seen from above and off the port quarter, heading right, on a dashed waterline with no sea. The mast carries, from the top down, two white lobes, then a red lobe, a white lobe and a second red lobe; a red lobe shows on the far side of the wheelhouse and a green lobe on the near side, and a yellow lobe burns over a white one aft. A ball, diamond and ball stand in the right-hand panel.",
+      "shapes": ["ball", "diamond", "ball"]
+    },
+    "NRHB_27_d.png": {
+      "file": "NRHB_27_d.png",
+      "bytes": 167956,
+      "sha256": "a8442834e042db063a02df80570746d25d015d6642ec3c1cfd3e2df3f6e8c68b",
+      "pixels": [871, 433],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_d.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Dredging and Underwater Operations"],
+      "paragraphs": ["27(d)", "27(d)(i)", "27(d)(ii)"],
+      "entries": ["rule:27d", "rule:27d:shapes"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel engaged in dredging or underwater operations when restricted in ability to maneuver—not making way with an obstruction on the starboard side. Same for Inland."
+      ],
+      "subjects": ["cutter-suction dredger", "dredge ladder", "day shapes"],
+      "description": "A latticed dredge ladder is swung out and down over one side of a broad, low-freeboard hull whose deckhouse, mast and gantry crowd the after end: a dredger at work. She is drawn from above and off the port bow, the ladder reaching toward the lower left corner and the stem away to the right, on a dashed waterline. Two red lobes stand one above the other at the outboard end of the ladder, two green lobes one above the other on the gantry, and on the after mast a red lobe above a white lobe above a red. Three panels at right carry two balls, a ball-diamond-ball line, and two diamonds.",
+      "shapes": ["ball", "ball", "ball", "diamond", "ball", "diamond", "diamond"]
+    },
+    "NRHB_27_diii.png": {
+      "file": "NRHB_27_diii.png",
+      "bytes": 162614,
+      "sha256": "02df0e5dfb53037b76da28697d08d78ac0116e3c5e17849e4015f384cbaa5a5a",
+      "pixels": [808, 434],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_diii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel Restricted in Her Ability to Maneuver"],
+      "paragraphs": ["27(d)", "27(d)(i)", "27(d)(ii)"],
+      "entries": ["rule:27d", "rule:27d:shapes"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel engaged in dredging or underwater operations when restricted in ability to maneuver—making way with an obstruction on the starboard side.  Same for Inland."
+      ],
+      "subjects": ["cutter-suction dredger", "dredge ladder", "day shapes"],
+      "description": "Working gear crowds a cutter-suction dredger: the latticed ladder swung out and down over one side, the deckhouse, mast and lattice gantry gathered aft, the stem running away to the right. The view is from above and off the port bow, on a dashed waterline with no sea. Two red lobes burn one above the other at the outboard end of the ladder and two green lobes on the gantry, while the after mast carries a red lobe above a white above a red; white lobes stand forward and aft along the deck and a green lobe on the bridge front. Three day-shape panels at right show balls and diamonds.",
+      "shapes": ["ball", "ball", "ball", "diamond", "ball", "diamond", "diamond"]
+    },
+    "NRHB_27_ei.png": {
+      "file": "NRHB_27_ei.png",
+      "bytes": 301734,
+      "sha256": "be030654330416045c24294eaadd179f6a240fae3ca951cb4e5e47dc1b59d945",
+      "pixels": [934, 924],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_ei.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "paragraphs": ["27(e)(ii)"],
+      "depicts": "provision",
+      "transcript": ["Small vessel engaged in diving operations by day. Same for Inland."],
+      "subjects": ["small dive boat", "code flag A", "hard-topped console"],
+      "description": "Drawn on plain white ground inside a ruled frame, a small open motor boat carries a flat hard top on posts over a centre console, an open cockpit aft and a wide sheer forward. She is seen from above and off the port bow, stem to the right, with no waterline and no sea. No lights are coloured anywhere on her. A single staff stepped at the stemhead carries a stiff swallow-tailed flag, its hoist half solid blue and its fly white, the swallowtail cut deep between the two. Nothing else stands in the frame beside her.",
+      "shapes": ["flag-a"]
+    },
+    "NRHB_27_eii.png": {
+      "file": "NRHB_27_eii.png",
+      "bytes": 302440,
+      "sha256": "a0002003c0ef3dd60ca35a0e6c09533fe38028b7b30ca19db4485026c162a423",
+      "pixels": [937, 921],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_eii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel Engaged in Diving Operations"],
+      "paragraphs": ["27(e)(ii)"],
+      "depicts": "provision",
+      "transcript": ["Small vessel engaged in diving operations by day. Same for Inland."],
+      "subjects": ["small dive boat", "code flag A", "hard-topped console"],
+      "description": "On plain white ground within a ruled frame lies a small open motor boat: hard top on posts above a centre console, open cockpit aft, wide flare forward and a low freeboard. The view is from above and off the port bow, stem to the right, with no waterline and no sea drawn. She shows no coloured lights at all. Her only marking is the flag on a staff at the stemhead, swallow-tailed and held stiff, blue on the half nearest the staff and white on the fly. No day-shape panel accompanies the drawing.",
+      "shapes": ["flag-a"],
+      "entries": ["rule:27e_ii"]
+    },
+    "NRHB_27_f.png": {
+      "file": "NRHB_27_f.png",
+      "bytes": 213526,
+      "sha256": "e0120ae573b0db557f90fa1d57e8e2a7edaaab712c5bd00ae3805caadb2a2c55",
+      "pixels": [709, 705],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_27_f.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel engaged in mineclearance operations"],
+      "paragraphs": ["27(f)"],
+      "entries": ["rule:27f", "rule:27f:three_balls"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel engaged in mine clearance operations—vessel less than 50 meters in length. Same for Inland."
+      ],
+      "subjects": ["mine countermeasures vessel", "yardarm", "day shapes"],
+      "description": "Twin funnels, a long open deck forward, boats in davits and a bridge set aft under a masted yardarm give a naval look to this ship, a warship at mine clearance work. She is drawn from above and off the port bow, stem to the right, on a dashed waterline with no sea. Green lobes burn at three points: one on the mast below the truck and one at each end of the yardarm. A white lobe stands above them at the masthead, another far forward, and a red lobe at the mast foot. The panel at right shows a black ball above a crossbar carrying two more.",
+      "shapes": ["ball", "ball", "ball"]
+    },
+    "NRHB_28.png": {
+      "file": "NRHB_28.png",
+      "bytes": 344813,
+      "sha256": "16abb6ccb4352af1ea1772e0157da3090d414ef425fa4f2caeedfc1001b49d9e",
+      "pixels": [893, 853],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_28.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels Constrained by Draft"],
+      "paragraphs": ["28"],
+      "entries": ["rule:28", "rule:28:cylinder"],
+      "depicts": "provision",
+      "transcript": ["Vessel constrained by her draft—underway – 50 meters or greater in length."],
+      "subjects": ["crude oil tanker", "pipe manifold and catwalk", "cylinder day shape"],
+      "description": "Accommodation block, funnel and mainmast stand right aft on a crude oil tanker, a manifold of pipes, valve stands and catwalk running the length of a low flush deck to a stem with a jackstaff. She is drawn from above and off the starboard quarter, heading right, with a dashed waterline and no sea. Three red lobes stand one above the other on the mast above the bridge, a white lobe above them at the truck, and further white lobes low at the ship's side aft and on the short mast along the deck. Red and green lobes hang at the bridge wings. A tall black cylinder fills the panel at right.",
+      "shapes": ["cylinder"]
+    },
+    "NRHB_29_a.png": {
+      "file": "NRHB_29_a.png",
+      "bytes": 272789,
+      "sha256": "4f7dbe2cf1855c54491d0b40602da99dc073150da1a9bb151f236a375a991e68",
+      "pixels": [867, 732],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_29_a.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Pilot Vessels"],
+      "paragraphs": ["29(a)", "29(a)(i)"],
+      "entries": ["rule:29a"],
+      "depicts": "provision",
+      "transcript": ["Vessel engaged on pilotage duty—underway. Same for Inland."],
+      "subjects": ["pilot cutter", "after wheelhouse", "boarding gear"],
+      "description": "PILOT is lettered large on the bow of a ship with a long open working deck forward, twin funnels amidships, boats in davits and the wheelhouse set right aft. She is seen from above and off the port bow, stem to the right, on a dashed waterline with no sea drawn. A white lobe burns at the head of the short mast abaft the wheelhouse with a red lobe immediately below it, and a second red lobe lower still. A green lobe shows along the bridge front on the near side and a white lobe far forward on the deck. No day shape is drawn.",
+      "shapes": []
+    },
+    "NRHB_29_aiii.png": {
+      "file": "NRHB_29_aiii.png",
+      "bytes": 305420,
+      "sha256": "b4b40080a104add6ec7c0245a0ce327482607c6fefe709b87d0790d6f51f60c7",
+      "pixels": [865, 739],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_29_aiii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Pilot Vessels"],
+      "paragraphs": ["29(a)(iii)"],
+      "entries": ["rule:29a"],
+      "depicts": "provision",
+      "transcript": [
+        "Vessel engaged on pilotage duty—at anchor; vessel of less than 50 meters in length.  Same for International."
+      ],
+      "subjects": ["pilot launch", "wheelhouse", "day shapes"],
+      "description": "PILOT is lettered on the side of a small launch with a boxy wheelhouse forward, a low open working cockpit aft, lifebuoys on the rail and a tall whip aerial amidships. She is drawn from above and off the port bow, bow to the left, with a line running down from her after end into the water and a soft wash along the hull. A white lobe burns at the head of a staff on the wheelhouse roof with a red lobe beneath it, and a separate white lobe stands on a second, shorter staff beside them. One black ball on a vertical line fills the panel at upper right.",
+      "shapes": ["ball"]
+    },
+    "NRHB_30_a.png": {
+      "file": "NRHB_30_a.png",
+      "bytes": 349840,
+      "sha256": "09b5477e510b7f09c9a68896b7df0aa2297bff99e16ab2b91b6dd05698d32aaa",
+      "pixels": [863, 725],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_a.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels at Anchor"],
+      "paragraphs": ["30(b)"],
+      "entries": ["rule:30b", "rule:30a:ball"],
+      "depicts": "provision",
+      "transcript": ["Vessel at anchor—less than 50 meters in length. Same for Inland."],
+      "subjects": ["small motor yacht", "boats in cradles under davits", "day shapes"],
+      "description": "Square windows and portholes run the length of a low hull, a two-tier deckhouse rises to a pilothouse and mast, and open boats sit in cradles under davits on the after deck: a small motor yacht. The view is from above and off the starboard bow, stem to the right, with a dashed waterline and no sea. One white lobe burns at the head of the short mast above the pilothouse and nothing else is lit; no sidelights and no stern light are coloured. A single black ball hangs on a vertical line in the panel at upper right.",
+      "shapes": ["ball"]
+    },
+    "NRHB_30_d.png": {
+      "file": "NRHB_30_d.png",
+      "bytes": 253031,
+      "sha256": "364492db5bf7e2440d52c73666bfd3907bc0bc39cf6372d04baf26b83c93beef",
+      "pixels": [702, 724],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_d.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessels at Anchor"],
+      "paragraphs": ["30(a)", "30(c)"],
+      "entries": ["rule:30a", "rule:30a:ball"],
+      "depicts": "provision",
+      "transcript": ["Vessel at anchor with deck illumination. Same for International."],
+      "subjects": ["crude oil tanker", "illuminated deck", "pipe manifold and catwalk"],
+      "description": "A crude oil tanker lies with her accommodation block, funnel and mainmast aft and a pipe manifold with valve stands and catwalk running the length of a flush deck to the stem. She lies from above and off the starboard quarter on a dashed waterline, no sea around her. Pale blue washes lie across the deck between the pipelines from end to end, standing for working lights spilled over the plating. A white lobe burns high at the ship's side aft, level with the bridge, and a second white lobe low on the deck well forward. No sidelights are coloured, and one black ball hangs on a vertical line in the panel at upper right.",
+      "shapes": ["ball"]
+    },
+    "NRHB_30_dii.png": {
+      "file": "NRHB_30_dii.png",
+      "bytes": 46910,
+      "sha256": "ad2c7dba0d300ec2eba891d41245363729cd8546ee3e0a8a715e52f50ef32d3b",
+      "pixels": [513, 420],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/navrules/NRHB_30_dii.png",
+      "source": "USCG Navigation Center, Navigation Rules (amalgamated)",
+      "retrieved": "2026-08-29",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Vessel Aground"],
+      "paragraphs": ["30(d)", "30(d)(ii)"],
+      "entries": ["rule:30d_i", "rule:30d_ii"],
+      "depicts": "provision",
+      "transcript": ["Vessel aground. Same for Inland."],
+      "subjects": ["crude oil tanker", "pipe manifold and catwalk", "day shapes"],
+      "description": "Coarsely drawn and pixelated, a crude oil tanker shows her accommodation block and mast aft, pipelines, valve stands and catwalk running the length of the flush deck to a stem at the far right. She sits from above and off the starboard quarter on a dashed waterline, with no sea. Two red lobes stand one above the other on the mast above the bridge, a white lobe burns beyond the bridge on the far side, and a second white lobe low on the deck well forward. Three black balls hang one above another on a single vertical line in the panel at right.",
+      "shapes": ["ball", "ball", "ball"]
+    },
+    "mastheadarc.gif": {
+      "file": "mastheadarc.gif",
+      "bytes": 14296,
+      "sha256": "c18c2c1121e9d9a13982cea1689a3bbd2679935af38b43df5ac87bfd12de63d5",
+      "pixels": [225, 325],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/mastheadarc.gif",
+      "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+      "retrieved": "2026-09-05",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Masthead Light"],
+      "paragraphs": ["21(a)"],
+      "depicts": "provision",
+      "transcript": [],
+      "subjects": ["light-arc diagram", "plan-view hull outline"],
+      "description": "A light-arc diagram: a hull is drawn in plan from directly overhead, bow to the top of the frame, the stem fine and the transom square, with a centreline running its length and a dot-dash beam line crossing it. Sectors are laid round the outline as flat tinted bands. The forward sector is picked out in white and sweeps from dead ahead round both bows to a little abaft each beam, a total of 225 degrees, leaving a wedge open astern. The remaining grey sectors, one on each quarter and one dead astern, are left unhighlighted behind it.",
+      "shapes": []
+    },
+    "portarc.gif": {
+      "file": "portarc.gif",
+      "bytes": 14923,
+      "sha256": "ce9fcb56b3e69d8a17f6db94d1b825a7758bced22bfd152d0eabc1265ed2d471",
+      "pixels": [225, 325],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/portarc.gif",
+      "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+      "retrieved": "2026-09-05",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Port SideLight"],
+      "paragraphs": ["21(b)"],
+      "depicts": "provision",
+      "transcript": [],
+      "subjects": ["light-arc diagram", "plan-view hull outline"],
+      "description": "Sectors ring a plan-view hull outline drawn from overhead, bow to the top, with a centreline down the hull and a dot-dash beam line across it. One sector is filled solid red and fades outward at its edges: it lies wholly on the left-hand side of the drawing, running from dead ahead round the port bow to 22.5 degrees abaft the port beam, an arc of 112.5 degrees. The starboard sector, the two quarters and the sector dead astern are left in plain grey, so only the port bow band carries colour in this light-arc diagram.",
+      "shapes": []
+    },
+    "stbdarc.gif": {
+      "file": "stbdarc.gif",
+      "bytes": 15211,
+      "sha256": "3bf14f3a573f1b16d56f96833181cc1e8504f9389a80b776d8c9bddc59af1751",
+      "pixels": [225, 325],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/stbdarc.gif",
+      "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+      "retrieved": "2026-09-05",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Starboard SideLight"],
+      "paragraphs": ["21(b)"],
+      "depicts": "provision",
+      "transcript": [],
+      "subjects": ["light-arc diagram", "plan-view hull outline"],
+      "description": "Green fills a single sector of this light-arc diagram, the hull beneath it drawn in plan from overhead with the bow at the top, a centreline down its length and a dot-dash beam line across. The green band lies wholly to the right of the centreline, beginning dead ahead and sweeping round the starboard bow to 22.5 degrees abaft the starboard beam, an arc of 112.5 degrees, its outer edge softened. Grey sectors cover the port bow, both quarters and the water dead astern, and none of them is coloured.",
+      "shapes": []
+    },
+    "sternarc.gif": {
+      "file": "sternarc.gif",
+      "bytes": 14745,
+      "sha256": "fcc2b93ee4509adad0df0e3cb17b11e9f9e181bc96a77acfa789bea489b0836b",
+      "pixels": [225, 325],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/sternarc.gif",
+      "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+      "retrieved": "2026-09-05",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Stern Light"],
+      "paragraphs": ["21(c)"],
+      "depicts": "provision",
+      "transcript": [],
+      "subjects": ["light-arc diagram", "plan-view hull outline"],
+      "description": "Aft rather than forward is highlighted in this light-arc diagram: the hull is drawn in plan from overhead, bow to the top, centreline down the middle and a dot-dash beam line across. The sector picked out in white spreads from dead astern round to 67.5 degrees on either quarter, an arc of 135 degrees centred on the stern, and fades at its outer edge. The larger grey band covering both bows and the beams, and the pale wedges on the quarters, are left unhighlighted, so the white lies in the gap between them.",
+      "shapes": []
+    },
+    "towingarc.gif": {
+      "file": "towingarc.gif",
+      "bytes": 14316,
+      "sha256": "8c92b0e55c42cb81ba69d97ddf4f9eb5f24646599c0396a3d8d1ea0881543dc1",
+      "pixels": [225, 325],
+      "source_url": "https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/towingarc.gif",
+      "source": "USCG Navigation Center, Navigation Rules Arcs of Visibility (https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility)",
+      "retrieved": "2026-09-05",
+      "rights": "US Government work, public domain (17 U.S.C. 105)",
+      "captions": ["Towing Light"],
+      "paragraphs": ["21(d)", "24(a)(iv)"],
+      "depicts": "provision",
+      "transcript": [],
+      "subjects": ["light-arc diagram", "plan-view hull outline"],
+      "description": "A plan-view hull outline is drawn from overhead with the bow at the top, a centreline running aft and a dot-dash beam line across the middle. Here the coloured sector is yellow, spread over the water astern from one quarter to the other, 67.5 degrees each side of dead astern for an arc of 135 degrees, its edges fading outward. Grey bands round both bows and on the quarters carry no colour. The yellow overlaps the stern of the outline itself, so the after part of the hull sits inside the tinted wedge in this light-arc diagram.",
+      "shapes": []
+    }
   }
- }
 }

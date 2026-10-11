@@ -36,7 +36,15 @@
     "ruleId": { "type": "string", "pattern": "^rule:[0-9]+[a-z]?(_[ivx]+)*(:[a-z][a-z0-9_]*)?$" },
     "modality": {
       "type": "string",
-      "enum": ["modality:shall", "modality:may", "modality:shall-if-practicable", "modality:conditional", "modality:exempt", "modality:shall-not", "modality:shall-not-impede"]
+      "enum": [
+        "modality:shall",
+        "modality:may",
+        "modality:shall-if-practicable",
+        "modality:conditional",
+        "modality:exempt",
+        "modality:shall-not",
+        "modality:shall-not-impede"
+      ]
     },
     "predicateValue": {
       "oneOf": [
@@ -113,7 +121,13 @@
     },
     "effectRole": {
       "type": "string",
-      "enum": ["role:give-way", "role:stand-on", "role:shall-not-impede", "role:keep-clear", "role:none"]
+      "enum": [
+        "role:give-way",
+        "role:stand-on",
+        "role:shall-not-impede",
+        "role:keep-clear",
+        "role:none"
+      ]
     },
     "effect": {
       "oneOf": [
@@ -147,7 +161,12 @@
           "properties": {
             "encounter": {
               "type": "string",
-              "enum": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"]
+              "enum": [
+                "encounter:head-on",
+                "encounter:crossing",
+                "encounter:overtaking",
+                "encounter:none"
+              ]
             }
           }
         },
@@ -368,7 +387,13 @@
         "roles": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["role:give-way", "role:stand-on", "role:shall-not-impede", "role:keep-clear", "role:none"],
+          "required": [
+            "role:give-way",
+            "role:stand-on",
+            "role:shall-not-impede",
+            "role:keep-clear",
+            "role:none"
+          ],
           "properties": {
             "role:give-way": { "type": "string" },
             "role:stand-on": { "type": "string" },
@@ -380,7 +405,12 @@
         "encounters": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"],
+          "required": [
+            "encounter:head-on",
+            "encounter:crossing",
+            "encounter:overtaking",
+            "encounter:none"
+          ],
           "properties": {
             "encounter:head-on": { "type": "string" },
             "encounter:crossing": { "type": "string" },
@@ -504,7 +534,10 @@
             "if": {
               "anyOf": [
                 { "not": { "properties": { "category": {} }, "required": ["category"] } },
-                { "properties": { "category": { "const": "category:display" } }, "required": ["category"] }
+                {
+                  "properties": { "category": { "const": "category:display" } },
+                  "required": ["category"]
+                }
               ]
             },
             "then": {
@@ -513,7 +546,10 @@
                 { "properties": { "shapes": {} }, "required": ["shapes"] },
                 { "properties": { "signal": {} }, "required": ["signal"] },
                 { "properties": { "rel:includes": {} }, "required": ["rel:includes"] },
-                { "properties": { "rel:conditional_includes": {} }, "required": ["rel:conditional_includes"] }
+                {
+                  "properties": { "rel:conditional_includes": {} },
+                  "required": ["rel:conditional_includes"]
+                }
               ],
               "not": { "properties": { "effect": {} }, "required": ["effect"] }
             },

@@ -1,24 +1,25 @@
 # colregs
 
-Two vessels are closing.  *What must they do?  Who gives way?  What must they display?*
+Two vessels are closing. _What must they do? Who gives way? What must they display?_
 
-The COLREGS, the International Regulations for Preventing Collisions at Sea, answer all three.  This project
-transforms the colregs so that a machine can evaluate and reason about them *deterministically*:
+The COLREGS, the International Regulations for Preventing Collisions at Sea, answer all three. This project
+transforms the colregs so that a machine can evaluate and reason about them _deterministically_:
 the whole of the rules as structured data, so the same situation always yields the same result,
-and every result can be traced back to the rule that produced it.  Going further, the engine
-and the rules are then *checked with formal methods*, which means mathematically proving the rule set
+and every result can be traced back to the rule that produced it. Going further, the engine
+and the rules are then _checked with formal methods_, which means mathematically proving the rule set
 is consistent and complete rather than just testing it a bunch and hoping it all works out.
 
 This package is the data: the rules as language-neutral JSON, the USCG's own diagrams, and
-enough geometry to draw the lights yourself.  Jurisdictions are deltas on the international
+enough geometry to draw the lights yourself. Jurisdictions are deltas on the international
 base, so national amalgamations hang off it rather than forking it.
 
 Related packages:
-* [colregs](https://github.com/mark-brannan/colregs) - the data and JSON Schema
-* [colregs-engine](https://github.com/mark-brannan/colregs-engine) - the engine that evaluates rules
-* [colregs-mcp](https://github.com/mark-brannan/colregs-mcp) - an MCP server so AI can use the engine
-* [nav-wright](https://github.com/mark-brannan/nav-wright) - draws vessels and displays (stub)
-* [searoom](https://github.com/mark-brannan/searoom) - a study tool demo
+
+- [colregs](https://github.com/mark-brannan/colregs) - the data and JSON Schema
+- [colregs-engine](https://github.com/mark-brannan/colregs-engine) - the engine that evaluates rules
+- [colregs-mcp](https://github.com/mark-brannan/colregs-mcp) - an MCP server so AI can use the engine
+- [nav-wright](https://github.com/mark-brannan/nav-wright) - draws vessels and displays (stub)
+- [searoom](https://github.com/mark-brannan/searoom) - a study tool demo
 
 See a [live demo](https://mark-brannan.github.io/searoom/) of searoom and the colregs data/engine.
 
@@ -43,7 +44,7 @@ fixtures/                fact records and the entries that apply to them
 ## What this package does not do
 
 It has no runtime and no dependencies. It does not infer anything: it is a
-pure function of the fact record, and deciding *that* a vessel is fishing, or
+pure function of the fact record, and deciding _that_ a vessel is fishing, or
 aground, or making way is the caller's job. Nothing here reads a sensor.
 
 It does not select a single display. Where the rules permit a choice, every
@@ -56,7 +57,7 @@ lights and shapes, Part D sound and light signals, and Annex I geometry.
 `intl` is the base; `us/inland`, `ca/inland` and `eu/cevni` are deltas on it.
 Today the entries hold Part C and Part D for `intl`. Part D's signals are
 entries like any other, keyed on the same paragraph paths: Rule 35 reads the
-vessel's own state, and Rule 34 reads what she is *doing* — an `act` the helm
+vessel's own state, and Rule 34 reads what she is _doing_ — an `act` the helm
 states, never a rate of turn this package infers. `data/sounds.json` holds the
 elements a signal is built from, as `lights.json` holds the lights.
 For Part C, lights and day shapes alike: a
@@ -82,7 +83,7 @@ Inland Rules; its text and the entries for its own paths are the next work.
 
 ## The layers
 
-**Rule text.** Verbatim, keyed by *paragraph path*, like `27(a)(i)`, because
+**Rule text.** Verbatim, keyed by _paragraph path_, like `27(a)(i)`, because
 the paragraph is the unit you actually cite. The paths live in a
 language-neutral skeleton; the words live in corpora, one per edition,
 language and source, each with its own provenance and legal tier. A mixed
@@ -99,7 +100,7 @@ them, 1 unit = 1 m, so a renderer scales rather than redraws.
 **Facts.** Three orthogonal axes (`fact:propulsion`, `fact:activity`,
 `fact:position`), a `fact:making_way` modifier, and scalars such as
 `fact:length_m`. There is deliberately no vessel-class field: under COLREGS
-what a vessel *is* follows from what it is *doing*. A decode table maps
+what a vessel _is_ follows from what it is _doing_. A decode table maps
 SignalK's `navigation.state` onto the axes and names what the flattening
 loses.
 
@@ -107,7 +108,7 @@ loses.
 day shapes or references to other entries, a modality, a citation, and a jurisdiction. Every
 entry has an id (`rule:25b`, `rule:27a_iii`) a consumer can point at.
 
-**Identifiers.** Paragraph paths carry no prefix, because the path *is* the
+**Identifiers.** Paragraph paths carry no prefix, because the path _is_ the
 citation. Every other id names its namespace: `rule:30a`,
 `light:masthead`, `fact:activity`, `activity:nuc`, `rel:in_lieu_of`. Every
 identifier is immutable from 1.0.0; before then it may be renamed or
@@ -139,8 +140,8 @@ conformant merge-patch library reproduces the resolved rule set.
 pre-built list of configurations. Enumerated tables are where prior art
 silently loses rules; a predicate cannot omit a case it was never asked about.
 
-**Alternatives are first-class.** A tricolor *in lieu of* separate sidelights,
-a torch *in lieu of* either. The data carries every lawful option with its
+**Alternatives are first-class.** A tricolor _in lieu of_ separate sidelights,
+a torch _in lieu of_ either. The data carries every lawful option with its
 modality and gate, and picks none of them.
 
 ## Predicate semantics
@@ -149,28 +150,28 @@ An entry applies when **every** constraint in its `when` is satisfied. An
 absent fact never satisfies a constraint, including `not`: a duty is never
 laid on a vessel because a consumer left a field out.
 
-| form | where | means |
-|---|---|---|
-| `{"gte": n}` … `{"lt": n}` | a fact's constraint | numeric comparison |
-| `["a", "b"]` | a fact's constraint | membership |
-| `"a"` / `true` / `12` | a fact's constraint | equality |
-| `{"not": C}` | a fact's constraint | the fact is present and does not satisfy `C` |
-| `{"any_of": [C, …]}` | a fact's constraint | the fact satisfies at least one `C` |
-| `"any_of": [W, …]` | a key of a `when` | at least one sub-predicate `W` holds |
+| form                       | where               | means                                        |
+| -------------------------- | ------------------- | -------------------------------------------- |
+| `{"gte": n}` … `{"lt": n}` | a fact's constraint | numeric comparison                           |
+| `["a", "b"]`               | a fact's constraint | membership                                   |
+| `"a"` / `true` / `12`      | a fact's constraint | equality                                     |
+| `{"not": C}`               | a fact's constraint | the fact is present and does not satisfy `C` |
+| `{"any_of": [C, …]}`       | a fact's constraint | the fact satisfies at least one `C`          |
+| `"any_of": [W, …]`         | a key of a `when`   | at least one sub-predicate `W` holds         |
 
 Entries **compose**: several apply to one fact record, and Rule 26 adds to
 Rule 23 rather than replacing it. A condition on whether a paragraph applies
 at all goes in the predicate; a condition on which of two applicable
 paragraphs prevails is a relation.
 
-| relation | meaning |
-|---|---|
-| `rel:includes` | import the referenced entry's lights and shapes, their modality and its scalar gates — never its axes (ADR 0019) |
-| `rel:conditional_includes` | import lights and shapes when the stated `when` holds; `one_of` is a set of legal alternatives, exactly one per display, or none under a `may` carrier |
-| `rel:in_lieu_of` | this entry's lights or shapes replace the referenced entries'; two entries replacing overlapping sets are alternatives to each other |
-| `rel:excludes` | must not be shown together: a pick-one between alternatives, never one obligation vetoing another; a constraint on one display, never a removal |
-| `rel:exempts` | the referenced requirement does not apply (30(e)); reaches an entry in force, never an import |
-| `rel:overrides` | this paragraph's requirement prevails over the referenced one's when both apply (Rule 18; Rule 26(a) over Rule 30's anchor lights); reaches an entry in force, never an import |
+| relation                   | meaning                                                                                                                                                                        |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `rel:includes`             | import the referenced entry's lights and shapes, their modality and its scalar gates — never its axes (ADR 0019)                                                               |
+| `rel:conditional_includes` | import lights and shapes when the stated `when` holds; `one_of` is a set of legal alternatives, exactly one per display, or none under a `may` carrier                         |
+| `rel:in_lieu_of`           | this entry's lights or shapes replace the referenced entries'; two entries replacing overlapping sets are alternatives to each other                                           |
+| `rel:excludes`             | must not be shown together: a pick-one between alternatives, never one obligation vetoing another; a constraint on one display, never a removal                                |
+| `rel:exempts`              | the referenced requirement does not apply (30(e)); reaches an entry in force, never an import                                                                                  |
+| `rel:overrides`            | this paragraph's requirement prevails over the referenced one's when both apply (Rule 18; Rule 26(a) over Rule 30's anchor lights); reaches an entry in force, never an import |
 
 Modality is `modality:shall`, `modality:may`, `modality:shall-if-practicable`, `modality:shall-not`,
 `modality:shall-not-impede`, or `modality:conditional` with a `modality_by` table when it turns

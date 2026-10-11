@@ -1,2071 +1,1576 @@
 {
- "note": "Fact records and the applicability entry ids that apply to each, under the International rules: at night unless the record states `fact:time: time:day`, which adds the day shapes. An `expect` element is a bare entry id, or `{entry, modality}` asserting the modality that entry carries once `modality_by` and `modality_shifts` are applied. An implementation in any language should reproduce these exactly, using README.md's predicate semantics.",
- "jurisdiction": "intl",
- "cases": [
-  {
-   "name": "sailing yacht 11.6 m under sail",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 11.6
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25b",
-    "rule:25c"
-   ]
-  },
-  {
-   "name": "same yacht motoring",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 11.6
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i"
-   ]
-  },
-  {
-   "name": "power vessel 15 m underway",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 15
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv"
-   ]
-  },
-  {
-   "name": "power vessel 55 m underway",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 55
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv"
-   ]
-  },
-  {
-   "name": "6 m outboard, max speed 6 kn",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 6,
-    "fact:max_speed_kn": 6
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i",
-    "rule:23d_ii"
-   ]
-  },
-  {
-   "name": "6 m outboard, max speed 20 kn",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 6,
-    "fact:max_speed_kn": 20
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i"
-   ]
-  },
-  {
-   "name": "dinghy under sail, 3.5 m",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 3.5
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25b",
-    "rule:25c",
-    "rule:25d_i"
-   ]
-  },
-  {
-   "name": "10 m vessel under oars",
-   "facts": {
-    "fact:propulsion": "propulsion:oars",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 10
-   },
-   "expect": [
-    "rule:25d_ii"
-   ]
-  },
-  {
-   "name": "motoring but drifting in neutral, 11.6 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 11.6
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i"
-   ]
-  },
-  {
-   "name": "anchored, 11.6 m",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:anchored",
-    "fact:length_m": 11.6
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "anchored, 6 m, clear of the channel",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:anchored",
-    "fact:length_m": 6,
-    "fact:near_channel": false
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:30e"
-   ]
-  },
-  {
-   "name": "aground, 15 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:aground",
-    "fact:length_m": 15
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i"
-   ]
-  },
-  {
-   "name": "aground, 10 m (30(f) relief from the red lights only, not the anchor lights)",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:aground",
-    "fact:length_m": 10
-   },
-   "expect": [
-    "rule:30d"
-   ]
-  },
-  {
-   "name": "fishing, aground, 30 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:aground",
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i"
-   ]
-  },
-  {
-   "name": "trawler, aground, 30 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:trawling",
-    "fact:position": "position:aground",
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i"
-   ]
-  },
-  {
-   "name": "fishing at anchor, 30 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:anchored",
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "trawler 30 m making way",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:trawling",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:26b_i",
-    "rule:26b_ii",
-    "rule:26b_iii"
-   ]
-  },
-  {
-   "name": "trawler 30 m drifting",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:trawling",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:26b_i",
-    "rule:26b_ii"
-   ]
-  },
-  {
-   "name": "fishing other than trawling, gear out 200 m, not making way",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 12,
-    "fact:gear_extent_m": 200
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:26c_ii"
-   ]
-  },
-  {
-   "name": "not under command, making way",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:nuc",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 40
-   },
-   "expect": [
-    "rule:27a_i",
-    "rule:27a_iii"
-   ]
-  },
-  {
-   "name": "not under command, drifting",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:nuc",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 40
-   },
-   "expect": [
-    "rule:27a_i"
-   ]
-  },
-  {
-   "name": "restricted in ability to maneuver, at anchor",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:ram",
-    "fact:position": "position:anchored",
-    "fact:length_m": 60
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27b_iv",
-    "rule:30a",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "dredger, restricted, obstruction to port, making way",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:ram_underwater",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 45,
-    "fact:obstruction_exists": true,
-    "fact:obstruction_side": "obstruction_side:port"
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27b_iii",
-    "rule:27d"
-   ]
-  },
-  {
-   "name": "towing astern, tow 150 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 40,
-    "fact:tow_length_m": 150
-   },
-   "expect": [
-    "rule:24a_i",
-    "rule:24a_ii_iv"
-   ]
-  },
-  {
-   "name": "towing astern, tow 300 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 40,
-    "fact:tow_length_m": 300
-   },
-   "expect": [
-    "rule:24a_i:exceeds_200m",
-    "rule:24a_ii_iv"
-   ]
-  },
-  {
-   "name": "towing astern, at anchor (issue #44: Rule 23 running lights not imported)",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:anchored",
-    "fact:length_m": 40,
-    "fact:tow_length_m": 150
-   },
-   "expect": [
-    "rule:24a_i",
-    "rule:24a_ii_iv",
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "pushing ahead, composite unit",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pushing",
-    "fact:position": "position:underway",
-    "fact:length_m": 30,
-    "fact:composite_unit": true
-   },
-   "expect": [
-    "rule:24b"
-   ]
-  },
-  {
-   "name": "pushing ahead, composite unit, at anchor (issue #44: Rule 23 running lights not imported)",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pushing",
-    "fact:position": "position:anchored",
-    "fact:length_m": 30,
-    "fact:composite_unit": true
-   },
-   "expect": [
-    "rule:24b",
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "pushing ahead, not a composite unit",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pushing",
-    "fact:position": "position:underway",
-    "fact:length_m": 30,
-    "fact:composite_unit": false
-   },
-   "expect": [
-    "rule:24c"
-   ]
-  },
-  {
-   "name": "pushing ahead, not a composite unit, at anchor (issue #44: Rule 23 running lights not imported)",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pushing",
-    "fact:position": "position:anchored",
-    "fact:length_m": 30,
-    "fact:composite_unit": false
-   },
-   "expect": [
-    "rule:24c",
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "constrained by draft",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:cbd",
-    "fact:position": "position:underway",
-    "fact:length_m": 200
-   },
-   "expect": [
-    "rule:28"
-   ]
-  },
-  {
-   "name": "constrained by draft, at anchor (issue #14: Rule 28 is an underway-only signal, so Rule 30 alone)",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:cbd",
-    "fact:position": "position:anchored",
-    "fact:length_m": 200
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "on pilotage duty, underway",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pilot",
-    "fact:position": "position:underway",
-    "fact:length_m": 20
-   },
-   "expect": [
-    "rule:29a"
-   ]
-  },
-  {
-   "name": "mine clearance, underway",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:mine",
-    "fact:position": "position:underway",
-    "fact:length_m": 60
-   },
-   "expect": [
-    "rule:27f"
-   ]
-  },
-  {
-   "name": "mine clearance, at anchor (issue #14: Rule 30 lights imported, not Rule 23)",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:mine",
-    "fact:position": "position:anchored",
-    "fact:length_m": 60
-   },
-   "expect": [
-    "rule:27f",
-    "rule:30a",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "diving operations from a small vessel",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:diving",
-    "fact:position": "position:underway",
-    "fact:length_m": 9,
-    "fact:full_display_impracticable": true
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27e_i"
-   ]
-  },
-  {
-   "name": "air-cushion vessel in non-displacement mode",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 25,
-    "fact:non_displacement": true
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23b"
-   ]
-  },
-  {
-   "name": "23(d)(i) boundary: 11.9 m power vessel underway",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 11.9
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i"
-   ]
-  },
-  {
-   "name": "23(d)(i) boundary: 12.0 m power vessel underway",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 12.0
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv"
-   ]
-  },
-  {
-   "name": "23(d)(ii) length boundary: 6.9 m power vessel, max speed 7 kn",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 6.9,
-    "fact:max_speed_kn": 7
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i",
-    "rule:23d_ii"
-   ]
-  },
-  {
-   "name": "23(d)(ii) length boundary: 7.0 m power vessel, max speed 7 kn",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 7.0,
-    "fact:max_speed_kn": 7
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i"
-   ]
-  },
-  {
-   "name": "23(d)(ii) speed boundary: 6.9 m power vessel, max speed 7.0 kn",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 6.9,
-    "fact:max_speed_kn": 7.0
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i",
-    "rule:23d_ii"
-   ]
-  },
-  {
-   "name": "23(d)(ii) speed boundary: 6.9 m power vessel, max speed 7.1 kn",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 6.9,
-    "fact:max_speed_kn": 7.1
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i"
-   ]
-  },
-  {
-   "name": "25(b) boundary: 19.9 m sailing vessel underway",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 19.9
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25b",
-    "rule:25c"
-   ]
-  },
-  {
-   "name": "25(b) boundary: 20.0 m sailing vessel underway",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 20.0
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25c"
-   ]
-  },
-  {
-   "name": "25(d)(i) boundary: 6.9 m sailing vessel underway",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 6.9
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25b",
-    "rule:25c",
-    "rule:25d_i"
-   ]
-  },
-  {
-   "name": "25(d)(i) boundary: 7.0 m sailing vessel underway",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 7.0
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25b",
-    "rule:25c"
-   ]
-  },
-  {
-   "name": "30(b) boundary: anchored, 49.9 m",
-   "facts": {
-    "fact:position": "position:anchored",
-    "fact:length_m": 49.9
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "30(b) boundary: anchored, 50.0 m",
-   "facts": {
-    "fact:position": "position:anchored",
-    "fact:length_m": 50.0
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "30d boundary: aground, 11.9 m",
-   "facts": {
-    "fact:position": "position:aground",
-    "fact:length_m": 11.9
-   },
-   "expect": [
-    "rule:30d"
-   ]
-  },
-  {
-   "name": "30d boundary: aground, 12.0 m",
-   "facts": {
-    "fact:position": "position:aground",
-    "fact:length_m": 12.0
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i"
-   ]
-  },
-  {
-   "name": "30(e) boundary: anchored, clear of channel, 6.9 m",
-   "facts": {
-    "fact:position": "position:anchored",
-    "fact:near_channel": false,
-    "fact:length_m": 6.9
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:30e"
-   ]
-  },
-  {
-   "name": "30(e) boundary: anchored, clear of channel, 7.0 m",
-   "facts": {
-    "fact:position": "position:anchored",
-    "fact:near_channel": false,
-    "fact:length_m": 7.0
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "24a tow-length boundary: towing 200.0 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 20,
-    "fact:tow_length_m": 200.0
-   },
-   "expect": [
-    "rule:24a_i",
-    "rule:24a_ii_iv"
-   ]
-  },
-  {
-   "name": "24a tow-length boundary: towing 200.1 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 20,
-    "fact:tow_length_m": 200.1
-   },
-   "expect": [
-    "rule:24a_i:exceeds_200m",
-    "rule:24a_ii_iv"
-   ]
-  },
-  {
-   "name": "26(c)(ii) boundary: fishing, gear extent 150.0 m",
-   "facts": {
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:underway",
-    "fact:gear_extent_m": 150.0
-   },
-   "expect": [
-    "rule:26c_i"
-   ]
-  },
-  {
-   "name": "26(c)(ii) boundary: fishing, gear extent 150.1 m",
-   "facts": {
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:underway",
-    "fact:gear_extent_m": 150.1
-   },
-   "expect": [
-    "rule:26c_ii",
-    "rule:26c_i"
-   ]
-  },
-  {
-   "name": "wing-in-ground craft near the surface, 25 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:wig": true,
-    "fact:wig_near_surface": true,
-    "fact:length_m": 25
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23c"
-   ]
-  },
-  {
-   "name": "wing-in-ground craft cruising, not near the surface, 25 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:wig": true,
-    "fact:wig_near_surface": false,
-    "fact:length_m": 25
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv"
-   ]
-  },
-  {
-   "name": "vessel or object being towed astern",
-   "facts": {
-    "fact:activity": "activity:being_towed",
-    "fact:position": "position:underway",
-    "fact:length_m": 15
-   },
-   "expect": [
-    "rule:24e"
-   ]
-  },
-  {
-   "name": "fishing other than trawling, making way",
-   "facts": {
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 12
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:26c_iii"
-   ]
-  },
-  {
-   "name": "yacht 11.6 m moored alongside a quay",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:moored",
-    "fact:on_mooring_buoy": false,
-    "fact:length_m": 11.6
-   },
-   "expect": []
-  },
-  {
-   "name": "same yacht made fast to a mooring buoy, US Inland",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:moored",
-    "fact:on_mooring_buoy": true,
-    "fact:length_m": 11.6
-   },
-   "expect": [
-    "rule:30a:mooring_buoy",
-    "rule:30b:mooring_buoy"
-   ]
-  },
-  {
-   "name": "Inland 30(b) length boundary: on a mooring buoy at 49.9 m, US Inland",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:moored",
-    "fact:on_mooring_buoy": true,
-    "fact:length_m": 49.9
-   },
-   "expect": [
-    "rule:30a:mooring_buoy",
-    "rule:30b:mooring_buoy"
-   ]
-  },
-  {
-   "name": "Inland 30(b) length boundary: on a mooring buoy at 50.0 m, US Inland",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:moored",
-    "fact:on_mooring_buoy": true,
-    "fact:length_m": 50.0
-   },
-   "expect": [
-    "rule:30a:mooring_buoy"
-   ]
-  },
-  {
-   "name": "same yacht made fast to a mooring buoy, International",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:moored",
-    "fact:on_mooring_buoy": true,
-    "fact:length_m": 11.6
-   },
-   "expect": []
-  },
-  {
-   "name": "constrained by draft, US Inland: Rule 28 is [Reserved], the record is out of vocabulary and selects nothing",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:cbd",
-    "fact:position": "position:underway",
-    "fact:length_m": 200
-   },
-   "expect": []
-  },
-  {
-   "name": "constrained by draft, US Inland, by day: the cylinder is suppressed with the lights",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:cbd",
-    "fact:position": "position:underway",
-    "fact:length_m": 200,
-    "fact:time": "time:day"
-   },
-   "expect": []
-  },
-  {
-   "name": "6 m outboard, max speed 6 kn, US Inland: 23(d)(ii) has no Inland counterpart, 23(d)(i) is replaced by 23(d), 23(a) is inherited",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 6,
-    "fact:max_speed_kn": 6
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d"
-   ]
-  },
-  {
-   "name": "constrained by draft, at anchor, US Inland: Rule 30 is inherited untouched",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:cbd",
-    "fact:position": "position:anchored",
-    "fact:length_m": 200
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "same yacht motoring, US Inland: 23(d)(i) is replaced by Inland 23(d)",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 11.6
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d"
-   ]
-  },
-  {
-   "name": "pushing ahead, not a composite unit, US Inland: 24(c)(iii) replaces the sternlight with two towing lights",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pushing",
-    "fact:position": "position:underway",
-    "fact:length_m": 30,
-    "fact:composite_unit": false
-   },
-   "expect": [
-    "rule:24c:towing_lights",
-    "rule:24c:underway_lights"
-   ]
-  },
-  {
-   "name": "pushing ahead, not a composite unit, at anchor, US Inland (issue #137 review: sidelights/towing lights are underway-gated, masthead only at anchor)",
-   "jurisdiction": "us/inland",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pushing",
-    "fact:position": "position:anchored",
-    "fact:length_m": 30,
-    "fact:composite_unit": false
-   },
-   "expect": [
-    "rule:24c:towing_lights",
-    "rule:30a",
-    "rule:30b",
-    "rule:30c"
-   ]
-  },
-  {
-   "name": "motorsailing yacht 11.6 m at night: 25(e) leaves no trace",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 11.6,
-    "fact:motorsailing": true
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i"
-   ]
-  },
-  {
-   "name": "motorsailing yacht 11.6 m by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 11.6,
-    "fact:motorsailing": true,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:23d_i",
-    "rule:25e"
-   ]
-  },
-  {
-   "name": "sailing yacht 11.6 m under sail by day: no shape",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 11.6,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25b",
-    "rule:25c"
-   ]
-  },
-  {
-   "name": "power vessel 15 m underway by day: no shape",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 15,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv"
-   ]
-  },
-  {
-   "name": "towing astern, tow 150 m, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 40,
-    "fact:tow_length_m": 150,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:24a_i",
-    "rule:24a_ii_iv"
-   ]
-  },
-  {
-   "name": "towing astern, tow 300 m, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 40,
-    "fact:tow_length_m": 300,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:24a_i:exceeds_200m",
-    "rule:24a_ii_iv",
-    "rule:24a_v"
-   ]
-  },
-  {
-   "name": "24(a)(v) tow-length boundary: towing 200.0 m by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 20,
-    "fact:tow_length_m": 200,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:24a_i",
-    "rule:24a_ii_iv"
-   ]
-  },
-  {
-   "name": "24(a)(v) tow-length boundary: towing 200.1 m by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:position": "position:underway",
-    "fact:length_m": 20,
-    "fact:tow_length_m": 200.1,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:24a_i:exceeds_200m",
-    "rule:24a_ii_iv",
-    "rule:24a_v"
-   ]
-  },
-  {
-   "name": "vessel being towed astern, tow 300 m, by day",
-   "facts": {
-    "fact:activity": "activity:being_towed",
-    "fact:position": "position:underway",
-    "fact:length_m": 15,
-    "fact:tow_length_m": 300,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:24e",
-    "rule:24e:exceeds_200m"
-   ]
-  },
-  {
-   "name": "24(e)(iii) tow-length boundary: being towed, tow 200.0 m, by day",
-   "facts": {
-    "fact:activity": "activity:being_towed",
-    "fact:position": "position:underway",
-    "fact:length_m": 15,
-    "fact:tow_length_m": 200,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:24e"
-   ]
-  },
-  {
-   "name": "24(e)(iii) tow-length boundary: being towed, tow 200.1 m, by day",
-   "facts": {
-    "fact:activity": "activity:being_towed",
-    "fact:position": "position:underway",
-    "fact:length_m": 15,
-    "fact:tow_length_m": 200.1,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:24e",
-    "rule:24e:exceeds_200m"
-   ]
-  },
-  {
-   "name": "trawler 30 m making way by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:trawling",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 30,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:26b_i",
-    "rule:26b_ii",
-    "rule:26b_iii",
-    "rule:26b_i:two_cones"
-   ]
-  },
-  {
-   "name": "fishing other than trawling, gear out 200 m, not making way, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 12,
-    "fact:gear_extent_m": 200,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:26c_ii",
-    "rule:26c_i:two_cones",
-    "rule:26c_ii:cone"
-   ]
-  },
-  {
-   "name": "26(c)(ii) boundary: fishing, gear extent 150.0 m, by day",
-   "facts": {
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:underway",
-    "fact:gear_extent_m": 150,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:26c_i:two_cones"
-   ]
-  },
-  {
-   "name": "26(c)(ii) boundary: fishing, gear extent 150.1 m, by day",
-   "facts": {
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:underway",
-    "fact:gear_extent_m": 150.1,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:26c_ii",
-    "rule:26c_i:two_cones",
-    "rule:26c_ii:cone"
-   ]
-  },
-  {
-   "name": "fishing at anchor, 30 m, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:anchored",
-    "fact:length_m": 30,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:26c_i:two_cones",
-    "rule:30a:ball"
-   ]
-  },
-  {
-   "name": "fishing, aground, 30 m, by day: Rule 26 shapes are not shown aground",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:fishing",
-    "fact:position": "position:aground",
-    "fact:length_m": 30,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i",
-    "rule:30d_ii"
-   ]
-  },
-  {
-   "name": "not under command, making way, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:nuc",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 40,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:27a_i",
-    "rule:27a_iii",
-    "rule:27a_ii"
-   ]
-  },
-  {
-   "name": "not under command, 10 m, drifting: 27(g) relief",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:nuc",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 10
-   },
-   "expect": [
-    "rule:27a_i",
-    "rule:27g"
-   ]
-  },
-  {
-   "name": "not under command, 10 m, drifting, by day: 27(g) relief",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:nuc",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 10,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:27a_i",
-    "rule:27a_ii",
-    "rule:27g"
-   ]
-  },
-  {
-   "name": "27(g) boundary: not under command, 11.9 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:nuc",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 11.9
-   },
-   "expect": [
-    "rule:27a_i",
-    "rule:27g"
-   ]
-  },
-  {
-   "name": "27(g) boundary: not under command, 12.0 m",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:nuc",
-    "fact:position": "position:underway",
-    "fact:making_way": false,
-    "fact:length_m": 12
-   },
-   "expect": [
-    "rule:27a_i"
-   ]
-  },
-  {
-   "name": "diving operations from a small vessel, 9 m: 27(g) excepts diving",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:diving",
-    "fact:position": "position:underway",
-    "fact:length_m": 9,
-    "fact:time": "time:day",
-    "fact:full_display_impracticable": true
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27e_i",
-    "rule:27b_ii",
-    "rule:27e_ii"
-   ]
-  },
-  {
-   "name": "diving from a 9 m vessel able to carry the 27(d) display: 27(g) does not except her",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:diving",
-    "fact:position": "position:underway",
-    "fact:length_m": 9,
-    "fact:full_display_impracticable": false
-   },
-   "expect": [
-    "rule:27b_i"
-   ]
-  },
-  {
-   "name": "diving support vessel, 60 m, making way, obstruction to port: the full 27(d) display",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:diving",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 60,
-    "fact:obstruction_exists": true,
-    "fact:obstruction_side": "obstruction_side:port",
-    "fact:full_display_impracticable": false
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27b_iii",
-    "rule:27d"
-   ]
-  },
-  {
-   "name": "diving support vessel, 60 m, making way, no obstruction, by day: 27(b) via 27(d), no flag A",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:diving",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 60,
-    "fact:obstruction_exists": false,
-    "fact:full_display_impracticable": false,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27b_iii",
-    "rule:27b_ii"
-   ]
-  },
-  {
-   "name": "restricted in ability to maneuver, at anchor, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:ram",
-    "fact:position": "position:anchored",
-    "fact:length_m": 60,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27b_iv",
-    "rule:30a",
-    "rule:30c",
-    "rule:27b_ii",
-    "rule:30a:ball"
-   ]
-  },
-  {
-   "name": "dredger, restricted, obstruction to port, making way, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:ram_underwater",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 45,
-    "fact:obstruction_exists": true,
-    "fact:obstruction_side": "obstruction_side:port",
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:27b_i",
-    "rule:27b_iii",
-    "rule:27d",
-    "rule:27b_ii",
-    "rule:27d:shapes"
-   ]
-  },
-  {
-   "name": "mine clearance, underway, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:mine",
-    "fact:position": "position:underway",
-    "fact:length_m": 60,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:27f",
-    "rule:27f:three_balls"
-   ]
-  },
-  {
-   "name": "mine clearance, at anchor, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:mine",
-    "fact:position": "position:anchored",
-    "fact:length_m": 60,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:27f",
-    "rule:30a",
-    "rule:30c",
-    "rule:27f:three_balls",
-    "rule:30a:ball"
-   ]
-  },
-  {
-   "name": "constrained by draft, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:cbd",
-    "fact:position": "position:underway",
-    "fact:length_m": 200,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:28",
-    "rule:28:cylinder"
-   ]
-  },
-  {
-   "name": "constrained by draft, at anchor, by day: the anchor ball alone",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:cbd",
-    "fact:position": "position:anchored",
-    "fact:length_m": 200,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30c",
-    "rule:30a:ball"
-   ]
-  },
-  {
-   "name": "on pilotage duty, underway, by day: no shape",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pilot",
-    "fact:position": "position:underway",
-    "fact:length_m": 20,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:29a"
-   ]
-  },
-  {
-   "name": "anchored, 11.6 m, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:anchored",
-    "fact:length_m": 11.6,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:30a:ball"
-   ]
-  },
-  {
-   "name": "30(e) boundary: anchored, clear of channel, 6.9 m, by day",
-   "facts": {
-    "fact:position": "position:anchored",
-    "fact:near_channel": false,
-    "fact:length_m": 6.9,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:30e",
-    "rule:30a:ball"
-   ]
-  },
-  {
-   "name": "30(e) boundary: anchored, clear of channel, 7.0 m, by day",
-   "facts": {
-    "fact:position": "position:anchored",
-    "fact:near_channel": false,
-    "fact:length_m": 7,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:30a:ball"
-   ]
-  },
-  {
-   "name": "aground, 15 m, by day",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:aground",
-    "fact:length_m": 15,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i",
-    "rule:30d_ii"
-   ]
-  },
-  {
-   "name": "aground, 10 m, by day: 30(f) relief from the three balls; no shape at all",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:aground",
-    "fact:length_m": 10,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30d"
-   ]
-  },
-  {
-   "name": "30(d)(ii) boundary: aground, 11.9 m, by day",
-   "facts": {
-    "fact:position": "position:aground",
-    "fact:length_m": 11.9,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30d"
-   ]
-  },
-  {
-   "name": "30(d)(ii) boundary: aground, 12.0 m, by day",
-   "facts": {
-    "fact:position": "position:aground",
-    "fact:length_m": 12,
-    "fact:time": "time:day"
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i",
-    "rule:30d_ii"
-   ]
-  },
-  {
-   "name": "yacht 11.6 m moored alongside a quay by day: nothing",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:position": "position:moored",
-    "fact:on_mooring_buoy": false,
-    "fact:length_m": 11.6,
-    "fact:time": "time:day"
-   },
-   "expect": []
-  },
-  {
-   "name": "20(c): trawler 30 m by day in restricted visibility -- the lights stay shall, the cones stay shall",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:trawling",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 30,
-    "fact:time": "time:day",
-    "fact:visibility": "visibility:restricted"
-   },
-   "expect": [
+  "note": "Fact records and the applicability entry ids that apply to each, under the International rules: at night unless the record states `fact:time: time:day`, which adds the day shapes. An `expect` element is a bare entry id, or `{entry, modality}` asserting the modality that entry carries once `modality_by` and `modality_shifts` are applied. An implementation in any language should reproduce these exactly, using README.md's predicate semantics.",
+  "jurisdiction": "intl",
+  "cases": [
     {
-     "entry": "rule:26b_i",
-     "modality": "modality:shall"
+      "name": "sailing yacht 11.6 m under sail",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 11.6
+      },
+      "expect": ["rule:25a", "rule:25b", "rule:25c"]
     },
     {
-     "entry": "rule:26b_ii",
-     "modality": "modality:may"
+      "name": "same yacht motoring",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 11.6
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i"]
     },
     {
-     "entry": "rule:26b_iii",
-     "modality": "modality:shall"
+      "name": "power vessel 15 m underway",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 15
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv"]
     },
     {
-     "entry": "rule:26b_i:two_cones",
-     "modality": "modality:shall"
+      "name": "power vessel 55 m underway",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 55
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv"]
     },
     {
-     "entry": "rule:35a",
-     "modality": "modality:shall"
+      "name": "6 m outboard, max speed 6 kn",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 6,
+        "fact:max_speed_kn": 6
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i", "rule:23d_ii"]
     },
     {
-     "entry": "rule:35c",
-     "modality": "modality:shall"
+      "name": "6 m outboard, max speed 20 kn",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 6,
+        "fact:max_speed_kn": 20
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i"]
+    },
+    {
+      "name": "dinghy under sail, 3.5 m",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 3.5
+      },
+      "expect": ["rule:25a", "rule:25b", "rule:25c", "rule:25d_i"]
+    },
+    {
+      "name": "10 m vessel under oars",
+      "facts": {
+        "fact:propulsion": "propulsion:oars",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 10
+      },
+      "expect": ["rule:25d_ii"]
+    },
+    {
+      "name": "motoring but drifting in neutral, 11.6 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 11.6
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i"]
+    },
+    {
+      "name": "anchored, 11.6 m",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:anchored",
+        "fact:length_m": 11.6
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "anchored, 6 m, clear of the channel",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:anchored",
+        "fact:length_m": 6,
+        "fact:near_channel": false
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:30e"]
+    },
+    {
+      "name": "aground, 15 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:aground",
+        "fact:length_m": 15
+      },
+      "expect": ["rule:30d", "rule:30d_i"]
+    },
+    {
+      "name": "aground, 10 m (30(f) relief from the red lights only, not the anchor lights)",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:aground",
+        "fact:length_m": 10
+      },
+      "expect": ["rule:30d"]
+    },
+    {
+      "name": "fishing, aground, 30 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:aground",
+        "fact:length_m": 30
+      },
+      "expect": ["rule:30d", "rule:30d_i"]
+    },
+    {
+      "name": "trawler, aground, 30 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:trawling",
+        "fact:position": "position:aground",
+        "fact:length_m": 30
+      },
+      "expect": ["rule:30d", "rule:30d_i"]
+    },
+    {
+      "name": "fishing at anchor, 30 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:anchored",
+        "fact:length_m": 30
+      },
+      "expect": ["rule:26c_i", "rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "trawler 30 m making way",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:trawling",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 30
+      },
+      "expect": ["rule:26b_i", "rule:26b_ii", "rule:26b_iii"]
+    },
+    {
+      "name": "trawler 30 m drifting",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:trawling",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 30
+      },
+      "expect": ["rule:26b_i", "rule:26b_ii"]
+    },
+    {
+      "name": "fishing other than trawling, gear out 200 m, not making way",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 12,
+        "fact:gear_extent_m": 200
+      },
+      "expect": ["rule:26c_i", "rule:26c_ii"]
+    },
+    {
+      "name": "not under command, making way",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:nuc",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 40
+      },
+      "expect": ["rule:27a_i", "rule:27a_iii"]
+    },
+    {
+      "name": "not under command, drifting",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:nuc",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 40
+      },
+      "expect": ["rule:27a_i"]
+    },
+    {
+      "name": "restricted in ability to maneuver, at anchor",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:ram",
+        "fact:position": "position:anchored",
+        "fact:length_m": 60
+      },
+      "expect": ["rule:27b_i", "rule:27b_iv", "rule:30a", "rule:30c"]
+    },
+    {
+      "name": "dredger, restricted, obstruction to port, making way",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:ram_underwater",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 45,
+        "fact:obstruction_exists": true,
+        "fact:obstruction_side": "obstruction_side:port"
+      },
+      "expect": ["rule:27b_i", "rule:27b_iii", "rule:27d"]
+    },
+    {
+      "name": "towing astern, tow 150 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 40,
+        "fact:tow_length_m": 150
+      },
+      "expect": ["rule:24a_i", "rule:24a_ii_iv"]
+    },
+    {
+      "name": "towing astern, tow 300 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 40,
+        "fact:tow_length_m": 300
+      },
+      "expect": ["rule:24a_i:exceeds_200m", "rule:24a_ii_iv"]
+    },
+    {
+      "name": "towing astern, at anchor (issue #44: Rule 23 running lights not imported)",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:anchored",
+        "fact:length_m": 40,
+        "fact:tow_length_m": 150
+      },
+      "expect": ["rule:24a_i", "rule:24a_ii_iv", "rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "pushing ahead, composite unit",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pushing",
+        "fact:position": "position:underway",
+        "fact:length_m": 30,
+        "fact:composite_unit": true
+      },
+      "expect": ["rule:24b"]
+    },
+    {
+      "name": "pushing ahead, composite unit, at anchor (issue #44: Rule 23 running lights not imported)",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pushing",
+        "fact:position": "position:anchored",
+        "fact:length_m": 30,
+        "fact:composite_unit": true
+      },
+      "expect": ["rule:24b", "rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "pushing ahead, not a composite unit",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pushing",
+        "fact:position": "position:underway",
+        "fact:length_m": 30,
+        "fact:composite_unit": false
+      },
+      "expect": ["rule:24c"]
+    },
+    {
+      "name": "pushing ahead, not a composite unit, at anchor (issue #44: Rule 23 running lights not imported)",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pushing",
+        "fact:position": "position:anchored",
+        "fact:length_m": 30,
+        "fact:composite_unit": false
+      },
+      "expect": ["rule:24c", "rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "constrained by draft",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:cbd",
+        "fact:position": "position:underway",
+        "fact:length_m": 200
+      },
+      "expect": ["rule:28"]
+    },
+    {
+      "name": "constrained by draft, at anchor (issue #14: Rule 28 is an underway-only signal, so Rule 30 alone)",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:cbd",
+        "fact:position": "position:anchored",
+        "fact:length_m": 200
+      },
+      "expect": ["rule:30a", "rule:30c"]
+    },
+    {
+      "name": "on pilotage duty, underway",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pilot",
+        "fact:position": "position:underway",
+        "fact:length_m": 20
+      },
+      "expect": ["rule:29a"]
+    },
+    {
+      "name": "mine clearance, underway",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:mine",
+        "fact:position": "position:underway",
+        "fact:length_m": 60
+      },
+      "expect": ["rule:27f"]
+    },
+    {
+      "name": "mine clearance, at anchor (issue #14: Rule 30 lights imported, not Rule 23)",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:mine",
+        "fact:position": "position:anchored",
+        "fact:length_m": 60
+      },
+      "expect": ["rule:27f", "rule:30a", "rule:30c"]
+    },
+    {
+      "name": "diving operations from a small vessel",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:diving",
+        "fact:position": "position:underway",
+        "fact:length_m": 9,
+        "fact:full_display_impracticable": true
+      },
+      "expect": ["rule:27b_i", "rule:27e_i"]
+    },
+    {
+      "name": "air-cushion vessel in non-displacement mode",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 25,
+        "fact:non_displacement": true
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23b"]
+    },
+    {
+      "name": "23(d)(i) boundary: 11.9 m power vessel underway",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 11.9
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i"]
+    },
+    {
+      "name": "23(d)(i) boundary: 12.0 m power vessel underway",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 12.0
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv"]
+    },
+    {
+      "name": "23(d)(ii) length boundary: 6.9 m power vessel, max speed 7 kn",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 6.9,
+        "fact:max_speed_kn": 7
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i", "rule:23d_ii"]
+    },
+    {
+      "name": "23(d)(ii) length boundary: 7.0 m power vessel, max speed 7 kn",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 7.0,
+        "fact:max_speed_kn": 7
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i"]
+    },
+    {
+      "name": "23(d)(ii) speed boundary: 6.9 m power vessel, max speed 7.0 kn",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 6.9,
+        "fact:max_speed_kn": 7.0
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i", "rule:23d_ii"]
+    },
+    {
+      "name": "23(d)(ii) speed boundary: 6.9 m power vessel, max speed 7.1 kn",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 6.9,
+        "fact:max_speed_kn": 7.1
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i"]
+    },
+    {
+      "name": "25(b) boundary: 19.9 m sailing vessel underway",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 19.9
+      },
+      "expect": ["rule:25a", "rule:25b", "rule:25c"]
+    },
+    {
+      "name": "25(b) boundary: 20.0 m sailing vessel underway",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 20.0
+      },
+      "expect": ["rule:25a", "rule:25c"]
+    },
+    {
+      "name": "25(d)(i) boundary: 6.9 m sailing vessel underway",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 6.9
+      },
+      "expect": ["rule:25a", "rule:25b", "rule:25c", "rule:25d_i"]
+    },
+    {
+      "name": "25(d)(i) boundary: 7.0 m sailing vessel underway",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 7.0
+      },
+      "expect": ["rule:25a", "rule:25b", "rule:25c"]
+    },
+    {
+      "name": "30(b) boundary: anchored, 49.9 m",
+      "facts": {
+        "fact:position": "position:anchored",
+        "fact:length_m": 49.9
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "30(b) boundary: anchored, 50.0 m",
+      "facts": {
+        "fact:position": "position:anchored",
+        "fact:length_m": 50.0
+      },
+      "expect": ["rule:30a", "rule:30c"]
+    },
+    {
+      "name": "30d boundary: aground, 11.9 m",
+      "facts": {
+        "fact:position": "position:aground",
+        "fact:length_m": 11.9
+      },
+      "expect": ["rule:30d"]
+    },
+    {
+      "name": "30d boundary: aground, 12.0 m",
+      "facts": {
+        "fact:position": "position:aground",
+        "fact:length_m": 12.0
+      },
+      "expect": ["rule:30d", "rule:30d_i"]
+    },
+    {
+      "name": "30(e) boundary: anchored, clear of channel, 6.9 m",
+      "facts": {
+        "fact:position": "position:anchored",
+        "fact:near_channel": false,
+        "fact:length_m": 6.9
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:30e"]
+    },
+    {
+      "name": "30(e) boundary: anchored, clear of channel, 7.0 m",
+      "facts": {
+        "fact:position": "position:anchored",
+        "fact:near_channel": false,
+        "fact:length_m": 7.0
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "24a tow-length boundary: towing 200.0 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 20,
+        "fact:tow_length_m": 200.0
+      },
+      "expect": ["rule:24a_i", "rule:24a_ii_iv"]
+    },
+    {
+      "name": "24a tow-length boundary: towing 200.1 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 20,
+        "fact:tow_length_m": 200.1
+      },
+      "expect": ["rule:24a_i:exceeds_200m", "rule:24a_ii_iv"]
+    },
+    {
+      "name": "26(c)(ii) boundary: fishing, gear extent 150.0 m",
+      "facts": {
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:underway",
+        "fact:gear_extent_m": 150.0
+      },
+      "expect": ["rule:26c_i"]
+    },
+    {
+      "name": "26(c)(ii) boundary: fishing, gear extent 150.1 m",
+      "facts": {
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:underway",
+        "fact:gear_extent_m": 150.1
+      },
+      "expect": ["rule:26c_ii", "rule:26c_i"]
+    },
+    {
+      "name": "wing-in-ground craft near the surface, 25 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:wig": true,
+        "fact:wig_near_surface": true,
+        "fact:length_m": 25
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23c"]
+    },
+    {
+      "name": "wing-in-ground craft cruising, not near the surface, 25 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:wig": true,
+        "fact:wig_near_surface": false,
+        "fact:length_m": 25
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv"]
+    },
+    {
+      "name": "vessel or object being towed astern",
+      "facts": {
+        "fact:activity": "activity:being_towed",
+        "fact:position": "position:underway",
+        "fact:length_m": 15
+      },
+      "expect": ["rule:24e"]
+    },
+    {
+      "name": "fishing other than trawling, making way",
+      "facts": {
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 12
+      },
+      "expect": ["rule:26c_i", "rule:26c_iii"]
+    },
+    {
+      "name": "yacht 11.6 m moored alongside a quay",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:moored",
+        "fact:on_mooring_buoy": false,
+        "fact:length_m": 11.6
+      },
+      "expect": []
+    },
+    {
+      "name": "same yacht made fast to a mooring buoy, US Inland",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:moored",
+        "fact:on_mooring_buoy": true,
+        "fact:length_m": 11.6
+      },
+      "expect": ["rule:30a:mooring_buoy", "rule:30b:mooring_buoy"]
+    },
+    {
+      "name": "Inland 30(b) length boundary: on a mooring buoy at 49.9 m, US Inland",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:moored",
+        "fact:on_mooring_buoy": true,
+        "fact:length_m": 49.9
+      },
+      "expect": ["rule:30a:mooring_buoy", "rule:30b:mooring_buoy"]
+    },
+    {
+      "name": "Inland 30(b) length boundary: on a mooring buoy at 50.0 m, US Inland",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:moored",
+        "fact:on_mooring_buoy": true,
+        "fact:length_m": 50.0
+      },
+      "expect": ["rule:30a:mooring_buoy"]
+    },
+    {
+      "name": "same yacht made fast to a mooring buoy, International",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:moored",
+        "fact:on_mooring_buoy": true,
+        "fact:length_m": 11.6
+      },
+      "expect": []
+    },
+    {
+      "name": "constrained by draft, US Inland: Rule 28 is [Reserved], the record is out of vocabulary and selects nothing",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:cbd",
+        "fact:position": "position:underway",
+        "fact:length_m": 200
+      },
+      "expect": []
+    },
+    {
+      "name": "constrained by draft, US Inland, by day: the cylinder is suppressed with the lights",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:cbd",
+        "fact:position": "position:underway",
+        "fact:length_m": 200,
+        "fact:time": "time:day"
+      },
+      "expect": []
+    },
+    {
+      "name": "6 m outboard, max speed 6 kn, US Inland: 23(d)(ii) has no Inland counterpart, 23(d)(i) is replaced by 23(d), 23(a) is inherited",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 6,
+        "fact:max_speed_kn": 6
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d"]
+    },
+    {
+      "name": "constrained by draft, at anchor, US Inland: Rule 30 is inherited untouched",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:cbd",
+        "fact:position": "position:anchored",
+        "fact:length_m": 200
+      },
+      "expect": ["rule:30a", "rule:30c"]
+    },
+    {
+      "name": "same yacht motoring, US Inland: 23(d)(i) is replaced by Inland 23(d)",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 11.6
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d"]
+    },
+    {
+      "name": "pushing ahead, not a composite unit, US Inland: 24(c)(iii) replaces the sternlight with two towing lights",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pushing",
+        "fact:position": "position:underway",
+        "fact:length_m": 30,
+        "fact:composite_unit": false
+      },
+      "expect": ["rule:24c:towing_lights", "rule:24c:underway_lights"]
+    },
+    {
+      "name": "pushing ahead, not a composite unit, at anchor, US Inland (issue #137 review: sidelights/towing lights are underway-gated, masthead only at anchor)",
+      "jurisdiction": "us/inland",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pushing",
+        "fact:position": "position:anchored",
+        "fact:length_m": 30,
+        "fact:composite_unit": false
+      },
+      "expect": ["rule:24c:towing_lights", "rule:30a", "rule:30b", "rule:30c"]
+    },
+    {
+      "name": "motorsailing yacht 11.6 m at night: 25(e) leaves no trace",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 11.6,
+        "fact:motorsailing": true
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i"]
+    },
+    {
+      "name": "motorsailing yacht 11.6 m by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 11.6,
+        "fact:motorsailing": true,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:23d_i", "rule:25e"]
+    },
+    {
+      "name": "sailing yacht 11.6 m under sail by day: no shape",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 11.6,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:25a", "rule:25b", "rule:25c"]
+    },
+    {
+      "name": "power vessel 15 m underway by day: no shape",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 15,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv"]
+    },
+    {
+      "name": "towing astern, tow 150 m, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 40,
+        "fact:tow_length_m": 150,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:24a_i", "rule:24a_ii_iv"]
+    },
+    {
+      "name": "towing astern, tow 300 m, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 40,
+        "fact:tow_length_m": 300,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:24a_i:exceeds_200m", "rule:24a_ii_iv", "rule:24a_v"]
+    },
+    {
+      "name": "24(a)(v) tow-length boundary: towing 200.0 m by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 20,
+        "fact:tow_length_m": 200,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:24a_i", "rule:24a_ii_iv"]
+    },
+    {
+      "name": "24(a)(v) tow-length boundary: towing 200.1 m by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:position": "position:underway",
+        "fact:length_m": 20,
+        "fact:tow_length_m": 200.1,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:24a_i:exceeds_200m", "rule:24a_ii_iv", "rule:24a_v"]
+    },
+    {
+      "name": "vessel being towed astern, tow 300 m, by day",
+      "facts": {
+        "fact:activity": "activity:being_towed",
+        "fact:position": "position:underway",
+        "fact:length_m": 15,
+        "fact:tow_length_m": 300,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:24e", "rule:24e:exceeds_200m"]
+    },
+    {
+      "name": "24(e)(iii) tow-length boundary: being towed, tow 200.0 m, by day",
+      "facts": {
+        "fact:activity": "activity:being_towed",
+        "fact:position": "position:underway",
+        "fact:length_m": 15,
+        "fact:tow_length_m": 200,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:24e"]
+    },
+    {
+      "name": "24(e)(iii) tow-length boundary: being towed, tow 200.1 m, by day",
+      "facts": {
+        "fact:activity": "activity:being_towed",
+        "fact:position": "position:underway",
+        "fact:length_m": 15,
+        "fact:tow_length_m": 200.1,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:24e", "rule:24e:exceeds_200m"]
+    },
+    {
+      "name": "trawler 30 m making way by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:trawling",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 30,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:26b_i", "rule:26b_ii", "rule:26b_iii", "rule:26b_i:two_cones"]
+    },
+    {
+      "name": "fishing other than trawling, gear out 200 m, not making way, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 12,
+        "fact:gear_extent_m": 200,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:26c_i", "rule:26c_ii", "rule:26c_i:two_cones", "rule:26c_ii:cone"]
+    },
+    {
+      "name": "26(c)(ii) boundary: fishing, gear extent 150.0 m, by day",
+      "facts": {
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:underway",
+        "fact:gear_extent_m": 150,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:26c_i", "rule:26c_i:two_cones"]
+    },
+    {
+      "name": "26(c)(ii) boundary: fishing, gear extent 150.1 m, by day",
+      "facts": {
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:underway",
+        "fact:gear_extent_m": 150.1,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:26c_i", "rule:26c_ii", "rule:26c_i:two_cones", "rule:26c_ii:cone"]
+    },
+    {
+      "name": "fishing at anchor, 30 m, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:anchored",
+        "fact:length_m": 30,
+        "fact:time": "time:day"
+      },
+      "expect": [
+        "rule:26c_i",
+        "rule:30a",
+        "rule:30b",
+        "rule:30c",
+        "rule:26c_i:two_cones",
+        "rule:30a:ball"
+      ]
+    },
+    {
+      "name": "fishing, aground, 30 m, by day: Rule 26 shapes are not shown aground",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:fishing",
+        "fact:position": "position:aground",
+        "fact:length_m": 30,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30d", "rule:30d_i", "rule:30d_ii"]
+    },
+    {
+      "name": "not under command, making way, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:nuc",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 40,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:27a_i", "rule:27a_iii", "rule:27a_ii"]
+    },
+    {
+      "name": "not under command, 10 m, drifting: 27(g) relief",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:nuc",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 10
+      },
+      "expect": ["rule:27a_i", "rule:27g"]
+    },
+    {
+      "name": "not under command, 10 m, drifting, by day: 27(g) relief",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:nuc",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 10,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:27a_i", "rule:27a_ii", "rule:27g"]
+    },
+    {
+      "name": "27(g) boundary: not under command, 11.9 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:nuc",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 11.9
+      },
+      "expect": ["rule:27a_i", "rule:27g"]
+    },
+    {
+      "name": "27(g) boundary: not under command, 12.0 m",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:nuc",
+        "fact:position": "position:underway",
+        "fact:making_way": false,
+        "fact:length_m": 12
+      },
+      "expect": ["rule:27a_i"]
+    },
+    {
+      "name": "diving operations from a small vessel, 9 m: 27(g) excepts diving",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:diving",
+        "fact:position": "position:underway",
+        "fact:length_m": 9,
+        "fact:time": "time:day",
+        "fact:full_display_impracticable": true
+      },
+      "expect": ["rule:27b_i", "rule:27e_i", "rule:27b_ii", "rule:27e_ii"]
+    },
+    {
+      "name": "diving from a 9 m vessel able to carry the 27(d) display: 27(g) does not except her",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:diving",
+        "fact:position": "position:underway",
+        "fact:length_m": 9,
+        "fact:full_display_impracticable": false
+      },
+      "expect": ["rule:27b_i"]
+    },
+    {
+      "name": "diving support vessel, 60 m, making way, obstruction to port: the full 27(d) display",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:diving",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 60,
+        "fact:obstruction_exists": true,
+        "fact:obstruction_side": "obstruction_side:port",
+        "fact:full_display_impracticable": false
+      },
+      "expect": ["rule:27b_i", "rule:27b_iii", "rule:27d"]
+    },
+    {
+      "name": "diving support vessel, 60 m, making way, no obstruction, by day: 27(b) via 27(d), no flag A",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:diving",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 60,
+        "fact:obstruction_exists": false,
+        "fact:full_display_impracticable": false,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:27b_i", "rule:27b_iii", "rule:27b_ii"]
+    },
+    {
+      "name": "restricted in ability to maneuver, at anchor, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:ram",
+        "fact:position": "position:anchored",
+        "fact:length_m": 60,
+        "fact:time": "time:day"
+      },
+      "expect": [
+        "rule:27b_i",
+        "rule:27b_iv",
+        "rule:30a",
+        "rule:30c",
+        "rule:27b_ii",
+        "rule:30a:ball"
+      ]
+    },
+    {
+      "name": "dredger, restricted, obstruction to port, making way, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:ram_underwater",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 45,
+        "fact:obstruction_exists": true,
+        "fact:obstruction_side": "obstruction_side:port",
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:27b_i", "rule:27b_iii", "rule:27d", "rule:27b_ii", "rule:27d:shapes"]
+    },
+    {
+      "name": "mine clearance, underway, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:mine",
+        "fact:position": "position:underway",
+        "fact:length_m": 60,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:27f", "rule:27f:three_balls"]
+    },
+    {
+      "name": "mine clearance, at anchor, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:mine",
+        "fact:position": "position:anchored",
+        "fact:length_m": 60,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:27f", "rule:30a", "rule:30c", "rule:27f:three_balls", "rule:30a:ball"]
+    },
+    {
+      "name": "constrained by draft, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:cbd",
+        "fact:position": "position:underway",
+        "fact:length_m": 200,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:28", "rule:28:cylinder"]
+    },
+    {
+      "name": "constrained by draft, at anchor, by day: the anchor ball alone",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:cbd",
+        "fact:position": "position:anchored",
+        "fact:length_m": 200,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30a", "rule:30c", "rule:30a:ball"]
+    },
+    {
+      "name": "on pilotage duty, underway, by day: no shape",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pilot",
+        "fact:position": "position:underway",
+        "fact:length_m": 20,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:29a"]
+    },
+    {
+      "name": "anchored, 11.6 m, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:anchored",
+        "fact:length_m": 11.6,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:30a:ball"]
+    },
+    {
+      "name": "30(e) boundary: anchored, clear of channel, 6.9 m, by day",
+      "facts": {
+        "fact:position": "position:anchored",
+        "fact:near_channel": false,
+        "fact:length_m": 6.9,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:30e", "rule:30a:ball"]
+    },
+    {
+      "name": "30(e) boundary: anchored, clear of channel, 7.0 m, by day",
+      "facts": {
+        "fact:position": "position:anchored",
+        "fact:near_channel": false,
+        "fact:length_m": 7,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:30a:ball"]
+    },
+    {
+      "name": "aground, 15 m, by day",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:aground",
+        "fact:length_m": 15,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30d", "rule:30d_i", "rule:30d_ii"]
+    },
+    {
+      "name": "aground, 10 m, by day: 30(f) relief from the three balls; no shape at all",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:aground",
+        "fact:length_m": 10,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30d"]
+    },
+    {
+      "name": "30(d)(ii) boundary: aground, 11.9 m, by day",
+      "facts": {
+        "fact:position": "position:aground",
+        "fact:length_m": 11.9,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30d"]
+    },
+    {
+      "name": "30(d)(ii) boundary: aground, 12.0 m, by day",
+      "facts": {
+        "fact:position": "position:aground",
+        "fact:length_m": 12,
+        "fact:time": "time:day"
+      },
+      "expect": ["rule:30d", "rule:30d_i", "rule:30d_ii"]
+    },
+    {
+      "name": "yacht 11.6 m moored alongside a quay by day: nothing",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:position": "position:moored",
+        "fact:on_mooring_buoy": false,
+        "fact:length_m": 11.6,
+        "fact:time": "time:day"
+      },
+      "expect": []
+    },
+    {
+      "name": "20(c): trawler 30 m by day in restricted visibility -- the lights stay shall, the cones stay shall",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:trawling",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 30,
+        "fact:time": "time:day",
+        "fact:visibility": "visibility:restricted"
+      },
+      "expect": [
+        {
+          "entry": "rule:26b_i",
+          "modality": "modality:shall"
+        },
+        {
+          "entry": "rule:26b_ii",
+          "modality": "modality:may"
+        },
+        {
+          "entry": "rule:26b_iii",
+          "modality": "modality:shall"
+        },
+        {
+          "entry": "rule:26b_i:two_cones",
+          "modality": "modality:shall"
+        },
+        {
+          "entry": "rule:35a",
+          "modality": "modality:shall"
+        },
+        {
+          "entry": "rule:35c",
+          "modality": "modality:shall"
+        }
+      ]
+    },
+    {
+      "name": "20(c): trawler 30 m by day in good visibility -- the lights become may, the cones stay shall (20(d))",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:trawling",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 30,
+        "fact:time": "time:day",
+        "fact:visibility": "visibility:good"
+      },
+      "expect": [
+        {
+          "entry": "rule:26b_i",
+          "modality": "modality:may"
+        },
+        {
+          "entry": "rule:26b_ii",
+          "modality": "modality:may"
+        },
+        {
+          "entry": "rule:26b_iii",
+          "modality": "modality:may"
+        },
+        {
+          "entry": "rule:26b_i:two_cones",
+          "modality": "modality:shall"
+        }
+      ]
+    },
+    {
+      "name": "20(c): trawler 30 m in good visibility, no time stated -- the night default is untouched",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:trawling",
+        "fact:position": "position:underway",
+        "fact:making_way": true,
+        "fact:length_m": 30,
+        "fact:visibility": "visibility:good"
+      },
+      "expect": [
+        {
+          "entry": "rule:26b_i",
+          "modality": "modality:shall"
+        },
+        {
+          "entry": "rule:26b_ii",
+          "modality": "modality:may"
+        },
+        {
+          "entry": "rule:26b_iii",
+          "modality": "modality:shall"
+        }
+      ]
+    },
+    {
+      "name": "Rule 35(a): power-driven 30 m making way in restricted visibility",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:underway",
+        "fact:length_m": 30,
+        "fact:making_way": true
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:35a"]
+    },
+    {
+      "name": "Rule 35(b): the same vessel underway but stopped -- two prolonged blasts, not one",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:underway",
+        "fact:length_m": 30,
+        "fact:making_way": false
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:35b"]
+    },
+    {
+      "name": "Rule 35(c): sailing vessel 15 m in restricted visibility",
+      "facts": {
+        "fact:visibility": "visibility:restricted",
+        "fact:propulsion": "propulsion:sail",
+        "fact:activity": "activity:none",
+        "fact:position": "position:underway",
+        "fact:length_m": 15
+      },
+      "expect": ["rule:25a", "rule:25b", "rule:25c", "rule:35c"]
+    },
+    {
+      "name": "Rule 35(c): vessel towing 40 m in restricted visibility, making way",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:towing",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:underway",
+        "fact:length_m": 40,
+        "fact:making_way": true,
+        "fact:tow_length_m": 100
+      },
+      "expect": ["rule:24a_i", "rule:24a_ii_iv", "rule:35a", "rule:35c"]
+    },
+    {
+      "name": "Rule 35(d): vessel engaged in fishing at anchor 30 m in restricted visibility",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:fishing",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:anchored",
+        "fact:length_m": 30
+      },
+      "expect": [
+        "rule:26c_i",
+        "rule:30a",
+        "rule:30b",
+        "rule:30c",
+        "rule:35d",
+        "rule:35g",
+        "rule:35g:warning"
+      ]
+    },
+    {
+      "name": "Rule 35(e): the last vessel of a tow, manned, in restricted visibility",
+      "facts": {
+        "fact:visibility": "visibility:restricted",
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:being_towed",
+        "fact:position": "position:underway",
+        "fact:length_m": 40,
+        "fact:manned": true
+      },
+      "expect": ["rule:24e", "rule:35e"]
+    },
+    {
+      "name": "Rule 35(e): the same tow unmanned -- she sounds nothing",
+      "facts": {
+        "fact:visibility": "visibility:restricted",
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:being_towed",
+        "fact:position": "position:underway",
+        "fact:length_m": 40,
+        "fact:manned": false
+      },
+      "expect": ["rule:24e"]
+    },
+    {
+      "name": "Rule 35(f): composite unit making way in restricted visibility",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pushing",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:underway",
+        "fact:length_m": 60,
+        "fact:making_way": true,
+        "fact:composite_unit": true
+      },
+      "expect": ["rule:24b", "rule:35a", "rule:35c", "rule:35f"]
+    },
+    {
+      "name": "Rule 35(g): power-driven 30 m at anchor in restricted visibility -- bell, no gong",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:anchored",
+        "fact:length_m": 30
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:35g", "rule:35g:warning"]
+    },
+    {
+      "name": "Rule 35(g): 150 m at anchor in restricted visibility -- bell forward, gong aft",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:anchored",
+        "fact:length_m": 150
+      },
+      "expect": ["rule:30a", "rule:30c", "rule:35g", "rule:35g:gong", "rule:35g:warning"]
+    },
+    {
+      "name": "Rule 35(h): 30 m aground in restricted visibility -- three strokes either side of the bell",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:aground",
+        "fact:length_m": 30
+      },
+      "expect": ["rule:30d", "rule:30d_i", "rule:35h"]
+    },
+    {
+      "name": "Rule 35(h): 150 m aground in restricted visibility -- the gong is required too",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:aground",
+        "fact:length_m": 150
+      },
+      "expect": ["rule:30d", "rule:30d_i", "rule:35h", "rule:35h:gong"]
+    },
+    {
+      "name": "Rule 35(i): 15 m at anchor in restricted visibility -- not obliged to ring the bell",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:anchored",
+        "fact:length_m": 15
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:35g", "rule:35g:warning", "rule:35i"]
+    },
+    {
+      "name": "Rule 35(i): 20 m at anchor in restricted visibility -- the exemption stops here",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:anchored",
+        "fact:length_m": 20
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:35g", "rule:35g:warning"]
+    },
+    {
+      "name": "Rule 35(j): 8 m at anchor in restricted visibility -- exempt from all of (a) to (h)",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:anchored",
+        "fact:length_m": 8
+      },
+      "expect": ["rule:30a", "rule:30b", "rule:30c", "rule:35g", "rule:35g:warning", "rule:35j"]
+    },
+    {
+      "name": "Rule 35(j): 12 m making way in restricted visibility -- the exemption stops here",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:underway",
+        "fact:length_m": 12,
+        "fact:making_way": true
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:35a"]
+    },
+    {
+      "name": "Rule 35(k): pilot vessel on duty 20 m in restricted visibility",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:pilot",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:underway",
+        "fact:length_m": 20,
+        "fact:making_way": true
+      },
+      "expect": ["rule:29a", "rule:35a", "rule:35k"]
+    },
+    {
+      "name": "Rule 34(e): nearing a bend, good visibility -- one prolonged blast and no Rule 35 signal",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:good",
+        "fact:position": "position:underway",
+        "fact:length_m": 30,
+        "fact:making_way": true,
+        "fact:nearing_obscured_bend": true
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:34e"]
+    },
+    {
+      "name": "Rule 34(e): nearing a bend in restricted visibility -- both signals are due",
+      "facts": {
+        "fact:propulsion": "propulsion:power",
+        "fact:activity": "activity:none",
+        "fact:visibility": "visibility:restricted",
+        "fact:position": "position:underway",
+        "fact:length_m": 30,
+        "fact:making_way": true,
+        "fact:nearing_obscured_bend": true
+      },
+      "expect": ["rule:23a_i", "rule:23a_ii", "rule:23a_iii_iv", "rule:35a", "rule:34e"]
     }
-   ]
-  },
-  {
-   "name": "20(c): trawler 30 m by day in good visibility -- the lights become may, the cones stay shall (20(d))",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:trawling",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 30,
-    "fact:time": "time:day",
-    "fact:visibility": "visibility:good"
-   },
-   "expect": [
-    {
-     "entry": "rule:26b_i",
-     "modality": "modality:may"
-    },
-    {
-     "entry": "rule:26b_ii",
-     "modality": "modality:may"
-    },
-    {
-     "entry": "rule:26b_iii",
-     "modality": "modality:may"
-    },
-    {
-     "entry": "rule:26b_i:two_cones",
-     "modality": "modality:shall"
-    }
-   ]
-  },
-  {
-   "name": "20(c): trawler 30 m in good visibility, no time stated -- the night default is untouched",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:trawling",
-    "fact:position": "position:underway",
-    "fact:making_way": true,
-    "fact:length_m": 30,
-    "fact:visibility": "visibility:good"
-   },
-   "expect": [
-    {
-     "entry": "rule:26b_i",
-     "modality": "modality:shall"
-    },
-    {
-     "entry": "rule:26b_ii",
-     "modality": "modality:may"
-    },
-    {
-     "entry": "rule:26b_iii",
-     "modality": "modality:shall"
-    }
-   ]
-  },
-  {
-   "name": "Rule 35(a): power-driven 30 m making way in restricted visibility",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:underway",
-    "fact:length_m": 30,
-    "fact:making_way": true
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:35a"
-   ]
-  },
-  {
-   "name": "Rule 35(b): the same vessel underway but stopped -- two prolonged blasts, not one",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:underway",
-    "fact:length_m": 30,
-    "fact:making_way": false
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:35b"
-   ]
-  },
-  {
-   "name": "Rule 35(c): sailing vessel 15 m in restricted visibility",
-   "facts": {
-    "fact:visibility": "visibility:restricted",
-    "fact:propulsion": "propulsion:sail",
-    "fact:activity": "activity:none",
-    "fact:position": "position:underway",
-    "fact:length_m": 15
-   },
-   "expect": [
-    "rule:25a",
-    "rule:25b",
-    "rule:25c",
-    "rule:35c"
-   ]
-  },
-  {
-   "name": "Rule 35(c): vessel towing 40 m in restricted visibility, making way",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:towing",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:underway",
-    "fact:length_m": 40,
-    "fact:making_way": true,
-    "fact:tow_length_m": 100
-   },
-   "expect": [
-    "rule:24a_i",
-    "rule:24a_ii_iv",
-    "rule:35a",
-    "rule:35c"
-   ]
-  },
-  {
-   "name": "Rule 35(d): vessel engaged in fishing at anchor 30 m in restricted visibility",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:fishing",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:anchored",
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:26c_i",
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:35d",
-    "rule:35g",
-    "rule:35g:warning"
-   ]
-  },
-  {
-   "name": "Rule 35(e): the last vessel of a tow, manned, in restricted visibility",
-   "facts": {
-    "fact:visibility": "visibility:restricted",
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:being_towed",
-    "fact:position": "position:underway",
-    "fact:length_m": 40,
-    "fact:manned": true
-   },
-   "expect": [
-    "rule:24e",
-    "rule:35e"
-   ]
-  },
-  {
-   "name": "Rule 35(e): the same tow unmanned -- she sounds nothing",
-   "facts": {
-    "fact:visibility": "visibility:restricted",
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:being_towed",
-    "fact:position": "position:underway",
-    "fact:length_m": 40,
-    "fact:manned": false
-   },
-   "expect": [
-    "rule:24e"
-   ]
-  },
-  {
-   "name": "Rule 35(f): composite unit making way in restricted visibility",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pushing",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:underway",
-    "fact:length_m": 60,
-    "fact:making_way": true,
-    "fact:composite_unit": true
-   },
-   "expect": [
-    "rule:24b",
-    "rule:35a",
-    "rule:35c",
-    "rule:35f"
-   ]
-  },
-  {
-   "name": "Rule 35(g): power-driven 30 m at anchor in restricted visibility -- bell, no gong",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:anchored",
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:35g",
-    "rule:35g:warning"
-   ]
-  },
-  {
-   "name": "Rule 35(g): 150 m at anchor in restricted visibility -- bell forward, gong aft",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:anchored",
-    "fact:length_m": 150
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30c",
-    "rule:35g",
-    "rule:35g:gong",
-    "rule:35g:warning"
-   ]
-  },
-  {
-   "name": "Rule 35(h): 30 m aground in restricted visibility -- three strokes either side of the bell",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:aground",
-    "fact:length_m": 30
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i",
-    "rule:35h"
-   ]
-  },
-  {
-   "name": "Rule 35(h): 150 m aground in restricted visibility -- the gong is required too",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:aground",
-    "fact:length_m": 150
-   },
-   "expect": [
-    "rule:30d",
-    "rule:30d_i",
-    "rule:35h",
-    "rule:35h:gong"
-   ]
-  },
-  {
-   "name": "Rule 35(i): 15 m at anchor in restricted visibility -- not obliged to ring the bell",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:anchored",
-    "fact:length_m": 15
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:35g",
-    "rule:35g:warning",
-    "rule:35i"
-   ]
-  },
-  {
-   "name": "Rule 35(i): 20 m at anchor in restricted visibility -- the exemption stops here",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:anchored",
-    "fact:length_m": 20
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:35g",
-    "rule:35g:warning"
-   ]
-  },
-  {
-   "name": "Rule 35(j): 8 m at anchor in restricted visibility -- exempt from all of (a) to (h)",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:anchored",
-    "fact:length_m": 8
-   },
-   "expect": [
-    "rule:30a",
-    "rule:30b",
-    "rule:30c",
-    "rule:35g",
-    "rule:35g:warning",
-    "rule:35j"
-   ]
-  },
-  {
-   "name": "Rule 35(j): 12 m making way in restricted visibility -- the exemption stops here",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:underway",
-    "fact:length_m": 12,
-    "fact:making_way": true
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:35a"
-   ]
-  },
-  {
-   "name": "Rule 35(k): pilot vessel on duty 20 m in restricted visibility",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:pilot",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:underway",
-    "fact:length_m": 20,
-    "fact:making_way": true
-   },
-   "expect": [
-    "rule:29a",
-    "rule:35a",
-    "rule:35k"
-   ]
-  },
-  {
-   "name": "Rule 34(e): nearing a bend, good visibility -- one prolonged blast and no Rule 35 signal",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:good",
-    "fact:position": "position:underway",
-    "fact:length_m": 30,
-    "fact:making_way": true,
-    "fact:nearing_obscured_bend": true
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:34e"
-   ]
-  },
-  {
-   "name": "Rule 34(e): nearing a bend in restricted visibility -- both signals are due",
-   "facts": {
-    "fact:propulsion": "propulsion:power",
-    "fact:activity": "activity:none",
-    "fact:visibility": "visibility:restricted",
-    "fact:position": "position:underway",
-    "fact:length_m": 30,
-    "fact:making_way": true,
-    "fact:nearing_obscured_bend": true
-   },
-   "expect": [
-    "rule:23a_i",
-    "rule:23a_ii",
-    "rule:23a_iii_iv",
-    "rule:35a",
-    "rule:34e"
-   ]
-  }
- ]
+  ]
 }

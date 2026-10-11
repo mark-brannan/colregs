@@ -5,12 +5,7 @@
   "description": "Two-subject situation fixtures (ADR 0005, REQ-CAT-5). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md. A case's situation is schema/situation.schema.json; namespace resolution (every kin:/geo:/hist: key declared in facts.json) stays in the tests.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "schema",
-    "jurisdiction",
-    "case_status",
-    "cases"
-  ],
+  "required": ["schema", "jurisdiction", "case_status", "cases"],
   "$defs": {
     "ruleId": {
       "$ref": "applicability.schema.json#/$defs/ruleId"
@@ -26,10 +21,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "entry",
-            "modality"
-          ],
+          "required": ["entry", "modality"],
           "properties": {
             "entry": {
               "$ref": "#/$defs/ruleId"
@@ -44,10 +36,7 @@
     "subjectRole": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "role",
-        "by"
-      ],
+      "required": ["role", "by"],
       "properties": {
         "role": {
           "$ref": "applicability.schema.json#/$defs/effectRole"
@@ -68,11 +57,7 @@
     },
     "status": {
       "type": "string",
-      "enum": [
-        "ink",
-        "pencil",
-        "open"
-      ]
+      "enum": ["ink", "pencil", "open"]
     },
     "adr": {
       "type": "string",
@@ -108,10 +93,7 @@
         "with_modality": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "entry",
-            "modality"
-          ],
+          "required": ["entry", "modality"],
           "properties": {
             "entry": {
               "$ref": "#/$defs/ruleId"
@@ -126,9 +108,7 @@
     "case_status": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "values"
-      ],
+      "required": ["values"],
       "properties": {
         "note": {
           "type": "string"
@@ -138,10 +118,7 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "enum": [
-              "illustrative",
-              "binding"
-            ]
+            "enum": ["illustrative", "binding"]
           }
         }
       }
@@ -152,12 +129,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "name",
-          "status",
-          "expect",
-          "situation"
-        ],
+        "required": ["name", "status", "expect", "situation"],
         "properties": {
           "name": {
             "type": "string",
@@ -165,10 +137,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "illustrative",
-              "binding"
-            ]
+            "enum": ["illustrative", "binding"]
           },
           "narrative": {
             "type": "string"
@@ -196,10 +165,7 @@
             "$comment": "The pooled, resolved roles of both subjects (ADR 0016). `expect` stays the self-frame entry ids.",
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "self",
-              "other"
-            ],
+            "required": ["self", "other"],
             "properties": {
               "self": {
                 "type": "array",

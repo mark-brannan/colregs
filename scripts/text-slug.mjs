@@ -17,23 +17,26 @@
 // Not a dependency of the package and not shipped: package.json `files` does
 // not include scripts/.
 
-import { readFileSync } from 'node:fs'
+import { readFileSync } from 'node:fs';
 
-const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
-const args = process.argv.slice(2)
+const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)));
+const args = process.argv.slice(2);
 // The words live in a corpus file (ADR 0013); the skeleton only says which
 // rule a path belongs to.
-const corpusFile = args.includes('--corpus') ? args[args.indexOf('--corpus') + 1] : 'data/text/intl/2016/en-US.uscg.json'
-const rules = load('data/rules.json')
-const corpus = load(corpusFile)
-const appl = load('data/applicability.json')
-const facts = load('data/facts.json')
+const corpusFile = args.includes('--corpus')
+  ? args[args.indexOf('--corpus') + 1]
+  : 'data/text/intl/2016/en-US.uscg.json';
+const rules = load('data/rules.json');
+const corpus = load(corpusFile);
+const appl = load('data/applicability.json');
+const facts = load('data/facts.json');
 
 // --- vocabulary ------------------------------------------------------------
 // Function words and words that say nothing about *which* paragraph this is.
 // `vessel` and `rule` are here because they are in nearly every paragraph;
 // `shall` because modality is carried by the applicability entry, not the slug.
-const STOP = new Set(`
+const STOP = new Set(
+  `
 a an the and or of to in on at by for from with within without as so that this these those
 which who whom whose what when whenever where whether while until if but however therefore
 thereof therewith than then there here into upon under over out up off through toward along
@@ -50,7 +53,10 @@ some part description latter ii iii iv v vi nothing notwithstanding among accoun
 enough greatest largest closest different similar exact evident apparent ordinary heavy main possibility presence
 reference relation because capable place consist result remain become find cause allow permit admit obtain
 include includes including involved meaning
-`.trim().split(/\s+/))
+`
+    .trim()
+    .split(/\s+/),
+);
 
 // Multi-word terms of art, longest first. Each becomes one hyphenated term so
 // the set keeps the concept rather than scattering it into `traffic`,
@@ -92,127 +98,258 @@ const PHRASES = [
   ['high seas', 'high-seas'],
   ['picking up', 'pick-up'],
   ['out of the way', 'keep-out-of-way'],
-]
+];
 
 // Lemmas the rules below would get wrong, and the gerunds kept as nouns because
 // they name an activity in facts.json (`activity:fishing`, `activity:towing`,
 // ...): the slug's target form is the vocabulary's form wherever one exists.
 const LEMMA = {
   // gerund nouns kept because they name an activity in facts.json
-  fishing: 'fishing', towing: 'towing', trawling: 'trawling', trolling: 'trolling',
-  pushing: 'pushing', dredging: 'dredging', surveying: 'surveying', diving: 'diving',
+  fishing: 'fishing',
+  towing: 'towing',
+  trawling: 'trawling',
+  trolling: 'trolling',
+  pushing: 'pushing',
+  dredging: 'dredging',
+  surveying: 'surveying',
+  diving: 'diving',
   // gerund nouns that are nouns
-  heading: 'heading', bearing: 'bearing', warning: 'warning', hearing: 'hearing', seagoing: 'seagoing',
+  heading: 'heading',
+  bearing: 'bearing',
+  warning: 'warning',
+  hearing: 'hearing',
+  seagoing: 'seagoing',
   // -ing verbs
-  anchoring: 'anchor', approaching: 'approach', avoiding: 'avoid', complying: 'comply', construing: 'construe',
-  crossing: 'cross', determining: 'determine', developing: 'develop', exhibiting: 'exhibit', falling: 'fall',
-  floating: 'float', impeding: 'impede', intending: 'intend', joining: 'join', keeping: 'keep', landing: 'land',
-  launching: 'launch', laying: 'lay', leaving: 'leave', meeting: 'meet', navigating: 'navigate', nearing: 'near',
-  observing: 'observe', operating: 'operate', overtaking: 'overtake', passing: 'pass', picking: 'pick',
-  plotting: 'plot', proceeding: 'proceed', propelling: 'propel', reversing: 'reverse', sailing: 'sail',
-  scanning: 'scan', separating: 'separate', servicing: 'service', sounding: 'sound', stopping: 'stop',
-  transferring: 'transfer', turning: 'turn', utilizing: 'utilize', corresponding: 'correspond', intervening: 'intervene',
+  anchoring: 'anchor',
+  approaching: 'approach',
+  avoiding: 'avoid',
+  complying: 'comply',
+  construing: 'construe',
+  crossing: 'cross',
+  determining: 'determine',
+  developing: 'develop',
+  exhibiting: 'exhibit',
+  falling: 'fall',
+  floating: 'float',
+  impeding: 'impede',
+  intending: 'intend',
+  joining: 'join',
+  keeping: 'keep',
+  landing: 'land',
+  launching: 'launch',
+  laying: 'lay',
+  leaving: 'leave',
+  meeting: 'meet',
+  navigating: 'navigate',
+  nearing: 'near',
+  observing: 'observe',
+  operating: 'operate',
+  overtaking: 'overtake',
+  passing: 'pass',
+  picking: 'pick',
+  plotting: 'plot',
+  proceeding: 'proceed',
+  propelling: 'propel',
+  reversing: 'reverse',
+  sailing: 'sail',
+  scanning: 'scan',
+  separating: 'separate',
+  servicing: 'service',
+  sounding: 'sound',
+  stopping: 'stop',
+  transferring: 'transfer',
+  turning: 'turn',
+  utilizing: 'utilize',
+  corresponding: 'correspond',
+  intervening: 'intervene',
   // -ed verbs and participles
-  adapted: 'adapt', adopted: 'adopt', authorized: 'authorize', avoided: 'avoid', carried: 'carry', checked: 'check',
-  concerned: 'concern', connected: 'connect', constrained: 'constrain', contained: 'contain', designed: 'design',
-  detected: 'detect', determined: 'determine', directed: 'direct', engaged: 'engage', exempted: 'exempt',
-  fitted: 'fit', imposed: 'impose', impeded: 'impede', limited: 'limit', mistaken: 'mistake', obliged: 'oblige',
-  obscured: 'obscure', observed: 'observe', overtaken: 'overtake', prescribed: 'prescribe', propelled: 'propel',
-  relieved: 'relieve', restricted: 'restrict', situated: 'situate', stopped: 'stop', kept: 'keep',
+  adapted: 'adapt',
+  adopted: 'adopt',
+  authorized: 'authorize',
+  avoided: 'avoid',
+  carried: 'carry',
+  checked: 'check',
+  concerned: 'concern',
+  connected: 'connect',
+  constrained: 'constrain',
+  contained: 'contain',
+  designed: 'design',
+  detected: 'detect',
+  determined: 'determine',
+  directed: 'direct',
+  engaged: 'engage',
+  exempted: 'exempt',
+  fitted: 'fit',
+  imposed: 'impose',
+  impeded: 'impede',
+  limited: 'limit',
+  mistaken: 'mistake',
+  obliged: 'oblige',
+  obscured: 'obscure',
+  observed: 'observe',
+  overtaken: 'overtake',
+  prescribed: 'prescribe',
+  propelled: 'propel',
+  relieved: 'relieve',
+  restricted: 'restrict',
+  situated: 'situate',
+  stopped: 'stop',
+  kept: 'keep',
   // third person and irregulars
-  seen: 'see', sees: 'see', flies: 'fly', lies: 'lie', hears: 'hear', applies: 'apply', finds: 'find',
-  becomes: 'become', detects: 'detect', observes: 'observe', restricts: 'restrict', impedes: 'impede',
-  consists: 'consist', remains: 'remain', seamen: 'seaman', coming: 'come',
+  seen: 'see',
+  sees: 'see',
+  flies: 'fly',
+  lies: 'lie',
+  hears: 'hear',
+  applies: 'apply',
+  finds: 'find',
+  becomes: 'become',
+  detects: 'detect',
+  observes: 'observe',
+  restricts: 'restrict',
+  impedes: 'impede',
+  consists: 'consist',
+  remains: 'remain',
+  seamen: 'seaman',
+  coming: 'come',
   // nominalisations folded onto the verb, so `alter` and `alteration` are one term
-  alteration: 'alter', alterations: 'alter', assessment: 'assess', assumptions: 'assume', compliance: 'comply',
-  detection: 'detect', observance: 'observe', observation: 'observe', maneuverability: 'maneuver',
-  replenishment: 'replenish', recovery: 'recover', clearance: 'clear', effectiveness: 'effective',
+  alteration: 'alter',
+  alterations: 'alter',
+  assessment: 'assess',
+  assumptions: 'assume',
+  compliance: 'comply',
+  detection: 'detect',
+  observance: 'observe',
+  observation: 'observe',
+  maneuverability: 'maneuver',
+  replenishment: 'replenish',
+  recovery: 'recover',
+  clearance: 'clear',
+  effectiveness: 'effective',
   // words the plural rule must leave alone
-  series: 'series', apparatus: 'apparatus', speed: 'speed', proceed: 'proceed', need: 'need',
-}
+  series: 'series',
+  apparatus: 'apparatus',
+  speed: 'speed',
+  proceed: 'proceed',
+  need: 'need',
+};
 
 // Inflection only. Plurals by rule; every -ed and -ing form by table, because a
 // suffix rule cannot tell `speed` from `stopped` or `bearing` from `nearing`
 // without a lexicon, and a wrong guess is worse than an unlemmatised word. A
 // form the table does not know passes through unchanged and is visible as such.
 function lemma(w) {
-  if (LEMMA[w]) return LEMMA[w]
-  if (w.includes('-') || /^\d/.test(w)) return w
-  let m
-  if ((m = /^(.+?)ies$/.exec(w))) return `${m[1]}y`
-  if (/(ss|us|is)$/.test(w)) return w
-  if ((m = /^(.+?)(sh|ch|x)es$/.exec(w))) return m[1] + m[2]
-  if ((m = /^(.+?)s$/.exec(w))) return m[1]
-  return w
+  if (LEMMA[w]) return LEMMA[w];
+  if (w.includes('-') || /^\d/.test(w)) return w;
+  let m;
+  if ((m = /^(.+?)ies$/.exec(w))) return `${m[1]}y`;
+  if (/(ss|us|is)$/.test(w)) return w;
+  if ((m = /^(.+?)(sh|ch|x)es$/.exec(w))) return m[1] + m[2];
+  if ((m = /^(.+?)s$/.exec(w))) return m[1];
+  return w;
 }
 
 // Citations are facts about which provision is invoked, not expression:
 // `rule-13`, `rules-4-19`. A number and its unit stay together (`20-meter`).
 function tokens(text) {
-  let t = text.toLowerCase().replace(/[“”]/g, '"').replace(/’/g, "'").replace(/and\/or/g, ' ')
-  const out = []
-  t = t.replace(/\brules?\s+(\d+)\s*-\s*(\d+)/g, (_, a, b) => { out.push(`rules-${a}-${b}`); return ' ' })
-  t = t.replace(/\brules?\s+((?:\d+(?:\([a-z]\))?(?:\([ivx]+\))?(?:\s*,\s*(?:and\s+)?|\s+and\s+)?)+)/g, (_, list) => {
-    for (const m of list.matchAll(/(\d+)(?:\(([a-z])\))?(?:\(([ivx]+)\))?/g)) out.push(`rule-${m[1]}${m[2] ?? ''}${m[3] ?? ''}`)
-    return ' '
-  })
-  t = t.replace(/\b(\d+(?:\.\d+)?)\s+(meters?|degrees?)/g, (_, n, u) => { out.push(`${n.replace('.', '-')}-${lemma(u)}`); return ' ' })
-  for (const [re, term] of PHRASES) t = t.replace(new RegExp(`\\b${re}\\b`, 'g'), ` ${term} `)
+  let t = text
+    .toLowerCase()
+    .replace(/[“”]/g, '"')
+    .replace(/’/g, "'")
+    .replace(/and\/or/g, ' ');
+  const out = [];
+  t = t.replace(/\brules?\s+(\d+)\s*-\s*(\d+)/g, (_, a, b) => {
+    out.push(`rules-${a}-${b}`);
+    return ' ';
+  });
+  t = t.replace(
+    /\brules?\s+((?:\d+(?:\([a-z]\))?(?:\([ivx]+\))?(?:\s*,\s*(?:and\s+)?|\s+and\s+)?)+)/g,
+    (_, list) => {
+      for (const m of list.matchAll(/(\d+)(?:\(([a-z])\))?(?:\(([ivx]+)\))?/g))
+        out.push(`rule-${m[1]}${m[2] ?? ''}${m[3] ?? ''}`);
+      return ' ';
+    },
+  );
+  t = t.replace(/\b(\d+(?:\.\d+)?)\s+(meters?|degrees?)/g, (_, n, u) => {
+    out.push(`${n.replace('.', '-')}-${lemma(u)}`);
+    return ' ';
+  });
+  for (const [re, term] of PHRASES) t = t.replace(new RegExp(`\\b${re}\\b`, 'g'), ` ${term} `);
   for (const w of t.match(/[a-z][a-z-]*[a-z]|[a-z]/g) ?? []) {
-    if (w.endsWith('ly') && !['early', 'apply', 'comply', 'fly', 'rely'].includes(w)) continue
-    if (STOP.has(w)) continue
-    const l = lemma(w)
-    if (STOP.has(l)) continue
-    out.push(l)
+    if (w.endsWith('ly') && !['early', 'apply', 'comply', 'fly', 'rely'].includes(w)) continue;
+    if (STOP.has(w)) continue;
+    const l = lemma(w);
+    if (STOP.has(l)) continue;
+    out.push(l);
   }
-  return [...new Set(out)].sort()
+  return [...new Set(out)].sort();
 }
 
-export const slugOf = (paragraph) => tokens(paragraph.text)
+export const slugOf = (paragraph) => tokens(paragraph.text);
 
 // --- CLI ---------------------------------------------------------------------
-const range = (args.includes('--rules') ? args[args.indexOf('--rules') + 1] : '1-19').split('-').map(Number)
-const inRange = (p) => Number(p.rule) >= range[0] && Number(p.rule) <= (range[1] ?? range[0])
+const range = (args.includes('--rules') ? args[args.indexOf('--rules') + 1] : '1-19')
+  .split('-')
+  .map(Number);
+const inRange = (p) => Number(p.rule) >= range[0] && Number(p.rule) <= (range[1] ?? range[0]);
 const paragraphs = Object.entries(corpus.paragraphs)
   .map(([path, p]) => ({ path, rule: rules.paragraphs[path].rule, ...p }))
-  .filter((p) => p.text !== undefined && inRange(p))
-const slugs = new Map(paragraphs.map((p) => [p.path, slugOf(p)]))
+  .filter((p) => p.text !== undefined && inRange(p));
+const slugs = new Map(paragraphs.map((p) => [p.path, slugOf(p)]));
 
 if (args.includes('--json')) {
-  console.log(JSON.stringify(Object.fromEntries(slugs), null, 1))
+  console.log(JSON.stringify(Object.fromEntries(slugs), null, 1));
 } else if (args.includes('--blind')) {
   // A navigation test needs the slugs without their answers. Shuffled by a
   // fixed hash of the path so the ordering is reproducible but not the file's.
-  const h = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 1000003, 7)
-  const rows = [...slugs].sort((a, b) => h(a[0]) - h(b[0]))
-  rows.forEach(([, s], i) => console.log(`${String(i + 1).padStart(3)}: ${s.join(', ')}`))
-  if (args.includes('--key')) console.log('\nKEY: ' + rows.map(([p], i) => `${i + 1}=${p}`).join(' '))
+  const h = (s) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 1000003, 7);
+  const rows = [...slugs].sort((a, b) => h(a[0]) - h(b[0]));
+  rows.forEach(([, s], i) => console.log(`${String(i + 1).padStart(3)}: ${s.join(', ')}`));
+  if (args.includes('--key'))
+    console.log('\nKEY: ' + rows.map(([p], i) => `${i + 1}=${p}`).join(' '));
 } else if (args.includes('--stats')) {
-  const jacc = (a, b) => { const A = new Set(a), B = new Set(b); const i = [...A].filter((x) => B.has(x)).length; return i / (A.size + B.size - i) }
-  const paths = [...slugs.keys()]
-  const sizes = paths.map((p) => slugs.get(p).length)
-  console.log(`paragraphs: ${paths.length}; terms per slug: min ${Math.min(...sizes)}, median ${sizes.sort((a, b) => a - b)[sizes.length >> 1]}, max ${Math.max(...sizes)}`)
-  const empty = paths.filter((p) => slugs.get(p).length === 0)
-  console.log(`empty slugs: ${empty.length} ${empty.join(' ')}`)
-  const byKey = new Map()
-  for (const p of paths) { const k = slugs.get(p).join(' '); byKey.set(k, [...(byKey.get(k) ?? []), p]) }
-  const dup = [...byKey.values()].filter((v) => v.length > 1)
-  console.log(`identical slugs (unnavigable): ${dup.length} groups ${dup.map((g) => g.join('=')).join(' ')}`)
-  const near = []
-  for (let i = 0; i < paths.length; i++) for (let j = i + 1; j < paths.length; j++) {
-    const s = jacc(slugs.get(paths[i]), slugs.get(paths[j]))
-    if (s >= 0.6 && s < 1) near.push(`${paths[i]}~${paths[j]}(${s.toFixed(2)})`)
+  const jacc = (a, b) => {
+    const A = new Set(a),
+      B = new Set(b);
+    const i = [...A].filter((x) => B.has(x)).length;
+    return i / (A.size + B.size - i);
+  };
+  const paths = [...slugs.keys()];
+  const sizes = paths.map((p) => slugs.get(p).length);
+  console.log(
+    `paragraphs: ${paths.length}; terms per slug: min ${Math.min(...sizes)}, median ${sizes.sort((a, b) => a - b)[sizes.length >> 1]}, max ${Math.max(...sizes)}`,
+  );
+  const empty = paths.filter((p) => slugs.get(p).length === 0);
+  console.log(`empty slugs: ${empty.length} ${empty.join(' ')}`);
+  const byKey = new Map();
+  for (const p of paths) {
+    const k = slugs.get(p).join(' ');
+    byKey.set(k, [...(byKey.get(k) ?? []), p]);
   }
-  console.log(`near-duplicates (jaccard >= 0.6): ${near.length} ${near.join(' ')}`)
+  const dup = [...byKey.values()].filter((v) => v.length > 1);
+  console.log(
+    `identical slugs (unnavigable): ${dup.length} groups ${dup.map((g) => g.join('=')).join(' ')}`,
+  );
+  const near = [];
+  for (let i = 0; i < paths.length; i++)
+    for (let j = i + 1; j < paths.length; j++) {
+      const s = jacc(slugs.get(paths[i]), slugs.get(paths[j]));
+      if (s >= 0.6 && s < 1) near.push(`${paths[i]}~${paths[j]}(${s.toFixed(2)})`);
+    }
+  console.log(`near-duplicates (jaccard >= 0.6): ${near.length} ${near.join(' ')}`);
   // Sibling discrimination: within a rule, does every paragraph differ from
   // every other by at least one term?
-  const byRule = new Map()
-  for (const p of paths) byRule.set(rules.paragraphs[p].rule, [...(byRule.get(rules.paragraphs[p].rule) ?? []), p])
-  const same = []
-  for (const ps of byRule.values()) for (let i = 0; i < ps.length; i++) for (let j = i + 1; j < ps.length; j++) {
-    if (slugs.get(ps[i]).join(' ') === slugs.get(ps[j]).join(' ')) same.push(`${ps[i]}=${ps[j]}`)
-  }
-  console.log(`siblings with identical slugs: ${same.length} ${same.join(' ')}`)
+  const byRule = new Map();
+  for (const p of paths)
+    byRule.set(rules.paragraphs[p].rule, [...(byRule.get(rules.paragraphs[p].rule) ?? []), p]);
+  const same = [];
+  for (const ps of byRule.values())
+    for (let i = 0; i < ps.length; i++)
+      for (let j = i + 1; j < ps.length; j++) {
+        if (slugs.get(ps[i]).join(' ') === slugs.get(ps[j]).join(' '))
+          same.push(`${ps[i]}=${ps[j]}`);
+      }
+  console.log(`siblings with identical slugs: ${same.length} ${same.join(' ')}`);
 
   // Vocabulary overlap. Every enumerated value and every fact key the
   // applicability entries and facts.json use, mapped to the slug's term space
@@ -221,44 +358,127 @@ if (args.includes('--json')) {
   // each entry citing a paragraph in range, whether the cited paragraph's slug
   // carries the terms the entry's predicate reads.
   const ALIAS = {
-    nuc: ['not-under-command'], ram: ['restricted-ability-maneuver'], ram_underwater: ['restricted-ability-maneuver', 'underwater'],
-    cbd: ['constrained-by-draft'], wig: ['wig-craft'], sail: ['sail', 'sailing-vessel'], power: ['power-driven'],
-    oars: ['oar'], fishing: ['fishing', 'engaged-in-fishing'], being_towed: ['tow', 'towing'], anchored: ['anchor'],
-    moored: ['moor'], making_way: ['make-way', 'way'], in_sight: ['in-sight'], risk_of_collision: ['risk-of-collision'],
-    narrow_channel: ['narrow-channel'], traffic_lane: ['traffic-lane'], following_traffic_lane: ['traffic-lane'],
-    confined_to_channel: ['narrow-channel', 'navigate'], was_overtaking: ['overtake'], wind_side: ['wind', 'side'],
-    rel_bearing_deg: ['bearing', 'beam', 'ahead', 'abaft', 'abeam'], bearing_change_deg_min: ['bearing', 'change'],
-    tcpa_s: ['close-quarters'], windward: ['windward', 'leeward'], length_m: ['length', '20-meter'],
-    rule18_class: ['keep-out-of-way'], activity: ['engage'], propulsion: ['propel', 'machinery'], position: ['underway', 'anchor', 'aground'],
-    port: ['port'], starboard: ['starboard'], none: [], unknown: [], underway: ['underway'], aground: ['aground'],
-    trawling: ['trawling', 'trawl'], towing: ['towing', 'tow'], pushing: ['pushing'], mine: ['mine'], pilot: ['pilot'], diving: ['diving'],
-    composite_unit: [], gear_extent_m: ['fishing', 'apparatus'], max_speed_kn: ['speed'], near_channel: ['narrow-channel'],
-    non_displacement: ['non-displacement'], obstruction_exists: ['obstruction'], on_mooring_buoy: ['moor'], tow_length_m: ['tow', 'length'],
-    wig_near_surface: ['wig-craft', 'surface'], making_way: ['way'],
-  }
-  const termsOf = (raw) => { const k = raw.replace(/^(self|other|pair):/, '').split(':').pop(); return ALIAS[k] ?? [k] }
-  const all = new Set([...slugs.values()].flat())
-  const vocab = new Set()
-  const walk = (w) => { for (const k in w) { if (k === 'any_of') w[k].forEach(walk); else { vocab.add(k); const v = w[k]; for (const x of Array.isArray(v) ? v : typeof v === 'object' && v !== null ? [].concat(v.not ?? [], v.any_of ?? []) : [v]) if (typeof x === 'string') vocab.add(x) } } }
-  appl.entries.forEach((e) => walk(e.when ?? {}))
-  for (const a of Object.values(facts.axes)) a.values.forEach((v) => vocab.add(v))
-  const hit = [], miss = []
-  for (const v of [...vocab].sort()) (termsOf(v).some((t) => all.has(t)) ? hit : miss).push(v)
-  console.log(`\nvocabulary terms (${vocab.size}) some slug in range carries: ${hit.length}`)
-  console.log(`  missing: ${miss.join(' ')}`)
-  console.log('\nper entry, cited paragraph in range: does its slug carry what the predicate reads?')
-  const rows = []
+    nuc: ['not-under-command'],
+    ram: ['restricted-ability-maneuver'],
+    ram_underwater: ['restricted-ability-maneuver', 'underwater'],
+    cbd: ['constrained-by-draft'],
+    wig: ['wig-craft'],
+    sail: ['sail', 'sailing-vessel'],
+    power: ['power-driven'],
+    oars: ['oar'],
+    fishing: ['fishing', 'engaged-in-fishing'],
+    being_towed: ['tow', 'towing'],
+    anchored: ['anchor'],
+    moored: ['moor'],
+    making_way: ['make-way', 'way'],
+    in_sight: ['in-sight'],
+    risk_of_collision: ['risk-of-collision'],
+    narrow_channel: ['narrow-channel'],
+    traffic_lane: ['traffic-lane'],
+    following_traffic_lane: ['traffic-lane'],
+    confined_to_channel: ['narrow-channel', 'navigate'],
+    was_overtaking: ['overtake'],
+    wind_side: ['wind', 'side'],
+    rel_bearing_deg: ['bearing', 'beam', 'ahead', 'abaft', 'abeam'],
+    bearing_change_deg_min: ['bearing', 'change'],
+    tcpa_s: ['close-quarters'],
+    windward: ['windward', 'leeward'],
+    length_m: ['length', '20-meter'],
+    rule18_class: ['keep-out-of-way'],
+    activity: ['engage'],
+    propulsion: ['propel', 'machinery'],
+    position: ['underway', 'anchor', 'aground'],
+    port: ['port'],
+    starboard: ['starboard'],
+    none: [],
+    unknown: [],
+    underway: ['underway'],
+    aground: ['aground'],
+    trawling: ['trawling', 'trawl'],
+    towing: ['towing', 'tow'],
+    pushing: ['pushing'],
+    mine: ['mine'],
+    pilot: ['pilot'],
+    diving: ['diving'],
+    composite_unit: [],
+    gear_extent_m: ['fishing', 'apparatus'],
+    max_speed_kn: ['speed'],
+    near_channel: ['narrow-channel'],
+    non_displacement: ['non-displacement'],
+    obstruction_exists: ['obstruction'],
+    on_mooring_buoy: ['moor'],
+    tow_length_m: ['tow', 'length'],
+    wig_near_surface: ['wig-craft', 'surface'],
+    making_way: ['way'],
+  };
+  const termsOf = (raw) => {
+    const k = raw
+      .replace(/^(self|other|pair):/, '')
+      .split(':')
+      .pop();
+    return ALIAS[k] ?? [k];
+  };
+  const all = new Set([...slugs.values()].flat());
+  const vocab = new Set();
+  const walk = (w) => {
+    for (const k in w) {
+      if (k === 'any_of') w[k].forEach(walk);
+      else {
+        vocab.add(k);
+        const v = w[k];
+        for (const x of Array.isArray(v)
+          ? v
+          : typeof v === 'object' && v !== null
+            ? [].concat(v.not ?? [], v.any_of ?? [])
+            : [v])
+          if (typeof x === 'string') vocab.add(x);
+      }
+    }
+  };
+  appl.entries.forEach((e) => walk(e.when ?? {}));
+  for (const a of Object.values(facts.axes)) a.values.forEach((v) => vocab.add(v));
+  const hit = [],
+    miss = [];
+  for (const v of [...vocab].sort()) (termsOf(v).some((t) => all.has(t)) ? hit : miss).push(v);
+  console.log(`\nvocabulary terms (${vocab.size}) some slug in range carries: ${hit.length}`);
+  console.log(`  missing: ${miss.join(' ')}`);
+  console.log(
+    '\nper entry, cited paragraph in range: does its slug carry what the predicate reads?',
+  );
+  const rows = [];
   for (const e of appl.entries) {
-    const head = e.cite.split(',')[0].trim()
-    if (!slugs.has(head)) continue
-    const reads = new Set(); const collect = (o) => { for (const k in o) { if (k === 'any_of') o[k].forEach(collect); else { reads.add(k); const v = o[k]; for (const x of Array.isArray(v) ? v : typeof v === 'object' && v !== null ? [].concat(v.not ?? [], v.any_of ?? []) : [v]) if (typeof x === 'string') reads.add(x) } } }
-    collect(e.when ?? {})
-    const s = new Set(slugs.get(head))
-    const got = [], not = []
-    for (const r of reads) { const ts = termsOf(r); if (ts.length === 0) continue; (ts.some((t) => s.has(t)) ? got : not).push(r) }
-    rows.push(`${e.id.padEnd(16)} ${head.padEnd(10)} carried: ${got.join(' ') || '-'}  | absent: ${not.join(' ') || '-'}`)
+    const head = e.cite.split(',')[0].trim();
+    if (!slugs.has(head)) continue;
+    const reads = new Set();
+    const collect = (o) => {
+      for (const k in o) {
+        if (k === 'any_of') o[k].forEach(collect);
+        else {
+          reads.add(k);
+          const v = o[k];
+          for (const x of Array.isArray(v)
+            ? v
+            : typeof v === 'object' && v !== null
+              ? [].concat(v.not ?? [], v.any_of ?? [])
+              : [v])
+            if (typeof x === 'string') reads.add(x);
+        }
+      }
+    };
+    collect(e.when ?? {});
+    const s = new Set(slugs.get(head));
+    const got = [],
+      not = [];
+    for (const r of reads) {
+      const ts = termsOf(r);
+      if (ts.length === 0) continue;
+      (ts.some((t) => s.has(t)) ? got : not).push(r);
+    }
+    rows.push(
+      `${e.id.padEnd(16)} ${head.padEnd(10)} carried: ${got.join(' ') || '-'}  | absent: ${not.join(' ') || '-'}`,
+    );
   }
-  console.log(rows.join('\n'))
+  console.log(rows.join('\n'));
 } else {
-  for (const [p, s] of slugs) console.log(`${p.padEnd(11)} ${s.join(', ')}`)
+  for (const [p, s] of slugs) console.log(`${p.padEnd(11)} ${s.join(', ')}`);
 }
