@@ -1,123 +1,123 @@
 {
- "$schema": "https://json-schema.org/draft/2020-12/schema",
- "$id": "https://github.com/mark-brannan/colregs/schema/encounter-evaluation.schema.json",
- "title": "EncounterEvaluation",
- "description": "The result of evaluateEncounter: two vessels at one instant -- scope, encounter class, risk of collision with its grounds, roles as a set per subject, overrides and modalities (ADR 0011 §4, ADR 0014). Structure only.",
- "type": "object",
- "additionalProperties": false,
- "required": [
-  "colregs",
-  "applied",
-  "scope",
-  "risk_of_collision",
-  "roles",
-  "overridden",
-  "modalities",
-  "categories",
-  "provenance"
- ],
- "properties": {
-  "colregs": {
-   "$ref": "evaluation.schema.json#/$defs/colregs"
-  },
-  "applied": {
-   "$ref": "evaluation.schema.json#/$defs/ruleIds"
-  },
-  "scope": {
-   "$ref": "evaluation.schema.json#/$defs/ruleIds"
-  },
-  "encounter": {
-   "$comment": "Absent when no classification entry fired: cannot say, not none (Q-43).",
-   "type": "string",
-   "enum": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"]
-  },
-  "risk_of_collision": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["asserted", "by"],
-   "properties": {
-    "asserted": {
-     "type": "boolean"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/encounter-evaluation.schema.json",
+  "title": "EncounterEvaluation",
+  "description": "The result of evaluateEncounter: two vessels at one instant -- scope, encounter class, risk of collision with its grounds, roles as a set per subject, overrides and modalities (ADR 0011 §4, ADR 0014). Structure only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "colregs",
+    "applied",
+    "scope",
+    "risk_of_collision",
+    "roles",
+    "overridden",
+    "modalities",
+    "categories",
+    "provenance"
+  ],
+  "properties": {
+    "colregs": {
+      "$ref": "evaluation.schema.json#/$defs/colregs"
     },
-    "by": {
-     "$ref": "evaluation.schema.json#/$defs/ruleIds"
-    }
-   }
-  },
-  "roles": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["self", "other"],
-   "properties": {
-    "self": {
-     "$ref": "#/$defs/subjectRoles"
+    "applied": {
+      "$ref": "evaluation.schema.json#/$defs/ruleIds"
     },
-    "other": {
-     "$ref": "#/$defs/subjectRoles"
+    "scope": {
+      "$ref": "evaluation.schema.json#/$defs/ruleIds"
+    },
+    "encounter": {
+      "$comment": "Absent when no classification entry fired: cannot say, not none (Q-43).",
+      "type": "string",
+      "enum": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"]
+    },
+    "risk_of_collision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asserted", "by"],
+      "properties": {
+        "asserted": {
+          "type": "boolean"
+        },
+        "by": {
+          "$ref": "evaluation.schema.json#/$defs/ruleIds"
+        }
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["self", "other"],
+      "properties": {
+        "self": {
+          "$ref": "#/$defs/subjectRoles"
+        },
+        "other": {
+          "$ref": "#/$defs/subjectRoles"
+        }
+      }
+    },
+    "overridden": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "modalities": {
+      "$ref": "evaluation.schema.json#/$defs/modalities"
+    },
+    "categories": {
+      "$ref": "evaluation.schema.json#/$defs/categories"
+    },
+    "provenance": {
+      "$ref": "evaluation.schema.json#/$defs/provenance"
+    },
+    "signals": {
+      "$comment": "Absent where no Rule 34 entry applies; the manoeuvring and warning signals self owes at this instant.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/encounterSignal"
+      }
     }
-   }
   },
-  "overridden": {
-   "$ref": "evaluation.schema.json#/$defs/byEntryList"
-  },
-  "modalities": {
-   "$ref": "evaluation.schema.json#/$defs/modalities"
-  },
-  "categories": {
-   "$ref": "evaluation.schema.json#/$defs/categories"
-  },
-  "provenance": {
-   "$ref": "evaluation.schema.json#/$defs/provenance"
-  },
-  "signals": {
-   "$comment": "Absent where no Rule 34 entry applies; the manoeuvring and warning signals self owes at this instant.",
-   "type": "array",
-   "items": {
-    "$ref": "#/$defs/encounterSignal"
-   }
+  "$defs": {
+    "subjectRole": {
+      "$comment": "Roles are a set per subject, each citing the entry that assigned it (Q-36).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "by"],
+      "properties": {
+        "role": {
+          "$ref": "applicability.schema.json#/$defs/effectRole"
+        },
+        "by": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        }
+      }
+    },
+    "subjectRoles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/subjectRole"
+      }
+    },
+    "encounterSignal": {
+      "$comment": "A Part D signal a two-subject display entry produces for self (ADR 0022). Rule 34 is the first display entry to read a situation, so the encounter envelope carries signals in the shape DisplayEvaluation gives lights.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec", "source_entry", "modality"],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/signalRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "cite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
+      }
+    }
   }
- },
- "$defs": {
-  "subjectRole": {
-   "$comment": "Roles are a set per subject, each citing the entry that assigned it (Q-36).",
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["role", "by"],
-   "properties": {
-    "role": {
-     "$ref": "applicability.schema.json#/$defs/effectRole"
-    },
-    "by": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    }
-   }
-  },
-  "subjectRoles": {
-   "type": "array",
-   "items": {
-    "$ref": "#/$defs/subjectRole"
-   }
-  },
-  "encounterSignal": {
-   "$comment": "A Part D signal a two-subject display entry produces for self (ADR 0022). Rule 34 is the first display entry to read a situation, so the encounter envelope carries signals in the shape DisplayEvaluation gives lights.",
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["spec", "source_entry", "modality"],
-   "properties": {
-    "spec": {
-     "$ref": "applicability.schema.json#/$defs/signalRef"
-    },
-    "source_entry": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "cite": {
-     "type": "string",
-     "minLength": 1
-    },
-    "modality": {
-     "$ref": "applicability.schema.json#/$defs/modality"
-    }
-   }
-  }
- }
 }

@@ -9,6 +9,7 @@
  "arrowParens": "always",
  "endOfLine": "lf",
  "overrides": [
-  { "files": ["data/**/*.json", "fixtures/**/*.json"], "options": { "parser": "json-stringify", "tabWidth": 1 } }
+  { "files": ["data/**/*.json", "fixtures/**/*.json"], "options": { "parser": "json-stringify", "tabWidth": 1 } },
+  { "files": ["schema/**/*.json"], "options": { "tabWidth": 2 } }
  ]
 }

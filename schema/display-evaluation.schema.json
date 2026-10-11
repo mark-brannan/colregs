@@ -1,195 +1,195 @@
 {
- "$schema": "https://json-schema.org/draft/2020-12/schema",
- "$id": "https://github.com/mark-brannan/colregs/schema/display-evaluation.schema.json",
- "title": "DisplayEvaluation",
- "description": "The result of evaluateDisplay: every complete lawful display for one vessel, alternatives unresolved (REQ-MODEL-8), with the data it was read against (ADR 0011 §1, ADR 0014). Structure only; the $defs shared with the other envelopes live in schema/evaluation.schema.json.",
- "type": "object",
- "additionalProperties": false,
- "required": [
-  "colregs",
-  "applied",
-  "exempted",
-  "overridden",
-  "displays",
-  "optional_additions",
-  "modalities",
-  "categories",
-  "provenance"
- ],
- "properties": {
-  "colregs": {
-   "$ref": "evaluation.schema.json#/$defs/colregs"
-  },
-  "applied": {
-   "$ref": "evaluation.schema.json#/$defs/ruleIds"
-  },
-  "exempted": {
-   "$ref": "evaluation.schema.json#/$defs/byEntryList"
-  },
-  "overridden": {
-   "$ref": "evaluation.schema.json#/$defs/byEntryList"
-  },
-  "displays": {
-   "description": "Every complete lawful display. The order is significant: a display whose chosen entry carries the narrower gate comes before the display it stands in lieu of, the base display last (30(b) before 30(a); 23(d)(i) before 23(a)). Derived at evaluation time from `modality`, `when` and `rel:in_lieu_of`; the corpus still picks no option (REQ-MODEL-8).",
-   "type": "array",
-   "items": {
-    "$ref": "#/$defs/display"
-   }
-  },
-  "optional_additions": {
-   "type": "array",
-   "items": {
-    "type": "object",
-    "additionalProperties": false,
-    "required": ["id", "lights", "cite"],
-    "properties": {
-     "id": {
-      "$ref": "evaluation.schema.json#/$defs/ruleId"
-     },
-     "via": {
-      "$ref": "evaluation.schema.json#/$defs/ruleId"
-     },
-     "lights": {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/display-evaluation.schema.json",
+  "title": "DisplayEvaluation",
+  "description": "The result of evaluateDisplay: every complete lawful display for one vessel, alternatives unresolved (REQ-MODEL-8), with the data it was read against (ADR 0011 §1, ADR 0014). Structure only; the $defs shared with the other envelopes live in schema/evaluation.schema.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "colregs",
+    "applied",
+    "exempted",
+    "overridden",
+    "displays",
+    "optional_additions",
+    "modalities",
+    "categories",
+    "provenance"
+  ],
+  "properties": {
+    "colregs": {
+      "$ref": "evaluation.schema.json#/$defs/colregs"
+    },
+    "applied": {
+      "$ref": "evaluation.schema.json#/$defs/ruleIds"
+    },
+    "exempted": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "overridden": {
+      "$ref": "evaluation.schema.json#/$defs/byEntryList"
+    },
+    "displays": {
+      "description": "Every complete lawful display. The order is significant: a display whose chosen entry carries the narrower gate comes before the display it stands in lieu of, the base display last (30(b) before 30(a); 23(d)(i) before 23(a)). Derived at evaluation time from `modality`, `when` and `rel:in_lieu_of`; the corpus still picks no option (REQ-MODEL-8).",
       "type": "array",
       "items": {
-       "$ref": "#/$defs/displayLight"
+        "$ref": "#/$defs/display"
       }
-     },
-     "cite": {
-      "type": "string",
-      "minLength": 1
-     },
-     "shapes": {
+    },
+    "optional_additions": {
       "type": "array",
       "items": {
-       "$ref": "#/$defs/displayShape"
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "lights", "cite"],
+        "properties": {
+          "id": {
+            "$ref": "evaluation.schema.json#/$defs/ruleId"
+          },
+          "via": {
+            "$ref": "evaluation.schema.json#/$defs/ruleId"
+          },
+          "lights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayLight"
+            }
+          },
+          "cite": {
+            "type": "string",
+            "minLength": 1
+          },
+          "shapes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayShape"
+            }
+          },
+          "signals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displaySignal"
+            }
+          }
+        }
       }
-     },
-     "signals": {
+    },
+    "optionalAdditions": {
+      "deprecated": true,
+      "$comment": "Renamed to optional_additions (ADR 0011 §4); an implementation may still emit both.",
       "type": "array",
       "items": {
-       "$ref": "#/$defs/displaySignal"
+        "$ref": "#/properties/optional_additions/items"
       }
-     }
+    },
+    "modalities": {
+      "$ref": "evaluation.schema.json#/$defs/modalities"
+    },
+    "categories": {
+      "$ref": "evaluation.schema.json#/$defs/categories"
+    },
+    "provenance": {
+      "$ref": "evaluation.schema.json#/$defs/provenance"
     }
-   }
   },
-  "optionalAdditions": {
-   "deprecated": true,
-   "$comment": "Renamed to optional_additions (ADR 0011 §4); an implementation may still emit both.",
-   "type": "array",
-   "items": {
-    "$ref": "#/properties/optional_additions/items"
-   }
-  },
-  "modalities": {
-   "$ref": "evaluation.schema.json#/$defs/modalities"
-  },
-  "categories": {
-   "$ref": "evaluation.schema.json#/$defs/categories"
-  },
-  "provenance": {
-   "$ref": "evaluation.schema.json#/$defs/provenance"
+  "$defs": {
+    "displayLight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec", "source_entry", "modality"],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/lightRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "sourceEntry": {
+          "deprecated": true,
+          "$comment": "Renamed to source_entry (ADR 0011 §4).",
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "via": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
+      }
+    },
+    "display": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entries", "lights", "chosen"],
+      "properties": {
+        "entries": {
+          "$ref": "evaluation.schema.json#/$defs/ruleIds"
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/displayLight"
+          }
+        },
+        "chosen": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "shapes": {
+          "$comment": "The day shapes of the display (REQ-PART-2). Absent when the record states no fact:time: time:day, or from an implementation that predates shapes.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/displayShape"
+          }
+        },
+        "signals": {
+          "$comment": "The sound and flash signals of the display (ADR 0022). Absent from a record that selects no Part D entry, and from an implementation that predates them.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/displaySignal"
+          }
+        }
+      }
+    },
+    "displayShape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec", "source_entry", "modality"],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/shapeRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "via": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
+      }
+    },
+    "displaySignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec", "source_entry", "modality"],
+      "properties": {
+        "spec": {
+          "$ref": "applicability.schema.json#/$defs/signalRef"
+        },
+        "source_entry": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "via": {
+          "$ref": "evaluation.schema.json#/$defs/ruleId"
+        },
+        "modality": {
+          "$ref": "applicability.schema.json#/$defs/modality"
+        }
+      }
+    }
   }
- },
- "$defs": {
-  "displayLight": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["spec", "source_entry", "modality"],
-   "properties": {
-    "spec": {
-     "$ref": "applicability.schema.json#/$defs/lightRef"
-    },
-    "source_entry": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "sourceEntry": {
-     "deprecated": true,
-     "$comment": "Renamed to source_entry (ADR 0011 §4).",
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "via": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "modality": {
-     "$ref": "applicability.schema.json#/$defs/modality"
-    }
-   }
-  },
-  "display": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["entries", "lights", "chosen"],
-   "properties": {
-    "entries": {
-     "$ref": "evaluation.schema.json#/$defs/ruleIds"
-    },
-    "lights": {
-     "type": "array",
-     "items": {
-      "$ref": "#/$defs/displayLight"
-     }
-    },
-    "chosen": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "shapes": {
-     "$comment": "The day shapes of the display (REQ-PART-2). Absent when the record states no fact:time: time:day, or from an implementation that predates shapes.",
-     "type": "array",
-     "items": {
-      "$ref": "#/$defs/displayShape"
-     }
-    },
-    "signals": {
-     "$comment": "The sound and flash signals of the display (ADR 0022). Absent from a record that selects no Part D entry, and from an implementation that predates them.",
-     "type": "array",
-     "items": {
-      "$ref": "#/$defs/displaySignal"
-     }
-    }
-   }
-  },
-  "displayShape": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["spec", "source_entry", "modality"],
-   "properties": {
-    "spec": {
-     "$ref": "applicability.schema.json#/$defs/shapeRef"
-    },
-    "source_entry": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "via": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "modality": {
-     "$ref": "applicability.schema.json#/$defs/modality"
-    }
-   }
-  },
-  "displaySignal": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["spec", "source_entry", "modality"],
-   "properties": {
-    "spec": {
-     "$ref": "applicability.schema.json#/$defs/signalRef"
-    },
-    "source_entry": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "via": {
-     "$ref": "evaluation.schema.json#/$defs/ruleId"
-    },
-    "modality": {
-     "$ref": "applicability.schema.json#/$defs/modality"
-    }
-   }
-  }
- }
 }

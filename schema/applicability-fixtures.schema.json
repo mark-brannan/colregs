@@ -1,56 +1,56 @@
 {
- "$schema": "https://json-schema.org/draft/2020-12/schema",
- "$id": "https://github.com/mark-brannan/colregs/schema/applicability-fixtures.schema.json",
- "title": "fixtures/applicability-fixtures.json",
- "description": "The cross-implementation contract: fact record -> expected entry ids. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
- "$comment": "The top-level `jurisdiction` is the corpus default; a case may name its own, and is then evaluated against `intl` plus that jurisdiction's deltas (REQ-SCOPE-3).",
- "type": "object",
- "additionalProperties": false,
- "required": ["jurisdiction", "cases"],
- "$defs": {
-  "ruleId": { "$ref": "applicability.schema.json#/$defs/ruleId" },
-  "modality": { "$ref": "applicability.schema.json#/$defs/modality" },
-  "expectItem": {
-   "$comment": "Q-5, decided in pencil 2026-09-04: a bare entry id asserts nothing about modality; `{entry, modality}` names the modality that entry is expected to carry once `modality_by` and `modality_shifts` have been applied. The two forms are interchangeable, so no published case needed migrating.",
-   "oneOf": [
-    { "$ref": "#/$defs/ruleId" },
-    {
-     "type": "object",
-     "additionalProperties": false,
-     "required": ["entry", "modality"],
-     "properties": {
-      "entry": { "$ref": "#/$defs/ruleId" },
-      "modality": { "$ref": "#/$defs/modality" }
-     }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/applicability-fixtures.schema.json",
+  "title": "fixtures/applicability-fixtures.json",
+  "description": "The cross-implementation contract: fact record -> expected entry ids. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
+  "$comment": "The top-level `jurisdiction` is the corpus default; a case may name its own, and is then evaluated against `intl` plus that jurisdiction's deltas (REQ-SCOPE-3).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jurisdiction", "cases"],
+  "$defs": {
+    "ruleId": { "$ref": "applicability.schema.json#/$defs/ruleId" },
+    "modality": { "$ref": "applicability.schema.json#/$defs/modality" },
+    "expectItem": {
+      "$comment": "Q-5, decided in pencil 2026-09-04: a bare entry id asserts nothing about modality; `{entry, modality}` names the modality that entry is expected to carry once `modality_by` and `modality_shifts` have been applied. The two forms are interchangeable, so no published case needed migrating.",
+      "oneOf": [
+        { "$ref": "#/$defs/ruleId" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["entry", "modality"],
+          "properties": {
+            "entry": { "$ref": "#/$defs/ruleId" },
+            "modality": { "$ref": "#/$defs/modality" }
+          }
+        }
+      ]
     }
-   ]
-  }
- },
- "properties": {
-  "note": { "type": "string" },
-  "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
-  "cases": {
-   "type": "array",
-   "minItems": 1,
-   "items": {
-    "type": "object",
-    "additionalProperties": false,
-    "required": ["name", "facts", "expect"],
-    "properties": {
-     "name": { "type": "string", "minLength": 1 },
-     "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
-     "facts": {
-      "$comment": "A FactRecord (schema/fact-record.schema.json, ADR 0014); a case asserts at least one fact.",
-      "type": "object",
-      "minProperties": 1,
-      "$ref": "fact-record.schema.json"
-     },
-     "expect": {
+  },
+  "properties": {
+    "note": { "type": "string" },
+    "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+    "cases": {
       "type": "array",
-      "items": { "$ref": "#/$defs/expectItem" }
-     }
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "facts", "expect"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
+          "facts": {
+            "$comment": "A FactRecord (schema/fact-record.schema.json, ADR 0014); a case asserts at least one fact.",
+            "type": "object",
+            "minProperties": 1,
+            "$ref": "fact-record.schema.json"
+          },
+          "expect": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/expectItem" }
+          }
+        }
+      }
     }
-   }
   }
- }
 }

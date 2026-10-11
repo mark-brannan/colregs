@@ -1,194 +1,194 @@
 {
- "$schema": "https://json-schema.org/draft/2020-12/schema",
- "$id": "https://github.com/mark-brannan/colregs/schema/situation-fixtures.schema.json",
- "title": "fixtures/situation-fixtures.json",
- "description": "Two-subject situation fixtures (ADR 0005, REQ-CAT-5). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md. A case's situation is schema/situation.schema.json; namespace resolution (every kin:/geo:/hist: key declared in facts.json) stays in the tests.",
- "type": "object",
- "additionalProperties": false,
- "required": ["schema", "jurisdiction", "case_status", "cases"],
- "$defs": {
-  "ruleId": {
-   "$ref": "applicability.schema.json#/$defs/ruleId"
-  },
-  "modality": {
-   "$ref": "applicability.schema.json#/$defs/modality"
-  },
-  "expectItem": {
-   "oneOf": [
-    {
-     "$ref": "#/$defs/ruleId"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/situation-fixtures.schema.json",
+  "title": "fixtures/situation-fixtures.json",
+  "description": "Two-subject situation fixtures (ADR 0005, REQ-CAT-5). Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md. A case's situation is schema/situation.schema.json; namespace resolution (every kin:/geo:/hist: key declared in facts.json) stays in the tests.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "jurisdiction", "case_status", "cases"],
+  "$defs": {
+    "ruleId": {
+      "$ref": "applicability.schema.json#/$defs/ruleId"
     },
-    {
-     "type": "object",
-     "additionalProperties": false,
-     "required": ["entry", "modality"],
-     "properties": {
-      "entry": {
-       "$ref": "#/$defs/ruleId"
-      },
-      "modality": {
-       "$ref": "#/$defs/modality"
-      }
-     }
-    }
-   ]
-  },
-  "subjectRole": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["role", "by"],
-   "properties": {
-    "role": {
-     "$ref": "applicability.schema.json#/$defs/effectRole"
+    "modality": {
+      "$ref": "applicability.schema.json#/$defs/modality"
     },
-    "by": {
-     "$ref": "#/$defs/ruleId"
-    }
-   }
-  }
- },
- "properties": {
-  "note": {
-   "type": "string"
-  },
-  "schema": {
-   "type": "string",
-   "const": "situation/1"
-  },
-  "status": {
-   "type": "string",
-   "enum": ["ink", "pencil", "open"]
-  },
-  "adr": {
-   "type": "string",
-   "pattern": "^[0-9]{4}$"
-  },
-  "requirements": {
-   "type": "array",
-   "items": {
-    "type": "string",
-    "pattern": "^REQ-[A-Z]+-[0-9]+$"
-   }
-  },
-  "jurisdiction": {
-   "type": "string",
-   "pattern": "^[a-z]+(/[a-z]+)*$"
-  },
-  "override_note": {
-   "type": "string"
-  },
-  "expect_scope": {
-   "type": "string"
-  },
-  "expect_form": {
-   "type": "object",
-   "additionalProperties": false,
-   "properties": {
-    "note": {
-     "type": "string"
+    "expectItem": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ruleId"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["entry", "modality"],
+          "properties": {
+            "entry": {
+              "$ref": "#/$defs/ruleId"
+            },
+            "modality": {
+              "$ref": "#/$defs/modality"
+            }
+          }
+        }
+      ]
     },
-    "bare": {
-     "$ref": "#/$defs/ruleId"
-    },
-    "with_modality": {
-     "type": "object",
-     "additionalProperties": false,
-     "required": ["entry", "modality"],
-     "properties": {
-      "entry": {
-       "$ref": "#/$defs/ruleId"
-      },
-      "modality": {
-       "$ref": "#/$defs/modality"
-      }
-     }
-    }
-   }
-  },
-  "case_status": {
-   "type": "object",
-   "additionalProperties": false,
-   "required": ["values"],
-   "properties": {
-    "note": {
-     "type": "string"
-    },
-    "values": {
-     "type": "array",
-     "minItems": 1,
-     "items": {
-      "type": "string",
-      "enum": ["illustrative", "binding"]
-     }
-    }
-   }
-  },
-  "cases": {
-   "type": "array",
-   "minItems": 1,
-   "items": {
-    "type": "object",
-    "additionalProperties": false,
-    "required": ["name", "status", "expect", "situation"],
-    "properties": {
-     "name": {
-      "type": "string",
-      "minLength": 1
-     },
-     "status": {
-      "type": "string",
-      "enum": ["illustrative", "binding"]
-     },
-     "narrative": {
-      "type": "string"
-     },
-     "gap": {
-      "type": "string"
-     },
-     "expect_when_modelled": {
-      "type": "array",
-      "items": {
-       "type": "string"
-      }
-     },
-     "expect": {
-      "type": "array",
-      "items": {
-       "$ref": "#/$defs/expectItem"
-      }
-     },
-     "situation": {
-      "$comment": "A Situation (schema/situation.schema.json, ADR 0014).",
-      "$ref": "situation.schema.json"
-     },
-     "roles": {
-      "$comment": "The pooled, resolved roles of both subjects (ADR 0016). `expect` stays the self-frame entry ids.",
+    "subjectRole": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["self", "other"],
+      "required": ["role", "by"],
       "properties": {
-       "self": {
-        "type": "array",
-        "items": {
-         "$ref": "#/$defs/subjectRole"
+        "role": {
+          "$ref": "applicability.schema.json#/$defs/effectRole"
+        },
+        "by": {
+          "$ref": "#/$defs/ruleId"
         }
-       },
-       "other": {
-        "type": "array",
-        "items": {
-         "$ref": "#/$defs/subjectRole"
-        }
-       }
       }
-     }
     }
-   }
   },
-  "collapse_note": {
-   "type": "string"
-  },
-  "geometry_note": {
-   "type": "string"
+  "properties": {
+    "note": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string",
+      "const": "situation/1"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ink", "pencil", "open"]
+    },
+    "adr": {
+      "type": "string",
+      "pattern": "^[0-9]{4}$"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^REQ-[A-Z]+-[0-9]+$"
+      }
+    },
+    "jurisdiction": {
+      "type": "string",
+      "pattern": "^[a-z]+(/[a-z]+)*$"
+    },
+    "override_note": {
+      "type": "string"
+    },
+    "expect_scope": {
+      "type": "string"
+    },
+    "expect_form": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "bare": {
+          "$ref": "#/$defs/ruleId"
+        },
+        "with_modality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["entry", "modality"],
+          "properties": {
+            "entry": {
+              "$ref": "#/$defs/ruleId"
+            },
+            "modality": {
+              "$ref": "#/$defs/modality"
+            }
+          }
+        }
+      }
+    },
+    "case_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["values"],
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": ["illustrative", "binding"]
+          }
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "status", "expect", "situation"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["illustrative", "binding"]
+          },
+          "narrative": {
+            "type": "string"
+          },
+          "gap": {
+            "type": "string"
+          },
+          "expect_when_modelled": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expect": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/expectItem"
+            }
+          },
+          "situation": {
+            "$comment": "A Situation (schema/situation.schema.json, ADR 0014).",
+            "$ref": "situation.schema.json"
+          },
+          "roles": {
+            "$comment": "The pooled, resolved roles of both subjects (ADR 0016). `expect` stays the self-frame entry ids.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["self", "other"],
+            "properties": {
+              "self": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/subjectRole"
+                }
+              },
+              "other": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/subjectRole"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "collapse_note": {
+      "type": "string"
+    },
+    "geometry_note": {
+      "type": "string"
+    }
   }
- }
 }
