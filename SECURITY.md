@@ -6,10 +6,10 @@ This package is pre-release and maintained as a single moving line. Only the
 latest version published to npm gets fixes; there are no maintenance
 branches.
 
-| Version | Supported |
-| ------- | --------- |
-| latest `0.x` on [npm](https://www.npmjs.com/package/colregs) | yes |
-| anything older | no — upgrade first |
+| Version                                                      | Supported          |
+| ------------------------------------------------------------ | ------------------ |
+| latest `0.x` on [npm](https://www.npmjs.com/package/colregs) | yes                |
+| anything older                                               | no — upgrade first |
 
 ## Reporting a vulnerability
 

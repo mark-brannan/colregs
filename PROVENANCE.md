@@ -5,8 +5,8 @@ publications. Nothing here is authoritative: consult the published rules.
 
 ## Rule text — `data/text/intl/2016/en-US.uscg.json`
 
-- **Source:** USCG Navigation Center, *Navigation Rules, International —
-  Inland* (amalgamated), <https://www.navcen.uscg.gov/navigation-rules-amalgamated>
+- **Source:** USCG Navigation Center, _Navigation Rules, International —
+  Inland_ (amalgamated), <https://www.navcen.uscg.gov/navigation-rules-amalgamated>
 - **Retrieved:** 2026-09-17 (re-fetched to add Part D; 2026-09-04 for Rules
   1-19; originally 2026-08-29 for Part C)
 - **Scope:** the **International** text only, covering Parts A and B
@@ -102,7 +102,7 @@ the current USCG names throughout.
 
 ## Arc diagrams — `images/*arc.gif`
 
-- **Source:** USCG Navigation Center, *Navigation Rules Arcs of Visibility*,
+- **Source:** USCG Navigation Center, _Navigation Rules Arcs of Visibility_,
   <https://www.navcen.uscg.gov/navigation-rules-arcs-of-visibility>, which
   serves the five files at
   `https://www.navcen.uscg.gov/sites/default/files/images/nr_pics/Arcs/<name>`
