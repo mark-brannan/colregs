@@ -551,7 +551,7 @@
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
     "fact:position": "position:underway",
-    "fact:length_m": 12.0
+    "fact:length_m": 12
    },
    "expect": [
     "rule:23a_i",
@@ -582,7 +582,7 @@
     "fact:propulsion": "propulsion:power",
     "fact:activity": "activity:none",
     "fact:position": "position:underway",
-    "fact:length_m": 7.0,
+    "fact:length_m": 7,
     "fact:max_speed_kn": 7
    },
    "expect": [
@@ -599,7 +599,7 @@
     "fact:activity": "activity:none",
     "fact:position": "position:underway",
     "fact:length_m": 6.9,
-    "fact:max_speed_kn": 7.0
+    "fact:max_speed_kn": 7
    },
    "expect": [
     "rule:23a_i",
@@ -645,7 +645,7 @@
     "fact:propulsion": "propulsion:sail",
     "fact:activity": "activity:none",
     "fact:position": "position:underway",
-    "fact:length_m": 20.0
+    "fact:length_m": 20
    },
    "expect": [
     "rule:25a",
@@ -673,7 +673,7 @@
     "fact:propulsion": "propulsion:sail",
     "fact:activity": "activity:none",
     "fact:position": "position:underway",
-    "fact:length_m": 7.0
+    "fact:length_m": 7
    },
    "expect": [
     "rule:25a",
@@ -697,7 +697,7 @@
    "name": "30(b) boundary: anchored, 50.0 m",
    "facts": {
     "fact:position": "position:anchored",
-    "fact:length_m": 50.0
+    "fact:length_m": 50
    },
    "expect": [
     "rule:30a",
@@ -718,7 +718,7 @@
    "name": "30d boundary: aground, 12.0 m",
    "facts": {
     "fact:position": "position:aground",
-    "fact:length_m": 12.0
+    "fact:length_m": 12
    },
    "expect": [
     "rule:30d",
@@ -744,7 +744,7 @@
    "facts": {
     "fact:position": "position:anchored",
     "fact:near_channel": false,
-    "fact:length_m": 7.0
+    "fact:length_m": 7
    },
    "expect": [
     "rule:30a",
@@ -759,7 +759,7 @@
     "fact:activity": "activity:towing",
     "fact:position": "position:underway",
     "fact:length_m": 20,
-    "fact:tow_length_m": 200.0
+    "fact:tow_length_m": 200
    },
    "expect": [
     "rule:24a_i",
@@ -785,7 +785,7 @@
    "facts": {
     "fact:activity": "activity:fishing",
     "fact:position": "position:underway",
-    "fact:gear_extent_m": 150.0
+    "fact:gear_extent_m": 150
    },
    "expect": [
     "rule:26c_i"
@@ -909,7 +909,7 @@
     "fact:activity": "activity:none",
     "fact:position": "position:moored",
     "fact:on_mooring_buoy": true,
-    "fact:length_m": 50.0
+    "fact:length_m": 50
    },
    "expect": [
     "rule:30a:mooring_buoy"
