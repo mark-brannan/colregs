@@ -29,20 +29,12 @@
     "encounter": {
       "$comment": "Absent when no classification entry fired: cannot say, not none (Q-43).",
       "type": "string",
-      "enum": [
-        "encounter:head-on",
-        "encounter:crossing",
-        "encounter:overtaking",
-        "encounter:none"
-      ]
+      "enum": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"]
     },
     "risk_of_collision": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "asserted",
-        "by"
-      ],
+      "required": ["asserted", "by"],
       "properties": {
         "asserted": {
           "type": "boolean"
@@ -55,10 +47,7 @@
     "roles": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "self",
-        "other"
-      ],
+      "required": ["self", "other"],
       "properties": {
         "self": {
           "$ref": "#/$defs/subjectRoles"
@@ -93,10 +82,7 @@
       "$comment": "Roles are a set per subject, each citing the entry that assigned it (Q-36).",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "role",
-        "by"
-      ],
+      "required": ["role", "by"],
       "properties": {
         "role": {
           "$ref": "applicability.schema.json#/$defs/effectRole"
@@ -116,11 +102,7 @@
       "$comment": "A Part D signal a two-subject display entry produces for self (ADR 0022). Rule 34 is the first display entry to read a situation, so the encounter envelope carries signals in the shape DisplayEvaluation gives lights.",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "spec",
-        "source_entry",
-        "modality"
-      ],
+      "required": ["spec", "source_entry", "modality"],
       "properties": {
         "spec": {
           "$ref": "applicability.schema.json#/$defs/signalRef"

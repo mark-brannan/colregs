@@ -14,7 +14,20 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["file", "bytes", "sha256", "pixels", "source_url", "source", "retrieved", "rights", "transcript", "subjects", "description", "shapes"],
+        "required": [
+          "file",
+          "bytes",
+          "sha256",
+          "pixels",
+          "source_url",
+          "source",
+          "retrieved",
+          "rights",
+          "transcript",
+          "subjects",
+          "description",
+          "shapes"
+        ],
         "properties": {
           "file": { "type": "string", "minLength": 1 },
           "bytes": { "type": "integer", "minimum": 0 },
@@ -67,7 +80,9 @@
           "shapes": {
             "description": "The day shapes the figure draws, top to bottom, from the closed vocabulary. Empty when it draws none.",
             "type": "array",
-            "items": { "enum": ["ball", "diamond", "cone-up", "cone-down", "cylinder", "basket", "flag-a"] }
+            "items": {
+              "enum": ["ball", "diamond", "cone-up", "cone-down", "cylinder", "basket", "flag-a"]
+            }
           },
           "provenance_status": { "type": "string" },
           "unmapped_reason": { "type": "string", "minLength": 1 }

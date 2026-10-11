@@ -5,9 +5,7 @@
   "description": "The input vocabulary a fact record is evaluated against. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "axes"
-  ],
+  "required": ["axes"],
   "$defs": {
     "factKey": {
       "type": "string",
@@ -72,21 +70,11 @@
     "situationFact": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "type",
-        "cite",
-        "cite_pending",
-        "actuable"
-      ],
+      "required": ["type", "cite", "cite_pending", "actuable"],
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "number",
-            "boolean",
-            "enum",
-            "position"
-          ]
+          "enum": ["number", "boolean", "enum", "position"]
         },
         "unit": {
           "type": "string"
@@ -99,16 +87,10 @@
           }
         },
         "cite": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "cite_pending": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "note": {
           "type": "string"
@@ -117,10 +99,7 @@
           "type": "boolean"
         },
         "signalk": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         }
       }
     }
@@ -136,9 +115,7 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "values"
-          ],
+          "required": ["values"],
           "properties": {
             "values": {
               "type": "array",
@@ -168,17 +145,11 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "type"
-          ],
+          "required": ["type"],
           "properties": {
             "type": {
               "type": "string",
-              "enum": [
-                "boolean",
-                "number",
-                "string"
-              ]
+              "enum": ["boolean", "number", "string"]
             },
             "refines": {
               "type": "string"
@@ -200,10 +171,7 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "type",
-            "cite"
-          ],
+          "required": ["type", "cite"],
           "properties": {
             "type": {
               "type": "string",
@@ -223,10 +191,7 @@
               "type": "boolean"
             },
             "signalk": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "type": ["string", "null"]
             }
           }
         }
@@ -239,10 +204,7 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "cite",
-            "actuable"
-          ],
+          "required": ["cite", "actuable"],
           "properties": {
             "cite": {
               "type": "string",
@@ -265,10 +227,7 @@
         "^fact:[a-z0-9_]+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "values",
-            "cite"
-          ],
+          "required": ["values", "cite"],
           "properties": {
             "values": {
               "type": "array",
@@ -453,10 +412,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "what",
-              "why"
-            ],
+            "required": ["what", "why"],
             "properties": {
               "what": {
                 "type": "string"
@@ -500,13 +456,7 @@
             "^(?!note$)[a-z][a-z0-9_]*$": {
               "type": "object",
               "additionalProperties": false,
-              "required": [
-                "value",
-                "fact",
-                "status",
-                "cite",
-                "cite_pending"
-              ],
+              "required": ["value", "fact", "status", "cite", "cite_pending"],
               "properties": {
                 "value": {
                   "type": "number"
@@ -519,11 +469,7 @@
                 },
                 "status": {
                   "type": "string",
-                  "enum": [
-                    "ink",
-                    "pencil",
-                    "open"
-                  ]
+                  "enum": ["ink", "pencil", "open"]
                 },
                 "cite": {
                   "type": ["string", "null"]
@@ -543,11 +489,7 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "ink",
-            "pencil",
-            "open"
-          ]
+          "enum": ["ink", "pencil", "open"]
         },
         "adr": {
           "type": "string",
@@ -566,11 +508,7 @@
         "namespace": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "form",
-            "subjects",
-            "classes"
-          ],
+          "required": ["form", "subjects", "classes"],
           "properties": {
             "form": {
               "type": "string"
@@ -581,11 +519,7 @@
             "subjects": {
               "type": "object",
               "additionalProperties": false,
-              "required": [
-                "self",
-                "other",
-                "pair"
-              ],
+              "required": ["self", "other", "pair"],
               "properties": {
                 "self": {
                   "type": "string"
@@ -601,14 +535,7 @@
             "classes": {
               "type": "object",
               "additionalProperties": false,
-              "required": [
-                "fact",
-                "kin",
-                "geo",
-                "hist",
-                "env",
-                "act"
-              ],
+              "required": ["fact", "kin", "geo", "hist", "env", "act"],
               "properties": {
                 "fact": {
                   "type": "string"
@@ -669,10 +596,7 @@
         "geometry": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "directional",
-            "symmetric"
-          ],
+          "required": ["directional", "symmetric"],
           "properties": {
             "note": {
               "type": "string"
@@ -727,9 +651,7 @@
         "record": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "shape"
-          ],
+          "required": ["shape"],
           "properties": {
             "note": {
               "type": "string"
@@ -737,11 +659,7 @@
             "shape": {
               "type": "object",
               "additionalProperties": false,
-              "required": [
-                "self",
-                "other",
-                "pair"
-              ],
+              "required": ["self", "other", "pair"],
               "properties": {
                 "self": {
                   "type": "object",

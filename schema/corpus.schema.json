@@ -34,9 +34,7 @@
                         "const": "withheld"
                       }
                     },
-                    "required": [
-                      "text_status"
-                    ]
+                    "required": ["text_status"]
                   }
                 }
               }
@@ -53,9 +51,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "retrieved"
-            ]
+            "required": ["retrieved"]
           }
         }
       }
@@ -98,21 +94,11 @@
     },
     "tier": {
       "$comment": "Legal authority of the source, never of the language -- REQ-LANG-3.",
-      "enum": [
-        "authentic",
-        "official",
-        "national",
-        "community"
-      ]
+      "enum": ["authentic", "official", "national", "community"]
     },
     "normalization": {
       "$comment": "Unicode normalization form the text is stored in -- REQ-LANG-9.",
-      "enum": [
-        "NFC",
-        "NFD",
-        "NFKC",
-        "NFKD"
-      ]
+      "enum": ["NFC", "NFD", "NFKC", "NFKD"]
     },
     "translation_of": {
       "$comment": "Corpus id this text is a translation of, where it is one and that is known. Absent for independently promulgated national texts.",
@@ -122,12 +108,7 @@
       "$comment": "REQ-PROV-6: structured source identity, not a prose string.",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "publisher",
-        "title",
-        "url",
-        "retrieved"
-      ],
+      "required": ["publisher", "title", "url", "retrieved"],
       "properties": {
         "publisher": {
           "type": "string",
@@ -167,11 +148,7 @@
       "$comment": "REQ-PROV-6: three separate statements, never one flat licence field.",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "source_text",
-        "redistribution_basis",
-        "package_licence"
-      ],
+      "required": ["source_text", "redistribution_basis", "package_licence"],
       "properties": {
         "source_text": {
           "type": "string",
@@ -216,10 +193,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "path",
-          "reason"
-        ],
+        "required": ["path", "reason"],
         "properties": {
           "path": {
             "$ref": "#/$defs/path"
@@ -238,9 +212,7 @@
         "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "rule_title"
-          ],
+          "required": ["rule_title"],
           "allOf": [
             {
               "$comment": "ADR 0010: a withheld paragraph is modelled but ships no text.",
@@ -250,9 +222,7 @@
                     "const": "withheld"
                   }
                 },
-                "required": [
-                  "text_status"
-                ]
+                "required": ["text_status"]
               },
               "then": {
                 "properties": {
@@ -262,9 +232,7 @@
                     "minLength": 1
                   }
                 },
-                "required": [
-                  "withheld_reason"
-                ]
+                "required": ["withheld_reason"]
               },
               "else": {
                 "$comment": "mirrors, text_digest and text_slug are open to verbatim paragraphs too; only withheld_reason is incoherent without a bar.",
@@ -275,9 +243,7 @@
                   },
                   "withheld_reason": false
                 },
-                "required": [
-                  "text"
-                ]
+                "required": ["text"]
               }
             }
           ],
@@ -293,10 +259,7 @@
             },
             "text_status": {
               "$comment": "Absent means verbatim. 'withheld' means the text is not ours to publish -- ADR 0010.",
-              "enum": [
-                "verbatim",
-                "withheld"
-              ]
+              "enum": ["verbatim", "withheld"]
             },
             "withheld_reason": {
               "type": "string",
