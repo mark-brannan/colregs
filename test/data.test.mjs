@@ -1,98 +1,87 @@
-import { test } from 'node:test';
-import assert from 'node:assert/strict';
-import { isDeepStrictEqual } from 'node:util';
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { createHash } from 'node:crypto';
-import Ajv2020 from 'ajv/dist/2020.js';
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
+import { isDeepStrictEqual } from 'node:util'
+import { readFileSync, readdirSync, existsSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import Ajv2020 from 'ajv/dist/2020.js'
 
-const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)));
+const load = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url)))
 // ADR 0010's invariant -- nothing in evaluation reads `text` -- is checked by
 // test/text-withheld.test.mjs, which re-runs this whole file with every text
 // in the en-US corpus stripped, supplied through COLREGS_CORPUS_JSON.
-const rules = load('data/rules.json');
-const corporaIndex = load('data/corpora.json');
-const editions = load('data/editions.json');
+const rules = load('data/rules.json')
+const corporaIndex = load('data/corpora.json')
+const editions = load('data/editions.json')
 const editionOf = (id) =>
-  Object.values(editions.jurisdictions)
-    .flatMap((j) => Object.entries(j.editions))
-    .find(([k]) => k === id)?.[1];
-const jurisdictionOf = (editionId) => editionId.split('@')[0];
+ Object.values(editions.jurisdictions)
+  .flatMap((j) => Object.entries(j.editions))
+  .find(([k]) => k === id)?.[1]
+const jurisdictionOf = (editionId) => editionId.split('@')[0]
 // RFC 7396 (JSON Merge Patch), the pseudocode from section 2, verbatim in
 // spirit: objects merge recursively, `null` deletes, anything else replaces.
 const mergePatch = (target, patch) => {
-  if (patch === null || typeof patch !== 'object' || Array.isArray(patch)) return patch;
-  const out =
-    target !== null && typeof target === 'object' && !Array.isArray(target) ? { ...target } : {};
-  for (const [k, v] of Object.entries(patch)) {
-    if (v === null) delete out[k];
-    else out[k] = mergePatch(out[k], v);
-  }
-  return out;
-};
+ if (patch === null || typeof patch !== 'object' || Array.isArray(patch)) return patch
+ const out = target !== null && typeof target === 'object' && !Array.isArray(target) ? { ...target } : {}
+ for (const [k, v] of Object.entries(patch)) {
+  if (v === null) delete out[k]
+  else out[k] = mergePatch(out[k], v)
+ }
+ return out
+}
 // ADR 0020: the skeleton is a delta too. A jurisdiction's resolved skeleton is
 // the merge patch over intl's paragraphs: its own rows present (a restated
 // path merges field by field, so an unstated `images` is inherited), the
 // paths it suppresses `null`, and a path the delta does not mention is
 // inherited whole. `intl` is the base and has no delta.
 const skeletonPatch = (d) => {
-  const patch = { ...d.paragraphs };
-  for (const s of d.suppressions) patch[s.path] = null;
-  return patch;
-};
+ const patch = { ...d.paragraphs }
+ for (const s of d.suppressions) patch[s.path] = null
+ return patch
+}
 const skeletonOf = (j) =>
-  rules.deltas?.[j]
-    ? mergePatch(rules.paragraphs, skeletonPatch(rules.deltas[j]))
-    : rules.paragraphs;
-const skeletonJurisdictions = () => ['intl', ...Object.keys(rules.deltas ?? {})];
+ rules.deltas?.[j] ? mergePatch(rules.paragraphs, skeletonPatch(rules.deltas[j])) : rules.paragraphs
+const skeletonJurisdictions = () => ['intl', ...Object.keys(rules.deltas ?? {})]
 // A paragraph record wherever it is stated: the base, or any delta's own rows.
 const statedParagraph = (path) =>
-  rules.paragraphs[path] ??
-  Object.values(rules.deltas ?? {})
-    .map((d) => d.paragraphs[path])
-    .find(Boolean);
+ rules.paragraphs[path] ??
+ Object.values(rules.deltas ?? {})
+  .map((d) => d.paragraphs[path])
+  .find(Boolean)
 // Every row that states a path, base and delta alike -- a reverse-cite check
 // (does this figure name a row that names it back?) must accept any of them,
 // since a restated delta row can carry a figure the intl row it shares a path
 // with does not.
 const statedParagraphs = (path) =>
-  [
-    rules.paragraphs[path],
-    ...Object.values(rules.deltas ?? {}).map((d) => d.paragraphs[path]),
-  ].filter(Boolean);
-const corpora = Object.fromEntries(
-  Object.entries(corporaIndex.corpora).map(([id, e]) => [id, load(`data/${e.file}`)]),
-);
+ [rules.paragraphs[path], ...Object.values(rules.deltas ?? {}).map((d) => d.paragraphs[path])].filter(Boolean)
+const corpora = Object.fromEntries(Object.entries(corporaIndex.corpora).map(([id, e]) => [id, load(`data/${e.file}`)]))
 // The reference corpus: today's text, relabelled for what it is (ADR 0003 step 1).
-const EN_US = 'intl@2016.en-US.uscg';
-if (process.env.COLREGS_CORPUS_JSON)
-  corpora[EN_US] = JSON.parse(readFileSync(process.env.COLREGS_CORPUS_JSON));
-const enUS = corpora[EN_US];
+const EN_US = 'intl@2016.en-US.uscg'
+if (process.env.COLREGS_CORPUS_JSON) corpora[EN_US] = JSON.parse(readFileSync(process.env.COLREGS_CORPUS_JSON))
+const enUS = corpora[EN_US]
 // The words, where the words are on file. A withheld or absent paragraph has
 // none, and an assertion that quotes them then has nothing to quote: the
 // override it explains stands on the cite alone.
-const verbatim = (path) => enUS.paragraphs[path]?.text !== undefined;
-const lights = load('data/lights.json');
-const shapes = load('data/shapes.json');
-const sounds = load('data/sounds.json');
-const facts = load('data/facts.json');
-const appl = load('data/applicability.json');
-const images = load('data/images.json');
-const geometry = load('data/geometry.json');
-const versionStamp = load('data/version.json');
-const fixtures = load('fixtures/applicability-fixtures.json');
-const situationFixturesFile = load('fixtures/situation-fixtures.json');
-const operations = load('data/operations.json');
+const verbatim = (path) => enUS.paragraphs[path]?.text !== undefined
+const lights = load('data/lights.json')
+const shapes = load('data/shapes.json')
+const sounds = load('data/sounds.json')
+const facts = load('data/facts.json')
+const appl = load('data/applicability.json')
+const images = load('data/images.json')
+const geometry = load('data/geometry.json')
+const versionStamp = load('data/version.json')
+const fixtures = load('fixtures/applicability-fixtures.json')
+const situationFixturesFile = load('fixtures/situation-fixtures.json')
+const operations = load('data/operations.json')
 // Display catalogs (ADR 0003) -- one file per language under data/i18n/.
-const catalogFiles = readdirSync(new URL('../data/i18n', import.meta.url)).filter((f) =>
-  f.endsWith('.json'),
-);
-const catalogs = catalogFiles.map((f) => [`data/i18n/${f}`, load(`data/i18n/${f}`)]);
+const catalogFiles = readdirSync(new URL('../data/i18n', import.meta.url)).filter((f) => f.endsWith('.json'))
+const catalogs = catalogFiles.map((f) => [`data/i18n/${f}`, load(`data/i18n/${f}`)])
 
-const byId = new Map(appl.entries.map((e) => [e.id, e]));
+const byId = new Map(appl.entries.map((e) => [e.id, e]))
 // An `expect` element is a bare entry id or {entry, modality} (Q-5, REQ-CAT-7):
 // the id is what a replay compares, the modality what a case also asserts.
-const entryId = (x) => (typeof x === 'string' ? x : x.entry);
-const expectIds = (c) => c.expect.map(entryId);
+const entryId = (x) => (typeof x === 'string' ? x : x.entry)
+const expectIds = (c) => c.expect.map(entryId)
 
 // --- reference evaluator -------------------------------------------------
 // An entry applies when every constraint in its `when` is satisfied by the
@@ -101,62 +90,61 @@ const expectIds = (c) => c.expect.map(entryId);
 // stripped, so the two-subject evaluator below shares these semantics exactly
 // rather than reimplementing them.
 function satisfies(k, want, have) {
-  // Absent is absent, and it is absent for `not` too: an absent fact never
-  // satisfies a constraint, negated or not, so a norm is never attached to a
-  // vessel on the strength of a fact the consumer did not supply.
-  if (have === undefined) return false;
-  // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
-  // written for ram read it too. The refinement belongs to the *value*, not to
-  // one constraint form, so it is expanded once here and every form that
-  // compares a value -- equality, list membership, and each `any_of` disjunct
-  // through the recursion below -- sees the same reading. It used to be a
-  // special case ahead of the array branch, which meant a list constraint
-  // silently missed the refinement while a scalar caught it; the decode table
-  // in facts.json carried an `any_of` written to work around exactly that.
-  if (Array.isArray(want))
-    return want.includes(have) || readsAs(k, have).some((v) => want.includes(v));
-  if (want !== null && typeof want === 'object') {
-    // `not` negates the constraint, never the presence of the fact.
-    if ('not' in want) return !satisfies(k, want.not, have);
-    if ('any_of' in want) return want.any_of.some((w) => satisfies(k, w, have));
-    if ('gte' in want && !(have >= want.gte)) return false;
-    if ('gt' in want && !(have > want.gt)) return false;
-    if ('lte' in want && !(have <= want.lte)) return false;
-    if ('lt' in want && !(have < want.lt)) return false;
-    return true;
-  }
-  return have === want || readsAs(k, have).includes(want);
+ // Absent is absent, and it is absent for `not` too: an absent fact never
+ // satisfies a constraint, negated or not, so a norm is never attached to a
+ // vessel on the strength of a fact the consumer did not supply.
+ if (have === undefined) return false
+ // 'activity:ram_underwater' is a refinement of 'activity:ram': predicates
+ // written for ram read it too. The refinement belongs to the *value*, not to
+ // one constraint form, so it is expanded once here and every form that
+ // compares a value -- equality, list membership, and each `any_of` disjunct
+ // through the recursion below -- sees the same reading. It used to be a
+ // special case ahead of the array branch, which meant a list constraint
+ // silently missed the refinement while a scalar caught it; the decode table
+ // in facts.json carried an `any_of` written to work around exactly that.
+ if (Array.isArray(want)) return want.includes(have) || readsAs(k, have).some((v) => want.includes(v))
+ if (want !== null && typeof want === 'object') {
+  // `not` negates the constraint, never the presence of the fact.
+  if ('not' in want) return !satisfies(k, want.not, have)
+  if ('any_of' in want) return want.any_of.some((w) => satisfies(k, w, have))
+  if ('gte' in want && !(have >= want.gte)) return false
+  if ('gt' in want && !(have > want.gt)) return false
+  if ('lte' in want && !(have <= want.lte)) return false
+  if ('lt' in want && !(have < want.lt)) return false
+  return true
+ }
+ return have === want || readsAs(k, have).includes(want)
 }
 // The refinement table: a fact value that a predicate written for a coarser
 // value also matches. Data rather than a branch, so that adding the next one
 // is a line here and not a new special case in `satisfies`.
-const REFINEMENTS = { 'fact:activity': { 'activity:ram_underwater': ['activity:ram'] } };
-const NO_REFINEMENT = [];
+const REFINEMENTS = { 'fact:activity': { 'activity:ram_underwater': ['activity:ram'] } }
+const NO_REFINEMENT = []
 const readsAs = (k, have) => {
-  const table = REFINEMENTS[k];
-  if (table === undefined) return NO_REFINEMENT;
-  return table[have] ?? NO_REFINEMENT;
-};
+ const table = REFINEMENTS[k]
+ if (table === undefined) return NO_REFINEMENT
+ return table[have] ?? NO_REFINEMENT
+}
 // One walker for both evaluators, so `any_of` is written once rather than
 // twice. `local` strips a key's subject segment for the refinement rule above;
 // `read` maps a key to the value it denotes. `any_of` is the only key of a
 // `when` that is not a fact -- every fact key carries a class prefix
 // (`fact:`, `geo:`, ...), so the name is reserved without ambiguity.
 function holds(when, local, read) {
-  for (const k in when) {
-    const want = when[k];
-    if (k === 'any_of') {
-      if (!want.some((sub) => holds(sub, local, read))) return false;
-    } else if (!satisfies(local(k), want, read(k))) return false;
-  }
-  return true;
+ for (const k in when) {
+  const want = when[k]
+  if (k === 'any_of') {
+   if (!want.some((sub) => holds(sub, local, read))) return false
+  } else if (!satisfies(local(k), want, read(k))) return false
+ }
+ return true
 }
 function matches(when, f) {
-  return holds(
-    when,
-    (k) => k,
-    (k) => f[k],
-  );
+ return holds(
+  when,
+  (k) => k,
+  (k) => f[k],
+ )
 }
 // --- derived facts (facts.json `derived`) ----------------------------------
 // A derived fact is one this package computes from the fact record instead of
@@ -164,23 +152,23 @@ function matches(when, f) {
 // `signalk_navigation_state` already uses -- so this reads the table rather
 // than restating it: an ordered list of rows, the first whose `when` matches
 // wins, and no row matching leaves the fact absent.
-const derivedFacts = Object.entries(facts.derived).filter(([k]) => k.startsWith('fact:'));
+const derivedFacts = Object.entries(facts.derived).filter(([k]) => k.startsWith('fact:'))
 function derive(record) {
-  const out = { ...(record ?? {}) };
-  for (const [key, spec] of derivedFacts) {
-    const row = spec.decode.find((r) => matches(r.when, out));
-    if (row) out[key] = row.value;
-  }
-  return out;
+ const out = { ...(record ?? {}) }
+ for (const [key, spec] of derivedFacts) {
+  const row = spec.decode.find((r) => matches(r.when, out))
+  if (row) out[key] = row.value
+ }
+ return out
 }
 // A situation's per-vessel records, with the derived facts filled in. `pair`
 // has none: a derived fact is derived from one vessel's record.
 function withDerived(s) {
-  const out = { ...s };
-  for (const subject of ['self', 'other']) {
-    if (out[subject]) out[subject] = { ...out[subject], fact: derive(out[subject].fact) };
-  }
-  return out;
+ const out = { ...s }
+ for (const subject of ['self', 'other']) {
+  if (out[subject]) out[subject] = { ...out[subject], fact: derive(out[subject].fact) }
+ }
+ return out
 }
 
 // `applying` is the *display* evaluator: it answers 'what does this one vessel
@@ -189,7 +177,7 @@ function withDerived(s) {
 // absence of a condition -- so an unfiltered evaluator would select it for
 // every fact record in applicability-fixtures.json. REQ-CAT-1's `display`
 // default is what makes the filter well-defined for the entries that predate it.
-const isDisplay = (e) => (e.category ?? 'category:display') === 'category:display';
+const isDisplay = (e) => (e.category ?? 'category:display') === 'category:display'
 // Jurisdiction is a dimension, not a fork (REQ-SCOPE-2/3): a jurisdiction sees
 // `intl` plus its own (self) deltas, and `intl` sees only itself. Without this filter
 // a national entry would be selected for a fact record evaluated under the
@@ -198,33 +186,28 @@ const isDisplay = (e) => (e.category ?? 'category:display') === 'category:displa
 // names in `suppressions` is deliberately not in force there, so it is neither
 // selected nor a drift candidate. Silence still means inherit; a tombstone is
 // how a jurisdiction says "this one, deliberately, no".
-const suppressedIn = new Map();
+const suppressedIn = new Map()
 for (const s of appl.suppressions ?? []) {
-  if (!suppressedIn.has(s.jurisdiction)) suppressedIn.set(s.jurisdiction, new Set());
-  suppressedIn.get(s.jurisdiction).add(s.suppresses);
+ if (!suppressedIn.has(s.jurisdiction)) suppressedIn.set(s.jurisdiction, new Set())
+ suppressedIn.get(s.jurisdiction).add(s.suppresses)
 }
-const inJurisdiction = (e, j) =>
-  e.jurisdiction === j || (e.jurisdiction === 'intl' && !suppressedIn.get(j)?.has(e.id));
+const inJurisdiction = (e, j) => e.jurisdiction === j || (e.jurisdiction === 'intl' && !suppressedIn.get(j)?.has(e.id))
 const applying = (f, j = 'intl') =>
-  appl.entries
-    .filter((e) => isDisplay(e) && inJurisdiction(e, j) && matches(e.when, f))
-    .map((e) => e.id);
+ appl.entries.filter((e) => isDisplay(e) && inJurisdiction(e, j) && matches(e.when, f)).map((e) => e.id)
 
 test('fixtures: every fact record selects exactly the expected entries', () => {
-  for (const c of fixtures.cases) {
-    const j = c.jurisdiction ?? fixtures.jurisdiction;
-    assert.deepEqual(applying(c.facts, j).sort(), expectIds(c).sort(), c.name);
-  }
-});
+ for (const c of fixtures.cases) {
+  const j = c.jurisdiction ?? fixtures.jurisdiction
+  assert.deepEqual(applying(c.facts, j).sort(), expectIds(c).sort(), c.name)
+ }
+})
 
 // --- modality resolution (REQ-CAT-3, ADR 0021) ------------------------------
 // An entry's own modality, or the first `modality_by` branch whose predicate
 // holds. Rule 20(c) then shifts it: a `modality_shifts` record changes the
 // modality of signals the entries prescribe rather than prescribing its own.
 const ownModality = (e, f) =>
-  e.modality === 'modality:conditional'
-    ? (e.modality_by ?? []).find((m) => matches(m.when, f))?.modality
-    : e.modality;
+ e.modality === 'modality:conditional' ? (e.modality_by ?? []).find((m) => matches(m.when, f))?.modality : e.modality
 
 // The signal kinds an entry contributes: its own, plus the ones it imports.
 // `rel:exempts`, `rel:excludes`, `rel:in_lieu_of` and `rel:overrides` are not
@@ -233,48 +216,46 @@ const ownModality = (e, f) =>
 // `f` is the structural mode used to check a shift's reach independent of any
 // one fact record.
 const signalKinds = (e, f, seen = new Set()) => {
-  const kinds = new Set();
-  if (!e || seen.has(e.id)) return kinds;
-  seen.add(e.id);
-  if ((e.lights ?? []).length > 0) kinds.add('lights');
-  if ((e.shapes ?? []).length > 0) kinds.add('shapes');
-  // Part D (ADR 0022). No shift reaches a signal -- 20(c) is scoped to lights
-  // -- but the kind is named so `reaches` refuses on the kind rather than on
-  // a Rule 35 entry looking like an entry that emits nothing at all.
-  if ((e.signal ?? []).length > 0) kinds.add('signal');
-  const conditional = (e['rel:conditional_includes'] ?? []).filter((c) => !f || matches(c.when, f));
-  const imported = [
-    ...(e['rel:includes'] ?? []),
-    ...conditional.flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])]),
-  ];
-  for (const id of imported) for (const k of signalKinds(byId.get(id), f, seen)) kinds.add(k);
-  return kinds;
-};
+ const kinds = new Set()
+ if (!e || seen.has(e.id)) return kinds
+ seen.add(e.id)
+ if ((e.lights ?? []).length > 0) kinds.add('lights')
+ if ((e.shapes ?? []).length > 0) kinds.add('shapes')
+ // Part D (ADR 0022). No shift reaches a signal -- 20(c) is scoped to lights
+ // -- but the kind is named so `reaches` refuses on the kind rather than on
+ // a Rule 35 entry looking like an entry that emits nothing at all.
+ if ((e.signal ?? []).length > 0) kinds.add('signal')
+ const conditional = (e['rel:conditional_includes'] ?? []).filter((c) => !f || matches(c.when, f))
+ const imported = [
+  ...(e['rel:includes'] ?? []),
+  ...conditional.flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])]),
+ ]
+ for (const id of imported) for (const k of signalKinds(byId.get(id), f, seen)) kinds.add(k)
+ return kinds
+}
 // A shift reaches an entry whose signals are all of the kind it names; an
 // entry that shows both kinds, or neither, is outside it.
 const reaches = (shift, e, f) => {
-  const kinds = signalKinds(e, f);
-  return kinds.size > 0 && [...kinds].every((k) => k === shift.applies_to);
-};
+ const kinds = signalKinds(e, f)
+ return kinds.size > 0 && [...kinds].every((k) => k === shift.applies_to)
+}
 const shiftsFor = (f, j) =>
-  (appl.modality_shifts ?? []).filter(
-    (s) => (s.jurisdiction === j || s.jurisdiction === 'intl') && matches(s.when, f),
-  );
+ (appl.modality_shifts ?? []).filter((s) => (s.jurisdiction === j || s.jurisdiction === 'intl') && matches(s.when, f))
 const modalityOf = (e, f, j = 'intl') => {
-  let m = ownModality(e, f);
-  for (const s of shiftsFor(f, j)) if (reaches(s, e, f)) m = s.map[m] ?? m;
-  return m;
-};
+ let m = ownModality(e, f)
+ for (const s of shiftsFor(f, j)) if (reaches(s, e, f)) m = s.map[m] ?? m
+ return m
+}
 
 test('fixtures: an expected modality is the one the entry resolves to (Q-5, ADR 0021)', () => {
-  for (const c of fixtures.cases) {
-    const j = c.jurisdiction ?? fixtures.jurisdiction;
-    for (const x of c.expect) {
-      if (typeof x === 'string') continue;
-      assert.equal(modalityOf(byId.get(x.entry), c.facts, j), x.modality, `${c.name}: ${x.entry}`);
-    }
+ for (const c of fixtures.cases) {
+  const j = c.jurisdiction ?? fixtures.jurisdiction
+  for (const x of c.expect) {
+   if (typeof x === 'string') continue
+   assert.equal(modalityOf(byId.get(x.entry), c.facts, j), x.modality, `${c.name}: ${x.entry}`)
   }
-});
+ }
+})
 
 // --- schema (ADR 0006) ------------------------------------------------------
 // Structure only: required keys, types, additionalProperties:false, id
@@ -282,73 +263,63 @@ test('fixtures: an expected modality is the one the entry resolves to (Q-5, ADR 
 // or a light reference. Cross-file references (cite -> rules.json, light id
 // -> lights.json, etc.) are NOT the schema's job; they stay in the tests
 // above and below. See docs/adr/0006-json-schema-and-identifier-diff.md.
-const loadSchema = (p) => JSON.parse(readFileSync(new URL(`../schema/${p}`, import.meta.url)));
+const loadSchema = (p) => JSON.parse(readFileSync(new URL(`../schema/${p}`, import.meta.url)))
 const schemaTargets = [
-  ['data/rules.json', rules, loadSchema('rules.schema.json')],
-  ['data/corpora.json', corporaIndex, loadSchema('corpora.schema.json')],
-  ['data/editions.json', editions, loadSchema('editions.schema.json')],
-  ...Object.entries(corporaIndex.corpora).map(([id, e]) => [
-    `data/${e.file}`,
-    corpora[id],
-    loadSchema('corpus.schema.json'),
-  ]),
-  ['data/lights.json', lights, loadSchema('lights.schema.json')],
-  ['data/shapes.json', shapes, loadSchema('shapes.schema.json')],
-  ['data/sounds.json', sounds, loadSchema('sounds.schema.json')],
-  ['data/facts.json', facts, loadSchema('facts.schema.json')],
-  ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
-  ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
-  ['data/images.json', images, loadSchema('images.schema.json')],
-  ['data/version.json', versionStamp, loadSchema('version.schema.json')],
-  [
-    'fixtures/applicability-fixtures.json',
-    fixtures,
-    loadSchema('applicability-fixtures.schema.json'),
-  ],
-  [
-    'fixtures/situation-fixtures.json',
-    situationFixturesFile,
-    loadSchema('situation-fixtures.schema.json'),
-  ],
-  ['data/operations.json', operations, loadSchema('operations.schema.json')],
-  ...catalogs.map(([file, data]) => [file, data, loadSchema('i18n-catalog.schema.json')]),
-];
+ ['data/rules.json', rules, loadSchema('rules.schema.json')],
+ ['data/corpora.json', corporaIndex, loadSchema('corpora.schema.json')],
+ ['data/editions.json', editions, loadSchema('editions.schema.json')],
+ ...Object.entries(corporaIndex.corpora).map(([id, e]) => [
+  `data/${e.file}`,
+  corpora[id],
+  loadSchema('corpus.schema.json'),
+ ]),
+ ['data/lights.json', lights, loadSchema('lights.schema.json')],
+ ['data/shapes.json', shapes, loadSchema('shapes.schema.json')],
+ ['data/sounds.json', sounds, loadSchema('sounds.schema.json')],
+ ['data/facts.json', facts, loadSchema('facts.schema.json')],
+ ['data/applicability.json', appl, loadSchema('applicability.schema.json')],
+ ['data/geometry.json', geometry, loadSchema('geometry.schema.json')],
+ ['data/images.json', images, loadSchema('images.schema.json')],
+ ['data/version.json', versionStamp, loadSchema('version.schema.json')],
+ ['fixtures/applicability-fixtures.json', fixtures, loadSchema('applicability-fixtures.schema.json')],
+ ['fixtures/situation-fixtures.json', situationFixturesFile, loadSchema('situation-fixtures.schema.json')],
+ ['data/operations.json', operations, loadSchema('operations.schema.json')],
+ ...catalogs.map(([file, data]) => [file, data, loadSchema('i18n-catalog.schema.json')]),
+]
 
 // Every schema file is registered under its $id before anything compiles, so
 // a `$ref` from one schema file into another (the result envelopes reuse
 // applicability.schema.json's ruleId and modality, ADR 0014) resolves; one
 // corpus schema validates several corpus files, so registration is by file,
 // not per target.
-const schemaFiles = readdirSync(new URL('../schema', import.meta.url)).filter((f) =>
-  f.endsWith('.schema.json'),
-);
+const schemaFiles = readdirSync(new URL('../schema', import.meta.url)).filter((f) => f.endsWith('.schema.json'))
 const schemaById = new Map(
-  schemaFiles.map((f) => {
-    const s = loadSchema(f);
-    return [s.$id, { file: f, schema: s }];
-  }),
-);
-const ajv = new Ajv2020({ allErrors: true, strict: true });
-for (const { schema } of schemaById.values()) ajv.addSchema(schema);
-const SCHEMA_BASE = 'https://github.com/mark-brannan/colregs/schema/';
-const validatorFor = (file) => ajv.getSchema(`${SCHEMA_BASE}${file.replace(/^schema\//, '')}`);
+ schemaFiles.map((f) => {
+  const s = loadSchema(f)
+  return [s.$id, { file: f, schema: s }]
+ }),
+)
+const ajv = new Ajv2020({ allErrors: true, strict: true })
+for (const { schema } of schemaById.values()) ajv.addSchema(schema)
+const SCHEMA_BASE = 'https://github.com/mark-brannan/colregs/schema/'
+const validatorFor = (file) => ajv.getSchema(`${SCHEMA_BASE}${file.replace(/^schema\//, '')}`)
 const check = (validate, data, what) =>
-  assert.ok(
-    validate(data),
-    `${what} fails ${validate.schemaEnv?.baseId ?? validate.schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`,
-  );
+ assert.ok(
+  validate(data),
+  `${what} fails ${validate.schemaEnv?.baseId ?? validate.schema.$id}:\n${ajv.errorsText(validate.errors, { separator: '\n' })}`,
+ )
 
 test('schema: every data file and the fixtures validate against schema/*.schema.json', () => {
-  for (const [file, data, schema] of schemaTargets) check(ajv.getSchema(schema.$id), data, file);
-});
+ for (const [file, data, schema] of schemaTargets) check(ajv.getSchema(schema.$id), data, file)
+})
 
 test('schema: every schema file names itself by $id and compiles, cross-file $refs included', () => {
-  for (const f of schemaFiles) {
-    const s = loadSchema(f);
-    assert.equal(s.$id, `${SCHEMA_BASE}${f}`, `${f}: $id does not name the file`);
-    assert.ok(ajv.getSchema(s.$id), `${f} does not compile`);
-  }
-});
+ for (const f of schemaFiles) {
+  const s = loadSchema(f)
+  assert.equal(s.$id, `${SCHEMA_BASE}${f}`, `${f}: $id does not name the file`)
+  assert.ok(ajv.getSchema(s.$id), `${f} does not compile`)
+ }
+})
 
 // --- operations (ADR 0014) --------------------------------------------------
 // data/operations.json is the engine interface colregs owns: verb -> input
@@ -356,196 +327,189 @@ test('schema: every schema file names itself by $id and compiles, cross-file $re
 // shape; these tests check that every reference lands and that the fixture
 // binding is real -- each bound case's input validates against the verb's
 // input schema, and each `expect` against the companion's output.
-const ops = Object.entries(operations.operations);
+const ops = Object.entries(operations.operations)
 const resolvePointer = (doc, pointer) =>
-  pointer
-    .split('/')
-    .slice(1)
-    .map((seg) => seg.replace(/~1/g, '/').replace(/~0/g, '~'))
-    .reduce((o, seg) => o?.[seg], doc);
+ pointer
+  .split('/')
+  .slice(1)
+  .map((seg) => seg.replace(/~1/g, '/').replace(/~0/g, '~'))
+  .reduce((o, seg) => o?.[seg], doc)
 const schemaRefResolves = (ref, what) => {
-  const [file, pointer] = ref.split('#');
-  const path = new URL(`../${file}`, import.meta.url);
-  assert.ok(existsSync(path), `${what}: ${file} does not exist`);
-  const doc = loadSchema(file.replace(/^schema\//, ''));
-  if (pointer)
-    assert.ok(resolvePointer(doc, pointer) !== undefined, `${what}: ${ref} does not resolve`);
-  const validate = ajv.getSchema(
-    `${SCHEMA_BASE}${file.replace(/^schema\//, '')}${pointer ? `#${pointer}` : ''}`,
-  );
-  assert.ok(validate, `${what}: no compiled validator for ${ref}`);
-  return validate;
-};
+ const [file, pointer] = ref.split('#')
+ const path = new URL(`../${file}`, import.meta.url)
+ assert.ok(existsSync(path), `${what}: ${file} does not exist`)
+ const doc = loadSchema(file.replace(/^schema\//, ''))
+ if (pointer) assert.ok(resolvePointer(doc, pointer) !== undefined, `${what}: ${ref} does not resolve`)
+ const validate = ajv.getSchema(`${SCHEMA_BASE}${file.replace(/^schema\//, '')}${pointer ? `#${pointer}` : ''}`)
+ assert.ok(validate, `${what}: no compiled validator for ${ref}`)
+ return validate
+}
 
 test('operations: every input, output and companion schema reference resolves', () => {
-  for (const [verb, op] of ops) {
-    for (const input of op.inputs) schemaRefResolves(input.schema, `${verb}.inputs.${input.name}`);
-    schemaRefResolves(op.output, `${verb}.output`);
-    if (op.companion) schemaRefResolves(op.companion.output, `${verb}.companion`);
-  }
-});
+ for (const [verb, op] of ops) {
+  for (const input of op.inputs) schemaRefResolves(input.schema, `${verb}.inputs.${input.name}`)
+  schemaRefResolves(op.output, `${verb}.output`)
+  if (op.companion) schemaRefResolves(op.companion.output, `${verb}.companion`)
+ }
+})
 
 test('operations: verbs and companion verbs are one namespace, no name twice', () => {
-  const names = ops.flatMap(([verb, op]) => [verb, ...(op.companion ? [op.companion.verb] : [])]);
-  assert.deepEqual(
-    names.filter((n, i) => names.indexOf(n) !== i),
-    [],
-  );
-});
+ const names = ops.flatMap(([verb, op]) => [verb, ...(op.companion ? [op.companion.verb] : [])])
+ assert.deepEqual(
+  names.filter((n, i) => names.indexOf(n) !== i),
+  [],
+ )
+})
 
 test('operations: every verb ADR 0011 and 0012 name is an operation', () => {
-  assert.deepEqual(Object.keys(operations.operations).sort(), [
-    'evaluateConduct',
-    'evaluateDisplay',
-    'evaluateEncounter',
-    'evaluateRule2Departure',
-  ]);
-});
+ assert.deepEqual(Object.keys(operations.operations).sort(), [
+  'evaluateConduct',
+  'evaluateDisplay',
+  'evaluateEncounter',
+  'evaluateRule2Departure',
+ ])
+})
 
 test("operations: every fixture file is bound to a verb, and every bound case fits the verb's input and companion output", () => {
-  const fixtureFiles = readdirSync(new URL('../fixtures', import.meta.url))
-    .filter((f) => f.endsWith('.json'))
-    .map((f) => `fixtures/${f}`);
-  const bound = new Set();
-  for (const [verb, op] of ops) {
-    for (const fx of op.fixtures) {
-      bound.add(fx.file);
-      assert.ok(fixtureFiles.includes(fx.file), `${verb}: ${fx.file} does not exist`);
-      assert.equal(
-        fx.case_inputs.length,
-        op.inputs.length,
-        `${verb}: ${fx.file} binds ${fx.case_inputs.length} case keys to ${op.inputs.length} inputs`,
-      );
-      const inputSchemas = op.inputs.map((input) => schemaRefResolves(input.schema, verb));
-      const expectRef = fx.expect ?? op.companion?.output;
-      const expectSchema = expectRef && schemaRefResolves(expectRef, verb);
-      for (const c of load(fx.file).cases) {
-        fx.case_inputs.forEach((key, i) => {
-          assert.ok(c[key] !== undefined, `${verb}: ${fx.file} case '${c.name}' has no ${key}`);
-          check(inputSchemas[i], c[key], `${verb}: ${fx.file} case '${c.name}' ${key}`);
-        });
-        // A situation fixture may expect `{ entry, modality }`; the companion answers the ids.
-        if (expectSchema)
-          check(expectSchema, c.expect.map(entryId), `${verb}: ${fx.file} case '${c.name}' expect`);
-      }
-    }
+ const fixtureFiles = readdirSync(new URL('../fixtures', import.meta.url))
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => `fixtures/${f}`)
+ const bound = new Set()
+ for (const [verb, op] of ops) {
+  for (const fx of op.fixtures) {
+   bound.add(fx.file)
+   assert.ok(fixtureFiles.includes(fx.file), `${verb}: ${fx.file} does not exist`)
+   assert.equal(
+    fx.case_inputs.length,
+    op.inputs.length,
+    `${verb}: ${fx.file} binds ${fx.case_inputs.length} case keys to ${op.inputs.length} inputs`,
+   )
+   const inputSchemas = op.inputs.map((input) => schemaRefResolves(input.schema, verb))
+   const expectRef = fx.expect ?? op.companion?.output
+   const expectSchema = expectRef && schemaRefResolves(expectRef, verb)
+   for (const c of load(fx.file).cases) {
+    fx.case_inputs.forEach((key, i) => {
+     assert.ok(c[key] !== undefined, `${verb}: ${fx.file} case '${c.name}' has no ${key}`)
+     check(inputSchemas[i], c[key], `${verb}: ${fx.file} case '${c.name}' ${key}`)
+    })
+    // A situation fixture may expect `{ entry, modality }`; the companion answers the ids.
+    if (expectSchema) check(expectSchema, c.expect.map(entryId), `${verb}: ${fx.file} case '${c.name}' expect`)
+   }
   }
-  assert.deepEqual(
-    fixtureFiles.filter((f) => !bound.has(f)),
-    [],
-    'fixture files no operation binds',
-  );
-});
+ }
+ assert.deepEqual(
+  fixtureFiles.filter((f) => !bound.has(f)),
+  [],
+  'fixture files no operation binds',
+ )
+})
 
 // A patternProperties key cannot $ref, so the two vocabularies that key
 // envelope maps are copies of their source patterns; held equal here.
 test("operations: the paragraph-cite and entry-id patterns are their source schemas' own", () => {
-  const commons = loadSchema('evaluation.schema.json').$defs;
-  assert.deepEqual(
-    Object.keys(loadSchema('rules.schema.json').$defs.paragraphs.patternProperties),
-    [commons.paragraphCite.pattern],
-  );
-  const ruleId = loadSchema('applicability.schema.json').$defs.ruleId.pattern;
-  for (const map of ['modalities', 'categories'])
-    assert.deepEqual(Object.keys(commons[map].patternProperties), [ruleId], map);
-});
+ const commons = loadSchema('evaluation.schema.json').$defs
+ assert.deepEqual(Object.keys(loadSchema('rules.schema.json').$defs.paragraphs.patternProperties), [
+  commons.paragraphCite.pattern,
+ ])
+ const ruleId = loadSchema('applicability.schema.json').$defs.ruleId.pattern
+ for (const map of ['modalities', 'categories'])
+  assert.deepEqual(Object.keys(commons[map].patternProperties), [ruleId], map)
+})
 
 // The result envelopes have no data file to validate here, so each is
 // smoke-tested with one hand-written instance that must pass and `{}`, which
 // must not. The contract that matters -- real engine output validating
 // against these schemas -- can only run where an engine is.
-const colregs = { version: '0.0.0', source: 'resolved' };
+const colregs = { version: '0.0.0', source: 'resolved' }
 const provenance = {
-  evaluated_categories: ['category:display'],
-  jurisdictions: ['intl'],
-  represented: [{ id: 'rule:2a', jurisdiction: 'intl', cite: '2(a)', category: 'category:care' }],
-};
+ evaluated_categories: ['category:display'],
+ jurisdictions: ['intl'],
+ represented: [{ id: 'rule:2a', jurisdiction: 'intl', cite: '2(a)', category: 'category:care' }],
+}
 const encounter = {
-  colregs,
-  applied: ['rule:13b'],
-  scope: ['rule:11'],
-  encounter: 'encounter:overtaking',
-  risk_of_collision: { asserted: true, by: ['rule:13b'] },
-  roles: { self: [{ role: 'role:give-way', by: 'rule:13a' }], other: [] },
-  overridden: [],
-  modalities: { 'rule:13b': 'modality:shall' },
-  categories: { 'rule:13b': 'category:precedence' },
-  provenance,
-};
+ colregs,
+ applied: ['rule:13b'],
+ scope: ['rule:11'],
+ encounter: 'encounter:overtaking',
+ risk_of_collision: { asserted: true, by: ['rule:13b'] },
+ roles: { self: [{ role: 'role:give-way', by: 'rule:13a' }], other: [] },
+ overridden: [],
+ modalities: { 'rule:13b': 'modality:shall' },
+ categories: { 'rule:13b': 'category:precedence' },
+ provenance,
+}
 const parameters = {
-  dynamics: ['unicycle'],
-  horizon_s: 600,
-  cadence_s: 1,
-  separation_m: 500,
-  information: 'full',
-  adversary: 'physics',
-};
+ dynamics: ['unicycle'],
+ horizon_s: 600,
+ cadence_s: 1,
+ separation_m: 500,
+ information: 'full',
+ adversary: 'physics',
+}
 const envelopeExamples = {
-  'display-evaluation.schema.json': {
-    colregs,
-    applied: ['rule:23a_i'],
-    exempted: [],
-    overridden: [],
-    displays: [
-      {
-        entries: ['rule:23a_i'],
-        lights: [
-          {
-            spec: { light: 'light:masthead' },
-            source_entry: 'rule:23a_i',
-            modality: 'modality:shall',
-          },
-        ],
-        chosen: [],
-      },
+ 'display-evaluation.schema.json': {
+  colregs,
+  applied: ['rule:23a_i'],
+  exempted: [],
+  overridden: [],
+  displays: [
+   {
+    entries: ['rule:23a_i'],
+    lights: [
+     {
+      spec: { light: 'light:masthead' },
+      source_entry: 'rule:23a_i',
+      modality: 'modality:shall',
+     },
     ],
-    optional_additions: [],
-    modalities: { 'rule:23a_i': 'modality:shall' },
-    categories: { 'rule:23a_i': 'category:display' },
-    provenance,
-  },
-  'encounter-evaluation.schema.json': encounter,
-  'conduct-evaluation.schema.json': {
-    colregs,
-    window: { from_s: 0, to_s: 60, samples: 2 },
-    applied: ['rule:13a'],
-    verdicts: [{ id: 'rule:13a', subject: 'self', verdict: 'pending', attached_at_s: 0 }],
-    phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }],
-  },
-  'rule2-departure-finding.schema.json': {
-    status: 'not-flagged',
-    rules: encounter,
-    advisories: [
-      {
-        action: { alter_deg: 30 },
-        margin_m: 800,
-        breaches: ['17(c)'],
-        envelope: { holds_until_s: 120 },
-      },
-    ],
-    model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] },
-  },
-  'trace.schema.json': {
-    samples: [{ t_s: 0, situation: { self: { fact: { 'fact:propulsion': 'propulsion:power' } } } }],
-  },
-  'rule2-departure-model.schema.json': {
-    version: 'grid-0',
-    colregs_version: '0.0.0',
-    ...parameters,
-    regions: [
-      { when: { 'self:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' },
-    ],
-    artefact_only: true,
-  },
-};
+    chosen: [],
+   },
+  ],
+  optional_additions: [],
+  modalities: { 'rule:23a_i': 'modality:shall' },
+  categories: { 'rule:23a_i': 'category:display' },
+  provenance,
+ },
+ 'encounter-evaluation.schema.json': encounter,
+ 'conduct-evaluation.schema.json': {
+  colregs,
+  window: { from_s: 0, to_s: 60, samples: 2 },
+  applied: ['rule:13a'],
+  verdicts: [{ id: 'rule:13a', subject: 'self', verdict: 'pending', attached_at_s: 0 }],
+  phases: [{ subject: 'other', phase: '17(a)(i)', at_s: 0 }],
+ },
+ 'rule2-departure-finding.schema.json': {
+  status: 'not-flagged',
+  rules: encounter,
+  advisories: [
+   {
+    action: { alter_deg: 30 },
+    margin_m: 800,
+    breaches: ['17(c)'],
+    envelope: { holds_until_s: 120 },
+   },
+  ],
+  model: { version: 'grid-0', colregs_version: '0.0.0', parameters, assumptions_violated: [] },
+ },
+ 'trace.schema.json': {
+  samples: [{ t_s: 0, situation: { self: { fact: { 'fact:propulsion': 'propulsion:power' } } } }],
+ },
+ 'rule2-departure-model.schema.json': {
+  version: 'grid-0',
+  colregs_version: '0.0.0',
+  ...parameters,
+  regions: [{ when: { 'self:fact:propulsion': 'propulsion:power' }, status: 'inconclusive-in-model' }],
+  artefact_only: true,
+ },
+}
 
 test('operations: smoke -- each result and input envelope accepts a hand-written instance and refuses an empty one', () => {
-  for (const [file, example] of Object.entries(envelopeExamples)) {
-    const validate = validatorFor(file);
-    check(validate, example, `${file} example`);
-    assert.ok(!validate({}), `${file} accepts {}`);
-  }
-});
+ for (const [file, example] of Object.entries(envelopeExamples)) {
+  const validate = validatorFor(file)
+  check(validate, example, `${file} example`)
+  assert.ok(!validate({}), `${file} accepts {}`)
+ }
+})
 
 // REQ-LANG-2's closed-list fact values (Tier A):
 // every enumerated fact axis in data/facts.json declares its closed list under
@@ -553,69 +517,64 @@ test('operations: smoke -- each result and input envelope accepts a hand-written
 // wherever it sits (axes, enums, derived, kinematics modifiers), is exactly the
 // Tier A set, with no hand-maintained list to drift from the data.
 function closedFactValues(node, out = new Set()) {
-  if (node && typeof node === 'object') {
-    if (
-      Array.isArray(node.values) &&
-      node.values.length > 0 &&
-      node.values.every((v) => typeof v === 'string' && v.includes(':'))
-    ) {
-      for (const v of node.values) out.add(v);
-    }
-    for (const v of Object.values(node)) closedFactValues(v, out);
+ if (node && typeof node === 'object') {
+  if (
+   Array.isArray(node.values) &&
+   node.values.length > 0 &&
+   node.values.every((v) => typeof v === 'string' && v.includes(':'))
+  ) {
+   for (const v of node.values) out.add(v)
   }
-  return out;
+  for (const v of Object.values(node)) closedFactValues(v, out)
+ }
+ return out
 }
 
 // Each catalog section is keyed by one vocabulary and every key must resolve
 // to that vocabulary's own source, so a misspelt key cannot ship. Adding a
 // vocabulary (fact, image) is one entry here and one property in the schema.
 const catalogVocabularies = {
-  lights: new Set(Object.keys(lights.lights)),
-  shapes: new Set(Object.keys(shapes.shapes)),
-  modalities: new Set(Object.keys(appl.modalities)),
-  roles: new Set(Object.keys(appl.effects.roles)),
-  encounters: new Set(Object.keys(appl.effects.encounters)),
-  jurisdictions: new Set(Object.keys(editions.jurisdictions)),
-  facts: closedFactValues(facts),
-};
+ lights: new Set(Object.keys(lights.lights)),
+ shapes: new Set(Object.keys(shapes.shapes)),
+ modalities: new Set(Object.keys(appl.modalities)),
+ roles: new Set(Object.keys(appl.effects.roles)),
+ encounters: new Set(Object.keys(appl.effects.encounters)),
+ jurisdictions: new Set(Object.keys(editions.jurisdictions)),
+ facts: closedFactValues(facts),
+}
 
 test('i18n: the language inside a display catalog matches its filename', () => {
-  for (const [file, cat] of catalogs) {
-    assert.equal(
-      cat.language,
-      file.slice('data/i18n/'.length, -'.json'.length),
-      `${file}: language is ${cat.language}`,
-    );
-  }
-});
+ for (const [file, cat] of catalogs) {
+  assert.equal(cat.language, file.slice('data/i18n/'.length, -'.json'.length), `${file}: language is ${cat.language}`)
+ }
+})
 
 // REQ-LANG-11: exactly one language is declared reference-complete in package
 // metadata, and CI fails if its catalog omits any value the package can emit.
 // Every other catalog may be partial -- the key-resolution test below is the
 // only other gate on it.
 test('i18n: REQ-LANG-11 -- the declared reference language is complete', () => {
-  const { referenceLanguage } = pkg.colregs;
-  assert.ok(referenceLanguage, 'package.json colregs.referenceLanguage is not declared');
-  const file = `data/i18n/${referenceLanguage}.json`;
-  const cat = catalogs.find(([f]) => f === file)?.[1];
-  assert.ok(cat, `${file} does not exist for the declared reference language`);
-  for (const [section, known] of Object.entries(catalogVocabularies)) {
-    const present = new Set(Object.keys(cat.strings[section] ?? {}));
-    for (const key of known)
-      assert.ok(present.has(key), `${file}: ${section} is missing reference label for ${key}`);
-  }
-});
+ const { referenceLanguage } = pkg.colregs
+ assert.ok(referenceLanguage, 'package.json colregs.referenceLanguage is not declared')
+ const file = `data/i18n/${referenceLanguage}.json`
+ const cat = catalogs.find(([f]) => f === file)?.[1]
+ assert.ok(cat, `${file} does not exist for the declared reference language`)
+ for (const [section, known] of Object.entries(catalogVocabularies)) {
+  const present = new Set(Object.keys(cat.strings[section] ?? {}))
+  for (const key of known) assert.ok(present.has(key), `${file}: ${section} is missing reference label for ${key}`)
+ }
+})
 
 test('i18n: every key in a display catalog resolves to its vocabulary', () => {
-  for (const [file, cat] of catalogs) {
-    for (const [section, entries] of Object.entries(cat.strings)) {
-      const known = catalogVocabularies[section];
-      assert.ok(known, `${file}: no vocabulary named ${section}`);
-      for (const key of Object.keys(entries))
-        assert.ok(known.has(key), `${file}: ${section}.${key} is not a ${section} value`);
-    }
+ for (const [file, cat] of catalogs) {
+  for (const [section, entries] of Object.entries(cat.strings)) {
+   const known = catalogVocabularies[section]
+   assert.ok(known, `${file}: no vocabulary named ${section}`)
+   for (const key of Object.keys(entries))
+    assert.ok(known.has(key), `${file}: ${section}.${key} is not a ${section} value`)
   }
-});
+ }
+})
 
 // --- docs/adr/0010-text-withheld-jurisdictions.md: a jurisdiction may ship without text --
 // Every corpus on file is verbatim, so the withheld branch of
@@ -624,215 +583,177 @@ test('i18n: every key in a display catalog resolves to its vocabulary', () => {
 // expressible, and on a half-withheld one being rejected.
 
 const corpusDoc = (paragraphs, over = {}) => ({
-  id: 'eu/cevni@rev6.fr.unece',
-  edition: 'eu/cevni@rev6',
-  edition_status: 'claimed',
-  language: 'fr',
-  source_id: 'unece',
-  tier: 'national',
-  normalization: 'NFC',
-  source: {
-    publisher: 'UNECE',
-    title: 'CEVNI',
-    url: 'https://unece.org/',
-    retrieved: '2026-09-09',
-  },
-  rights: { source_text: 'UN terms', redistribution_basis: 'none', package_licence: 'Apache-2.0' },
-  paragraphs,
-  ...over,
-});
+ id: 'eu/cevni@rev6.fr.unece',
+ edition: 'eu/cevni@rev6',
+ edition_status: 'claimed',
+ language: 'fr',
+ source_id: 'unece',
+ tier: 'national',
+ normalization: 'NFC',
+ source: {
+  publisher: 'UNECE',
+  title: 'CEVNI',
+  url: 'https://unece.org/',
+  retrieved: '2026-09-09',
+ },
+ rights: { source_text: 'UN terms', redistribution_basis: 'none', package_licence: 'Apache-2.0' },
+ paragraphs,
+ ...over,
+})
 
 test('corpus schema: a withheld paragraph validates, and its malformed variants do not', () => {
-  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(
-    loadSchema('corpus.schema.json'),
-  );
-  const doc = (paragraph) => corpusDoc({ 6: paragraph });
-  const base = { rule_title: 'Overtaking' };
-  const withheld = {
-    ...base,
-    text_status: 'withheld',
-    withheld_reason: 'UN terms permit no redistribution',
-  };
+ const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('corpus.schema.json'))
+ const doc = (paragraph) => corpusDoc({ 6: paragraph })
+ const base = { rule_title: 'Overtaking' }
+ const withheld = {
+  ...base,
+  text_status: 'withheld',
+  withheld_reason: 'UN terms permit no redistribution',
+ }
 
-  assert.ok(
-    validate(doc({ ...withheld, mirrors: '13(a)' })),
-    'a withheld paragraph with a mirror must validate',
-  );
-  assert.ok(validate(doc(withheld)), 'a withheld paragraph without a mirror must validate');
-  assert.ok(
-    !validate(doc({ ...withheld, text: 'verbatim words' })),
-    'withheld must not carry text',
-  );
-  assert.ok(!validate(doc({ ...base, text_status: 'withheld' })), 'withheld must name its reason');
-  assert.ok(!validate(doc(base)), 'a verbatim paragraph must carry text');
-  assert.ok(
-    !validate(doc({ ...base, text: 'w', withheld_reason: 'r' })),
-    'withheld_reason is incoherent without a licence bar',
-  );
+ assert.ok(validate(doc({ ...withheld, mirrors: '13(a)' })), 'a withheld paragraph with a mirror must validate')
+ assert.ok(validate(doc(withheld)), 'a withheld paragraph without a mirror must validate')
+ assert.ok(!validate(doc({ ...withheld, text: 'verbatim words' })), 'withheld must not carry text')
+ assert.ok(!validate(doc({ ...base, text_status: 'withheld' })), 'withheld must name its reason')
+ assert.ok(!validate(doc(base)), 'a verbatim paragraph must carry text')
+ assert.ok(
+  !validate(doc({ ...base, text: 'w', withheld_reason: 'r' })),
+  'withheld_reason is incoherent without a licence bar',
+ )
 
-  // ADR 0010 leaves the placeholder representation in pencil, so the schema
-  // must not foreclose it: a digest, and a mirror on a paragraph that does
-  // ship its own text, both have to remain expressible.
-  assert.ok(
-    validate(doc({ ...withheld, text_digest: 'sha256:0f9a2b' })),
-    'a digest must be expressible',
-  );
-  assert.ok(
-    validate(doc({ ...withheld, text_slug: ['blue-board', 'overtake'] })),
-    'a slug must be expressible',
-  );
-  assert.ok(
-    validate(doc({ ...base, text: 'w', mirrors: '13(a)' })),
-    'a verbatim paragraph may still name the intl provision it restates',
-  );
-});
+ // ADR 0010 leaves the placeholder representation in pencil, so the schema
+ // must not foreclose it: a digest, and a mirror on a paragraph that does
+ // ship its own text, both have to remain expressible.
+ assert.ok(validate(doc({ ...withheld, text_digest: 'sha256:0f9a2b' })), 'a digest must be expressible')
+ assert.ok(validate(doc({ ...withheld, text_slug: ['blue-board', 'overtake'] })), 'a slug must be expressible')
+ assert.ok(
+  validate(doc({ ...base, text: 'w', mirrors: '13(a)' })),
+  'a verbatim paragraph may still name the intl provision it restates',
+ )
+})
 
 // --- ADR 0010: a corpus that withholds text must record when that
 // withholding was last checked against the primary source --------------
 test('corpus schema: a corpus with a withheld paragraph requires source.retrieved', () => {
-  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(
-    loadSchema('corpus.schema.json'),
-  );
-  const withheld = {
-    rule_title: 'Overtaking',
-    text_status: 'withheld',
-    withheld_reason: 'UN terms permit no redistribution',
-  };
-  const verbatim = {
-    rule_title: 'Overtaking',
-    text: 'Every vessel overtaking any other shall keep out of the way.',
-  };
-  const unretrieved = (paragraphs) => {
-    const d = corpusDoc(paragraphs);
-    return { ...d, source: { ...d.source, retrieved: null } };
-  };
-  assert.ok(validate(corpusDoc({ 6: withheld })), 'withheld + retrieved present must validate');
-  assert.ok(!validate(unretrieved({ 6: withheld })), 'withheld + retrieved null must be rejected');
-  assert.ok(
-    validate(unretrieved({ 6: verbatim })),
-    'a corpus with no withheld paragraphs may leave retrieved null',
-  );
-});
+ const validate = new Ajv2020({ allErrors: true, strict: true }).compile(loadSchema('corpus.schema.json'))
+ const withheld = {
+  rule_title: 'Overtaking',
+  text_status: 'withheld',
+  withheld_reason: 'UN terms permit no redistribution',
+ }
+ const verbatim = {
+  rule_title: 'Overtaking',
+  text: 'Every vessel overtaking any other shall keep out of the way.',
+ }
+ const unretrieved = (paragraphs) => {
+  const d = corpusDoc(paragraphs)
+  return { ...d, source: { ...d.source, retrieved: null } }
+ }
+ assert.ok(validate(corpusDoc({ 6: withheld })), 'withheld + retrieved present must validate')
+ assert.ok(!validate(unretrieved({ 6: withheld })), 'withheld + retrieved null must be rejected')
+ assert.ok(validate(unretrieved({ 6: verbatim })), 'a corpus with no withheld paragraphs may leave retrieved null')
+})
 
 // --- REQ-LANG-5 / ADR 0013: corpora key into the skeleton, and the index
 // and filenames agree with the metadata inside each file -------------------
 test('REQ-LANG-5: every corpus paragraph and gap resolves to a skeleton path, and none is both', () => {
-  for (const [id, c] of Object.entries(corpora)) {
-    const sk = skeletonOf(jurisdictionOf(c.edition));
-    for (const path of Object.keys(c.paragraphs)) {
-      assert.ok(
-        sk[path],
-        `${id}: paragraph ${path} is not a skeleton path under ${jurisdictionOf(c.edition)}`,
-      );
-    }
-    for (const g of c.gaps ?? []) {
-      assert.ok(
-        sk[g.path],
-        `${id}: gap ${g.path} is not a skeleton path under ${jurisdictionOf(c.edition)}`,
-      );
-      assert.ok(!c.paragraphs[g.path], `${id}: ${g.path} is both a gap and present`);
-    }
+ for (const [id, c] of Object.entries(corpora)) {
+  const sk = skeletonOf(jurisdictionOf(c.edition))
+  for (const path of Object.keys(c.paragraphs)) {
+   assert.ok(sk[path], `${id}: paragraph ${path} is not a skeleton path under ${jurisdictionOf(c.edition)}`)
   }
-});
+  for (const g of c.gaps ?? []) {
+   assert.ok(sk[g.path], `${id}: gap ${g.path} is not a skeleton path under ${jurisdictionOf(c.edition)}`)
+   assert.ok(!c.paragraphs[g.path], `${id}: ${g.path} is both a gap and present`)
+  }
+ }
+})
 
 // Silence must not imply coverage (REQ-LANG-5). Scoped to the reference
 // corpus: the others are partial by declaration and carry their own gaps.
 test('REQ-LANG-5: every intl skeleton path has text or a recorded gap in the reference corpus', () => {
-  const accounted = new Set([
-    ...Object.keys(enUS.paragraphs),
-    ...(enUS.gaps ?? []).map((g) => g.path),
-  ]);
-  const silent = Object.keys(skeletonOf('intl')).filter((path) => !accounted.has(path));
-  assert.deepEqual(silent, [], `${EN_US}: skeleton paths with neither a paragraph nor a gap`);
-});
+ const accounted = new Set([...Object.keys(enUS.paragraphs), ...(enUS.gaps ?? []).map((g) => g.path)])
+ const silent = Object.keys(skeletonOf('intl')).filter((path) => !accounted.has(path))
+ assert.deepEqual(silent, [], `${EN_US}: skeleton paths with neither a paragraph nor a gap`)
+})
 
 test('ADR 0013: corpus id, file path and data/corpora.json agree with the metadata inside each corpus', () => {
-  const onDisk = new Set();
-  const walk = (dir) => {
-    for (const ent of readdirSync(dir, { withFileTypes: true })) {
-      const p = `${dir}/${ent.name}`;
-      if (ent.isDirectory()) walk(p);
-      else if (ent.name.endsWith('.json')) onDisk.add(p.slice(p.indexOf('text/')));
-    }
-  };
-  walk(new URL('../data/text', import.meta.url).pathname);
-  const indexed = new Set(Object.values(corporaIndex.corpora).map((e) => e.file));
-  assert.deepEqual(
-    [...onDisk].sort(),
-    [...indexed].sort(),
-    'data/corpora.json lists exactly the files under data/text/',
-  );
-  for (const [id, e] of Object.entries(corporaIndex.corpora)) {
-    const c = corpora[id];
-    assert.equal(c.id, id, `${e.file}: id inside the file is ${c.id}`);
-    assert.equal(
-      id,
-      `${c.edition}.${c.language}.${c.source_id}`,
-      `${id}: id is not <edition>.<language>.<source_id>`,
-    );
-    const [jurisdiction, tag] = c.edition.split('@');
-    assert.equal(
-      e.file,
-      `text/${jurisdiction}/${tag}/${c.language}.${c.source_id}.json`,
-      `${id}: file path disagrees with metadata`,
-    );
-    assert.deepEqual(
-      {
-        edition: e.edition,
-        edition_status: e.edition_status,
-        language: e.language,
-        source_id: e.source_id,
-        tier: e.tier,
-        paragraphs: e.paragraphs,
-      },
-      {
-        edition: c.edition,
-        edition_status: c.edition_status,
-        language: c.language,
-        source_id: c.source_id,
-        tier: c.tier,
-        paragraphs: Object.keys(c.paragraphs).length,
-      },
-      `${id}: data/corpora.json has drifted from the file`,
-    );
-    if (c.translation_of)
-      assert.ok(corpora[c.translation_of], `${id}: translation_of names an unknown corpus`);
+ const onDisk = new Set()
+ const walk = (dir) => {
+  for (const ent of readdirSync(dir, { withFileTypes: true })) {
+   const p = `${dir}/${ent.name}`
+   if (ent.isDirectory()) walk(p)
+   else if (ent.name.endsWith('.json')) onDisk.add(p.slice(p.indexOf('text/')))
   }
-});
+ }
+ walk(new URL('../data/text', import.meta.url).pathname)
+ const indexed = new Set(Object.values(corporaIndex.corpora).map((e) => e.file))
+ assert.deepEqual([...onDisk].sort(), [...indexed].sort(), 'data/corpora.json lists exactly the files under data/text/')
+ for (const [id, e] of Object.entries(corporaIndex.corpora)) {
+  const c = corpora[id]
+  assert.equal(c.id, id, `${e.file}: id inside the file is ${c.id}`)
+  assert.equal(id, `${c.edition}.${c.language}.${c.source_id}`, `${id}: id is not <edition>.<language>.<source_id>`)
+  const [jurisdiction, tag] = c.edition.split('@')
+  assert.equal(
+   e.file,
+   `text/${jurisdiction}/${tag}/${c.language}.${c.source_id}.json`,
+   `${id}: file path disagrees with metadata`,
+  )
+  assert.deepEqual(
+   {
+    edition: e.edition,
+    edition_status: e.edition_status,
+    language: e.language,
+    source_id: e.source_id,
+    tier: e.tier,
+    paragraphs: e.paragraphs,
+   },
+   {
+    edition: c.edition,
+    edition_status: c.edition_status,
+    language: c.language,
+    source_id: c.source_id,
+    tier: c.tier,
+    paragraphs: Object.keys(c.paragraphs).length,
+   },
+   `${id}: data/corpora.json has drifted from the file`,
+  )
+  if (c.translation_of) assert.ok(corpora[c.translation_of], `${id}: translation_of names an unknown corpus`)
+ }
+})
 
 test('REQ-LANG-10 / GATE-2: every edition a corpus or the skeleton names is registered, under its own jurisdiction', () => {
-  const statedIn = new Set([
-    ...Object.values(rules.paragraphs).map((p) => p.jurisdiction),
-    ...Object.keys(rules.deltas ?? {}),
-  ]);
-  for (const [jur, j] of Object.entries(editions.jurisdictions)) {
-    for (const ed of Object.keys(j.editions))
-      assert.equal(jurisdictionOf(ed), jur, `${ed} is registered under ${jur}`);
-    if (j.skeleton) {
-      assert.ok(j.editions[j.skeleton], `${jur}: skeleton edition ${j.skeleton} is not registered`);
-      assert.ok(statedIn.has(jur), `${jur}: declares a skeleton edition but has no paragraphs`);
-    } else {
-      assert.ok(!statedIn.has(jur), `${jur}: has paragraphs but declares no skeleton edition`);
-    }
+ const statedIn = new Set([
+  ...Object.values(rules.paragraphs).map((p) => p.jurisdiction),
+  ...Object.keys(rules.deltas ?? {}),
+ ])
+ for (const [jur, j] of Object.entries(editions.jurisdictions)) {
+  for (const ed of Object.keys(j.editions)) assert.equal(jurisdictionOf(ed), jur, `${ed} is registered under ${jur}`)
+  if (j.skeleton) {
+   assert.ok(j.editions[j.skeleton], `${jur}: skeleton edition ${j.skeleton} is not registered`)
+   assert.ok(statedIn.has(jur), `${jur}: declares a skeleton edition but has no paragraphs`)
+  } else {
+   assert.ok(!statedIn.has(jur), `${jur}: has paragraphs but declares no skeleton edition`)
   }
-  for (const jur of statedIn) {
-    assert.ok(editions.jurisdictions[jur], `${jur}: in the skeleton but not in data/editions.json`);
-  }
-  for (const [id, c] of Object.entries(corpora)) {
-    const ed = editionOf(c.edition);
-    assert.ok(ed, `${id}: names unregistered edition ${c.edition}`);
-    // Not asserting the corpus edition equals the skeleton's: a stale corpus
-    // is legitimate. Asserting the comparison is possible, which is what
-    // REQ-LANG-10 asks -- and here it is an id comparison, not a string one.
-    assert.equal(typeof ed.amended_through, 'string');
-  }
-});
+ }
+ for (const jur of statedIn) {
+  assert.ok(editions.jurisdictions[jur], `${jur}: in the skeleton but not in data/editions.json`)
+ }
+ for (const [id, c] of Object.entries(corpora)) {
+  const ed = editionOf(c.edition)
+  assert.ok(ed, `${id}: names unregistered edition ${c.edition}`)
+  // Not asserting the corpus edition equals the skeleton's: a stale corpus
+  // is legitimate. Asserting the comparison is possible, which is what
+  // REQ-LANG-10 asks -- and here it is an id comparison, not a string one.
+  assert.equal(typeof ed.amended_through, 'string')
+ }
+})
 
 // --- docs/adr/0009-data-version-stamp.md: data/version.json is the single stamp release-please owns --
 test('version: data/version.json matches package.json (release-please extra-files keeps these in sync)', () => {
-  const pkg = load('package.json');
-  assert.equal(versionStamp.version, pkg.version);
-});
+ const pkg = load('package.json')
+ assert.equal(versionStamp.version, pkg.version)
+})
 
 // --- the predicate language (README.md, 'Predicate semantics') -------------
 // `not` and `any_of` are the two constructs Q-33 asked for. Their semantics are
@@ -840,305 +761,275 @@ test('version: data/version.json matches package.json (release-please extra-file
 // absent-fact half of `not` is the part a reimplementation gets wrong.
 
 test('predicate language: `not` negates the constraint, never the presence of the fact', () => {
-  const has = { 'fact:activity': 'activity:nuc', 'fact:length_m': 15 };
-  assert.equal(matches({ 'fact:activity': { not: 'activity:nuc' } }, has), false);
-  assert.equal(matches({ 'fact:activity': { not: 'activity:ram' } }, has), true);
-  assert.equal(matches({ 'fact:activity': { not: ['activity:nuc', 'activity:ram'] } }, has), false);
-  assert.equal(matches({ 'fact:activity': { not: ['activity:fishing'] } }, has), true);
-  assert.equal(matches({ 'fact:length_m': { not: { lt: 20 } } }, has), false);
-  assert.equal(matches({ 'fact:length_m': { not: { gte: 20 } } }, has), true);
+ const has = { 'fact:activity': 'activity:nuc', 'fact:length_m': 15 }
+ assert.equal(matches({ 'fact:activity': { not: 'activity:nuc' } }, has), false)
+ assert.equal(matches({ 'fact:activity': { not: 'activity:ram' } }, has), true)
+ assert.equal(matches({ 'fact:activity': { not: ['activity:nuc', 'activity:ram'] } }, has), false)
+ assert.equal(matches({ 'fact:activity': { not: ['activity:fishing'] } }, has), true)
+ assert.equal(matches({ 'fact:length_m': { not: { lt: 20 } } }, has), false)
+ assert.equal(matches({ 'fact:length_m': { not: { gte: 20 } } }, has), true)
 
-  // The rule this file exists to pin: an absent fact never satisfies a
-  // constraint, negated or not. `not` over silence is unsatisfied, so a norm
-  // is never attached to a vessel on the strength of a fact nobody supplied.
-  // The consequence is deliberate and is the reason it gets its own assertion:
-  // `{not: X}` and `X` are BOTH false for an absent fact, so they are not
-  // complements over the empty record and the language is not classical there.
-  assert.equal(matches({ 'fact:activity': { not: 'activity:nuc' } }, {}), false);
-  assert.equal(matches({ 'fact:activity': 'activity:nuc' }, {}), false);
-  // Double negation is still absent-conservative, and is otherwise involutive.
-  assert.equal(matches({ 'fact:activity': { not: { not: 'activity:nuc' } } }, {}), false);
-  assert.equal(matches({ 'fact:activity': { not: { not: 'activity:nuc' } } }, has), true);
-  // The ram -> ram_underwater refinement is part of the constraint, so `not`
-  // negates the refined reading too rather than sneaking underneath it.
-  const dredger = { 'fact:activity': 'activity:ram_underwater' };
-  assert.equal(matches({ 'fact:activity': 'activity:ram' }, dredger), true);
-  assert.equal(matches({ 'fact:activity': { not: 'activity:ram' } }, dredger), false);
-});
+ // The rule this file exists to pin: an absent fact never satisfies a
+ // constraint, negated or not. `not` over silence is unsatisfied, so a norm
+ // is never attached to a vessel on the strength of a fact nobody supplied.
+ // The consequence is deliberate and is the reason it gets its own assertion:
+ // `{not: X}` and `X` are BOTH false for an absent fact, so they are not
+ // complements over the empty record and the language is not classical there.
+ assert.equal(matches({ 'fact:activity': { not: 'activity:nuc' } }, {}), false)
+ assert.equal(matches({ 'fact:activity': 'activity:nuc' }, {}), false)
+ // Double negation is still absent-conservative, and is otherwise involutive.
+ assert.equal(matches({ 'fact:activity': { not: { not: 'activity:nuc' } } }, {}), false)
+ assert.equal(matches({ 'fact:activity': { not: { not: 'activity:nuc' } } }, has), true)
+ // The ram -> ram_underwater refinement is part of the constraint, so `not`
+ // negates the refined reading too rather than sneaking underneath it.
+ const dredger = { 'fact:activity': 'activity:ram_underwater' }
+ assert.equal(matches({ 'fact:activity': 'activity:ram' }, dredger), true)
+ assert.equal(matches({ 'fact:activity': { not: 'activity:ram' } }, dredger), false)
+})
 
 test('predicate language: `any_of` is disjunction, at both levels, and stays conservative', () => {
-  const small = { 'fact:length_m': 12, 'fact:propulsion': 'propulsion:power' };
-  const sail = { 'fact:length_m': 30, 'fact:propulsion': 'propulsion:sail' };
-  const big = { 'fact:length_m': 30, 'fact:propulsion': 'propulsion:power' };
-  // 9(b)'s subject: a vessel of less than 20 m in length OR a sailing vessel.
-  // The two disjuncts read different facts, which is why `any_of` is a key of
-  // the `when` and not a constraint on one fact.
-  const nineB = {
-    any_of: [{ 'fact:length_m': { lt: 20 } }, { 'fact:propulsion': 'propulsion:sail' }],
-  };
-  assert.equal(matches(nineB, small), true);
-  assert.equal(matches(nineB, sail), true);
-  assert.equal(matches(nineB, big), false);
-  assert.equal(matches(nineB, {}), false);
-  // A `when` is still a conjunction; `any_of` sits inside it as one conjunct.
-  assert.equal(matches({ ...nineB, 'fact:propulsion': 'propulsion:power' }, small), true);
-  assert.equal(matches({ ...nineB, 'fact:propulsion': 'propulsion:power' }, sail), false);
-  // A sub-predicate is a full predicate: conjunctions and nesting both work.
-  assert.equal(matches({ any_of: [{ any_of: [{ 'fact:length_m': { lt: 20 } }] }] }, small), true);
-  assert.equal(
-    matches(
-      { any_of: [{ 'fact:length_m': { lt: 20 }, 'fact:propulsion': 'propulsion:sail' }] },
-      small,
-    ),
-    false,
-  );
-  // An empty `any_of` is unsatisfiable, which is what a disjunction of nothing
-  // means -- and is why no entry writes one.
-  assert.equal(matches({ any_of: [] }, small), false);
-  // As a constraint on one fact it is a disjunction of constraints.
-  assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, sail), true);
-  assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 40 }] } }, sail), false);
-  assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, {}), false);
-});
+ const small = { 'fact:length_m': 12, 'fact:propulsion': 'propulsion:power' }
+ const sail = { 'fact:length_m': 30, 'fact:propulsion': 'propulsion:sail' }
+ const big = { 'fact:length_m': 30, 'fact:propulsion': 'propulsion:power' }
+ // 9(b)'s subject: a vessel of less than 20 m in length OR a sailing vessel.
+ // The two disjuncts read different facts, which is why `any_of` is a key of
+ // the `when` and not a constraint on one fact.
+ const nineB = {
+  any_of: [{ 'fact:length_m': { lt: 20 } }, { 'fact:propulsion': 'propulsion:sail' }],
+ }
+ assert.equal(matches(nineB, small), true)
+ assert.equal(matches(nineB, sail), true)
+ assert.equal(matches(nineB, big), false)
+ assert.equal(matches(nineB, {}), false)
+ // A `when` is still a conjunction; `any_of` sits inside it as one conjunct.
+ assert.equal(matches({ ...nineB, 'fact:propulsion': 'propulsion:power' }, small), true)
+ assert.equal(matches({ ...nineB, 'fact:propulsion': 'propulsion:power' }, sail), false)
+ // A sub-predicate is a full predicate: conjunctions and nesting both work.
+ assert.equal(matches({ any_of: [{ any_of: [{ 'fact:length_m': { lt: 20 } }] }] }, small), true)
+ assert.equal(
+  matches({ any_of: [{ 'fact:length_m': { lt: 20 }, 'fact:propulsion': 'propulsion:sail' }] }, small),
+  false,
+ )
+ // An empty `any_of` is unsatisfiable, which is what a disjunction of nothing
+ // means -- and is why no entry writes one.
+ assert.equal(matches({ any_of: [] }, small), false)
+ // As a constraint on one fact it is a disjunction of constraints.
+ assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, sail), true)
+ assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 40 }] } }, sail), false)
+ assert.equal(matches({ 'fact:length_m': { any_of: [{ lt: 10 }, { gt: 25 }] } }, {}), false)
+})
 
 test('predicate language: the ram refinement applies to equality, membership and `any_of` alike', () => {
-  // The latent bug PR #25 recorded: the refinement used to be a special case
-  // ahead of the array branch, so `activity:ram` caught a dredger and
-  // `["activity:ram", "activity:nuc"]` did not. A reader cannot see that from
-  // the data, and the workaround it forced -- an `any_of` in the
-  // fact:rule18_class decode table where a list would read better -- was the
-  // only sign of it. Fixed by expanding the value once, so every constraint
-  // form that compares a value sees the same reading.
-  const dredger = { 'fact:activity': 'activity:ram_underwater' };
-  const ram = { 'fact:activity': 'activity:ram' };
-  const nuc = { 'fact:activity': 'activity:nuc' };
-  const k = 'fact:activity';
-  // Equality, as before.
-  assert.equal(matches({ [k]: 'activity:ram' }, dredger), true);
-  // List membership: the case that was wrong.
-  assert.equal(matches({ [k]: ['activity:ram', 'activity:nuc'] }, dredger), true);
-  assert.equal(matches({ [k]: ['activity:nuc', 'activity:fishing'] }, dredger), false);
-  assert.equal(matches({ [k]: ['activity:ram_underwater'] }, dredger), true);
-  // `any_of`, over both scalars and lists.
-  assert.equal(matches({ [k]: { any_of: ['activity:ram', 'activity:nuc'] } }, dredger), true);
-  assert.equal(matches({ [k]: { any_of: [['activity:ram', 'activity:nuc']] } }, dredger), true);
-  assert.equal(matches({ [k]: { any_of: [['activity:nuc']] } }, dredger), false);
-  // `not` still negates the refined reading rather than sneaking underneath it,
-  // in every form.
-  assert.equal(matches({ [k]: { not: ['activity:ram'] } }, dredger), false);
-  assert.equal(matches({ [k]: { not: { any_of: ['activity:ram'] } } }, dredger), false);
-  assert.equal(matches({ [k]: { not: ['activity:nuc'] } }, dredger), true);
-  // The refinement is one-way: a predicate for the finer value does not read
-  // the coarser one, and no other value gains a reading.
-  assert.equal(matches({ [k]: 'activity:ram_underwater' }, ram), false);
-  assert.equal(matches({ [k]: ['activity:ram_underwater'] }, ram), false);
-  assert.equal(matches({ [k]: ['activity:ram'] }, nuc), false);
-  // It is scoped to the fact that declares it: no other key refines.
-  assert.equal(
-    matches(
-      { 'fact:propulsion': ['activity:ram'] },
-      { 'fact:propulsion': 'activity:ram_underwater' },
-    ),
-    false,
-  );
-  // ...and it reaches the two-subject evaluator through the same `local`,
-  // whichever subject the key names.
-  const s = { self: { fact: dredger }, other: { fact: ram } };
-  assert.equal(matchesSituation({ 'self:fact:activity': ['activity:ram'] }, s), true);
-  assert.equal(matchesSituation({ 'other:fact:activity': ['activity:ram_underwater'] }, s), false);
-});
+ // The latent bug PR #25 recorded: the refinement used to be a special case
+ // ahead of the array branch, so `activity:ram` caught a dredger and
+ // `["activity:ram", "activity:nuc"]` did not. A reader cannot see that from
+ // the data, and the workaround it forced -- an `any_of` in the
+ // fact:rule18_class decode table where a list would read better -- was the
+ // only sign of it. Fixed by expanding the value once, so every constraint
+ // form that compares a value sees the same reading.
+ const dredger = { 'fact:activity': 'activity:ram_underwater' }
+ const ram = { 'fact:activity': 'activity:ram' }
+ const nuc = { 'fact:activity': 'activity:nuc' }
+ const k = 'fact:activity'
+ // Equality, as before.
+ assert.equal(matches({ [k]: 'activity:ram' }, dredger), true)
+ // List membership: the case that was wrong.
+ assert.equal(matches({ [k]: ['activity:ram', 'activity:nuc'] }, dredger), true)
+ assert.equal(matches({ [k]: ['activity:nuc', 'activity:fishing'] }, dredger), false)
+ assert.equal(matches({ [k]: ['activity:ram_underwater'] }, dredger), true)
+ // `any_of`, over both scalars and lists.
+ assert.equal(matches({ [k]: { any_of: ['activity:ram', 'activity:nuc'] } }, dredger), true)
+ assert.equal(matches({ [k]: { any_of: [['activity:ram', 'activity:nuc']] } }, dredger), true)
+ assert.equal(matches({ [k]: { any_of: [['activity:nuc']] } }, dredger), false)
+ // `not` still negates the refined reading rather than sneaking underneath it,
+ // in every form.
+ assert.equal(matches({ [k]: { not: ['activity:ram'] } }, dredger), false)
+ assert.equal(matches({ [k]: { not: { any_of: ['activity:ram'] } } }, dredger), false)
+ assert.equal(matches({ [k]: { not: ['activity:nuc'] } }, dredger), true)
+ // The refinement is one-way: a predicate for the finer value does not read
+ // the coarser one, and no other value gains a reading.
+ assert.equal(matches({ [k]: 'activity:ram_underwater' }, ram), false)
+ assert.equal(matches({ [k]: ['activity:ram_underwater'] }, ram), false)
+ assert.equal(matches({ [k]: ['activity:ram'] }, nuc), false)
+ // It is scoped to the fact that declares it: no other key refines.
+ assert.equal(matches({ 'fact:propulsion': ['activity:ram'] }, { 'fact:propulsion': 'activity:ram_underwater' }), false)
+ // ...and it reaches the two-subject evaluator through the same `local`,
+ // whichever subject the key names.
+ const s = { self: { fact: dredger }, other: { fact: ram } }
+ assert.equal(matchesSituation({ 'self:fact:activity': ['activity:ram'] }, s), true)
+ assert.equal(matchesSituation({ 'other:fact:activity': ['activity:ram_underwater'] }, s), false)
+})
 
 test('the fact:rule18_class decode reads the ram refinement through a bare list', () => {
-  // The workaround removed: the 3(g) row is a list again, and the refinement is
-  // what makes it right. If the fix regressed, a dredger would decode to
-  // nothing here rather than to `rule18_class:ram`.
-  const row = facts.derived['fact:rule18_class'].decode.find((r) => r.cite === '3(g)');
-  assert.ok(Array.isArray(row.when['fact:activity']), '3(g) decode row should be a bare list');
-  assert.ok(
-    !row.when['fact:activity'].includes('activity:ram_underwater'),
-    'the refinement carries it; spelling it out would hide the next one',
-  );
-  assert.equal(
-    derive({ 'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:ram_underwater' })[
-      'fact:rule18_class'
-    ],
-    'rule18_class:ram',
-  );
-});
+ // The workaround removed: the 3(g) row is a list again, and the refinement is
+ // what makes it right. If the fix regressed, a dredger would decode to
+ // nothing here rather than to `rule18_class:ram`.
+ const row = facts.derived['fact:rule18_class'].decode.find((r) => r.cite === '3(g)')
+ assert.ok(Array.isArray(row.when['fact:activity']), '3(g) decode row should be a bare list')
+ assert.ok(
+  !row.when['fact:activity'].includes('activity:ram_underwater'),
+  'the refinement carries it; spelling it out would hide the next one',
+ )
+ assert.equal(
+  derive({ 'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:ram_underwater' })['fact:rule18_class'],
+  'rule18_class:ram',
+ )
+})
 
 test('predicate language: both evaluators share it, and `any_of` reads two subjects', () => {
-  // The whole point of implementing this in `satisfies`/`holds` rather than in
-  // one evaluator: the situation evaluator gets it without a second copy.
-  const s = {
-    self: { fact: { 'fact:propulsion': 'propulsion:sail' } },
-    other: { fact: { 'fact:length_m': 12 } },
-  };
-  assert.equal(matchesSituation({ 'self:fact:propulsion': { not: 'propulsion:power' } }, s), true);
-  assert.equal(
-    matchesSituation({ 'other:fact:propulsion': { not: 'propulsion:power' } }, s),
-    false,
-    "other's propulsion is absent, and `not` over an absent fact is unsatisfied",
-  );
-  assert.equal(
-    matchesSituation(
-      {
-        any_of: [{ 'self:fact:length_m': { lt: 20 } }, { 'other:fact:length_m': { lt: 20 } }],
-      },
-      s,
-    ),
-    true,
-  );
-  assert.equal(
-    matchesSituation(
-      {
-        any_of: [{ 'self:fact:length_m': { lt: 20 } }, { 'other:fact:length_m': { lt: 5 } }],
-      },
-      s,
-    ),
-    false,
-  );
-});
+ // The whole point of implementing this in `satisfies`/`holds` rather than in
+ // one evaluator: the situation evaluator gets it without a second copy.
+ const s = {
+  self: { fact: { 'fact:propulsion': 'propulsion:sail' } },
+  other: { fact: { 'fact:length_m': 12 } },
+ }
+ assert.equal(matchesSituation({ 'self:fact:propulsion': { not: 'propulsion:power' } }, s), true)
+ assert.equal(
+  matchesSituation({ 'other:fact:propulsion': { not: 'propulsion:power' } }, s),
+  false,
+  "other's propulsion is absent, and `not` over an absent fact is unsatisfied",
+ )
+ assert.equal(
+  matchesSituation(
+   {
+    any_of: [{ 'self:fact:length_m': { lt: 20 } }, { 'other:fact:length_m': { lt: 20 } }],
+   },
+   s,
+  ),
+  true,
+ )
+ assert.equal(
+  matchesSituation(
+   {
+    any_of: [{ 'self:fact:length_m': { lt: 20 } }, { 'other:fact:length_m': { lt: 5 } }],
+   },
+   s,
+  ),
+  false,
+ )
+})
 
 test('predicate language: `not` and `any_of` are exclusive of the other constraint forms', () => {
-  // A constraint object carrying `not` or `any_of` carries nothing else: the
-  // two return early, so a `{not: ..., lt: ...}` would silently drop the `lt`.
-  // Checked over the data rather than left to review.
-  const walk = (where, when) => {
-    for (const [k, want] of Object.entries(when)) {
-      if (k === 'any_of') {
-        for (const sub of want) walk(where, sub);
-        continue;
-      }
-      const check = (w) => {
-        if (w === null || typeof w !== 'object' || Array.isArray(w)) return;
-        const keys = Object.keys(w);
-        for (const special of ['not', 'any_of']) {
-          if (!keys.includes(special)) continue;
-          assert.deepEqual(
-            keys,
-            [special],
-            `${where}: ${k} mixes ${special} with ${keys.join(', ')}`,
-          );
-        }
-        if (keys.includes('not')) check(w.not);
-        if (keys.includes('any_of')) for (const sub of w.any_of) check(sub);
-      };
-      check(want);
+ // A constraint object carrying `not` or `any_of` carries nothing else: the
+ // two return early, so a `{not: ..., lt: ...}` would silently drop the `lt`.
+ // Checked over the data rather than left to review.
+ const walk = (where, when) => {
+  for (const [k, want] of Object.entries(when)) {
+   if (k === 'any_of') {
+    for (const sub of want) walk(where, sub)
+    continue
+   }
+   const check = (w) => {
+    if (w === null || typeof w !== 'object' || Array.isArray(w)) return
+    const keys = Object.keys(w)
+    for (const special of ['not', 'any_of']) {
+     if (!keys.includes(special)) continue
+     assert.deepEqual(keys, [special], `${where}: ${k} mixes ${special} with ${keys.join(', ')}`)
     }
-  };
-  for (const e of appl.entries) {
-    walk(e.id, e.when);
-    for (const m of e.modality_by ?? []) walk(e.id, m.when);
-    for (const c of e['rel:conditional_includes'] ?? []) walk(e.id, c.when ?? {});
+    if (keys.includes('not')) check(w.not)
+    if (keys.includes('any_of')) for (const sub of w.any_of) check(sub)
+   }
+   check(want)
   }
-  for (const [key, spec] of derivedFacts) {
-    for (const [i, row] of spec.decode.entries()) walk(`${key} decode[${i}]`, row.when);
-  }
-});
+ }
+ for (const e of appl.entries) {
+  walk(e.id, e.when)
+  for (const m of e.modality_by ?? []) walk(e.id, m.when)
+  for (const c of e['rel:conditional_includes'] ?? []) walk(e.id, c.when ?? {})
+ }
+ for (const [key, spec] of derivedFacts) {
+  for (const [i, row] of spec.decode.entries()) walk(`${key} decode[${i}]`, row.when)
+ }
+})
 
 // --- derived facts: fact:rule18_class (Q-32) -------------------------------
 
 test('fact:rule18_class: the decode table is the definition, and it is total where it claims to be', () => {
-  const spec = facts.derived['fact:rule18_class'];
-  assert.equal(spec.derived, true);
-  const values = new Set(spec.values);
-  // Every declared value is produced by some row, and every row's value and
-  // cite are declared -- so a value cannot rot into one nothing decodes to.
-  assert.deepEqual([...new Set(spec.decode.map((r) => r.value))].sort(), [...values].sort());
-  for (const v of values) assert.ok(spec.cites[v], `${v} has no cite`);
-  for (const [v, c] of Object.entries(spec.cites)) {
-    assert.ok(values.has(v), `cites names undeclared value ${v}`);
-    assert.ok(rules.paragraphs[c], `${v} cites missing paragraph ${c}`);
-  }
-  for (const r of spec.decode)
-    assert.ok(rules.paragraphs[r.cite], `decode row cites missing ${r.cite}`);
+ const spec = facts.derived['fact:rule18_class']
+ assert.equal(spec.derived, true)
+ const values = new Set(spec.values)
+ // Every declared value is produced by some row, and every row's value and
+ // cite are declared -- so a value cannot rot into one nothing decodes to.
+ assert.deepEqual([...new Set(spec.decode.map((r) => r.value))].sort(), [...values].sort())
+ for (const v of values) assert.ok(spec.cites[v], `${v} has no cite`)
+ for (const [v, c] of Object.entries(spec.cites)) {
+  assert.ok(values.has(v), `cites names undeclared value ${v}`)
+  assert.ok(rules.paragraphs[c], `${v} cites missing paragraph ${c}`)
+ }
+ for (const r of spec.decode) assert.ok(rules.paragraphs[r.cite], `decode row cites missing ${r.cite}`)
 
-  const cls = (f) => derive(f)['fact:rule18_class'];
-  const power = { 'fact:propulsion': 'propulsion:power', 'fact:position': 'position:underway' };
-  const sail = { 'fact:propulsion': 'propulsion:sail', 'fact:position': 'position:underway' };
-  // The rank, not the lights: this is the divergence Q-32 recorded.
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:none' }), 'rule18_class:power');
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:nuc' }), 'rule18_class:nuc');
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:ram' }), 'rule18_class:ram');
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:ram_underwater' }), 'rule18_class:ram');
-  assert.equal(
-    cls({ ...power, 'fact:activity': 'activity:mine' }),
-    'rule18_class:ram',
-    '3(g) enumerates mine clearance',
-  );
-  assert.equal(
-    cls({ ...power, 'fact:activity': 'activity:diving' }),
-    'rule18_class:ram',
-    '3(g) enumerates diving',
-  );
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:trawling' }), 'rule18_class:fishing');
-  assert.equal(
-    cls({ ...sail, 'fact:activity': 'activity:fishing' }),
-    'rule18_class:fishing',
-    '18(c) does not distinguish propulsion: a fishing vessel under sail is fishing, not sail',
-  );
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:cbd' }), 'rule18_class:cbd');
-  assert.equal(cls({ ...sail, 'fact:activity': 'activity:none' }), 'rule18_class:sail');
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:pilot' }), 'rule18_class:power');
-  // 27(c): the case Q-32 said the old hand-written lists could not catch.
-  assert.equal(cls({ ...power, 'fact:activity': 'activity:towing' }), 'rule18_class:power');
-  assert.equal(
-    cls({ ...power, 'fact:activity': 'activity:towing', 'fact:tow_restricts_deviation': false }),
-    'rule18_class:power',
-  );
-  assert.equal(
-    cls({ ...power, 'fact:activity': 'activity:towing', 'fact:tow_restricts_deviation': true }),
-    'rule18_class:ram',
-    '27(c): a tow that severely restricts the pair is RAM',
-  );
-  // 18(f): the phase, not the craft. A WIG on the surface is 18(f)(ii)'s
-  // power-driven vessel, which is what known_omissions says this table says.
-  const wig = { ...power, 'fact:activity': 'activity:none', 'fact:wig': true };
-  assert.equal(cls({ ...wig, 'fact:wig_near_surface': true }), 'rule18_class:wig');
-  assert.equal(cls({ ...wig, 'fact:wig_near_surface': false }), 'rule18_class:power');
-  // ...but a WIG that cannot manoeuvre is ranked by that, not by her phase.
-  assert.equal(
-    cls({ ...wig, 'fact:wig_near_surface': true, 'fact:activity': 'activity:nuc' }),
-    'rule18_class:nuc',
-  );
+ const cls = (f) => derive(f)['fact:rule18_class']
+ const power = { 'fact:propulsion': 'propulsion:power', 'fact:position': 'position:underway' }
+ const sail = { 'fact:propulsion': 'propulsion:sail', 'fact:position': 'position:underway' }
+ // The rank, not the lights: this is the divergence Q-32 recorded.
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:none' }), 'rule18_class:power')
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:nuc' }), 'rule18_class:nuc')
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:ram' }), 'rule18_class:ram')
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:ram_underwater' }), 'rule18_class:ram')
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:mine' }), 'rule18_class:ram', '3(g) enumerates mine clearance')
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:diving' }), 'rule18_class:ram', '3(g) enumerates diving')
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:trawling' }), 'rule18_class:fishing')
+ assert.equal(
+  cls({ ...sail, 'fact:activity': 'activity:fishing' }),
+  'rule18_class:fishing',
+  '18(c) does not distinguish propulsion: a fishing vessel under sail is fishing, not sail',
+ )
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:cbd' }), 'rule18_class:cbd')
+ assert.equal(cls({ ...sail, 'fact:activity': 'activity:none' }), 'rule18_class:sail')
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:pilot' }), 'rule18_class:power')
+ // 27(c): the case Q-32 said the old hand-written lists could not catch.
+ assert.equal(cls({ ...power, 'fact:activity': 'activity:towing' }), 'rule18_class:power')
+ assert.equal(
+  cls({ ...power, 'fact:activity': 'activity:towing', 'fact:tow_restricts_deviation': false }),
+  'rule18_class:power',
+ )
+ assert.equal(
+  cls({ ...power, 'fact:activity': 'activity:towing', 'fact:tow_restricts_deviation': true }),
+  'rule18_class:ram',
+  '27(c): a tow that severely restricts the pair is RAM',
+ )
+ // 18(f): the phase, not the craft. A WIG on the surface is 18(f)(ii)'s
+ // power-driven vessel, which is what known_omissions says this table says.
+ const wig = { ...power, 'fact:activity': 'activity:none', 'fact:wig': true }
+ assert.equal(cls({ ...wig, 'fact:wig_near_surface': true }), 'rule18_class:wig')
+ assert.equal(cls({ ...wig, 'fact:wig_near_surface': false }), 'rule18_class:power')
+ // ...but a WIG that cannot manoeuvre is ranked by that, not by her phase.
+ assert.equal(cls({ ...wig, 'fact:wig_near_surface': true, 'fact:activity': 'activity:nuc' }), 'rule18_class:nuc')
 
-  // What the table deliberately does not classify, asserted so that it stays a
-  // decision rather than becoming an oversight. Every case is in `undecodable`.
-  assert.equal(
-    cls({ 'fact:propulsion': 'propulsion:oars', 'fact:activity': 'activity:none' }),
-    undefined,
-    'Rule 18 does not rank a vessel under oars; 25(d)(ii) is a lights permission',
-  );
-  assert.equal(cls({}), undefined);
-  assert.equal(cls({ 'fact:activity': 'activity:none' }), undefined);
-  assert.ok(
-    !values.has('rule18_class:seaplane'),
-    '18(e) has no fact behind it; known_omissions records it',
-  );
-  assert.ok(spec.undecodable.length >= 3);
-  for (const u of spec.undecodable) assert.ok(u.case && u.why);
+ // What the table deliberately does not classify, asserted so that it stays a
+ // decision rather than becoming an oversight. Every case is in `undecodable`.
+ assert.equal(
+  cls({ 'fact:propulsion': 'propulsion:oars', 'fact:activity': 'activity:none' }),
+  undefined,
+  'Rule 18 does not rank a vessel under oars; 25(d)(ii) is a lights permission',
+ )
+ assert.equal(cls({}), undefined)
+ assert.equal(cls({ 'fact:activity': 'activity:none' }), undefined)
+ assert.ok(!values.has('rule18_class:seaplane'), '18(e) has no fact behind it; known_omissions records it')
+ assert.ok(spec.undecodable.length >= 3)
+ for (const u of spec.undecodable) assert.ok(u.case && u.why)
 
-  // A derived fact is never asked of a consumer, so it is not actuable and is
-  // not in the switching subset.
-  assert.equal(spec.actuable, false);
-  assert.ok(!facts.actuable_subset.fields.includes('fact:rule18_class'));
-});
+ // A derived fact is never asked of a consumer, so it is not actuable and is
+ // not in the switching subset.
+ assert.equal(spec.actuable, false)
+ assert.ok(!facts.actuable_subset.fields.includes('fact:rule18_class'))
+})
 
 test('fact:rule18_class: no precedence entry hand-lists an activity value any more (Q-32)', () => {
-  // The strain this fact was added to remove: Rule 18's rank was written out as
-  // an enumeration of display-axis values in eleven predicates, each of which
-  // had to be edited whenever the axis grew, with nothing failing if one was
-  // missed. If a precedence entry reads `fact:activity` again, either the class
-  // is wrong or the entry is -- and this is where that argument happens.
-  for (const e of precedence) {
-    for (const k of factKeys(e.when)) {
-      assert.ok(
-        !k.endsWith('fact:activity'),
-        `${e.id} reads ${k}; Rule 18's rank is fact:rule18_class, and fact:activity is a display axis`,
-      );
-    }
+ // The strain this fact was added to remove: Rule 18's rank was written out as
+ // an enumeration of display-axis values in eleven predicates, each of which
+ // had to be edited whenever the axis grew, with nothing failing if one was
+ // missed. If a precedence entry reads `fact:activity` again, either the class
+ // is wrong or the entry is -- and this is where that argument happens.
+ for (const e of precedence) {
+  for (const k of factKeys(e.when)) {
+   assert.ok(
+    !k.endsWith('fact:activity'),
+    `${e.id} reads ${k}; Rule 18's rank is fact:rule18_class, and fact:activity is a display axis`,
+   )
   }
-});
+ }
+})
 
 // --- drift (REQ-VERIFY-2) --------------------------------------------------
 // Forward direction: fact record -> lights, via `applying`/`matches` above.
@@ -1152,107 +1043,99 @@ test('fact:rule18_class: no precedence entry hand-lists an activity value any mo
 // A signal is a light or a day shape (REQ-PART-2): the two vocabularies are
 // tagged so a ball and a light with the same JSON never collide.
 function lightSig(e) {
-  return [
-    ...(e.lights ?? []).map((l) => `light ${JSON.stringify(l)}`),
-    ...(e.shapes ?? []).map((s) => `shape ${JSON.stringify(s)}`),
-    ...(e.signal ?? []).map((g) => `signal ${JSON.stringify(g)}`),
-  ].sort();
+ return [
+  ...(e.lights ?? []).map((l) => `light ${JSON.stringify(l)}`),
+  ...(e.shapes ?? []).map((s) => `shape ${JSON.stringify(s)}`),
+  ...(e.signal ?? []).map((g) => `signal ${JSON.stringify(g)}`),
+ ].sort()
 }
-const relatedIds = new Map(appl.entries.map((e) => [e.id, new Set()]));
+const relatedIds = new Map(appl.entries.map((e) => [e.id, new Set()]))
 const relate = (a, b) => {
-  relatedIds.get(a)?.add(b);
-  relatedIds.get(b)?.add(a);
-};
+ relatedIds.get(a)?.add(b)
+ relatedIds.get(b)?.add(a)
+}
 for (const e of appl.entries) {
-  for (const r of e['rel:includes'] ?? []) relate(e.id, r);
-  for (const r of e['rel:in_lieu_of'] ?? []) relate(e.id, r);
-  for (const r of e['rel:excludes'] ?? []) relate(e.id, r);
-  for (const r of e['rel:exempts'] ?? []) relate(e.id, r);
-  for (const c of e['rel:conditional_includes'] ?? []) {
-    for (const r of c['rel:includes'] ?? []) relate(e.id, r);
-    for (const r of c.one_of ?? []) relate(e.id, r);
-  }
+ for (const r of e['rel:includes'] ?? []) relate(e.id, r)
+ for (const r of e['rel:in_lieu_of'] ?? []) relate(e.id, r)
+ for (const r of e['rel:excludes'] ?? []) relate(e.id, r)
+ for (const r of e['rel:exempts'] ?? []) relate(e.id, r)
+ for (const c of e['rel:conditional_includes'] ?? []) {
+  for (const r of c['rel:includes'] ?? []) relate(e.id, r)
+  for (const r of c.one_of ?? []) relate(e.id, r)
+ }
 }
 
 test('drift: signals already shown never silently admit an undeclared candidate entry', () => {
-  for (const c of fixtures.cases) {
-    const shownIds = new Set(expectIds(c));
-    const shown = new Set(appl.entries.filter((e) => shownIds.has(e.id)).flatMap(lightSig));
-    const j = c.jurisdiction ?? fixtures.jurisdiction;
-    for (const e of appl.entries) {
-      if (shownIds.has(e.id)) continue;
-      // An entry from another jurisdiction is not a candidate at all: it was
-      // never in force for this record, so its absence is not drift.
-      if (!inJurisdiction(e, j)) continue;
-      const sig = lightSig(e);
-      if (sig.length === 0 || !sig.every((s) => shown.has(s))) continue;
-      const excludedByFacts = !matches(e.when, c.facts);
-      const declared = [...shownIds].some((id) => relatedIds.get(e.id)?.has(id));
-      assert.ok(
-        excludedByFacts || declared,
-        `${c.name}: ${e.id}'s signals are already fully shown but it is neither ` +
-          `ruled out by facts nor a declared relation of {${[...shownIds].join(',')}}`,
-      );
-    }
+ for (const c of fixtures.cases) {
+  const shownIds = new Set(expectIds(c))
+  const shown = new Set(appl.entries.filter((e) => shownIds.has(e.id)).flatMap(lightSig))
+  const j = c.jurisdiction ?? fixtures.jurisdiction
+  for (const e of appl.entries) {
+   if (shownIds.has(e.id)) continue
+   // An entry from another jurisdiction is not a candidate at all: it was
+   // never in force for this record, so its absence is not drift.
+   if (!inJurisdiction(e, j)) continue
+   const sig = lightSig(e)
+   if (sig.length === 0 || !sig.every((s) => shown.has(s))) continue
+   const excludedByFacts = !matches(e.when, c.facts)
+   const declared = [...shownIds].some((id) => relatedIds.get(e.id)?.has(id))
+   assert.ok(
+    excludedByFacts || declared,
+    `${c.name}: ${e.id}'s signals are already fully shown but it is neither ` +
+     `ruled out by facts nor a declared relation of {${[...shownIds].join(',')}}`,
+   )
   }
-});
+ }
+})
 
 // REQ-VERIFY-3 for the one-subject entries: each is selected by a fixture
 // under a jurisdiction it is in force in, and left out by another.
 test('REQ-VERIFY-3: every display entry is exercised by a fixture and excluded by another', () => {
-  // One-subject only: a Rule 34 entry is a display entry that reads a
-  // situation (ADR 0022), so no fact record can select it and the
-  // situation-fixture replay below is what exercises it.
-  for (const e of appl.entries.filter((x) => isDisplay(x) && (x.subjects ?? 1) === 1)) {
-    const cases = fixtures.cases.filter((c) =>
-      inJurisdiction(e, c.jurisdiction ?? fixtures.jurisdiction),
-    );
-    assert.ok(
-      cases.some((c) => expectIds(c).includes(e.id)),
-      `${e.id} is selected by no fixture`,
-    );
-    assert.ok(
-      cases.some((c) => !expectIds(c).includes(e.id)),
-      `${e.id} is excluded by no fixture`,
-    );
-  }
-});
+ // One-subject only: a Rule 34 entry is a display entry that reads a
+ // situation (ADR 0022), so no fact record can select it and the
+ // situation-fixture replay below is what exercises it.
+ for (const e of appl.entries.filter((x) => isDisplay(x) && (x.subjects ?? 1) === 1)) {
+  const cases = fixtures.cases.filter((c) => inJurisdiction(e, c.jurisdiction ?? fixtures.jurisdiction))
+  assert.ok(
+   cases.some((c) => expectIds(c).includes(e.id)),
+   `${e.id} is selected by no fixture`,
+  )
+  assert.ok(
+   cases.some((c) => !expectIds(c).includes(e.id)),
+   `${e.id} is excluded by no fixture`,
+  )
+ }
+})
 
 // REQ-PART-2: a day shape is the same entry model as a light, gated by the
 // one fact that separates them. Every entry that emits a shape reads
 // fact:time = time:day; no entry that emits a light reads fact:time at all,
 // because the 20(b) gate on lights is a declared omission, not a predicate.
 test('REQ-PART-2: shapes read fact:time = time:day, lights read no time fact', () => {
-  for (const e of appl.entries) {
-    if ((e.shapes ?? []).length > 0) {
-      assert.equal(
-        e.when['fact:time'],
-        'time:day',
-        `${e.id} emits shapes without reading fact:time = time:day`,
-      );
-      assert.equal((e.lights ?? []).length, 0, `${e.id} emits both lights and shapes`);
-    }
-    if ((e.lights ?? []).length > 0)
-      assert.ok(!('fact:time' in e.when), `${e.id} emits lights and reads fact:time`);
+ for (const e of appl.entries) {
+  if ((e.shapes ?? []).length > 0) {
+   assert.equal(e.when['fact:time'], 'time:day', `${e.id} emits shapes without reading fact:time = time:day`)
+   assert.equal((e.lights ?? []).length, 0, `${e.id} emits both lights and shapes`)
   }
-});
+  if ((e.lights ?? []).length > 0) assert.ok(!('fact:time' in e.when), `${e.id} emits lights and reads fact:time`)
+ }
+})
 
 // --- integrity -----------------------------------------------------------
 test('every entry cites a paragraph that exists in rules.json, under its own jurisdiction', () => {
-  const check = (where, cite, j) => {
-    const head = cite.split('-')[0].trim();
-    assert.ok(skeletonOf(j)[head], `${where} cites missing paragraph ${head} under ${j}`);
-  };
-  for (const e of appl.entries) {
-    check(e.id, e.cite, e.jurisdiction);
-    // A conditional_includes branch may carry its own cite (rule:29a's (ii)/(iii),
-    // rule:27f's two branches); it is a citation like any other and must resolve.
-    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
-      if (c.cite !== undefined)
-        check(`${e.id} rel:conditional_includes[${i}]`, c.cite, e.jurisdiction);
-    }
+ const check = (where, cite, j) => {
+  const head = cite.split('-')[0].trim()
+  assert.ok(skeletonOf(j)[head], `${where} cites missing paragraph ${head} under ${j}`)
+ }
+ for (const e of appl.entries) {
+  check(e.id, e.cite, e.jurisdiction)
+  // A conditional_includes branch may carry its own cite (rule:29a's (ii)/(iii),
+  // rule:27f's two branches); it is a citation like any other and must resolve.
+  for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+   if (c.cite !== undefined) check(`${e.id} rel:conditional_includes[${i}]`, c.cite, e.jurisdiction)
   }
-});
+ }
+})
 
 // A conditional_includes branch fires only once its own `when` holds on top of
 // the carrier's, so the lights it imports are only ever needed if the union of
@@ -1262,226 +1145,185 @@ test('every entry cites a paragraph that exists in rules.json, under its own jur
 // second path to the same lights every consumer must dedupe. A redundant
 // import like this is a mistake, not a valid pattern.
 test('conditional_includes: an imported entry is never already in force under the branch', () => {
-  for (const e of appl.entries) {
-    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
-      const union = { ...(e.when ?? {}), ...(c.when ?? {}) };
-      // one_of is exempt by design (ADR 0019 point 2): an option already in
-      // force by its own predicate legitimately discharges the set -- 30(a)/
-      // 30(b) apply to a 27(b)(iv) vessel because they apply to her, not
-      // because 27(b)(iv) redirects her to them. Only rel:includes is an
-      // unconditional import, so only it is checked here.
-      for (const t of c['rel:includes'] ?? []) {
-        const target = byId.get(t);
-        const tWhen = target?.when ?? {};
-        const isSubset = Object.entries(tWhen).every(([k, v]) => isDeepStrictEqual(union[k], v));
-        assert.ok(
-          !isSubset,
-          `${e.id} rel:conditional_includes[${i}] imports ${t}, which is already in force under ` +
-            `${JSON.stringify(union)}; the selection pass would deliver its lights regardless`,
-        );
-      }
-    }
+ for (const e of appl.entries) {
+  for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+   const union = { ...(e.when ?? {}), ...(c.when ?? {}) }
+   // one_of is exempt by design (ADR 0019 point 2): an option already in
+   // force by its own predicate legitimately discharges the set -- 30(a)/
+   // 30(b) apply to a 27(b)(iv) vessel because they apply to her, not
+   // because 27(b)(iv) redirects her to them. Only rel:includes is an
+   // unconditional import, so only it is checked here.
+   for (const t of c['rel:includes'] ?? []) {
+    const target = byId.get(t)
+    const tWhen = target?.when ?? {}
+    const isSubset = Object.entries(tWhen).every(([k, v]) => isDeepStrictEqual(union[k], v))
+    assert.ok(
+     !isSubset,
+     `${e.id} rel:conditional_includes[${i}] imports ${t}, which is already in force under ` +
+      `${JSON.stringify(union)}; the selection pass would deliver its lights regardless`,
+    )
+   }
   }
-});
+ }
+})
 
 // ADR 0020: an inherited entry stands on an inherited path. If a jurisdiction's
 // skeleton drops the path an intl entry cites, that entry cannot be in force
 // there by silence -- it is tombstoned (and, where the norm survives under
 // another path, replaced) or the skeleton is wrong.
 test("ADR 0020: every entry in force under a jurisdiction cites a path in that jurisdiction's skeleton", () => {
-  for (const j of skeletonJurisdictions()) {
-    const sk = skeletonOf(j);
-    for (const e of appl.entries.filter((e) => inJurisdiction(e, j))) {
-      const head = e.cite.split('-')[0].trim();
-      assert.ok(sk[head], `${j}: ${e.id} is in force but cites ${head}, which ${j} suppresses`);
-    }
+ for (const j of skeletonJurisdictions()) {
+  const sk = skeletonOf(j)
+  for (const e of appl.entries.filter((e) => inJurisdiction(e, j))) {
+   const head = e.cite.split('-')[0].trim()
+   assert.ok(sk[head], `${j}: ${e.id} is in force but cites ${head}, which ${j} suppresses`)
   }
-});
+ }
+})
 
 test('suppressions: every tombstone names an intl entry, a registered jurisdiction and a resolving cite (ADR 0018)', () => {
-  const seen = new Set();
-  for (const s of appl.suppressions ?? []) {
-    const target = byId.get(s.suppresses);
-    assert.ok(target, `${s.jurisdiction} suppresses unknown entry ${s.suppresses}`);
-    // Only an inherited entry can be tombstoned. A jurisdiction's own entry is
-    // simply removed; a third jurisdiction's was never in force here.
-    assert.equal(
-      target.jurisdiction,
-      'intl',
-      `${s.jurisdiction} suppresses ${s.suppresses}, which is not an intl entry`,
-    );
-    assert.ok(
-      editions.jurisdictions[s.jurisdiction],
-      `${s.jurisdiction}: suppresses but is not in data/editions.json`,
-    );
-    assert.ok(
-      rules.paragraphs[s.cite.split('-')[0].trim()],
-      `${s.jurisdiction}/${s.suppresses} cites missing paragraph ${s.cite}`,
-    );
-    const key = `${s.jurisdiction} ${s.suppresses}`;
-    assert.ok(!seen.has(key), `${key} is tombstoned twice`);
-    seen.add(key);
-  }
-});
+ const seen = new Set()
+ for (const s of appl.suppressions ?? []) {
+  const target = byId.get(s.suppresses)
+  assert.ok(target, `${s.jurisdiction} suppresses unknown entry ${s.suppresses}`)
+  // Only an inherited entry can be tombstoned. A jurisdiction's own entry is
+  // simply removed; a third jurisdiction's was never in force here.
+  assert.equal(target.jurisdiction, 'intl', `${s.jurisdiction} suppresses ${s.suppresses}, which is not an intl entry`)
+  assert.ok(editions.jurisdictions[s.jurisdiction], `${s.jurisdiction}: suppresses but is not in data/editions.json`)
+  assert.ok(
+   rules.paragraphs[s.cite.split('-')[0].trim()],
+   `${s.jurisdiction}/${s.suppresses} cites missing paragraph ${s.cite}`,
+  )
+  const key = `${s.jurisdiction} ${s.suppresses}`
+  assert.ok(!seen.has(key), `${key} is tombstoned twice`)
+  seen.add(key)
+ }
+})
 
 test("ADR 0018: each jurisdiction is an RFC 7396 merge patch over intl, and applying it reproduces the evaluator's view", () => {
-  const byIdOf = (list) => Object.fromEntries(list.map((e) => [e.id, e]));
-  const intl = byIdOf(appl.entries.filter((e) => e.jurisdiction === 'intl'));
-  const jurisdictions = new Set(
-    [
-      ...appl.entries.map((e) => e.jurisdiction),
-      ...(appl.suppressions ?? []).map((s) => s.jurisdiction),
-    ].filter((j) => j !== 'intl'),
-  );
-  assert.ok(jurisdictions.size > 0, 'no non-intl jurisdiction to exercise the delta encoding on');
-  for (const j of jurisdictions) {
-    // The delta, as a merge-patch document: the jurisdiction's own entries by
-    // id, and null for every tombstone. Nothing else -- inheritance is what
-    // the patch does not mention.
-    const patch = byIdOf(appl.entries.filter((e) => e.jurisdiction === j));
-    for (const s of appl.suppressions ?? []) if (s.jurisdiction === j) patch[s.suppresses] = null;
-    const resolved = mergePatch(intl, patch);
-    const viaFilter = byIdOf(appl.entries.filter((e) => inJurisdiction(e, j)));
-    assert.deepEqual(
-      resolved,
-      viaFilter,
-      `${j}: merge patch over intl disagrees with the jurisdiction filter`,
-    );
-    // And the patch is minimal: it never restates an inherited entry (REQ-SCOPE-3).
-    for (const id of Object.keys(patch)) {
-      if (patch[id] !== null)
-        assert.ok(!intl[id], `${j}: ${id} restates an intl entry instead of inheriting it`);
-    }
+ const byIdOf = (list) => Object.fromEntries(list.map((e) => [e.id, e]))
+ const intl = byIdOf(appl.entries.filter((e) => e.jurisdiction === 'intl'))
+ const jurisdictions = new Set(
+  [...appl.entries.map((e) => e.jurisdiction), ...(appl.suppressions ?? []).map((s) => s.jurisdiction)].filter(
+   (j) => j !== 'intl',
+  ),
+ )
+ assert.ok(jurisdictions.size > 0, 'no non-intl jurisdiction to exercise the delta encoding on')
+ for (const j of jurisdictions) {
+  // The delta, as a merge-patch document: the jurisdiction's own entries by
+  // id, and null for every tombstone. Nothing else -- inheritance is what
+  // the patch does not mention.
+  const patch = byIdOf(appl.entries.filter((e) => e.jurisdiction === j))
+  for (const s of appl.suppressions ?? []) if (s.jurisdiction === j) patch[s.suppresses] = null
+  const resolved = mergePatch(intl, patch)
+  const viaFilter = byIdOf(appl.entries.filter((e) => inJurisdiction(e, j)))
+  assert.deepEqual(resolved, viaFilter, `${j}: merge patch over intl disagrees with the jurisdiction filter`)
+  // And the patch is minimal: it never restates an inherited entry (REQ-SCOPE-3).
+  for (const id of Object.keys(patch)) {
+   if (patch[id] !== null) assert.ok(!intl[id], `${j}: ${id} restates an intl entry instead of inheriting it`)
   }
-});
+ }
+})
 
 test("ADR 0020: each jurisdiction's skeleton is an RFC 7396 merge patch over intl, well-formed and minimal", () => {
-  for (const [j, d] of Object.entries(rules.deltas ?? {})) {
-    assert.notEqual(j, 'intl', 'intl is the base and has no delta');
-    assert.ok(
-      editions.jurisdictions[j]?.skeleton,
-      `${j}: has a skeleton delta but declares no skeleton edition`,
-    );
-    const seen = new Set();
-    for (const s of d.suppressions) {
-      assert.ok(rules.paragraphs[s.path], `${j}: suppresses ${s.path}, which intl does not have`);
-      assert.ok(!d.paragraphs[s.path], `${j}: ${s.path} is both suppressed and stated`);
-      assert.ok(!seen.has(s.path), `${j}: ${s.path} is suppressed twice`);
-      seen.add(s.path);
-    }
-    for (const [path, p] of Object.entries(d.paragraphs)) {
-      assert.equal(p.path, path, `${j}: ${path} is keyed under another path`);
-      assert.equal(
-        p.jurisdiction,
-        j,
-        `${j}: ${path} is stated here but carries jurisdiction ${p.jurisdiction}`,
-      );
-      assert.ok(
-        path.startsWith(`${p.rule}(`) || path === p.rule,
-        `${j}: ${path} is not a path of Rule ${p.rule}`,
-      );
-      // A restated path is an override: same spelling, different text, and
-      // its corpus must carry the words. A verbatim copy of intl would be a
-      // restatement REQ-SCOPE-3 forbids, which the corpus test will need to
-      // catch; here the record itself may not say more than intl's.
-      if (rules.paragraphs[path])
-        assert.equal(rules.paragraphs[path].rule, p.rule, `${j}: ${path} changes rule number`);
-    }
-    // The resolved skeleton is the patch applied; a corpus, an entry and a
-    // fixture under this jurisdiction all key into it and nothing else.
-    const resolved = mergePatch(rules.paragraphs, skeletonPatch(d));
-    for (const s of d.suppressions)
-      assert.ok(!resolved[s.path], `${j}: ${s.path} survives its own suppression`);
-    for (const path of Object.keys(d.paragraphs))
-      assert.equal(
-        resolved[path].jurisdiction,
-        j,
-        `${j}: ${path} resolves to another jurisdiction`,
-      );
-    for (const path of Object.keys(rules.paragraphs)) {
-      if (!(path in skeletonPatch(d)))
-        assert.deepEqual(
-          resolved[path],
-          rules.paragraphs[path],
-          `${j}: ${path} is unmentioned but not inherited whole`,
-        );
-    }
-    const own = Object.keys(d.paragraphs).length + d.suppressions.length;
-    assert.ok(own > 0, `${j}: an empty delta is intl restated`);
+ for (const [j, d] of Object.entries(rules.deltas ?? {})) {
+  assert.notEqual(j, 'intl', 'intl is the base and has no delta')
+  assert.ok(editions.jurisdictions[j]?.skeleton, `${j}: has a skeleton delta but declares no skeleton edition`)
+  const seen = new Set()
+  for (const s of d.suppressions) {
+   assert.ok(rules.paragraphs[s.path], `${j}: suppresses ${s.path}, which intl does not have`)
+   assert.ok(!d.paragraphs[s.path], `${j}: ${s.path} is both suppressed and stated`)
+   assert.ok(!seen.has(s.path), `${j}: ${s.path} is suppressed twice`)
+   seen.add(s.path)
   }
-});
+  for (const [path, p] of Object.entries(d.paragraphs)) {
+   assert.equal(p.path, path, `${j}: ${path} is keyed under another path`)
+   assert.equal(p.jurisdiction, j, `${j}: ${path} is stated here but carries jurisdiction ${p.jurisdiction}`)
+   assert.ok(path.startsWith(`${p.rule}(`) || path === p.rule, `${j}: ${path} is not a path of Rule ${p.rule}`)
+   // A restated path is an override: same spelling, different text, and
+   // its corpus must carry the words. A verbatim copy of intl would be a
+   // restatement REQ-SCOPE-3 forbids, which the corpus test will need to
+   // catch; here the record itself may not say more than intl's.
+   if (rules.paragraphs[path]) assert.equal(rules.paragraphs[path].rule, p.rule, `${j}: ${path} changes rule number`)
+  }
+  // The resolved skeleton is the patch applied; a corpus, an entry and a
+  // fixture under this jurisdiction all key into it and nothing else.
+  const resolved = mergePatch(rules.paragraphs, skeletonPatch(d))
+  for (const s of d.suppressions) assert.ok(!resolved[s.path], `${j}: ${s.path} survives its own suppression`)
+  for (const path of Object.keys(d.paragraphs))
+   assert.equal(resolved[path].jurisdiction, j, `${j}: ${path} resolves to another jurisdiction`)
+  for (const path of Object.keys(rules.paragraphs)) {
+   if (!(path in skeletonPatch(d)))
+    assert.deepEqual(resolved[path], rules.paragraphs[path], `${j}: ${path} is unmentioned but not inherited whole`)
+  }
+  const own = Object.keys(d.paragraphs).length + d.suppressions.length
+  assert.ok(own > 0, `${j}: an empty delta is intl restated`)
+ }
+})
 
 test('suppressions: every tombstone is exercised by a fixture that would otherwise select the entry (REQ-VERIFY-3)', () => {
-  for (const s of appl.suppressions ?? []) {
-    const target = byId.get(s.suppresses);
-    const hit = fixtures.cases.some(
-      (c) =>
-        (c.jurisdiction ?? fixtures.jurisdiction) === s.jurisdiction &&
-        matches(target.when, c.facts) &&
-        !expectIds(c).includes(s.suppresses),
-    );
-    assert.ok(
-      hit,
-      `${s.jurisdiction} suppresses ${s.suppresses} but no ${s.jurisdiction} fixture matches its predicate and omits it`,
-    );
-    const inherits = fixtures.cases.some(
-      (c) =>
-        (c.jurisdiction ?? fixtures.jurisdiction) === 'intl' &&
-        matches(target.when, c.facts) &&
-        expectIds(c).includes(s.suppresses),
-    );
-    assert.ok(
-      inherits,
-      `${s.suppresses} is tombstoned in ${s.jurisdiction} but no intl fixture shows it in force at the base`,
-    );
-  }
-});
+ for (const s of appl.suppressions ?? []) {
+  const target = byId.get(s.suppresses)
+  const hit = fixtures.cases.some(
+   (c) =>
+    (c.jurisdiction ?? fixtures.jurisdiction) === s.jurisdiction &&
+    matches(target.when, c.facts) &&
+    !expectIds(c).includes(s.suppresses),
+  )
+  assert.ok(
+   hit,
+   `${s.jurisdiction} suppresses ${s.suppresses} but no ${s.jurisdiction} fixture matches its predicate and omits it`,
+  )
+  const inherits = fixtures.cases.some(
+   (c) =>
+    (c.jurisdiction ?? fixtures.jurisdiction) === 'intl' &&
+    matches(target.when, c.facts) &&
+    expectIds(c).includes(s.suppresses),
+  )
+  assert.ok(
+   inherits,
+   `${s.suppresses} is tombstoned in ${s.jurisdiction} but no intl fixture shows it in force at the base`,
+  )
+ }
+})
 
 test('every cross-reference resolves to an entry id', () => {
-  const refsOf = (e) => [
-    ...(e['rel:includes'] ?? []),
-    ...(e['rel:in_lieu_of'] ?? []),
-    ...(e['rel:excludes'] ?? []),
-    ...(e['rel:exempts'] ?? []),
-    ...(e['rel:overrides'] ?? []),
-    ...(e['rel:conditional_includes'] ?? []).flatMap((c) => [
-      ...(c['rel:includes'] ?? []),
-      ...(c.one_of ?? []),
-    ]),
-  ];
-  for (const e of appl.entries) {
-    for (const r of refsOf(e)) assert.ok(byId.has(r), `${e.id} references unknown entry ${r}`);
-  }
-});
+ const refsOf = (e) => [
+  ...(e['rel:includes'] ?? []),
+  ...(e['rel:in_lieu_of'] ?? []),
+  ...(e['rel:excludes'] ?? []),
+  ...(e['rel:exempts'] ?? []),
+  ...(e['rel:overrides'] ?? []),
+  ...(e['rel:conditional_includes'] ?? []).flatMap((c) => [...(c['rel:includes'] ?? []), ...(c.one_of ?? [])]),
+ ]
+ for (const e of appl.entries) {
+  for (const r of refsOf(e)) assert.ok(byId.has(r), `${e.id} references unknown entry ${r}`)
+ }
+})
 
 test('every light named by an entry is defined in lights.json', () => {
-  for (const e of appl.entries) {
-    for (const l of e.lights ?? []) {
-      assert.ok(lights.lights[l.light], `${e.id} uses undefined light ${l.light}`);
-    }
+ for (const e of appl.entries) {
+  for (const l of e.lights ?? []) {
+   assert.ok(lights.lights[l.light], `${e.id} uses undefined light ${l.light}`)
   }
-});
+ }
+})
 
 test('every shape named by an entry, by shapes.json itself, or by geometry.json is defined in shapes.json', () => {
-  for (const e of appl.entries) {
-    for (const s of e.shapes ?? [])
-      assert.ok(shapes.shapes[s.shape], `${e.id} uses undefined shape ${s.shape}`);
-  }
-  for (const [id, rec] of Object.entries(shapes.shapes)) {
-    for (const c of rec.components ?? [])
-      assert.ok(shapes.shapes[c], `${id} has undefined component ${c}`);
-    if (rec.same_dimensions_as)
-      assert.ok(
-        shapes.shapes[rec.same_dimensions_as],
-        `${id} refers to undefined shape ${rec.same_dimensions_as}`,
-      );
-  }
-  for (const rec of Object.values(geometry.shapes)) {
-    if (rec === null || typeof rec !== 'object') continue;
-    for (const id of [rec.shape, ...(rec.shapes ?? [])].filter(Boolean))
-      assert.ok(shapes.shapes[id], `geometry.json Annex I 6 names undefined shape ${id}`);
-  }
-});
+ for (const e of appl.entries) {
+  for (const s of e.shapes ?? []) assert.ok(shapes.shapes[s.shape], `${e.id} uses undefined shape ${s.shape}`)
+ }
+ for (const [id, rec] of Object.entries(shapes.shapes)) {
+  for (const c of rec.components ?? []) assert.ok(shapes.shapes[c], `${id} has undefined component ${c}`)
+  if (rec.same_dimensions_as)
+   assert.ok(shapes.shapes[rec.same_dimensions_as], `${id} refers to undefined shape ${rec.same_dimensions_as}`)
+ }
+ for (const rec of Object.values(geometry.shapes)) {
+  if (rec === null || typeof rec !== 'object') continue
+  for (const id of [rec.shape, ...(rec.shapes ?? [])].filter(Boolean))
+   assert.ok(shapes.shapes[id], `geometry.json Annex I 6 names undefined shape ${id}`)
+ }
+})
 
 // --- represented_paragraphs (REQ-CAT-2): paragraphs in the model, never entries ---
 // Care and meta paragraphs are the original tenants (Rule 2(a), 2(b)). ADR 0021
@@ -1489,184 +1331,156 @@ test('every shape named by an entry, by shapes.json itself, or by geometry.json 
 // default the table already is, and 20(c) is a modality shift rather than a
 // signal of its own. Neither is an entry, and neither is an omission.
 test('every represented_paragraphs record cites a paragraph that exists in rules.json', () => {
-  for (const r of appl.represented_paragraphs ?? []) {
-    const head = r.cite.split('-')[0].trim();
-    assert.ok(rules.paragraphs[head], `${r.id} cites missing paragraph ${head}`);
-  }
-});
+ for (const r of appl.represented_paragraphs ?? []) {
+  const head = r.cite.split('-')[0].trim()
+  assert.ok(rules.paragraphs[head], `${r.id} cites missing paragraph ${head}`)
+ }
+})
 
 test('no represented_paragraphs record carries a `when` or `lights`', () => {
-  for (const r of appl.represented_paragraphs ?? []) {
-    assert.ok(
-      !('when' in r),
-      `${r.id} carries a \`when\`; care/meta paragraphs are never evaluated as predicates`,
-    );
-    assert.ok(
-      !('lights' in r),
-      `${r.id} carries \`lights\`; care/meta paragraphs never produce a light output`,
-    );
-    assert.ok(
-      !('signal' in r),
-      `${r.id} carries a \`signal\`; a represented paragraph produces no output of any kind`,
-    );
-  }
-});
+ for (const r of appl.represented_paragraphs ?? []) {
+  assert.ok(!('when' in r), `${r.id} carries a \`when\`; care/meta paragraphs are never evaluated as predicates`)
+  assert.ok(!('lights' in r), `${r.id} carries \`lights\`; care/meta paragraphs never produce a light output`)
+  assert.ok(!('signal' in r), `${r.id} carries a \`signal\`; a represented paragraph produces no output of any kind`)
+ }
+})
 
 // The registry holds a paragraph the model accounts for and never evaluates.
 // ADR 0021 admitted `category:scope`; ADR 0022 admits the three Part D needs --
 // Rule 32 defines the vocabulary, Rules 33 and 34(f) are carriage, and Rules 36
 // and 37 prescribe a signal the package has no closed vocabulary to emit.
 const REGISTRY_CATEGORIES = [
-  'category:care',
-  'category:meta',
-  'category:scope',
-  'category:definition',
-  'category:standard',
-  'category:display',
-];
+ 'category:care',
+ 'category:meta',
+ 'category:scope',
+ 'category:definition',
+ 'category:standard',
+ 'category:display',
+]
 
 test('every represented_paragraphs record has a category the registry admits', () => {
-  for (const r of appl.represented_paragraphs ?? []) {
-    assert.ok(
-      REGISTRY_CATEGORIES.includes(r.category),
-      `${r.id} has category ${r.category}, which the registry does not admit`,
-    );
-  }
-});
+ for (const r of appl.represented_paragraphs ?? []) {
+  assert.ok(
+   REGISTRY_CATEGORIES.includes(r.category),
+   `${r.id} has category ${r.category}, which the registry does not admit`,
+  )
+ }
+})
 
 // The category vocabulary is one `$def`; this holds the envelope to the data.
 test('every represented_paragraphs record validates as an evaluation envelope representedParagraph (REQ-CAT-2)', () => {
-  const validate = ajv.getSchema(
-    `${SCHEMA_BASE}evaluation.schema.json#/$defs/representedParagraph`,
-  );
-  assert.ok(validate, 'evaluation.schema.json#/$defs/representedParagraph does not resolve');
-  for (const r of appl.represented_paragraphs ?? []) {
-    const { note, ...carried } = r;
-    check(validate, carried, `represented_paragraphs ${r.id}`);
-  }
-});
+ const validate = ajv.getSchema(`${SCHEMA_BASE}evaluation.schema.json#/$defs/representedParagraph`)
+ assert.ok(validate, 'evaluation.schema.json#/$defs/representedParagraph does not resolve')
+ for (const r of appl.represented_paragraphs ?? []) {
+  const { note, ...carried } = r
+  check(validate, carried, `represented_paragraphs ${r.id}`)
+ }
+})
 
 test('no represented paragraph appears as an applicability entry (REQ-CAT-2)', () => {
-  const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite));
-  for (const e of appl.entries) {
-    assert.ok(
-      !representedCites.has(e.cite),
-      `${e.id} cites ${e.cite}, a represented paragraph; it must be in represented_paragraphs, not entries`,
-    );
-  }
-});
+ const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite))
+ for (const e of appl.entries) {
+  assert.ok(
+   !representedCites.has(e.cite),
+   `${e.id} cites ${e.cite}, a represented paragraph; it must be in represented_paragraphs, not entries`,
+  )
+ }
+})
 
 test('no represented paragraph is also a known omission', () => {
-  const omitted = new Set(
-    (appl.known_omissions ?? []).flatMap((o) => o.cite.split(',').map((x) => x.trim())),
-  );
-  for (const r of appl.represented_paragraphs ?? []) {
-    assert.ok(!omitted.has(r.cite), `${r.cite} is both represented and recorded as an omission`);
-  }
-});
+ const omitted = new Set((appl.known_omissions ?? []).flatMap((o) => o.cite.split(',').map((x) => x.trim())))
+ for (const r of appl.represented_paragraphs ?? []) {
+  assert.ok(!omitted.has(r.cite), `${r.cite} is both represented and recorded as an omission`)
+ }
+})
 
 // --- modality shifts (ADR 0021) ---------------------------------------------
 test('ADR 0021: every modality shift resolves -- id, cite and map', () => {
-  const declaredModalities = new Set(Object.keys(appl.modalities));
-  const ids = new Set(appl.entries.map((e) => e.id));
-  const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite));
-  for (const s of appl.modality_shifts ?? []) {
-    assert.ok(!ids.has(s.id), `${s.id} collides with an entry id`);
-    assert.ok(rules.paragraphs[s.cite], `${s.id} cites missing paragraph ${s.cite}`);
-    // A shift is the representation of its paragraph, so the registry carries
-    // it for the same reason it carries 2(a): the model states what it covers.
-    assert.ok(
-      representedCites.has(s.cite),
-      `${s.id} cites ${s.cite}, which no represented_paragraphs record names`,
-    );
-    for (const [from, to] of Object.entries(s.map)) {
-      assert.ok(declaredModalities.has(from), `${s.id} maps undeclared modality ${from}`);
-      assert.ok(declaredModalities.has(to), `${s.id} maps ${from} to undeclared modality ${to}`);
-      assert.ok(
-        !['modality:conditional', 'modality:exempt'].includes(from),
-        `${s.id} maps ${from}: conditional resolves before a shift, and an exemption is not a duty to weaken`,
-      );
-    }
+ const declaredModalities = new Set(Object.keys(appl.modalities))
+ const ids = new Set(appl.entries.map((e) => e.id))
+ const representedCites = new Set((appl.represented_paragraphs ?? []).map((r) => r.cite))
+ for (const s of appl.modality_shifts ?? []) {
+  assert.ok(!ids.has(s.id), `${s.id} collides with an entry id`)
+  assert.ok(rules.paragraphs[s.cite], `${s.id} cites missing paragraph ${s.cite}`)
+  // A shift is the representation of its paragraph, so the registry carries
+  // it for the same reason it carries 2(a): the model states what it covers.
+  assert.ok(representedCites.has(s.cite), `${s.id} cites ${s.cite}, which no represented_paragraphs record names`)
+  for (const [from, to] of Object.entries(s.map)) {
+   assert.ok(declaredModalities.has(from), `${s.id} maps undeclared modality ${from}`)
+   assert.ok(declaredModalities.has(to), `${s.id} maps ${from} to undeclared modality ${to}`)
+   assert.ok(
+    !['modality:conditional', 'modality:exempt'].includes(from),
+    `${s.id} maps ${from}: conditional resolves before a shift, and an exemption is not a duty to weaken`,
+   )
   }
-});
+ }
+})
 
 // A signal a shift reaches either has its modality named in the map, or is
 // already as weak as the shift would make it. So a light entry added later
 // with an unmapped duty fails here rather than silently keeping `shall` by day.
-const UNSHIFTED = new Set(['modality:may', 'modality:exempt']);
+const UNSHIFTED = new Set(['modality:may', 'modality:exempt'])
 test('ADR 0021: a shift says what becomes of every duty it reaches', () => {
-  for (const s of appl.modality_shifts ?? []) {
-    for (const e of appl.entries.filter(isDisplay)) {
-      if (!reaches(s, e)) continue;
-      const resolved =
-        e.modality === 'modality:conditional'
-          ? (e.modality_by ?? []).map((m) => m.modality)
-          : [e.modality];
-      for (const m of resolved) {
-        assert.ok(
-          m in s.map || UNSHIFTED.has(m),
-          `${s.id} does not say what ${e.id}'s ${m} becomes`,
-        );
-      }
-    }
+ for (const s of appl.modality_shifts ?? []) {
+  for (const e of appl.entries.filter(isDisplay)) {
+   if (!reaches(s, e)) continue
+   const resolved = e.modality === 'modality:conditional' ? (e.modality_by ?? []).map((m) => m.modality) : [e.modality]
+   for (const m of resolved) {
+    assert.ok(m in s.map || UNSHIFTED.has(m), `${s.id} does not say what ${e.id}'s ${m} becomes`)
+   }
   }
-});
+ }
+})
 
 test('REQ-VERIFY-3: every modality shift is fired by a fixture and left unfired by another', () => {
-  for (const s of appl.modality_shifts ?? []) {
-    const fires = fixtures.cases.filter((c) => matches(s.when, c.facts));
-    assert.ok(fires.length > 0, `${s.id} is fired by no fixture`);
-    assert.ok(fires.length < fixtures.cases.length, `${s.id} is left unfired by no fixture`);
-  }
-});
+ for (const s of appl.modality_shifts ?? []) {
+  const fires = fixtures.cases.filter((c) => matches(s.when, c.facts))
+  assert.ok(fires.length > 0, `${s.id} is fired by no fixture`)
+  assert.ok(fires.length < fixtures.cases.length, `${s.id} is left unfired by no fixture`)
+ }
+})
 
 test('ADR 0021: a shift reaches the lights an entry imports, and never a shape', () => {
-  // The two halves of the trawler by day: rule:26b_iii shows no light of its
-  // own and imports 23(a)(iii)/(iv), so 20(c) reaches it; the cones are 20(d)'s
-  // and are not reached however the visibility reads.
-  const shift = (appl.modality_shifts ?? []).find((x) => x.id === 'shift:20c');
-  assert.ok(shift, 'shift:20c is the worked example these assert against');
-  assert.ok(
-    reaches(shift, byId.get('rule:26b_iii')),
-    'an entry whose only signals are imported lights is reached',
-  );
-  assert.ok(
-    !reaches(shift, byId.get('rule:26b_i:two_cones')),
-    'a shape entry is never reached by a lights shift',
-  );
-});
+ // The two halves of the trawler by day: rule:26b_iii shows no light of its
+ // own and imports 23(a)(iii)/(iv), so 20(c) reaches it; the cones are 20(d)'s
+ // and are not reached however the visibility reads.
+ const shift = (appl.modality_shifts ?? []).find((x) => x.id === 'shift:20c')
+ assert.ok(shift, 'shift:20c is the worked example these assert against')
+ assert.ok(reaches(shift, byId.get('rule:26b_iii')), 'an entry whose only signals are imported lights is reached')
+ assert.ok(!reaches(shift, byId.get('rule:26b_i:two_cones')), 'a shape entry is never reached by a lights shift')
+})
 
 test('categories vocabulary is a closed set of the nine ADR-0005 names', () => {
-  const expected = [
-    'category:definition',
-    'category:standard',
-    'category:scope',
-    'category:display',
-    'category:classification',
-    'category:precedence',
-    'category:conduct',
-    'category:care',
-    'category:meta',
-  ];
-  assert.deepEqual(Object.keys(appl.categories).sort(), expected.sort());
-});
+ const expected = [
+  'category:definition',
+  'category:standard',
+  'category:scope',
+  'category:display',
+  'category:classification',
+  'category:precedence',
+  'category:conduct',
+  'category:care',
+  'category:meta',
+ ]
+ assert.deepEqual(Object.keys(appl.categories).sort(), expected.sort())
+})
 
 test('images: on disk, catalogued, and unchanged', () => {
-  const dir = new URL('../images/', import.meta.url);
-  const onDisk = new Set(readdirSync(dir));
-  assert.equal(Object.keys(images.images).length, onDisk.size);
-  for (const [name, rec] of Object.entries(images.images)) {
-    assert.ok(onDisk.has(name), `${name} catalogued but missing from images/`);
-    const blob = readFileSync(new URL(name, dir));
-    assert.equal(blob.length, rec.bytes, `${name} size`);
-    assert.equal(createHash('sha256').update(blob).digest('hex'), rec.sha256, `${name} sha256`);
-  }
-  const cited = new Set([
-    ...Object.values(rules.paragraphs).flatMap((p) => p.images ?? []),
-    ...appl.entries.flatMap((e) => e.images ?? []),
-  ]);
-  for (const name of cited) assert.ok(images.images[name], `${name} cited but not catalogued`);
-});
+ const dir = new URL('../images/', import.meta.url)
+ const onDisk = new Set(readdirSync(dir))
+ assert.equal(Object.keys(images.images).length, onDisk.size)
+ for (const [name, rec] of Object.entries(images.images)) {
+  assert.ok(onDisk.has(name), `${name} catalogued but missing from images/`)
+  const blob = readFileSync(new URL(name, dir))
+  assert.equal(blob.length, rec.bytes, `${name} size`)
+  assert.equal(createHash('sha256').update(blob).digest('hex'), rec.sha256, `${name} sha256`)
+ }
+ const cited = new Set([
+  ...Object.values(rules.paragraphs).flatMap((p) => p.images ?? []),
+  ...appl.entries.flatMap((e) => e.images ?? []),
+ ])
+ for (const name of cited) assert.ok(images.images[name], `${name} cited but not catalogued`)
+})
 
 // A USCG figure is placed by the handbook's own layout, not by the clause a
 // reader of our entry is looking at: NRHB_23_aii.png sits under 23(a)(ii) but
@@ -1674,304 +1488,261 @@ test('images: on disk, catalogued, and unchanged', () => {
 // masthead light. `depicts` records which of the two a figure shows, and an
 // entry that only ever illustrates the exception is the drift this catches.
 test('images: every entry that cites a figure cites one depicting its provision', () => {
-  const catalogued = images.images;
-  for (const [name, rec] of Object.entries(catalogued)) {
-    const mapped = (rec.paragraphs ?? rec.entries) !== undefined;
-    assert.equal(
-      mapped,
-      rec.depicts !== undefined,
-      `${name}: mapped figures carry depicts, unmapped ones do not`,
-    );
+ const catalogued = images.images
+ for (const [name, rec] of Object.entries(catalogued)) {
+  const mapped = (rec.paragraphs ?? rec.entries) !== undefined
+  assert.equal(mapped, rec.depicts !== undefined, `${name}: mapped figures carry depicts, unmapped ones do not`)
+ }
+ for (const entry of appl.entries) {
+  const shown = entry.images ?? []
+  if (shown.length === 0) continue
+  for (const name of shown) {
+   assert.ok(catalogued[name]?.entries?.includes(entry.id), `${entry.id} cites ${name}, which does not name it back`)
   }
-  for (const entry of appl.entries) {
-    const shown = entry.images ?? [];
-    if (shown.length === 0) continue;
-    for (const name of shown) {
-      assert.ok(
-        catalogued[name]?.entries?.includes(entry.id),
-        `${entry.id} cites ${name}, which does not name it back`,
-      );
-    }
-    assert.ok(
-      shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
-      `${entry.id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
-    );
+  assert.ok(
+   shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
+   `${entry.id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
+  )
+ }
+ for (const [name, rec] of Object.entries(catalogued)) {
+  for (const id of rec.entries ?? []) {
+   const entry = appl.entries.find((e) => e.id === id)
+   assert.ok(entry, `${name} names entry ${id}, which does not exist`)
+   assert.ok(entry.images?.includes(name), `${name} names ${id}, which does not cite it back`)
   }
-  for (const [name, rec] of Object.entries(catalogued)) {
-    for (const id of rec.entries ?? []) {
-      const entry = appl.entries.find((e) => e.id === id);
-      assert.ok(entry, `${name} names entry ${id}, which does not exist`);
-      assert.ok(entry.images?.includes(name), `${name} names ${id}, which does not cite it back`);
-    }
-    for (const id of rec.paragraphs ?? []) {
-      assert.ok(statedParagraph(id), `${name} names paragraph ${id}, which does not exist`);
-      assert.ok(
-        statedParagraphs(id).some((row) => row.images?.includes(name)),
-        `${name} names ${id}, which does not cite it back`,
-      );
-    }
+  for (const id of rec.paragraphs ?? []) {
+   assert.ok(statedParagraph(id), `${name} names paragraph ${id}, which does not exist`)
+   assert.ok(
+    statedParagraphs(id).some((row) => row.images?.includes(name)),
+    `${name} names ${id}, which does not cite it back`,
+   )
   }
-  // The same check on the paragraph side, so a paragraph cannot be illustrated
-  // only by its exception either.
-  const stated = [
-    rules.paragraphs,
-    ...Object.values(rules.deltas ?? {}).map((d) => d.paragraphs),
-  ].flatMap(Object.entries);
-  for (const [id, para] of stated) {
-    const shown = para.images ?? [];
-    if (shown.length === 0) continue;
-    for (const name of shown) {
-      assert.ok(
-        catalogued[name]?.paragraphs?.includes(id),
-        `${id} cites ${name}, which does not name it back`,
-      );
-    }
-    assert.ok(
-      shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
-      `${id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
-    );
+ }
+ // The same check on the paragraph side, so a paragraph cannot be illustrated
+ // only by its exception either.
+ const stated = [rules.paragraphs, ...Object.values(rules.deltas ?? {}).map((d) => d.paragraphs)].flatMap(
+  Object.entries,
+ )
+ for (const [id, para] of stated) {
+  const shown = para.images ?? []
+  if (shown.length === 0) continue
+  for (const name of shown) {
+   assert.ok(catalogued[name]?.paragraphs?.includes(id), `${id} cites ${name}, which does not name it back`)
   }
-});
+  assert.ok(
+   shown.some((name) => ['provision', 'mixed'].includes(catalogued[name].depicts)),
+   `${id} has images but none depicts: provision -- ${shown.join(', ')} show only the exception`,
+  )
+ }
+})
 
 // `transcript` is the printed text, `description` what is drawn. The two
 // must not collapse into each other or into the rule: a description that
 // cites a clause is explaining, not describing, and a transcript element
 // that is blank is a placeholder, not a reading.
 test('images: transcript is verbatim text and description is prose about the drawing', () => {
-  const cites = /\b\d{1,2}\s?\([a-z]+\)|\bRule\s+\d/i;
-  const telling =
-    /\b(the (image|figure|picture|drawing) (shows|depicts)|this (image|figure)|we see|as required)\b/i;
-  for (const [name, rec] of Object.entries(images.images)) {
-    for (const t of rec.transcript)
-      assert.equal(t, t.trim(), `${name}: transcript element has stray whitespace`);
-    const words = rec.description.trim().split(/\s+/).length;
-    assert.ok(
-      words >= 40 && words <= 180,
-      `${name}: description is ${words} words, expected 40-180`,
-    );
-    assert.ok(!cites.test(rec.description), `${name}: description cites a clause`);
-    assert.ok(
-      !telling.test(rec.description),
-      `${name}: description narrates the figure instead of describing it`,
-    );
-    for (const s of rec.subjects)
-      assert.equal(s[0], s[0].toLowerCase(), `${name}: subject "${s}" is capitalised`);
-  }
-});
+ const cites = /\b\d{1,2}\s?\([a-z]+\)|\bRule\s+\d/i
+ const telling = /\b(the (image|figure|picture|drawing) (shows|depicts)|this (image|figure)|we see|as required)\b/i
+ for (const [name, rec] of Object.entries(images.images)) {
+  for (const t of rec.transcript) assert.equal(t, t.trim(), `${name}: transcript element has stray whitespace`)
+  const words = rec.description.trim().split(/\s+/).length
+  assert.ok(words >= 40 && words <= 180, `${name}: description is ${words} words, expected 40-180`)
+  assert.ok(!cites.test(rec.description), `${name}: description cites a clause`)
+  assert.ok(!telling.test(rec.description), `${name}: description narrates the figure instead of describing it`)
+  for (const s of rec.subjects) assert.equal(s[0], s[0].toLowerCase(), `${name}: subject "${s}" is capitalised`)
+ }
+})
 
 // The day shapes are a closed vocabulary so a consumer can switch on them.
 // A figure that draws none carries `[]` rather than no key: "draws nothing"
 // and "not yet read" must not look the same.
 test('images: shapes are drawn from the closed day-shape vocabulary', () => {
-  const vocabulary = new Set([
-    'ball',
-    'diamond',
-    'cone-up',
-    'cone-down',
-    'cylinder',
-    'basket',
-    'flag-a',
-  ]);
-  for (const [name, rec] of Object.entries(images.images)) {
-    assert.ok(Array.isArray(rec.shapes), `${name}: shapes is missing or not an array`);
-    for (const s of rec.shapes)
-      assert.ok(vocabulary.has(s), `${name}: shape "${s}" is outside the vocabulary`);
-  }
-});
+ const vocabulary = new Set(['ball', 'diamond', 'cone-up', 'cone-down', 'cylinder', 'basket', 'flag-a'])
+ for (const [name, rec] of Object.entries(images.images)) {
+  assert.ok(Array.isArray(rec.shapes), `${name}: shapes is missing or not an array`)
+  for (const s of rec.shapes) assert.ok(vocabulary.has(s), `${name}: shape "${s}" is outside the vocabulary`)
+ }
+})
 
 // A figure an entry cites draws every shape the entry emits: images.json
 // records what the USCG plate shows, so the entry's shapes are checked against
 // the drawing rather than transcribed from the rule text alone.
 test('images: a figure cited by a shape entry draws the shapes the entry emits', () => {
-  const drawn = {
-    'shape:ball': 'ball',
-    'shape:diamond': 'diamond',
-    'shape:cone_up': 'cone-up',
-    'shape:cone_down': 'cone-down',
-    'shape:cylinder': 'cylinder',
-    'shape:flag_a': 'flag-a',
-  };
-  const tally = (list) => list.reduce((m, s) => m.set(s, (m.get(s) ?? 0) + 1), new Map());
-  for (const e of appl.entries) {
-    if (!(e.shapes?.length > 0)) continue;
-    const emitted = tally(e.shapes.flatMap((s) => Array(s.count ?? 1).fill(drawn[s.shape])));
-    for (const name of e.images ?? []) {
-      const shown = tally(images.images[name].shapes);
-      for (const [s, n] of emitted)
-        assert.ok(
-          (shown.get(s) ?? 0) >= n,
-          `${e.id} emits ${n} ${s} but ${name} draws ${shown.get(s) ?? 0}`,
-        );
-    }
+ const drawn = {
+  'shape:ball': 'ball',
+  'shape:diamond': 'diamond',
+  'shape:cone_up': 'cone-up',
+  'shape:cone_down': 'cone-down',
+  'shape:cylinder': 'cylinder',
+  'shape:flag_a': 'flag-a',
+ }
+ const tally = (list) => list.reduce((m, s) => m.set(s, (m.get(s) ?? 0) + 1), new Map())
+ for (const e of appl.entries) {
+  if (!(e.shapes?.length > 0)) continue
+  const emitted = tally(e.shapes.flatMap((s) => Array(s.count ?? 1).fill(drawn[s.shape])))
+  for (const name of e.images ?? []) {
+   const shown = tally(images.images[name].shapes)
+   for (const [s, n] of emitted)
+    assert.ok((shown.get(s) ?? 0) >= n, `${e.id} emits ${n} ${s} but ${name} draws ${shown.get(s) ?? 0}`)
   }
-});
+ }
+})
 
 test('navigation.state decodes only to values the axes define', () => {
-  const axes = facts.axes;
-  for (const [state, d] of Object.entries(facts.signalk_navigation_state.decode)) {
-    for (const axis of ['fact:propulsion', 'fact:activity', 'fact:position']) {
-      if (d[axis] === undefined) continue;
-      assert.ok(axes[axis].values.includes(d[axis]), `${state}: bad ${axis} ${d[axis]}`);
-    }
-    // `also_activity` is a shape key of the decode table, not a fact key; the
-    // value inside it is still an activity identifier.
-    if (d.also_activity !== undefined) {
-      assert.ok(
-        axes['fact:activity'].values.includes(d.also_activity),
-        `${state}: bad also_activity`,
-      );
-    }
+ const axes = facts.axes
+ for (const [state, d] of Object.entries(facts.signalk_navigation_state.decode)) {
+  for (const axis of ['fact:propulsion', 'fact:activity', 'fact:position']) {
+   if (d[axis] === undefined) continue
+   assert.ok(axes[axis].values.includes(d[axis]), `${state}: bad ${axis} ${d[axis]}`)
   }
-});
+  // `also_activity` is a shape key of the decode table, not a fact key; the
+  // value inside it is still an activity identifier.
+  if (d.also_activity !== undefined) {
+   assert.ok(axes['fact:activity'].values.includes(d.also_activity), `${state}: bad also_activity`)
+  }
+ }
+})
 
 test('every fact a predicate reads is declared in facts.json', () => {
-  const declared = new Set([
-    ...Object.keys(facts.axes),
-    ...Object.keys(facts.modifiers),
-    ...Object.keys(facts.numerics),
-    ...Object.keys(facts.booleans),
-    ...Object.keys(facts.enums),
-    ...derivedFacts.map(([k]) => k),
-  ]);
-  // Two-subject entries address a fact through the subject namespace and are
-  // checked against the situation's own class declarations further down.
-  // `any_of` holds sub-predicates rather than a constraint, so the keys are
-  // collected recursively; it is the only key of a `when` that is not a fact.
-  const keysOf = (when) =>
-    Object.entries(when).flatMap(([k, want]) => (k === 'any_of' ? want.flatMap(keysOf) : [k]));
-  for (const e of appl.entries.filter((x) => (x.subjects ?? 1) === 1)) {
-    for (const k of keysOf(e.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`);
-    for (const m of e.modality_by ?? []) {
-      for (const k of keysOf(m.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`);
-    }
+ const declared = new Set([
+  ...Object.keys(facts.axes),
+  ...Object.keys(facts.modifiers),
+  ...Object.keys(facts.numerics),
+  ...Object.keys(facts.booleans),
+  ...Object.keys(facts.enums),
+  ...derivedFacts.map(([k]) => k),
+ ])
+ // Two-subject entries address a fact through the subject namespace and are
+ // checked against the situation's own class declarations further down.
+ // `any_of` holds sub-predicates rather than a constraint, so the keys are
+ // collected recursively; it is the only key of a `when` that is not a fact.
+ const keysOf = (when) => Object.entries(when).flatMap(([k, want]) => (k === 'any_of' ? want.flatMap(keysOf) : [k]))
+ for (const e of appl.entries.filter((x) => (x.subjects ?? 1) === 1)) {
+  for (const k of keysOf(e.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
+  for (const m of e.modality_by ?? []) {
+   for (const k of keysOf(m.when)) assert.ok(declared.has(k), `${e.id}: undeclared fact ${k}`)
   }
-  // A derived fact's decode table reads facts too, and they must be declared.
-  for (const [key, spec] of derivedFacts) {
-    for (const [i, row] of spec.decode.entries()) {
-      for (const k of keysOf(row.when))
-        assert.ok(declared.has(k), `${key} decode[${i}]: undeclared fact ${k}`);
-    }
+ }
+ // A derived fact's decode table reads facts too, and they must be declared.
+ for (const [key, spec] of derivedFacts) {
+  for (const [i, row] of spec.decode.entries()) {
+   for (const k of keysOf(row.when)) assert.ok(declared.has(k), `${key} decode[${i}]: undeclared fact ${k}`)
   }
-  // A modality shift reads the fact record the same way an entry does.
-  for (const s of appl.modality_shifts ?? []) {
-    for (const k of keysOf(s.when)) assert.ok(declared.has(k), `${s.id}: undeclared fact ${k}`);
-  }
-});
+ }
+ // A modality shift reads the fact record the same way an entry does.
+ for (const s of appl.modality_shifts ?? []) {
+  for (const k of keysOf(s.when)) assert.ok(declared.has(k), `${s.id}: undeclared fact ${k}`)
+ }
+})
 
 test('every enumerated fact value a predicate names is declared in facts.json', () => {
-  // The value namespace of an enumerated fact is the fact's own bare name
-  // (`fact:activity` takes `activity:*`), so a missed prefix on either side
-  // shows up here rather than as an entry that silently never matches.
-  const valuesOf = new Map(
-    [...Object.entries(facts.axes), ...Object.entries(facts.enums), ...derivedFacts].map(
-      ([k, v]) => [k, new Set(v.values)],
-    ),
-  );
-  // `not` and `any_of` nest, so the enumerated values a constraint names are
-  // collected recursively; a numeric constraint names none.
-  const valuesIn = (want) => {
-    if (Array.isArray(want)) return want;
-    if (want !== null && typeof want === 'object') {
-      if ('not' in want) return valuesIn(want.not);
-      if ('any_of' in want) return want.any_of.flatMap(valuesIn);
-      return [];
-    }
-    return [want];
-  };
-  const check = (where, w) => {
-    for (const [k0, want] of Object.entries(w)) {
-      // A `when`-level `any_of` holds sub-predicates, not a constraint.
-      if (k0 === 'any_of') {
-        for (const sub of want) check(where, sub);
-        continue;
-      }
-      // `self:fact:activity` and `fact:activity` name the same value namespace;
-      // without the strip a two-subject predicate's values go unchecked.
-      const k = k0.replace(/^(self|other|pair):/, '');
-      const allowed = valuesOf.get(k);
-      if (!allowed) continue;
-      for (const v of valuesIn(want)) {
-        assert.ok(allowed.has(v), `${where}: ${k} names undeclared value ${JSON.stringify(v)}`);
-      }
-    }
-  };
-  for (const e of appl.entries) {
-    check(e.id, e.when);
-    for (const m of e.modality_by ?? []) check(e.id, m.when);
-    for (const c of e['rel:conditional_includes'] ?? []) check(e.id, c.when ?? {});
+ // The value namespace of an enumerated fact is the fact's own bare name
+ // (`fact:activity` takes `activity:*`), so a missed prefix on either side
+ // shows up here rather than as an entry that silently never matches.
+ const valuesOf = new Map(
+  [...Object.entries(facts.axes), ...Object.entries(facts.enums), ...derivedFacts].map(([k, v]) => [
+   k,
+   new Set(v.values),
+  ]),
+ )
+ // `not` and `any_of` nest, so the enumerated values a constraint names are
+ // collected recursively; a numeric constraint names none.
+ const valuesIn = (want) => {
+  if (Array.isArray(want)) return want
+  if (want !== null && typeof want === 'object') {
+   if ('not' in want) return valuesIn(want.not)
+   if ('any_of' in want) return want.any_of.flatMap(valuesIn)
+   return []
   }
-  for (const c of fixtures.cases) check(c.name, c.facts);
-  for (const s of appl.modality_shifts ?? []) check(s.id, s.when);
-  // A derived fact's decode table is a predicate too, and its rows produce
-  // values that must be declared on the fact they decode to.
-  for (const [key, spec] of derivedFacts) {
-    for (const [i, row] of spec.decode.entries()) {
-      check(`${key} decode[${i}]`, row.when);
-      assert.ok(
-        valuesOf.get(key).has(row.value),
-        `${key} decode[${i}] produces undeclared ${row.value}`,
-      );
-    }
+  return [want]
+ }
+ const check = (where, w) => {
+  for (const [k0, want] of Object.entries(w)) {
+   // A `when`-level `any_of` holds sub-predicates, not a constraint.
+   if (k0 === 'any_of') {
+    for (const sub of want) check(where, sub)
+    continue
+   }
+   // `self:fact:activity` and `fact:activity` name the same value namespace;
+   // without the strip a two-subject predicate's values go unchecked.
+   const k = k0.replace(/^(self|other|pair):/, '')
+   const allowed = valuesOf.get(k)
+   if (!allowed) continue
+   for (const v of valuesIn(want)) {
+    assert.ok(allowed.has(v), `${where}: ${k} names undeclared value ${JSON.stringify(v)}`)
+   }
   }
-});
+ }
+ for (const e of appl.entries) {
+  check(e.id, e.when)
+  for (const m of e.modality_by ?? []) check(e.id, m.when)
+  for (const c of e['rel:conditional_includes'] ?? []) check(e.id, c.when ?? {})
+ }
+ for (const c of fixtures.cases) check(c.name, c.facts)
+ for (const s of appl.modality_shifts ?? []) check(s.id, s.when)
+ // A derived fact's decode table is a predicate too, and its rows produce
+ // values that must be declared on the fact they decode to.
+ for (const [key, spec] of derivedFacts) {
+  for (const [i, row] of spec.decode.entries()) {
+   check(`${key} decode[${i}]`, row.when)
+   assert.ok(valuesOf.get(key).has(row.value), `${key} decode[${i}] produces undeclared ${row.value}`)
+  }
+ }
+})
 
 test('every relation an entry uses is declared in applicability.json', () => {
-  const declared = new Set(Object.keys(appl.relations));
-  // Both levels: a conditional_includes object carries its own `rel:includes`,
-  // and refsOf reads that nested key by name — a typo there drops the reference
-  // out of cross-reference and drift evaluation without failing anything else.
-  const checkKeys = (where, obj) => {
-    for (const k of Object.keys(obj)) {
-      if (!k.startsWith('rel:')) continue;
-      assert.ok(declared.has(k), `${where} uses undeclared relation ${k}`);
-    }
-  };
-  for (const e of appl.entries) {
-    checkKeys(e.id, e);
-    for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
-      checkKeys(`${e.id} rel:conditional_includes[${i}]`, c);
-    }
+ const declared = new Set(Object.keys(appl.relations))
+ // Both levels: a conditional_includes object carries its own `rel:includes`,
+ // and refsOf reads that nested key by name — a typo there drops the reference
+ // out of cross-reference and drift evaluation without failing anything else.
+ const checkKeys = (where, obj) => {
+  for (const k of Object.keys(obj)) {
+   if (!k.startsWith('rel:')) continue
+   assert.ok(declared.has(k), `${where} uses undeclared relation ${k}`)
   }
-});
+ }
+ for (const e of appl.entries) {
+  checkKeys(e.id, e)
+  for (const [i, c] of (e['rel:conditional_includes'] ?? []).entries()) {
+   checkKeys(`${e.id} rel:conditional_includes[${i}]`, c)
+  }
+ }
+})
 
 test('every entry modality is a value declared in applicability.json (REQ-CAT-3)', () => {
-  const declaredModalities = new Set(Object.keys(appl.modalities));
-  for (const e of appl.entries) {
-    assert.ok(declaredModalities.has(e.modality), `${e.id} uses undeclared modality ${e.modality}`);
-  }
-});
+ const declaredModalities = new Set(Object.keys(appl.modalities))
+ for (const e of appl.entries) {
+  assert.ok(declaredModalities.has(e.modality), `${e.id} uses undeclared modality ${e.modality}`)
+ }
+})
 
 test('every light id outside applicability.json resolves too', () => {
-  // Rule 22 range tables and the Annex I geometry records both key on light
-  // ids; nothing else asserted they resolve, so a rename could half-land.
-  for (const [id, rec] of Object.entries(lights.lights)) {
-    for (const c of rec.components ?? []) {
-      assert.ok(lights.lights[c], `${id} has undefined component ${c}`);
-    }
-    if (rec.same_characteristics_as) {
-      assert.ok(
-        lights.lights[rec.same_characteristics_as],
-        `${id} refers to undefined light ${rec.same_characteristics_as}`,
-      );
-    }
+ // Rule 22 range tables and the Annex I geometry records both key on light
+ // ids; nothing else asserted they resolve, so a rename could half-land.
+ for (const [id, rec] of Object.entries(lights.lights)) {
+  for (const c of rec.components ?? []) {
+   assert.ok(lights.lights[c], `${id} has undefined component ${c}`)
   }
-  for (const b of lights.visibility.bands) {
-    for (const k of [...Object.keys(b.ranges_nm ?? {}), ...Object.keys(b.overrides_nm ?? {})]) {
-      assert.ok(lights.lights[k], `Rule ${b.cite} gives a range for undefined light ${k}`);
-    }
+  if (rec.same_characteristics_as) {
+   assert.ok(
+    lights.lights[rec.same_characteristics_as],
+    `${id} refers to undefined light ${rec.same_characteristics_as}`,
+   )
   }
-  const groups = [
-    geometry.vertical_positioning,
-    geometry.horizontal_positioning,
-    geometry.direction_indicating,
-  ];
-  for (const g of groups) {
-    for (const c of g) {
-      if (!c.light) continue;
-      assert.ok(lights.lights[c.light], `${c.cite} positions undefined light ${c.light}`);
-    }
+ }
+ for (const b of lights.visibility.bands) {
+  for (const k of [...Object.keys(b.ranges_nm ?? {}), ...Object.keys(b.overrides_nm ?? {})]) {
+   assert.ok(lights.lights[k], `Rule ${b.cite} gives a range for undefined light ${k}`)
   }
-});
+ }
+ const groups = [geometry.vertical_positioning, geometry.horizontal_positioning, geometry.direction_indicating]
+ for (const g of groups) {
+  for (const c of g) {
+   if (!c.light) continue
+   assert.ok(lights.lights[c.light], `${c.cite} positions undefined light ${c.light}`)
+  }
+ }
+})
 
 // --- Part D elements (ADR 0022) ---------------------------------------------
 // data/sounds.json is to a signal what lights.json is to a display: the closed
@@ -1979,160 +1750,134 @@ test('every light id outside applicability.json resolves too', () => {
 // -- every element an entry names is defined, every element is used, and the
 // one element that is a light resolves in lights.json.
 test('every signal element an entry names is defined in sounds.json', () => {
-  for (const e of appl.entries) {
-    for (const g of e.signal ?? []) {
-      for (const item of g.sequence) {
-        assert.ok(
-          sounds.elements[item.element],
-          `${e.id} sounds undefined element ${item.element}`,
-        );
-      }
-    }
+ for (const e of appl.entries) {
+  for (const g of e.signal ?? []) {
+   for (const item of g.sequence) {
+    assert.ok(sounds.elements[item.element], `${e.id} sounds undefined element ${item.element}`)
+   }
   }
-});
+ }
+})
 
 test('every element in sounds.json is sequenced by an entry, cites a paragraph and resolves its light', () => {
-  const used = new Set(
-    appl.entries.flatMap((e) =>
-      (e.signal ?? []).flatMap((g) => g.sequence.map((item) => item.element)),
-    ),
-  );
-  for (const [id, rec] of Object.entries(sounds.elements)) {
-    assert.ok(used.has(id), `${id} is defined but no entry sequences it`);
-    assert.ok(
-      rules.paragraphs[rec.cite.split('-')[0].trim()],
-      `${id} cites missing paragraph ${rec.cite}`,
-    );
-    // flash:manoeuvring is a light element: its character is Rule 21(f)'s, so
-    // the id it names must be a real light and not a second definition of one.
-    if (rec.light) assert.ok(lights.lights[rec.light], `${id} names undefined light ${rec.light}`);
-  }
-  for (const c of [...sounds.appliances.carriage, sounds.appliances.fallback]) {
-    assert.ok(rules.paragraphs[c.cite], `sounds.json carriage cites missing paragraph ${c.cite}`);
-  }
-});
+ const used = new Set(
+  appl.entries.flatMap((e) => (e.signal ?? []).flatMap((g) => g.sequence.map((item) => item.element))),
+ )
+ for (const [id, rec] of Object.entries(sounds.elements)) {
+  assert.ok(used.has(id), `${id} is defined but no entry sequences it`)
+  assert.ok(rules.paragraphs[rec.cite.split('-')[0].trim()], `${id} cites missing paragraph ${rec.cite}`)
+  // flash:manoeuvring is a light element: its character is Rule 21(f)'s, so
+  // the id it names must be a real light and not a second definition of one.
+  if (rec.light) assert.ok(lights.lights[rec.light], `${id} names undefined light ${rec.light}`)
+ }
+ for (const c of [...sounds.appliances.carriage, sounds.appliances.fallback]) {
+  assert.ok(rules.paragraphs[c.cite], `sounds.json carriage cites missing paragraph ${c.cite}`)
+ }
+})
 
 // A signal element a paragraph counts (35(h)'s strokes, 34(d)'s five blasts)
 // states no duration of its own; one it times (a blast, the anchor bell) does.
 // Asserted so that a consumer synthesizing from the data never has to guess
 // which of the two it is holding.
 test('ADR 0022: a signal element carries a duration or is counted by the sequence', () => {
-  for (const e of appl.entries) {
-    for (const g of e.signal ?? []) {
-      for (const item of g.sequence) {
-        const rec = sounds.elements[item.element];
-        const timed = rec.duration_s !== undefined || item.duration_s !== undefined;
-        const counted = item.count !== undefined;
-        assert.ok(timed || counted, `${e.id}: ${item.element} is neither timed nor counted`);
-      }
-    }
+ for (const e of appl.entries) {
+  for (const g of e.signal ?? []) {
+   for (const item of g.sequence) {
+    const rec = sounds.elements[item.element]
+    const timed = rec.duration_s !== undefined || item.duration_s !== undefined
+    const counted = item.count !== undefined
+    assert.ok(timed || counted, `${e.id}: ${item.element} is neither timed nor counted`)
+   }
   }
-});
+ }
+})
 
 // REQ-PART-2 for Part D: the parts differ only in the vocabulary they emit, so
 // an entry emits one kind and never two, and a signal reads no time fact --
 // Rule 35 is scoped by visibility and 34(e) by a place, neither by day or night.
 test('REQ-PART-2: a signal entry emits no lights or shapes, and reads no time fact', () => {
-  for (const e of appl.entries) {
-    if (!(e.signal ?? []).length && !('signal' in e)) continue;
-    assert.equal((e.lights ?? []).length, 0, `${e.id} emits both a signal and lights`);
-    assert.equal((e.shapes ?? []).length, 0, `${e.id} emits both a signal and shapes`);
-    assert.ok(!('fact:time' in e.when), `${e.id} emits a signal and reads fact:time`);
-  }
-});
+ for (const e of appl.entries) {
+  if (!(e.signal ?? []).length && !('signal' in e)) continue
+  assert.equal((e.lights ?? []).length, 0, `${e.id} emits both a signal and lights`)
+  assert.equal((e.shapes ?? []).length, 0, `${e.id} emits both a signal and shapes`)
+  assert.ok(!('fact:time' in e.when), `${e.id} emits a signal and reads fact:time`)
+ }
+})
 
 test('geometry entry references resolve', () => {
-  const groups = [
-    geometry.vertical_positioning,
-    geometry.horizontal_positioning,
-    geometry.direction_indicating,
-  ];
-  for (const g of groups) {
-    for (const c of g) {
-      for (const id of c.applies_to_entries ?? []) {
-        assert.ok(byId.has(id), `${c.cite} references unknown entry ${id}`);
-      }
-    }
+ const groups = [geometry.vertical_positioning, geometry.horizontal_positioning, geometry.direction_indicating]
+ for (const g of groups) {
+  for (const c of g) {
+   for (const id of c.applies_to_entries ?? []) {
+    assert.ok(byId.has(id), `${c.cite} references unknown entry ${id}`)
+   }
   }
-});
+ }
+})
 
 test('light arcs cover the span they claim', () => {
-  for (const [id, l] of Object.entries(lights.lights)) {
-    if (!l.arc || l.arc_deg == null) continue;
-    const span = (l.arc.to_deg - l.arc.from_deg + 360) % 360 || 360;
-    assert.equal(Math.round(span * 10) / 10, l.arc_deg, `${id} arc span`);
-  }
-});
+ for (const [id, l] of Object.entries(lights.lights)) {
+  if (!l.arc || l.arc_deg == null) continue
+  const span = (l.arc.to_deg - l.arc.from_deg + 360) % 360 || 360
+  assert.equal(Math.round(span * 10) / 10, l.arc_deg, `${id} arc span`)
+ }
+})
 
 // --- reversibility gates (REQ-GATE-1..4) -----------------------------------
 // docs/gates.json is the machine-readable status of the §10 gates. It is what
 // blocks a 1.0 tag; requirements.md prose cannot, and did not.
-const gates = load('docs/gates.json');
-const pkg = load('package.json');
-const requirementsText = readFileSync(new URL('../docs/requirements.md', import.meta.url), 'utf8');
-const fileExists = (p) => existsSync(new URL(`../${p}`, import.meta.url));
+const gates = load('docs/gates.json')
+const pkg = load('package.json')
+const requirementsText = readFileSync(new URL('../docs/requirements.md', import.meta.url), 'utf8')
+const fileExists = (p) => existsSync(new URL(`../${p}`, import.meta.url))
 
 test('gates: the registry is well-formed and mirrors requirements.md §10', () => {
-  const ids = gates.gates.map((g) => g.id);
-  assert.equal(new Set(ids).size, ids.length, 'gate ids are unique');
+ const ids = gates.gates.map((g) => g.id)
+ assert.equal(new Set(ids).size, ids.length, 'gate ids are unique')
 
-  for (const g of gates.gates) {
-    assert.ok(
-      g.closing_event in gates.closing_events,
-      `${g.id}: unknown closing_event ${g.closing_event}`,
-    );
-    assert.ok(g.status in gates.statuses, `${g.id}: unknown status ${g.status}`);
-    assert.ok(fileExists(g.declined_in), `${g.id}: declined_in does not resolve: ${g.declined_in}`);
-    if (g.settled_by !== null) {
-      assert.ok(fileExists(g.settled_by), `${g.id}: settled_by does not resolve: ${g.settled_by}`);
-    }
-    if (g.status !== 'open') {
-      assert.notEqual(
-        g.settled_by,
-        null,
-        `${g.id}: a non-open gate must cite the ADR that settled it (REQ-GATE-4)`,
-      );
-    }
-    assert.match(
-      requirementsText,
-      new RegExp(`\\*\\*${g.id} —`),
-      `${g.id}: not documented in requirements.md §10`,
-    );
+ for (const g of gates.gates) {
+  assert.ok(g.closing_event in gates.closing_events, `${g.id}: unknown closing_event ${g.closing_event}`)
+  assert.ok(g.status in gates.statuses, `${g.id}: unknown status ${g.status}`)
+  assert.ok(fileExists(g.declined_in), `${g.id}: declined_in does not resolve: ${g.declined_in}`)
+  if (g.settled_by !== null) {
+   assert.ok(fileExists(g.settled_by), `${g.id}: settled_by does not resolve: ${g.settled_by}`)
   }
+  if (g.status !== 'open') {
+   assert.notEqual(g.settled_by, null, `${g.id}: a non-open gate must cite the ADR that settled it (REQ-GATE-4)`)
+  }
+  assert.match(requirementsText, new RegExp(`\\*\\*${g.id} —`), `${g.id}: not documented in requirements.md §10`)
+ }
 
-  // Both directions: a gate added to the prose but not the registry would be
-  // invisible to the 1.0 block below, which is the failure this test exists for.
-  for (const [, id] of requirementsText.matchAll(/\*\*(GATE-\d+) —/g)) {
-    assert.ok(ids.includes(id), `${id} is in requirements.md §10 but not in docs/gates.json`);
-  }
-});
+ // Both directions: a gate added to the prose but not the registry would be
+ // invisible to the 1.0 block below, which is the failure this test exists for.
+ for (const [, id] of requirementsText.matchAll(/\*\*(GATE-\d+) —/g)) {
+  assert.ok(ids.includes(id), `${id} is in requirements.md §10 but not in docs/gates.json`)
+ }
+})
 
 test('REQ-GATE-3: tagging 1.0 is blocked until every 1.0-gated gate is re-taken', () => {
-  const major = Number(String(pkg.version).split('.')[0]);
-  assert.ok(Number.isInteger(major), `package.json version is unparseable: ${pkg.version}`);
+ const major = Number(String(pkg.version).split('.')[0])
+ assert.ok(Number.isInteger(major), `package.json version is unparseable: ${pkg.version}`)
 
-  const gatedOn10 = gates.gates.filter((g) => g.closing_event === '1.0-tag');
-  if (major < 1) {
-    // Pre-1.0 the gates may stand open; nothing to assert beyond well-formedness.
-    return;
-  }
+ const gatedOn10 = gates.gates.filter((g) => g.closing_event === '1.0-tag')
+ if (major < 1) {
+  // Pre-1.0 the gates may stand open; nothing to assert beyond well-formedness.
+  return
+ }
+ assert.ok(gatedOn10.length > 0, 'no gate is closed by the 1.0 tag — registry looks empty, failing closed')
+ for (const g of gatedOn10) {
+  assert.notEqual(
+   g.status,
+   'open',
+   `${g.id} (${g.title}) is still open and its closing event is the 1.0 tag. ` +
+    'REQ-GATE-3: re-take it in an ADR — confirm or adopt — and update docs/gates.json before releasing 1.0.',
+  )
   assert.ok(
-    gatedOn10.length > 0,
-    'no gate is closed by the 1.0 tag — registry looks empty, failing closed',
-  );
-  for (const g of gatedOn10) {
-    assert.notEqual(
-      g.status,
-      'open',
-      `${g.id} (${g.title}) is still open and its closing event is the 1.0 tag. ` +
-        'REQ-GATE-3: re-take it in an ADR — confirm or adopt — and update docs/gates.json before releasing 1.0.',
-    );
-    assert.ok(
-      typeof g.settled_by === 'string' && fileExists(g.settled_by),
-      `${g.id}: REQ-GATE-3 requires the re-take to cite a resolvable ADR; settled_by is ${JSON.stringify(g.settled_by)}`,
-    );
-  }
-});
+   typeof g.settled_by === 'string' && fileExists(g.settled_by),
+   `${g.id}: REQ-GATE-3 requires the re-take to cite a resolvable ADR; settled_by is ${JSON.stringify(g.settled_by)}`,
+  )
+ }
+})
 
 // --- identifier immutability baseline (REQ-MODEL-10) ------------------------
 // The baseline is the one exception to REQ-MODEL-10, and it is settable exactly
@@ -2140,78 +1885,78 @@ test('REQ-GATE-3: tagging 1.0 is blocked until every 1.0-gated gate is re-taken'
 // edited in place — but the escape hatch REQ-MODEL-10 names is a *second*
 // baseline granted for the next convenient rename, and that this can refuse.
 // Editing the pin below is still possible; it is just no longer silent.
-const BASELINE_RE = /\*\*Immutability baseline: `([^`]+)`\.\*\*/g;
+const BASELINE_RE = /\*\*Immutability baseline: `([^`]+)`\.\*\*/g
 
 // Scoped to REQ-MODEL-10's own section: a baseline moved out of the requirement
 // and re-stated somewhere with no normative force would otherwise still count.
 const reqModel10Section = () => {
-  const start = requirementsText.indexOf('- **REQ-MODEL-10**');
-  assert.notEqual(start, -1, 'REQ-MODEL-10 is missing from docs/requirements.md');
-  const end = requirementsText.indexOf('- **REQ-MODEL-11**', start);
-  assert.notEqual(end, -1, 'REQ-MODEL-11 is missing; cannot bound REQ-MODEL-10');
-  return requirementsText.slice(start, end);
-};
+ const start = requirementsText.indexOf('- **REQ-MODEL-10**')
+ assert.notEqual(start, -1, 'REQ-MODEL-10 is missing from docs/requirements.md')
+ const end = requirementsText.indexOf('- **REQ-MODEL-11**', start)
+ assert.notEqual(end, -1, 'REQ-MODEL-11 is missing; cannot bound REQ-MODEL-10')
+ return requirementsText.slice(start, end)
+}
 
-const BASELINE = '1.0.0'; // moved from 0.1.1 by ADR 0015 (#121); fixed from here on
+const BASELINE = '1.0.0' // moved from 0.1.1 by ADR 0015 (#121); fixed from here on
 
 test('REQ-MODEL-10: the immutability baseline is stated exactly once, and is 1.0.0', () => {
-  const whole = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1]);
-  const found = [...reqModel10Section().matchAll(BASELINE_RE)].map((m) => m[1]);
-  assert.deepEqual(
-    whole,
-    found,
-    'an immutability baseline is stated outside REQ-MODEL-10; the baseline is ' +
-      'normative only where the requirement itself states it.',
-  );
-  assert.equal(
-    found.length,
-    1,
-    `REQ-MODEL-10 declares ${found.length} immutability baselines (${found.join(', ')}); ` +
-      'it is settable exactly once. A second baseline is the escape hatch the requirement forbids.',
-  );
-  assert.equal(
-    found[0],
-    BASELINE,
-    'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.',
-  );
-});
+ const whole = [...requirementsText.matchAll(BASELINE_RE)].map((m) => m[1])
+ const found = [...reqModel10Section().matchAll(BASELINE_RE)].map((m) => m[1])
+ assert.deepEqual(
+  whole,
+  found,
+  'an immutability baseline is stated outside REQ-MODEL-10; the baseline is ' +
+   'normative only where the requirement itself states it.',
+ )
+ assert.equal(
+  found.length,
+  1,
+  `REQ-MODEL-10 declares ${found.length} immutability baselines (${found.join(', ')}); ` +
+   'it is settable exactly once. A second baseline is the escape hatch the requirement forbids.',
+ )
+ assert.equal(
+  found[0],
+  BASELINE,
+  'the immutability baseline has moved. REQ-MODEL-10: it MUST NOT be moved, raised or re-stated.',
+ )
+})
 
 test('REQ-MODEL-10: every rule id is unique', () => {
-  // `byId` above is a Map built from `appl.entries`, which silently drops a
-  // duplicate key rather than asserting on it -- so a colliding id would
-  // pass every other test in this file undetected. Two entries may share a
-  // cite; they never share an id.
-  const seen = new Set();
-  for (const e of appl.entries) {
-    assert.ok(!seen.has(e.id), `rule id ${e.id} is used by more than one entry`);
-    seen.add(e.id);
-  }
-});
+ // `byId` above is a Map built from `appl.entries`, which silently drops a
+ // duplicate key rather than asserting on it -- so a colliding id would
+ // pass every other test in this file undetected. Two entries may share a
+ // cite; they never share an id.
+ const seen = new Set()
+ for (const e of appl.entries) {
+  assert.ok(!seen.has(e.id), `rule id ${e.id} is used by more than one entry`)
+  seen.add(e.id)
+ }
+})
 
 test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares', () => {
-  // Finding-1 recurrence guard: the requirement enumerates the three axes'
-  // values, so it drifts silently every time an axis gains or renames one.
-  const start = requirementsText.indexOf('- **REQ-MODEL-3**');
-  const end = requirementsText.indexOf('- **REQ-MODEL-4**', start);
-  assert.ok(start !== -1 && end !== -1, 'REQ-MODEL-3/4 missing from requirements');
-  const section = requirementsText.slice(start, end);
-  const listed = [...section.matchAll(/`([a-z_]+:[a-z_]+)`/g)].map((m) => m[1]);
-  for (const [axis, rec] of Object.entries(facts.axes)) {
-    for (const v of rec.values) {
-      assert.ok(listed.includes(v), `REQ-MODEL-3 omits ${axis} value ${v}`);
-    }
+ // Finding-1 recurrence guard: the requirement enumerates the three axes'
+ // values, so it drifts silently every time an axis gains or renames one.
+ const start = requirementsText.indexOf('- **REQ-MODEL-3**')
+ const end = requirementsText.indexOf('- **REQ-MODEL-4**', start)
+ assert.ok(start !== -1 && end !== -1, 'REQ-MODEL-3/4 missing from requirements')
+ const section = requirementsText.slice(start, end)
+ const listed = [...section.matchAll(/`([a-z_]+:[a-z_]+)`/g)].map((m) => m[1])
+ for (const [axis, rec] of Object.entries(facts.axes)) {
+  for (const v of rec.values) {
+   assert.ok(listed.includes(v), `REQ-MODEL-3 omits ${axis} value ${v}`)
   }
-  const prefixes = new Set(
-    Object.values(facts.axes)
-      .flatMap((r) => r.values)
-      .map((v) => v.split(':')[0]),
-  );
-  const declared = new Set(Object.values(facts.axes).flatMap((r) => r.values));
-  for (const m of section.matchAll(/`([a-z_]+:[a-z_]+)`/g)) {
-    if (!prefixes.has(m[1].split(':')[0])) continue;
-    assert.ok(declared.has(m[1]), `REQ-MODEL-3 names undeclared axis value ${m[1]}`);
-  }
-});
+ }
+ const prefixes = new Set(
+  Object.values(facts.axes)
+   .flatMap((r) => r.values)
+   .map((v) => v.split(':')[0]),
+ )
+ const declared = new Set(Object.values(facts.axes).flatMap((r) => r.values))
+ for (const m of section.matchAll(/`([a-z_]+:[a-z_]+)`/g)) {
+  if (!prefixes.has(m[1].split(':')[0])) continue
+  assert.ok(declared.has(m[1]), `REQ-MODEL-3 names undeclared axis value ${m[1]}`)
+ }
+})
 
 // --- two-subject evaluator (ADR 0005, REQ-CAT-4/5) -------------------------
 // A situation predicate addresses a fact as `<subject>:<class>:<key>` --
@@ -2220,41 +1965,41 @@ test('REQ-MODEL-3 lists exactly the enumerated axis values facts.json declares',
 // one-subject entry and every published fixture valid unedited. The namespace
 // is docs/identifiers.md, section 'Two subjects'; the fact classes it names
 // are declared in facts.json's `situation` section.
-const situationFixtures = load('fixtures/situation-fixtures.json');
-const sit = facts.situation;
-const SUBJECTS = new Set(Object.keys(sit.namespace.subjects));
-const CLASSES = new Set(Object.keys(sit.namespace.classes));
+const situationFixtures = load('fixtures/situation-fixtures.json')
+const sit = facts.situation
+const SUBJECTS = new Set(Object.keys(sit.namespace.subjects))
+const CLASSES = new Set(Object.keys(sit.namespace.classes))
 // `pair` carries only what is symmetric between the two vessels.
 // `pair` carries what is symmetric between the two vessels: their relative
 // geometry, and where the encounter is happening.
-const PAIR_CLASSES = new Set(['geo', 'env']);
+const PAIR_CLASSES = new Set(['geo', 'env'])
 
 // Memoised: a situation predicate is evaluated once per entry per situation and
 // the partition sweep below runs a million of them, so splitting the same dozen
 // key strings over and over is the whole cost of the test suite.
-const parsedKeys = new Map();
+const parsedKeys = new Map()
 function parseKey(key) {
-  let hit = parsedKeys.get(key);
-  if (hit === undefined) {
-    const seg = key.split(':');
-    const subject = SUBJECTS.has(seg[0]) ? seg.shift() : 'self';
-    hit = { subject, cls: seg[0], local: seg.join(':') };
-    parsedKeys.set(key, hit);
-  }
-  return hit;
+ let hit = parsedKeys.get(key)
+ if (hit === undefined) {
+  const seg = key.split(':')
+  const subject = SUBJECTS.has(seg[0]) ? seg.shift() : 'self'
+  hit = { subject, cls: seg[0], local: seg.join(':') }
+  parsedKeys.set(key, hit)
+ }
+ return hit
 }
 
 // Absent is absent: an unresolvable key yields undefined, and `satisfies`
 // fails it, exactly as a missing fact does in the one-subject evaluator.
 function resolve(key, situation) {
-  const { subject, cls, local } = parseKey(key);
-  const held = situation?.[subject]?.[cls];
-  return held === undefined ? undefined : held[local];
+ const { subject, cls, local } = parseKey(key)
+ const held = situation?.[subject]?.[cls]
+ return held === undefined ? undefined : held[local]
 }
 
-const localOf = (k) => parseKey(k).local;
+const localOf = (k) => parseKey(k).local
 function matchesSituation(when, situation) {
-  return holds(when, localOf, (k) => resolve(k, situation));
+ return holds(when, localOf, (k) => resolve(k, situation))
 }
 
 // --- geometric consistency (Q-48, REQ-VERIFY-8) -----------------------------
@@ -2264,525 +2009,452 @@ function matchesSituation(when, situation) {
 // same check, written once and applied to every fixture and to every
 // situation a sweep below constructs. A quantity the record does not state
 // constrains nothing: a sparse record is unchecked, never inconsistent.
-const CONSISTENCY = sit.geometry.consistency;
-const TOL = CONSISTENCY.tolerances;
-const KN_MS = 0.514444;
-const EARTH_R_M = 6371000;
-const rad = (d) => (d * Math.PI) / 180;
-const deg = (r) => (r * 180) / Math.PI;
-const norm360 = (d) => ((d % 360) + 360) % 360;
-const angleApart = (a, b) => Math.abs(norm360(a - b + 180) - 180);
-const within = (got, want, floor, fraction = 0) =>
-  Math.abs(got - want) <= Math.max(floor, Math.abs(want) * fraction);
-const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+const CONSISTENCY = sit.geometry.consistency
+const TOL = CONSISTENCY.tolerances
+const KN_MS = 0.514444
+const EARTH_R_M = 6371000
+const rad = (d) => (d * Math.PI) / 180
+const deg = (r) => (r * 180) / Math.PI
+const norm360 = (d) => ((d % 360) + 360) % 360
+const angleApart = (a, b) => Math.abs(norm360(a - b + 180) - 180)
+const within = (got, want, floor, fraction = 0) => Math.abs(got - want) <= Math.max(floor, Math.abs(want) * fraction)
+const isNum = (v) => typeof v === 'number' && Number.isFinite(v)
 
 function greatCircle(a, b) {
-  const la1 = rad(a.latitude),
-    la2 = rad(b.latitude),
-    dlo = rad(b.longitude - a.longitude);
-  const h = Math.sin((la2 - la1) / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dlo / 2) ** 2;
-  const y = Math.sin(dlo) * Math.cos(la2);
-  const x = Math.cos(la1) * Math.sin(la2) - Math.sin(la1) * Math.cos(la2) * Math.cos(dlo);
-  return {
-    range_m: 2 * EARTH_R_M * Math.asin(Math.sqrt(h)),
-    bearing_deg: norm360(deg(Math.atan2(y, x))),
-  };
+ const la1 = rad(a.latitude),
+  la2 = rad(b.latitude),
+  dlo = rad(b.longitude - a.longitude)
+ const h = Math.sin((la2 - la1) / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dlo / 2) ** 2
+ const y = Math.sin(dlo) * Math.cos(la2)
+ const x = Math.cos(la1) * Math.sin(la2) - Math.sin(la1) * Math.cos(la2) * Math.cos(dlo)
+ return {
+  range_m: 2 * EARTH_R_M * Math.asin(Math.sqrt(h)),
+  bearing_deg: norm360(deg(Math.atan2(y, x))),
+ }
 }
 function destination(from, bearing_deg, range_m) {
-  const la1 = rad(from.latitude),
-    lo1 = rad(from.longitude),
-    d = range_m / EARTH_R_M,
-    b = rad(bearing_deg);
-  const la2 = Math.asin(Math.sin(la1) * Math.cos(d) + Math.cos(la1) * Math.sin(d) * Math.cos(b));
-  const lo2 =
-    lo1 +
-    Math.atan2(
-      Math.sin(b) * Math.sin(d) * Math.cos(la1),
-      Math.cos(d) - Math.sin(la1) * Math.sin(la2),
-    );
-  return { latitude: deg(la2), longitude: deg(lo2) };
+ const la1 = rad(from.latitude),
+  lo1 = rad(from.longitude),
+  d = range_m / EARTH_R_M,
+  b = rad(bearing_deg)
+ const la2 = Math.asin(Math.sin(la1) * Math.cos(d) + Math.cos(la1) * Math.sin(d) * Math.cos(b))
+ const lo2 = lo1 + Math.atan2(Math.sin(b) * Math.sin(d) * Math.cos(la1), Math.cos(d) - Math.sin(la1) * Math.sin(la2))
+ return { latitude: deg(la2), longitude: deg(lo2) }
 }
 
 // Relative motion in self's frame -- x to starboard, y ahead -- with each vessel
 // moving along her heading at her speed over the ground. The bearing rate is
 // positive when the compass bearing of the other from self is increasing.
 function relativeMotion({ range_m, ownRel, ownHeading, otherHeading, ownSog, otherSog }) {
-  const x = range_m * Math.sin(rad(ownRel)),
-    y = range_m * Math.cos(rad(ownRel));
-  const u = ownSog * KN_MS,
-    v = otherSog * KN_MS,
-    rel = rad(otherHeading - ownHeading);
-  const vx = v * Math.sin(rel),
-    vy = v * Math.cos(rel) - u;
-  const vv = vx * vx + vy * vy;
-  const cross = x * vy - y * vx;
-  return {
-    cpa_m: vv === 0 ? range_m : Math.abs(cross) / Math.sqrt(vv),
-    tcpa_s: vv === 0 ? Infinity : -(x * vx + y * vy) / vv,
-    bearing_change_deg_min: -deg(cross / (range_m * range_m)) * 60,
-  };
+ const x = range_m * Math.sin(rad(ownRel)),
+  y = range_m * Math.cos(rad(ownRel))
+ const u = ownSog * KN_MS,
+  v = otherSog * KN_MS,
+  rel = rad(otherHeading - ownHeading)
+ const vx = v * Math.sin(rel),
+  vy = v * Math.cos(rel) - u
+ const vv = vx * vx + vy * vy
+ const cross = x * vy - y * vx
+ return {
+  cpa_m: vv === 0 ? range_m : Math.abs(cross) / Math.sqrt(vv),
+  tcpa_s: vv === 0 ? Infinity : -(x * vx + y * vy) / vv,
+  bearing_change_deg_min: -deg(cross / (range_m * range_m)) * 60,
+ }
 }
 
 // Every disagreement between what a situation states and what its other stated
 // quantities imply, as strings. Empty means consistent.
 function inconsistencies(s) {
-  const out = [];
-  const self = s.self ?? {},
-    other = s.other ?? {},
-    pg = s.pair?.geo ?? {};
-  const ro = self.geo?.['geo:rel_bearing_deg'],
-    rt = other.geo?.['geo:rel_bearing_deg'];
-  const ho = self.kin?.['kin:heading_deg'],
-    ht = other.kin?.['kin:heading_deg'];
-  const po = self.kin?.['kin:position'],
-    pt = other.kin?.['kin:position'];
-  if (isNum(ro) && isNum(rt) && isNum(ho) && isNum(ht)) {
-    const gap = angleApart(ro + ho + 180, rt + ht);
-    if (gap > TOL.bearing_deg)
-      out.push(
-        `headings: self ${ro} on ${ho} and other ${rt} on ${ht} are ${gap.toFixed(2)} deg off one line of sight`,
-      );
+ const out = []
+ const self = s.self ?? {},
+  other = s.other ?? {},
+  pg = s.pair?.geo ?? {}
+ const ro = self.geo?.['geo:rel_bearing_deg'],
+  rt = other.geo?.['geo:rel_bearing_deg']
+ const ho = self.kin?.['kin:heading_deg'],
+  ht = other.kin?.['kin:heading_deg']
+ const po = self.kin?.['kin:position'],
+  pt = other.kin?.['kin:position']
+ if (isNum(ro) && isNum(rt) && isNum(ho) && isNum(ht)) {
+  const gap = angleApart(ro + ho + 180, rt + ht)
+  if (gap > TOL.bearing_deg)
+   out.push(`headings: self ${ro} on ${ho} and other ${rt} on ${ht} are ${gap.toFixed(2)} deg off one line of sight`)
+ }
+ const fwd = po && pt ? greatCircle(po, pt) : undefined
+ if (fwd) {
+  const back = greatCircle(pt, po)
+  if (isNum(pg['geo:range_m']) && !within(fwd.range_m, pg['geo:range_m'], TOL.range_m, TOL.range_fraction)) {
+   out.push(`positions: range ${fwd.range_m.toFixed(0)} m, stated ${pg['geo:range_m']}`)
   }
-  const fwd = po && pt ? greatCircle(po, pt) : undefined;
-  if (fwd) {
-    const back = greatCircle(pt, po);
-    if (
-      isNum(pg['geo:range_m']) &&
-      !within(fwd.range_m, pg['geo:range_m'], TOL.range_m, TOL.range_fraction)
-    ) {
-      out.push(`positions: range ${fwd.range_m.toFixed(0)} m, stated ${pg['geo:range_m']}`);
-    }
-    if (isNum(ro) && isNum(ho) && angleApart(fwd.bearing_deg - ho, ro) > TOL.bearing_deg) {
-      out.push(
-        `positions: self:geo:rel_bearing_deg ${norm360(fwd.bearing_deg - ho).toFixed(2)}, stated ${ro}`,
-      );
-    }
-    if (isNum(rt) && isNum(ht) && angleApart(back.bearing_deg - ht, rt) > TOL.bearing_deg) {
-      out.push(
-        `positions: other:geo:rel_bearing_deg ${norm360(back.bearing_deg - ht).toFixed(2)}, stated ${rt}`,
-      );
-    }
+  if (isNum(ro) && isNum(ho) && angleApart(fwd.bearing_deg - ho, ro) > TOL.bearing_deg) {
+   out.push(`positions: self:geo:rel_bearing_deg ${norm360(fwd.bearing_deg - ho).toFixed(2)}, stated ${ro}`)
   }
-  // The motion tier needs a range and self's relative bearing. Stated values
-  // are read first; positions supply either one the record leaves out, so a
-  // record that states positions, headings and speeds has its CPA, TCPA and
-  // bearing rate checked whether or not it restates the range and bearing
-  // the positions already fix.
-  const uo = self.kin?.['kin:sog_kn'],
-    ut = other.kin?.['kin:sog_kn'];
-  const range = isNum(pg['geo:range_m']) ? pg['geo:range_m'] : fwd?.range_m;
-  const ownRel = isNum(ro) ? ro : fwd && isNum(ho) ? norm360(fwd.bearing_deg - ho) : undefined;
-  if (isNum(ownRel) && isNum(ho) && isNum(ht) && isNum(uo) && isNum(ut) && isNum(range)) {
-    const m = relativeMotion({
-      range_m: range,
-      ownRel,
-      ownHeading: ho,
-      otherHeading: ht,
-      ownSog: uo,
-      otherSog: ut,
-    });
-    const check = (key, floor, fraction) => {
-      const want = pg[`geo:${key}`];
-      if (isNum(want) && !within(m[key], want, floor, fraction))
-        out.push(`motion: ${key} ${m[key].toFixed(2)}, stated ${want}`);
-    };
-    check('cpa_m', TOL.cpa_m, TOL.cpa_fraction);
-    check('tcpa_s', TOL.tcpa_s, TOL.tcpa_fraction);
-    check('bearing_change_deg_min', TOL.bearing_change_deg_min);
+  if (isNum(rt) && isNum(ht) && angleApart(back.bearing_deg - ht, rt) > TOL.bearing_deg) {
+   out.push(`positions: other:geo:rel_bearing_deg ${norm360(back.bearing_deg - ht).toFixed(2)}, stated ${rt}`)
   }
-  return out;
+ }
+ // The motion tier needs a range and self's relative bearing. Stated values
+ // are read first; positions supply either one the record leaves out, so a
+ // record that states positions, headings and speeds has its CPA, TCPA and
+ // bearing rate checked whether or not it restates the range and bearing
+ // the positions already fix.
+ const uo = self.kin?.['kin:sog_kn'],
+  ut = other.kin?.['kin:sog_kn']
+ const range = isNum(pg['geo:range_m']) ? pg['geo:range_m'] : fwd?.range_m
+ const ownRel = isNum(ro) ? ro : fwd && isNum(ho) ? norm360(fwd.bearing_deg - ho) : undefined
+ if (isNum(ownRel) && isNum(ho) && isNum(ht) && isNum(uo) && isNum(ut) && isNum(range)) {
+  const m = relativeMotion({
+   range_m: range,
+   ownRel,
+   ownHeading: ho,
+   otherHeading: ht,
+   ownSog: uo,
+   otherSog: ut,
+  })
+  const check = (key, floor, fraction) => {
+   const want = pg[`geo:${key}`]
+   if (isNum(want) && !within(m[key], want, floor, fraction))
+    out.push(`motion: ${key} ${m[key].toFixed(2)}, stated ${want}`)
+  }
+  check('cpa_m', TOL.cpa_m, TOL.cpa_fraction)
+  check('tcpa_s', TOL.tcpa_s, TOL.tcpa_fraction)
+  check('bearing_change_deg_min', TOL.bearing_change_deg_min)
+ }
+ return out
 }
-const consistent = (s) => inconsistencies(s).length === 0;
+const consistent = (s) => inconsistencies(s).length === 0
 
 // The fact classes the situation section declares, per class, as bare keys.
 const situationDeclared = {
-  fact: new Set([
-    ...Object.keys(facts.axes),
-    ...Object.keys(facts.modifiers),
-    ...Object.keys(facts.numerics),
-    ...Object.keys(facts.booleans),
-    ...Object.keys(facts.enums),
-    ...derivedFacts.map(([k]) => k),
-  ]),
-  kin: new Set(Object.keys(sit.kinematics).filter((k) => k.startsWith('kin:'))),
-  // Directional geometry is stated per vessel subject, symmetric geometry
-  // once under `pair`; the two sets are kept apart so a key placed under the
-  // wrong subject fails rather than passing on class membership alone.
-  geo: {
-    self: new Set(Object.keys(sit.geometry.directional)),
-    other: new Set(Object.keys(sit.geometry.directional)),
-    pair: new Set(Object.keys(sit.geometry.symmetric)),
-  },
-  hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
-  env: new Set(Object.keys(sit.environment).filter((k) => k.startsWith('env:'))),
-  act: new Set(Object.keys(sit.acts).filter((k) => k.startsWith('act:'))),
-};
+ fact: new Set([
+  ...Object.keys(facts.axes),
+  ...Object.keys(facts.modifiers),
+  ...Object.keys(facts.numerics),
+  ...Object.keys(facts.booleans),
+  ...Object.keys(facts.enums),
+  ...derivedFacts.map(([k]) => k),
+ ]),
+ kin: new Set(Object.keys(sit.kinematics).filter((k) => k.startsWith('kin:'))),
+ // Directional geometry is stated per vessel subject, symmetric geometry
+ // once under `pair`; the two sets are kept apart so a key placed under the
+ // wrong subject fails rather than passing on class membership alone.
+ geo: {
+  self: new Set(Object.keys(sit.geometry.directional)),
+  other: new Set(Object.keys(sit.geometry.directional)),
+  pair: new Set(Object.keys(sit.geometry.symmetric)),
+ },
+ hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
+ env: new Set(Object.keys(sit.environment).filter((k) => k.startsWith('env:'))),
+ act: new Set(Object.keys(sit.acts).filter((k) => k.startsWith('act:'))),
+}
 
 test('REQ-CAT-4: the situation section declares the classes the namespace names', () => {
-  assert.deepEqual([...SUBJECTS].sort(), ['other', 'pair', 'self']);
-  assert.deepEqual([...CLASSES].sort(), ['act', 'env', 'fact', 'geo', 'hist', 'kin']);
-  // The fact record is reachable unchanged: `self:fact:*` must resolve to the
-  // very keys facts.json already declares, not to a renamed copy of them.
-  for (const k of situationDeclared.fact) {
-    assert.equal(parseKey(`self:${k}`).local, k, `${k} does not survive the subject prefix`);
+ assert.deepEqual([...SUBJECTS].sort(), ['other', 'pair', 'self'])
+ assert.deepEqual([...CLASSES].sort(), ['act', 'env', 'fact', 'geo', 'hist', 'kin'])
+ // The fact record is reachable unchanged: `self:fact:*` must resolve to the
+ // very keys facts.json already declares, not to a renamed copy of them.
+ for (const k of situationDeclared.fact) {
+  assert.equal(parseKey(`self:${k}`).local, k, `${k} does not survive the subject prefix`)
+ }
+ // Every new fact carries the numeric-fact shape the rest of the file uses.
+ const shaped = [
+  ...Object.entries(sit.kinematics).filter(([k]) => k.startsWith('kin:')),
+  ...Object.entries(sit.geometry.directional),
+  ...Object.entries(sit.geometry.symmetric),
+  ...Object.entries(sit.history).filter(([k]) => k.startsWith('hist:')),
+  ...Object.entries(sit.environment).filter(([k]) => k.startsWith('env:')),
+  ...Object.entries(sit.acts).filter(([k]) => k.startsWith('act:')),
+ ]
+ assert.ok(shaped.length > 0)
+ for (const [k, rec] of shaped) {
+  assert.ok('type' in rec, `${k}: no type`)
+  assert.ok('cite' in rec, `${k}: no cite`)
+  assert.ok(typeof rec.actuable === 'boolean', `${k}: no actuable`)
+  assert.ok('signalk' in rec, `${k}: no signalk`)
+  // A null cite is only allowed when `cite_pending` is explicitly null too --
+  // meaning no COLREGS paragraph will ever justify it (kin:dynamics is not a
+  // COLREGS concept). Now that Rules 1-19 are transcribed there is no more
+  // "waiting on transcription": a fact naming a pending paragraph but never
+  // resolving to it is a fact nobody finished citing.
+  if (rec.cite === null) {
+   assert.ok('cite_pending' in rec, `${k}: null cite with no cite_pending`)
+   assert.equal(rec.cite_pending, null, `${k}: null cite must have cite_pending explicitly null`)
+  } else {
+   assert.ok(rules.paragraphs[rec.cite], `${k}: cite ${rec.cite} not in rules.json`)
   }
-  // Every new fact carries the numeric-fact shape the rest of the file uses.
-  const shaped = [
-    ...Object.entries(sit.kinematics).filter(([k]) => k.startsWith('kin:')),
-    ...Object.entries(sit.geometry.directional),
-    ...Object.entries(sit.geometry.symmetric),
-    ...Object.entries(sit.history).filter(([k]) => k.startsWith('hist:')),
-    ...Object.entries(sit.environment).filter(([k]) => k.startsWith('env:')),
-    ...Object.entries(sit.acts).filter(([k]) => k.startsWith('act:')),
-  ];
-  assert.ok(shaped.length > 0);
-  for (const [k, rec] of shaped) {
-    assert.ok('type' in rec, `${k}: no type`);
-    assert.ok('cite' in rec, `${k}: no cite`);
-    assert.ok(typeof rec.actuable === 'boolean', `${k}: no actuable`);
-    assert.ok('signalk' in rec, `${k}: no signalk`);
-    // A null cite is only allowed when `cite_pending` is explicitly null too --
-    // meaning no COLREGS paragraph will ever justify it (kin:dynamics is not a
-    // COLREGS concept). Now that Rules 1-19 are transcribed there is no more
-    // "waiting on transcription": a fact naming a pending paragraph but never
-    // resolving to it is a fact nobody finished citing.
-    if (rec.cite === null) {
-      assert.ok('cite_pending' in rec, `${k}: null cite with no cite_pending`);
-      assert.equal(
-        rec.cite_pending,
-        null,
-        `${k}: null cite must have cite_pending explicitly null`,
-      );
-    } else {
-      assert.ok(rules.paragraphs[rec.cite], `${k}: cite ${rec.cite} not in rules.json`);
-    }
-    if (rec.type === 'enum') {
-      const prefix = k.split(':').pop();
-      for (const v of rec.values) {
-        assert.equal(
-          v.split(':')[0],
-          prefix,
-          `${k}: value ${v} is not in its own fact's namespace`,
-        );
-      }
-    }
+  if (rec.type === 'enum') {
+   const prefix = k.split(':').pop()
+   for (const v of rec.values) {
+    assert.equal(v.split(':')[0], prefix, `${k}: value ${v} is not in its own fact's namespace`)
+   }
   }
-});
+ }
+})
 
 test('REQ-CAT-4: an existing one-subject predicate is a valid situation predicate unedited', () => {
-  // The backward-compatibility claim of docs/identifiers.md, asserted rather
-  // than described: a bare key means `self:`, so every published fixture is a
-  // one-subject situation and every entry still selects exactly the same ids.
-  for (const c of fixtures.cases) {
-    const asSituation = { self: { fact: c.facts } };
-    const j = c.jurisdiction ?? fixtures.jurisdiction;
-    const viaSituation = appl.entries
-      .filter((e) => isDisplay(e) && inJurisdiction(e, j) && matchesSituation(e.when, asSituation))
-      .map((e) => e.id);
-    assert.deepEqual(viaSituation.sort(), applying(c.facts, j).sort(), c.name);
-  }
-});
+ // The backward-compatibility claim of docs/identifiers.md, asserted rather
+ // than described: a bare key means `self:`, so every published fixture is a
+ // one-subject situation and every entry still selects exactly the same ids.
+ for (const c of fixtures.cases) {
+  const asSituation = { self: { fact: c.facts } }
+  const j = c.jurisdiction ?? fixtures.jurisdiction
+  const viaSituation = appl.entries
+   .filter((e) => isDisplay(e) && inJurisdiction(e, j) && matchesSituation(e.when, asSituation))
+   .map((e) => e.id)
+  assert.deepEqual(viaSituation.sort(), applying(c.facts, j).sort(), c.name)
+ }
+})
 
 test('REQ-CAT-5: situation fixtures are well-formed and resolve in the namespace', () => {
-  assert.equal(situationFixtures.schema, 'situation/1');
-  const names = new Set();
-  for (const c of situationFixtures.cases) {
-    assert.ok(c.name && !names.has(c.name), `duplicate or missing case name: ${c.name}`);
-    names.add(c.name);
-    assert.ok(situationFixtures.case_status.values.includes(c.status), `${c.name}: bad status`);
-    for (const [subject, classes] of Object.entries(c.situation)) {
-      assert.ok(SUBJECTS.has(subject), `${c.name}: unknown subject ${subject}`);
-      for (const [cls, record] of Object.entries(classes)) {
-        assert.ok(CLASSES.has(cls), `${c.name}: unknown class ${cls}`);
-        if (subject === 'pair')
-          assert.ok(PAIR_CLASSES.has(cls), `${c.name}: pair:${cls} is not symmetric`);
-        for (const k of Object.keys(record)) {
-          const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls];
-          assert.ok(declared.has(k), `${c.name}: undeclared ${cls} fact ${k} under ${subject}`);
-          // Round-trip: the fully-qualified key must resolve back to the value.
-          assert.equal(
-            resolve(`${subject}:${k}`, c.situation),
-            record[k],
-            `${c.name}: ${subject}:${k} does not resolve`,
-          );
-        }
-      }
+ assert.equal(situationFixtures.schema, 'situation/1')
+ const names = new Set()
+ for (const c of situationFixtures.cases) {
+  assert.ok(c.name && !names.has(c.name), `duplicate or missing case name: ${c.name}`)
+  names.add(c.name)
+  assert.ok(situationFixtures.case_status.values.includes(c.status), `${c.name}: bad status`)
+  for (const [subject, classes] of Object.entries(c.situation)) {
+   assert.ok(SUBJECTS.has(subject), `${c.name}: unknown subject ${subject}`)
+   for (const [cls, record] of Object.entries(classes)) {
+    assert.ok(CLASSES.has(cls), `${c.name}: unknown class ${cls}`)
+    if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${c.name}: pair:${cls} is not symmetric`)
+    for (const k of Object.keys(record)) {
+     const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls]
+     assert.ok(declared.has(k), `${c.name}: undeclared ${cls} fact ${k} under ${subject}`)
+     // Round-trip: the fully-qualified key must resolve back to the value.
+     assert.equal(resolve(`${subject}:${k}`, c.situation), record[k], `${c.name}: ${subject}:${k} does not resolve`)
     }
-    // Nothing in Part B is modelled, so an illustrative case asserts no
-    // entries. A binding one joins the replay and every id it names must exist.
-    if (c.status === 'illustrative')
-      assert.deepEqual(c.expect, [], `${c.name}: illustrative cases assert nothing yet`);
-    for (const x of c.expect) {
-      const id = entryId(x);
-      assert.ok(byId.has(id), `${c.name}: unknown entry ${id}`);
-      // Q-5: the optional per-entry modality. A bare id asserts nothing.
-      if (typeof x !== 'string')
-        assert.ok(x.modality in appl.modalities, `${c.name}: unknown modality ${x.modality}`);
-    }
+   }
   }
-  assert.ok(situationFixtures.cases.length >= 2);
-  // Q-5's extension, asserted through the schema's own worked example, since
-  // no case uses the object form yet: an `expect` element is a bare entry id
-  // or {entry, modality}, and both must resolve.
-  const ex = situationFixtures.expect_form;
-  assert.ok(byId.has(ex.bare));
-  assert.ok(byId.has(ex.with_modality.entry));
-  assert.ok(ex.with_modality.modality in appl.modalities);
-});
+  // Nothing in Part B is modelled, so an illustrative case asserts no
+  // entries. A binding one joins the replay and every id it names must exist.
+  if (c.status === 'illustrative') assert.deepEqual(c.expect, [], `${c.name}: illustrative cases assert nothing yet`)
+  for (const x of c.expect) {
+   const id = entryId(x)
+   assert.ok(byId.has(id), `${c.name}: unknown entry ${id}`)
+   // Q-5: the optional per-entry modality. A bare id asserts nothing.
+   if (typeof x !== 'string') assert.ok(x.modality in appl.modalities, `${c.name}: unknown modality ${x.modality}`)
+  }
+ }
+ assert.ok(situationFixtures.cases.length >= 2)
+ // Q-5's extension, asserted through the schema's own worked example, since
+ // no case uses the object form yet: an `expect` element is a bare entry id
+ // or {entry, modality}, and both must resolve.
+ const ex = situationFixtures.expect_form
+ assert.ok(byId.has(ex.bare))
+ assert.ok(byId.has(ex.with_modality.entry))
+ assert.ok(ex.with_modality.modality in appl.modalities)
+})
 
 test('REQ-CAT-4: subject and class resolution is exact, and aspect is a subject swap', () => {
-  const c = situationFixtures.cases.find((x) => x.name.startsWith('crossing:'));
-  assert.ok(c, 'the crossing fixture is the one this asserts against');
-  // The same key under the two subjects reads two different vessels: relative
-  // bearing under `self`, aspect under `other`. That is the whole point of the
-  // namespace, so it gets an assertion rather than a paragraph.
-  assert.equal(resolve('self:geo:rel_bearing_deg', c.situation), 40);
-  assert.equal(resolve('other:geo:rel_bearing_deg', c.situation), 280);
-  assert.notEqual(
-    resolve('self:geo:rel_bearing_deg', c.situation),
-    resolve('other:geo:rel_bearing_deg', c.situation),
-  );
-  // A bare key is `self:`, and a pair fact is reachable from neither vessel.
-  assert.equal(resolve('fact:length_m', c.situation), resolve('self:fact:length_m', c.situation));
-  assert.equal(resolve('pair:geo:in_sight', c.situation), true);
-  assert.equal(resolve('self:geo:in_sight', c.situation), undefined);
-  // Absent is absent, and an absent fact never satisfies a constraint.
-  assert.equal(matchesSituation({ 'self:geo:in_sight': true }, c.situation), false);
-  assert.equal(matchesSituation({ 'pair:geo:in_sight': true }, c.situation), true);
-  // A two-subject predicate reads both vessels at once.
-  assert.equal(
-    matchesSituation(
-      {
-        'self:fact:propulsion': 'propulsion:power',
-        'other:fact:propulsion': 'propulsion:power',
-        'pair:geo:in_sight': true,
-        'self:geo:rel_bearing_deg': { gt: 0, lt: 112.5 },
-      },
-      c.situation,
-    ),
-    true,
-    "other on self's starboard bow",
-  );
-  // Rule 13(b)'s overtaking sector, written once in the rule's own units.
-  const overtaking = { 'other:geo:rel_bearing_deg': { gt: 112.5, lt: 247.5 } };
-  assert.equal(matchesSituation(overtaking, c.situation), false);
-  const latched = situationFixtures.cases.find((x) => x.name.startsWith('13(d)'));
-  assert.equal(
-    matchesSituation(overtaking, latched.situation),
-    false,
-    'the bearing has drawn out past the sector, which is why 13(d) exists',
-  );
-  assert.equal(matchesSituation({ 'self:hist:was_overtaking': true }, latched.situation), true);
-  assert.equal(matchesSituation({ 'other:hist:was_overtaking': true }, latched.situation), false);
-});
+ const c = situationFixtures.cases.find((x) => x.name.startsWith('crossing:'))
+ assert.ok(c, 'the crossing fixture is the one this asserts against')
+ // The same key under the two subjects reads two different vessels: relative
+ // bearing under `self`, aspect under `other`. That is the whole point of the
+ // namespace, so it gets an assertion rather than a paragraph.
+ assert.equal(resolve('self:geo:rel_bearing_deg', c.situation), 40)
+ assert.equal(resolve('other:geo:rel_bearing_deg', c.situation), 280)
+ assert.notEqual(resolve('self:geo:rel_bearing_deg', c.situation), resolve('other:geo:rel_bearing_deg', c.situation))
+ // A bare key is `self:`, and a pair fact is reachable from neither vessel.
+ assert.equal(resolve('fact:length_m', c.situation), resolve('self:fact:length_m', c.situation))
+ assert.equal(resolve('pair:geo:in_sight', c.situation), true)
+ assert.equal(resolve('self:geo:in_sight', c.situation), undefined)
+ // Absent is absent, and an absent fact never satisfies a constraint.
+ assert.equal(matchesSituation({ 'self:geo:in_sight': true }, c.situation), false)
+ assert.equal(matchesSituation({ 'pair:geo:in_sight': true }, c.situation), true)
+ // A two-subject predicate reads both vessels at once.
+ assert.equal(
+  matchesSituation(
+   {
+    'self:fact:propulsion': 'propulsion:power',
+    'other:fact:propulsion': 'propulsion:power',
+    'pair:geo:in_sight': true,
+    'self:geo:rel_bearing_deg': { gt: 0, lt: 112.5 },
+   },
+   c.situation,
+  ),
+  true,
+  "other on self's starboard bow",
+ )
+ // Rule 13(b)'s overtaking sector, written once in the rule's own units.
+ const overtaking = { 'other:geo:rel_bearing_deg': { gt: 112.5, lt: 247.5 } }
+ assert.equal(matchesSituation(overtaking, c.situation), false)
+ const latched = situationFixtures.cases.find((x) => x.name.startsWith('13(d)'))
+ assert.equal(
+  matchesSituation(overtaking, latched.situation),
+  false,
+  'the bearing has drawn out past the sector, which is why 13(d) exists',
+ )
+ assert.equal(matchesSituation({ 'self:hist:was_overtaking': true }, latched.situation), true)
+ assert.equal(matchesSituation({ 'other:hist:was_overtaking': true }, latched.situation), false)
+})
 
 test('Q-49: hist:was_overtaking resolves out of sight; rule:13d does not fire', () => {
-  // rule:13d is gated on `pair:geo:in_sight` (scope invariant); the fact a Rule 19(d)(i)
-  // entry would read, `hist:was_overtaking`, is a plain situation fact and is not.
-  const outOfSight = situationFixtures.cases.find((x) => x.name.startsWith('19(d)(i)'));
-  assert.ok(outOfSight, 'the illustrative fixture');
-  assert.equal(resolve('pair:geo:in_sight', outOfSight.situation), false);
-  assert.equal(matchesSituation({ 'self:hist:was_overtaking': true }, outOfSight.situation), true);
-  assert.equal(
-    applyingSituation(outOfSight.situation).includes('rule:13d'),
-    false,
-    "13d does not fire out of sight -- that's the scope invariant, not a fact gap",
-  );
-});
+ // rule:13d is gated on `pair:geo:in_sight` (scope invariant); the fact a Rule 19(d)(i)
+ // entry would read, `hist:was_overtaking`, is a plain situation fact and is not.
+ const outOfSight = situationFixtures.cases.find((x) => x.name.startsWith('19(d)(i)'))
+ assert.ok(outOfSight, 'the illustrative fixture')
+ assert.equal(resolve('pair:geo:in_sight', outOfSight.situation), false)
+ assert.equal(matchesSituation({ 'self:hist:was_overtaking': true }, outOfSight.situation), true)
+ assert.equal(
+  applyingSituation(outOfSight.situation).includes('rule:13d'),
+  false,
+  "13d does not fire out of sight -- that's the scope invariant, not a fact gap",
+ )
+})
 
 // --- two-subject entries: scope and precedence (ADR 0005, REQ-CAT-1/3/6) ----
 // The first data written against the situation record. Everything below either
 // checks the shape of the new entries or replays the situation fixtures through
 // `matchesSituation` above -- the same evaluator, not a second one.
-const twoSubject = appl.entries.filter((e) => (e.subjects ?? 1) > 1);
-const precedence = appl.entries.filter((e) => e.category === 'category:precedence');
+const twoSubject = appl.entries.filter((e) => (e.subjects ?? 1) > 1)
+const precedence = appl.entries.filter((e) => e.category === 'category:precedence')
 
 test('REQ-CAT-1: every entry category is one of the nine, and display is the default', () => {
-  const names = new Set(Object.keys(appl.categories));
-  for (const e of appl.entries) {
-    assert.ok(
-      names.has(e.category ?? 'category:display'),
-      `${e.id}: unknown category ${e.category}`,
-    );
-  }
+ const names = new Set(Object.keys(appl.categories))
+ for (const e of appl.entries) {
+  assert.ok(names.has(e.category ?? 'category:display'), `${e.id}: unknown category ${e.category}`)
+ }
+ assert.ok(twoSubject.length > 0, 'no two-subject entry exists; this file is meant to be checking some')
+ for (const e of twoSubject) {
+  // Rule 34 is the first display entry to read two vessels (ADR 0022): what
+  // an entry produces follows from its category, not from how many vessels
+  // it reads, so a two-subject display entry emits a signal and no effect.
   assert.ok(
-    twoSubject.length > 0,
-    'no two-subject entry exists; this file is meant to be checking some',
-  );
-  for (const e of twoSubject) {
-    // Rule 34 is the first display entry to read two vessels (ADR 0022): what
-    // an entry produces follows from its category, not from how many vessels
-    // it reads, so a two-subject display entry emits a signal and no effect.
-    assert.ok(
-      [
-        'category:scope',
-        'category:precedence',
-        'category:classification',
-        'category:display',
-      ].includes(e.category),
-      `${e.id}: subjects > 1 with category ${e.category}`,
-    );
-    assert.equal(e.subjects, 2, `${e.id}: only 1 and 2 subjects are modelled`);
-    assert.ok(
-      'category' in e,
-      `${e.id}: a two-subject entry states its category rather than inheriting the display default`,
-    );
-    assert.ok(!('lights' in e), `${e.id}: a two-subject entry never emits lights`);
-    if (isDisplay(e))
-      assert.ok(!('effect' in e), `${e.id}: a display entry produces a signal, never an effect`);
-    else assert.ok(!('signal' in e), `${e.id}: only a display entry emits a signal`);
-  }
-});
+   ['category:scope', 'category:precedence', 'category:classification', 'category:display'].includes(e.category),
+   `${e.id}: subjects > 1 with category ${e.category}`,
+  )
+  assert.equal(e.subjects, 2, `${e.id}: only 1 and 2 subjects are modelled`)
+  assert.ok(
+   'category' in e,
+   `${e.id}: a two-subject entry states its category rather than inheriting the display default`,
+  )
+  assert.ok(!('lights' in e), `${e.id}: a two-subject entry never emits lights`)
+  if (isDisplay(e)) assert.ok(!('effect' in e), `${e.id}: a display entry produces a signal, never an effect`)
+  else assert.ok(!('signal' in e), `${e.id}: only a display entry emits a signal`)
+ }
+})
 
 // Every fact key a predicate reads, at any depth: `any_of` holds sub-predicates
 // and is the one key of a `when` that is not a fact.
 function factKeys(when) {
-  return Object.entries(when).flatMap(([k, want]) =>
-    k === 'any_of' ? want.flatMap(factKeys) : [k],
-  );
+ return Object.entries(when).flatMap(([k, want]) => (k === 'any_of' ? want.flatMap(factKeys) : [k]))
 }
 
 test('REQ-CAT-6: every fact a two-subject predicate reads resolves in the situation namespace', () => {
-  for (const e of twoSubject) {
-    for (const k of factKeys(e.when)) {
-      const { subject, cls, local } = parseKey(k);
-      assert.ok(SUBJECTS.has(subject), `${e.id}: unknown subject in ${k}`);
-      assert.ok(CLASSES.has(cls), `${e.id}: unknown class in ${k}`);
-      if (subject === 'pair')
-        assert.ok(PAIR_CLASSES.has(cls), `${e.id}: pair:${cls} is not symmetric`);
-      else assert.ok(cls !== 'env', `${e.id}: env is a fact of the pair, never of a vessel`);
-      if (subject === 'pair')
-        assert.ok(cls !== 'act', `${e.id}: an act belongs to a vessel, never to the pair`);
-      const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls];
-      assert.ok(declared.has(local), `${e.id}: undeclared ${cls} fact ${local} in ${k}`);
-    }
+ for (const e of twoSubject) {
+  for (const k of factKeys(e.when)) {
+   const { subject, cls, local } = parseKey(k)
+   assert.ok(SUBJECTS.has(subject), `${e.id}: unknown subject in ${k}`)
+   assert.ok(CLASSES.has(cls), `${e.id}: unknown class in ${k}`)
+   if (subject === 'pair') assert.ok(PAIR_CLASSES.has(cls), `${e.id}: pair:${cls} is not symmetric`)
+   else assert.ok(cls !== 'env', `${e.id}: env is a fact of the pair, never of a vessel`)
+   if (subject === 'pair') assert.ok(cls !== 'act', `${e.id}: an act belongs to a vessel, never to the pair`)
+   const declared = cls === 'geo' ? situationDeclared.geo[subject] : situationDeclared[cls]
+   assert.ok(declared.has(local), `${e.id}: undeclared ${cls} fact ${local} in ${k}`)
   }
-});
+ }
+})
 
 test('every effect is shaped for its category and names declared roles', () => {
-  const roles = new Set(Object.keys(appl.effects.roles));
-  for (const e of twoSubject.filter((x) => !isDisplay(x))) {
+ const roles = new Set(Object.keys(appl.effects.roles))
+ for (const e of twoSubject.filter((x) => !isDisplay(x))) {
+  assert.ok(e.effect, `${e.id}: a two-subject entry that is not a display entry must state an effect`)
+  if (e.category === 'category:precedence') {
+   assert.deepEqual(Object.keys(e.effect).sort(), ['other', 'self'], `${e.id}: precedence effect shape`)
+   for (const [subject, role] of Object.entries(e.effect)) {
+    assert.ok(roles.has(role), `${e.id}: ${subject} takes undeclared role ${role}`)
+   }
+   // `stand-on` is Rule 17, which attaches only where the counterpart is to
+   // keep out of the way. A shall-not-impede duty confers nothing (8(f)(iii)).
+   if (e.effect.other === 'role:stand-on') {
+    assert.equal(
+     e.effect.self,
+     'role:give-way',
+     `${e.id}: the counterpart of stand-on is give-way; 8(f)(iii) is why shall-not-impede pairs with none`,
+    )
+   }
+   if (e.effect.self === 'role:shall-not-impede') {
+    assert.equal(
+     e.effect.other,
+     'role:none',
+     `${e.id}: shall-not-impede confers no role on the other vessel (8(f)(iii))`,
+    )
+   }
+  } else if (e.category === 'category:classification') {
+   // Two shapes under one category, and exactly one key either way: Rule
+   // 7(d) answers whether risk exists and Rules 13-15 answer what kind of
+   // encounter this is. A merged shape would have made every encounter
+   // entry state a risk it does not decide.
+   const keys = Object.keys(e.effect)
+   assert.equal(keys.length, 1, `${e.id}: a classification effect carries exactly one key`)
+   if (keys[0] === 'encounter') {
+    assert.ok(e.effect.encounter in appl.effects.encounters, `${e.id}: undeclared encounter ${e.effect.encounter}`)
+   } else {
+    assert.equal(keys[0], 'risk_of_collision', `${e.id}: unknown classification effect key ${keys[0]}`)
+    assert.equal(
+     e.effect.risk_of_collision,
+     true,
+     `${e.id}: risk_of_collision is asserted or the entry does not exist; there is no false`,
+    )
+   }
+  } else {
+   assert.deepEqual(Object.keys(e.effect).sort(), ['applies_rules', 'part', 'section'], `${e.id}: scope effect shape`)
+   for (const r of e.effect.applies_rules) {
     assert.ok(
-      e.effect,
-      `${e.id}: a two-subject entry that is not a display entry must state an effect`,
-    );
-    if (e.category === 'category:precedence') {
-      assert.deepEqual(
-        Object.keys(e.effect).sort(),
-        ['other', 'self'],
-        `${e.id}: precedence effect shape`,
-      );
-      for (const [subject, role] of Object.entries(e.effect)) {
-        assert.ok(roles.has(role), `${e.id}: ${subject} takes undeclared role ${role}`);
-      }
-      // `stand-on` is Rule 17, which attaches only where the counterpart is to
-      // keep out of the way. A shall-not-impede duty confers nothing (8(f)(iii)).
-      if (e.effect.other === 'role:stand-on') {
-        assert.equal(
-          e.effect.self,
-          'role:give-way',
-          `${e.id}: the counterpart of stand-on is give-way; 8(f)(iii) is why shall-not-impede pairs with none`,
-        );
-      }
-      if (e.effect.self === 'role:shall-not-impede') {
-        assert.equal(
-          e.effect.other,
-          'role:none',
-          `${e.id}: shall-not-impede confers no role on the other vessel (8(f)(iii))`,
-        );
-      }
-    } else if (e.category === 'category:classification') {
-      // Two shapes under one category, and exactly one key either way: Rule
-      // 7(d) answers whether risk exists and Rules 13-15 answer what kind of
-      // encounter this is. A merged shape would have made every encounter
-      // entry state a risk it does not decide.
-      const keys = Object.keys(e.effect);
-      assert.equal(keys.length, 1, `${e.id}: a classification effect carries exactly one key`);
-      if (keys[0] === 'encounter') {
-        assert.ok(
-          e.effect.encounter in appl.effects.encounters,
-          `${e.id}: undeclared encounter ${e.effect.encounter}`,
-        );
-      } else {
-        assert.equal(
-          keys[0],
-          'risk_of_collision',
-          `${e.id}: unknown classification effect key ${keys[0]}`,
-        );
-        assert.equal(
-          e.effect.risk_of_collision,
-          true,
-          `${e.id}: risk_of_collision is asserted or the entry does not exist; there is no false`,
-        );
-      }
-    } else {
-      assert.deepEqual(
-        Object.keys(e.effect).sort(),
-        ['applies_rules', 'part', 'section'],
-        `${e.id}: scope effect shape`,
-      );
-      for (const r of e.effect.applies_rules) {
-        assert.ok(
-          Object.values(rules.paragraphs).some((p) => p.rule === r),
-          `${e.id}: scope effect names Rule ${r}, which rules.json does not have`,
-        );
-      }
-    }
+     Object.values(rules.paragraphs).some((p) => p.rule === r),
+     `${e.id}: scope effect names Rule ${r}, which rules.json does not have`,
+    )
+   }
   }
-});
+ }
+})
 
 test('REQ-CAT-3: every rel:overrides resolves to an entry id, and the relation is acyclic', () => {
-  const over = new Map(appl.entries.map((e) => [e.id, e['rel:overrides'] ?? []]));
-  for (const [id, targets] of over) {
-    for (const t of targets) {
-      assert.ok(byId.has(t), `${id}: rel:overrides references unknown entry ${t}`);
-      assert.notEqual(t, id, `${id}: overrides itself`);
-      // Superiority between norms is only meaningful between norms.
-      assert.equal(
-        byId.get(t).category,
-        byId.get(id).category,
-        `${id} overrides ${t}, which is a ${byId.get(t).category} entry`,
-      );
-    }
+ const over = new Map(appl.entries.map((e) => [e.id, e['rel:overrides'] ?? []]))
+ for (const [id, targets] of over) {
+  for (const t of targets) {
+   assert.ok(byId.has(t), `${id}: rel:overrides references unknown entry ${t}`)
+   assert.notEqual(t, id, `${id}: overrides itself`)
+   // Superiority between norms is only meaningful between norms.
+   assert.equal(
+    byId.get(t).category,
+    byId.get(id).category,
+    `${id} overrides ${t}, which is a ${byId.get(t).category} entry`,
+   )
   }
-  const seen = new Map();
-  const walk = (id, stack) => {
-    if (stack.includes(id)) assert.fail(`rel:overrides cycle: ${[...stack, id].join(' -> ')}`);
-    if (seen.get(id)) return;
-    seen.set(id, true);
-    for (const t of over.get(id) ?? []) walk(t, [...stack, id]);
-  };
-  for (const id of over.keys()) walk(id, []);
-});
+ }
+ const seen = new Map()
+ const walk = (id, stack) => {
+  if (stack.includes(id)) assert.fail(`rel:overrides cycle: ${[...stack, id].join(' -> ')}`)
+  if (seen.get(id)) return
+  seen.set(id, true)
+  for (const t of over.get(id) ?? []) walk(t, [...stack, id])
+ }
+ for (const id of over.keys()) walk(id, [])
+})
 
 // rel:excludes is symmetric pick-one between alternatives (ADR 0007): if A
 // excludes B, B excludes A, and neither may carry a forceful modality that
 // rel:excludes would then silently veto -- a directed "this one prevails"
 // is rel:overrides (colregs-engine#26).
 test('rel:excludes is reciprocated and never carries a forceful modality (ADR 0007)', () => {
-  const excl = new Map(appl.entries.map((e) => [e.id, e['rel:excludes'] ?? []]));
-  for (const [id, targets] of excl) {
-    for (const t of targets) {
-      assert.ok(byId.has(t), `${id}: rel:excludes references unknown entry ${t}`);
-      assert.ok(
-        (excl.get(t) ?? []).includes(id),
-        `${id} excludes ${t}, but ${t} does not exclude ${id} back`,
-      );
-    }
+ const excl = new Map(appl.entries.map((e) => [e.id, e['rel:excludes'] ?? []]))
+ for (const [id, targets] of excl) {
+  for (const t of targets) {
+   assert.ok(byId.has(t), `${id}: rel:excludes references unknown entry ${t}`)
+   assert.ok((excl.get(t) ?? []).includes(id), `${id} excludes ${t}, but ${t} does not exclude ${id} back`)
   }
-  const forceful = new Set(['modality:shall', 'modality:shall-if-practicable']);
-  for (const [id, targets] of excl) {
-    if (targets.length === 0) continue;
-    const e = byId.get(id);
-    assert.ok(!forceful.has(e.modality), `${id}: rel:excludes with modality ${e.modality}`);
-    for (const m of e.modality_by ?? []) {
-      assert.ok(
-        !forceful.has(m.modality),
-        `${id}: rel:excludes with a modality_by branch of ${m.modality}`,
-      );
-    }
+ }
+ const forceful = new Set(['modality:shall', 'modality:shall-if-practicable'])
+ for (const [id, targets] of excl) {
+  if (targets.length === 0) continue
+  const e = byId.get(id)
+  assert.ok(!forceful.has(e.modality), `${id}: rel:excludes with modality ${e.modality}`)
+  for (const m of e.modality_by ?? []) {
+   assert.ok(!forceful.has(m.modality), `${id}: rel:excludes with a modality_by branch of ${m.modality}`)
   }
-});
+ }
+})
 
 // --- situation fixture replay (REQ-VERIFY-1 for two-subject data) -----------
 // A situation fixture asserts every entry the pair selects that a one-subject
@@ -2793,49 +2465,46 @@ test('rel:excludes is reciprocated and never carries a forceful modality (ADR 00
 // This asserts applicability, not resolution: an entry a rel:overrides
 // displaces is still expected, and the precedence properties below resolve it.
 const applyingSituation = (s0) => {
-  const s = withDerived(s0);
-  return appl.entries
-    .filter((e) => (!isDisplay(e) || (e.subjects ?? 1) > 1) && matchesSituation(e.when, s))
-    .map((e) => e.id);
-};
-const bindingCases = situationFixtures.cases.filter((c) => c.status === 'binding');
+ const s = withDerived(s0)
+ return appl.entries
+  .filter((e) => (!isDisplay(e) || (e.subjects ?? 1) > 1) && matchesSituation(e.when, s))
+  .map((e) => e.id)
+}
+const bindingCases = situationFixtures.cases.filter((c) => c.status === 'binding')
 
 test('situation fixtures: every situation selects exactly the expected entries', () => {
-  assert.ok(
-    bindingCases.length > 0,
-    'no binding situation fixture; the replay would assert nothing',
-  );
-  for (const c of bindingCases) {
-    const want = expectIds(c).sort();
-    assert.deepEqual(applyingSituation(c.situation).sort(), want, c.name);
-  }
-});
+ assert.ok(bindingCases.length > 0, 'no binding situation fixture; the replay would assert nothing')
+ for (const c of bindingCases) {
+  const want = expectIds(c).sort()
+  assert.deepEqual(applyingSituation(c.situation).sort(), want, c.name)
+ }
+})
 
 test('situation fixtures: an expected modality is the modality the entry carries', () => {
-  for (const c of bindingCases) {
-    for (const x of c.expect) {
-      if (typeof x === 'string') continue;
-      assert.equal(byId.get(x.entry).modality, x.modality, `${c.name}: ${x.entry} modality`);
-    }
+ for (const c of bindingCases) {
+  for (const x of c.expect) {
+   if (typeof x === 'string') continue
+   assert.equal(byId.get(x.entry).modality, x.modality, `${c.name}: ${x.entry} modality`)
   }
-});
+ }
+})
 
 test('REQ-VERIFY-3: every two-subject entry is exercised by a fixture and excluded by another', () => {
-  const selected = bindingCases.map((c) => new Set(applyingSituation(c.situation)));
-  for (const e of twoSubject) {
-    assert.ok(
-      selected.some((s) => s.has(e.id)),
-      `${e.id} is never selected by a situation fixture`,
-    );
-    // Rule 4's predicate is empty on purpose -- Part B Section I is ungated --
-    // so there is no fact record that excludes it and no fixture can show one.
-    if (Object.keys(e.when).length === 0) continue;
-    assert.ok(
-      selected.some((s) => !s.has(e.id)),
-      `${e.id} is selected by every situation fixture`,
-    );
-  }
-});
+ const selected = bindingCases.map((c) => new Set(applyingSituation(c.situation)))
+ for (const e of twoSubject) {
+  assert.ok(
+   selected.some((s) => s.has(e.id)),
+   `${e.id} is never selected by a situation fixture`,
+  )
+  // Rule 4's predicate is empty on purpose -- Part B Section I is ungated --
+  // so there is no fact record that excludes it and no fixture can show one.
+  if (Object.keys(e.when).length === 0) continue
+  assert.ok(
+   selected.some((s) => !s.has(e.id)),
+   `${e.id} is selected by every situation fixture`,
+  )
+ }
+})
 
 // --- precedence sanity (ADR 0005 sec. 4: "never both stand-on") ------------
 // A two-subject entry is evaluated from self's side only, so a conflict between
@@ -2843,161 +2512,145 @@ test('REQ-VERIFY-3: every two-subject entry is exercised by a fixture and exclud
 // overtaking vessel and 18(a)(iv) applies to the other one, in the *swapped*
 // situation. So every property below is checked over the pooled roles of the
 // situation and its swap, after rel:overrides has resolved what it can.
-const swap = (s) => ({ self: s.other ?? {}, other: s.self ?? {}, pair: s.pair ?? {} });
+const swap = (s) => ({ self: s.other ?? {}, other: s.self ?? {}, pair: s.pair ?? {} })
 const FORCEFUL = new Set([
-  'modality:shall',
-  'modality:shall-if-practicable',
-  'modality:shall-not-impede',
-  'modality:shall-not',
-]);
+ 'modality:shall',
+ 'modality:shall-if-practicable',
+ 'modality:shall-not-impede',
+ 'modality:shall-not',
+])
 
 // Roles the applying entries assign, keyed by the subject of the *original*
 // situation: 'A' is self as the fixture wrote it, 'B' is the other vessel.
 function pooledRoles(situation0) {
-  const situation = withDerived(situation0);
-  const out = [];
-  for (const [s, mine, theirs] of [
-    [situation, 'A', 'B'],
-    [swap(situation), 'B', 'A'],
-  ]) {
-    for (const e of precedence) {
-      if (!matchesSituation(e.when, s)) continue;
-      out.push({ entry: e, [mine]: e.effect.self, [theirs]: e.effect.other });
-    }
+ const situation = withDerived(situation0)
+ const out = []
+ for (const [s, mine, theirs] of [
+  [situation, 'A', 'B'],
+  [swap(situation), 'B', 'A'],
+ ]) {
+  for (const e of precedence) {
+   if (!matchesSituation(e.when, s)) continue
+   out.push({ entry: e, [mine]: e.effect.self, [theirs]: e.effect.other })
   }
-  return out;
+ }
+ return out
 }
 
 // An entry is resolved away when another entry in the same pool overrides it.
 function resolve_(pool) {
-  const ids = new Set(pool.map((r) => r.entry.id));
-  const beaten = new Set(
-    pool.flatMap((r) => (r.entry['rel:overrides'] ?? []).filter((t) => ids.has(t))),
-  );
-  return pool.filter((r) => !beaten.has(r.entry.id));
+ const ids = new Set(pool.map((r) => r.entry.id))
+ const beaten = new Set(pool.flatMap((r) => (r.entry['rel:overrides'] ?? []).filter((t) => ids.has(t))))
+ return pool.filter((r) => !beaten.has(r.entry.id))
 }
 
 // The three roles that say where a vessel puts her helm. `shall-not-impede` is
 // deliberately not one of them: 18(d) really does lay it on a vessel that is
 // simultaneously stand-on under 18(a), and the test below pins that rather than
 // asserting it away.
-const HELM_ROLES = new Set(['role:give-way', 'role:stand-on', 'role:keep-clear']);
+const HELM_ROLES = new Set(['role:give-way', 'role:stand-on', 'role:keep-clear'])
 
 function rolesFor(c, subject) {
-  const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality));
-  const roles = new Map();
-  for (const r of pool) {
-    if (!r[subject] || r[subject] === 'role:none') continue;
-    roles.set(r[subject], [...(roles.get(r[subject]) ?? []), r.entry.id]);
-  }
-  return roles;
+ const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
+ const roles = new Map()
+ for (const r of pool) {
+  if (!r[subject] || r[subject] === 'role:none') continue
+  roles.set(r[subject], [...(roles.get(r[subject]) ?? []), r.entry.id])
+ }
+ return roles
 }
 
 test('ADR 0016: a case that states roles states the pooled, resolved roles of both subjects', () => {
-  const stated = bindingCases.filter((c) => c.roles);
-  assert.ok(stated.length > 0, 'no situation fixture states roles; ADR 0016 would bind nothing');
-  const key = (x) => `${x.role} ${x.by}`;
-  for (const c of stated) {
-    const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality));
-    for (const [subject, side] of [
-      ['A', 'self'],
-      ['B', 'other'],
-    ]) {
-      const got = pool
-        .filter((r) => r[subject] && r[subject] !== 'role:none')
-        .map((r) => ({ role: r[subject], by: r.entry.id }));
-      assert.deepEqual(
-        got.sort((x, y) => key(x).localeCompare(key(y))),
-        [...c.roles[side]].sort((x, y) => key(x).localeCompare(key(y))),
-        `${c.name}: ${side}`,
-      );
-    }
+ const stated = bindingCases.filter((c) => c.roles)
+ assert.ok(stated.length > 0, 'no situation fixture states roles; ADR 0016 would bind nothing')
+ const key = (x) => `${x.role} ${x.by}`
+ for (const c of stated) {
+  const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
+  for (const [subject, side] of [
+   ['A', 'self'],
+   ['B', 'other'],
+  ]) {
+   const got = pool
+    .filter((r) => r[subject] && r[subject] !== 'role:none')
+    .map((r) => ({ role: r[subject], by: r.entry.id }))
+   assert.deepEqual(
+    got.sort((x, y) => key(x).localeCompare(key(y))),
+    [...c.roles[side]].sort((x, y) => key(x).localeCompare(key(y))),
+    `${c.name}: ${side}`,
+   )
   }
-});
+ }
+})
 
 test('precedence: no subject is given two conflicting helm roles once rel:overrides has resolved', () => {
-  for (const c of bindingCases) {
-    for (const subject of ['A', 'B']) {
-      const helm = [...rolesFor(c, subject)].filter(([role]) => HELM_ROLES.has(role));
-      assert.ok(
-        helm.length <= 1,
-        `${c.name}: ${subject} holds ${helm.map(([r]) => r).join(' and ')} at once ` +
-          `(${helm.flatMap(([, ids]) => ids).join(', ')}) with no rel:overrides between them`,
-      );
-    }
+ for (const c of bindingCases) {
+  for (const subject of ['A', 'B']) {
+   const helm = [...rolesFor(c, subject)].filter(([role]) => HELM_ROLES.has(role))
+   assert.ok(
+    helm.length <= 1,
+    `${c.name}: ${subject} holds ${helm.map(([r]) => r).join(' and ')} at once ` +
+     `(${helm.flatMap(([, ids]) => ids).join(', ')}) with no rel:overrides between them`,
+   )
   }
-});
+ }
+})
 
 test('precedence: 18(d) lays shall-not-impede on a vessel Rule 18 also makes stand-on', () => {
-  // A finding, pinned rather than hidden. A vessel constrained by her draught
-  // is a power-driven vessel, so 18(a)(iv) makes her give way to a sailing
-  // vessel while 18(d)(i) makes that same sailing vessel avoid impeding her.
-  // Both paragraphs are in force and neither overrides the other; 8(f)(ii) is
-  // the Rules' own answer, and it is a `conduct` duty, not a role. The model
-  // records the pair honestly and declines to pick.
-  const c = bindingCases.find(
-    (x) => x.name === '18 matrix: self sailing, other constrained by her draught, in sight',
-  );
-  assert.ok(c, 'the sail-vs-CBD matrix cell is the one this asserts against');
-  assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r).sort(), [
-    'role:shall-not-impede',
-    'role:stand-on',
-  ]);
-  assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r).sort(), ['role:give-way']);
-  // ...and the same pair read from the other side is the same finding, not a
-  // second one: the entries are symmetric under the swap.
-  const d = bindingCases.find(
-    (x) => x.name === '18 matrix: self constrained by her draught, other sailing, in sight',
-  );
-  assert.deepEqual([...rolesFor(d, 'B')].map(([r]) => r).sort(), [
-    'role:shall-not-impede',
-    'role:stand-on',
-  ]);
-});
+ // A finding, pinned rather than hidden. A vessel constrained by her draught
+ // is a power-driven vessel, so 18(a)(iv) makes her give way to a sailing
+ // vessel while 18(d)(i) makes that same sailing vessel avoid impeding her.
+ // Both paragraphs are in force and neither overrides the other; 8(f)(ii) is
+ // the Rules' own answer, and it is a `conduct` duty, not a role. The model
+ // records the pair honestly and declines to pick.
+ const c = bindingCases.find((x) => x.name === '18 matrix: self sailing, other constrained by her draught, in sight')
+ assert.ok(c, 'the sail-vs-CBD matrix cell is the one this asserts against')
+ assert.deepEqual([...rolesFor(c, 'A')].map(([r]) => r).sort(), ['role:shall-not-impede', 'role:stand-on'])
+ assert.deepEqual([...rolesFor(c, 'B')].map(([r]) => r).sort(), ['role:give-way'])
+ // ...and the same pair read from the other side is the same finding, not a
+ // second one: the entries are symmetric under the swap.
+ const d = bindingCases.find((x) => x.name === '18 matrix: self constrained by her draught, other sailing, in sight')
+ assert.deepEqual([...rolesFor(d, 'B')].map(([r]) => r).sort(), ['role:shall-not-impede', 'role:stand-on'])
+})
 
 test('precedence: never both give-way, never both stand-on', () => {
-  for (const c of bindingCases) {
-    const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality));
-    for (const role of ['role:give-way', 'role:stand-on']) {
-      const a = pool.some((r) => r.A === role);
-      const b = pool.some((r) => r.B === role);
-      assert.ok(!(a && b), `${c.name}: both vessels are ${role}`);
-    }
+ for (const c of bindingCases) {
+  const pool = resolve_(pooledRoles(c.situation)).filter((r) => FORCEFUL.has(r.entry.modality))
+  for (const role of ['role:give-way', 'role:stand-on']) {
+   const a = pool.some((r) => r.A === role)
+   const b = pool.some((r) => r.B === role)
+   assert.ok(!(a && b), `${c.name}: both vessels are ${role}`)
   }
-});
+ }
+})
 
 test('precedence: Rule 18 is a partial order — NUC and RAM are unordered', () => {
-  // The property the matrix exists to pin down: neither a vessel not under
-  // command nor one restricted in her ability to manoeuvre takes an obligation
-  // under Rule 18, against each other or against anyone.
-  const HIGH = new Set(['activity:nuc', 'activity:ram', 'activity:ram_underwater']);
-  for (const c of bindingCases) {
-    const self = c.situation.self?.fact ?? {};
-    if (!HIGH.has(self['fact:activity'])) continue;
-    const r18 = applyingSituation(c.situation).filter((id) => byId.get(id).cite.startsWith('18'));
-    assert.deepEqual(
-      r18,
-      [],
-      `${c.name}: Rule 18 obliges a ${self['fact:activity']} vessel via ${r18.join(', ')}`,
-    );
-  }
-});
+ // The property the matrix exists to pin down: neither a vessel not under
+ // command nor one restricted in her ability to manoeuvre takes an obligation
+ // under Rule 18, against each other or against anyone.
+ const HIGH = new Set(['activity:nuc', 'activity:ram', 'activity:ram_underwater'])
+ for (const c of bindingCases) {
+  const self = c.situation.self?.fact ?? {}
+  if (!HIGH.has(self['fact:activity'])) continue
+  const r18 = applyingSituation(c.situation).filter((id) => byId.get(id).cite.startsWith('18'))
+  assert.deepEqual(r18, [], `${c.name}: Rule 18 obliges a ${self['fact:activity']} vessel via ${r18.join(', ')}`)
+ }
+})
 
 test('scope: a situation selects exactly one Part B section, and it tracks in-sight', () => {
-  for (const c of bindingCases) {
-    const sections = appl.entries
-      .filter((e) => e.category === 'category:scope' && matchesSituation(e.when, c.situation))
-      .map((e) => e.effect.section);
-    assert.ok(sections.includes('I'), `${c.name}: Section I is ungated and must always apply`);
-    const inSight = c.situation.pair?.geo?.['geo:in_sight'];
-    assert.deepEqual(sections.sort(), inSight ? ['I', 'II'] : ['I', 'III'], `${c.name}: sections`);
-    // And Section II's paragraphs must be absent when Section II is.
-    if (!inSight) {
-      const s2 = applyingSituation(c.situation).filter((id) => /^(1[1-8])/.test(byId.get(id).cite));
-      assert.deepEqual(s2, [], `${c.name}: not in sight, but ${s2.join(', ')} applies`);
-    }
+ for (const c of bindingCases) {
+  const sections = appl.entries
+   .filter((e) => e.category === 'category:scope' && matchesSituation(e.when, c.situation))
+   .map((e) => e.effect.section)
+  assert.ok(sections.includes('I'), `${c.name}: Section I is ungated and must always apply`)
+  const inSight = c.situation.pair?.geo?.['geo:in_sight']
+  assert.deepEqual(sections.sort(), inSight ? ['I', 'II'] : ['I', 'III'], `${c.name}: sections`)
+  // And Section II's paragraphs must be absent when Section II is.
+  if (!inSight) {
+   const s2 = applyingSituation(c.situation).filter((id) => /^(1[1-8])/.test(byId.get(id).cite))
+   assert.deepEqual(s2, [], `${c.name}: not in sight, but ${s2.join(', ')} applies`)
   }
-});
+ }
+})
 
 // --- the encounter partition (research-programme T2, at the data level) ----------------
 // Head-on, crossing and overtaking must partition relative bearing: no bearing
@@ -3007,12 +2660,12 @@ test('scope: a situation selects exactly one Part B section, and it tracks in-si
 // first. The sweep is two-dimensional because the encounter type is a function
 // of both subjects' bearings -- self's, and the aspect -- and reading one alone
 // is the mistake rule:13b exists to prevent.
-const classification = appl.entries.filter((e) => e.category === 'category:classification');
-const encounterEntries = classification.filter((e) => 'encounter' in e.effect);
-const CONSTANTS = facts.situation.constants;
-const FROM = CONSTANTS.overtaking_sector_from_deg.value;
-const TO = CONSTANTS.overtaking_sector_to_deg.value;
-const HALF = CONSTANTS.head_on_half_angle_deg.value;
+const classification = appl.entries.filter((e) => e.category === 'category:classification')
+const encounterEntries = classification.filter((e) => 'encounter' in e.effect)
+const CONSTANTS = facts.situation.constants
+const FROM = CONSTANTS.overtaking_sector_from_deg.value
+const TO = CONSTANTS.overtaking_sector_to_deg.value
+const HALF = CONSTANTS.head_on_half_angle_deg.value
 
 // A pair the three encounter rules all reach: in sight, risk of collision,
 // two ordinary power-driven vessels underway, closing, nothing latched. Own
@@ -3021,38 +2674,38 @@ const HALF = CONSTANTS.head_on_half_angle_deg.value;
 // -- the partition is a property of bearings alone, so no speeds are stated
 // here and the motion equations have nothing to check; the steady-bearing
 // sweep further down states everything.
-const SWEEP_RANGE_M = 2000;
-const SWEEP_ORIGIN = { latitude: 50.0, longitude: -1.4 };
+const SWEEP_RANGE_M = 2000
+const SWEEP_ORIGIN = { latitude: 50.0, longitude: -1.4 }
 function sweepTemplate(latchOwn = false, latchOther = false) {
-  const v = (latched) => ({
-    fact: {
-      'fact:propulsion': 'propulsion:power',
-      'fact:activity': 'activity:none',
-      'fact:position': 'position:underway',
-      'fact:making_way': true,
-      'fact:length_m': 30,
-    },
-    kin: { 'kin:position': SWEEP_ORIGIN, 'kin:heading_deg': 0 },
-    geo: { 'geo:rel_bearing_deg': 0 },
-    hist: { 'hist:was_overtaking': latched, 'hist:latched_at_s': latched ? 300 : null },
-  });
-  // Derived once: the fact records do not change across a sweep, and deriving
-  // them half a million times is the difference between a suite that runs in a
-  // second and one nobody waits for.
-  return withDerived({
-    self: v(latchOwn),
-    other: v(latchOther),
-    pair: {
-      geo: {
-        'geo:in_sight': true,
-        'geo:risk_of_collision': true,
-        'geo:range_m': SWEEP_RANGE_M,
-        'geo:bearing_change_deg_min': 0.2,
-        'geo:cpa_m': 100,
-        'geo:tcpa_s': 400,
-      },
-    },
-  });
+ const v = (latched) => ({
+  fact: {
+   'fact:propulsion': 'propulsion:power',
+   'fact:activity': 'activity:none',
+   'fact:position': 'position:underway',
+   'fact:making_way': true,
+   'fact:length_m': 30,
+  },
+  kin: { 'kin:position': SWEEP_ORIGIN, 'kin:heading_deg': 0 },
+  geo: { 'geo:rel_bearing_deg': 0 },
+  hist: { 'hist:was_overtaking': latched, 'hist:latched_at_s': latched ? 300 : null },
+ })
+ // Derived once: the fact records do not change across a sweep, and deriving
+ // them half a million times is the difference between a suite that runs in a
+ // second and one nobody waits for.
+ return withDerived({
+  self: v(latchOwn),
+  other: v(latchOther),
+  pair: {
+   geo: {
+    'geo:in_sight': true,
+    'geo:risk_of_collision': true,
+    'geo:range_m': SWEEP_RANGE_M,
+    'geo:bearing_change_deg_min': 0.2,
+    'geo:cpa_m': 100,
+    'geo:tcpa_s': 400,
+   },
+  },
+ })
 }
 // The sweep mutates one template in place rather than rebuilding the situation
 // each step; `geo` and `kin` are carried by reference through `withDerived`,
@@ -3060,357 +2713,335 @@ function sweepTemplate(latchOwn = false, latchOther = false) {
 // datum the other's heading is self's bearing plus 180 less the aspect, and her
 // position is that bearing and the range from the origin.
 function aim(s, ownRel, aspect, range_m = SWEEP_RANGE_M) {
-  s.self.geo['geo:rel_bearing_deg'] = ownRel;
-  s.other.geo['geo:rel_bearing_deg'] = aspect;
-  s.other.kin['kin:heading_deg'] = norm360(ownRel + 180 - aspect);
-  s.other.kin['kin:position'] = destination(SWEEP_ORIGIN, ownRel, range_m);
-  return s;
+ s.self.geo['geo:rel_bearing_deg'] = ownRel
+ s.other.geo['geo:rel_bearing_deg'] = aspect
+ s.other.kin['kin:heading_deg'] = norm360(ownRel + 180 - aspect)
+ s.other.kin['kin:position'] = destination(SWEEP_ORIGIN, ownRel, range_m)
+ return s
 }
 const sweepSituation = ({ ownRel, aspect, latchOwn = false, latchOther = false }) =>
-  aim(sweepTemplate(latchOwn, latchOther), ownRel, aspect);
+ aim(sweepTemplate(latchOwn, latchOther), ownRel, aspect)
 const encountersFor = (s) =>
-  new Set(
-    encounterEntries.filter((e) => matchesSituation(e.when, s)).map((e) => e.effect.encounter),
-  );
+ new Set(encounterEntries.filter((e) => matchesSituation(e.when, s)).map((e) => e.effect.encounter))
 
 test('classification: head-on, crossing and overtaking partition relative bearing', () => {
-  // The declared sector edges are 22.5 degrees abaft each beam, which is what
-  // 13(b) says and what Rule 21(c)'s sternlight arc is cut to. Asserted against
-  // the arithmetic rather than against the literal, so that a typo in either
-  // constant is caught before the sweep interprets it.
-  assert.equal(FROM, 90 + 22.5);
-  assert.equal(TO, 270 - 22.5);
-  assert.equal(CONSTANTS.overtaking_sector_from_deg.status, 'ink');
-  assert.equal(CONSTANTS.head_on_half_angle_deg.status, 'pencil');
-  // 13(b) says the sector in two ways -- an angle abaft the beam, and 'at night
-  // she would be able to see only the sternlight of that vessel'. The two must
-  // be the same arc, and they are already both in the data.
-  const stern = lights.lights['light:sternlight'].arc;
-  assert.equal(stern.from_deg, FROM);
-  assert.equal(stern.to_deg, TO);
+ // The declared sector edges are 22.5 degrees abaft each beam, which is what
+ // 13(b) says and what Rule 21(c)'s sternlight arc is cut to. Asserted against
+ // the arithmetic rather than against the literal, so that a typo in either
+ // constant is caught before the sweep interprets it.
+ assert.equal(FROM, 90 + 22.5)
+ assert.equal(TO, 270 - 22.5)
+ assert.equal(CONSTANTS.overtaking_sector_from_deg.status, 'ink')
+ assert.equal(CONSTANTS.head_on_half_angle_deg.status, 'pencil')
+ // 13(b) says the sector in two ways -- an angle abaft the beam, and 'at night
+ // she would be able to see only the sternlight of that vessel'. The two must
+ // be the same arc, and they are already both in the data.
+ const stern = lights.lights['light:sternlight'].arc
+ assert.equal(stern.from_deg, FROM)
+ assert.equal(stern.to_deg, TO)
 
-  const inSector = (b) => b > FROM && b < TO;
-  const inCone = (b) => b <= HALF || b >= 360 - HALF;
-  let checked = 0;
-  const bad = [];
-  const s = sweepTemplate();
-  for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
-    for (let aspect = 0; aspect < 360; aspect += 0.5) {
-      const got = encountersFor(aim(s, ownRel, aspect));
-      checked++;
-      if (got.size !== 1) {
-        bad.push(`${ownRel}/${aspect}: ${[...got].join(',') || 'nothing'}`);
-        continue;
-      }
-      // ...and it is the right one, computed from the constants rather than
-      // read back off the data.
-      const want =
-        inSector(ownRel) || inSector(aspect)
-          ? 'encounter:overtaking'
-          : inCone(ownRel) && inCone(aspect)
-            ? 'encounter:head-on'
-            : 'encounter:crossing';
-      if (!got.has(want)) bad.push(`${ownRel}/${aspect}: ${[...got]} not ${want}`);
-    }
+ const inSector = (b) => b > FROM && b < TO
+ const inCone = (b) => b <= HALF || b >= 360 - HALF
+ let checked = 0
+ const bad = []
+ const s = sweepTemplate()
+ for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
+  for (let aspect = 0; aspect < 360; aspect += 0.5) {
+   const got = encountersFor(aim(s, ownRel, aspect))
+   checked++
+   if (got.size !== 1) {
+    bad.push(`${ownRel}/${aspect}: ${[...got].join(',') || 'nothing'}`)
+    continue
+   }
+   // ...and it is the right one, computed from the constants rather than
+   // read back off the data.
+   const want =
+    inSector(ownRel) || inSector(aspect)
+     ? 'encounter:overtaking'
+     : inCone(ownRel) && inCone(aspect)
+       ? 'encounter:head-on'
+       : 'encounter:crossing'
+   if (!got.has(want)) bad.push(`${ownRel}/${aspect}: ${[...got]} not ${want}`)
   }
-  assert.deepEqual(
-    bad.slice(0, 8),
-    [],
-    `${bad.length} of ${checked} bearings are in two sectors or none`,
-  );
-  assert.equal(checked, 720 * 720);
-});
+ }
+ assert.deepEqual(bad.slice(0, 8), [], `${bad.length} of ${checked} bearings are in two sectors or none`)
+ assert.equal(checked, 720 * 720)
+})
 
 test('classification: the 112.5 and 22.5-abaft edges land exactly where 13(b) puts them', () => {
-  // 'More than 22.5 degrees abaft her beam' is strict, so the edge itself is
-  // not an overtaking. One tenth of a degree is enough to move it, and the
-  // fixtures either side of each edge are the data-level record of the same
-  // fact.
-  const at = (ownRel, aspect) => [...encountersFor(sweepSituation({ ownRel, aspect }))];
-  assert.deepEqual(
-    at(300, FROM),
-    ['encounter:crossing'],
-    'exactly 22.5 abaft the beam is not yet overtaking',
-  );
-  assert.deepEqual(at(350, FROM + 0.1), ['encounter:overtaking']);
-  assert.deepEqual(at(10, TO), ['encounter:crossing'], 'the mirror edge, and equally exclusive');
-  assert.deepEqual(at(10, TO - 0.1), ['encounter:overtaking']);
-  // The same edge read on self's bearing, which is the overtaken vessel's side.
-  assert.deepEqual(at(FROM, 5), ['encounter:crossing']);
-  assert.deepEqual(at(FROM + 0.1, 5), ['encounter:overtaking']);
-  // The head-on cone is closed at its edge and one twentieth of a degree wide
-  // of it is a crossing -- and it takes both subjects, which is 14(b).
-  assert.deepEqual(at(HALF, 360 - HALF), ['encounter:head-on']);
-  assert.deepEqual(at(HALF + 0.05, 360 - HALF), ['encounter:crossing']);
-  assert.deepEqual(at(HALF, 360 - HALF - 0.05), ['encounter:crossing']);
-  assert.deepEqual(at(0, 0), ['encounter:head-on'], 'dead ahead of each other');
-  assert.deepEqual(
-    at(180, 180),
-    ['encounter:overtaking'],
-    'dead astern is the middle of the sector',
-  );
-});
+ // 'More than 22.5 degrees abaft her beam' is strict, so the edge itself is
+ // not an overtaking. One tenth of a degree is enough to move it, and the
+ // fixtures either side of each edge are the data-level record of the same
+ // fact.
+ const at = (ownRel, aspect) => [...encountersFor(sweepSituation({ ownRel, aspect }))]
+ assert.deepEqual(at(300, FROM), ['encounter:crossing'], 'exactly 22.5 abaft the beam is not yet overtaking')
+ assert.deepEqual(at(350, FROM + 0.1), ['encounter:overtaking'])
+ assert.deepEqual(at(10, TO), ['encounter:crossing'], 'the mirror edge, and equally exclusive')
+ assert.deepEqual(at(10, TO - 0.1), ['encounter:overtaking'])
+ // The same edge read on self's bearing, which is the overtaken vessel's side.
+ assert.deepEqual(at(FROM, 5), ['encounter:crossing'])
+ assert.deepEqual(at(FROM + 0.1, 5), ['encounter:overtaking'])
+ // The head-on cone is closed at its edge and one twentieth of a degree wide
+ // of it is a crossing -- and it takes both subjects, which is 14(b).
+ assert.deepEqual(at(HALF, 360 - HALF), ['encounter:head-on'])
+ assert.deepEqual(at(HALF + 0.05, 360 - HALF), ['encounter:crossing'])
+ assert.deepEqual(at(HALF, 360 - HALF - 0.05), ['encounter:crossing'])
+ assert.deepEqual(at(0, 0), ['encounter:head-on'], 'dead ahead of each other')
+ assert.deepEqual(at(180, 180), ['encounter:overtaking'], 'dead astern is the middle of the sector')
+})
 
 test('classification: 13(d) holds the encounter at overtaking however the bearing drifts', () => {
-  // The latch, swept: with `hist:was_overtaking` set on either subject, every
-  // bearing in the circle classifies as an overtaking and as nothing else.
-  // Without it the same bearings would produce a crossing or a head-on, which
-  // is the reclassification 13(d) forbids in so many words.
-  for (const [latchOwn, latchOther] of [
-    [true, false],
-    [false, true],
-    [true, true],
-  ]) {
-    const bad = [];
-    const s = sweepTemplate(latchOwn, latchOther);
-    for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
-      for (let aspect = 0; aspect < 360; aspect += 0.5) {
-        const got = encountersFor(aim(s, ownRel, aspect));
-        if (got.size !== 1 || !got.has('encounter:overtaking'))
-          bad.push(`${ownRel}/${aspect}: ${[...got]}`);
-      }
-    }
-    assert.deepEqual(bad.slice(0, 8), [], `${bad.length} bearings escape the 13(d) latch`);
+ // The latch, swept: with `hist:was_overtaking` set on either subject, every
+ // bearing in the circle classifies as an overtaking and as nothing else.
+ // Without it the same bearings would produce a crossing or a head-on, which
+ // is the reclassification 13(d) forbids in so many words.
+ for (const [latchOwn, latchOther] of [
+  [true, false],
+  [false, true],
+  [true, true],
+ ]) {
+  const bad = []
+  const s = sweepTemplate(latchOwn, latchOther)
+  for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
+   for (let aspect = 0; aspect < 360; aspect += 0.5) {
+    const got = encountersFor(aim(s, ownRel, aspect))
+    if (got.size !== 1 || !got.has('encounter:overtaking')) bad.push(`${ownRel}/${aspect}: ${[...got]}`)
+   }
   }
-  // The case the latch was written for, and the one the fixture illustrates:
-  // a bearing that has drawn out of the sector entirely.
-  const drifted = sweepSituation({ ownRel: 90, aspect: 250, latchOwn: true });
-  assert.deepEqual([...encountersFor(drifted)], ['encounter:overtaking']);
-  assert.equal(
-    matchesSituation(byId.get('rule:13b').when, drifted),
-    false,
-    'the sector test no longer holds, which is exactly when 13(d) is load-bearing',
-  );
-  assert.equal(
-    matchesSituation(byId.get('rule:13a').when, drifted),
-    true,
-    'and the duty stays with the overtaking vessel',
-  );
-  // Absent history is not false history: a situation that omits the latch is
-  // classified as no encounter at all rather than as a crossing. Conservative,
-  // and silent, which is Q-43.
-  const noHistory = {
-    ...drifted,
-    self: { ...drifted.self, hist: {} },
-    other: { ...drifted.other, hist: {} },
-  };
-  assert.deepEqual([...encountersFor(noHistory)], []);
-});
+  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} bearings escape the 13(d) latch`)
+ }
+ // The case the latch was written for, and the one the fixture illustrates:
+ // a bearing that has drawn out of the sector entirely.
+ const drifted = sweepSituation({ ownRel: 90, aspect: 250, latchOwn: true })
+ assert.deepEqual([...encountersFor(drifted)], ['encounter:overtaking'])
+ assert.equal(
+  matchesSituation(byId.get('rule:13b').when, drifted),
+  false,
+  'the sector test no longer holds, which is exactly when 13(d) is load-bearing',
+ )
+ assert.equal(
+  matchesSituation(byId.get('rule:13a').when, drifted),
+  true,
+  'and the duty stays with the overtaking vessel',
+ )
+ // Absent history is not false history: a situation that omits the latch is
+ // classified as no encounter at all rather than as a crossing. Conservative,
+ // and silent, which is Q-43.
+ const noHistory = {
+  ...drifted,
+  self: { ...drifted.self, hist: {} },
+  other: { ...drifted.other, hist: {} },
+ }
+ assert.deepEqual([...encountersFor(noHistory)], [])
+})
 
 test('classification: 15(a) gives way exactly where the crossing has the other to starboard', () => {
-  // rule:15a:keep_out_of_the_way writes self's bearing as the starboard half of the
-  // non-overtaking sector, which is a shorthand for two constraints the
-  // predicate language cannot put on one key. The sweep is what makes the
-  // shorthand checkable: the entry must select exactly the crossings in which
-  // the other bears between 0 and 180 relative, and nothing else.
-  const crossing = byId.get('rule:15a:crossing');
-  const giveWay = byId.get('rule:15a:keep_out_of_the_way');
-  const bad = [];
-  const t = sweepTemplate();
-  for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
-    for (let aspect = 0; aspect < 360; aspect += 0.5) {
-      const s = aim(t, ownRel, aspect);
-      const want = matchesSituation(crossing.when, s) && ownRel > 0 && ownRel < 180;
-      if (matchesSituation(giveWay.when, s) !== want) bad.push(`${ownRel}/${aspect}`);
-    }
+ // rule:15a:keep_out_of_the_way writes self's bearing as the starboard half of the
+ // non-overtaking sector, which is a shorthand for two constraints the
+ // predicate language cannot put on one key. The sweep is what makes the
+ // shorthand checkable: the entry must select exactly the crossings in which
+ // the other bears between 0 and 180 relative, and nothing else.
+ const crossing = byId.get('rule:15a:crossing')
+ const giveWay = byId.get('rule:15a:keep_out_of_the_way')
+ const bad = []
+ const t = sweepTemplate()
+ for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
+  for (let aspect = 0; aspect < 360; aspect += 0.5) {
+   const s = aim(t, ownRel, aspect)
+   const want = matchesSituation(crossing.when, s) && ownRel > 0 && ownRel < 180
+   if (matchesSituation(giveWay.when, s) !== want) bad.push(`${ownRel}/${aspect}`)
   }
-  assert.deepEqual(
-    bad.slice(0, 8),
-    [],
-    `${bad.length} bearings where give-way and crossing disagree`,
-  );
-});
+ }
+ assert.deepEqual(bad.slice(0, 8), [], `${bad.length} bearings where give-way and crossing disagree`)
+})
 
 test('the declared constants are the numbers the entries actually read', () => {
-  // A constant declared in facts.json and a literal written into a predicate
-  // are two places for one number, which is one too many. Every entry that
-  // thresholds one of the three is reconstructed here from the declaration and
-  // compared, so the two cannot drift.
-  const sector = { gt: FROM, lt: TO };
-  const cone = { any_of: [{ lte: HALF }, { gte: 360 - HALF }] };
-  const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value;
-  assert.deepEqual(byId.get('rule:7d_i').when['pair:geo:bearing_change_deg_min'], {
-    gt: -appreciable,
-    lt: appreciable,
-  });
-  // 13(b) is one symmetric entry: the same sector object, read on either
-  // subject under `any_of`, which is what makes the two sides one encounter.
-  assert.deepEqual(byId.get('rule:13b').when.any_of, [
-    { 'other:geo:rel_bearing_deg': sector },
-    { 'self:geo:rel_bearing_deg': sector },
-  ]);
-  assert.deepEqual(byId.get('rule:14b').when['self:geo:rel_bearing_deg'], cone);
-  assert.deepEqual(byId.get('rule:14b').when['other:geo:rel_bearing_deg'], cone);
-  // The residual is `not` over the very same objects, which is the whole
-  // reason the partition above cannot be broken by editing one side only.
-  const c = byId.get('rule:15a:crossing').when;
-  assert.deepEqual(c['self:geo:rel_bearing_deg'], { not: sector });
-  assert.deepEqual(c['other:geo:rel_bearing_deg'], { not: sector });
-  assert.deepEqual(c.any_of, [
-    { 'self:geo:rel_bearing_deg': { not: cone } },
-    { 'other:geo:rel_bearing_deg': { not: cone } },
-  ]);
-  assert.deepEqual(byId.get('rule:15a:keep_out_of_the_way').when['self:geo:rel_bearing_deg'], {
-    gt: 0,
-    lte: FROM,
-  });
-  // Every constant says who may change it and, where it is pencil, what would.
-  for (const [k, spec] of Object.entries(CONSTANTS)) {
-    if (k === 'note') continue;
-    assert.ok(['ink', 'pencil'].includes(spec.status), `${k}: bad status`);
-    assert.ok(typeof spec.value === 'number', `${k}: no value`);
-    assert.ok('cite' in spec, `${k}: no cite`);
-    if (spec.cite === null) assert.ok(spec.cite_pending, `${k}: null cite with no cite_pending`);
-    else assert.ok(rules.paragraphs[spec.cite], `${k}: cites missing paragraph ${spec.cite}`);
-    if (spec.status === 'pencil') assert.ok(spec.settled_by, `${k}: pencil with no settled_by`);
-  }
-});
+ // A constant declared in facts.json and a literal written into a predicate
+ // are two places for one number, which is one too many. Every entry that
+ // thresholds one of the three is reconstructed here from the declaration and
+ // compared, so the two cannot drift.
+ const sector = { gt: FROM, lt: TO }
+ const cone = { any_of: [{ lte: HALF }, { gte: 360 - HALF }] }
+ const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value
+ assert.deepEqual(byId.get('rule:7d_i').when['pair:geo:bearing_change_deg_min'], {
+  gt: -appreciable,
+  lt: appreciable,
+ })
+ // 13(b) is one symmetric entry: the same sector object, read on either
+ // subject under `any_of`, which is what makes the two sides one encounter.
+ assert.deepEqual(byId.get('rule:13b').when.any_of, [
+  { 'other:geo:rel_bearing_deg': sector },
+  { 'self:geo:rel_bearing_deg': sector },
+ ])
+ assert.deepEqual(byId.get('rule:14b').when['self:geo:rel_bearing_deg'], cone)
+ assert.deepEqual(byId.get('rule:14b').when['other:geo:rel_bearing_deg'], cone)
+ // The residual is `not` over the very same objects, which is the whole
+ // reason the partition above cannot be broken by editing one side only.
+ const c = byId.get('rule:15a:crossing').when
+ assert.deepEqual(c['self:geo:rel_bearing_deg'], { not: sector })
+ assert.deepEqual(c['other:geo:rel_bearing_deg'], { not: sector })
+ assert.deepEqual(c.any_of, [
+  { 'self:geo:rel_bearing_deg': { not: cone } },
+  { 'other:geo:rel_bearing_deg': { not: cone } },
+ ])
+ assert.deepEqual(byId.get('rule:15a:keep_out_of_the_way').when['self:geo:rel_bearing_deg'], {
+  gt: 0,
+  lte: FROM,
+ })
+ // Every constant says who may change it and, where it is pencil, what would.
+ for (const [k, spec] of Object.entries(CONSTANTS)) {
+  if (k === 'note') continue
+  assert.ok(['ink', 'pencil'].includes(spec.status), `${k}: bad status`)
+  assert.ok(typeof spec.value === 'number', `${k}: no value`)
+  assert.ok('cite' in spec, `${k}: no cite`)
+  if (spec.cite === null) assert.ok(spec.cite_pending, `${k}: null cite with no cite_pending`)
+  else assert.ok(rules.paragraphs[spec.cite], `${k}: cites missing paragraph ${spec.cite}`)
+  if (spec.status === 'pencil') assert.ok(spec.settled_by, `${k}: pencil with no settled_by`)
+ }
+})
 
 // --- geometric consistency, enforced (Q-48, REQ-VERIFY-8) -------------------
 test('REQ-VERIFY-8: the consistency check rejects each kind of impossible record, and only those', () => {
-  // The first fixture, then one thing wrong at a time. Each equation must be
-  // the one that fires, so a future edit cannot quietly disable a tier.
-  const base = structuredClone(situationFixtures.cases[0].situation);
-  assert.deepEqual(inconsistencies(base), []);
-  const edit = (f) => {
-    const s = structuredClone(base);
-    f(s);
-    return inconsistencies(s);
-  };
-  const only = (found, tier) => found.length > 0 && found.every((m) => m.startsWith(tier));
-  assert.ok(
-    only(
-      edit((s) => {
-        s.other.kin['kin:heading_deg'] += 5;
-      }),
-      'headings',
-    ) === false,
-    'a heading moved 5 degrees breaks the line-of-sight equation and the position bearing both',
-  );
-  assert.ok(
-    edit((s) => {
-      s.other.kin['kin:heading_deg'] += 5;
-    }).some((m) => m.startsWith('headings:')),
-  );
-  assert.ok(
-    edit((s) => {
-      s.other.kin['kin:heading_deg'] += 5;
-    }).some((m) => m.startsWith('positions: other')),
-  );
-  // A range moved 10% disagrees with the positions -- and with the motion,
-  // whose CPA and TCPA scale with it.
-  assert.ok(
-    edit((s) => {
-      s.pair.geo['geo:range_m'] *= 1.1;
-    }).some((m) => m.startsWith('positions: range')),
-  );
-  assert.ok(
-    only(
-      edit((s) => {
-        s.self.kin['kin:sog_kn'] *= 1.5;
-      }),
-      'motion:',
-    ),
-  );
-  assert.ok(
-    only(
-      edit((s) => {
-        s.pair.geo['geo:tcpa_s'] = -s.pair.geo['geo:tcpa_s'];
-      }),
-      'motion: tcpa_s',
-    ),
-  );
-  // Positions fix the range and self's bearing, so leaving those two out of
-  // the record does not switch the motion tier off: a wrong TCPA still fires.
-  assert.deepEqual(
-    edit((s) => {
-      delete s.pair.geo['geo:range_m'];
-      delete s.self.geo['geo:rel_bearing_deg'];
-    }),
-    [],
-  );
-  assert.ok(
-    only(
-      edit((s) => {
-        delete s.pair.geo['geo:range_m'];
-        delete s.self.geo['geo:rel_bearing_deg'];
-        s.pair.geo['geo:tcpa_s'] = -s.pair.geo['geo:tcpa_s'];
-      }),
-      'motion: tcpa_s',
-    ),
-    'motion is checked from positions when range and bearing are not stated',
-  );
-  // Sparse is unchecked, not wrong: drop the kinematics and nothing can fire.
-  assert.deepEqual(
-    edit((s) => {
-      delete s.self.kin;
-      delete s.other.kin;
-    }),
-    [],
-  );
-  assert.deepEqual(
-    edit((s) => {
-      delete s.self.kin['kin:position'];
-      delete s.other.kin['kin:position'];
-    }),
-    [],
-  );
-  // The tolerances are read from the declaration, not from this file.
-  for (const k of [
-    'bearing_deg',
-    'range_m',
-    'range_fraction',
-    'cpa_m',
-    'cpa_fraction',
-    'tcpa_s',
-    'tcpa_fraction',
-    'bearing_change_deg_min',
-  ]) {
-    assert.ok(isNum(TOL[k]) && TOL[k] > 0, `tolerance ${k} is not declared`);
-  }
-  assert.equal(CONSISTENCY.status, 'pencil');
-  assert.ok(CONSISTENCY.settled_by, 'pencil with no settled_by');
-});
+ // The first fixture, then one thing wrong at a time. Each equation must be
+ // the one that fires, so a future edit cannot quietly disable a tier.
+ const base = structuredClone(situationFixtures.cases[0].situation)
+ assert.deepEqual(inconsistencies(base), [])
+ const edit = (f) => {
+  const s = structuredClone(base)
+  f(s)
+  return inconsistencies(s)
+ }
+ const only = (found, tier) => found.length > 0 && found.every((m) => m.startsWith(tier))
+ assert.ok(
+  only(
+   edit((s) => {
+    s.other.kin['kin:heading_deg'] += 5
+   }),
+   'headings',
+  ) === false,
+  'a heading moved 5 degrees breaks the line-of-sight equation and the position bearing both',
+ )
+ assert.ok(
+  edit((s) => {
+   s.other.kin['kin:heading_deg'] += 5
+  }).some((m) => m.startsWith('headings:')),
+ )
+ assert.ok(
+  edit((s) => {
+   s.other.kin['kin:heading_deg'] += 5
+  }).some((m) => m.startsWith('positions: other')),
+ )
+ // A range moved 10% disagrees with the positions -- and with the motion,
+ // whose CPA and TCPA scale with it.
+ assert.ok(
+  edit((s) => {
+   s.pair.geo['geo:range_m'] *= 1.1
+  }).some((m) => m.startsWith('positions: range')),
+ )
+ assert.ok(
+  only(
+   edit((s) => {
+    s.self.kin['kin:sog_kn'] *= 1.5
+   }),
+   'motion:',
+  ),
+ )
+ assert.ok(
+  only(
+   edit((s) => {
+    s.pair.geo['geo:tcpa_s'] = -s.pair.geo['geo:tcpa_s']
+   }),
+   'motion: tcpa_s',
+  ),
+ )
+ // Positions fix the range and self's bearing, so leaving those two out of
+ // the record does not switch the motion tier off: a wrong TCPA still fires.
+ assert.deepEqual(
+  edit((s) => {
+   delete s.pair.geo['geo:range_m']
+   delete s.self.geo['geo:rel_bearing_deg']
+  }),
+  [],
+ )
+ assert.ok(
+  only(
+   edit((s) => {
+    delete s.pair.geo['geo:range_m']
+    delete s.self.geo['geo:rel_bearing_deg']
+    s.pair.geo['geo:tcpa_s'] = -s.pair.geo['geo:tcpa_s']
+   }),
+   'motion: tcpa_s',
+  ),
+  'motion is checked from positions when range and bearing are not stated',
+ )
+ // Sparse is unchecked, not wrong: drop the kinematics and nothing can fire.
+ assert.deepEqual(
+  edit((s) => {
+   delete s.self.kin
+   delete s.other.kin
+  }),
+  [],
+ )
+ assert.deepEqual(
+  edit((s) => {
+   delete s.self.kin['kin:position']
+   delete s.other.kin['kin:position']
+  }),
+  [],
+ )
+ // The tolerances are read from the declaration, not from this file.
+ for (const k of [
+  'bearing_deg',
+  'range_m',
+  'range_fraction',
+  'cpa_m',
+  'cpa_fraction',
+  'tcpa_s',
+  'tcpa_fraction',
+  'bearing_change_deg_min',
+ ]) {
+  assert.ok(isNum(TOL[k]) && TOL[k] > 0, `tolerance ${k} is not declared`)
+ }
+ assert.equal(CONSISTENCY.status, 'pencil')
+ assert.ok(CONSISTENCY.settled_by, 'pencil with no settled_by')
+})
 
 test('REQ-VERIFY-8: every situation fixture that states its kinematics is consistent with them', () => {
-  // Every fixture goes through the check: a sparse record returns nothing,
-  // so skipping is never needed and would hide a case the check should see.
-  let checked = 0;
-  for (const c of situationFixtures.cases) {
-    assert.deepEqual(inconsistencies(c.situation), [], c.name);
-    if (isNum(c.situation.self?.kin?.['kin:heading_deg'])) checked++;
-  }
-  assert.ok(
-    checked >= 16,
-    `only ${checked} fixtures carry kinematics; the check would be near-vacuous`,
-  );
-});
+ // Every fixture goes through the check: a sparse record returns nothing,
+ // so skipping is never needed and would hide a case the check should see.
+ let checked = 0
+ for (const c of situationFixtures.cases) {
+  assert.deepEqual(inconsistencies(c.situation), [], c.name)
+  if (isNum(c.situation.self?.kin?.['kin:heading_deg'])) checked++
+ }
+ assert.ok(checked >= 16, `only ${checked} fixtures carry kinematics; the check would be near-vacuous`)
+})
 
 test('REQ-VERIFY-8: the partition sweep is geometrically consistent at every point it visits', () => {
-  // Coarser than the partition sweep itself -- the great-circle arithmetic is
-  // what costs -- but on the same template and through the same `aim`, so a
-  // template edit that breaks the construction fails here.
-  const s = sweepTemplate();
-  const bad = [];
-  for (let ownRel = 0; ownRel < 360; ownRel += 2.5) {
-    for (let aspect = 0; aspect < 360; aspect += 2.5) {
-      const found = inconsistencies(aim(s, ownRel, aspect));
-      if (found.length) bad.push(`${ownRel}/${aspect}: ${found.join('; ')}`);
-    }
+ // Coarser than the partition sweep itself -- the great-circle arithmetic is
+ // what costs -- but on the same template and through the same `aim`, so a
+ // template edit that breaks the construction fails here.
+ const s = sweepTemplate()
+ const bad = []
+ for (let ownRel = 0; ownRel < 360; ownRel += 2.5) {
+  for (let aspect = 0; aspect < 360; aspect += 2.5) {
+   const found = inconsistencies(aim(s, ownRel, aspect))
+   if (found.length) bad.push(`${ownRel}/${aspect}: ${found.join('; ')}`)
   }
-  assert.deepEqual(bad.slice(0, 8), [], `${bad.length} sweep points are inconsistent`);
-  // ...and the edges the edge test reads, exactly.
-  for (const [ownRel, aspect] of [
-    [300, FROM],
-    [350, FROM + 0.1],
-    [10, TO],
-    [HALF, 360 - HALF],
-    [0, 0],
-    [180, 180],
-  ]) {
-    assert.deepEqual(inconsistencies(aim(s, ownRel, aspect)), [], `${ownRel}/${aspect}`);
-  }
-});
+ }
+ assert.deepEqual(bad.slice(0, 8), [], `${bad.length} sweep points are inconsistent`)
+ // ...and the edges the edge test reads, exactly.
+ for (const [ownRel, aspect] of [
+  [300, FROM],
+  [350, FROM + 0.1],
+  [10, TO],
+  [HALF, 360 - HALF],
+  [0, 0],
+  [180, 180],
+ ]) {
+  assert.deepEqual(inconsistencies(aim(s, ownRel, aspect)), [], `${ownRel}/${aspect}`)
+ }
+})
 
 // --- the steady-bearing sweep (Q-48) ----------------------------------------
 // The "never both give-way" property is not true of arbitrary bearings: two
@@ -3423,61 +3054,57 @@ test('REQ-VERIFY-8: the partition sweep is geometrically consistent at every poi
 // pointing straight down the line of sight, and there are up to two solutions
 // -- the intercept from ahead and the one from astern.
 function steadyBearingHeadings({ ownRel, ownSog, otherSog }) {
-  const u = ownSog,
-    v = otherSog,
-    th = rad(ownRel);
-  const disc = v * v - (u * Math.sin(th)) ** 2;
-  if (disc < 0) return [];
-  const roots = [u * Math.cos(th) + Math.sqrt(disc), u * Math.cos(th) - Math.sqrt(disc)];
-  return roots
-    .filter((k, i) => k > 1e-9 && (i === 0 || Math.abs(k - roots[0]) > 1e-9))
-    .map((k) => norm360(deg(Math.atan2(-k * Math.sin(th), u - k * Math.cos(th)))));
+ const u = ownSog,
+  v = otherSog,
+  th = rad(ownRel)
+ const disc = v * v - (u * Math.sin(th)) ** 2
+ if (disc < 0) return []
+ const roots = [u * Math.cos(th) + Math.sqrt(disc), u * Math.cos(th) - Math.sqrt(disc)]
+ return roots
+  .filter((k, i) => k > 1e-9 && (i === 0 || Math.abs(k - roots[0]) > 1e-9))
+  .map((k) => norm360(deg(Math.atan2(-k * Math.sin(th), u - k * Math.cos(th)))))
 }
 
 // A fully stated situation -- positions, headings, speeds, and the pair motion
 // the kinematics produce -- so the motion equations have something to check.
 // Own heads north at the origin; everything else follows from the arguments.
 function statedSituation({
-  ownRel,
-  otherHeading,
-  ownSog,
-  otherSog,
-  range_m = SWEEP_RANGE_M,
-  risk = true,
-  self = {},
-  other = {},
+ ownRel,
+ otherHeading,
+ ownSog,
+ otherSog,
+ range_m = SWEEP_RANGE_M,
+ risk = true,
+ self = {},
+ other = {},
 }) {
-  const s = sweepTemplate();
-  aim(s, ownRel, norm360(ownRel + 180 - otherHeading), range_m);
-  Object.assign(
-    s.self.kin,
-    { 'kin:sog_kn': ownSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' },
-    self.kin,
-  );
-  Object.assign(
-    s.other.kin,
-    { 'kin:sog_kn': otherSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' },
-    other.kin,
-  );
-  // A fleet may change the vessels themselves; the derived facts follow.
-  s.self.fact = derive({ ...s.self.fact, ...self.fact });
-  s.other.fact = derive({ ...s.other.fact, ...other.fact });
-  Object.assign(s.self.geo, self.geo ?? {});
-  Object.assign(s.other.geo, other.geo ?? {});
-  const m = relativeMotion({ range_m, ownRel, ownHeading: 0, otherHeading, ownSog, otherSog });
-  s.pair.geo = {
-    'geo:in_sight': true,
-    'geo:risk_of_collision': risk,
-    'geo:range_m': range_m,
-    'geo:bearing_change_deg_min': m.bearing_change_deg_min,
-    'geo:cpa_m': m.cpa_m,
-    'geo:tcpa_s': m.tcpa_s,
-  };
-  return s;
+ const s = sweepTemplate()
+ aim(s, ownRel, norm360(ownRel + 180 - otherHeading), range_m)
+ Object.assign(s.self.kin, { 'kin:sog_kn': ownSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' }, self.kin)
+ Object.assign(
+  s.other.kin,
+  { 'kin:sog_kn': otherSog, 'kin:rot_deg_min': 0, 'kin:dynamics': 'dynamics:cargo' },
+  other.kin,
+ )
+ // A fleet may change the vessels themselves; the derived facts follow.
+ s.self.fact = derive({ ...s.self.fact, ...self.fact })
+ s.other.fact = derive({ ...s.other.fact, ...other.fact })
+ Object.assign(s.self.geo, self.geo ?? {})
+ Object.assign(s.other.geo, other.geo ?? {})
+ const m = relativeMotion({ range_m, ownRel, ownHeading: 0, otherHeading, ownSog, otherSog })
+ s.pair.geo = {
+  'geo:in_sight': true,
+  'geo:risk_of_collision': risk,
+  'geo:range_m': range_m,
+  'geo:bearing_change_deg_min': m.bearing_change_deg_min,
+  'geo:cpa_m': m.cpa_m,
+  'geo:tcpa_s': m.tcpa_s,
+ }
+ return s
 }
 
-const forcefulPool = (s) => resolve_(pooledRoles(s)).filter((r) => FORCEFUL.has(r.entry.modality));
-const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r) => r.B === role);
+const forcefulPool = (s) => resolve_(pooledRoles(s)).filter((r) => FORCEFUL.has(r.entry.modality))
+const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r) => r.B === role)
 
 // The fleets the steady-bearing sweep is run over. Two ordinary power-driven
 // vessels are Rule 15's case and Q-48's. The power fleets below them put each
@@ -3489,509 +3116,445 @@ const bothHold = (pool, role) => pool.some((r) => r.A === role) && pool.some((r)
 // them ranked by Rule 18 as well -- fishing under sail, not under command under
 // sail -- so that 12(a), 13(a) and 18(b)/(c) are all in force at once somewhere
 // in the sweep and rel:overrides has to earn its keep (Q-40).
-const SAIL = { 'fact:propulsion': 'propulsion:sail', 'fact:activity': 'activity:none' };
-const WINDS = ['wind_side:port', 'wind_side:starboard', 'wind_side:unknown'];
+const SAIL = { 'fact:propulsion': 'propulsion:sail', 'fact:activity': 'activity:none' }
+const WINDS = ['wind_side:port', 'wind_side:starboard', 'wind_side:unknown']
 // The four ranks rule:15a:keep_out_of_the_way used to negate out of its own predicate, keyed by
 // the facts that decode to them -- a WIG craft is the phase pair, not an
 // activity -- plus constrained by her draught, which it never negated: 18(d)(i)
 // is what meets Rule 15 there and it assigns no helm role, so the pair is swept
 // to keep that true rather than to prove an override.
 const RANKS = {
-  fishing: { 'fact:activity': 'activity:fishing' },
-  nuc: { 'fact:activity': 'activity:nuc' },
-  ram: { 'fact:activity': 'activity:ram' },
-  wig: { 'fact:wig': true, 'fact:wig_near_surface': true },
-  cbd: { 'fact:activity': 'activity:cbd' },
-};
+ fishing: { 'fact:activity': 'activity:fishing' },
+ nuc: { 'fact:activity': 'activity:nuc' },
+ ram: { 'fact:activity': 'activity:ram' },
+ wig: { 'fact:wig': true, 'fact:wig_near_surface': true },
+ cbd: { 'fact:activity': 'activity:cbd' },
+}
 function* fleets() {
+ yield {
+  name: 'two power-driven vessels',
+  step: 0.5,
+  speeds: [3, 6, 12, 20],
+  self: {},
+  other: {},
+ }
+ const power = (fact) => ({
+  fact: { 'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:none', ...fact },
+ })
+ const ranks = Object.entries(RANKS)
+ for (const [i, [rank, fact]] of ranks.entries()) {
   yield {
-    name: 'two power-driven vessels',
-    step: 0.5,
-    speeds: [3, 6, 12, 20],
-    self: {},
-    other: {},
-  };
-  const power = (fact) => ({
-    fact: { 'fact:propulsion': 'propulsion:power', 'fact:activity': 'activity:none', ...fact },
-  });
-  const ranks = Object.entries(RANKS);
-  for (const [i, [rank, fact]] of ranks.entries()) {
-    yield {
-      name: `power-driven, self ${rank}`,
-      step: 2,
-      speeds: [6, 12],
-      self: power(fact),
-      other: power({}),
-    };
-    yield {
-      name: `power-driven, both ${rank}`,
-      step: 2,
-      speeds: [6, 12],
-      self: power(fact),
-      other: power(fact),
-    };
-    // The mixed pairs, which are where 18(c) lives -- a fishing vessel against a
-    // NUC or a RAM -- and where Rule 18 falls silent: NUC against RAM is its
-    // unordered pair and Rule 15 is then the only norm assigning a role.
-    for (const [rank2, fact2] of ranks.slice(i + 1)) {
-      yield {
-        name: `power-driven, self ${rank}, other ${rank2}`,
-        step: 2,
-        speeds: [6, 12],
-        self: power(fact),
-        other: power(fact2),
-      };
-    }
+   name: `power-driven, self ${rank}`,
+   step: 2,
+   speeds: [6, 12],
+   self: power(fact),
+   other: power({}),
   }
-  const sail = (fact, wind, windward) => ({
-    fact: { ...SAIL, ...fact },
-    kin: { 'kin:wind_side': wind, 'kin:dynamics': 'dynamics:yacht' },
-    geo: { 'geo:windward': windward },
-  });
-  for (const w1 of WINDS) {
-    for (const w2 of WINDS) {
-      for (const windward of [true, false]) {
-        const tag = `${w1.split(':')[1]}/${w2.split(':')[1]}, self ${windward ? 'windward' : 'leeward'}`;
-        yield {
-          name: `two sailing vessels, ${tag}`,
-          step: 1,
-          speeds: [3, 6],
-          self: sail({}, w1, windward),
-          other: sail({}, w2, !windward),
-        };
-        yield {
-          name: `sailing vessel and fishing under sail, ${tag}`,
-          step: 2,
-          speeds: [3, 6],
-          self: sail({}, w1, windward),
-          other: sail({ 'fact:activity': 'activity:fishing' }, w2, !windward),
-        };
-        yield {
-          name: `fishing under sail and NUC under sail, ${tag}`,
-          step: 2,
-          speeds: [3, 6],
-          self: sail({ 'fact:activity': 'activity:fishing' }, w1, windward),
-          other: sail({ 'fact:activity': 'activity:nuc' }, w2, !windward),
-        };
-      }
-    }
+  yield {
+   name: `power-driven, both ${rank}`,
+   step: 2,
+   speeds: [6, 12],
+   self: power(fact),
+   other: power(fact),
   }
+  // The mixed pairs, which are where 18(c) lives -- a fishing vessel against a
+  // NUC or a RAM -- and where Rule 18 falls silent: NUC against RAM is its
+  // unordered pair and Rule 15 is then the only norm assigning a role.
+  for (const [rank2, fact2] of ranks.slice(i + 1)) {
+   yield {
+    name: `power-driven, self ${rank}, other ${rank2}`,
+    step: 2,
+    speeds: [6, 12],
+    self: power(fact),
+    other: power(fact2),
+   }
+  }
+ }
+ const sail = (fact, wind, windward) => ({
+  fact: { ...SAIL, ...fact },
+  kin: { 'kin:wind_side': wind, 'kin:dynamics': 'dynamics:yacht' },
+  geo: { 'geo:windward': windward },
+ })
+ for (const w1 of WINDS) {
+  for (const w2 of WINDS) {
+   for (const windward of [true, false]) {
+    const tag = `${w1.split(':')[1]}/${w2.split(':')[1]}, self ${windward ? 'windward' : 'leeward'}`
+    yield {
+     name: `two sailing vessels, ${tag}`,
+     step: 1,
+     speeds: [3, 6],
+     self: sail({}, w1, windward),
+     other: sail({}, w2, !windward),
+    }
+    yield {
+     name: `sailing vessel and fishing under sail, ${tag}`,
+     step: 2,
+     speeds: [3, 6],
+     self: sail({}, w1, windward),
+     other: sail({ 'fact:activity': 'activity:fishing' }, w2, !windward),
+    }
+    yield {
+     name: `fishing under sail and NUC under sail, ${tag}`,
+     step: 2,
+     speeds: [3, 6],
+     self: sail({ 'fact:activity': 'activity:fishing' }, w1, windward),
+     other: sail({ 'fact:activity': 'activity:nuc' }, w2, !windward),
+    }
+   }
+  }
+ }
 }
 
 test('precedence: never both give-way, never both stand-on, no two helm roles, on every steady bearing (Q-48, Q-40)', () => {
-  let checked = 0,
-    gaveWayA = 0,
-    gaveWayB = 0;
-  const bad = [];
-  for (const fleet of fleets()) {
-    for (const ownSog of fleet.speeds) {
-      for (const otherSog of fleet.speeds) {
-        for (let ownRel = 0; ownRel < 360; ownRel += fleet.step) {
-          for (const otherHeading of steadyBearingHeadings({ ownRel, ownSog, otherSog })) {
-            const where = `${fleet.name}: ${ownRel} @ ${ownSog}/${otherSog} (other heading ${otherHeading.toFixed(1)})`;
-            const s = statedSituation({
-              ownRel,
-              otherHeading,
-              ownSog,
-              otherSog,
-              self: fleet.self,
-              other: fleet.other,
-            });
-            const found = inconsistencies(s);
-            if (found.length) {
-              bad.push(`${where}: ${found.join('; ')}`);
-              continue;
-            }
-            // The construction really is a collision course, not merely a
-            // consistent record of some motion.
-            const pg = s.pair.geo;
-            if (
-              !(
-                pg['geo:cpa_m'] < 1 &&
-                pg['geo:tcpa_s'] > 0 &&
-                Math.abs(pg['geo:bearing_change_deg_min']) < 1e-6
-              )
-            ) {
-              bad.push(`${where}: not a steady bearing (cpa ${pg['geo:cpa_m'].toFixed(1)})`);
-              continue;
-            }
-            // The theorem itself, which is why the property below can hold.
-            const aspect = s.other.geo['geo:rel_bearing_deg'];
-            const side = (b) =>
-              b > 0 && b < 180 ? 'starboard' : b > 180 ? 'port' : 'ahead-or-astern';
-            if (side(ownRel) !== 'ahead-or-astern' && side(ownRel) === side(aspect)) {
-              bad.push(`${where}: both bearings to ${side(ownRel)} on a steady bearing`);
-              continue;
-            }
-            const pool = forcefulPool(s);
-            for (const role of ['role:give-way', 'role:stand-on']) {
-              if (bothHold(pool, role)) bad.push(`${where}: both ${role}`);
-            }
-            // ...and no vessel is told two things about her helm once
-            // rel:overrides has resolved -- the fixture-level check, swept.
-            for (const subject of ['A', 'B']) {
-              const helm = new Set(pool.map((r) => r[subject]).filter((x) => HELM_ROLES.has(x)));
-              if (helm.size > 1)
-                bad.push(
-                  `${where}: ${subject} holds ${[...helm].join(' and ')} (${pool
-                    .filter((r) => HELM_ROLES.has(r[subject]))
-                    .map((r) => r.entry.id)
-                    .join(', ')})`,
-                );
-            }
-            gaveWayA += pool.some((r) => r.A === 'role:give-way');
-            gaveWayB += pool.some((r) => r.B === 'role:give-way');
-            checked++;
-          }
-        }
+ let checked = 0,
+  gaveWayA = 0,
+  gaveWayB = 0
+ const bad = []
+ for (const fleet of fleets()) {
+  for (const ownSog of fleet.speeds) {
+   for (const otherSog of fleet.speeds) {
+    for (let ownRel = 0; ownRel < 360; ownRel += fleet.step) {
+     for (const otherHeading of steadyBearingHeadings({ ownRel, ownSog, otherSog })) {
+      const where = `${fleet.name}: ${ownRel} @ ${ownSog}/${otherSog} (other heading ${otherHeading.toFixed(1)})`
+      const s = statedSituation({
+       ownRel,
+       otherHeading,
+       ownSog,
+       otherSog,
+       self: fleet.self,
+       other: fleet.other,
+      })
+      const found = inconsistencies(s)
+      if (found.length) {
+       bad.push(`${where}: ${found.join('; ')}`)
+       continue
       }
+      // The construction really is a collision course, not merely a
+      // consistent record of some motion.
+      const pg = s.pair.geo
+      if (!(pg['geo:cpa_m'] < 1 && pg['geo:tcpa_s'] > 0 && Math.abs(pg['geo:bearing_change_deg_min']) < 1e-6)) {
+       bad.push(`${where}: not a steady bearing (cpa ${pg['geo:cpa_m'].toFixed(1)})`)
+       continue
+      }
+      // The theorem itself, which is why the property below can hold.
+      const aspect = s.other.geo['geo:rel_bearing_deg']
+      const side = (b) => (b > 0 && b < 180 ? 'starboard' : b > 180 ? 'port' : 'ahead-or-astern')
+      if (side(ownRel) !== 'ahead-or-astern' && side(ownRel) === side(aspect)) {
+       bad.push(`${where}: both bearings to ${side(ownRel)} on a steady bearing`)
+       continue
+      }
+      const pool = forcefulPool(s)
+      for (const role of ['role:give-way', 'role:stand-on']) {
+       if (bothHold(pool, role)) bad.push(`${where}: both ${role}`)
+      }
+      // ...and no vessel is told two things about her helm once
+      // rel:overrides has resolved -- the fixture-level check, swept.
+      for (const subject of ['A', 'B']) {
+       const helm = new Set(pool.map((r) => r[subject]).filter((x) => HELM_ROLES.has(x)))
+       if (helm.size > 1)
+        bad.push(
+         `${where}: ${subject} holds ${[...helm].join(' and ')} (${pool
+          .filter((r) => HELM_ROLES.has(r[subject]))
+          .map((r) => r.entry.id)
+          .join(', ')})`,
+        )
+      }
+      gaveWayA += pool.some((r) => r.A === 'role:give-way')
+      gaveWayB += pool.some((r) => r.B === 'role:give-way')
+      checked++
+     }
     }
+   }
   }
-  assert.deepEqual(
-    bad.slice(0, 8),
-    [],
-    `${bad.length} of ${checked} steady bearings break a property`,
-  );
-  // Sixteen speed pairs by 720 bearings for the power pair, less the bearings
-  // a slower vessel cannot intercept from, plus the sailing fleets: tens of
-  // thousands, and never fewer than this.
-  assert.ok(checked > 20000, `only ${checked} steady bearings swept`);
-  // Not vacuous: each vessel is the give-way vessel somewhere in the sweep.
-  assert.ok(
-    gaveWayA > 0 && gaveWayB > 0,
-    `give-way fell on A ${gaveWayA} times and on B ${gaveWayB}`,
-  );
-});
+ }
+ assert.deepEqual(bad.slice(0, 8), [], `${bad.length} of ${checked} steady bearings break a property`)
+ // Sixteen speed pairs by 720 bearings for the power pair, less the bearings
+ // a slower vessel cannot intercept from, plus the sailing fleets: tens of
+ // thousands, and never fewer than this.
+ assert.ok(checked > 20000, `only ${checked} steady bearings swept`)
+ // Not vacuous: each vessel is the give-way vessel somewhere in the sweep.
+ assert.ok(gaveWayA > 0 && gaveWayB > 0, `give-way fell on A ${gaveWayA} times and on B ${gaveWayB}`)
+})
 
 test('Q-48: the both-starboard crossing that breaks the property is a record the check rejects', () => {
-  // The failure Q-48 describes, stated as a consumer might state it: each has
-  // the other 45 degrees on the starboard bow, a steady bearing is claimed,
-  // risk of collision is claimed. 15(a) then names both vessels.
-  const s = statedSituation({
-    ownRel: 45,
-    otherHeading: norm360(45 + 180 - 45),
-    ownSog: 12,
-    otherSog: 10,
-  });
-  Object.assign(s.pair.geo, { 'geo:bearing_change_deg_min': 0, 'geo:cpa_m': 0, 'geo:tcpa_s': 400 });
-  assert.ok(
-    bothHold(forcefulPool(s), 'role:give-way'),
-    'the counterexample no longer reproduces; is rule:15a:keep_out_of_the_way still two-sided?',
-  );
-  // ...and no positive speeds produce that steady bearing, so the record is
-  // one the motion equations refuse, whatever speeds it claims.
-  const found = inconsistencies(s);
-  assert.ok(
-    found.some((m) => m.startsWith('motion:')),
-    `expected the motion tier to fire, got ${JSON.stringify(found)}`,
-  );
-  for (const ownSog of [1, 3, 6, 12, 20, 40]) {
-    for (const otherSog of [1, 3, 6, 12, 20, 40]) {
-      for (const h of steadyBearingHeadings({ ownRel: 45, ownSog, otherSog })) {
-        const aspect = norm360(45 + 180 - h);
-        assert.ok(
-          aspect > 180,
-          `a steady bearing at ${ownSog}/${otherSog} puts self at ${aspect.toFixed(1)} from the other -- starboard`,
-        );
-      }
-    }
+ // The failure Q-48 describes, stated as a consumer might state it: each has
+ // the other 45 degrees on the starboard bow, a steady bearing is claimed,
+ // risk of collision is claimed. 15(a) then names both vessels.
+ const s = statedSituation({
+  ownRel: 45,
+  otherHeading: norm360(45 + 180 - 45),
+  ownSog: 12,
+  otherSog: 10,
+ })
+ Object.assign(s.pair.geo, { 'geo:bearing_change_deg_min': 0, 'geo:cpa_m': 0, 'geo:tcpa_s': 400 })
+ assert.ok(
+  bothHold(forcefulPool(s), 'role:give-way'),
+  'the counterexample no longer reproduces; is rule:15a:keep_out_of_the_way still two-sided?',
+ )
+ // ...and no positive speeds produce that steady bearing, so the record is
+ // one the motion equations refuse, whatever speeds it claims.
+ const found = inconsistencies(s)
+ assert.ok(
+  found.some((m) => m.startsWith('motion:')),
+  `expected the motion tier to fire, got ${JSON.stringify(found)}`,
+ )
+ for (const ownSog of [1, 3, 6, 12, 20, 40]) {
+  for (const otherSog of [1, 3, 6, 12, 20, 40]) {
+   for (const h of steadyBearingHeadings({ ownRel: 45, ownSog, otherSog })) {
+    const aspect = norm360(45 + 180 - h)
+    assert.ok(
+     aspect > 180,
+     `a steady bearing at ${ownSog}/${otherSog} puts self at ${aspect.toFixed(1)} from the other -- starboard`,
+    )
+   }
   }
-});
+ }
+})
 
 test("Q-48 residual: 7(d)(i)'s tolerance admits a slow starboard-to-starboard passing on which both give way", () => {
-  // The theorem is exact at a bearing rate of zero. Rule 7(d)(i)'s pencilled
-  // 1 deg/min is not zero, and two slow vessels 2000 m apart, each with the
-  // other fine on the starboard bow just outside the head-on cone, pass at
-  // several hundred metres with the bearing changing more slowly than that.
-  // The record is consistent, 7(d)(i) deems risk, 15(a) names both. That is
-  // 14(c)'s doubt case -- "shall assume that it does exist and act
-  // accordingly" -- and is Q-41's to settle, not this check's. Pinned so the
-  // day it changes is noticed.
-  const s = statedSituation({
-    ownRel: 15,
-    otherHeading: norm360(15 + 180 - 5),
-    ownSog: 3,
-    otherSog: 3,
-  });
-  assert.deepEqual(inconsistencies(s), []);
-  assert.equal(s.other.geo['geo:rel_bearing_deg'], 5);
-  const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value;
-  assert.ok(
-    Math.abs(s.pair.geo['geo:bearing_change_deg_min']) < appreciable,
-    'the bearing rate is inside 7(d)(i)',
-  );
-  assert.ok(s.pair.geo['geo:cpa_m'] > 100, 'and yet they pass clear');
-  assert.ok(matchesSituation(byId.get('rule:7d_i').when, s), '7(d)(i) deems risk');
-  assert.deepEqual([...encountersFor(s)], ['encounter:crossing']);
-  assert.ok(
-    bothHold(forcefulPool(s), 'role:give-way'),
-    'both vessels are give-way -- the residual this test pins',
-  );
-});
+ // The theorem is exact at a bearing rate of zero. Rule 7(d)(i)'s pencilled
+ // 1 deg/min is not zero, and two slow vessels 2000 m apart, each with the
+ // other fine on the starboard bow just outside the head-on cone, pass at
+ // several hundred metres with the bearing changing more slowly than that.
+ // The record is consistent, 7(d)(i) deems risk, 15(a) names both. That is
+ // 14(c)'s doubt case -- "shall assume that it does exist and act
+ // accordingly" -- and is Q-41's to settle, not this check's. Pinned so the
+ // day it changes is noticed.
+ const s = statedSituation({
+  ownRel: 15,
+  otherHeading: norm360(15 + 180 - 5),
+  ownSog: 3,
+  otherSog: 3,
+ })
+ assert.deepEqual(inconsistencies(s), [])
+ assert.equal(s.other.geo['geo:rel_bearing_deg'], 5)
+ const appreciable = CONSTANTS.appreciable_bearing_change_deg_min.value
+ assert.ok(Math.abs(s.pair.geo['geo:bearing_change_deg_min']) < appreciable, 'the bearing rate is inside 7(d)(i)')
+ assert.ok(s.pair.geo['geo:cpa_m'] > 100, 'and yet they pass clear')
+ assert.ok(matchesSituation(byId.get('rule:7d_i').when, s), '7(d)(i) deems risk')
+ assert.deepEqual([...encountersFor(s)], ['encounter:crossing'])
+ assert.ok(bothHold(forcefulPool(s), 'role:give-way'), 'both vessels are give-way -- the residual this test pins')
+})
 
 // --- who governs over Rules 12 and 15 (Q-40) --------------------------------
 test("Q-40: Rule 12 reads 3(c)'s sailing vessel, and every norm that governs over it says so", () => {
-  const rule12 = precedence.filter((e) => e.cite.startsWith('12('));
-  assert.deepEqual(rule12.map((e) => e.id).sort(), ['rule:12a_i', 'rule:12a_ii', 'rule:12a_iii']);
-  for (const e of rule12) {
-    // 'Two sailing vessels' is 3(c), which is the propulsion axis -- not the
-    // Rule 18 rank, which would drop a fishing vessel under sail out of Rule 12.
-    assert.equal(
-      e.when['self:fact:propulsion'],
-      'propulsion:sail',
-      `${e.id}: self is not gated on 3(c)`,
-    );
-    assert.equal(
-      e.when['other:fact:propulsion'],
-      'propulsion:sail',
-      `${e.id}: other is not gated on 3(c)`,
-    );
-    for (const k of factKeys(e.when))
-      assert.ok(!k.endsWith('fact:rule18_class'), `${e.id} reads ${k}`);
+ const rule12 = precedence.filter((e) => e.cite.startsWith('12('))
+ assert.deepEqual(rule12.map((e) => e.id).sort(), ['rule:12a_i', 'rule:12a_ii', 'rule:12a_iii'])
+ for (const e of rule12) {
+  // 'Two sailing vessels' is 3(c), which is the propulsion axis -- not the
+  // Rule 18 rank, which would drop a fishing vessel under sail out of Rule 12.
+  assert.equal(e.when['self:fact:propulsion'], 'propulsion:sail', `${e.id}: self is not gated on 3(c)`)
+  assert.equal(e.when['other:fact:propulsion'], 'propulsion:sail', `${e.id}: other is not gated on 3(c)`)
+  for (const k of factKeys(e.when)) assert.ok(!k.endsWith('fact:rule18_class'), `${e.id} reads ${k}`)
+ }
+ // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so every Rule
+ // 18 norm that can be in force between two sailing vessels displaces Rule
+ // 12: 18(b), whose subject is a sailing vessel, and 18(c), which does not
+ // distinguish propulsion. 13(a) is 'notwithstanding' the whole of Sections I
+ // and II. Both are on file, so the reason is asserted along with the data.
+ if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+ if (verbatim('13(a)')) assert.match(enUS.paragraphs['13(a)'].text, /^Notwithstanding/)
+ for (const id of ['rule:18b_i', 'rule:18b_ii', 'rule:18b_iii', 'rule:18c_i', 'rule:18c_ii', 'rule:13a']) {
+  for (const t of ['rule:12a_i', 'rule:12a_ii', 'rule:12a_iii']) {
+   assert.ok((byId.get(id)['rel:overrides'] ?? []).includes(t), `${id} does not override ${t}`)
   }
-  // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so every Rule
-  // 18 norm that can be in force between two sailing vessels displaces Rule
-  // 12: 18(b), whose subject is a sailing vessel, and 18(c), which does not
-  // distinguish propulsion. 13(a) is 'notwithstanding' the whole of Sections I
-  // and II. Both are on file, so the reason is asserted along with the data.
-  if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/);
-  if (verbatim('13(a)')) assert.match(enUS.paragraphs['13(a)'].text, /^Notwithstanding/);
-  for (const id of [
-    'rule:18b_i',
-    'rule:18b_ii',
-    'rule:18b_iii',
-    'rule:18c_i',
-    'rule:18c_ii',
-    'rule:13a',
-  ]) {
-    for (const t of ['rule:12a_i', 'rule:12a_ii', 'rule:12a_iii']) {
-      assert.ok((byId.get(id)['rel:overrides'] ?? []).includes(t), `${id} does not override ${t}`);
-    }
-  }
-  // The two fixtures written for it resolve the way the overrides say.
-  const under18 = bindingCases.find((c) => c.name.startsWith('12 under 18(b)(iii)'));
-  assert.ok(under18);
-  assert.deepEqual(
-    [...rolesFor(under18, 'A')].map(([r]) => r),
-    ['role:stand-on'],
-    'fishing under sail: stand-on, 12(a)(i) displaced',
-  );
-  assert.deepEqual(
-    [...rolesFor(under18, 'B')].map(([r]) => r),
-    ['role:give-way'],
-  );
-  const over12 = bindingCases.find((c) => c.name.startsWith('13 over 12'));
-  assert.ok(over12);
-  assert.deepEqual(
-    [...rolesFor(over12, 'A')].map(([r]) => r),
-    ['role:give-way'],
-    'the overtaking vessel gives way, 12(a)(ii) displaced',
-  );
-  assert.deepEqual(
-    [...rolesFor(over12, 'B')].map(([r]) => r),
-    ['role:stand-on'],
-  );
-});
+ }
+ // The two fixtures written for it resolve the way the overrides say.
+ const under18 = bindingCases.find((c) => c.name.startsWith('12 under 18(b)(iii)'))
+ assert.ok(under18)
+ assert.deepEqual(
+  [...rolesFor(under18, 'A')].map(([r]) => r),
+  ['role:stand-on'],
+  'fishing under sail: stand-on, 12(a)(i) displaced',
+ )
+ assert.deepEqual(
+  [...rolesFor(under18, 'B')].map(([r]) => r),
+  ['role:give-way'],
+ )
+ const over12 = bindingCases.find((c) => c.name.startsWith('13 over 12'))
+ assert.ok(over12)
+ assert.deepEqual(
+  [...rolesFor(over12, 'A')].map(([r]) => r),
+  ['role:give-way'],
+  'the overtaking vessel gives way, 12(a)(ii) displaced',
+ )
+ assert.deepEqual(
+  [...rolesFor(over12, 'B')].map(([r]) => r),
+  ['role:stand-on'],
+ )
+})
 
 test("Q-40: Rule 15 reads 3(b)'s power-driven vessel, and every Rule 18 norm that meets it overrides it", () => {
-  const gw = byId.get('rule:15a:keep_out_of_the_way');
-  // 'Two power-driven vessels' is 3(b), which is the propulsion axis. The rank
-  // is no longer read here at all: keeping it out of the predicate is what puts
-  // the interaction with Rule 18 into rel:overrides where it can be checked.
-  assert.equal(gw.when['self:fact:propulsion'], 'propulsion:power', 'self is not gated on 3(b)');
-  assert.equal(gw.when['other:fact:propulsion'], 'propulsion:power', 'other is not gated on 3(b)');
-  for (const k of factKeys(gw.when))
-    assert.ok(!k.endsWith('fact:rule18_class'), `15a-give-way reads ${k}`);
-  // rule:15a:crossing never carried the rank gate and still must not: the encounter
-  // is a crossing whatever Rule 18 makes of the roles.
-  for (const k of factKeys(byId.get('rule:15a:crossing').when)) {
-    assert.ok(!k.endsWith('fact:rule18_class'), `15a-crossing reads ${k}`);
-  }
-  // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so it governs
-  // over Rule 15 as it does over Rule 12. Asserted from rules.json, so the data
-  // cannot keep the override after losing the words.
-  if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/);
-  if (verbatim('15(a)')) assert.match(enUS.paragraphs['15(a)'].text, /power-driven vessels/);
-  for (const id of [
-    'rule:18a_i',
-    'rule:18a_ii',
-    'rule:18a_iii',
-    'rule:18c_i',
-    'rule:18c_ii',
-    'rule:18f_i',
-  ]) {
-    assert.ok(
-      (byId.get(id)['rel:overrides'] ?? []).includes('rule:15a:keep_out_of_the_way'),
-      `${id} does not override rule:15a:keep_out_of_the_way`,
-    );
-  }
-  // ...and that hand-list is exactly the derived one, so a Rule 18 entry added
-  // later cannot quietly join Rule 15 without saying which of them wins. An
-  // entry meets rule:15a:keep_out_of_the_way when it assigns a helm role and neither subject is
-  // gated to a sailing vessel -- a gate rule:15a:keep_out_of_the_way's own propulsion gate makes
-  // unsatisfiable, because rule18_class:sail decodes from propulsion:sail alone.
-  const sailRow = facts.derived['fact:rule18_class'].decode.find(
-    (r) => r.value === 'rule18_class:sail',
-  );
-  assert.deepEqual(sailRow.when, { 'fact:propulsion': 'propulsion:sail' });
-  const meetsRule15 = (e) =>
-    (HELM_ROLES.has(e.effect.self) || HELM_ROLES.has(e.effect.other)) &&
-    !['self', 'other'].some((sub) => e.when[`${sub}:fact:rule18_class`] === 'rule18_class:sail');
-  const rule18 = precedence.filter((e) => e.cite.startsWith('18('));
-  assert.deepEqual(
-    rule18
-      .filter(meetsRule15)
-      .map((e) => e.id)
-      .sort(),
-    ['rule:18a_i', 'rule:18a_ii', 'rule:18a_iii', 'rule:18c_i', 'rule:18c_ii', 'rule:18f_i'],
-    'the Rule 18 entries that can be in force between two power-driven vessels have changed',
-  );
-  for (const e of rule18) {
-    assert.equal(
-      (e['rel:overrides'] ?? []).includes('rule:15a:keep_out_of_the_way'),
-      meetsRule15(e),
-      `${e.id}: rel:overrides against rule:15a:keep_out_of_the_way disagrees with whether it can meet Rule 15`,
-    );
-  }
-  // 13(a) needs no override against this entry and must not acquire one by
-  // accident: rule:15a:keep_out_of_the_way excludes every overtaking twice over, by the latch
-  // and by the sector 13(b) reads, so the two are never in force together.
-  assert.equal(gw.when['self:hist:was_overtaking'], false);
-  assert.equal(gw.when['other:hist:was_overtaking'], false);
+ const gw = byId.get('rule:15a:keep_out_of_the_way')
+ // 'Two power-driven vessels' is 3(b), which is the propulsion axis. The rank
+ // is no longer read here at all: keeping it out of the predicate is what puts
+ // the interaction with Rule 18 into rel:overrides where it can be checked.
+ assert.equal(gw.when['self:fact:propulsion'], 'propulsion:power', 'self is not gated on 3(b)')
+ assert.equal(gw.when['other:fact:propulsion'], 'propulsion:power', 'other is not gated on 3(b)')
+ for (const k of factKeys(gw.when)) assert.ok(!k.endsWith('fact:rule18_class'), `15a-give-way reads ${k}`)
+ // rule:15a:crossing never carried the rank gate and still must not: the encounter
+ // is a crossing whatever Rule 18 makes of the roles.
+ for (const k of factKeys(byId.get('rule:15a:crossing').when)) {
+  assert.ok(!k.endsWith('fact:rule18_class'), `15a-crossing reads ${k}`)
+ }
+ // Rule 18's chapeau excepts Rules 9, 10 and 13 and no others, so it governs
+ // over Rule 15 as it does over Rule 12. Asserted from rules.json, so the data
+ // cannot keep the override after losing the words.
+ if (verbatim('18')) assert.match(enUS.paragraphs['18'].text, /Rules 9, 10,? and 13/)
+ if (verbatim('15(a)')) assert.match(enUS.paragraphs['15(a)'].text, /power-driven vessels/)
+ for (const id of ['rule:18a_i', 'rule:18a_ii', 'rule:18a_iii', 'rule:18c_i', 'rule:18c_ii', 'rule:18f_i']) {
   assert.ok(
-    !(byId.get('rule:13a')['rel:overrides'] ?? []).includes('rule:15a:keep_out_of_the_way'),
-  );
-  // The two fixtures written for it resolve the way the data now says: where
-  // Rule 18 ranks neither vessel, Rule 15 alone assigns the roles.
-  for (const [name, note] of [
-    ['15 between two fishing vessels', 'two fishing vessels'],
-    ['15 between NUC and RAM', 'NUC and RAM'],
-  ]) {
-    const c = bindingCases.find((x) => x.name.startsWith(name));
-    assert.ok(c, `${name}: fixture missing`);
-    assert.deepEqual(
-      [...rolesFor(c, 'A')].map(([r]) => r),
-      ['role:give-way'],
-      `${note}: self has the other to starboard`,
-    );
-    assert.deepEqual(
-      [...rolesFor(c, 'B')].map(([r]) => r),
-      ['role:stand-on'],
-      `${note}: the other stands on`,
-    );
-  }
-});
+   (byId.get(id)['rel:overrides'] ?? []).includes('rule:15a:keep_out_of_the_way'),
+   `${id} does not override rule:15a:keep_out_of_the_way`,
+  )
+ }
+ // ...and that hand-list is exactly the derived one, so a Rule 18 entry added
+ // later cannot quietly join Rule 15 without saying which of them wins. An
+ // entry meets rule:15a:keep_out_of_the_way when it assigns a helm role and neither subject is
+ // gated to a sailing vessel -- a gate rule:15a:keep_out_of_the_way's own propulsion gate makes
+ // unsatisfiable, because rule18_class:sail decodes from propulsion:sail alone.
+ const sailRow = facts.derived['fact:rule18_class'].decode.find((r) => r.value === 'rule18_class:sail')
+ assert.deepEqual(sailRow.when, { 'fact:propulsion': 'propulsion:sail' })
+ const meetsRule15 = (e) =>
+  (HELM_ROLES.has(e.effect.self) || HELM_ROLES.has(e.effect.other)) &&
+  !['self', 'other'].some((sub) => e.when[`${sub}:fact:rule18_class`] === 'rule18_class:sail')
+ const rule18 = precedence.filter((e) => e.cite.startsWith('18('))
+ assert.deepEqual(
+  rule18
+   .filter(meetsRule15)
+   .map((e) => e.id)
+   .sort(),
+  ['rule:18a_i', 'rule:18a_ii', 'rule:18a_iii', 'rule:18c_i', 'rule:18c_ii', 'rule:18f_i'],
+  'the Rule 18 entries that can be in force between two power-driven vessels have changed',
+ )
+ for (const e of rule18) {
+  assert.equal(
+   (e['rel:overrides'] ?? []).includes('rule:15a:keep_out_of_the_way'),
+   meetsRule15(e),
+   `${e.id}: rel:overrides against rule:15a:keep_out_of_the_way disagrees with whether it can meet Rule 15`,
+  )
+ }
+ // 13(a) needs no override against this entry and must not acquire one by
+ // accident: rule:15a:keep_out_of_the_way excludes every overtaking twice over, by the latch
+ // and by the sector 13(b) reads, so the two are never in force together.
+ assert.equal(gw.when['self:hist:was_overtaking'], false)
+ assert.equal(gw.when['other:hist:was_overtaking'], false)
+ assert.ok(!(byId.get('rule:13a')['rel:overrides'] ?? []).includes('rule:15a:keep_out_of_the_way'))
+ // The two fixtures written for it resolve the way the data now says: where
+ // Rule 18 ranks neither vessel, Rule 15 alone assigns the roles.
+ for (const [name, note] of [
+  ['15 between two fishing vessels', 'two fishing vessels'],
+  ['15 between NUC and RAM', 'NUC and RAM'],
+ ]) {
+  const c = bindingCases.find((x) => x.name.startsWith(name))
+  assert.ok(c, `${name}: fixture missing`)
+  assert.deepEqual(
+   [...rolesFor(c, 'A')].map(([r]) => r),
+   ['role:give-way'],
+   `${note}: self has the other to starboard`,
+  )
+  assert.deepEqual(
+   [...rolesFor(c, 'B')].map(([r]) => r),
+   ['role:stand-on'],
+   `${note}: the other stands on`,
+  )
+ }
+})
 
 // --- Part B invariants (REQ-INV-3) ------------------------------------------
 // docs/part-b-invariants.md claims every Rules 13-19 paragraph path is covered
 // or explicitly excluded. The coverage table is prose; this is what makes the
 // claim a check instead of an assertion.
-const invariantsText = readFileSync(
-  new URL('../docs/part-b-invariants.md', import.meta.url),
-  'utf8',
-);
+const invariantsText = readFileSync(new URL('../docs/part-b-invariants.md', import.meta.url), 'utf8')
 const paragraphPaths = new Set(
-  Object.values(rules.paragraphs)
-    .flat()
-    .map((p) => p.path),
-);
-const invHeadings = [...invariantsText.matchAll(/^### (INV-[A-Za-z0-9-]+) /gm)].map((m) => m[1]);
+ Object.values(rules.paragraphs)
+  .flat()
+  .map((p) => p.path),
+)
+const invHeadings = [...invariantsText.matchAll(/^### (INV-[A-Za-z0-9-]+) /gm)].map((m) => m[1])
 
 test('REQ-INV-3: the coverage table matches data/rules.json for Rules 13-19', () => {
-  const inRange = [...paragraphPaths].filter((p) => /^1[3-9](\(|$)/.test(p));
-  assert.ok(inRange.length > 0, 'no Rules 13-19 paths in data/rules.json -- failing closed');
+ const inRange = [...paragraphPaths].filter((p) => /^1[3-9](\(|$)/.test(p))
+ assert.ok(inRange.length > 0, 'no Rules 13-19 paths in data/rules.json -- failing closed')
 
-  const from = invariantsText.indexOf('### Coverage');
-  const to = invariantsText.indexOf('### Excluded paragraphs');
-  assert.ok(from > 0 && to > from, 'coverage table not found in docs/part-b-invariants.md');
-  const rows = [...invariantsText.slice(from, to).matchAll(/^\| (.+?) \| (.+?) \|$/gm)]
-    .map(([, path, disposition]) => [path.replace(/ \(chapeau\)$/, ''), disposition])
-    .filter(([path]) => path !== 'paragraph' && path !== '---');
+ const from = invariantsText.indexOf('### Coverage')
+ const to = invariantsText.indexOf('### Excluded paragraphs')
+ assert.ok(from > 0 && to > from, 'coverage table not found in docs/part-b-invariants.md')
+ const rows = [...invariantsText.slice(from, to).matchAll(/^\| (.+?) \| (.+?) \|$/gm)]
+  .map(([, path, disposition]) => [path.replace(/ \(chapeau\)$/, ''), disposition])
+  .filter(([path]) => path !== 'paragraph' && path !== '---')
 
-  const seen = new Map();
-  for (const [path] of rows) seen.set(path, (seen.get(path) ?? 0) + 1);
-  for (const path of inRange) {
-    assert.equal(
-      seen.get(path) ?? 0,
-      1,
-      `${path}: appears ${seen.get(path) ?? 0} times in the coverage table, not once`,
-    );
-  }
-  for (const path of seen.keys()) {
-    assert.ok(
-      paragraphPaths.has(path),
-      `${path}: in the coverage table but not a path in data/rules.json`,
-    );
-  }
+ const seen = new Map()
+ for (const [path] of rows) seen.set(path, (seen.get(path) ?? 0) + 1)
+ for (const path of inRange) {
+  assert.equal(seen.get(path) ?? 0, 1, `${path}: appears ${seen.get(path) ?? 0} times in the coverage table, not once`)
+ }
+ for (const path of seen.keys()) {
+  assert.ok(paragraphPaths.has(path), `${path}: in the coverage table but not a path in data/rules.json`)
+ }
 
-  const cited = new Set();
-  for (const [path, disposition] of rows) {
-    const ids = [...disposition.matchAll(/`(INV-[A-Za-z0-9-]+)`/g)].map((m) => m[1]);
-    if (ids.length === 0) {
-      assert.match(
-        disposition,
-        /\*\*not formalised\*\* — \S/,
-        `${path}: neither an INV- id nor an exclusion with a reason`,
-      );
-    }
-    for (const id of ids) {
-      assert.ok(invHeadings.includes(id), `${path} cites ${id}, which has no ### heading`);
-      cited.add(id);
-    }
+ const cited = new Set()
+ for (const [path, disposition] of rows) {
+  const ids = [...disposition.matchAll(/`(INV-[A-Za-z0-9-]+)`/g)].map((m) => m[1])
+  if (ids.length === 0) {
+   assert.match(
+    disposition,
+    /\*\*not formalised\*\* — \S/,
+    `${path}: neither an INV- id nor an exclusion with a reason`,
+   )
   }
-  // Cross-rule invariants (INV-PB-*) belong to no single paragraph by design.
-  for (const id of invHeadings) {
-    if (id.startsWith('INV-PB-')) continue;
-    assert.ok(cited.has(id), `${id} has a heading but no row in the coverage table`);
+  for (const id of ids) {
+   assert.ok(invHeadings.includes(id), `${path} cites ${id}, which has no ### heading`)
+   cited.add(id)
   }
-});
+ }
+ // Cross-rule invariants (INV-PB-*) belong to no single paragraph by design.
+ for (const id of invHeadings) {
+  if (id.startsWith('INV-PB-')) continue
+  assert.ok(cited.has(id), `${id} has a heading but no row in the coverage table`)
+ }
+})
 
 test('REQ-INV-3: every invariant cites paragraph paths that resolve in data/rules.json', () => {
-  const blocks = invariantsText.split(/^### (?=INV-)/m).slice(1);
-  assert.equal(blocks.length, invHeadings.length);
-  for (const block of blocks) {
-    const id = block.match(/^(INV-[A-Za-z0-9-]+)/)[1];
-    const header = block.split('\n\n')[1];
-    assert.ok(header, `${id}: no header line`);
-    const cite = header.split(' · ')[0];
-    const paths = [...cite.matchAll(/`([^`]+)`/g)].map((m) => m[1].split('–')[0]);
-    assert.ok(paths.length > 0, `${id}: header line cites no paragraph path`);
-    for (const path of paths) {
-      assert.ok(
-        paragraphPaths.has(path),
-        `${id} cites ${path}, which is not a path in data/rules.json`,
-      );
-    }
+ const blocks = invariantsText.split(/^### (?=INV-)/m).slice(1)
+ assert.equal(blocks.length, invHeadings.length)
+ for (const block of blocks) {
+  const id = block.match(/^(INV-[A-Za-z0-9-]+)/)[1]
+  const header = block.split('\n\n')[1]
+  assert.ok(header, `${id}: no header line`)
+  const cite = header.split(' · ')[0]
+  const paths = [...cite.matchAll(/`([^`]+)`/g)].map((m) => m[1].split('–')[0])
+  assert.ok(paths.length > 0, `${id}: header line cites no paragraph path`)
+  for (const path of paths) {
+   assert.ok(paragraphPaths.has(path), `${id} cites ${path}, which is not a path in data/rules.json`)
   }
-});
+ }
+})
 
 test('REQ-INV-7: every Invariant. paragraph is at most 120 words', () => {
-  const blocks = invariantsText.split(/^### (?=INV-)/m).slice(1);
-  assert.equal(blocks.length, invHeadings.length);
-  for (const block of blocks) {
-    const id = block.match(/^(INV-[A-Za-z0-9-]+)/)[1];
-    const invariantParagraph = block.split('\n\n').find((p) => p.startsWith('**Invariant.**'));
-    assert.ok(invariantParagraph, `${id}: no **Invariant.** paragraph`);
-    const wordCount = invariantParagraph.trim().split(/\s+/).length;
-    assert.ok(
-      wordCount <= 120,
-      `${id}: **Invariant.** paragraph is ${wordCount} words, over the 120-word limit`,
-    );
-  }
-});
+ const blocks = invariantsText.split(/^### (?=INV-)/m).slice(1)
+ assert.equal(blocks.length, invHeadings.length)
+ for (const block of blocks) {
+  const id = block.match(/^(INV-[A-Za-z0-9-]+)/)[1]
+  const invariantParagraph = block.split('\n\n').find((p) => p.startsWith('**Invariant.**'))
+  assert.ok(invariantParagraph, `${id}: no **Invariant.** paragraph`)
+  const wordCount = invariantParagraph.trim().split(/\s+/).length
+  assert.ok(wordCount <= 120, `${id}: **Invariant.** paragraph is ${wordCount} words, over the 120-word limit`)
+ }
+})
 
 test('Q-, REQ- and INV- identifiers are each defined once', () => {
-  const unique = (label, ids) => {
-    const dup = ids.filter((id, i) => ids.indexOf(id) !== i);
-    assert.deepEqual(dup, [], `${label} defined more than once: ${dup.join(', ')}`);
-  };
-  unique(
-    'Q- ids in docs/requirements.md',
-    [...requirementsText.matchAll(/^- \*\*(Q-\d+)\*\* —/gm)].map((m) => m[1]),
-  );
-  unique(
-    'REQ- ids in docs/requirements.md',
-    [...requirementsText.matchAll(/^- \*\*(REQ-[A-Z]+-\d+)\*\*/gm)].map((m) => m[1]),
-  );
-  unique('INV- headings in docs/part-b-invariants.md', invHeadings);
-});
+ const unique = (label, ids) => {
+  const dup = ids.filter((id, i) => ids.indexOf(id) !== i)
+  assert.deepEqual(dup, [], `${label} defined more than once: ${dup.join(', ')}`)
+ }
+ unique(
+  'Q- ids in docs/requirements.md',
+  [...requirementsText.matchAll(/^- \*\*(Q-\d+)\*\* —/gm)].map((m) => m[1]),
+ )
+ unique(
+  'REQ- ids in docs/requirements.md',
+  [...requirementsText.matchAll(/^- \*\*(REQ-[A-Z]+-\d+)\*\*/gm)].map((m) => m[1]),
+ )
+ unique('INV- headings in docs/part-b-invariants.md', invHeadings)
+})

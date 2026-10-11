@@ -1,11 +1,14 @@
 {
-  "printWidth": 100,
-  "tabWidth": 2,
-  "useTabs": false,
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "all",
-  "bracketSpacing": true,
-  "arrowParens": "always",
-  "endOfLine": "lf"
+ "printWidth": 120,
+ "tabWidth": 1,
+ "useTabs": false,
+ "semi": false,
+ "singleQuote": true,
+ "trailingComma": "all",
+ "bracketSpacing": true,
+ "arrowParens": "always",
+ "endOfLine": "lf",
+ "overrides": [
+  { "files": ["data/**/*.json", "fixtures/**/*.json"], "options": { "parser": "json-stringify", "tabWidth": 1 } }
+ ]
 }

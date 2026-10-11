@@ -1,40 +1,40 @@
 {
-  "name": "colregs",
-  "version": "0.3.4",
-  "description": "COLREGS 72 and its national amalgamations as language-neutral JSON — rule text, light definitions, and applicability predicates — with cross-implementation fixtures",
-  "license": "Apache-2.0",
-  "colregs": {
-    "referenceLanguage": "en"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mark-brannan/colregs.git"
-  },
-  "keywords": [
-    "colregs",
-    "navrules",
-    "navigation-rules",
-    "inland-rules",
-    "33-cfr-83",
-    "cevni",
-    "collision-regulations",
-    "navigation-lights"
-  ],
-  "scripts": {
-    "test": "node --test test/*.mjs",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
-  "files": [
-    "data",
-    "images",
-    "fixtures",
-    "docs",
-    "schema",
-    "PROVENANCE.md"
-  ],
-  "devDependencies": {
-    "ajv": "^8.20.0",
-    "prettier": "3.6.2"
-  }
+ "name": "colregs",
+ "version": "0.3.4",
+ "description": "COLREGS 72 and its national amalgamations as language-neutral JSON — rule text, light definitions, and applicability predicates — with cross-implementation fixtures",
+ "license": "Apache-2.0",
+ "colregs": {
+  "referenceLanguage": "en"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/mark-brannan/colregs.git"
+ },
+ "keywords": [
+  "colregs",
+  "navrules",
+  "navigation-rules",
+  "inland-rules",
+  "33-cfr-83",
+  "cevni",
+  "collision-regulations",
+  "navigation-lights"
+ ],
+ "scripts": {
+  "test": "node --test test/*.mjs",
+  "format": "prettier --write .",
+  "format:check": "prettier --check ."
+ },
+ "files": [
+  "data",
+  "images",
+  "fixtures",
+  "docs",
+  "schema",
+  "PROVENANCE.md"
+ ],
+ "devDependencies": {
+  "ajv": "^8.20.0",
+  "prettier": "3.6.2"
+ }
 }
