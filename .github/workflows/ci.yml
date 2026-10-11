@@ -26,6 +26,18 @@ jobs:
       # below is the gate for it, so the wrapper test skips here.
       - uses: mark-brannan/.github/.github/actions/npm-test-prose-fallback@main
 
+  # Formatting gate: .prettierrc over the tree. On failure the annotation names
+  # the fix, since the check's own output is the diff, not the command.
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run format:check || { echo "::error::run npm run format"; exit 1; }
+
   # Documentation gate: the shared prose-budget engine over docs/budgets.json.
   prose-budget:
     uses: mark-brannan/.github/.github/workflows/prose-budget.yml@main
@@ -45,7 +57,7 @@ jobs:
   # evaluate when a dependency failed or was skipped, so it reports an explicit
   # pass or fail of its own rather than inheriting the skip.
   ci-gate:
-    needs: [test, prose-budget, nonempty]
+    needs: [test, format, prose-budget, nonempty]
     if: always()
     # It reads nothing and writes nothing; the results go in as an input.
     permissions: {}
