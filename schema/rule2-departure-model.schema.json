@@ -68,7 +68,12 @@
     "status": {
       "$comment": "The status alphabet is colregs' (ADR 0005 §5), not an engine's to rename: not-flagged, model-rule-conflict and no-robust-policy-in-model name R0, R1 and R2; inconclusive-in-model names none.",
       "type": "string",
-      "enum": ["not-flagged", "model-rule-conflict", "no-robust-policy-in-model", "inconclusive-in-model"]
+      "enum": [
+        "not-flagged",
+        "model-rule-conflict",
+        "no-robust-policy-in-model",
+        "inconclusive-in-model"
+      ]
     },
     "advisory": {
       "type": "object",

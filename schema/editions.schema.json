@@ -24,7 +24,10 @@
             },
             "skeleton": {
               "$comment": "Which edition data/rules.json consolidates for this jurisdiction; null while the skeleton has no paragraphs of it.",
-              "oneOf": [{ "type": "null" }, { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$" }]
+              "oneOf": [
+                { "type": "null" },
+                { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$" }
+              ]
             },
             "editions": {
               "type": "object",

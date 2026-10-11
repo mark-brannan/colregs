@@ -5,7 +5,14 @@
   "description": "Annex I positioning, shapes, colour and intensity. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["jurisdiction", "vertical_positioning", "horizontal_positioning", "shapes", "colors", "intensity"],
+  "required": [
+    "jurisdiction",
+    "vertical_positioning",
+    "horizontal_positioning",
+    "shapes",
+    "colors",
+    "intensity"
+  ],
   "$defs": {
     "predicateValue": {
       "oneOf": [

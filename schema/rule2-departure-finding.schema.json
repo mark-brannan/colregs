@@ -40,7 +40,14 @@
               "$ref": "rule2-departure-model.schema.json#/$defs/solverParameters"
             }
           ],
-          "required": ["dynamics", "horizon_s", "cadence_s", "separation_m", "information", "adversary"],
+          "required": [
+            "dynamics",
+            "horizon_s",
+            "cadence_s",
+            "separation_m",
+            "information",
+            "adversary"
+          ],
           "unevaluatedProperties": false
         },
         "assumptions_violated": {

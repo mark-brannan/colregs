@@ -121,7 +121,13 @@
     },
     "effectRole": {
       "type": "string",
-      "enum": ["role:give-way", "role:stand-on", "role:shall-not-impede", "role:keep-clear", "role:none"]
+      "enum": [
+        "role:give-way",
+        "role:stand-on",
+        "role:shall-not-impede",
+        "role:keep-clear",
+        "role:none"
+      ]
     },
     "effect": {
       "oneOf": [
@@ -155,7 +161,12 @@
           "properties": {
             "encounter": {
               "type": "string",
-              "enum": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"]
+              "enum": [
+                "encounter:head-on",
+                "encounter:crossing",
+                "encounter:overtaking",
+                "encounter:none"
+              ]
             }
           }
         },
@@ -376,7 +387,13 @@
         "roles": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["role:give-way", "role:stand-on", "role:shall-not-impede", "role:keep-clear", "role:none"],
+          "required": [
+            "role:give-way",
+            "role:stand-on",
+            "role:shall-not-impede",
+            "role:keep-clear",
+            "role:none"
+          ],
           "properties": {
             "role:give-way": { "type": "string" },
             "role:stand-on": { "type": "string" },
@@ -388,7 +405,12 @@
         "encounters": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"],
+          "required": [
+            "encounter:head-on",
+            "encounter:crossing",
+            "encounter:overtaking",
+            "encounter:none"
+          ],
           "properties": {
             "encounter:head-on": { "type": "string" },
             "encounter:crossing": { "type": "string" },

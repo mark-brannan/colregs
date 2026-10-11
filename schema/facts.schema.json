@@ -316,7 +316,11 @@
                     }
                   },
                   "value": {
-                    "oneOf": [{ "$ref": "#/$defs/factValue" }, { "type": "boolean" }, { "type": "number" }]
+                    "oneOf": [
+                      { "$ref": "#/$defs/factValue" },
+                      { "type": "boolean" },
+                      { "type": "number" }
+                    ]
                   },
                   "cite": {
                     "type": "string"
@@ -427,7 +431,15 @@
     "situation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["namespace", "kinematics", "geometry", "history", "record", "environment", "acts"],
+      "required": [
+        "namespace",
+        "kinematics",
+        "geometry",
+        "history",
+        "record",
+        "environment",
+        "acts"
+      ],
       "properties": {
         "note": {
           "type": "string"
