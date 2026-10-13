@@ -134,6 +134,11 @@
    "actuable": false,
    "note": "The vessel is a wing-in-ground craft. Doesn't by itself mean 23(c) applies -- see wig_near_surface."
   },
+  "fact:seaplane": {
+   "cite": "3(e)",
+   "actuable": false,
+   "note": "The vessel is a seaplane, an aircraft designed to manoeuvre on the water; her lights are the power-driven vessel's, and Rule 31 is what reads this."
+  },
   "fact:wig_near_surface": {
    "cite": "23(c)",
    "actuable": false,
@@ -326,7 +331,7 @@
     },
     {
      "case": "a seaplane (3(e))",
-     "why": "The eighth term Rule 18 distinguishes, and the one value this fact does not carry: 18(e) needs a fact for being a seaplane and none exists, which known_omissions already records. A value with no row and no fact behind it would be a promise the data cannot keep, so it is absent rather than unreachable."
+     "why": "The eighth term Rule 18 distinguishes, and the one value this fact does not carry: `fact:seaplane` exists, but no row reads it and no precedence entry would read the value, which known_omissions records under 18(e). A value with no row behind it would be a promise the data cannot keep, so it is absent rather than unreachable."
     },
     {
      "case": "a fact record with no fact:propulsion",

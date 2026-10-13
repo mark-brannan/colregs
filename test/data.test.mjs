@@ -1013,7 +1013,7 @@ test('fact:rule18_class: the decode table is the definition, and it is total whe
   );
   assert.equal(cls({}), undefined);
   assert.equal(cls({ 'fact:activity': 'activity:none' }), undefined);
-  assert.ok(!values.has('rule18_class:seaplane'), '18(e) has no fact behind it; known_omissions records it');
+  assert.ok(!values.has('rule18_class:seaplane'), '18(e) has no row behind it; known_omissions records it');
   assert.ok(spec.undecodable.length >= 3);
   for (const u of spec.undecodable) assert.ok(u.case && u.why);
 

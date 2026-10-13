@@ -47,29 +47,14 @@
  },
  "known_omissions": [
   {
-   "cite": "24(d)",
-   "what": "A power-driven vessel to which 24(a) or (c) applies shall also comply with 23(a)(ii) — the second masthead light.",
-   "why": "Not an entry in the settled table; 24a-m2/24a-m3 carry in_lieu_of against rule:23a_i and rule:23a_ii instead. Recorded here rather than added unilaterally."
-  },
-  {
    "cite": "24(f), 24(g), 24(h), 24(i)",
    "what": "Vessels pushed or towed in a group; inconspicuous partly submerged tows; impracticability fallbacks.",
    "why": "Outside the settled table. Rule text is present in rules.json."
   },
   {
-   "cite": "27(c)",
-   "what": "Towing operation that severely restricts the tow's ability to deviate: Rule 24(a) lights plus the 27(b)(i)/(ii) RAM display.",
-   "why": "Outside the settled table; expressible as activity=towing plus activity=ram."
-  },
-  {
    "cite": "25(e)",
    "what": "Under us/inland a vessel of less than 12 m proceeding under sail and power is not required to exhibit the 25(e) cone (33 CFR 83.25(e)).",
    "why": "rule:25e is inherited from intl unchanged; the Inland relief is a us/inland entry not yet written, so under us/inland the cone is asserted for every length."
-  },
-  {
-   "cite": "31",
-   "what": "Seaplanes and WIG craft show the closest practicable equivalent.",
-   "why": "Not expressible as a light set."
   },
   {
    "cite": "9(d)",
@@ -84,7 +69,7 @@
   {
    "cite": "18(e)",
    "what": "A seaplane on the water shall in general keep well clear of all vessels and avoid impeding their navigation; where risk of collision exists she shall comply with Rules 4-19.",
-   "why": "There is no fact for being a seaplane. `fact:propulsion` has power, sail and oars, and Rule 3(a) makes a seaplane a vessel without giving the fact record anywhere to say so. The effect vocabulary has `role:keep-clear` for it; the predicate does not exist."
+   "why": "`fact:seaplane` says a vessel is one, but `fact:rule18_class` has no seaplane row and no precedence entry reads it, so 18(e)'s rank is unwritten, not inexpressible. The effect vocabulary has `role:keep-clear` for it."
   },
   {
    "cite": "18(f)(ii)",
@@ -2737,10 +2722,18 @@
    "id": "rule:27g",
    "cite": "27(g)",
    "when": {
-    "fact:activity": [
-     "activity:nuc",
-     "activity:ram",
-     "activity:mine"
+    "any_of": [
+     {
+      "fact:activity": [
+       "activity:nuc",
+       "activity:ram",
+       "activity:mine"
+      ]
+     },
+     {
+      "fact:activity": "activity:towing",
+      "fact:tow_restricts_deviation": true
+     }
     ],
     "fact:length_m": {
      "lt": 12
@@ -2755,6 +2748,8 @@
     "rule:27b_ii",
     "rule:27b_iii",
     "rule:27b_iv",
+    "rule:27c",
+    "rule:27c:shapes",
     "rule:27d",
     "rule:27d:shapes",
     "rule:27f",
@@ -3502,6 +3497,89 @@
    ],
    "modality": "modality:may",
    "note": "34(d)'s second sentence: the whistle signal may be supplemented by at least five short and rapid flashes."
+  },
+  {
+   "id": "rule:24d",
+   "jurisdiction": "intl",
+   "cite": "24(d)",
+   "when": {
+    "fact:propulsion": "propulsion:power",
+    "any_of": [
+     {
+      "fact:activity": "activity:towing"
+     },
+     {
+      "fact:activity": "activity:pushing",
+      "fact:composite_unit": false
+     }
+    ]
+   },
+   "lights": [],
+   "rel:includes": [
+    "rule:23a_ii"
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_24_d.png"
+   ],
+   "note": "The two disjuncts are the predicates 24(a) and 24(c) select on, and the import keeps 23(a)(ii)'s own modality: the second masthead light binds at 50 m and over and is permitted below (ADR 0019)."
+  },
+  {
+   "id": "rule:27c",
+   "jurisdiction": "intl",
+   "cite": "27(c)",
+   "when": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:tow_restricts_deviation": true
+   },
+   "lights": [],
+   "rel:includes": [
+    "rule:27b_i"
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_27_c.png"
+   ],
+   "note": "The 24(a) lights select on their own; the 27(b)(i) display is imported, not read as activity:ram, because fact:activity holds one value and this vessel's is towing (ADR 0019)."
+  },
+  {
+   "id": "rule:27c:shapes",
+   "jurisdiction": "intl",
+   "cite": "27(c)",
+   "when": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:tow_restricts_deviation": true,
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "rel:includes": [
+    "rule:27b_ii"
+   ],
+   "modality": "modality:shall",
+   "images": [
+    "NRHB_27_c.png"
+   ],
+   "note": "27(c)'s day half: the 27(b)(ii) shapes, carried apart from rule:27c because Rule 20(c)'s shift reaches only an entry whose signals are all lights, and one carrier of both would keep the 27(b)(i) lights `shall` by day (ADR 0021)."
+  },
+  {
+   "id": "rule:31",
+   "jurisdiction": "intl",
+   "cite": "31",
+   "when": {
+    "any_of": [
+     {
+      "fact:seaplane": true
+     },
+     {
+      "fact:wig": true
+     }
+    ]
+   },
+   "lights": [],
+   "modality": "modality:shall",
+   "note": "Emits no light set: where the displays the other entries return are impracticable for her, a seaplane or WIG craft shows the closest possible equivalent, and whether they are is the vessel's judgement, as for 27(e)."
   }
  ],
  "suppressions": [

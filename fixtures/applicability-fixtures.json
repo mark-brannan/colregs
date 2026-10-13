@@ -345,7 +345,8 @@
    },
    "expect": [
     "rule:24a_i",
-    "rule:24a_ii_iv"
+    "rule:24a_ii_iv",
+    "rule:24d"
    ]
   },
   {
@@ -359,7 +360,8 @@
    },
    "expect": [
     "rule:24a_i:exceeds_200m",
-    "rule:24a_ii_iv"
+    "rule:24a_ii_iv",
+    "rule:24d"
    ]
   },
   {
@@ -376,7 +378,8 @@
     "rule:24a_ii_iv",
     "rule:30a",
     "rule:30b",
-    "rule:30c"
+    "rule:30c",
+    "rule:24d"
    ]
   },
   {
@@ -418,7 +421,8 @@
     "fact:composite_unit": false
    },
    "expect": [
-    "rule:24c"
+    "rule:24c",
+    "rule:24d"
    ]
   },
   {
@@ -434,7 +438,8 @@
     "rule:24c",
     "rule:30a",
     "rule:30b",
-    "rule:30c"
+    "rule:30c",
+    "rule:24d"
    ]
   },
   {
@@ -763,7 +768,8 @@
    },
    "expect": [
     "rule:24a_i",
-    "rule:24a_ii_iv"
+    "rule:24a_ii_iv",
+    "rule:24d"
    ]
   },
   {
@@ -777,7 +783,8 @@
    },
    "expect": [
     "rule:24a_i:exceeds_200m",
-    "rule:24a_ii_iv"
+    "rule:24a_ii_iv",
+    "rule:24d"
    ]
   },
   {
@@ -817,7 +824,8 @@
     "rule:23a_i",
     "rule:23a_ii",
     "rule:23a_iii_iv",
-    "rule:23c"
+    "rule:23c",
+    "rule:31"
    ]
   },
   {
@@ -833,7 +841,8 @@
    "expect": [
     "rule:23a_i",
     "rule:23a_ii",
-    "rule:23a_iii_iv"
+    "rule:23a_iii_iv",
+    "rule:31"
    ]
   },
   {
@@ -1008,7 +1017,8 @@
    },
    "expect": [
     "rule:24c:towing_lights",
-    "rule:24c:underway_lights"
+    "rule:24c:underway_lights",
+    "rule:24d"
    ]
   },
   {
@@ -1025,7 +1035,8 @@
     "rule:24c:towing_lights",
     "rule:30a",
     "rule:30b",
-    "rule:30c"
+    "rule:30c",
+    "rule:24d"
    ]
   },
   {
@@ -1104,7 +1115,8 @@
    },
    "expect": [
     "rule:24a_i",
-    "rule:24a_ii_iv"
+    "rule:24a_ii_iv",
+    "rule:24d"
    ]
   },
   {
@@ -1120,7 +1132,8 @@
    "expect": [
     "rule:24a_i:exceeds_200m",
     "rule:24a_ii_iv",
-    "rule:24a_v"
+    "rule:24a_v",
+    "rule:24d"
    ]
   },
   {
@@ -1135,7 +1148,8 @@
    },
    "expect": [
     "rule:24a_i",
-    "rule:24a_ii_iv"
+    "rule:24a_ii_iv",
+    "rule:24d"
    ]
   },
   {
@@ -1151,7 +1165,8 @@
    "expect": [
     "rule:24a_i:exceeds_200m",
     "rule:24a_ii_iv",
-    "rule:24a_v"
+    "rule:24a_v",
+    "rule:24d"
    ]
   },
   {
@@ -1810,7 +1825,8 @@
     "rule:24a_i",
     "rule:24a_ii_iv",
     "rule:35a",
-    "rule:35c"
+    "rule:35c",
+    "rule:24d"
    ]
   },
   {
@@ -2065,6 +2081,83 @@
     "rule:23a_iii_iv",
     "rule:35a",
     "rule:34e"
+   ]
+  },
+  {
+   "name": "27(c): towing astern, the tow severely restricts deviation, 40 m",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:length_m": 40,
+    "fact:tow_length_m": 150,
+    "fact:tow_restricts_deviation": true
+   },
+   "expect": [
+    "rule:24a_i",
+    "rule:24a_ii_iv",
+    "rule:24d",
+    "rule:27c"
+   ]
+  },
+  {
+   "name": "27(c): towing astern, the tow severely restricts deviation, 40 m, by day in good visibility",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:length_m": 40,
+    "fact:tow_length_m": 150,
+    "fact:tow_restricts_deviation": true,
+    "fact:time": "time:day",
+    "fact:visibility": "visibility:good"
+   },
+   "expect": [
+    "rule:24a_i",
+    "rule:24a_ii_iv",
+    "rule:24d",
+    {
+     "entry": "rule:27c",
+     "modality": "modality:may"
+    },
+    {
+     "entry": "rule:27c:shapes",
+     "modality": "modality:shall"
+    }
+   ]
+  },
+  {
+   "name": "27(c) and 27(g): towing astern at 10 m, the tow severely restricts deviation",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:towing",
+    "fact:position": "position:underway",
+    "fact:length_m": 10,
+    "fact:tow_length_m": 50,
+    "fact:tow_restricts_deviation": true
+   },
+   "expect": [
+    "rule:24a_i",
+    "rule:24a_ii_iv",
+    "rule:24d",
+    "rule:27c",
+    "rule:27g"
+   ]
+  },
+  {
+   "name": "Rule 31: seaplane underway on the water, 15 m",
+   "facts": {
+    "fact:propulsion": "propulsion:power",
+    "fact:activity": "activity:none",
+    "fact:position": "position:underway",
+    "fact:length_m": 15,
+    "fact:seaplane": true
+   },
+   "expect": [
+    "rule:23a_i",
+    "rule:23a_ii",
+    "rule:23a_iii_iv",
+    "rule:31"
    ]
   }
  ]
