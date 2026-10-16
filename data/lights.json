@@ -40,7 +40,7 @@
    "character": "steady",
    "arc_deg": 112.5,
    "arc": {
-    "from_deg": 0.0,
+    "from_deg": 0,
     "to_deg": 112.5
    },
    "side": "starboard",
@@ -54,7 +54,7 @@
    "arc_deg": 112.5,
    "arc": {
     "from_deg": 247.5,
-    "to_deg": 360.0
+    "to_deg": 360
    },
    "side": "port",
    "rule21": true
@@ -93,8 +93,8 @@
    "character": "steady",
    "arc_deg": 360,
    "arc": {
-    "from_deg": 0.0,
-    "to_deg": 360.0
+    "from_deg": 0,
+    "to_deg": 360
    },
    "rule21": true
   },
@@ -107,8 +107,8 @@
    "flashes_per_minute_min": 120,
    "arc_deg": 360,
    "arc": {
-    "from_deg": 0.0,
-    "to_deg": 360.0
+    "from_deg": 0,
+    "to_deg": 360
    },
    "note": "Rule 21(f) defines the character only; every International use of it (23(b), 23(c)) is an all-round light.",
    "rule21": true

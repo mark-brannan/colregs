@@ -17,10 +17,17 @@
           "additionalProperties": false,
           "required": ["instrument", "skeleton", "editions"],
           "properties": {
-            "instrument": { "$comment": "The body of rules this jurisdiction's editions are editions of.", "type": "string", "minLength": 1 },
+            "instrument": {
+              "$comment": "The body of rules this jurisdiction's editions are editions of.",
+              "type": "string",
+              "minLength": 1
+            },
             "skeleton": {
               "$comment": "Which edition data/rules.json consolidates for this jurisdiction; null while the skeleton has no paragraphs of it.",
-              "oneOf": [{ "type": "null" }, { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$" }]
+              "oneOf": [
+                { "type": "null" },
+                { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$" }
+              ]
             },
             "editions": {
               "type": "object",
@@ -31,9 +38,17 @@
                   "additionalProperties": false,
                   "required": ["amended_through", "in_force"],
                   "properties": {
-                    "amended_through": { "$comment": "Free text: national amalgamations cite their own amending acts, not IMO resolutions.", "type": "string", "minLength": 1 },
+                    "amended_through": {
+                      "$comment": "Free text: national amalgamations cite their own amending acts, not IMO resolutions.",
+                      "type": "string",
+                      "minLength": 1
+                    },
                     "in_force": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-                    "superseded_by": { "$comment": "The later edition, where two are registered and one has lapsed.", "type": "string", "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$" },
+                    "superseded_by": {
+                      "$comment": "The later edition, where two are registered and one has lapsed.",
+                      "type": "string",
+                      "pattern": "^[a-z]+(/[a-z]+)*@[a-z0-9-]+$"
+                    },
                     "note": { "type": "string" }
                   }
                 }

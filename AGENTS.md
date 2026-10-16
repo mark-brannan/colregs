@@ -6,7 +6,7 @@ This file provides guidance to AI coding agents (Claude Code, and others) when w
 
 A **data-only** package: COLREGS 72 and its national amalgamations as
 language-neutral JSON. No runtime, no dependencies, no inference engine.
-Nothing here decides what a vessel *is doing* — it's a pure function of a
+Nothing here decides what a vessel _is doing_ — it's a pure function of a
 fact record supplied by the consumer.
 
 `docs/requirements.md` is the source of truth for what the package must do;
@@ -23,7 +23,7 @@ before making a design change — don't infer intent from the data alone.
 every other identifier — an entry, a light, a fact, a relation — carries a
 type prefix. Read it before adding one; ADR 0015 says how an entry is named.
 `docs/conventions.md` states the ink/pencil convention: a `✎` marker is the
-rule for *who may change that item and on what grounds*, not a confidence
+rule for _who may change that item and on what grounds_, not a confidence
 note — read it before editing anything a design doc has marked.
 `docs/part-b-invariants.md` states Rules 13–19 as trace invariants with stable `INV-` ids; read `REQ-INV-5` (§4.2) first — it forbids choosing a reading.
 
@@ -31,9 +31,10 @@ note — read it before editing anything a design doc has marked.
 
 ```bash
 npm test              # node --test test/*.mjs — the entire verification surface
+npm run format:check  # prettier --check . (npm run format rewrites)
 ```
 
-There is no build, lint, or type-check step. `test/*.mjs` is the
+There is no build or type-check step. `test/*.mjs` is the
 whole suite; there's no per-test filter script — use Node's own `--test-name-pattern`
 if you need to run one test (e.g. `node --test --test-name-pattern=drift test/data.test.mjs`).
 
@@ -161,7 +162,7 @@ them break and fix them next. `git revert` is the migration path.
 
 **Where the rigour goes instead.** Identifiers, the six relation verbs and their
 semantics, editions and corpora, the Part B invariants, the requirement IDs and
-the verification notes. Those are expensive to change *later* no matter who is
+the verification notes. Those are expensive to change _later_ no matter who is
 consuming today, and `docs/identifiers.md`, `docs/requirements.md` and the
 ink/pencil convention govern them — including REQ-MODEL-10/11's ban on renaming
 or silently removing an identifier, which `test/data.test.mjs` enforces
@@ -170,10 +171,10 @@ surface and the version number as disposable.
 
 **Two failure modes, both of which have cost repeated correction.**
 
-- *Withholding.* Not naming, not exporting, not landing a thing because it isn't
+- _Withholding._ Not naming, not exporting, not landing a thing because it isn't
   finished. Land it unfinished and named. A name in a design doc gets its entry
   the same day, empty or provisional.
-- *Hedging.* Disclaimers, caveats, "for now", "may change", liability language,
+- _Hedging._ Disclaimers, caveats, "for now", "may change", liability language,
   or any sentence that closes an option on risk grounds. Risk is Solace's call,
   always, however small the decision looks and however sure the agent feels. An
   agent that has done risk arithmetic silently, in a subordinate clause, has made

@@ -22,6 +22,14 @@
   {
    "path": "24(g)(i)",
    "reason": "not present in the USCG amalgamated page used as the source; no verbatim text transcribed rather than reconstruct it"
+  },
+  {
+   "path": "30(d)(i)",
+   "reason": "the USCG amalgamated page used as the source folds this sub-paragraph into 30(d), whose text carries it inline; no separate text transcribed"
+  },
+  {
+   "path": "30(d)(ii)",
+   "reason": "the USCG amalgamated page used as the source folds this sub-paragraph into 30(d), whose text carries it inline; no separate text transcribed"
   }
  ],
  "paragraphs": {

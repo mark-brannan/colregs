@@ -5,9 +5,7 @@
   "description": "Index of the text corpora under data/text/: which exist, where each lives, and how many paragraphs it covers. Derived from the corpus files and checked against them by test/data.test.mjs; a consumer that cannot list a directory reads this instead. See docs/adr/0013-corpus-files-with-editions.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "corpora"
-  ],
+  "required": ["corpora"],
   "properties": {
     "note": {
       "type": "string"
@@ -49,12 +47,7 @@
               "pattern": "^[a-z0-9]+$"
             },
             "tier": {
-              "enum": [
-                "authentic",
-                "official",
-                "national",
-                "community"
-              ]
+              "enum": ["authentic", "official", "national", "community"]
             },
             "paragraphs": {
               "type": "integer",

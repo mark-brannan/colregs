@@ -5,9 +5,7 @@
   "description": "The language-neutral skeleton: paragraph paths, rule numbers, jurisdictions and figures. No text -- the words live in data/text/ corpora (schema/corpus.schema.json); the edition each jurisdiction consolidates is declared in data/editions.json. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md, docs/adr/0003-language-as-a-dimension.md and docs/adr/0013-corpus-files-with-editions.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "paragraphs"
-  ],
+  "required": ["paragraphs"],
   "properties": {
     "note": {
       "type": "string"
@@ -23,10 +21,7 @@
         "^[a-z]+(/[a-z]+)+$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "paragraphs",
-            "suppressions"
-          ],
+          "required": ["paragraphs", "suppressions"],
           "properties": {
             "note": {
               "type": "string"
@@ -39,10 +34,7 @@
               "items": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": [
-                  "path",
-                  "why"
-                ],
+                "required": ["path", "why"],
                 "properties": {
                   "path": {
                     "$ref": "evaluation.schema.json#/$defs/paragraphCite"
@@ -67,11 +59,7 @@
         "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "path",
-            "rule",
-            "jurisdiction"
-          ],
+          "required": ["path", "rule", "jurisdiction"],
           "properties": {
             "path": {
               "type": "string",

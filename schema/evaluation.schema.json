@@ -22,10 +22,7 @@
       "$comment": "`resolved`: the data is the implementation's own colregs dependency and `version` describes it exactly. `caller`: the caller supplied the data and `version` names only the release the implementation resolved.",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "version",
-        "source"
-      ],
+      "required": ["version", "source"],
       "properties": {
         "version": {
           "type": "string",
@@ -33,20 +30,14 @@
         },
         "source": {
           "type": "string",
-          "enum": [
-            "resolved",
-            "caller"
-          ]
+          "enum": ["resolved", "caller"]
         }
       }
     },
     "byEntry": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "by"
-      ],
+      "required": ["id", "by"],
       "properties": {
         "id": {
           "$ref": "#/$defs/ruleId"
@@ -87,12 +78,7 @@
       "$comment": "One of data/applicability.json's represented_paragraphs without its note: an evaluation carries the identity, not the prose.",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "jurisdiction",
-        "cite",
-        "category"
-      ],
+      "required": ["id", "jurisdiction", "cite", "category"],
       "properties": {
         "id": {
           "$ref": "applicability.schema.json#/$defs/ruleId"
@@ -114,11 +100,7 @@
       "$comment": "What an evaluation read, and therefore what its answer does not cover: the categories it matched, the jurisdictions offered, and the paragraphs no verb computes.",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "evaluated_categories",
-        "jurisdictions",
-        "represented"
-      ],
+      "required": ["evaluated_categories", "jurisdictions", "represented"],
       "properties": {
         "evaluated_categories": {
           "type": "array",

@@ -57,17 +57,11 @@
         },
         "information": {
           "type": "string",
-          "enum": [
-            "full",
-            "partial"
-          ]
+          "enum": ["full", "partial"]
         },
         "adversary": {
           "type": "string",
-          "enum": [
-            "compliant",
-            "physics"
-          ]
+          "enum": ["compliant", "physics"]
         }
       }
     },
@@ -84,12 +78,7 @@
     "advisory": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "action",
-        "margin_m",
-        "breaches",
-        "envelope"
-      ],
+      "required": ["action", "margin_m", "breaches", "envelope"],
       "properties": {
         "action": {
           "type": "object",
@@ -115,9 +104,7 @@
         "envelope": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "holds_until_s"
-          ],
+          "required": ["holds_until_s"],
           "properties": {
             "holds_until_s": {
               "type": "number"
@@ -130,10 +117,7 @@
       "$comment": "Regions of situation space as predicates over the flat `<subject>:<class>:<key>` namespace, first match wins, no match is inconclusive-in-model.",
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "when",
-        "status"
-      ],
+      "required": ["when", "status"],
       "properties": {
         "when": {
           "$ref": "applicability.schema.json#/$defs/situationWhen"
