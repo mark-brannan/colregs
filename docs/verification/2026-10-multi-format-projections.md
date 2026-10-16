@@ -60,10 +60,10 @@ Result for colregs#122, measured on the real tree:
 | check | result |
 |---|---|
 | `fromXml(toXml(x))` equals the source, canonicalised, with key order | 45 of 45 |
-| well-formed and valid against the W3C schema (F&O 3.1 C.2, XSD 1.0), libxml2 via `xmllint-wasm` | 45 of 45 |
+| valid against the W3C C.2 schema (libxml2) | 45 of 45 |
 | valid against `dist/xml/json.xsd` | 45 of 45 |
 | size | 1.2 MB, 257 KB gzipped with the YAML |
-| awkward input (control characters, lone surrogate, `__proto__` key, CR, tab, empty key) | survives, in the test |
+| awkward input (control, surrogate, `__proto__`, CR, tab, empty key) | survives, in the test |
 
 The mapping is lossless on these files. It reads badly, which is the cost the
 issue names. `fn:xml-to-json` is the inverse for XSLT and XQuery consumers.
@@ -82,10 +82,10 @@ the XSD 1.0 and 1.1 specifications; no converter produced it.
 
 | fate | meaning | uses | keywords (uses, schemas holding them) |
 |---|---|---|---|
-| maps | has an XSD form | 1880 | `type`, `$ref`, `properties`, `required`, `items`, `enum`, `minLength`, `minimum`, `exclusiveMinimum`, `minItems`, `const`, and the annotations |
-| degrades | an XSD form that says less | 311 | `additionalProperties: false` (195, 25), `pattern` (78, 19), `additionalProperties` with a schema (15, 4), `oneOf` (14, 11), `allOf` (5, 4), `anyOf` (3, 1), `uniqueItems` (1, 1) |
-| assert-1.1 | only an XSD 1.1 XPath assertion | 32 | `minProperties` (17, 7), `not` (5, 2), `if`/`then`/`else` (4+4+2, 2) |
-| lost | no XSD form | 50 | `patternProperties` (41, 14), `propertyNames` (8, 2), `unevaluatedProperties` (1, 1) |
+| maps | has an XSD form | 1880 | `type`, `$ref`, `properties`, `required`, `items`, `enum`, and more (`--loss`) |
+| degrades | an XSD form that says less | 311 | `additionalProperties`, `pattern`, `oneOf`, `allOf`, `anyOf` (`--loss`) |
+| assert-1.1 | only an XSD 1.1 assertion | 32 | `minProperties`, `not`, `if`/`then`/`else` (`--loss`) |
+| lost | no XSD form | 50 | `patternProperties`, `propertyNames`, `unevaluatedProperties` (`--loss`) |
 
 Why each degrades:
 

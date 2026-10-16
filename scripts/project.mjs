@@ -2,7 +2,7 @@
 // Generated projections of the JSON source of truth: YAML and XML views of
 // data/, fixtures/ and schema/. JSON is authored; these are never edited and
 // never committed (dist/ is gitignored). Argued in
-// docs/research/2026-10-multi-format-projections.md.
+// docs/verification/2026-10-multi-format-projections.md.
 //
 //   node scripts/project.mjs            write dist/yaml and dist/xml
 //   node scripts/project.mjs --out DIR  write them under DIR instead
