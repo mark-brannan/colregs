@@ -1,7 +1,6 @@
 # YAML and XML projections of the JSON
 
 colregs#131: JSON stays the source; YAML and XML are generated views.
-Script: `scripts/project.mjs`; gate: `test/projection.test.mjs`.
 
 ## Recommendation
 
@@ -15,7 +14,6 @@ Script: `scripts/project.mjs`; gate: `test/projection.test.mjs`.
 
 ## YAML
 
-All 45 source files, whole tree:
 
 | emitter | emit | size | JSON-equal, 1.2 reader | 1.1 reader | key order kept |
 |---|---|---|---|---|---|
@@ -23,11 +21,9 @@ All 45 source files, whole tree:
 | `yaml` 2.9.1, 1.1 quoting | 134 ms | 632 KB | 45 | 45 | 45 |
 | `js-yaml` 4.1.0 | 343 ms | 632 KB | 45 | 45 | 45 |
 
-PyYAML 6.0.3 reads the 1.1-quoted tree equal to the source, 45 of 45.
 
 ## XML
 
-Result for colregs#122, measured on the real tree:
 
 | check | result |
 |---|---|
@@ -37,11 +33,9 @@ Result for colregs#122, measured on the real tree:
 | size | 1.2 MB, 257 KB gzipped with the YAML |
 | awkward input (control, surrogate, `__proto__`, CR, tab, empty key) | survives, in the test |
 
-463 of 832 object keys are not legal element names.
 
 ## JSON Schema against XSD
 
-`node scripts/project.mjs --loss` classifies every keyword in the 25 schemas.
 
 | fate | uses | keywords |
 |---|---|---|
@@ -51,7 +45,7 @@ Result for colregs#122, measured on the real tree:
 | lost | 50 | `patternProperties`, `propertyNames`, `unevaluatedProperties` |
 
 
-## Converters (catalogue, none run)
+## Converters (none run)
 
 | tool | form |
 |---|---|
@@ -69,4 +63,3 @@ node scripts/project.mjs --loss   # keyword table and key-name count
 node --test test/projection.test.mjs
 ```
 
-Outside the repo: `xmllint-wasm`, PyYAML.
