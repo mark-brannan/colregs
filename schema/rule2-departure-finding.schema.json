@@ -11,7 +11,7 @@
       "$ref": "rule2-departure-model.schema.json#/$defs/status"
     },
     "rules": {
-      "$ref": "encounter-evaluation.schema.json"
+      "$ref": "circumstances-evaluation.schema.json"
     },
     "advisories": {
       "type": "array",

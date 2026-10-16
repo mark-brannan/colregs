@@ -23,7 +23,7 @@
     }
    ]
   },
-  "evaluateEncounter": {
+  "evaluateCircumstances": {
    "adr": "0011",
    "inputs": [
     {
@@ -31,7 +31,7 @@
      "schema": "schema/situation.schema.json"
     }
    ],
-   "output": "schema/encounter-evaluation.schema.json",
+   "output": "schema/circumstances-evaluation.schema.json",
    "companion": {
     "verb": "appliedEncounterEntries",
     "output": "schema/evaluation.schema.json#/$defs/ruleIds"
@@ -45,7 +45,7 @@
     }
    ]
   },
-  "evaluateConduct": {
+  "evaluateCompliance": {
    "adr": "0012",
    "inputs": [
     {
@@ -53,7 +53,7 @@
      "schema": "schema/trace.schema.json"
     }
    ],
-   "output": "schema/conduct-evaluation.schema.json",
+   "output": "schema/compliance-evaluation.schema.json",
    "companion": {
     "verb": "appliedConductEntries",
     "output": "schema/evaluation.schema.json#/$defs/ruleIds"
