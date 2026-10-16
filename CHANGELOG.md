@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.3.5](https://github.com/mark-brannan/colregs/compare/v0.3.4...v0.3.5) (2026-10-16)
+
+
+### Added
+
+* **data:** 24(d), 27(c) and Rule 31 entries, out of known_omissions ([#217](https://github.com/mark-brannan/colregs/issues/217)) ([5a9ea58](https://github.com/mark-brannan/colregs/commit/5a9ea58b96947f7263e8826159963a834ad6792e)), closes [#169](https://github.com/mark-brannan/colregs/issues/169)
+* **data:** gate Rule 18/12 role entries on the other side's overtaking history (Q-58) ([#177](https://github.com/mark-brannan/colregs/issues/177)) ([7c5defb](https://github.com/mark-brannan/colregs/commit/7c5defb46a93367ffa72db455a81253f89b8b35e))
+* **data:** Part C day shapes for intl — shapes.json, fact:time and the Rule 24–30 shape entries ([#175](https://github.com/mark-brannan/colregs/issues/175)) ([678378e](https://github.com/mark-brannan/colregs/commit/678378e522216c1d5d2555504f7da1f4d3ec6cbe))
+* **data:** Part D in the corpus; ADR 0026 -- signals vs display (proposal, not a ruling) ([#195](https://github.com/mark-brannan/colregs/issues/195)) ([0d422e4](https://github.com/mark-brannan/colregs/commit/0d422e4ddf42012f47df1cb0dc0916dce33e8875))
+* **data:** Part D signals -- sounds.json, the act class, and the Rule 34/35 entries ([#206](https://github.com/mark-brannan/colregs/issues/206)) ([338c034](https://github.com/mark-brannan/colregs/commit/338c0342880a6cedae47f6b63f2bfd309484aff2))
+* **data:** Rule 20(c) as a modality shift -- fact:visibility and modality_shifts ([#182](https://github.com/mark-brannan/colregs/issues/182)) ([#184](https://github.com/mark-brannan/colregs/issues/184)) ([8fe3dbf](https://github.com/mark-brannan/colregs/commit/8fe3dbf0f98b3db1966f38d5e8e59fa5b75891fd))
+* **schema:** known_omissions on evaluation provenance ([#211](https://github.com/mark-brannan/colregs/issues/211)) ([28e28da](https://github.com/mark-brannan/colregs/commit/28e28da22c988ad865ba6a93794b590630951577))
+* **schema:** Situation admits traffic; traffic-facts.schema.json ([#201](https://github.com/mark-brannan/colregs/issues/201)) ([#215](https://github.com/mark-brannan/colregs/issues/215)) ([23c9e98](https://github.com/mark-brannan/colregs/commit/23c9e985efe0364bbb80aac23a75dd8981810271))
+
+
+### Fixed
+
+* **ci:** hold publish on npm 11, not latest ([#219](https://github.com/mark-brannan/colregs/issues/219)) ([799418d](https://github.com/mark-brannan/colregs/commit/799418d0d6250dfccf2692c8529bb663e18bcb63))
+* **data:** 27(e) is 27(d)'s small-vessel exception, gated on a boolean fact ([#208](https://github.com/mark-brannan/colregs/issues/208)) ([#210](https://github.com/mark-brannan/colregs/issues/210)) ([f00b361](https://github.com/mark-brannan/colregs/commit/f00b361a5fb3ba77186b72aa6b2e7c4f346133dd))
+* **data:** record gaps for 30(d)(i) and 30(d)(ii) in the reference corpus ([#214](https://github.com/mark-brannan/colregs/issues/214)) ([7b3185f](https://github.com/mark-brannan/colregs/commit/7b3185f2dd79ec8ba6285bede73d0a117eaacb26)), closes [#185](https://github.com/mark-brannan/colregs/issues/185)
+* **data:** update stale Q-11 note on us/inland ecfr stub ([#205](https://github.com/mark-brannan/colregs/issues/205)) ([d74ee3b](https://github.com/mark-brannan/colregs/commit/d74ee3bfd347135ccbcee5e6ecd39c9cdd8735f5))
+* **schema:** allow category:scope in the evaluation envelope's representedParagraph ([#189](https://github.com/mark-brannan/colregs/issues/189)) ([962937c](https://github.com/mark-brannan/colregs/commit/962937c938235b6b3f3e2cbc71732fee29b75848))
+
 ## [0.3.4](https://github.com/mark-brannan/colregs/compare/v0.3.3...v0.3.4) (2026-09-17)
 
 
