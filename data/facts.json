@@ -134,6 +134,11 @@
    "actuable": false,
    "note": "The vessel is a wing-in-ground craft. Doesn't by itself mean 23(c) applies -- see wig_near_surface."
   },
+  "fact:seaplane": {
+   "cite": "3(e)",
+   "actuable": false,
+   "note": "The vessel is a seaplane, an aircraft designed to manoeuvre on the water; her lights are the power-driven vessel's, and Rule 31 is what reads this."
+  },
   "fact:wig_near_surface": {
    "cite": "23(c)",
    "actuable": false,
@@ -326,7 +331,7 @@
     },
     {
      "case": "a seaplane (3(e))",
-     "why": "The eighth term Rule 18 distinguishes, and the one value this fact does not carry: 18(e) needs a fact for being a seaplane and none exists, which known_omissions already records. A value with no row and no fact behind it would be a promise the data cannot keep, so it is absent rather than unreachable."
+     "why": "The eighth term Rule 18 distinguishes, and the one value this fact does not carry: `fact:seaplane` exists, but no row reads it and no precedence entry would read the value, which known_omissions records under 18(e). A value with no row behind it would be a promise the data cannot keep, so it is absent rather than unreachable."
     },
     {
      "case": "a fact record with no fact:propulsion",
@@ -683,7 +688,7 @@
      "steady_bearing": "A consequence of `motion` worth stating because Rule 15 rests on it: on a steady bearing with both vessels making way, self's speed times the sine of her relative bearing equals minus the other's speed times the sine of the aspect, so the two bearings lie on opposite sides. Two vessels each with the other on her starboard side are never on a collision course, which is why 15(a) never lays give-way on both -- and the suite asserts that over a sweep of steady-bearing geometries rather than over free bearings."
     },
     "tolerances": {
-     "bearing_deg": 1.0,
+     "bearing_deg": 1,
      "range_m": 15,
      "range_fraction": 0.01,
      "cpa_m": 10,
@@ -951,7 +956,7 @@
   "constants": {
    "note": "Numeric constants a Part B predicate needs and the Rules do not always state. Each names the fact it thresholds, its status under docs/conventions.md, and -- where it is pencil -- what would settle it. They are declared here rather than written inline in an entry so that the number appears once and a test can assert every entry uses it; they are not identifiers (docs/identifiers.md, 'What is not an identifier'), they are values like a modality or a jurisdiction.",
    "appreciable_bearing_change_deg_min": {
-    "value": 1.0,
+    "value": 1,
     "unit": "deg/min",
     "fact": "pair:geo:bearing_change_deg_min",
     "status": "pencil",
