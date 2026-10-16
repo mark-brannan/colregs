@@ -5063,6 +5063,104 @@
      }
     ]
    }
+  },
+  {
+   "name": "traffic: a third vessel ahead, reduced to facts, changes no entry",
+   "status": "binding",
+   "narrative": "The same crossing with a third vessel dead ahead of self, reduced to `traffic`: one vessel in the ahead sector, 0.8 nm off, foreclosing a helm action into it. No entry reads `traffic:*` yet, so the entries are the crossing's own.",
+   "expect": [
+    "rule:4",
+    "rule:11",
+    "rule:7d_i",
+    "rule:8f_iii",
+    "rule:15a:crossing",
+    "rule:15a:keep_out_of_the_way"
+   ],
+   "situation": {
+    "self": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 15
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50,
+       "longitude": -1.4
+      },
+      "kin:heading_deg": 0,
+      "kin:sog_kn": 12,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:yacht"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 40
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "other": {
+     "fact": {
+      "fact:propulsion": "propulsion:power",
+      "fact:activity": "activity:none",
+      "fact:position": "position:underway",
+      "fact:making_way": true,
+      "fact:length_m": 40
+     },
+     "kin": {
+      "kin:position": {
+       "latitude": 50.0383,
+       "longitude": -1.35
+      },
+      "kin:heading_deg": 300,
+      "kin:sog_kn": 7.83,
+      "kin:rot_deg_min": 0,
+      "kin:dynamics": "dynamics:cargo"
+     },
+     "geo": {
+      "geo:rel_bearing_deg": 280
+     },
+     "hist": {
+      "hist:was_overtaking": false,
+      "hist:latched_at_s": null
+     }
+    },
+    "pair": {
+     "geo": {
+      "geo:range_m": 5556,
+      "geo:bearing_change_deg_min": 0,
+      "geo:cpa_m": 1,
+      "geo:tcpa_s": 1023,
+      "geo:in_sight": true,
+      "geo:risk_of_collision": true
+     }
+    },
+    "traffic": {
+     "ahead": {
+      "count": 1,
+      "nearest_nm": 0.8,
+      "foreclosed": true
+     }
+    }
+   },
+   "roles": {
+    "self": [
+     {
+      "role": "role:give-way",
+      "by": "rule:15a:keep_out_of_the_way"
+     }
+    ],
+    "other": [
+     {
+      "role": "role:stand-on",
+      "by": "rule:15a:keep_out_of_the_way"
+     }
+    ]
+   }
   }
  ],
  "override_note": "`expect` names every entry whose predicate the situation satisfies, including entries that a rel:overrides then displaces. Applicability and resolution are two steps: 18(a)(iv) really does apply to a WIG craft near the surface -- she is a power-driven vessel underway -- and 18(f)(i) overriding it is what the engine does next. A fixture that hid the overridden entry would make the override unobservable and the relation untestable.",

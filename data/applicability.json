@@ -47,9 +47,9 @@
  },
  "known_omissions": [
   {
-   "cite": "24(f), 24(g), 24(h), 24(i)",
-   "what": "Vessels pushed or towed in a group; inconspicuous partly submerged tows; impracticability fallbacks.",
-   "why": "Outside the settled table. Rule text is present in rules.json."
+   "cite": "24(g)(i)",
+   "what": "The base lights of an inconspicuous, partly submerged tow: the lights 24(g)(ii) calls its two lights 'additional' to and 24(g)(iii) spaces its lights between.",
+   "why": "The corpus has no text for 24(g)(i) (PROVENANCE.md, known hole), so until it is on file a partly submerged tow is prescribed only the 24(g)(ii)-(iv) lights and shapes, rule:24g having exempted her from 24(e)."
   },
   {
    "cite": "25(e)",
@@ -115,6 +115,11 @@
    "cite": "34(a)",
    "what": "'When manoeuvring as authorized or required by these Rules' -- the qualification on which alterations 34(a) covers.",
    "why": "Every entry reads the act alone. Whether an alteration in sight is always within the qualification is doctrine, and no source in this package settles it."
+  },
+  {
+   "cite": "24(i)",
+   "what": "A vessel not normally engaged in towing operations is not required to exhibit the 24(a) or 24(c) lights when towing a vessel in distress or otherwise in need of assistance, where it is impracticable; all possible measures shall be taken to indicate the relationship, in particular by illuminating the towline.",
+   "why": "The paragraph's subject is the towing vessel ('such vessel shall not be required to exhibit those lights') while 24(f)-(h) are written on the towed or pushed vessel's record, and which record carries 24(i) is open."
   }
  ],
  "represented_paragraphs": [
@@ -3580,6 +3585,170 @@
    "lights": [],
    "modality": "modality:shall",
    "note": "Emits no light set: where the displays the other entries return are impracticable for her, a seaplane or WIG craft shows the closest possible equivalent, and whether they are is the vessel's judgement, as for 27(e)."
+  },
+  {
+   "id": "rule:24f_i",
+   "jurisdiction": "intl",
+   "cite": "24(f)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:tow_rigidity": "tow_rigidity:pushed_ahead"
+   },
+   "lights": [
+    {
+     "light": "light:sidelights",
+     "position": "at the forward end"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:24e"
+   ],
+   "modality": "modality:shall",
+   "notes": "24(f)(i): a vessel, or a group lighted as one (24(f)'s proviso), pushed ahead and not part of a composite unit, which rule:24b lights on the pushing vessel's record."
+  },
+  {
+   "id": "rule:24f_ii",
+   "jurisdiction": "intl",
+   "cite": "24(f)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:tow_rigidity": "tow_rigidity:alongside"
+   },
+   "lights": [
+    {
+     "light": "light:sternlight"
+    },
+    {
+     "light": "light:sidelights",
+     "position": "at the forward end"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:24e"
+   ],
+   "modality": "modality:shall",
+   "notes": "24(f)(ii): a vessel, or a group lighted as one (24(f)'s proviso), towed alongside."
+  },
+  {
+   "id": "rule:24g",
+   "jurisdiction": "intl",
+   "cite": "24(g)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:partly_submerged": true
+   },
+   "lights": [],
+   "rel:exempts": [
+    "rule:24e",
+    "rule:24e:exceeds_200m"
+   ],
+   "modality": "modality:exempt",
+   "notes": "Carries 24(e)'s own carve-out, 'other than those mentioned in Rule 24(g)'; the 24(g)(i) lights are a corpus gap recorded in known_omissions."
+  },
+  {
+   "id": "rule:24g_ii",
+   "jurisdiction": "intl",
+   "cite": "24(g)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:partly_submerged": true,
+    "fact:beam_m": {
+     "gte": 25
+    }
+   },
+   "lights": [
+    {
+     "light": "light:all_round",
+     "color": "white",
+     "count": 2,
+     "position": "at or near the extremities of its breadth"
+    }
+   ],
+   "modality": "modality:shall",
+   "notes": "24(g)(ii): 25 metres or more in breadth, two lights additional to 24(g)(i)'s, which the corpus lacks."
+  },
+  {
+   "id": "rule:24g_iii",
+   "jurisdiction": "intl",
+   "cite": "24(g)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:partly_submerged": true,
+    "fact:length_m": {
+     "gt": 100
+    }
+   },
+   "lights": [
+    {
+     "light": "light:all_round",
+     "color": "white",
+     "position": "between the lights prescribed in 24(g)(i), so that the distance between the lights does not exceed 100 metres"
+    }
+   ],
+   "modality": "modality:shall",
+   "notes": "24(g)(iii): `fact:length_m` is the length of the vessel, object or combination, and no count is given because it depends on the 24(g)(i) lights' positions, whose text is not on file."
+  },
+  {
+   "id": "rule:24g_iv",
+   "jurisdiction": "intl",
+   "cite": "24(g)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:partly_submerged": true,
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:diamond",
+     "count": 1,
+     "position": "at or near the aftermost extremity of the last vessel or object being towed"
+    }
+   ],
+   "modality": "modality:shall"
+  },
+  {
+   "id": "rule:24g_iv:exceeds_200m",
+   "jurisdiction": "intl",
+   "cite": "24(g)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:partly_submerged": true,
+    "fact:tow_length_m": {
+     "gt": 200
+    },
+    "fact:time": "time:day"
+   },
+   "lights": [],
+   "shapes": [
+    {
+     "shape": "shape:diamond",
+     "count": 1,
+     "position": "where it can best be seen and located as far forward as is practicable"
+    }
+   ],
+   "modality": "modality:shall",
+   "notes": "24(g)(iv)'s second clause: the towed object reads the same fact:tow_length_m as the vessel towing her, as for rule:24e:exceeds_200m."
+  },
+  {
+   "id": "rule:24h",
+   "jurisdiction": "intl",
+   "cite": "24(h)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:tow_display_impracticable": true
+   },
+   "lights": [],
+   "rel:exempts": [
+    "rule:24e",
+    "rule:24e:exceeds_200m",
+    "rule:24g_ii",
+    "rule:24g_iii",
+    "rule:24g_iv",
+    "rule:24g_iv:exceeds_200m"
+   ],
+   "modality": "modality:exempt",
+   "notes": "Relieves the 24(e) and 24(g) displays and emits no set of its own: 'all possible measures shall be taken to light the vessel or object towed or at least to indicate the presence of such vessel or object', and what is possible is the vessel's judgement, as for rule:31."
   }
  ],
  "suppressions": [
