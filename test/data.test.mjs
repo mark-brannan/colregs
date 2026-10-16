@@ -325,24 +325,34 @@ test('schema: every schema file names itself by $id and compiles, cross-file $re
 // about self's options, not vessels. The envelope admits it; the keys it
 // flattens to are declared in data/facts.json, not here.
 test('schema: a situation carrying `traffic` validates, and a malformed one does not', () => {
-  const situation = validatorFor('situation.schema.json')
-  check(situation, { self: { fact: {} }, traffic: { ahead: { foreclosed: true } } }, 'situation with traffic')
-  check(situation, { self: { fact: {} }, traffic: {} }, 'situation with empty traffic')
-  check(situation, { self: { fact: {} } }, 'situation without traffic')
-  assert.ok(!situation({ self: { fact: {} }, traffic: { abeam: {} } }), 'situation accepts a traffic sector the schema does not name')
-  assert.ok(!situation({ self: { fact: {} }, traffic: { ahead: { count: 1.5 } } }), 'situation accepts a fractional traffic count')
-})
+  const situation = validatorFor('situation.schema.json');
+  check(situation, { self: { fact: {} }, traffic: { ahead: { foreclosed: true } } }, 'situation with traffic');
+  check(situation, { self: { fact: {} }, traffic: {} }, 'situation with empty traffic');
+  check(situation, { self: { fact: {} } }, 'situation without traffic');
+  assert.ok(
+    !situation({ self: { fact: {} }, traffic: { abeam: {} } }),
+    'situation accepts a traffic sector the schema does not name',
+  );
+  assert.ok(
+    !situation({ self: { fact: {} }, traffic: { ahead: { count: 1.5 } } }),
+    'situation accepts a fractional traffic count',
+  );
+});
 
 test('schema: traffic-facts accepts an empty reduction and refuses a malformed sector', () => {
-  const validate = validatorFor('traffic-facts.schema.json')
-  check(validate, {}, 'traffic-facts.schema.json empty')
-  check(validate, { ahead: { count: 1, nearest_nm: 0.8, foreclosed: true }, port: { count: 0 } }, 'traffic-facts.schema.json example')
-  assert.ok(!validate({ ahead: { count: -1 } }), 'traffic-facts.schema.json accepts a negative count')
-  assert.ok(!validate({ ahead: { nearest_nm: -0.1 } }), 'traffic-facts.schema.json accepts a negative range')
-  assert.ok(!validate({ ahead: { foreclosed: 'yes' } }), 'traffic-facts.schema.json accepts a non-boolean foreclosed')
-  assert.ok(!validate({ ahead: { vessels: 2 } }), 'traffic-facts.schema.json accepts an unknown sector field')
-  assert.ok(!validate({ abeam: {} }), 'traffic-facts.schema.json accepts an unknown sector')
-})
+  const validate = validatorFor('traffic-facts.schema.json');
+  check(validate, {}, 'traffic-facts.schema.json empty');
+  check(
+    validate,
+    { ahead: { count: 1, nearest_nm: 0.8, foreclosed: true }, port: { count: 0 } },
+    'traffic-facts.schema.json example',
+  );
+  assert.ok(!validate({ ahead: { count: -1 } }), 'traffic-facts.schema.json accepts a negative count');
+  assert.ok(!validate({ ahead: { nearest_nm: -0.1 } }), 'traffic-facts.schema.json accepts a negative range');
+  assert.ok(!validate({ ahead: { foreclosed: 'yes' } }), 'traffic-facts.schema.json accepts a non-boolean foreclosed');
+  assert.ok(!validate({ ahead: { vessels: 2 } }), 'traffic-facts.schema.json accepts an unknown sector field');
+  assert.ok(!validate({ abeam: {} }), 'traffic-facts.schema.json accepts an unknown sector');
+});
 
 // --- operations (ADR 0014) --------------------------------------------------
 // data/operations.json is the engine interface colregs owns: verb -> input
