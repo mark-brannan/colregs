@@ -49,7 +49,7 @@
   {
    "cite": "24(g)(i)",
    "what": "The base lights of an inconspicuous, partly submerged tow: the lights 24(g)(ii) calls its two lights 'additional' to and 24(g)(iii) spaces its lights between.",
-   "why": "The corpus has no text for 24(g)(i) (PROVENANCE.md, known hole), and this package does not reconstruct rule text from memory. rule:24g exempts such a tow from 24(e) as 24(e) itself says, so under this table she is prescribed only the 24(g)(ii)-(iv) lights and shapes until the paragraph's text is on file."
+   "why": "The corpus has no text for 24(g)(i) (PROVENANCE.md, known hole), so until it is on file a partly submerged tow is prescribed only the 24(g)(ii)-(iv) lights and shapes, rule:24g having exempted her from 24(e)."
   },
   {
    "cite": "25(e)",
@@ -119,7 +119,7 @@
   {
    "cite": "24(i)",
    "what": "A vessel not normally engaged in towing operations is not required to exhibit the 24(a) or 24(c) lights when towing a vessel in distress or otherwise in need of assistance, where it is impracticable; all possible measures shall be taken to indicate the relationship, in particular by illuminating the towline.",
-   "why": "The paragraph's subject is the towing vessel ('such vessel shall not be required to exhibit those lights'), while the maintainer's current thinking on issue #169 makes each of 24(f)-(i) an entry whose subject is the towed or pushed vessel. Writing it on the towing vessel's record would set that aside, so it waits for the maintainer."
+   "why": "The paragraph's subject is the towing vessel ('such vessel shall not be required to exhibit those lights') while 24(f)-(h) are written on the towed or pushed vessel's record, and which record carries 24(i) is open."
   }
  ],
  "represented_paragraphs": [
@@ -3604,7 +3604,7 @@
     "rule:24e"
    ],
    "modality": "modality:shall",
-   "notes": "24(f)(i): a vessel pushed ahead, not part of a composite unit. Any number pushed in a group is lighted as one vessel (24(f)'s proviso), so the record is the group. A composite unit is not this case: 24(b) lights the unit as one power-driven vessel, on the pushing vessel's record (rule:24b)."
+   "notes": "24(f)(i): a vessel, or a group lighted as one (24(f)'s proviso), pushed ahead and not part of a composite unit, which rule:24b lights on the pushing vessel's record."
   },
   {
    "id": "rule:24f_ii",
@@ -3627,7 +3627,7 @@
     "rule:24e"
    ],
    "modality": "modality:shall",
-   "notes": "24(f)(ii): a vessel towed alongside. Any number towed alongside is lighted as one vessel (24(f)'s proviso), so the record is the group."
+   "notes": "24(f)(ii): a vessel, or a group lighted as one (24(f)'s proviso), towed alongside."
   },
   {
    "id": "rule:24g",
@@ -3643,7 +3643,7 @@
     "rule:24e:exceeds_200m"
    ],
    "modality": "modality:exempt",
-   "notes": "24(e) prescribes for a vessel or object being towed 'other than those mentioned in Rule 24(g)'; this entry carries that carve-out. The 24(g)(i) lights it would otherwise carry are a corpus gap, recorded in known_omissions."
+   "notes": "Carries 24(e)'s own carve-out, 'other than those mentioned in Rule 24(g)'; the 24(g)(i) lights are a corpus gap recorded in known_omissions."
   },
   {
    "id": "rule:24g_ii",
@@ -3665,7 +3665,7 @@
     }
    ],
    "modality": "modality:shall",
-   "notes": "24(g)(ii): 25 metres or more in breadth. The two lights are additional to 24(g)(i)'s, which the corpus lacks."
+   "notes": "24(g)(ii): 25 metres or more in breadth, two lights additional to 24(g)(i)'s, which the corpus lacks."
   },
   {
    "id": "rule:24g_iii",
@@ -3686,7 +3686,7 @@
     }
    ],
    "modality": "modality:shall",
-   "notes": "24(g)(iii): exceeds 100 metres in length; `fact:length_m` is the length of the vessel, object or combination. No count: it is arithmetic over the length and the 24(g)(i) lights' positions, and 24(g)(i)'s text is not on file."
+   "notes": "24(g)(iii): `fact:length_m` is the length of the vessel, object or combination, and no count is given because it depends on the 24(g)(i) lights' positions, whose text is not on file."
   },
   {
    "id": "rule:24g_iv",
