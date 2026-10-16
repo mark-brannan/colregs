@@ -2947,7 +2947,7 @@ test('the declared constants are the numbers the entries actually read', () => {
   }
 });
 
-// colregs-engine#82's traffic class: the keys, and the sector boundaries as the
+// ADR 0023's traffic class: the keys, and the sector boundaries as the
 // edges the Part B entries already gate on. Nothing here is a new number except
 // the cone's mirror edge, and that is checked against its partner.
 test('traffic: every sector carries every key, the schema names the same ones, and the sectors partition the circle', () => {
