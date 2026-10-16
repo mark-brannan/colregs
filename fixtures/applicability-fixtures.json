@@ -2159,6 +2159,165 @@
     "rule:23a_iii_iv",
     "rule:31"
    ]
+  },
+  {
+   "name": "24(f)(i): vessel pushed ahead, not part of a composite unit",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:tow_rigidity": "tow_rigidity:pushed_ahead"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24f_i"
+   ]
+  },
+  {
+   "name": "24(f)(ii): vessel towed alongside",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:tow_rigidity": "tow_rigidity:alongside"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24f_ii"
+   ]
+  },
+  {
+   "name": "24(e): a line tow stated explicitly reads as 24(e) alone",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:tow_rigidity": "tow_rigidity:line"
+   },
+   "expect": [
+    "rule:24e"
+   ]
+  },
+  {
+   "name": "24(g): partly submerged object, 10 m breadth, 50 m long",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:partly_submerged": true,
+    "fact:length_m": 50,
+    "fact:beam_m": 10
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24g"
+   ]
+  },
+  {
+   "name": "24(g)(ii) breadth boundary: 24.9 m",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:partly_submerged": true,
+    "fact:length_m": 50,
+    "fact:beam_m": 24.9
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24g"
+   ]
+  },
+  {
+   "name": "24(g)(ii) breadth boundary: 25.0 m",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:partly_submerged": true,
+    "fact:length_m": 50,
+    "fact:beam_m": 25
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24g",
+    "rule:24g_ii"
+   ]
+  },
+  {
+   "name": "24(g)(iii) length boundary: 100.0 m",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:partly_submerged": true,
+    "fact:length_m": 100,
+    "fact:beam_m": 10
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24g"
+   ]
+  },
+  {
+   "name": "24(g)(iii) length boundary: 100.1 m",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:partly_submerged": true,
+    "fact:length_m": 100.1,
+    "fact:beam_m": 10
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24g",
+    "rule:24g_iii"
+   ]
+  },
+  {
+   "name": "24(g)(iv): partly submerged object by day, tow 200.0 m",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:partly_submerged": true,
+    "fact:length_m": 50,
+    "fact:beam_m": 10,
+    "fact:tow_length_m": 200,
+    "fact:time": "time:day"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24g",
+    "rule:24g_iv"
+   ]
+  },
+  {
+   "name": "24(g)(iv): partly submerged object by day, tow 200.1 m",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:partly_submerged": true,
+    "fact:length_m": 50,
+    "fact:beam_m": 10,
+    "fact:tow_length_m": 200.1,
+    "fact:time": "time:day"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24e:exceeds_200m",
+    "rule:24g",
+    "rule:24g_iv",
+    "rule:24g_iv:exceeds_200m"
+   ]
+  },
+  {
+   "name": "24(h): towed vessel for which the 24(e) display is impracticable",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 15,
+    "fact:tow_display_impracticable": true
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24h"
+   ]
   }
  ]
 }

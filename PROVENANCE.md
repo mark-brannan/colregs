@@ -19,8 +19,9 @@ publications. Nothing here is authoritative: consult the published rules.
   United States (17 U.S.C. 105).
 - **Known hole:** Rule 24(g)(i) is absent from the source page. Rather than
   reconstruct it from memory, the corpus records it under `gaps` and carries
-  no text for it; the skeleton still has the path. 24(g) covers inconspicuous, partly submerged tows and
-  is outside the applicability table in this release.
+  no text for it; the skeleton still has the path. 24(g) covers inconspicuous, partly submerged tows:
+  the applicability table carries 24(g)(ii)-(iv) and the 24(e) carve-out, and records 24(g)(i) under
+  `known_omissions` for this hole.
 - **Withheld text is not a gap.** A `gaps` entry is a paragraph we could not
   obtain. A paragraph with `text_status: withheld` is one we hold but may not
   publish, under a licence bar recorded in `withheld_reason` — see ADR 0010.
