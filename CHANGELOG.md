@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.6](https://github.com/mark-brannan/colregs/compare/v0.3.5...v0.3.6) (2026-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* the operation ids, three schema file names and $ids, the situation key traffic, the key prefix traffic: and $defs/subject are all renamed.
+
+### Changed
+
+* evaluateCompliance, evaluateCircumstances, Vessel; the traffic class becomes others ([#226](https://github.com/mark-brannan/colregs/issues/226)) ([747415f](https://github.com/mark-brannan/colregs/commit/747415f0ddb3b192305ad1fd2ee149d556258196))
+
 ## [0.3.5](https://github.com/mark-brannan/colregs/compare/v0.3.4...v0.3.5) (2026-10-16)
 
 
