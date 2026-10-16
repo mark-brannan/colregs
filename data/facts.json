@@ -190,6 +190,16 @@
    "cite": "35(e)",
    "actuable": false,
    "note": "35(e)'s condition on the towed vessel's own signal: the last vessel of a tow sounds it only if she is manned."
+  },
+  "fact:partly_submerged": {
+   "cite": "24(g)",
+   "actuable": false,
+   "note": "The vessel or object being towed is inconspicuous and partly submerged, or a combination of such vessels or objects. True selects 24(g) in place of 24(e); absent leaves her on 24(e)."
+  },
+  "fact:tow_display_impracticable": {
+   "cite": "24(h)",
+   "actuable": false,
+   "note": "From any sufficient cause it is impracticable for the vessel or object being towed to exhibit the 24(e) or 24(g) lights or shapes. The Convention leaves the cause to the vessel, so this package asks rather than deriving it, as for fact:full_display_impracticable."
   }
  },
  "enums": {
@@ -218,6 +228,16 @@
    "cite": "3(l)",
    "actuable": true,
    "note": "Rule 3(l): visibility restricted by fog, mist, falling snow, heavy rainstorms, sandstorms or any similar cause. Read by the 20(c) modality shift, so it is a fact of one vessel's own record rather than of a pair -- a display consumer never builds a situation. A two-subject rule reads it as `self:fact:visibility` or `other:fact:visibility`; whether 19(a)'s second conjunct does is Q-56, open."
+  },
+  "fact:tow_rigidity": {
+   "values": [
+    "tow_rigidity:line",
+    "tow_rigidity:alongside",
+    "tow_rigidity:pushed_ahead"
+   ],
+   "cite": "24(f)",
+   "actuable": false,
+   "note": "How the towed or pushed vessel's record is held to the vessel towing or pushing her, read with `activity:being_towed`: on a line astern (24(e), the variable case), alongside (24(f)(ii)) or pushed ahead (24(f)(i)). A composite unit is not a value: 24(b) lights the rigidly connected unit as one power-driven vessel, the pushing vessel's record with fact:composite_unit. Absent reads as no 24(f) case, which leaves her on 24(e)."
   }
  },
  "derived": {
