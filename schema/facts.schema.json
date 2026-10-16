@@ -67,6 +67,19 @@
         }
       }
     },
+    "trafficSector": {
+      "$comment": "A sector of the traffic class: the relative bearing from `from` to `to`, each the name of a declared situation constant, and which of the two edges the sector owns.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "includes_from", "includes_to", "cite"],
+      "properties": {
+        "from": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "to": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "includes_from": { "type": "boolean" },
+        "includes_to": { "type": "boolean" },
+        "cite": { "type": "string" }
+      }
+    },
     "situationFact": {
       "type": "object",
       "additionalProperties": false,
@@ -535,7 +548,7 @@
             "classes": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["fact", "kin", "geo", "hist", "env", "act"],
+              "required": ["fact", "kin", "geo", "hist", "env", "act", "traffic"],
               "properties": {
                 "fact": {
                   "type": "string"
@@ -554,8 +567,15 @@
                 },
                 "act": {
                   "type": "string"
+                },
+                "traffic": {
+                  "type": "string"
                 }
               }
+            },
+            "subjectless_classes": {
+              "type": "array",
+              "items": { "type": "string" }
             },
             "bare_key": {
               "type": "string"
@@ -708,6 +728,9 @@
                       "type": "string"
                     }
                   }
+                },
+                "traffic": {
+                  "type": "string"
                 }
               }
             }
@@ -723,6 +746,30 @@
           },
           "patternProperties": {
             "^env:[a-z0-9_]+$": {
+              "$ref": "#/$defs/situationFact"
+            }
+          }
+        },
+        "traffic": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "note": { "type": "string" },
+            "status": { "type": "string", "enum": ["ink", "pencil", "open"] },
+            "settled_by": { "type": "string" },
+            "sectors": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "note": { "type": "string" }
+              },
+              "patternProperties": {
+                "^(?!note$)[a-z]+$": { "$ref": "#/$defs/trafficSector" }
+              }
+            }
+          },
+          "patternProperties": {
+            "^traffic:[a-z]+:[a-z0-9_]+$": {
               "$ref": "#/$defs/situationFact"
             }
           }

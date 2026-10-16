@@ -525,10 +525,14 @@
     "geo": "relative geometry. Under `self`/`other` it is directional, measured in that subject's own frame; under `pair` it is symmetric between them.",
     "hist": "what has already been true of this encounter and persists. `self` and `other` only; directional.",
     "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed.",
-    "act": "what a subject is doing or intending at this instant, stated by her and not derived. `self` and `other` only; every key is absent unless the consumer supplies it, and absence fires nothing (Q-33)."
+    "act": "what a subject is doing or intending at this instant, stated by her and not derived. `self` and `other` only; every key is absent unless the consumer supplies it, and absence fires nothing (Q-33).",
+    "traffic": "other traffic reduced to facts about self's options, one set per sector around self (ADR 0023). Takes no subject segment: it is held beside `self`, `other` and `pair`, not under one, so `traffic:<sector>:<key>` is a complete key and the sector is a key prefix, not a class."
    },
-   "bare_key": "A key with no subject segment means `self:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4).",
-   "directional_note": "Swapping `self` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `self:geo:rel_bearing_deg` is the bearing of the other vessel off self's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing."
+   "bare_key": "A key with no subject segment means `self:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4). The one exception is a class listed in `subjectless_classes`, whose first segment is the class itself.",
+   "directional_note": "Swapping `self` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `self:geo:rel_bearing_deg` is the bearing of the other vessel off self's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing.",
+   "subjectless_classes": [
+    "traffic"
+   ]
   },
   "kinematics": {
    "note": "A new fact class, not an extension of the fact record (ADR 0005 sec. 2). Absolute quantities, in the world frame, one set per vessel. `kin:dynamics` is the one exception left uncited -- it is not a COLREGS concept and no paragraph will ever justify it.",
@@ -735,7 +739,8 @@
     "pair": {
      "geo": "<symmetric geometry>",
      "env": "<environment>"
-    }
+    },
+    "traffic": "<traffic facts, per sector>"
    }
   },
   "environment": {
@@ -808,6 +813,146 @@
     "signalk": null
    }
   },
+  "traffic": {
+   "note": "Other traffic reduced to facts about self's options, per sector around self (ADR 0023). Held at `Situation.traffic` beside the subjects, so a key is `traffic:<sector>:<key>` with no subject segment. Every key is absent unless the reduction supplies it, and absence fires nothing.",
+   "status": "pencil",
+   "settled_by": "The engine writing its traffic reduction against these keys, and a Part B entry that reads one.",
+   "sectors": {
+    "note": "The four sectors partition self's relative bearing, 0-360 clockwise from her heading. Every edge is a constant below, so no number is new: ahead is Rule 14(b)'s head-on cone and astern is 13(b)'s overtaking sector. A contact exactly on an edge belongs to the sector that rule:14b, rule:13b and rule:15a:keep_out_of_the_way give it.",
+    "ahead": {
+     "from": "head_on_cone_from_deg",
+     "to": "head_on_half_angle_deg",
+     "includes_from": true,
+     "includes_to": true,
+     "cite": "14(b)"
+    },
+    "starboard": {
+     "from": "head_on_half_angle_deg",
+     "to": "overtaking_sector_from_deg",
+     "includes_from": false,
+     "includes_to": true,
+     "cite": "15(a)"
+    },
+    "astern": {
+     "from": "overtaking_sector_from_deg",
+     "to": "overtaking_sector_to_deg",
+     "includes_from": false,
+     "includes_to": false,
+     "cite": "13(b)"
+    },
+    "port": {
+     "from": "overtaking_sector_to_deg",
+     "to": "head_on_cone_from_deg",
+     "includes_from": true,
+     "includes_to": false,
+     "cite": "15(a)"
+    }
+   },
+   "traffic:ahead:count": {
+    "type": "number",
+    "unit": "vessels",
+    "cite": "6(a)(ii)",
+    "cite_pending": null,
+    "note": "Vessels in the ahead sector, `other` excluded: Rule 6(a)(ii)'s traffic density, reduced per sector (ADR 0023). Absent until the reduction supplies it.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:ahead:nearest_nm": {
+    "type": "number",
+    "unit": "nm",
+    "cite": "8(d)",
+    "cite_pending": null,
+    "note": "Range to the nearest vessel in the ahead sector, the distance 8(d)'s 'safe distance' is judged against (ADR 0023). Absent when the sector holds no vessel.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:ahead:foreclosed": {
+    "type": "boolean",
+    "cite": "8(c)",
+    "cite_pending": null,
+    "note": "Whether a helm action into the ahead sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:starboard:count": {
+    "type": "number",
+    "unit": "vessels",
+    "cite": "6(a)(ii)",
+    "cite_pending": null,
+    "note": "Vessels in the starboard sector, `other` excluded: Rule 6(a)(ii)'s traffic density, reduced per sector (ADR 0023). Absent until the reduction supplies it.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:starboard:nearest_nm": {
+    "type": "number",
+    "unit": "nm",
+    "cite": "8(d)",
+    "cite_pending": null,
+    "note": "Range to the nearest vessel in the starboard sector, the distance 8(d)'s 'safe distance' is judged against (ADR 0023). Absent when the sector holds no vessel.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:starboard:foreclosed": {
+    "type": "boolean",
+    "cite": "8(c)",
+    "cite_pending": null,
+    "note": "Whether a helm action into the starboard sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:astern:count": {
+    "type": "number",
+    "unit": "vessels",
+    "cite": "6(a)(ii)",
+    "cite_pending": null,
+    "note": "Vessels in the astern sector, `other` excluded: Rule 6(a)(ii)'s traffic density, reduced per sector (ADR 0023). Absent until the reduction supplies it.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:astern:nearest_nm": {
+    "type": "number",
+    "unit": "nm",
+    "cite": "8(d)",
+    "cite_pending": null,
+    "note": "Range to the nearest vessel in the astern sector, the distance 8(d)'s 'safe distance' is judged against (ADR 0023). Absent when the sector holds no vessel.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:astern:foreclosed": {
+    "type": "boolean",
+    "cite": "8(c)",
+    "cite_pending": null,
+    "note": "Whether a helm action into the astern sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:port:count": {
+    "type": "number",
+    "unit": "vessels",
+    "cite": "6(a)(ii)",
+    "cite_pending": null,
+    "note": "Vessels in the port sector, `other` excluded: Rule 6(a)(ii)'s traffic density, reduced per sector (ADR 0023). Absent until the reduction supplies it.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:port:nearest_nm": {
+    "type": "number",
+    "unit": "nm",
+    "cite": "8(d)",
+    "cite_pending": null,
+    "note": "Range to the nearest vessel in the port sector, the distance 8(d)'s 'safe distance' is judged against (ADR 0023). Absent when the sector holds no vessel.",
+    "actuable": false,
+    "signalk": null
+   },
+   "traffic:port:foreclosed": {
+    "type": "boolean",
+    "cite": "8(c)",
+    "cite_pending": null,
+    "note": "Whether a helm action into the port sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "actuable": false,
+    "signalk": null
+   }
+  },
   "constants": {
    "note": "Numeric constants a Part B predicate needs and the Rules do not always state. Each names the fact it thresholds, its status under docs/conventions.md, and -- where it is pencil -- what would settle it. They are declared here rather than written inline in an entry so that the number appears once and a test can assert every entry uses it; they are not identifiers (docs/identifiers.md, 'What is not an identifier'), they are values like a modality or a jurisdiction.",
    "appreciable_bearing_change_deg_min": {
@@ -829,6 +974,16 @@
     "cite_pending": "14(b)",
     "note": "Half the head-on cone: 14(a)'s 'reciprocal or nearly reciprocal courses' and 14(b)'s 'ahead or nearly ahead'. 11.25 degrees is one point of the compass, which is the angular unit the Rules themselves use -- 13(b)'s 22.5 degrees is two points -- so the sub-unit is drawn from the same vocabulary rather than invented. Both vessels must be inside it: 14(b) is a statement about aspect as well as bearing.",
     "settled_by": "The same sweep as above. The usual published figures are 5 or 6 degrees, so this constant is deliberately the wider of the candidates: 14(c) says a vessel in doubt shall assume a head-on situation exists, and a wider cone is the reading that errs the way the paragraph errs."
+   },
+   "head_on_cone_from_deg": {
+    "value": 348.75,
+    "unit": "deg",
+    "fact": "self:geo:rel_bearing_deg and other:geo:rel_bearing_deg",
+    "status": "pencil",
+    "cite": null,
+    "cite_pending": "14(b)",
+    "note": "The mirror of the above: 360 - 11.25. The head-on cone and the ahead traffic sector share both edges, closed at both, as rule:14b gates them.",
+    "settled_by": "The same sweep as head_on_half_angle_deg; the two edges move together."
    },
    "overtaking_sector_from_deg": {
     "value": 112.5,

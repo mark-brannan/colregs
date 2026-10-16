@@ -102,7 +102,7 @@ reads two, and says *whose* `fact:activity` it means. The form is three segments
 | segment | values |
 |---|---|
 | subject | `self`, `other`, `pair` |
-| class | `fact`, `kin`, `geo`, `hist`, `env` (`pair` only), `act` |
+| class | `fact`, `kin`, `geo`, `hist`, `env` (`pair` only), `act`; `traffic` takes no subject: `traffic:<sector>:<key>` |
 | key | the identifier as it already exists, or a new one in a new class |
 
 `self:fact:activity`, `other:kin:heading_deg`, `pair:geo:in_sight`,
@@ -123,10 +123,10 @@ nothing but would leave two names for one concept forever. Prefixing is the
 only one of the three where the existing vocabulary is a strict subset of
 the new one.
 
-The cost, stated so nobody rediscovers it: `self`, `other` and `pair` are now
-reserved at the head of the identifier space, and no fact, light or relation
-may ever be named one of them. That is the price of a subject segment that
-is not itself prefixed, and it is cheap — the three words are not candidate
+The cost, stated so nobody rediscovers it: `self`, `other`, `pair` and `traffic`
+are now reserved at the head of the identifier space, and no fact, light or
+relation may ever be named one of them. That is the price of a subject segment
+that is not itself prefixed, and it is cheap — the words are not candidate
 names for anything this package models.
 
 ### The three subjects
