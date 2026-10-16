@@ -546,12 +546,12 @@
     "hist": "what has already been true of this encounter and persists. `self` and `other` only; directional.",
     "env": "environmental scope: a property of the water the encounter is in, not of either vessel. `pair` only -- a narrow channel is not one vessel's channel. Added by the Rule 18 PR, which is the first data to need it; fixtures/situation-fixtures.json flagged the gap before the class existed.",
     "act": "what a subject is doing or intending at this instant, stated by her and not derived. `self` and `other` only; every key is absent unless the consumer supplies it, and absence fires nothing (Q-33).",
-    "traffic": "other traffic reduced to facts about self's options, one set per sector around self (ADR 0023). Takes no subject segment: it is held beside `self`, `other` and `pair`, not under one, so `traffic:<sector>:<key>` is a complete key and the sector is a key prefix, not a class."
+    "others": "other vessels reduced to facts about self's options, one set per sector around self (ADR 0023). Takes no subject segment: it is held beside `self`, `other` and `pair`, not under one, so `others:<sector>:<key>` is a complete key and the sector is a key prefix, not a class."
    },
    "bare_key": "A key with no subject segment means `self:`. Every predicate in data/applicability.json today is therefore already a valid situation predicate, unedited, and every fixture in fixtures/applicability-fixtures.json is already a valid one-subject situation (REQ-CAT-4). The one exception is a class listed in `subjectless_classes`, whose first segment is the class itself.",
    "directional_note": "Swapping `self` and `other` reverses the encounter, which is what a `precedence` rule needs. It also earns the directional geometry class its keep: `self:geo:rel_bearing_deg` is the bearing of the other vessel off self's bow, and `other:geo:rel_bearing_deg` is the same fact from the other side -- which is aspect. Aspect is not a separate fact; it is the other subject's relative bearing.",
    "subjectless_classes": [
-    "traffic"
+    "others"
    ]
   },
   "kinematics": {
@@ -760,7 +760,7 @@
      "geo": "<symmetric geometry>",
      "env": "<environment>"
     },
-    "traffic": "<traffic facts, per sector>"
+    "others": "<others facts, per sector>"
    }
   },
   "environment": {
@@ -833,10 +833,10 @@
     "signalk": null
    }
   },
-  "traffic": {
-   "note": "Other traffic reduced to facts about self's options, per sector around self (ADR 0023). Held at `Situation.traffic` beside the subjects, so a key is `traffic:<sector>:<key>` with no subject segment. Every key is absent unless the reduction supplies it, and absence fires nothing.",
+  "others": {
+   "note": "Other vessels reduced to facts about self's options, per sector around self (ADR 0023). Held at `Situation.others` beside the subjects, so a key is `others:<sector>:<key>` with no subject segment. Every key is absent unless the reduction supplies it, and absence fires nothing.",
    "status": "pencil",
-   "settled_by": "The engine writing its traffic reduction against these keys, and a Part B entry that reads one.",
+   "settled_by": "The engine writing its reduction of the other vessels against these keys, and a Part B entry that reads one.",
    "sectors": {
     "note": "The four sectors partition self's relative bearing, 0-360 clockwise from her heading. Every edge is a constant below, so no number is new: ahead is Rule 14(b)'s head-on cone and astern is 13(b)'s overtaking sector. A contact exactly on an edge belongs to the sector that rule:14b, rule:13b and rule:15a:keep_out_of_the_way give it.",
     "ahead": {
@@ -868,7 +868,7 @@
      "cite": "15(a)"
     }
    },
-   "traffic:ahead:count": {
+   "others:ahead:count": {
     "type": "number",
     "unit": "vessels",
     "cite": "6(a)(ii)",
@@ -877,7 +877,7 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:ahead:nearest_nm": {
+   "others:ahead:nearest_nm": {
     "type": "number",
     "unit": "nm",
     "cite": "8(d)",
@@ -886,15 +886,15 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:ahead:foreclosed": {
+   "others:ahead:foreclosed": {
     "type": "boolean",
     "cite": "8(c)",
     "cite_pending": null,
-    "note": "Whether a helm action into the ahead sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "note": "Whether a helm action into the ahead sector is foreclosed by the vessels in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
     "actuable": false,
     "signalk": null
    },
-   "traffic:starboard:count": {
+   "others:starboard:count": {
     "type": "number",
     "unit": "vessels",
     "cite": "6(a)(ii)",
@@ -903,7 +903,7 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:starboard:nearest_nm": {
+   "others:starboard:nearest_nm": {
     "type": "number",
     "unit": "nm",
     "cite": "8(d)",
@@ -912,15 +912,15 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:starboard:foreclosed": {
+   "others:starboard:foreclosed": {
     "type": "boolean",
     "cite": "8(c)",
     "cite_pending": null,
-    "note": "Whether a helm action into the starboard sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "note": "Whether a helm action into the starboard sector is foreclosed by the vessels in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
     "actuable": false,
     "signalk": null
    },
-   "traffic:astern:count": {
+   "others:astern:count": {
     "type": "number",
     "unit": "vessels",
     "cite": "6(a)(ii)",
@@ -929,7 +929,7 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:astern:nearest_nm": {
+   "others:astern:nearest_nm": {
     "type": "number",
     "unit": "nm",
     "cite": "8(d)",
@@ -938,15 +938,15 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:astern:foreclosed": {
+   "others:astern:foreclosed": {
     "type": "boolean",
     "cite": "8(c)",
     "cite_pending": null,
-    "note": "Whether a helm action into the astern sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "note": "Whether a helm action into the astern sector is foreclosed by the vessels in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
     "actuable": false,
     "signalk": null
    },
-   "traffic:port:count": {
+   "others:port:count": {
     "type": "number",
     "unit": "vessels",
     "cite": "6(a)(ii)",
@@ -955,7 +955,7 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:port:nearest_nm": {
+   "others:port:nearest_nm": {
     "type": "number",
     "unit": "nm",
     "cite": "8(d)",
@@ -964,11 +964,11 @@
     "actuable": false,
     "signalk": null
    },
-   "traffic:port:foreclosed": {
+   "others:port:foreclosed": {
     "type": "boolean",
     "cite": "8(c)",
     "cite_pending": null,
-    "note": "Whether a helm action into the port sector is foreclosed by the traffic in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
+    "note": "Whether a helm action into the port sector is foreclosed by the vessels in it, which is what 8(c)'s 'sufficient sea-room' asks (ADR 0023). Stated by the reduction, never inferred from `count`.",
     "actuable": false,
     "signalk": null
    }
@@ -1002,7 +1002,7 @@
     "status": "pencil",
     "cite": null,
     "cite_pending": "14(b)",
-    "note": "The mirror of the above: 360 - 11.25. The head-on cone and the ahead traffic sector share both edges, closed at both, as rule:14b gates them.",
+    "note": "The mirror of the above: 360 - 11.25. The head-on cone and the others class's ahead sector share both edges, closed at both, as rule:14b gates them.",
     "settled_by": "The same sweep as head_on_half_angle_deg; the two edges move together."
    },
    "overtaking_sector_from_deg": {

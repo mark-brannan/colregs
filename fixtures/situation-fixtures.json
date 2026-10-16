@@ -5065,9 +5065,9 @@
    }
   },
   {
-   "name": "traffic: a third vessel ahead, reduced to facts, changes no entry",
+   "name": "others: a third vessel ahead, reduced to facts, changes no entry",
    "status": "binding",
-   "narrative": "The same crossing with a third vessel dead ahead of self, reduced to `traffic`: one vessel in the ahead sector, 0.8 nm off, foreclosing a helm action into it. No entry reads `traffic:*` yet, so the entries are the crossing's own.",
+   "narrative": "The same crossing with a third vessel dead ahead of self, reduced to `others`: one vessel in the ahead sector, 0.8 nm off, foreclosing a helm action into it. No entry reads `others:*` yet, so the entries are the crossing's own.",
    "expect": [
     "rule:4",
     "rule:11",
@@ -5139,7 +5139,7 @@
       "geo:risk_of_collision": true
      }
     },
-    "traffic": {
+    "others": {
      "ahead": {
       "count": 1,
       "nearest_nm": 0.8,

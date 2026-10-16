@@ -67,8 +67,8 @@
         }
       }
     },
-    "trafficSector": {
-      "$comment": "A sector of the traffic class: the relative bearing from `from` to `to`, each the name of a declared situation constant, and which of the two edges the sector owns.",
+    "othersSector": {
+      "$comment": "A sector of the others class: the relative bearing from `from` to `to`, each the name of a declared situation constant, and which of the two edges the sector owns.",
       "type": "object",
       "additionalProperties": false,
       "required": ["from", "to", "includes_from", "includes_to", "cite"],
@@ -548,7 +548,7 @@
             "classes": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["fact", "kin", "geo", "hist", "env", "act", "traffic"],
+              "required": ["fact", "kin", "geo", "hist", "env", "act", "others"],
               "properties": {
                 "fact": {
                   "type": "string"
@@ -568,7 +568,7 @@
                 "act": {
                   "type": "string"
                 },
-                "traffic": {
+                "others": {
                   "type": "string"
                 }
               }
@@ -729,7 +729,7 @@
                     }
                   }
                 },
-                "traffic": {
+                "others": {
                   "type": "string"
                 }
               }
@@ -750,7 +750,7 @@
             }
           }
         },
-        "traffic": {
+        "others": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -764,12 +764,12 @@
                 "note": { "type": "string" }
               },
               "patternProperties": {
-                "^(?!note$)[a-z]+$": { "$ref": "#/$defs/trafficSector" }
+                "^(?!note$)[a-z]+$": { "$ref": "#/$defs/othersSector" }
               }
             }
           },
           "patternProperties": {
-            "^traffic:[a-z]+:[a-z0-9_]+$": {
+            "^others:[a-z]+:[a-z0-9_]+$": {
               "$ref": "#/$defs/situationFact"
             }
           }

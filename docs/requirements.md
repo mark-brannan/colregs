@@ -716,7 +716,7 @@ Tracked here until resolved; each becomes an ADR.
   Rule 34(a)–(d) reads what self is doing, an `act` class of the situation
   record supplied by the consumer like `fact:making_way`, not an event
   stream. Settled by the first Rule 34 entry landing against
-  `evaluateEncounter`.
+  `evaluateCircumstances`.
 - **Q-2** — Are the USCG scans the educational payload, or a stopgap until
   light geometry is rendered from data? Affects how hard REQ-PROV-5 is pushed.
 - **Q-3** — Jurisdiction licence terms. **Verified 2026-09-05** against

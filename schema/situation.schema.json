@@ -2,14 +2,14 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/situation.schema.json",
   "title": "Situation",
-  "description": "Two vessels and the encounter at one instant: the input evaluateEncounter reads, nested by subject and class (ADR 0005 §2, ADR 0011 §3, ADR 0014), plus other traffic reduced to facts about self's options (colregs-engine#82). Structure only -- every kin:/geo:/hist:/env:/act: key must be declared in data/facts.json §situation, checked in the tests.",
+  "description": "Two vessels and the encounter at one instant: the input evaluateCircumstances reads, nested by subject and class (ADR 0005 §2, ADR 0011 §3, ADR 0014), plus other vessels reduced to facts about self's options (colregs-engine#82). Structure only -- every kin:/geo:/hist:/env:/act: key must be declared in data/facts.json §situation, checked in the tests.",
   "$comment": "The same shape as a case's `situation` in schema/situation-fixtures.schema.json, stated once here so an operation can name it; `self` required, `other` optional (Rule 19's single-vessel scope), every class and key optional -- absent is absent.",
   "type": "object",
   "additionalProperties": false,
   "required": ["self"],
   "properties": {
-    "self": { "$ref": "#/$defs/subject" },
-    "other": { "$ref": "#/$defs/subject" },
+    "self": { "$ref": "#/$defs/vessel" },
+    "other": { "$ref": "#/$defs/vessel" },
     "pair": {
       "type": "object",
       "additionalProperties": false,
@@ -18,9 +18,9 @@
         "env": { "$ref": "#/$defs/envRecord" }
       }
     },
-    "traffic": {
-      "$comment": "Not vessels: a Situation stays two-vessel (colregs-engine#82). Optional; evaluateEncounter reads none of it.",
-      "$ref": "traffic-facts.schema.json"
+    "others": {
+      "$comment": "Not vessels: a Situation stays two-vessel (colregs-engine#82). Optional; evaluateCircumstances reads none of it.",
+      "$ref": "others-facts.schema.json"
     }
   },
   "$defs": {
@@ -66,7 +66,7 @@
       "additionalProperties": false,
       "patternProperties": { "^env:[a-z0-9_]+$": { "$ref": "#/$defs/scalar" } }
     },
-    "subject": {
+    "vessel": {
       "type": "object",
       "additionalProperties": false,
       "required": ["fact"],

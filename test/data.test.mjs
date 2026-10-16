@@ -321,37 +321,37 @@ test('schema: every schema file names itself by $id and compiles, cross-file $re
   }
 });
 
-// colregs-engine#82 ruled `Situation.traffic`: other traffic reduced to facts
+// colregs-engine#82 ruled `Situation.others`: other vessels reduced to facts
 // about self's options, not vessels. The envelope admits it; the keys it
 // flattens to are declared in data/facts.json, not here.
-test('schema: a situation carrying `traffic` validates, and a malformed one does not', () => {
+test('schema: a situation carrying `others` validates, and a malformed one does not', () => {
   const situation = validatorFor('situation.schema.json');
-  check(situation, { self: { fact: {} }, traffic: { ahead: { foreclosed: true } } }, 'situation with traffic');
-  check(situation, { self: { fact: {} }, traffic: {} }, 'situation with empty traffic');
-  check(situation, { self: { fact: {} } }, 'situation without traffic');
+  check(situation, { self: { fact: {} }, others: { ahead: { foreclosed: true } } }, 'situation with others');
+  check(situation, { self: { fact: {} }, others: {} }, 'situation with empty others');
+  check(situation, { self: { fact: {} } }, 'situation without others');
   assert.ok(
-    !situation({ self: { fact: {} }, traffic: { abeam: {} } }),
-    'situation accepts a traffic sector the schema does not name',
+    !situation({ self: { fact: {} }, others: { abeam: {} } }),
+    'situation accepts an others sector the schema does not name',
   );
   assert.ok(
-    !situation({ self: { fact: {} }, traffic: { ahead: { count: 1.5 } } }),
-    'situation accepts a fractional traffic count',
+    !situation({ self: { fact: {} }, others: { ahead: { count: 1.5 } } }),
+    'situation accepts a fractional others count',
   );
 });
 
-test('schema: traffic-facts accepts an empty reduction and refuses a malformed sector', () => {
-  const validate = validatorFor('traffic-facts.schema.json');
-  check(validate, {}, 'traffic-facts.schema.json empty');
+test('schema: others-facts accepts an empty reduction and refuses a malformed sector', () => {
+  const validate = validatorFor('others-facts.schema.json');
+  check(validate, {}, 'others-facts.schema.json empty');
   check(
     validate,
     { ahead: { count: 1, nearest_nm: 0.8, foreclosed: true }, port: { count: 0 } },
-    'traffic-facts.schema.json example',
+    'others-facts.schema.json example',
   );
-  assert.ok(!validate({ ahead: { count: -1 } }), 'traffic-facts.schema.json accepts a negative count');
-  assert.ok(!validate({ ahead: { nearest_nm: -0.1 } }), 'traffic-facts.schema.json accepts a negative range');
-  assert.ok(!validate({ ahead: { foreclosed: 'yes' } }), 'traffic-facts.schema.json accepts a non-boolean foreclosed');
-  assert.ok(!validate({ ahead: { vessels: 2 } }), 'traffic-facts.schema.json accepts an unknown sector field');
-  assert.ok(!validate({ abeam: {} }), 'traffic-facts.schema.json accepts an unknown sector');
+  assert.ok(!validate({ ahead: { count: -1 } }), 'others-facts.schema.json accepts a negative count');
+  assert.ok(!validate({ ahead: { nearest_nm: -0.1 } }), 'others-facts.schema.json accepts a negative range');
+  assert.ok(!validate({ ahead: { foreclosed: 'yes' } }), 'others-facts.schema.json accepts a non-boolean foreclosed');
+  assert.ok(!validate({ ahead: { vessels: 2 } }), 'others-facts.schema.json accepts an unknown sector field');
+  assert.ok(!validate({ abeam: {} }), 'others-facts.schema.json accepts an unknown sector');
 });
 
 // --- operations (ADR 0014) --------------------------------------------------
@@ -396,9 +396,9 @@ test('operations: verbs and companion verbs are one namespace, no name twice', (
 
 test('operations: every verb ADR 0011 and 0012 name is an operation', () => {
   assert.deepEqual(Object.keys(operations.operations).sort(), [
-    'evaluateConduct',
+    'evaluateCircumstances',
+    'evaluateCompliance',
     'evaluateDisplay',
-    'evaluateEncounter',
     'evaluateRule2Departure',
   ]);
 });
@@ -497,8 +497,8 @@ const envelopeExamples = {
     categories: { 'rule:23a_i': 'category:display' },
     provenance,
   },
-  'encounter-evaluation.schema.json': encounter,
-  'conduct-evaluation.schema.json': {
+  'circumstances-evaluation.schema.json': encounter,
+  'compliance-evaluation.schema.json': {
     colregs,
     window: { from_s: 0, to_s: 60, samples: 2 },
     applied: ['rule:13a'],
@@ -2000,7 +2000,7 @@ const situationFixtures = load('fixtures/situation-fixtures.json');
 const sit = facts.situation;
 const SUBJECTS = new Set(Object.keys(sit.namespace.subjects));
 const CLASSES = new Set(Object.keys(sit.namespace.classes));
-// A class listed here is held beside the subjects, not under one: `traffic`
+// A class listed here is held beside the subjects, not under one: `others`
 // is a key of its own at the head of the situation, so it takes no subject
 // segment and a bare key does not default it to `self:`.
 const SUBJECTLESS = new Set(sit.namespace.subjectless_classes);
@@ -2017,7 +2017,7 @@ function parseKey(key) {
   let hit = parsedKeys.get(key);
   if (hit === undefined) {
     const seg = key.split(':');
-    // `traffic:<sector>:<key>`: no subject, the sector is a key prefix.
+    // `others:<sector>:<key>`: no subject, the sector is a key prefix.
     const subject = SUBJECTLESS.has(seg[0]) ? null : SUBJECTS.has(seg[0]) ? seg.shift() : 'self';
     hit = { subject, cls: seg[0], local: seg.join(':') };
     parsedKeys.set(key, hit);
@@ -2178,13 +2178,13 @@ const situationDeclared = {
   hist: new Set(Object.keys(sit.history).filter((k) => k.startsWith('hist:'))),
   env: new Set(Object.keys(sit.environment).filter((k) => k.startsWith('env:'))),
   act: new Set(Object.keys(sit.acts).filter((k) => k.startsWith('act:'))),
-  traffic: new Set(Object.keys(sit.traffic).filter((k) => k.startsWith('traffic:'))),
+  others: new Set(Object.keys(sit.others).filter((k) => k.startsWith('others:'))),
 };
 
 test('REQ-CAT-4: the situation section declares the classes the namespace names', () => {
   assert.deepEqual([...SUBJECTS].sort(), ['other', 'pair', 'self']);
-  assert.deepEqual([...CLASSES].sort(), ['act', 'env', 'fact', 'geo', 'hist', 'kin', 'traffic']);
-  assert.deepEqual([...SUBJECTLESS], ['traffic']);
+  assert.deepEqual([...CLASSES].sort(), ['act', 'env', 'fact', 'geo', 'hist', 'kin', 'others']);
+  assert.deepEqual([...SUBJECTLESS], ['others']);
   // The fact record is reachable unchanged: `self:fact:*` must resolve to the
   // very keys facts.json already declares, not to a renamed copy of them.
   for (const k of situationDeclared.fact) {
@@ -2198,7 +2198,7 @@ test('REQ-CAT-4: the situation section declares the classes the namespace names'
     ...Object.entries(sit.history).filter(([k]) => k.startsWith('hist:')),
     ...Object.entries(sit.environment).filter(([k]) => k.startsWith('env:')),
     ...Object.entries(sit.acts).filter(([k]) => k.startsWith('act:')),
-    ...Object.entries(sit.traffic).filter(([k]) => k.startsWith('traffic:')),
+    ...Object.entries(sit.others).filter(([k]) => k.startsWith('others:')),
   ];
   assert.ok(shaped.length > 0);
   for (const [k, rec] of shaped) {
@@ -2249,7 +2249,7 @@ test('REQ-CAT-5: situation fixtures are well-formed and resolve in the namespace
     assert.ok(situationFixtures.case_status.values.includes(c.status), `${c.name}: bad status`);
     for (const [subject, classes] of Object.entries(c.situation)) {
       if (SUBJECTLESS.has(subject)) {
-        // `traffic: { <sector>: { <key>: v } }` flattens to `traffic:<sector>:<key>`.
+        // `others: { <sector>: { <key>: v } }` flattens to `others:<sector>:<key>`.
         for (const [sector, record] of Object.entries(classes)) {
           for (const [k, v] of Object.entries(record)) {
             const flat = `${subject}:${sector}:${k}`;
@@ -2947,12 +2947,12 @@ test('the declared constants are the numbers the entries actually read', () => {
   }
 });
 
-// ADR 0023's traffic class: the keys, and the sector boundaries as the
+// ADR 0023's others class: the keys, and the sector boundaries as the
 // edges the Part B entries already gate on. Nothing here is a new number except
 // the cone's mirror edge, and that is checked against its partner.
-test('traffic: every sector carries every key, the schema names the same ones, and the sectors partition the circle', () => {
-  const schema = loadSchema('traffic-facts.schema.json');
-  const sectors = Object.keys(sit.traffic.sectors).filter((k) => k !== 'note');
+test('others: every sector carries every key, the schema names the same ones, and the sectors partition the circle', () => {
+  const schema = loadSchema('others-facts.schema.json');
+  const sectors = Object.keys(sit.others.sectors).filter((k) => k !== 'note');
   assert.deepEqual(
     sectors.sort(),
     Object.keys(schema.properties).sort(),
@@ -2960,16 +2960,16 @@ test('traffic: every sector carries every key, the schema names the same ones, a
   );
   const keys = Object.keys(schema.$defs.sector.properties);
   assert.deepEqual(
-    [...situationDeclared.traffic].sort(),
-    sectors.flatMap((s) => keys.map((k) => `traffic:${s}:${k}`)).sort(),
+    [...situationDeclared.others].sort(),
+    sectors.flatMap((s) => keys.map((k) => `others:${s}:${k}`)).sort(),
     'a sector is missing a key, or has an extra one',
   );
-  assert.ok(situationDeclared.traffic.has('traffic:ahead:foreclosed'));
-  for (const [k, rec] of Object.entries(sit.traffic).filter(([k]) => k.startsWith('traffic:'))) {
+  assert.ok(situationDeclared.others.has('others:ahead:foreclosed'));
+  for (const [k, rec] of Object.entries(sit.others).filter(([k]) => k.startsWith('others:'))) {
     assert.ok(/ADR 0023/.test(rec.note), `${k}: note does not point at ADR 0023`);
   }
-  assert.equal(sit.traffic.status, 'pencil');
-  assert.ok(sit.traffic.settled_by, 'pencil with no settled_by');
+  assert.equal(sit.others.status, 'pencil');
+  assert.ok(sit.others.settled_by, 'pencil with no settled_by');
 
   // The mirror edges are the same distance from the bow as their partners.
   assert.equal(CONSTANTS.head_on_cone_from_deg.value, 360 - HALF);
@@ -2978,7 +2978,7 @@ test('traffic: every sector carries every key, the schema names the same ones, a
   // Each edge is a declared constant; a sector's cite is a paragraph.
   const bounds = Object.fromEntries(
     sectors.map((s) => {
-      const def = sit.traffic.sectors[s];
+      const def = sit.others.sectors[s];
       for (const e of [def.from, def.to]) assert.ok(e in CONSTANTS, `${s}: edge ${e} is not a declared constant`);
       assert.ok(rules.paragraphs[def.cite], `${s}: cite ${def.cite} not in rules.json`);
       assert.equal(typeof def.includes_from, 'boolean');
