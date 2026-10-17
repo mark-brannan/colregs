@@ -26,10 +26,10 @@
     "scope": {
       "$ref": "evaluation.schema.json#/$defs/ruleIds"
     },
-    "encounter": {
+    "situation": {
       "$comment": "Absent when no classification entry fired: cannot say, not none (Q-43).",
       "type": "string",
-      "enum": ["encounter:head-on", "encounter:crossing", "encounter:overtaking", "encounter:none"]
+      "enum": ["situation:head-on", "situation:crossing", "situation:overtaking", "situation:none"]
     },
     "risk_of_collision": {
       "type": "object",

@@ -157,15 +157,15 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["encounter"],
+          "required": ["situation"],
           "properties": {
-            "encounter": {
+            "situation": {
               "type": "string",
               "enum": [
-                "encounter:head-on",
-                "encounter:crossing",
-                "encounter:overtaking",
-                "encounter:none"
+                "situation:head-on",
+                "situation:crossing",
+                "situation:overtaking",
+                "situation:none"
               ]
             }
           }
@@ -402,20 +402,20 @@
             "role:none": { "type": "string" }
           }
         },
-        "encounters": {
+        "situations": {
           "type": "object",
           "additionalProperties": false,
           "required": [
-            "encounter:head-on",
-            "encounter:crossing",
-            "encounter:overtaking",
-            "encounter:none"
+            "situation:head-on",
+            "situation:crossing",
+            "situation:overtaking",
+            "situation:none"
           ],
           "properties": {
-            "encounter:head-on": { "type": "string" },
-            "encounter:crossing": { "type": "string" },
-            "encounter:overtaking": { "type": "string" },
-            "encounter:none": { "type": "string" }
+            "situation:head-on": { "type": "string" },
+            "situation:crossing": { "type": "string" },
+            "situation:overtaking": { "type": "string" },
+            "situation:none": { "type": "string" }
           }
         },
         "classification_shape": { "type": "string" }

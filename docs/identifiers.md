@@ -61,7 +61,7 @@ encounter — resolved the identical way, `modality:shall-not-impede` and
 | `rel:<name>` | the six relation verbs (`data/applicability.json`) | `rel:includes`, `rel:in_lieu_of`, `rel:exempts` |
 | `modality:<value>` | modality values (`data/applicability.json` `modalities`) | `modality:shall`, `modality:may` |
 | `role:<value>` | effect role values (`data/applicability.json` `effects.roles`) | `role:give-way`, `role:none` |
-| `encounter:<value>` | effect encounter values (`data/applicability.json` `effects.encounters`) | `encounter:head-on`, `encounter:none` |
+| `situation:<value>` | effect situation values (`data/applicability.json` `effects.situations`) | `situation:head-on`, `situation:none` |
 | `category:<value>` | entry category values (`data/applicability.json` `categories`) | `category:precedence`, `category:display` |
 
 The prefix names the namespace the identifier lives in; a modality shift takes
@@ -217,7 +217,7 @@ an **effect**, and the shape of the effect is fixed by the category:
 |---|---|
 | `category:scope` | `{"part", "section", "applies_rules"}` — which section of which Part governs, and the rules it contains |
 | `category:precedence` | `{"self": <role>, "other": <role>}` — one role per subject |
-| `category:classification` | `{"encounter": <encounter>}` **or** `{"risk_of_collision": true}` — exactly one key |
+| `category:classification` | `{"situation": <situation>}` **or** `{"risk_of_collision": true}` — exactly one key |
 
 Five roles, a closed set: `role:give-way`, `role:stand-on`,
 `role:shall-not-impede`, `role:keep-clear`, `role:none`. They are declared
@@ -227,15 +227,15 @@ binds (ADR 0017).
 
 ### Encounters, and why a classification effect has two shapes
 
-Four encounters, a closed set like the roles: `encounter:head-on` (Rule 14),
-`encounter:crossing` (Rule 15), `encounter:overtaking` (Rule 13) and
-`encounter:none`. They are declared in `data/applicability.json` under
-`effects.encounters` and, like the roles, they are identifiers.
+Four encounters, a closed set like the roles: `situation:head-on` (Rule 14),
+`situation:crossing` (Rule 15), `situation:overtaking` (Rule 13) and
+`situation:none`. They are declared in `data/applicability.json` under
+`effects.situations` and, like the roles, they are identifiers.
 
 A `category:classification` effect carries **exactly one key**, and which key it is
 depends on which question the paragraph answers. Rule 7(d)(i) answers *does
 risk of collision exist* and produces `{"risk_of_collision": true}`; Rules 13,
-14 and 15 answer *what kind of encounter is this* and produce an `encounter`.
+14 and 15 answer *what kind of encounter is this* and produce a `situation`.
 ADR 0005 gives both questions to `category:classification` — "relative geometry,
 history → encounter type, risk of collision" — and the two do not merge. A
 single shape would have made every encounter entry state a risk it does not
@@ -245,7 +245,7 @@ input rather than producing it.
 There is no `{"risk_of_collision": false}` and there never will be. 7(a) makes
 risk a judgement on all available means and deems it to exist in any doubt, so
 an entry can add a ground for risk and nothing in this package can deny one.
-`encounter:none` is declared for the completeness of the vocabulary and
+`situation:none` is declared for the completeness of the vocabulary and
 no entry produces it: an encounter type is asserted by a paragraph, and the
 absence of one is the absence of an entry rather than an entry with a null
 value.

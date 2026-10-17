@@ -463,7 +463,7 @@ const encounter = {
   colregs,
   applied: ['rule:13b'],
   scope: ['rule:11'],
-  encounter: 'encounter:overtaking',
+  situation: 'situation:overtaking',
   risk_of_collision: { asserted: true, by: ['rule:13b'] },
   roles: { self: [{ role: 'role:give-way', by: 'rule:13a' }], other: [] },
   overridden: [],
@@ -558,7 +558,7 @@ const catalogVocabularies = {
   shapes: new Set(Object.keys(shapes.shapes)),
   modalities: new Set(Object.keys(appl.modalities)),
   roles: new Set(Object.keys(appl.effects.roles)),
-  encounters: new Set(Object.keys(appl.effects.encounters)),
+  situations: new Set(Object.keys(appl.effects.situations)),
   jurisdictions: new Set(Object.keys(editions.jurisdictions)),
   facts: closedFactValues(facts),
 };
@@ -2437,8 +2437,8 @@ test('every effect is shaped for its category and names declared roles', () => {
       // entry state a risk it does not decide.
       const keys = Object.keys(e.effect);
       assert.equal(keys.length, 1, `${e.id}: a classification effect carries exactly one key`);
-      if (keys[0] === 'encounter') {
-        assert.ok(e.effect.encounter in appl.effects.encounters, `${e.id}: undeclared encounter ${e.effect.encounter}`);
+      if (keys[0] === 'situation') {
+        assert.ok(e.effect.situation in appl.effects.situations, `${e.id}: undeclared situation ${e.effect.situation}`);
       } else {
         assert.equal(keys[0], 'risk_of_collision', `${e.id}: unknown classification effect key ${keys[0]}`);
         assert.equal(
@@ -2715,7 +2715,7 @@ test('scope: a situation selects exactly one Part B section, and it tracks in-si
 // of both subjects' bearings -- self's, and the aspect -- and reading one alone
 // is the mistake rule:13b exists to prevent.
 const classification = appl.entries.filter((e) => e.category === 'category:classification');
-const encounterEntries = classification.filter((e) => 'encounter' in e.effect);
+const encounterEntries = classification.filter((e) => 'situation' in e.effect);
 const CONSTANTS = facts.situation.constants;
 const FROM = CONSTANTS.overtaking_sector_from_deg.value;
 const TO = CONSTANTS.overtaking_sector_to_deg.value;
@@ -2776,7 +2776,7 @@ function aim(s, ownRel, aspect, range_m = SWEEP_RANGE_M) {
 const sweepSituation = ({ ownRel, aspect, latchOwn = false, latchOther = false }) =>
   aim(sweepTemplate(latchOwn, latchOther), ownRel, aspect);
 const encountersFor = (s) =>
-  new Set(encounterEntries.filter((e) => matchesSituation(e.when, s)).map((e) => e.effect.encounter));
+  new Set(encounterEntries.filter((e) => matchesSituation(e.when, s)).map((e) => e.effect.situation));
 
 test('classification: head-on, crossing and overtaking partition relative bearing', () => {
   // The declared sector edges are 22.5 degrees abaft each beam, which is what
@@ -2811,10 +2811,10 @@ test('classification: head-on, crossing and overtaking partition relative bearin
       // read back off the data.
       const want =
         inSector(ownRel) || inSector(aspect)
-          ? 'encounter:overtaking'
+          ? 'situation:overtaking'
           : inCone(ownRel) && inCone(aspect)
-            ? 'encounter:head-on'
-            : 'encounter:crossing';
+            ? 'situation:head-on'
+            : 'situation:crossing';
       if (!got.has(want)) bad.push(`${ownRel}/${aspect}: ${[...got]} not ${want}`);
     }
   }
@@ -2828,20 +2828,20 @@ test('classification: the 112.5 and 22.5-abaft edges land exactly where 13(b) pu
   // fixtures either side of each edge are the data-level record of the same
   // fact.
   const at = (ownRel, aspect) => [...encountersFor(sweepSituation({ ownRel, aspect }))];
-  assert.deepEqual(at(300, FROM), ['encounter:crossing'], 'exactly 22.5 abaft the beam is not yet overtaking');
-  assert.deepEqual(at(350, FROM + 0.1), ['encounter:overtaking']);
-  assert.deepEqual(at(10, TO), ['encounter:crossing'], 'the mirror edge, and equally exclusive');
-  assert.deepEqual(at(10, TO - 0.1), ['encounter:overtaking']);
+  assert.deepEqual(at(300, FROM), ['situation:crossing'], 'exactly 22.5 abaft the beam is not yet overtaking');
+  assert.deepEqual(at(350, FROM + 0.1), ['situation:overtaking']);
+  assert.deepEqual(at(10, TO), ['situation:crossing'], 'the mirror edge, and equally exclusive');
+  assert.deepEqual(at(10, TO - 0.1), ['situation:overtaking']);
   // The same edge read on self's bearing, which is the overtaken vessel's side.
-  assert.deepEqual(at(FROM, 5), ['encounter:crossing']);
-  assert.deepEqual(at(FROM + 0.1, 5), ['encounter:overtaking']);
+  assert.deepEqual(at(FROM, 5), ['situation:crossing']);
+  assert.deepEqual(at(FROM + 0.1, 5), ['situation:overtaking']);
   // The head-on cone is closed at its edge and one twentieth of a degree wide
   // of it is a crossing -- and it takes both subjects, which is 14(b).
-  assert.deepEqual(at(HALF, 360 - HALF), ['encounter:head-on']);
-  assert.deepEqual(at(HALF + 0.05, 360 - HALF), ['encounter:crossing']);
-  assert.deepEqual(at(HALF, 360 - HALF - 0.05), ['encounter:crossing']);
-  assert.deepEqual(at(0, 0), ['encounter:head-on'], 'dead ahead of each other');
-  assert.deepEqual(at(180, 180), ['encounter:overtaking'], 'dead astern is the middle of the sector');
+  assert.deepEqual(at(HALF, 360 - HALF), ['situation:head-on']);
+  assert.deepEqual(at(HALF + 0.05, 360 - HALF), ['situation:crossing']);
+  assert.deepEqual(at(HALF, 360 - HALF - 0.05), ['situation:crossing']);
+  assert.deepEqual(at(0, 0), ['situation:head-on'], 'dead ahead of each other');
+  assert.deepEqual(at(180, 180), ['situation:overtaking'], 'dead astern is the middle of the sector');
 });
 
 test('classification: 13(d) holds the encounter at overtaking however the bearing drifts', () => {
@@ -2859,7 +2859,7 @@ test('classification: 13(d) holds the encounter at overtaking however the bearin
     for (let ownRel = 0; ownRel < 360; ownRel += 0.5) {
       for (let aspect = 0; aspect < 360; aspect += 0.5) {
         const got = encountersFor(aim(s, ownRel, aspect));
-        if (got.size !== 1 || !got.has('encounter:overtaking')) bad.push(`${ownRel}/${aspect}: ${[...got]}`);
+        if (got.size !== 1 || !got.has('situation:overtaking')) bad.push(`${ownRel}/${aspect}: ${[...got]}`);
       }
     }
     assert.deepEqual(bad.slice(0, 8), [], `${bad.length} bearings escape the 13(d) latch`);
@@ -2867,7 +2867,7 @@ test('classification: 13(d) holds the encounter at overtaking however the bearin
   // The case the latch was written for, and the one the fixture illustrates:
   // a bearing that has drawn out of the sector entirely.
   const drifted = sweepSituation({ ownRel: 90, aspect: 250, latchOwn: true });
-  assert.deepEqual([...encountersFor(drifted)], ['encounter:overtaking']);
+  assert.deepEqual([...encountersFor(drifted)], ['situation:overtaking']);
   assert.equal(
     matchesSituation(byId.get('rule:13b').when, drifted),
     false,
@@ -3411,7 +3411,7 @@ test("Q-48 residual: 7(d)(i)'s tolerance admits a slow starboard-to-starboard pa
   assert.ok(Math.abs(s.pair.geo['geo:bearing_change_deg_min']) < appreciable, 'the bearing rate is inside 7(d)(i)');
   assert.ok(s.pair.geo['geo:cpa_m'] > 100, 'and yet they pass clear');
   assert.ok(matchesSituation(byId.get('rule:7d_i').when, s), '7(d)(i) deems risk');
-  assert.deepEqual([...encountersFor(s)], ['encounter:crossing']);
+  assert.deepEqual([...encountersFor(s)], ['situation:crossing']);
   assert.ok(bothHold(forcefulPool(s), 'role:give-way'), 'both vessels are give-way -- the residual this test pins');
 });
 

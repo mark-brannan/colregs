@@ -185,7 +185,7 @@ modality has resolved — Rule 20(c) is the one in the data, making a light
 Most entries read one vessel and produce lights. The Part B entries read
 **two**, a situation rather than a fact record, and produce an `effect`:
 which section governs, which vessel gives way, whether the encounter is
-`encounter:head-on`, `encounter:crossing` or `encounter:overtaking`. They address each vessel through a
+`situation:head-on`, `situation:crossing` or `situation:overtaking`. They address each vessel through a
 subject segment (`self:fact:activity`, `other:fact:propulsion`,
 `pair:geo:in_sight`); a key with no subject means `self:`. The encounter
 sectors partition relative bearing, so no crossing sector is enumerated and
