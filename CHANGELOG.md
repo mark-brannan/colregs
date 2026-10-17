@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.8](https://github.com/mark-brannan/colregs/compare/v0.3.7...v0.3.8) (2026-10-17)
+
+
+### Added
+
+* evaluate(circumstances) enters the operations manifest as a straw man ([#231](https://github.com/mark-brannan/colregs/issues/231)) ([d06783c](https://github.com/mark-brannan/colregs/commit/d06783c2e98a830c2db4f7dba5d98ffe71afb8c9))
+
 ## [0.3.7](https://github.com/mark-brannan/colregs/compare/v0.3.6...v0.3.7) (2026-10-17)
 
 
