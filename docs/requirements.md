@@ -56,7 +56,7 @@ Neither consumer lives in this repo.
 | **modality** | `modality:shall` / `modality:may` / `modality:shall-if-practicable`. |
 | **jurisdiction** | A body of rules: `intl`, `us/inland`, `ca/inland`, … |
 | **delta** | A jurisdiction's departures from the international text. |
-| **identifier** | Any name the data is addressed by: entry id, paragraph path, light id, fact key, fact value, relation name, modality/role/encounter/category value, jurisdiction value. |
+| **identifier** | Any name the data is addressed by: entry id, paragraph path, light id, fact key, fact value, relation name, modality/role/situation/category value, jurisdiction value. |
 
 ---
 
@@ -323,12 +323,12 @@ towards, not because the shape is settled.
   subject, `{self, other}`, from the closed set `role:give-way`, `role:stand-on`,
   `role:shall-not-impede`, `role:keep-clear`, `role:none`; for a `category:scope` entry it MUST name
   the part, the section and the rules that section governs; for a
-  `category:classification` entry it MUST carry exactly one key, either `encounter`
-  from the closed set `encounter:head-on`, `encounter:crossing`, `encounter:overtaking`, `encounter:none`, or
+  `category:classification` entry it MUST carry exactly one key, either `situation`
+  from the closed set `situation:head-on`, `situation:crossing`, `situation:overtaking`, `situation:none`, or
   `risk_of_collision`, whose only value is `true`. `role:stand-on` MUST
   appear only as the counterpart of `role:give-way`, and the counterpart of
   `role:shall-not-impede` MUST be `role:none` — Rule 8(f)(iii) is why. CI MUST fail on a
-  role or an encounter outside its set, on an effect whose shape does not match
+  role or a situation outside its set, on an effect whose shape does not match
   its category, and on a `rel:overrides` that resolves to no entry, points at an
   entry of a different category, or closes a cycle. `✎` pencil, with the rest of
   §4.1.
@@ -409,7 +409,7 @@ See ADR 0003.
   from the other, and no property beyond the language of the text — not
   source, audience, nor legal applicability — MUST be inferred from a tag.
 - **REQ-LANG-2** — Identifiers — entry ids, fact values, light ids,
-  paragraph paths, relation names, modality/role/encounter/category values — MUST be language-neutral and MUST NOT
+  paragraph paths, relation names, modality/role/situation/category values — MUST be language-neutral and MUST NOT
   be localized. Translations attach to identifiers; they never replace them.
   Identifiers are schema keywords, not display strings: each vocabulary
   distinguishes machine identifier, display label (catalog), and definition,
@@ -437,7 +437,7 @@ See ADR 0003.
   with the file's internal metadata. Silence MUST NOT imply coverage (the
   language mirror of REQ-SCOPE-6).
 - **REQ-LANG-6** — Display strings for the closed vocabularies the package
-  emits (light, shape, modality, role, encounter, jurisdiction, fact values, and
+  emits (light, shape, modality, role, situation, jurisdiction, fact values, and
   image captions **(unimplemented — no catalog yet)**) MUST be addressable
   via stable string keys with per-language catalogs, separate from legal
   corpora; not being an identifier does not exclude a vocabulary. Catalog
@@ -1044,7 +1044,7 @@ written up in `docs/identifiers.md` §"Effects"; what it could not is here.
   as derived facts stays open in the block's `settled_by`.
 
 - **Q-49** — **Must `rule:13d`'s effect cross the Section II/III boundary for Rule 19(d)(i) to be expressible?**
-  - *broad* — drop `rule:13d`'s `pair:geo:in_sight` gate so `encounter: overtaking` is visible in Section III; breaks the scope invariant.
+  - *broad* — drop `rule:13d`'s `pair:geo:in_sight` gate so `situation: overtaking` is visible in Section III; breaks the scope invariant.
   - *narrow* — `rule:13d` stays gated; a 19(d)(i) entry reads `self:hist:was_overtaking`/`other:hist:was_overtaking` directly, as `rule:14b` and `rule:15a:crossing` already do.
   - Default: narrow (nothing changes).
   - Recommendation: narrow — the test named below shows the fact resolves out of sight
@@ -1079,7 +1079,7 @@ nothing is blocked while open.
   other Section II classification attaches. Both preserve the duty; they differ
   on encounter type, which Rule 17's phases and 14(a) hang off.
   Pencilled **broad** ✎ (Solace, 2026-09-14), which is also the data's
-  default: `rule:13d` yields `encounter: overtaking` from history alone, `rule:14b` and
+  default: `rule:13d` yields `situation: overtaking` from history alone, `rule:14b` and
   `rule:15a:crossing` gate on `was_overtaking: false`. 13(a)'s "notwithstanding"
   already displaces Rule 14; eCOLREGs states the broad reading as conventional.
   Settled by: a case or commentary on an overtaking becoming a head-on; none

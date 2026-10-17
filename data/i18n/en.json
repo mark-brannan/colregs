@@ -46,11 +46,11 @@
    "role:keep-clear": "Keep clear",
    "role:none": "No role"
   },
-  "encounters": {
-   "encounter:head-on": "Head-on",
-   "encounter:crossing": "Crossing",
-   "encounter:overtaking": "Overtaking",
-   "encounter:none": "No encounter"
+  "situations": {
+   "situation:head-on": "Head-on",
+   "situation:crossing": "Crossing",
+   "situation:overtaking": "Overtaking",
+   "situation:none": "No encounter"
   },
   "jurisdictions": {
    "intl": "International",

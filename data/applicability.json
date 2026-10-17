@@ -29,7 +29,7 @@
   "category:meta": "reads the region state; produces a banner and advisories; computed by a solver, reviewed by humans"
  },
  "effects": {
-  "note": "What a two-subject entry produces. `effect` is {\"self\": <role>, \"other\": <role>} for a `category:precedence` entry, {\"part\", \"section\", \"applies_rules\"} for a `category:scope` entry, and for a `category:classification` entry exactly one of {\"encounter\": <encounter>} or {\"risk_of_collision\": true}. A `category:display` entry has no `effect`; its output is `lights`. Roles and encounters are closed vocabularies and are prefixed identifiers (`role:`, `encounter:`; docs/identifiers.md, 'The scheme'). Pencil: ADR 0005 and docs/identifiers.md.",
+  "note": "What a two-subject entry produces. `effect` is {\"self\": <role>, \"other\": <role>} for a `category:precedence` entry, {\"part\", \"section\", \"applies_rules\"} for a `category:scope` entry, and for a `category:classification` entry exactly one of {\"encounter\": <encounter>} or {\"risk_of_collision\": true}. A `category:display` entry has no `effect`; its output is `lights`. Roles and encounters are closed vocabularies and are prefixed identifiers (`role:`, `situation:`; docs/identifiers.md, 'The scheme'). Pencil: ADR 0005 and docs/identifiers.md.",
   "roles": {
    "role:give-way": "this subject shall keep out of the way of the other; Rule 16 governs the action",
    "role:stand-on": "this subject shall keep her course and speed; Rule 17 governs, including 17(a)(ii) and 17(b)",
@@ -37,13 +37,13 @@
    "role:keep-clear": "this subject shall keep well clear of the other and avoid impeding her navigation, outside the give-way/stand-on pairing (18(e), 18(f)(i))",
    "role:none": "this paragraph confers no role on this subject. Recorded rather than omitted: `role:none` on the counterpart of a shall-not-impede duty is the content of 8(f)(iii), and `role:none` on both sides of a NUC/RAM pair is the content of Rule 18's partial order."
   },
-  "encounters": {
-   "encounter:head-on": "Rule 14: two power-driven vessels meeting on reciprocal or nearly reciprocal courses",
-   "encounter:crossing": "Rule 15: two power-driven vessels crossing. The residual of the other three, derived with `not` rather than written as its own sector, so the four cannot drift apart",
-   "encounter:overtaking": "Rule 13: one vessel coming up with another from more than 22.5 degrees abaft her beam, or held there by 13(d)'s overtaking history",
-   "encounter:none": "no encounter of Section II's three types. Declared for completeness of the vocabulary; no entry produces it, because an encounter type is asserted by a paragraph and the absence of one is the absence of an entry, not an entry with a null value"
+  "situations": {
+   "situation:head-on": "Rule 14: two power-driven vessels meeting on reciprocal or nearly reciprocal courses",
+   "situation:crossing": "Rule 15: two power-driven vessels crossing. The residual of the other three, derived with `not` rather than written as its own sector, so the four cannot drift apart",
+   "situation:overtaking": "Rule 13: one vessel coming up with another from more than 22.5 degrees abaft her beam, or held there by 13(d)'s overtaking history",
+   "situation:none": "no encounter of Section II's three types. Declared for completeness of the vocabulary; no entry produces it, because an encounter type is asserted by a paragraph and the absence of one is the absence of an entry, not an entry with a null value"
   },
-  "classification_shape": "A classification effect carries exactly one key: `encounter`, whose value is one of `encounters` above, or `risk_of_collision`, whose value is `true`. Two shapes rather than one because Rule 7(d) and Rules 13-15 answer two different questions -- does risk exist, and what kind of encounter is this -- and ADR 0005 gives both to `category:classification`. A single merged shape would have made every encounter entry state a risk it does not decide."
+  "classification_shape": "A classification effect carries exactly one key: `situation`, whose value is one of `situations` above, or `risk_of_collision`, whose value is `true`. Two shapes rather than one because Rule 7(d) and Rules 13-15 answer two different questions -- does risk exist, and what kind of encounter is this -- and ADR 0005 gives both to `category:classification`. A single merged shape would have made every encounter entry state a risk it does not decide."
  },
  "known_omissions": [
   {
@@ -2011,7 +2011,7 @@
    },
    "modality": "modality:shall",
    "effect": {
-    "encounter": "encounter:overtaking"
+    "situation": "situation:overtaking"
    },
    "note": "The deeming paragraph, and therefore the classification -- the half of Q-37 left open when 13(a) took the role. One symmetric entry: the encounter type belongs to the pair, so the sector is read on either subject under `any_of` -- self is in an overtaking whether she is coming up with the other or being come up with. Reading aspect alone would classify the overtaken vessel's side of the same encounter as a crossing. Which vessel carries the duty is 13(a)'s question.",
    "gap": "'Coming up with' is a comparison of the two vessels' speeds, and a predicate compares a fact to a constant, never one fact to another. `pair:geo:tcpa_s` positive stands in: the closest point of approach is still ahead, so the pair is closing, and closing from abaft the beam is coming up. A vessel drawing away astern is excluded, which is the case that mattered; a pair closing because the vessel ahead has stopped is not. Q-46."
@@ -2037,7 +2037,7 @@
    },
    "modality": "modality:shall",
    "effect": {
-    "encounter": "encounter:overtaking"
+    "situation": "situation:overtaking"
    },
    "note": "Overtaking history, and the reason `hist` is a fact class rather than a note. Once either vessel has been the overtaking vessel the encounter stays an overtaking whatever the bearing does next, so this entry reads history alone and no geometry at all. It is the counterpart of the `hist:was_overtaking: false` gate on rule:14b and rule:15a:crossing: without both halves the drawn-out bearing would produce a head-on or a crossing beside the overtaking, which is exactly the reclassification 13(d) forbids. `pair:geo:in_sight` stays in the gate; a Rule 19(d)(i) entry reads `hist:was_overtaking` directly (Q-49).",
    "gap": "'Until she is finally past and clear' is the paragraph's self end condition and nothing in the fact vocabulary carries it, so in this model overtaking history never clears. A consumer sets and clears `hist:was_overtaking` itself. Recorded rather than approximated with a range or a bearing: past and clear is a seamanship judgement, and inventing a threshold for it would be the kind of number Q-40's neighbours are about. Q-47."
@@ -2080,7 +2080,7 @@
    },
    "modality": "modality:shall",
    "effect": {
-    "encounter": "encounter:head-on"
+    "situation": "situation:head-on"
    },
    "note": "14(b)'s deeming test: both vessels see the other ahead or nearly ahead. Both bearings are read, not one: a single vessel with the other fine on the bow is not a head-on situation unless she is also fine on the other's bow, and reading one bearing alone would have swallowed part of the crossing sector. The half-angle is declared once in facts.json `situation.constants.head_on_half_angle_deg`. Cites 14(b) and not 14(a) because the deeming paragraph is the classification, exactly as rule:13b and rule:13b cite 13(b): 14(a) states the situation in words -- 'reciprocal or nearly reciprocal courses' -- and imposes the duty, each shall alter her course to starboard, which is `category:conduct`, is not modelled, and is in known_omissions. Q-45.",
    "gap": "The history gates are 13(d)'s, not Rule 14's, and they are what keeps the three encounter types a partition -- their price is that a situation which omits `hist:was_overtaking` is classified as no encounter at all rather than as a head-on. Q-43."
@@ -2145,7 +2145,7 @@
    },
    "modality": "modality:shall",
    "effect": {
-    "encounter": "encounter:crossing"
+    "situation": "situation:crossing"
    },
    "note": "The residual, and derived rather than written as its own sector. Not overtaking is `not` over the very constraint rule:13b uses, on both subjects, so the sector and its complement cannot drift apart and the 112.5 edge lands in exactly one of them. Not head-on is `not` over rule:14b's cone, on either subject -- the negation of a conjunction, which is why it is an `any_of` and not two constraints. Nothing here enumerates a crossing sector, and that is the point: the only way for the three encounter types to overlap or to leave a bearing unclassified is for someone to edit one of the two constraints without editing the other, and there is only one of each.",
    "gap": "15(a) says 'two power-driven vessels', which this reads as 3(b)'s definition and nothing more, so a vessel not under command is inside it -- she is power-driven. That is deliberate for the classification: the encounter really is a crossing. `rule:15a:keep_out_of_the_way` reads 3(b) the same way and no longer gates on rank either (Q-40): where Rule 18 ranks the pair it is that entry's `rel:overrides` that displaces the role."
