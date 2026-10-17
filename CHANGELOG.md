@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.7](https://github.com/mark-brannan/colregs/compare/v0.3.6...v0.3.7) (2026-10-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* scoping item WC, vocabulary renames (W2, W6, W5) ([#229](https://github.com/mark-brannan/colregs/issues/229))
+
+### Changed
+
+* scoping item WC, vocabulary renames (W2, W6, W5) ([#229](https://github.com/mark-brannan/colregs/issues/229)) ([ec5b846](https://github.com/mark-brannan/colregs/commit/ec5b84617ccf4e617b7e9bd21e1bc0562c80d621))
+
 ## [0.3.6](https://github.com/mark-brannan/colregs/compare/v0.3.5...v0.3.6) (2026-10-16)
 
 
