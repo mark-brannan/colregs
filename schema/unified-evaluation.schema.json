@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/unified-evaluation.schema.json",
   "title": "UnifiedEvaluation",
-  "description": "The result of evaluate(circumstances), the unified form beside the three operations, as it serialises: the appraisal (Part B, what binds self regardless and then per other), self's signals (Parts C and D, every lawful display) and, per other, what her observed signals indicate. Straw man: pencil until the unified design's §1 and §2 are ink. Structure only.",
+  "description": "The result of evaluate(circumstances), the unified form beside the three operations, as it serialises: the appraisal (Part B, what binds self regardless and then per other), self's signals (Parts C and D, every lawful display) and, per other, what her observed signals indicate. Straw man: the shape may change. Structure only.",
   "$comment": "The engine hands this back as an object whose readings compute on first access; this is its JSON form. `appraisal` and `signals` are absent when no self was given. Compliance reads over a track, not an instant, and is not here.",
   "type": "object",
   "additionalProperties": false,
