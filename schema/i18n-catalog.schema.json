@@ -32,7 +32,7 @@
     },
     "strings": {
       "type": "object",
-      "description": "One section per vocabulary (REQ-LANG-6, REQ-LANG-9's ruling docs/adr/0017). Every section is keyed by the identifier itself, as documented in docs/identifiers.md -- light, modality, role and encounter identifiers carry a type prefix; jurisdiction and closed-list fact values are keyed by their own bare or fact-prefixed form. Values are static strings: no interpolation, no plurals -- the consumer's i18n system owns composition.",
+      "description": "One section per vocabulary (REQ-LANG-6, REQ-LANG-9's ruling docs/adr/0017). Every section is keyed by the identifier itself, as documented in docs/identifiers.md -- light, modality, role and situation identifiers carry a type prefix; jurisdiction and closed-list fact values are keyed by their own bare or fact-prefixed form. Values are static strings: no interpolation, no plurals -- the consumer's i18n system owns composition.",
       "additionalProperties": false,
       "properties": {
         "lights": {
