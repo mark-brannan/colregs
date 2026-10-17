@@ -1,7 +1,7 @@
 {
  "note": "The engine interface colregs owns: each verb ADR 0011 and ADR 0012 name, what it reads, what it answers, its entry-id companion and the fixture cases that bind it (ADR 0014).",
  "operations": {
-  "evaluateDisplay": {
+  "evaluateSignals": {
    "adr": "0011",
    "inputs": [
     {
@@ -11,7 +11,7 @@
    ],
    "output": "schema/display-evaluation.schema.json",
    "companion": {
-    "verb": "appliedDisplayEntries",
+    "verb": "appliedSignalsEntries",
     "output": "schema/evaluation.schema.json#/$defs/ruleIds"
    },
    "fixtures": [

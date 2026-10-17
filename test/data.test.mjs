@@ -398,8 +398,8 @@ test('operations: every verb ADR 0011 and 0012 name is an operation', () => {
   assert.deepEqual(Object.keys(operations.operations).sort(), [
     'evaluateCircumstances',
     'evaluateCompliance',
-    'evaluateDisplay',
     'evaluateRule2Departure',
+    'evaluateSignals',
   ]);
 });
 
@@ -2515,7 +2515,7 @@ test('rel:excludes is reciprocated and never carries a forceful modality (ADR 00
 // fact record could not have: the non-`display` entries, and -- since ADR 0022
 // -- the display entries that read two subjects, which are Rule 34's. The
 // one-subject display entries stay with the display evaluator above, which is
-// what `evaluateDisplay` answers and what applicability-fixtures.json asserts.
+// what `evaluateSignals` answers and what applicability-fixtures.json asserts.
 // This asserts applicability, not resolution: an entry a rel:overrides
 // displaces is still expected, and the precedence properties below resolve it.
 const applyingSituation = (s0) => {
