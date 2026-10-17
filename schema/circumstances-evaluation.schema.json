@@ -50,10 +50,10 @@
       "required": ["self", "other"],
       "properties": {
         "self": {
-          "$ref": "#/$defs/subjectRoles"
+          "$ref": "#/$defs/vesselRoles"
         },
         "other": {
-          "$ref": "#/$defs/subjectRoles"
+          "$ref": "#/$defs/vesselRoles"
         }
       }
     },
@@ -78,7 +78,7 @@
     }
   },
   "$defs": {
-    "subjectRole": {
+    "vesselRole": {
       "$comment": "Roles are a set per subject, each citing the entry that assigned it (Q-36).",
       "type": "object",
       "additionalProperties": false,
@@ -92,10 +92,10 @@
         }
       }
     },
-    "subjectRoles": {
+    "vesselRoles": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/subjectRole"
+        "$ref": "#/$defs/vesselRole"
       }
     },
     "encounterSignal": {

@@ -33,7 +33,7 @@
         }
       ]
     },
-    "subjectRole": {
+    "vesselRole": {
       "type": "object",
       "additionalProperties": false,
       "required": ["role", "by"],
@@ -170,13 +170,13 @@
               "self": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/subjectRole"
+                  "$ref": "#/$defs/vesselRole"
                 }
               },
               "other": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/subjectRole"
+                  "$ref": "#/$defs/vesselRole"
                 }
               }
             }

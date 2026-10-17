@@ -33,7 +33,7 @@
    ],
    "output": "schema/circumstances-evaluation.schema.json",
    "companion": {
-    "verb": "appliedEncounterEntries",
+    "verb": "appliedCircumstancesEntries",
     "output": "schema/evaluation.schema.json#/$defs/ruleIds"
    },
    "fixtures": [
@@ -55,7 +55,7 @@
    ],
    "output": "schema/compliance-evaluation.schema.json",
    "companion": {
-    "verb": "appliedConductEntries",
+    "verb": "appliedComplianceEntries",
     "output": "schema/evaluation.schema.json#/$defs/ruleIds"
    },
    "fixtures": []
