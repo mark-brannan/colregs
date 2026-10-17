@@ -394,8 +394,9 @@ test('operations: verbs and companion verbs are one namespace, no name twice', (
   );
 });
 
-test('operations: every verb ADR 0011 and 0012 name is an operation', () => {
+test('operations: every verb ADR 0011 and 0012 name, and the unified form, is an operation', () => {
   assert.deepEqual(Object.keys(operations.operations).sort(), [
+    'evaluate',
     'evaluateCircumstances',
     'evaluateCompliance',
     'evaluateRule2Departure',

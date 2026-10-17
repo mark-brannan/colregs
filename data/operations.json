@@ -1,5 +1,5 @@
 {
- "note": "The engine interface colregs owns: each verb ADR 0011 and ADR 0012 name, what it reads, what it answers, its entry-id companion and the fixture cases that bind it (ADR 0014).",
+ "note": "The engine interface colregs owns: each verb ADR 0011 and ADR 0012 name, what it reads, what it answers, its entry-id companion and the fixture cases that bind it (ADR 0014). `evaluate` is the unified form beside them, entered as a straw man: its shapes are pencil until the unified design's §1 and §2 are ink, and it cites ADR 0011 because it composes that ADR's verbs.",
  "operations": {
   "evaluateSignals": {
    "adr": "0011",
@@ -73,6 +73,17 @@
     }
    ],
    "output": "schema/rule2-departure-finding.schema.json",
+   "fixtures": []
+  },
+  "evaluate": {
+   "adr": "0011",
+   "inputs": [
+    {
+     "name": "circumstances",
+     "schema": "schema/circumstances.schema.json"
+    }
+   ],
+   "output": "schema/unified-evaluation.schema.json",
    "fixtures": []
   }
  }

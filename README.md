@@ -215,6 +215,9 @@ should reproduce those exactly.
 [`data/operations.json`](data/operations.json) names the verbs an engine
 implements and binds each to its input schema, its result schema and the
 fixture file that exercises it ([ADR 0014](docs/adr/0014-engine-interface-owned-by-colregs.md)).
+`evaluate(circumstances)`, the unified form beside the three operations, is
+entered as a straw man: its input and result schemas are pencil until the
+unified design is ink.
 
 ## Provenance and licence
 

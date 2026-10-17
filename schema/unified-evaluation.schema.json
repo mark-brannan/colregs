@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/unified-evaluation.schema.json",
+  "title": "UnifiedEvaluation",
+  "description": "The result of evaluate(circumstances), the unified form beside the three operations, as it serialises: the appraisal (Part B, what binds self regardless and then per other), self's signals (Parts C and D, every lawful display) and, per other, what her observed signals indicate. Straw man: pencil until the unified design's §1 and §2 are ink. Structure only.",
+  "$comment": "The engine hands this back as an object whose readings compute on first access; this is its JSON form. `appraisal` and `signals` are absent when no self was given. Compliance reads over a track, not an instant, and is not here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["indicated"],
+  "properties": {
+    "appraisal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["self", "others"],
+      "properties": {
+        "self": { "$ref": "circumstances-evaluation.schema.json" },
+        "others": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/appraisalOfOther" }
+        }
+      }
+    },
+    "signals": { "$ref": "display-evaluation.schema.json" },
+    "indicated": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/indication" }
+    }
+  },
+  "$defs": {
+    "restedOn": {
+      "$comment": "What one other's appraisal rested on: a fact the caller asserted, a fact her signals indicated, or nothing.",
+      "type": "string",
+      "enum": ["asserted", "indicated", "nothing"]
+    },
+    "appraisalOfOther": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["restedOn"],
+      "properties": {
+        "restedOn": { "$ref": "#/$defs/restedOn" },
+        "evaluation": {
+          "$comment": "Today's two-vessel envelope over self and this other; absent when the appraisal rested on nothing.",
+          "$ref": "circumstances-evaluation.schema.json"
+        },
+        "because": { "type": "string" }
+      }
+    },
+    "indication": {
+      "$comment": "Parts C and D read backwards: the fact records her observed signals say she could be, each by the entries that say so; `consistent` compares that with her asserted fact when both are given.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["couldBe"],
+      "properties": {
+        "couldBe": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["fact", "by"],
+            "properties": {
+              "fact": { "$ref": "fact-record.schema.json" },
+              "by": { "$ref": "evaluation.schema.json#/$defs/ruleIds" }
+            }
+          }
+        },
+        "consistent": { "type": "boolean" }
+      }
+    }
+  }
+}

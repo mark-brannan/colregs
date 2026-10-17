@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mark-brannan/colregs/schema/circumstances.schema.json",
+  "title": "Circumstances",
+  "description": "The input evaluate reads, the unified form beside the three operations: self, the other vessels as self knows each of them, and the conditions of the water, at one instant. Straw man: the shape is pencil until the unified design's §1 and §2 are ink, and the engine's build keeps the open questions marked in code. Structure only -- every fact, kin:, geo:, hist:, act: and env: key is declared in data/facts.json, checked in the tests.",
+  "$comment": "Every property optional, self included, so the inverse question (observed lights, no self) reads through the same call. An other is known one of the Rules' three ways (Rule 11, Rule 19(d), Rule 19(e)); her bearing and range from self ride on her, not on a pair, and `geo:in_sight` and `geo:range_m` are said by `known` and `range_nm` instead.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "self": { "$ref": "situation.schema.json#/$defs/vessel" },
+    "others": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/other" }
+    },
+    "conditions": { "$ref": "situation.schema.json#/$defs/envRecord" }
+  },
+  "$defs": {
+    "known": {
+      "type": "string",
+      "enum": ["in-sight", "radar-alone", "heard"]
+    },
+    "observed": {
+      "$comment": "What self sees or hears of her, never what she exhibits. Light, shape and sound ids from data/lights.json, data/shapes.json and data/sounds.json; cross-file resolution is the tests' job.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lights": { "type": "array", "items": { "type": "string" } },
+        "shapes": { "type": "array", "items": { "type": "string" } },
+        "sounds": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "other": {
+      "$comment": "A fact she asserted, an observed self saw, or both; the engine refuses neither.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known"],
+      "properties": {
+        "known": { "$ref": "#/$defs/known" },
+        "bearing_deg": { "type": "number" },
+        "range_nm": { "type": "number", "minimum": 0 },
+        "fact": { "$ref": "fact-record.schema.json" },
+        "observed": { "$ref": "#/$defs/observed" },
+        "kin": { "$ref": "situation.schema.json#/$defs/kinRecord" },
+        "geo": { "$ref": "situation.schema.json#/$defs/geoRecord" },
+        "act": { "$ref": "situation.schema.json#/$defs/actRecord" },
+        "hist": { "$ref": "situation.schema.json#/$defs/histRecord" }
+      }
+    }
+  }
+}
