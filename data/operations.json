@@ -74,6 +74,17 @@
    ],
    "output": "schema/rule2-departure-finding.schema.json",
    "fixtures": []
+  },
+  "evaluate": {
+   "adr": "0011",
+   "inputs": [
+    {
+     "name": "circumstances",
+     "schema": "schema/circumstances.schema.json"
+    }
+   ],
+   "output": "schema/unified-evaluation.schema.json",
+   "fixtures": []
   }
  }
 }
