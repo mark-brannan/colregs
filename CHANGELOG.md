@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.9](https://github.com/mark-brannan/colregs/compare/v0.3.8...v0.3.9) (2026-10-18)
+
+
+### Fixed
+
+* **ci:** fetch the prose-budget engine from mark-brannan/claude in publish ([#234](https://github.com/mark-brannan/colregs/issues/234)) ([c326c69](https://github.com/mark-brannan/colregs/commit/c326c6970865d67dff5d8fc88075b21b858dbaf8))
+
 ## [0.3.8](https://github.com/mark-brannan/colregs/compare/v0.3.7...v0.3.8) (2026-10-17)
 
 
