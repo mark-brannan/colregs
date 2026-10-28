@@ -1847,6 +1847,13 @@ test('geometry entry references resolve', () => {
   }
 });
 
+test('geometry sector entries name defined lights and entries', () => {
+  for (const c of [...geometry.sectors.horizontal, ...geometry.sectors.vertical]) {
+    for (const id of c.lights ?? []) assert.ok(lights.lights[id], `${c.cite} sector names undefined light ${id}`);
+    for (const id of c.except_entries ?? []) assert.ok(byId.has(id), `${c.cite} sector references unknown entry ${id}`);
+  }
+});
+
 test('light arcs cover the span they claim', () => {
   for (const [id, l] of Object.entries(lights.lights)) {
     if (!l.arc || l.arc_deg == null) continue;
