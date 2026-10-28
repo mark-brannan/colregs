@@ -81,6 +81,18 @@
             "combined_lantern_max_length_m": { "type": "number" },
             "same_characteristics_as": { "type": "string", "pattern": "^light:[a-z_]+$" },
             "flashes_per_minute_min": { "type": "number" },
+            "flashes_per_minute_max": { "type": "number" },
+            "arc_deg_max": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 360,
+              "description": "Upper bound where the source states the arc as a range; arc_deg and arc then state the lower bound, which is what a renderer draws."
+            },
+            "jurisdiction": {
+              "type": "string",
+              "pattern": "^[a-z]+(/[a-z]+)*$",
+              "description": "Set on a light a jurisdiction adds; absent means the file's base jurisdiction."
+            },
             "note": { "type": "string" },
             "rule21": { "type": "boolean" }
           }
