@@ -21,3 +21,6 @@ heading is the UTC stamp, so `agent_decisions.md#<stamp>` links one entry.
 
 ### 20261028t082152z
 - CEVNI skeleton in a new rules.json standalone section, not an ADR 0020 delta Undo: move rows into deltas with full suppressions and tombstones ([#240](https://github.com/mark-brannan/colregs/pull/240))
+
+### 20261028t082202z
+- CEVNI keys <article>[bis](<n>); 1.01 by lettered groups; bare article when unnumbered; numbered-paragraph depth; annexes not keyed Undo: rename keys ([#240](https://github.com/mark-brannan/colregs/pull/240))
