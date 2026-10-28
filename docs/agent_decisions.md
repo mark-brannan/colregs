@@ -12,3 +12,6 @@ heading is the UTC stamp, so `agent_decisions.md#<stamp>` links one entry.
 
 ### 20261028t081653z
 - geometry.json sectors: horizontal object becomes an array and a vertical array is added, entries typed by a new sectorEntry schema (no PR, branch claude/w10-geometry-annex-i)
+
+### 20261028t081656z
+- Annex I text for 3(a), 9, 10 taken from IMO consolidated 2018 PDF because the repo corpus holds no Annex I and navcen returns 403; Annex I section 5 left out (no PR, branch claude/w10-geometry-annex-i)
