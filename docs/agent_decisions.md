@@ -24,3 +24,6 @@ heading is the UTC stamp, so `agent_decisions.md#<stamp>` links one entry.
 
 ### 20261028t082202z
 - CEVNI keys <article>[bis](<n>); 1.01 by lettered groups; bare article when unnumbered; numbered-paragraph depth; annexes not keyed Undo: rename keys ([#240](https://github.com/mark-brannan/colregs/pull/240))
+
+### 20261028t082213z
+- temporary ids marked by path_status: temporary on the standalone section Undo: drop the field ([#240](https://github.com/mark-brannan/colregs/pull/240))
