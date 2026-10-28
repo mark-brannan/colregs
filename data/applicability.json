@@ -682,7 +682,8 @@
    "jurisdiction": "intl",
    "cite": "25(d)(ii)",
    "when": {
-    "fact:propulsion": "propulsion:oars"
+    "fact:propulsion": "propulsion:oars",
+    "fact:activity": "activity:none"
    },
    "lights": [
     {
