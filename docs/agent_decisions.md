@@ -15,3 +15,6 @@ heading is the UTC stamp, so `agent_decisions.md#<stamp>` links one entry.
 
 ### 20261028t081656z
 - Annex I text for 3(a), 9, 10 taken from IMO consolidated 2018 PDF because the repo corpus holds no Annex I and navcen returns 403; Annex I section 5 left out (no PR, branch claude/w10-geometry-annex-i)
+
+### 20261028t082142z
+- CEVNI skeleton read from Rev.4 (only reachable edition), edition eu/cevni@rev4 Undo: re-key from Rev.6 when reachable ([#240](https://github.com/mark-brannan/colregs/pull/240))
