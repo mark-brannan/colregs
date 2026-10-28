@@ -9,3 +9,6 @@ heading is the UTC stamp, so `agent_decisions.md#<stamp>` links one entry.
 
 ### 20261028t081650z
 - geometry.json: Inland AnxI.3(a) as a per-record jurisdiction us/inland entry beside the intl row (ADR 0002 mixed-jurisdiction shape) (no PR, branch claude/w10-geometry-annex-i)
+
+### 20261028t081653z
+- geometry.json sectors: horizontal object becomes an array and a vertical array is added, entries typed by a new sectorEntry schema (no PR, branch claude/w10-geometry-annex-i)
