@@ -66,6 +66,9 @@ no time selects the lights, night being assumed rather than gated. By day the
 lights are not silenced — Rule 20(c) makes them permitted in good visibility
 and leaves them required in restricted
 ([ADR 0021](docs/adr/0021-rule-20c-is-a-modality-shift.md)).
+When every light in a display is `modality:may`, one lawful option shows
+none, and it comes back with empty `entries`: by day in good visibility Rule
+20(c) requires no light (23(d)(i), 25(b), 24(a)(i)).
 [`docs/requirements.md`](docs/requirements.md) is the numbered contract for
 all of it. One case the Convention cannot state, a vessel made fast to a
 mooring buoy, lives only under `us/inland`
