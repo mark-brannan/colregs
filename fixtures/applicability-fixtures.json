@@ -120,6 +120,20 @@
    ]
   },
   {
+   "name": "3 m vessel under oars, fishing",
+   "facts": {
+    "fact:propulsion": "propulsion:oars",
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway",
+    "fact:length_m": 3,
+    "fact:making_way": true
+   },
+   "expect": [
+    "rule:26c_i",
+    "rule:26c_iii"
+   ]
+  },
+  {
    "name": "motoring but drifting in neutral, 11.6 m",
    "facts": {
     "fact:propulsion": "propulsion:power",

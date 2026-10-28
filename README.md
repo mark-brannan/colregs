@@ -66,6 +66,12 @@ no time selects the lights, night being assumed rather than gated. By day the
 lights are not silenced — Rule 20(c) makes them permitted in good visibility
 and leaves them required in restricted
 ([ADR 0021](docs/adr/0021-rule-20c-is-a-modality-shift.md)).
+A display in which every light is `modality:may` has a lawful option that
+shows nothing, and it comes back as a display with empty `entries` beside the
+lit ones: by day Rule 20(c) requires no light in good visibility, and no
+rule requires a day shape for that vessel, so showing nothing is one of the
+lawful displays, as with the sub-7 m power vessel of 23(d)(i), the sailing
+vessel of 25(b) or the towing vessel of 24(a)(i). A consumer may rely on it.
 [`docs/requirements.md`](docs/requirements.md) is the numbered contract for
 all of it. One case the Convention cannot state, a vessel made fast to a
 mooring buoy, lives only under `us/inland`
