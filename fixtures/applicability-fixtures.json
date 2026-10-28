@@ -2199,6 +2199,36 @@
    ]
   },
   {
+   "name": "Inland 24(f)(i): vessel pushed ahead shows a special flashing light, US Inland",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:tow_rigidity": "tow_rigidity:pushed_ahead"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24f_i",
+    "rule:24f_i:special_flashing"
+   ]
+  },
+  {
+   "name": "Inland 24(f)(ii): vessel towed alongside shows a special flashing light, US Inland",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:tow_rigidity": "tow_rigidity:alongside"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24f_ii",
+    "rule:24f_ii:special_flashing"
+   ]
+  },
+  {
    "name": "24(g): partly submerged object, 10 m breadth, 50 m long",
    "facts": {
     "fact:activity": "activity:being_towed",

@@ -3630,6 +3630,58 @@
    "notes": "24(f)(ii): a vessel, or a group lighted as one (24(f)'s proviso), towed alongside."
   },
   {
+   "id": "rule:24f_i:special_flashing",
+   "jurisdiction": "us/inland",
+   "cite": "24(f)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:tow_rigidity": "tow_rigidity:pushed_ahead"
+   },
+   "lights": [
+    {
+     "light": "light:sidelights",
+     "position": "at the forward end"
+    },
+    {
+     "light": "light:special_flashing",
+     "position": "at the forward end"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:24f_i"
+   ],
+   "modality": "modality:shall",
+   "note": "33 CFR 83.24(f)(i): a vessel pushed ahead, not part of a composite unit, shows sidelights and a special flashing light at the forward end. The light is added to the Convention's 24(f)(i) display, so this entry replaces rule:24f_i rather than editing it (REQ-SCOPE-4, ADR 0018 point 3)."
+  },
+  {
+   "id": "rule:24f_ii:special_flashing",
+   "jurisdiction": "us/inland",
+   "cite": "24(f)",
+   "when": {
+    "fact:activity": "activity:being_towed",
+    "fact:tow_rigidity": "tow_rigidity:alongside"
+   },
+   "lights": [
+    {
+     "light": "light:sternlight"
+    },
+    {
+     "light": "light:sidelights",
+     "position": "at the forward end"
+    },
+    {
+     "light": "light:special_flashing",
+     "position": "at the forward end"
+    }
+   ],
+   "rel:in_lieu_of": [
+    "rule:24f_ii"
+   ],
+   "modality": "modality:shall",
+   "note": "33 CFR 83.24(f)(ii): a vessel towed alongside shows a sternlight and, at the forward end, sidelights and a special flashing light. Replaces rule:24f_ii for the same reason as rule:24f_i:special_flashing.",
+   "gap": "83.24(f)(iii) -- vessels towed alongside on both sides of the towing vessel, with a sternlight on each outboard vessel, a single set of sidelights and a single special flashing light -- needs a fact for the two-sided arrangement; tow_rigidity:alongside does not distinguish it, so this entry shows the one-sided display."
+  },
+  {
    "id": "rule:24g",
    "jurisdiction": "intl",
    "cite": "24(g)",
