@@ -54,7 +54,8 @@
   },
   "jurisdictions": {
    "intl": "International",
-   "us/inland": "US Inland"
+   "us/inland": "US Inland",
+   "eu/cevni": "CEVNI"
   },
   "facts": {
    "propulsion:power": "Power-driven",

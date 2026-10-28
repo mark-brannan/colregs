@@ -743,6 +743,7 @@ test('REQ-LANG-10 / GATE-2: every edition a corpus or the skeleton names is regi
   const statedIn = new Set([
     ...Object.values(rules.paragraphs).map((p) => p.jurisdiction),
     ...Object.keys(rules.deltas ?? {}),
+    ...Object.keys(rules.standalone ?? {}),
   ]);
   for (const [jur, j] of Object.entries(editions.jurisdictions)) {
     for (const ed of Object.keys(j.editions)) assert.equal(jurisdictionOf(ed), jur, `${ed} is registered under ${jur}`);
@@ -1197,6 +1198,34 @@ test("ADR 0020: every entry in force under a jurisdiction cites a path in that j
       const head = e.cite.split('-')[0].trim();
       assert.ok(sk[head], `${j}: ${e.id} is in force but cites ${head}, which ${j} suppresses`);
     }
+  }
+});
+
+// An instrument with its own numbering is not a merge patch over intl:
+// nothing inherited, nothing suppressed, and its keys never collide with a
+// COLREGS path. ADR 0010 for the withheld text.
+test('standalone skeletons: every row is keyed by its own path, under its article, chapter and jurisdiction', () => {
+  for (const [j, s] of Object.entries(rules.standalone ?? {})) {
+    assert.ok(!rules.deltas?.[j], `${j}: is both a delta and a standalone skeleton`);
+    assert.ok(editions.jurisdictions[j]?.skeleton, `${j}: has a standalone skeleton but declares no skeleton edition`);
+    const rows = Object.entries(s.paragraphs);
+    assert.ok(rows.length > 0, `${j}: an empty standalone skeleton`);
+    for (const [path, p] of rows) {
+      assert.equal(p.path, path, `${j}: ${path} is keyed under another path`);
+      assert.equal(p.jurisdiction, j, `${j}: ${path} carries jurisdiction ${p.jurisdiction}`);
+      assert.ok(
+        path === p.article || path.startsWith(`${p.article}(`),
+        `${j}: ${path} is not a path of article ${p.article}`,
+      );
+      assert.ok(p.article.startsWith(`${p.chapter}.`), `${j}: article ${p.article} is not in chapter ${p.chapter}`);
+      assert.ok(!rules.paragraphs[path], `${j}: ${path} collides with an intl path`);
+    }
+    const articles = new Set(rows.map(([, p]) => p.article));
+    for (const a of articles)
+      assert.ok(
+        !(s.paragraphs[a] && rows.some(([path, p]) => p.article === a && path !== a)),
+        `${j}: article ${a} is stated both bare and by paragraph`,
+      );
   }
 });
 
