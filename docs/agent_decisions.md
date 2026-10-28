@@ -27,3 +27,6 @@ heading is the UTC stamp, so `agent_decisions.md#<stamp>` links one entry.
 
 ### 20261028t082213z
 - temporary ids marked by path_status: temporary on the standalone section Undo: drop the field ([#240](https://github.com/mark-brannan/colregs/pull/240))
+
+### 20261028t082224z
+- editions schema: in_force optional, CEVNI is a recommendation with no entry into force Undo: restore in_force to required ([#240](https://github.com/mark-brannan/colregs/pull/240))
