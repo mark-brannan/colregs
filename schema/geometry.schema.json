@@ -53,12 +53,103 @@
         "max": { "type": "number" }
       }
     },
+    "sectorEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cite", "text"],
+      "properties": {
+        "cite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lights": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^light:[a-z_]+$"
+          }
+        },
+        "when": {
+          "$ref": "#/$defs/when"
+        },
+        "except_when": {
+          "$ref": "#/$defs/when"
+        },
+        "edge": {
+          "type": "string",
+          "enum": ["forward", "aft", "all"]
+        },
+        "at_deg_abaft_beam": {
+          "type": "number"
+        },
+        "full_intensity_to_limit": {
+          "type": "boolean"
+        },
+        "full_intensity_within_deg": {
+          "type": "number"
+        },
+        "fraction_at_limit": {
+          "type": "number"
+        },
+        "cutoff_outside_deg": {
+          "$ref": "#/$defs/range"
+        },
+        "max_obscured_sector_deg": {
+          "type": "number"
+        },
+        "except": {
+          "type": "string"
+        },
+        "except_entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "substitute_pair": {
+          "type": "boolean"
+        },
+        "appear_as_one_at_nm": {
+          "type": "number"
+        },
+        "electric": {
+          "type": "boolean"
+        },
+        "bands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["within_deg", "min_fraction"],
+            "properties": {
+              "within_deg": {
+                "type": "number"
+              },
+              "min_fraction": {
+                "type": "number"
+              },
+              "cite": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
     "positioningEntry": {
       "type": "object",
       "additionalProperties": false,
       "required": ["cite", "text"],
       "properties": {
         "cite": { "type": "string", "minLength": 1 },
+        "jurisdiction": { "type": "string", "pattern": "^[a-z]+(/[a-z]+)*$" },
         "light": { "type": "string", "pattern": "^light:[a-z_]+$" },
         "which": { "type": "string" },
         "when": { "$ref": "#/$defs/when" },
@@ -245,9 +336,11 @@
       "properties": {
         "cite": { "type": "string" },
         "horizontal": {
-          "type": "object",
-          "additionalProperties": { "type": "string" }
-        }
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/sectorEntry" }
+        },
+        "vertical": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/sectorEntry" } }
       }
     }
   }
