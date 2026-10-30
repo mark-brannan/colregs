@@ -1592,5 +1592,2671 @@
     }
    ]
   }
+ },
+ "standalone": {
+  "eu/cevni": {
+   "note": "CEVNI chapters 1-10 as article and numbered-paragraph keys, no text (ADR 0010); CEVNI has its own numbering and is not a delta over intl, and these keys are temporary ids pending a settled path format.",
+   "path_status": "temporary",
+   "paragraphs": {
+    "1.01(a)": {
+     "path": "1.01(a)",
+     "chapter": "1",
+     "article": "1.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.01(b)": {
+     "path": "1.01(b)",
+     "chapter": "1",
+     "article": "1.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.01(c)": {
+     "path": "1.01(c)",
+     "chapter": "1",
+     "article": "1.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.01(d)": {
+     "path": "1.01(d)",
+     "chapter": "1",
+     "article": "1.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.02(1)": {
+     "path": "1.02(1)",
+     "chapter": "1",
+     "article": "1.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.02(2)": {
+     "path": "1.02(2)",
+     "chapter": "1",
+     "article": "1.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.02(3)": {
+     "path": "1.02(3)",
+     "chapter": "1",
+     "article": "1.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.02(4)": {
+     "path": "1.02(4)",
+     "chapter": "1",
+     "article": "1.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.02(5)": {
+     "path": "1.02(5)",
+     "chapter": "1",
+     "article": "1.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.02(6)": {
+     "path": "1.02(6)",
+     "chapter": "1",
+     "article": "1.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.02(7)": {
+     "path": "1.02(7)",
+     "chapter": "1",
+     "article": "1.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.03(1)": {
+     "path": "1.03(1)",
+     "chapter": "1",
+     "article": "1.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.03(2)": {
+     "path": "1.03(2)",
+     "chapter": "1",
+     "article": "1.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.03(3)": {
+     "path": "1.03(3)",
+     "chapter": "1",
+     "article": "1.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.03(4)": {
+     "path": "1.03(4)",
+     "chapter": "1",
+     "article": "1.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.04(1)": {
+     "path": "1.04(1)",
+     "chapter": "1",
+     "article": "1.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.04(2)": {
+     "path": "1.04(2)",
+     "chapter": "1",
+     "article": "1.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.04(3)": {
+     "path": "1.04(3)",
+     "chapter": "1",
+     "article": "1.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.05": {
+     "path": "1.05",
+     "chapter": "1",
+     "article": "1.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.06": {
+     "path": "1.06",
+     "chapter": "1",
+     "article": "1.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.07(1)": {
+     "path": "1.07(1)",
+     "chapter": "1",
+     "article": "1.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.07(2)": {
+     "path": "1.07(2)",
+     "chapter": "1",
+     "article": "1.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.07(3)": {
+     "path": "1.07(3)",
+     "chapter": "1",
+     "article": "1.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.07(4)": {
+     "path": "1.07(4)",
+     "chapter": "1",
+     "article": "1.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.07(5)": {
+     "path": "1.07(5)",
+     "chapter": "1",
+     "article": "1.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.08(1)": {
+     "path": "1.08(1)",
+     "chapter": "1",
+     "article": "1.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.08(2)": {
+     "path": "1.08(2)",
+     "chapter": "1",
+     "article": "1.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.08(3)": {
+     "path": "1.08(3)",
+     "chapter": "1",
+     "article": "1.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.08(4)": {
+     "path": "1.08(4)",
+     "chapter": "1",
+     "article": "1.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.09(1)": {
+     "path": "1.09(1)",
+     "chapter": "1",
+     "article": "1.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.09(2)": {
+     "path": "1.09(2)",
+     "chapter": "1",
+     "article": "1.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.09(3)": {
+     "path": "1.09(3)",
+     "chapter": "1",
+     "article": "1.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.09(4)": {
+     "path": "1.09(4)",
+     "chapter": "1",
+     "article": "1.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.10(1)": {
+     "path": "1.10(1)",
+     "chapter": "1",
+     "article": "1.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.10(2)": {
+     "path": "1.10(2)",
+     "chapter": "1",
+     "article": "1.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.10(3)": {
+     "path": "1.10(3)",
+     "chapter": "1",
+     "article": "1.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.10(4)": {
+     "path": "1.10(4)",
+     "chapter": "1",
+     "article": "1.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.10(5)": {
+     "path": "1.10(5)",
+     "chapter": "1",
+     "article": "1.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.11(1)": {
+     "path": "1.11(1)",
+     "chapter": "1",
+     "article": "1.11",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.11(2)": {
+     "path": "1.11(2)",
+     "chapter": "1",
+     "article": "1.11",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.12(1)": {
+     "path": "1.12(1)",
+     "chapter": "1",
+     "article": "1.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.12(2)": {
+     "path": "1.12(2)",
+     "chapter": "1",
+     "article": "1.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.12(3)": {
+     "path": "1.12(3)",
+     "chapter": "1",
+     "article": "1.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.12(4)": {
+     "path": "1.12(4)",
+     "chapter": "1",
+     "article": "1.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.13(1)": {
+     "path": "1.13(1)",
+     "chapter": "1",
+     "article": "1.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.13(2)": {
+     "path": "1.13(2)",
+     "chapter": "1",
+     "article": "1.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.13(3)": {
+     "path": "1.13(3)",
+     "chapter": "1",
+     "article": "1.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.14": {
+     "path": "1.14",
+     "chapter": "1",
+     "article": "1.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.15(1)": {
+     "path": "1.15(1)",
+     "chapter": "1",
+     "article": "1.15",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.15(2)": {
+     "path": "1.15(2)",
+     "chapter": "1",
+     "article": "1.15",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.15(3)": {
+     "path": "1.15(3)",
+     "chapter": "1",
+     "article": "1.15",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.16(1)": {
+     "path": "1.16(1)",
+     "chapter": "1",
+     "article": "1.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.16(2)": {
+     "path": "1.16(2)",
+     "chapter": "1",
+     "article": "1.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.17(1)": {
+     "path": "1.17(1)",
+     "chapter": "1",
+     "article": "1.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.17(2)": {
+     "path": "1.17(2)",
+     "chapter": "1",
+     "article": "1.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.17(3)": {
+     "path": "1.17(3)",
+     "chapter": "1",
+     "article": "1.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.18(1)": {
+     "path": "1.18(1)",
+     "chapter": "1",
+     "article": "1.18",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.18(2)": {
+     "path": "1.18(2)",
+     "chapter": "1",
+     "article": "1.18",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.19": {
+     "path": "1.19",
+     "chapter": "1",
+     "article": "1.19",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.20(1)": {
+     "path": "1.20(1)",
+     "chapter": "1",
+     "article": "1.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.20(2)": {
+     "path": "1.20(2)",
+     "chapter": "1",
+     "article": "1.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.21(1)": {
+     "path": "1.21(1)",
+     "chapter": "1",
+     "article": "1.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.21(2)": {
+     "path": "1.21(2)",
+     "chapter": "1",
+     "article": "1.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.21(3)": {
+     "path": "1.21(3)",
+     "chapter": "1",
+     "article": "1.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.21(4)": {
+     "path": "1.21(4)",
+     "chapter": "1",
+     "article": "1.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.22": {
+     "path": "1.22",
+     "chapter": "1",
+     "article": "1.22",
+     "jurisdiction": "eu/cevni"
+    },
+    "1.23": {
+     "path": "1.23",
+     "chapter": "1",
+     "article": "1.23",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.01(1)": {
+     "path": "2.01(1)",
+     "chapter": "2",
+     "article": "2.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.01(2)": {
+     "path": "2.01(2)",
+     "chapter": "2",
+     "article": "2.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.01(3)": {
+     "path": "2.01(3)",
+     "chapter": "2",
+     "article": "2.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.01(4)": {
+     "path": "2.01(4)",
+     "chapter": "2",
+     "article": "2.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.01(5)": {
+     "path": "2.01(5)",
+     "chapter": "2",
+     "article": "2.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.02(1)": {
+     "path": "2.02(1)",
+     "chapter": "2",
+     "article": "2.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.02(2)": {
+     "path": "2.02(2)",
+     "chapter": "2",
+     "article": "2.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.02(3)": {
+     "path": "2.02(3)",
+     "chapter": "2",
+     "article": "2.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.02(4)": {
+     "path": "2.02(4)",
+     "chapter": "2",
+     "article": "2.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.03": {
+     "path": "2.03",
+     "chapter": "2",
+     "article": "2.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.04(1)": {
+     "path": "2.04(1)",
+     "chapter": "2",
+     "article": "2.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.04(2)": {
+     "path": "2.04(2)",
+     "chapter": "2",
+     "article": "2.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.05(1)": {
+     "path": "2.05(1)",
+     "chapter": "2",
+     "article": "2.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "2.05(2)": {
+     "path": "2.05(2)",
+     "chapter": "2",
+     "article": "2.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.01(1)": {
+     "path": "3.01(1)",
+     "chapter": "3",
+     "article": "3.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.01(2)": {
+     "path": "3.01(2)",
+     "chapter": "3",
+     "article": "3.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.01(3)": {
+     "path": "3.01(3)",
+     "chapter": "3",
+     "article": "3.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.02": {
+     "path": "3.02",
+     "chapter": "3",
+     "article": "3.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.03(1)": {
+     "path": "3.03(1)",
+     "chapter": "3",
+     "article": "3.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.03(2)": {
+     "path": "3.03(2)",
+     "chapter": "3",
+     "article": "3.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.03(3)": {
+     "path": "3.03(3)",
+     "chapter": "3",
+     "article": "3.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.04(1)": {
+     "path": "3.04(1)",
+     "chapter": "3",
+     "article": "3.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.04(2)": {
+     "path": "3.04(2)",
+     "chapter": "3",
+     "article": "3.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.04(3)": {
+     "path": "3.04(3)",
+     "chapter": "3",
+     "article": "3.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.04(4)": {
+     "path": "3.04(4)",
+     "chapter": "3",
+     "article": "3.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.05(1)": {
+     "path": "3.05(1)",
+     "chapter": "3",
+     "article": "3.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.05(2)": {
+     "path": "3.05(2)",
+     "chapter": "3",
+     "article": "3.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.06": {
+     "path": "3.06",
+     "chapter": "3",
+     "article": "3.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.07(1)": {
+     "path": "3.07(1)",
+     "chapter": "3",
+     "article": "3.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.07(2)": {
+     "path": "3.07(2)",
+     "chapter": "3",
+     "article": "3.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.08(1)": {
+     "path": "3.08(1)",
+     "chapter": "3",
+     "article": "3.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.08(2)": {
+     "path": "3.08(2)",
+     "chapter": "3",
+     "article": "3.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.08(3)": {
+     "path": "3.08(3)",
+     "chapter": "3",
+     "article": "3.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.08(4)": {
+     "path": "3.08(4)",
+     "chapter": "3",
+     "article": "3.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.08(5)": {
+     "path": "3.08(5)",
+     "chapter": "3",
+     "article": "3.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.08(6)": {
+     "path": "3.08(6)",
+     "chapter": "3",
+     "article": "3.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.09(1)": {
+     "path": "3.09(1)",
+     "chapter": "3",
+     "article": "3.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.09(2)": {
+     "path": "3.09(2)",
+     "chapter": "3",
+     "article": "3.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.09(3)": {
+     "path": "3.09(3)",
+     "chapter": "3",
+     "article": "3.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.09(4)": {
+     "path": "3.09(4)",
+     "chapter": "3",
+     "article": "3.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.09(5)": {
+     "path": "3.09(5)",
+     "chapter": "3",
+     "article": "3.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.09(6)": {
+     "path": "3.09(6)",
+     "chapter": "3",
+     "article": "3.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.09(7)": {
+     "path": "3.09(7)",
+     "chapter": "3",
+     "article": "3.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.10(1)": {
+     "path": "3.10(1)",
+     "chapter": "3",
+     "article": "3.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.10(2)": {
+     "path": "3.10(2)",
+     "chapter": "3",
+     "article": "3.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.10(3)": {
+     "path": "3.10(3)",
+     "chapter": "3",
+     "article": "3.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.10(4)": {
+     "path": "3.10(4)",
+     "chapter": "3",
+     "article": "3.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.10(5)": {
+     "path": "3.10(5)",
+     "chapter": "3",
+     "article": "3.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.11(1)": {
+     "path": "3.11(1)",
+     "chapter": "3",
+     "article": "3.11",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.11(2)": {
+     "path": "3.11(2)",
+     "chapter": "3",
+     "article": "3.11",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.11(3)": {
+     "path": "3.11(3)",
+     "chapter": "3",
+     "article": "3.11",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.11(4)": {
+     "path": "3.11(4)",
+     "chapter": "3",
+     "article": "3.11",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.12(1)": {
+     "path": "3.12(1)",
+     "chapter": "3",
+     "article": "3.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.12(2)": {
+     "path": "3.12(2)",
+     "chapter": "3",
+     "article": "3.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.12(3)": {
+     "path": "3.12(3)",
+     "chapter": "3",
+     "article": "3.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.12(4)": {
+     "path": "3.12(4)",
+     "chapter": "3",
+     "article": "3.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.13(1)": {
+     "path": "3.13(1)",
+     "chapter": "3",
+     "article": "3.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.13(2)": {
+     "path": "3.13(2)",
+     "chapter": "3",
+     "article": "3.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.13(3)": {
+     "path": "3.13(3)",
+     "chapter": "3",
+     "article": "3.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.13(4)": {
+     "path": "3.13(4)",
+     "chapter": "3",
+     "article": "3.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.13(5)": {
+     "path": "3.13(5)",
+     "chapter": "3",
+     "article": "3.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.13(6)": {
+     "path": "3.13(6)",
+     "chapter": "3",
+     "article": "3.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.13(7)": {
+     "path": "3.13(7)",
+     "chapter": "3",
+     "article": "3.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(1)": {
+     "path": "3.14(1)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(2)": {
+     "path": "3.14(2)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(3)": {
+     "path": "3.14(3)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(4)": {
+     "path": "3.14(4)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(5)": {
+     "path": "3.14(5)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(6)": {
+     "path": "3.14(6)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(7)": {
+     "path": "3.14(7)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.14(8)": {
+     "path": "3.14(8)",
+     "chapter": "3",
+     "article": "3.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.15": {
+     "path": "3.15",
+     "chapter": "3",
+     "article": "3.15",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.16(1)": {
+     "path": "3.16(1)",
+     "chapter": "3",
+     "article": "3.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.16(2)": {
+     "path": "3.16(2)",
+     "chapter": "3",
+     "article": "3.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.16(3)": {
+     "path": "3.16(3)",
+     "chapter": "3",
+     "article": "3.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.17": {
+     "path": "3.17",
+     "chapter": "3",
+     "article": "3.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.18(1)": {
+     "path": "3.18(1)",
+     "chapter": "3",
+     "article": "3.18",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.18(2)": {
+     "path": "3.18(2)",
+     "chapter": "3",
+     "article": "3.18",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.19": {
+     "path": "3.19",
+     "chapter": "3",
+     "article": "3.19",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.20(1)": {
+     "path": "3.20(1)",
+     "chapter": "3",
+     "article": "3.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.20(2)": {
+     "path": "3.20(2)",
+     "chapter": "3",
+     "article": "3.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.20(3)": {
+     "path": "3.20(3)",
+     "chapter": "3",
+     "article": "3.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.20(4)": {
+     "path": "3.20(4)",
+     "chapter": "3",
+     "article": "3.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.21": {
+     "path": "3.21",
+     "chapter": "3",
+     "article": "3.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.22(1)": {
+     "path": "3.22(1)",
+     "chapter": "3",
+     "article": "3.22",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.22(2)": {
+     "path": "3.22(2)",
+     "chapter": "3",
+     "article": "3.22",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.23": {
+     "path": "3.23",
+     "chapter": "3",
+     "article": "3.23",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.24": {
+     "path": "3.24",
+     "chapter": "3",
+     "article": "3.24",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.25(1)": {
+     "path": "3.25(1)",
+     "chapter": "3",
+     "article": "3.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.25(2)": {
+     "path": "3.25(2)",
+     "chapter": "3",
+     "article": "3.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.25(3)": {
+     "path": "3.25(3)",
+     "chapter": "3",
+     "article": "3.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.25(4)": {
+     "path": "3.25(4)",
+     "chapter": "3",
+     "article": "3.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.25(5)": {
+     "path": "3.25(5)",
+     "chapter": "3",
+     "article": "3.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.26(1)": {
+     "path": "3.26(1)",
+     "chapter": "3",
+     "article": "3.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.26(2)": {
+     "path": "3.26(2)",
+     "chapter": "3",
+     "article": "3.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.26(3)": {
+     "path": "3.26(3)",
+     "chapter": "3",
+     "article": "3.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.27": {
+     "path": "3.27",
+     "chapter": "3",
+     "article": "3.27",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.28": {
+     "path": "3.28",
+     "chapter": "3",
+     "article": "3.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.29(1)": {
+     "path": "3.29(1)",
+     "chapter": "3",
+     "article": "3.29",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.29(2)": {
+     "path": "3.29(2)",
+     "chapter": "3",
+     "article": "3.29",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.30(1)": {
+     "path": "3.30(1)",
+     "chapter": "3",
+     "article": "3.30",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.30(2)": {
+     "path": "3.30(2)",
+     "chapter": "3",
+     "article": "3.30",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.31(1)": {
+     "path": "3.31(1)",
+     "chapter": "3",
+     "article": "3.31",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.31(2)": {
+     "path": "3.31(2)",
+     "chapter": "3",
+     "article": "3.31",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.32(1)": {
+     "path": "3.32(1)",
+     "chapter": "3",
+     "article": "3.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.32(2)": {
+     "path": "3.32(2)",
+     "chapter": "3",
+     "article": "3.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.33(1)": {
+     "path": "3.33(1)",
+     "chapter": "3",
+     "article": "3.33",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.33(2)": {
+     "path": "3.33(2)",
+     "chapter": "3",
+     "article": "3.33",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.33(3)": {
+     "path": "3.33(3)",
+     "chapter": "3",
+     "article": "3.33",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.34(1)": {
+     "path": "3.34(1)",
+     "chapter": "3",
+     "article": "3.34",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.34(2)": {
+     "path": "3.34(2)",
+     "chapter": "3",
+     "article": "3.34",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.34(3)": {
+     "path": "3.34(3)",
+     "chapter": "3",
+     "article": "3.34",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.35(1)": {
+     "path": "3.35(1)",
+     "chapter": "3",
+     "article": "3.35",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.35(2)": {
+     "path": "3.35(2)",
+     "chapter": "3",
+     "article": "3.35",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.36(1)": {
+     "path": "3.36(1)",
+     "chapter": "3",
+     "article": "3.36",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.36(2)": {
+     "path": "3.36(2)",
+     "chapter": "3",
+     "article": "3.36",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.37": {
+     "path": "3.37",
+     "chapter": "3",
+     "article": "3.37",
+     "jurisdiction": "eu/cevni"
+    },
+    "3.38": {
+     "path": "3.38",
+     "chapter": "3",
+     "article": "3.38",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.01(1)": {
+     "path": "4.01(1)",
+     "chapter": "4",
+     "article": "4.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.01(2)": {
+     "path": "4.01(2)",
+     "chapter": "4",
+     "article": "4.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.01(3)": {
+     "path": "4.01(3)",
+     "chapter": "4",
+     "article": "4.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.01(4)": {
+     "path": "4.01(4)",
+     "chapter": "4",
+     "article": "4.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.02(1)": {
+     "path": "4.02(1)",
+     "chapter": "4",
+     "article": "4.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.02(2)": {
+     "path": "4.02(2)",
+     "chapter": "4",
+     "article": "4.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.03(1)": {
+     "path": "4.03(1)",
+     "chapter": "4",
+     "article": "4.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.03(2)": {
+     "path": "4.03(2)",
+     "chapter": "4",
+     "article": "4.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.04(1)": {
+     "path": "4.04(1)",
+     "chapter": "4",
+     "article": "4.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.04(2)": {
+     "path": "4.04(2)",
+     "chapter": "4",
+     "article": "4.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.05(1)": {
+     "path": "4.05(1)",
+     "chapter": "4",
+     "article": "4.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.05(2)": {
+     "path": "4.05(2)",
+     "chapter": "4",
+     "article": "4.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.05(3)": {
+     "path": "4.05(3)",
+     "chapter": "4",
+     "article": "4.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.05(4)": {
+     "path": "4.05(4)",
+     "chapter": "4",
+     "article": "4.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.05(5)": {
+     "path": "4.05(5)",
+     "chapter": "4",
+     "article": "4.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.06(1)": {
+     "path": "4.06(1)",
+     "chapter": "4",
+     "article": "4.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.06(2)": {
+     "path": "4.06(2)",
+     "chapter": "4",
+     "article": "4.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.06(3)": {
+     "path": "4.06(3)",
+     "chapter": "4",
+     "article": "4.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.07(1)": {
+     "path": "4.07(1)",
+     "chapter": "4",
+     "article": "4.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "4.07(2)": {
+     "path": "4.07(2)",
+     "chapter": "4",
+     "article": "4.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "5.01(1)": {
+     "path": "5.01(1)",
+     "chapter": "5",
+     "article": "5.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "5.01(2)": {
+     "path": "5.01(2)",
+     "chapter": "5",
+     "article": "5.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "5.02": {
+     "path": "5.02",
+     "chapter": "5",
+     "article": "5.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "5.03(1)": {
+     "path": "5.03(1)",
+     "chapter": "5",
+     "article": "5.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "5.03(2)": {
+     "path": "5.03(2)",
+     "chapter": "5",
+     "article": "5.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.01": {
+     "path": "6.01",
+     "chapter": "6",
+     "article": "6.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.01bis": {
+     "path": "6.01bis",
+     "chapter": "6",
+     "article": "6.01bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.02(1)": {
+     "path": "6.02(1)",
+     "chapter": "6",
+     "article": "6.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.02(2)": {
+     "path": "6.02(2)",
+     "chapter": "6",
+     "article": "6.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03(1)": {
+     "path": "6.03(1)",
+     "chapter": "6",
+     "article": "6.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03(2)": {
+     "path": "6.03(2)",
+     "chapter": "6",
+     "article": "6.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03(3)": {
+     "path": "6.03(3)",
+     "chapter": "6",
+     "article": "6.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03(4)": {
+     "path": "6.03(4)",
+     "chapter": "6",
+     "article": "6.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03bis(1)": {
+     "path": "6.03bis(1)",
+     "chapter": "6",
+     "article": "6.03bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03bis(2)": {
+     "path": "6.03bis(2)",
+     "chapter": "6",
+     "article": "6.03bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03bis(3)": {
+     "path": "6.03bis(3)",
+     "chapter": "6",
+     "article": "6.03bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.03bis(4)": {
+     "path": "6.03bis(4)",
+     "chapter": "6",
+     "article": "6.03bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(1)": {
+     "path": "6.04(1)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(2)": {
+     "path": "6.04(2)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(3)": {
+     "path": "6.04(3)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(4)": {
+     "path": "6.04(4)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(5)": {
+     "path": "6.04(5)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(6)": {
+     "path": "6.04(6)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(7)": {
+     "path": "6.04(7)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.04(8)": {
+     "path": "6.04(8)",
+     "chapter": "6",
+     "article": "6.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.05(1)": {
+     "path": "6.05(1)",
+     "chapter": "6",
+     "article": "6.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.05(2)": {
+     "path": "6.05(2)",
+     "chapter": "6",
+     "article": "6.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.05(3)": {
+     "path": "6.05(3)",
+     "chapter": "6",
+     "article": "6.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.05(4)": {
+     "path": "6.05(4)",
+     "chapter": "6",
+     "article": "6.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.05(5)": {
+     "path": "6.05(5)",
+     "chapter": "6",
+     "article": "6.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.05(6)": {
+     "path": "6.05(6)",
+     "chapter": "6",
+     "article": "6.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.05(7)": {
+     "path": "6.05(7)",
+     "chapter": "6",
+     "article": "6.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.06": {
+     "path": "6.06",
+     "chapter": "6",
+     "article": "6.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.07(1)": {
+     "path": "6.07(1)",
+     "chapter": "6",
+     "article": "6.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.07(2)": {
+     "path": "6.07(2)",
+     "chapter": "6",
+     "article": "6.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.08(1)": {
+     "path": "6.08(1)",
+     "chapter": "6",
+     "article": "6.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.08(2)": {
+     "path": "6.08(2)",
+     "chapter": "6",
+     "article": "6.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.09(1)": {
+     "path": "6.09(1)",
+     "chapter": "6",
+     "article": "6.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.09(2)": {
+     "path": "6.09(2)",
+     "chapter": "6",
+     "article": "6.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.10(1)": {
+     "path": "6.10(1)",
+     "chapter": "6",
+     "article": "6.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.10(2)": {
+     "path": "6.10(2)",
+     "chapter": "6",
+     "article": "6.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.10(3)": {
+     "path": "6.10(3)",
+     "chapter": "6",
+     "article": "6.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.10(4)": {
+     "path": "6.10(4)",
+     "chapter": "6",
+     "article": "6.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.10(5)": {
+     "path": "6.10(5)",
+     "chapter": "6",
+     "article": "6.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.10(6)": {
+     "path": "6.10(6)",
+     "chapter": "6",
+     "article": "6.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.10(7)": {
+     "path": "6.10(7)",
+     "chapter": "6",
+     "article": "6.10",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.11": {
+     "path": "6.11",
+     "chapter": "6",
+     "article": "6.11",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.12(1)": {
+     "path": "6.12(1)",
+     "chapter": "6",
+     "article": "6.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.12(2)": {
+     "path": "6.12(2)",
+     "chapter": "6",
+     "article": "6.12",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.13(1)": {
+     "path": "6.13(1)",
+     "chapter": "6",
+     "article": "6.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.13(2)": {
+     "path": "6.13(2)",
+     "chapter": "6",
+     "article": "6.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.13(3)": {
+     "path": "6.13(3)",
+     "chapter": "6",
+     "article": "6.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.13(4)": {
+     "path": "6.13(4)",
+     "chapter": "6",
+     "article": "6.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.13(5)": {
+     "path": "6.13(5)",
+     "chapter": "6",
+     "article": "6.13",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.14": {
+     "path": "6.14",
+     "chapter": "6",
+     "article": "6.14",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.15": {
+     "path": "6.15",
+     "chapter": "6",
+     "article": "6.15",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.16(1)": {
+     "path": "6.16(1)",
+     "chapter": "6",
+     "article": "6.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.16(2)": {
+     "path": "6.16(2)",
+     "chapter": "6",
+     "article": "6.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.16(3)": {
+     "path": "6.16(3)",
+     "chapter": "6",
+     "article": "6.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.16(4)": {
+     "path": "6.16(4)",
+     "chapter": "6",
+     "article": "6.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.16(5)": {
+     "path": "6.16(5)",
+     "chapter": "6",
+     "article": "6.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.16(6)": {
+     "path": "6.16(6)",
+     "chapter": "6",
+     "article": "6.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.16(7)": {
+     "path": "6.16(7)",
+     "chapter": "6",
+     "article": "6.16",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.17(1)": {
+     "path": "6.17(1)",
+     "chapter": "6",
+     "article": "6.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.17(2)": {
+     "path": "6.17(2)",
+     "chapter": "6",
+     "article": "6.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.17(3)": {
+     "path": "6.17(3)",
+     "chapter": "6",
+     "article": "6.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.17(4)": {
+     "path": "6.17(4)",
+     "chapter": "6",
+     "article": "6.17",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.18(1)": {
+     "path": "6.18(1)",
+     "chapter": "6",
+     "article": "6.18",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.18(2)": {
+     "path": "6.18(2)",
+     "chapter": "6",
+     "article": "6.18",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.18(3)": {
+     "path": "6.18(3)",
+     "chapter": "6",
+     "article": "6.18",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.19(1)": {
+     "path": "6.19(1)",
+     "chapter": "6",
+     "article": "6.19",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.19(2)": {
+     "path": "6.19(2)",
+     "chapter": "6",
+     "article": "6.19",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.20(1)": {
+     "path": "6.20(1)",
+     "chapter": "6",
+     "article": "6.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.20(2)": {
+     "path": "6.20(2)",
+     "chapter": "6",
+     "article": "6.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.20(3)": {
+     "path": "6.20(3)",
+     "chapter": "6",
+     "article": "6.20",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.21(1)": {
+     "path": "6.21(1)",
+     "chapter": "6",
+     "article": "6.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.21(2)": {
+     "path": "6.21(2)",
+     "chapter": "6",
+     "article": "6.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.21(3)": {
+     "path": "6.21(3)",
+     "chapter": "6",
+     "article": "6.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.21(4)": {
+     "path": "6.21(4)",
+     "chapter": "6",
+     "article": "6.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.21(5)": {
+     "path": "6.21(5)",
+     "chapter": "6",
+     "article": "6.21",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.21bis": {
+     "path": "6.21bis",
+     "chapter": "6",
+     "article": "6.21bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.22": {
+     "path": "6.22",
+     "chapter": "6",
+     "article": "6.22",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.22bis": {
+     "path": "6.22bis",
+     "chapter": "6",
+     "article": "6.22bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.23(1)": {
+     "path": "6.23(1)",
+     "chapter": "6",
+     "article": "6.23",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.23(2)": {
+     "path": "6.23(2)",
+     "chapter": "6",
+     "article": "6.23",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.24(1)": {
+     "path": "6.24(1)",
+     "chapter": "6",
+     "article": "6.24",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.24(2)": {
+     "path": "6.24(2)",
+     "chapter": "6",
+     "article": "6.24",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.25(1)": {
+     "path": "6.25(1)",
+     "chapter": "6",
+     "article": "6.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.25(2)": {
+     "path": "6.25(2)",
+     "chapter": "6",
+     "article": "6.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.25(3)": {
+     "path": "6.25(3)",
+     "chapter": "6",
+     "article": "6.25",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.26(1)": {
+     "path": "6.26(1)",
+     "chapter": "6",
+     "article": "6.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.26(2)": {
+     "path": "6.26(2)",
+     "chapter": "6",
+     "article": "6.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.26(3)": {
+     "path": "6.26(3)",
+     "chapter": "6",
+     "article": "6.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.26(4)": {
+     "path": "6.26(4)",
+     "chapter": "6",
+     "article": "6.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.26(5)": {
+     "path": "6.26(5)",
+     "chapter": "6",
+     "article": "6.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.26(6)": {
+     "path": "6.26(6)",
+     "chapter": "6",
+     "article": "6.26",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.27(1)": {
+     "path": "6.27(1)",
+     "chapter": "6",
+     "article": "6.27",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.27(2)": {
+     "path": "6.27(2)",
+     "chapter": "6",
+     "article": "6.27",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(1)": {
+     "path": "6.28(1)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(2)": {
+     "path": "6.28(2)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(3)": {
+     "path": "6.28(3)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(4)": {
+     "path": "6.28(4)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(5)": {
+     "path": "6.28(5)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(6)": {
+     "path": "6.28(6)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(7)": {
+     "path": "6.28(7)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(8)": {
+     "path": "6.28(8)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(9)": {
+     "path": "6.28(9)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(10)": {
+     "path": "6.28(10)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(11)": {
+     "path": "6.28(11)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28(12)": {
+     "path": "6.28(12)",
+     "chapter": "6",
+     "article": "6.28",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28bis(1)": {
+     "path": "6.28bis(1)",
+     "chapter": "6",
+     "article": "6.28bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28bis(2)": {
+     "path": "6.28bis(2)",
+     "chapter": "6",
+     "article": "6.28bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28bis(3)": {
+     "path": "6.28bis(3)",
+     "chapter": "6",
+     "article": "6.28bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.28bis(4)": {
+     "path": "6.28bis(4)",
+     "chapter": "6",
+     "article": "6.28bis",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.29": {
+     "path": "6.29",
+     "chapter": "6",
+     "article": "6.29",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.30(1)": {
+     "path": "6.30(1)",
+     "chapter": "6",
+     "article": "6.30",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.30(2)": {
+     "path": "6.30(2)",
+     "chapter": "6",
+     "article": "6.30",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.30(3)": {
+     "path": "6.30(3)",
+     "chapter": "6",
+     "article": "6.30",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.30(4)": {
+     "path": "6.30(4)",
+     "chapter": "6",
+     "article": "6.30",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.30(5)": {
+     "path": "6.30(5)",
+     "chapter": "6",
+     "article": "6.30",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.31(1)": {
+     "path": "6.31(1)",
+     "chapter": "6",
+     "article": "6.31",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.31(2)": {
+     "path": "6.31(2)",
+     "chapter": "6",
+     "article": "6.31",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.31(3)": {
+     "path": "6.31(3)",
+     "chapter": "6",
+     "article": "6.31",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.32(1)": {
+     "path": "6.32(1)",
+     "chapter": "6",
+     "article": "6.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.32(2)": {
+     "path": "6.32(2)",
+     "chapter": "6",
+     "article": "6.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.32(3)": {
+     "path": "6.32(3)",
+     "chapter": "6",
+     "article": "6.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.32(4)": {
+     "path": "6.32(4)",
+     "chapter": "6",
+     "article": "6.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.32(5)": {
+     "path": "6.32(5)",
+     "chapter": "6",
+     "article": "6.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.32(6)": {
+     "path": "6.32(6)",
+     "chapter": "6",
+     "article": "6.32",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.33(1)": {
+     "path": "6.33(1)",
+     "chapter": "6",
+     "article": "6.33",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.33(2)": {
+     "path": "6.33(2)",
+     "chapter": "6",
+     "article": "6.33",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.34(1)": {
+     "path": "6.34(1)",
+     "chapter": "6",
+     "article": "6.34",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.34(2)": {
+     "path": "6.34(2)",
+     "chapter": "6",
+     "article": "6.34",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.34(3)": {
+     "path": "6.34(3)",
+     "chapter": "6",
+     "article": "6.34",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.35(1)": {
+     "path": "6.35(1)",
+     "chapter": "6",
+     "article": "6.35",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.35(2)": {
+     "path": "6.35(2)",
+     "chapter": "6",
+     "article": "6.35",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.35(3)": {
+     "path": "6.35(3)",
+     "chapter": "6",
+     "article": "6.35",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.35(4)": {
+     "path": "6.35(4)",
+     "chapter": "6",
+     "article": "6.35",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.36(1)": {
+     "path": "6.36(1)",
+     "chapter": "6",
+     "article": "6.36",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.36(2)": {
+     "path": "6.36(2)",
+     "chapter": "6",
+     "article": "6.36",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.36(3)": {
+     "path": "6.36(3)",
+     "chapter": "6",
+     "article": "6.36",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.37(1)": {
+     "path": "6.37(1)",
+     "chapter": "6",
+     "article": "6.37",
+     "jurisdiction": "eu/cevni"
+    },
+    "6.37(2)": {
+     "path": "6.37(2)",
+     "chapter": "6",
+     "article": "6.37",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.01(1)": {
+     "path": "7.01(1)",
+     "chapter": "7",
+     "article": "7.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.01(2)": {
+     "path": "7.01(2)",
+     "chapter": "7",
+     "article": "7.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.01(3)": {
+     "path": "7.01(3)",
+     "chapter": "7",
+     "article": "7.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.02(1)": {
+     "path": "7.02(1)",
+     "chapter": "7",
+     "article": "7.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.02(2)": {
+     "path": "7.02(2)",
+     "chapter": "7",
+     "article": "7.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.03(1)": {
+     "path": "7.03(1)",
+     "chapter": "7",
+     "article": "7.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.03(2)": {
+     "path": "7.03(2)",
+     "chapter": "7",
+     "article": "7.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.04(1)": {
+     "path": "7.04(1)",
+     "chapter": "7",
+     "article": "7.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.04(2)": {
+     "path": "7.04(2)",
+     "chapter": "7",
+     "article": "7.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.04(3)": {
+     "path": "7.04(3)",
+     "chapter": "7",
+     "article": "7.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.05(1)": {
+     "path": "7.05(1)",
+     "chapter": "7",
+     "article": "7.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.05(2)": {
+     "path": "7.05(2)",
+     "chapter": "7",
+     "article": "7.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.05(3)": {
+     "path": "7.05(3)",
+     "chapter": "7",
+     "article": "7.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.05(4)": {
+     "path": "7.05(4)",
+     "chapter": "7",
+     "article": "7.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.05(5)": {
+     "path": "7.05(5)",
+     "chapter": "7",
+     "article": "7.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.06": {
+     "path": "7.06",
+     "chapter": "7",
+     "article": "7.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.07(1)": {
+     "path": "7.07(1)",
+     "chapter": "7",
+     "article": "7.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.07(2)": {
+     "path": "7.07(2)",
+     "chapter": "7",
+     "article": "7.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.07(3)": {
+     "path": "7.07(3)",
+     "chapter": "7",
+     "article": "7.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.08(1)": {
+     "path": "7.08(1)",
+     "chapter": "7",
+     "article": "7.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.08(2)": {
+     "path": "7.08(2)",
+     "chapter": "7",
+     "article": "7.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.08(3)": {
+     "path": "7.08(3)",
+     "chapter": "7",
+     "article": "7.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.08(4)": {
+     "path": "7.08(4)",
+     "chapter": "7",
+     "article": "7.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "7.08(5)": {
+     "path": "7.08(5)",
+     "chapter": "7",
+     "article": "7.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(1)": {
+     "path": "8.01(1)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(2)": {
+     "path": "8.01(2)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(3)": {
+     "path": "8.01(3)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(4)": {
+     "path": "8.01(4)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(5)": {
+     "path": "8.01(5)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(6)": {
+     "path": "8.01(6)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(7)": {
+     "path": "8.01(7)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.01(8)": {
+     "path": "8.01(8)",
+     "chapter": "8",
+     "article": "8.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.02(1)": {
+     "path": "8.02(1)",
+     "chapter": "8",
+     "article": "8.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.02(2)": {
+     "path": "8.02(2)",
+     "chapter": "8",
+     "article": "8.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.02(3)": {
+     "path": "8.02(3)",
+     "chapter": "8",
+     "article": "8.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.02(4)": {
+     "path": "8.02(4)",
+     "chapter": "8",
+     "article": "8.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.02(5)": {
+     "path": "8.02(5)",
+     "chapter": "8",
+     "article": "8.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "8.02(6)": {
+     "path": "8.02(6)",
+     "chapter": "8",
+     "article": "8.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.01(1)": {
+     "path": "9.01(1)",
+     "chapter": "9",
+     "article": "9.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.01(2)": {
+     "path": "9.01(2)",
+     "chapter": "9",
+     "article": "9.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.02(1)": {
+     "path": "9.02(1)",
+     "chapter": "9",
+     "article": "9.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.02(2)": {
+     "path": "9.02(2)",
+     "chapter": "9",
+     "article": "9.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.02(3)": {
+     "path": "9.02(3)",
+     "chapter": "9",
+     "article": "9.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.02(4)": {
+     "path": "9.02(4)",
+     "chapter": "9",
+     "article": "9.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.02(5)": {
+     "path": "9.02(5)",
+     "chapter": "9",
+     "article": "9.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.02(6)": {
+     "path": "9.02(6)",
+     "chapter": "9",
+     "article": "9.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.03": {
+     "path": "9.03",
+     "chapter": "9",
+     "article": "9.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(1)": {
+     "path": "9.04(1)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(2)": {
+     "path": "9.04(2)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(3)": {
+     "path": "9.04(3)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(4)": {
+     "path": "9.04(4)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(5)": {
+     "path": "9.04(5)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(6)": {
+     "path": "9.04(6)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(7)": {
+     "path": "9.04(7)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(8)": {
+     "path": "9.04(8)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.04(9)": {
+     "path": "9.04(9)",
+     "chapter": "9",
+     "article": "9.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.05(1)": {
+     "path": "9.05(1)",
+     "chapter": "9",
+     "article": "9.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.05(2)": {
+     "path": "9.05(2)",
+     "chapter": "9",
+     "article": "9.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.06": {
+     "path": "9.06",
+     "chapter": "9",
+     "article": "9.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(1)": {
+     "path": "9.07(1)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(2)": {
+     "path": "9.07(2)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(3)": {
+     "path": "9.07(3)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(4)": {
+     "path": "9.07(4)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(5)": {
+     "path": "9.07(5)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(6)": {
+     "path": "9.07(6)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(7)": {
+     "path": "9.07(7)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(8)": {
+     "path": "9.07(8)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(9)": {
+     "path": "9.07(9)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(10)": {
+     "path": "9.07(10)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(11)": {
+     "path": "9.07(11)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(12)": {
+     "path": "9.07(12)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(13)": {
+     "path": "9.07(13)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.07(14)": {
+     "path": "9.07(14)",
+     "chapter": "9",
+     "article": "9.07",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.08": {
+     "path": "9.08",
+     "chapter": "9",
+     "article": "9.08",
+     "jurisdiction": "eu/cevni"
+    },
+    "9.09": {
+     "path": "9.09",
+     "chapter": "9",
+     "article": "9.09",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.01(1)": {
+     "path": "10.01(1)",
+     "chapter": "10",
+     "article": "10.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.01(2)": {
+     "path": "10.01(2)",
+     "chapter": "10",
+     "article": "10.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.01(3)": {
+     "path": "10.01(3)",
+     "chapter": "10",
+     "article": "10.01",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.02": {
+     "path": "10.02",
+     "chapter": "10",
+     "article": "10.02",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.03(1)": {
+     "path": "10.03(1)",
+     "chapter": "10",
+     "article": "10.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.03(2)": {
+     "path": "10.03(2)",
+     "chapter": "10",
+     "article": "10.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.03(3)": {
+     "path": "10.03(3)",
+     "chapter": "10",
+     "article": "10.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.03(4)": {
+     "path": "10.03(4)",
+     "chapter": "10",
+     "article": "10.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.03(5)": {
+     "path": "10.03(5)",
+     "chapter": "10",
+     "article": "10.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.03(6)": {
+     "path": "10.03(6)",
+     "chapter": "10",
+     "article": "10.03",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.04(1)": {
+     "path": "10.04(1)",
+     "chapter": "10",
+     "article": "10.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.04(2)": {
+     "path": "10.04(2)",
+     "chapter": "10",
+     "article": "10.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.04(3)": {
+     "path": "10.04(3)",
+     "chapter": "10",
+     "article": "10.04",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.05(1)": {
+     "path": "10.05(1)",
+     "chapter": "10",
+     "article": "10.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.05(2)": {
+     "path": "10.05(2)",
+     "chapter": "10",
+     "article": "10.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.05(3)": {
+     "path": "10.05(3)",
+     "chapter": "10",
+     "article": "10.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.05(4)": {
+     "path": "10.05(4)",
+     "chapter": "10",
+     "article": "10.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.05(5)": {
+     "path": "10.05(5)",
+     "chapter": "10",
+     "article": "10.05",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.06(1)": {
+     "path": "10.06(1)",
+     "chapter": "10",
+     "article": "10.06",
+     "jurisdiction": "eu/cevni"
+    },
+    "10.06(2)": {
+     "path": "10.06(2)",
+     "chapter": "10",
+     "article": "10.06",
+     "jurisdiction": "eu/cevni"
+    }
+   }
+  }
  }
 }

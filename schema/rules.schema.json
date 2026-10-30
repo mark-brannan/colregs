@@ -49,6 +49,30 @@
           }
         }
       }
+    },
+    "standalone": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Per-jurisdiction skeletons of instruments with their own numbering, not deltas over `paragraphs`: CEVNI's articles are not COLREGS paths, so nothing is inherited or suppressed (ADR 0010 for the withheld text).",
+      "patternProperties": {
+        "^[a-z]+(/[a-z]+)+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path_status", "paragraphs"],
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "path_status": {
+              "$comment": "`temporary`: the keys are working ids; no path format is chosen for this instrument yet.",
+              "const": "temporary"
+            },
+            "paragraphs": {
+              "$ref": "#/$defs/articleParagraphs"
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {
@@ -80,6 +104,36 @@
                 "minLength": 1
               },
               "minItems": 1
+            }
+          }
+        }
+      }
+    },
+    "articleParagraphs": {
+      "$comment": "Article-numbered paragraphs: `6.03bis(1)` is article 6.03 bis, paragraph 1; `1.01(a)` a lettered group; a bare article has no numbered paragraphs.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[0-9]+\\.[0-9]{2}(bis|ter)?(\\(([0-9]+|[a-z])\\))?$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "chapter", "article", "jurisdiction"],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^[0-9]+\\.[0-9]{2}(bis|ter)?(\\(([0-9]+|[a-z])\\))?$"
+            },
+            "chapter": {
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            },
+            "article": {
+              "type": "string",
+              "pattern": "^[0-9]+\\.[0-9]{2}(bis|ter)?$"
+            },
+            "jurisdiction": {
+              "type": "string",
+              "pattern": "^[a-z]+(/[a-z]+)+$"
             }
           }
         }
