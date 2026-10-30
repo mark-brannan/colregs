@@ -193,10 +193,20 @@
    "cite": "AnxI.3(a)",
    "light": "light:masthead",
    "constraint": "separation",
+   "min_fraction_of_length": 0.5,
+   "need_not_exceed_m": 100,
+   "forward_light_max_fraction_of_length_from_stem": 0.25,
+   "text": "When two masthead lights are prescribed for a power-driven vessel, the horizontal distance between them shall not be less than one half of the length of the vessel but need not be more than 100 m. The forward light shall be placed not more than one quarter of the length of the vessel from the stem."
+  },
+  {
+   "cite": "AnxI.3(a)",
+   "jurisdiction": "us/inland",
+   "light": "light:masthead",
+   "constraint": "separation",
    "min_fraction_of_length": 0.25,
    "need_not_exceed_m": 50,
    "forward_light_max_fraction_of_length_from_stem": 0.5,
-   "text": "Except as specified in paragraph (e), when two masthead lights are prescribed for a power-driven vessel, the horizontal distance between them shall not be less than one quarter of the length of the vessel but need not be more than 50 meters. The forward light shall be placed not more than one half of the length of the vessel from the stem."
+   "text": "Except as specified in paragraph (e) of this section, when two masthead lights are prescribed for a power-driven vessel, the horizontal distance between them must not be less than one quarter of the length of the vessel but need not be more than 50 meters. The forward light must be placed not more than one half of the length of the vessel from the stem."
   },
   {
    "cite": "AnxI.3(b)",
@@ -372,8 +382,121 @@
  },
  "sectors": {
   "cite": "AnxI.9",
-  "horizontal": {
-   "sidelights_forward": "shall show the minimum required intensities in the forward direction; intensities decrease to reach practical cut-off between 1 and 3 degrees outside the prescribed sectors"
-  }
+  "horizontal": [
+   {
+    "cite": "AnxI.9(a)(i)",
+    "lights": [
+     "light:sidelight_starboard",
+     "light:sidelight_port"
+    ],
+    "edge": "forward",
+    "full_intensity_to_limit": true,
+    "cutoff_outside_deg": {
+     "min": 1,
+     "max": 3
+    },
+    "text": "In the forward direction, sidelights as fitted on the vessel shall show the minimum required intensities. The intensities must decrease to reach practical cut-off between 1 degree and 3 degrees outside the prescribed sectors."
+   },
+   {
+    "cite": "AnxI.9(a)(ii)",
+    "lights": [
+     "light:sternlight",
+     "light:masthead"
+    ],
+    "edge": "all",
+    "full_intensity_within_deg": 5,
+    "fraction_at_limit": 0.5,
+    "cutoff_outside_deg": {
+     "max": 5
+    },
+    "text": "For sternlights and masthead lights and at 22.5 degrees abaft the beam for sidelights, the minimum required intensities shall be maintained over the arc of the horizon up to 5 degrees within the limits of the sectors prescribed in Rule 21. From 5 degrees within the prescribed sectors the intensity may decrease by 50 percent up to the prescribed limits; it shall decrease steadily to reach practical cut-off at not more than 5 degrees outside the prescribed sectors."
+   },
+   {
+    "cite": "AnxI.9(a)(ii)",
+    "lights": [
+     "light:sidelight_starboard",
+     "light:sidelight_port"
+    ],
+    "edge": "aft",
+    "at_deg_abaft_beam": 22.5,
+    "full_intensity_within_deg": 5,
+    "fraction_at_limit": 0.5,
+    "cutoff_outside_deg": {
+     "max": 5
+    },
+    "text": "For sternlights and masthead lights and at 22.5 degrees abaft the beam for sidelights, the minimum required intensities shall be maintained over the arc of the horizon up to 5 degrees within the limits of the sectors prescribed in Rule 21. From 5 degrees within the prescribed sectors the intensity may decrease by 50 percent up to the prescribed limits; it shall decrease steadily to reach practical cut-off at not more than 5 degrees outside the prescribed sectors."
+   },
+   {
+    "cite": "AnxI.9(b)(i)",
+    "lights": [
+     "light:all_round"
+    ],
+    "max_obscured_sector_deg": 6,
+    "except": "anchor lights prescribed in Rule 30, which need not be placed at an impracticable height above the hull",
+    "except_entries": [
+     "rule:30a",
+     "rule:30b"
+    ],
+    "text": "All-round lights shall be so located as not to be obscured by masts, topmasts or structures within angular sectors of more than 6 degrees, except anchor lights prescribed in Rule 30, which need not be placed at an impracticable height above the hull."
+   },
+   {
+    "cite": "AnxI.9(b)(ii)",
+    "lights": [
+     "light:all_round"
+    ],
+    "substitute_pair": true,
+    "appear_as_one_at_nm": 1,
+    "text": "If it is impracticable to comply with paragraph (b)(i) of this section by exhibiting only one all-round light, two all-round lights shall be used suitably positioned or screened so that they appear, as far as practicable, as one light at a distance of one mile."
+   }
+  ],
+  "vertical": [
+   {
+    "cite": "AnxI.10(a)",
+    "electric": true,
+    "except_when": {
+     "fact:propulsion": "propulsion:sail",
+     "fact:position": "position:underway"
+    },
+    "bands": [
+     {
+      "within_deg": 5,
+      "min_fraction": 1,
+      "cite": "AnxI.10(a)(i)"
+     },
+     {
+      "within_deg": 7.5,
+      "min_fraction": 0.6,
+      "cite": "AnxI.10(a)(ii)"
+     }
+    ],
+    "text": "The vertical sectors of electric lights as fitted, with the exception of lights on sailing vessels underway shall ensure that: (i) at least the required minimum intensity is maintained at all angles from 5 degrees above to 5 degrees below the horizontal; (ii) at least 60 per cent of the required minimum intensity is maintained from 7.5 degrees above to 7.5 degrees below the horizontal."
+   },
+   {
+    "cite": "AnxI.10(b)",
+    "electric": true,
+    "when": {
+     "fact:propulsion": "propulsion:sail",
+     "fact:position": "position:underway"
+    },
+    "bands": [
+     {
+      "within_deg": 5,
+      "min_fraction": 1,
+      "cite": "AnxI.10(b)(i)"
+     },
+     {
+      "within_deg": 25,
+      "min_fraction": 0.5,
+      "cite": "AnxI.10(b)(ii)"
+     }
+    ],
+    "text": "In the case of sailing vessels underway the vertical sectors of electric lights as fitted shall ensure that: (i) at least the required minimum intensity is maintained at all angles from 5 degrees above to 5 degrees below the horizontal; (ii) at least 50 per cent of the required minimum intensity is maintained from 25 degrees above to 25 degrees below the horizontal."
+   },
+   {
+    "cite": "AnxI.10(c)",
+    "electric": false,
+    "text": "In the case of lights other than electric these specifications shall be met as closely as possible."
+   }
+  ]
  }
 }
