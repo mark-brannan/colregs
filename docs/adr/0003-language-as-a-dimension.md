@@ -174,6 +174,8 @@ Nothing lands with this ADR. The order later:
   characters (REQ-LANG-9), and rendering direction is a consumer concern
   that stays out of the data.
 
+- JSON is a serialisation, not the neutrality claim: `dist/xml` is a generated, round-tripped view of the same data.
+
 ## Considered and declined (external review, 2026-08-29)
 
 Two external reviews (PR #4 comments) shaped the revision above. What they
