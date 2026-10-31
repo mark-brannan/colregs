@@ -47,7 +47,7 @@ It has no runtime and no dependencies. It does not infer anything: it is a
 pure function of the fact record, and deciding _that_ a vessel is fishing, or
 aground, or making way is the caller's job. Nothing here reads a sensor.
 
-`dist/xml` ships the same data as W3C XPath 3.1 `fn:json-to-xml` XML plus `json.xsd`, generated at pack time and round-tripped by the tests ([ADR 0003](docs/adr/0003-language-as-a-dimension.md)).
+`dist/xml` carries the same data as XML (W3C XPath 3.1 `fn:json-to-xml`), with `json.xsd` ([ADR 0014](docs/adr/0014-engine-interface-owned-by-colregs.md)).
 
 It does not select a single display. Where the rules permit a choice, every
 lawful option comes back and none is picked. Selection belongs to the consumer.
