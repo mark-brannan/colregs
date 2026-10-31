@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.10](https://github.com/mark-brannan/colregs/compare/v0.3.9...v0.3.10) (2026-10-31)
+
+
+### Added
+
+* **lights:** special flashing light and its us/inland 24(f) entries ([#238](https://github.com/mark-brannan/colregs/issues/238)) ([26d84ad](https://github.com/mark-brannan/colregs/commit/26d84ad81f2fc186349997c24c23029136411694))
+* **package:** ship the XML projection as dist/xml ([#244](https://github.com/mark-brannan/colregs/issues/244)) ([afb9d9c](https://github.com/mark-brannan/colregs/commit/afb9d9cc6b4d0212c23e525d9d27bca5e1cf26d5))
+
+
+### Fixed
+
+* **applicability:** gate 25(d)(ii) on no activity; document empty all-may display ([#237](https://github.com/mark-brannan/colregs/issues/237)) ([1ae1bd1](https://github.com/mark-brannan/colregs/commit/1ae1bd1a21152023df24762d7b1c536e0a7a08ed))
+
 ## [0.3.9](https://github.com/mark-brannan/colregs/compare/v0.3.8...v0.3.9) (2026-10-18)
 
 
