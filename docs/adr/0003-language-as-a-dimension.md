@@ -173,8 +173,8 @@ Nothing lands with this ADR. The order later:
   carry RTL text fine; the data layer never inserts or strips bidi control
   characters (REQ-LANG-9), and rendering direction is a consumer concern
   that stays out of the data.
-
-- JSON is a serialisation, not the neutrality claim: `dist/xml` is a generated, round-tripped view of the same data.
+- The package also ships `dist/xml`, a generated view of the same data
+  ([ADR 0014](0014-engine-interface-owned-by-colregs.md)).
 
 ## Considered and declined (external review, 2026-08-29)
 
