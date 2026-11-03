@@ -74,7 +74,8 @@
           "$ref": "#/$defs/when"
         },
         "except_when": {
-          "$ref": "#/$defs/when"
+          "$ref": "#/$defs/when",
+          "description": "The entry is excluded when the whole predicate matches, every key at once: the negation of a `when`, never any-of."
         },
         "edge": {
           "type": "string",
