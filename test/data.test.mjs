@@ -38,13 +38,22 @@ const skeletonPatch = (d) => {
   for (const s of d.suppressions) patch[s.path] = null;
   return patch;
 };
+// A standalone skeleton (an instrument with its own numbering) inherits
+// nothing: it is its own rows, never a patch over intl.
 const skeletonOf = (j) =>
-  rules.deltas?.[j] ? mergePatch(rules.paragraphs, skeletonPatch(rules.deltas[j])) : rules.paragraphs;
-const skeletonJurisdictions = () => ['intl', ...Object.keys(rules.deltas ?? {})];
-// A paragraph record wherever it is stated: the base, or any delta's own rows.
+  rules.standalone?.[j]?.paragraphs ??
+  (rules.deltas?.[j] ? mergePatch(rules.paragraphs, skeletonPatch(rules.deltas[j])) : rules.paragraphs);
+const skeletonJurisdictions = () => [
+  'intl',
+  ...Object.keys(rules.deltas ?? {}),
+  ...Object.keys(rules.standalone ?? {}),
+];
+// Every section that states rows of its own: the deltas and the standalone skeletons.
+const ownRows = () => [...Object.values(rules.deltas ?? {}), ...Object.values(rules.standalone ?? {})];
+// A paragraph record wherever it is stated: the base, a delta's own rows or a standalone skeleton's.
 const statedParagraph = (path) =>
   rules.paragraphs[path] ??
-  Object.values(rules.deltas ?? {})
+  ownRows()
     .map((d) => d.paragraphs[path])
     .find(Boolean);
 // Every row that states a path, base and delta alike -- a reverse-cite check
@@ -52,7 +61,7 @@ const statedParagraph = (path) =>
 // since a restated delta row can carry a figure the intl row it shares a path
 // with does not.
 const statedParagraphs = (path) =>
-  [rules.paragraphs[path], ...Object.values(rules.deltas ?? {}).map((d) => d.paragraphs[path])].filter(Boolean);
+  [rules.paragraphs[path], ...ownRows().map((d) => d.paragraphs[path])].filter(Boolean);
 const corpora = Object.fromEntries(Object.entries(corporaIndex.corpora).map(([id, e]) => [id, load(`data/${e.file}`)]));
 // The reference corpus: today's text, relabelled for what it is (ADR 0003 step 1).
 const EN_US = 'intl@2016.en-US.uscg';
@@ -191,7 +200,9 @@ for (const s of appl.suppressions ?? []) {
   if (!suppressedIn.has(s.jurisdiction)) suppressedIn.set(s.jurisdiction, new Set());
   suppressedIn.get(s.jurisdiction).add(s.suppresses);
 }
-const inJurisdiction = (e, j) => e.jurisdiction === j || (e.jurisdiction === 'intl' && !suppressedIn.get(j)?.has(e.id));
+// A standalone jurisdiction inherits no intl entry, so it has nothing to tombstone.
+const inJurisdiction = (e, j) =>
+  e.jurisdiction === j || (e.jurisdiction === 'intl' && !rules.standalone?.[j] && !suppressedIn.get(j)?.has(e.id));
 const applying = (f, j = 'intl') =>
   appl.entries.filter((e) => isDisplay(e) && inJurisdiction(e, j) && matches(e.when, f)).map((e) => e.id);
 
@@ -1207,6 +1218,10 @@ test("ADR 0020: every entry in force under a jurisdiction cites a path in that j
 test('standalone skeletons: every row is keyed by its own path, under its article, chapter and jurisdiction', () => {
   for (const [j, s] of Object.entries(rules.standalone ?? {})) {
     assert.ok(!rules.deltas?.[j], `${j}: is both a delta and a standalone skeleton`);
+    assert.ok(
+      !(appl.suppressions ?? []).some((x) => x.jurisdiction === j),
+      `${j}: is standalone, so it has nothing to tombstone`,
+    );
     assert.ok(editions.jurisdictions[j]?.skeleton, `${j}: has a standalone skeleton but declares no skeleton edition`);
     const rows = Object.entries(s.paragraphs);
     assert.ok(rows.length > 0, `${j}: an empty standalone skeleton`);
