@@ -19,6 +19,7 @@
    "light:towing": "Towing light",
    "light:all_round": "All-round light",
    "light:flashing": "Flashing light",
+   "light:special_flashing": "Special flashing light",
    "light:torch": "Electric torch or lighted lantern",
    "light:deck_lights": "Working or equivalent lights"
   },

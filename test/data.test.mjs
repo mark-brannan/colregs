@@ -1694,6 +1694,12 @@ test('every fact a predicate reads is declared in facts.json', () => {
   for (const s of appl.modality_shifts ?? []) {
     for (const k of keysOf(s.when)) assert.ok(declared.has(k), `${s.id}: undeclared fact ${k}`);
   }
+  // So does an Annex I sector entry's gate, `when` and `except_when` alike.
+  for (const c of [...geometry.sectors.horizontal, ...geometry.sectors.vertical]) {
+    for (const w of [c.when ?? {}, c.except_when ?? {}]) {
+      for (const k of keysOf(w)) assert.ok(declared.has(k), `${c.cite} sector: undeclared fact ${k}`);
+    }
+  }
 });
 
 test('every enumerated fact value a predicate names is declared in facts.json', () => {
@@ -1741,6 +1747,10 @@ test('every enumerated fact value a predicate names is declared in facts.json', 
   }
   for (const c of fixtures.cases) check(c.name, c.facts);
   for (const s of appl.modality_shifts ?? []) check(s.id, s.when);
+  for (const c of [...geometry.sectors.horizontal, ...geometry.sectors.vertical]) {
+    check(`${c.cite} sector`, c.when ?? {});
+    check(`${c.cite} sector except_when`, c.except_when ?? {});
+  }
   // A derived fact's decode table is a predicate too, and its rows produce
   // values that must be declared on the fact they decode to.
   for (const [key, spec] of derivedFacts) {
@@ -1876,11 +1886,58 @@ test('geometry entry references resolve', () => {
   }
 });
 
+// ADR 0002: a mixed-jurisdiction file marks the records that are not the
+// file's own with a per-record `jurisdiction`; a record without one is the
+// file-level jurisdiction's. So a per-record value must be registered and must
+// differ from the file's, and one effective jurisdiction never holds two
+// records for the same cite, light, constraint and `which`.
+test('geometry: a per-record jurisdiction is registered, and no jurisdiction states a record twice', () => {
+  const groups = {
+    vertical_positioning: geometry.vertical_positioning,
+    horizontal_positioning: geometry.horizontal_positioning,
+    direction_indicating: geometry.direction_indicating,
+  };
+  const seen = new Set();
+  for (const [name, g] of Object.entries(groups)) {
+    for (const c of g) {
+      if (c.jurisdiction !== undefined) {
+        assert.ok(
+          editions.jurisdictions[c.jurisdiction],
+          `${name} ${c.cite}: jurisdiction ${c.jurisdiction} is not in data/editions.json`,
+        );
+        assert.notEqual(
+          c.jurisdiction,
+          geometry.jurisdiction,
+          `${name} ${c.cite}: restates the file-level jurisdiction`,
+        );
+      }
+      const key = [name, c.jurisdiction ?? geometry.jurisdiction, c.cite, c.light, c.constraint, c.which].join('|');
+      assert.ok(!seen.has(key), `${name} ${c.cite}: two records for ${key}`);
+      seen.add(key);
+    }
+  }
+});
+
+test('geometry sector entries name defined lights and entries', () => {
+  for (const c of [...geometry.sectors.horizontal, ...geometry.sectors.vertical]) {
+    for (const id of c.lights ?? []) assert.ok(lights.lights[id], `${c.cite} sector names undefined light ${id}`);
+    for (const id of c.except_entries ?? []) assert.ok(byId.has(id), `${c.cite} sector references unknown entry ${id}`);
+  }
+});
+
 test('light arcs cover the span they claim', () => {
   for (const [id, l] of Object.entries(lights.lights)) {
     if (!l.arc || l.arc_deg == null) continue;
     const span = (l.arc.to_deg - l.arc.from_deg + 360) % 360 || 360;
     assert.equal(Math.round(span * 10) / 10, l.arc_deg, `${id} arc span`);
+  }
+});
+
+test('a light stated as a range keeps its bounds ordered', () => {
+  for (const [id, l] of Object.entries(lights.lights)) {
+    if (l.arc_deg_max !== undefined) assert.ok(l.arc_deg_max > l.arc_deg, `${id} arc_deg_max does not exceed arc_deg`);
+    if (l.flashes_per_minute_max !== undefined)
+      assert.ok(l.flashes_per_minute_max >= l.flashes_per_minute_min, `${id} flash-rate bounds are inverted`);
   }
 });
 

@@ -21,6 +21,7 @@
     "navigation-lights"
   ],
   "scripts": {
+    "prepack": "node scripts/project.mjs",
     "test": "node --test test/*.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
@@ -30,6 +31,7 @@
     "images",
     "fixtures",
     "docs",
+    "dist/xml",
     "schema",
     "PROVENANCE.md"
   ],

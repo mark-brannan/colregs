@@ -113,6 +113,24 @@
    "note": "Rule 21(f) defines the character only; every International use of it (23(b), 23(c)) is an all-round light.",
    "rule21": true
   },
+  "light:special_flashing": {
+   "term": "special flashing light",
+   "cite": "21(g)",
+   "jurisdiction": "us/inland",
+   "color": "yellow",
+   "character": "flashing",
+   "flashes_per_minute_min": 50,
+   "flashes_per_minute_max": 70,
+   "arc_deg": 180,
+   "arc_deg_max": 225,
+   "arc": {
+    "from_deg": 270.0,
+    "to_deg": 90.0
+   },
+   "placement": "as far forward and as nearly as practicable on the fore and aft centerline of the tow; shows from right ahead to abeam and no more than 22.5 degrees abaft the beam on either side",
+   "note": "Inland 21(g) states the arc as a range: arc_deg and arc are its 180 degree lower bound, which is what a renderer draws, and arc_deg_max its 225 degree upper bound.",
+   "rule21": true
+  },
   "light:torch": {
    "term": "electric torch or lighted lantern",
    "cite": "25(d)(i)",

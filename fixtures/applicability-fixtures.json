@@ -120,6 +120,20 @@
    ]
   },
   {
+   "name": "3 m vessel under oars, fishing",
+   "facts": {
+    "fact:propulsion": "propulsion:oars",
+    "fact:activity": "activity:fishing",
+    "fact:position": "position:underway",
+    "fact:length_m": 3,
+    "fact:making_way": true
+   },
+   "expect": [
+    "rule:26c_i",
+    "rule:26c_iii"
+   ]
+  },
+  {
    "name": "motoring but drifting in neutral, 11.6 m",
    "facts": {
     "fact:propulsion": "propulsion:power",
@@ -2196,6 +2210,36 @@
    },
    "expect": [
     "rule:24e"
+   ]
+  },
+  {
+   "name": "Inland 24(f)(i): vessel pushed ahead shows a special flashing light, US Inland",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:tow_rigidity": "tow_rigidity:pushed_ahead"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24f_i",
+    "rule:24f_i:special_flashing"
+   ]
+  },
+  {
+   "name": "Inland 24(f)(ii): vessel towed alongside shows a special flashing light, US Inland",
+   "jurisdiction": "us/inland",
+   "facts": {
+    "fact:activity": "activity:being_towed",
+    "fact:position": "position:underway",
+    "fact:length_m": 30,
+    "fact:tow_rigidity": "tow_rigidity:alongside"
+   },
+   "expect": [
+    "rule:24e",
+    "rule:24f_ii",
+    "rule:24f_ii:special_flashing"
    ]
   },
   {
