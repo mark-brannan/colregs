@@ -1,5 +1,5 @@
 {
- "note": "Language-neutral skeleton, a forest: one record per jurisdiction under `skeletons`. A root states its own grammar and every row; a delta inherits the resolved skeleton of another jurisdiction and states only its own rows and suppressed paths, silence inherits (ADR 0020). No text (ADR 0010).",
+ "note": "Language-neutral skeleton, a forest keyed by jurisdiction: a root states its grammar and every row, a delta inherits another jurisdiction's resolved skeleton and states only its own rows and suppressed paths, and silence inherits (ADR 0020).",
  "skeletons": {
   "intl": {
    "root": {
@@ -1602,7 +1602,7 @@
    "root": {
     "grammar": "article"
    },
-   "note": "CEVNI chapters 1-10 from Rev.5 (2015) as article, numbered-paragraph and group keys, no text (ADR 0010); a root of its own, inheriting nothing from intl. Rev.6 was not reachable when these were keyed.",
+   "note": "CEVNI chapters 1-10 from Rev.5 as article, numbered-paragraph and group keys, a root inheriting nothing from intl, with no text (ADR 0010).",
    "paragraphs": {
     "1.01(I)": {
      "path": "1.01(I)",
