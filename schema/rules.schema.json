@@ -2,81 +2,117 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mark-brannan/colregs/schema/rules.schema.json",
   "title": "data/rules.json",
-  "description": "The language-neutral skeleton: paragraph paths, rule numbers, jurisdictions and figures. No text -- the words live in data/text/ corpora (schema/corpus.schema.json); the edition each jurisdiction consolidates is declared in data/editions.json. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md, docs/adr/0003-language-as-a-dimension.md and docs/adr/0013-corpus-files-with-editions.md.",
+  "description": "The language-neutral skeleton, a forest: one record per jurisdiction, each a root with its own path grammar or a delta over the resolved skeleton of the jurisdiction it inherits. Paragraph paths, rule or article numbers, jurisdictions and figures. No text -- the words live in data/text/ corpora (schema/corpus.schema.json); the edition each jurisdiction consolidates is declared in data/editions.json. Structure only -- see docs/adr/0006-json-schema-and-identifier-diff.md, docs/adr/0003-language-as-a-dimension.md, docs/adr/0013-corpus-files-with-editions.md and docs/adr/0020-skeleton-is-a-delta.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["paragraphs"],
+  "required": ["skeletons"],
   "properties": {
     "note": {
       "type": "string"
     },
-    "paragraphs": {
-      "$ref": "#/$defs/paragraphs"
-    },
-    "deltas": {
+    "skeletons": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Per-jurisdiction skeleton deltas over `paragraphs` (ADR 0020): own paragraphs by path, suppressed paths, everything else inherited.",
+      "minProperties": 1,
+      "description": "Per-jurisdiction skeletons. A root states its grammar and every row; a delta (ADR 0020) states `inherits`, its own rows by path and its suppressed paths, and inherits everything else from the resolved skeleton it names. The tests resolve each delta and check its keys against its root's grammar, and that the `inherits` graph is acyclic.",
       "patternProperties": {
-        "^[a-z]+(/[a-z]+)+$": {
+        "^[a-z]+(/[a-z]+)*$": {
+          "oneOf": [
+            { "$ref": "#/$defs/conventionRoot" },
+            { "$ref": "#/$defs/articleRoot" },
+            { "$ref": "#/$defs/delta" }
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "jurisdiction": {
+      "type": "string",
+      "pattern": "^[a-z]+(/[a-z]+)*$"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "conventionRoot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "paragraphs"],
+      "properties": {
+        "root": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["paragraphs", "suppressions"],
-          "properties": {
-            "note": {
-              "type": "string"
-            },
-            "paragraphs": {
-              "$ref": "#/$defs/paragraphs"
-            },
-            "suppressions": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": ["path", "why"],
-                "properties": {
-                  "path": {
-                    "$ref": "evaluation.schema.json#/$defs/paragraphCite"
-                  },
-                  "why": {
-                    "type": "string",
-                    "minLength": 1
-                  }
-                }
+          "required": ["grammar"],
+          "properties": { "grammar": { "const": "convention" } }
+        },
+        "note": {
+          "type": "string"
+        },
+        "paragraphs": {
+          "$ref": "#/$defs/paragraphs"
+        }
+      }
+    },
+    "articleRoot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "paragraphs"],
+      "properties": {
+        "root": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["grammar"],
+          "properties": { "grammar": { "const": "article" } }
+        },
+        "note": {
+          "type": "string"
+        },
+        "paragraphs": {
+          "$ref": "#/$defs/articleParagraphs"
+        }
+      }
+    },
+    "delta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inherits", "paragraphs", "suppressions"],
+      "properties": {
+        "inherits": {
+          "$ref": "#/$defs/jurisdiction"
+        },
+        "note": {
+          "type": "string"
+        },
+        "paragraphs": {
+          "$comment": "Keyed in the grammar of the root this delta descends from; a schema cannot follow `inherits`, so the tests check which.",
+          "anyOf": [{ "$ref": "#/$defs/paragraphs" }, { "$ref": "#/$defs/articleParagraphs" }]
+        },
+        "suppressions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "why"],
+            "properties": {
+              "path": {
+                "$ref": "evaluation.schema.json#/$defs/paragraphCite"
+              },
+              "why": {
+                "type": "string",
+                "minLength": 1
               }
             }
           }
         }
       }
     },
-    "standalone": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "Per-jurisdiction skeletons of instruments with their own numbering, not deltas over `paragraphs`: CEVNI's articles are not COLREGS paths, so nothing is inherited or suppressed (ADR 0010 for the withheld text).",
-      "patternProperties": {
-        "^[a-z]+(/[a-z]+)+$": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["path_status", "paragraphs"],
-          "properties": {
-            "note": {
-              "type": "string"
-            },
-            "path_status": {
-              "$comment": "`temporary`: the keys are working ids; no path format is chosen for this instrument yet.",
-              "const": "temporary"
-            },
-            "paragraphs": {
-              "$ref": "#/$defs/articleParagraphs"
-            }
-          }
-        }
-      }
-    }
-  },
-  "$defs": {
     "paragraphs": {
+      "$comment": "The convention grammar: `23(a)(i)` is Rule 23, paragraph (a), subparagraph (i).",
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
@@ -94,46 +130,42 @@
               "pattern": "^[0-9]+$"
             },
             "jurisdiction": {
-              "type": "string",
-              "pattern": "^[a-z]+(/[a-z]+)*$"
+              "$ref": "#/$defs/jurisdiction"
             },
             "images": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              },
-              "minItems": 1
+              "$ref": "#/$defs/images"
             }
           }
         }
       }
     },
     "articleParagraphs": {
-      "$comment": "Article-numbered paragraphs: `6.03bis(1)` is article 6.03 bis, paragraph 1; `1.01(a)` a lettered group; a bare article has no numbered paragraphs.",
+      "$comment": "The article grammar: `3.08(1)(a)` is article 3.08, numbered paragraph 1, lettered item (a); `6.03bis` an article with a suffix; `6.11(a)` a lettered item directly under an article; `1.01(IV)(14bis)` a Roman group directly under an article and a numbered term in it, which only CEVNI 1.01 has.",
       "type": "object",
       "additionalProperties": false,
       "patternProperties": {
-        "^[0-9]+\\.[0-9]{2}(bis|ter)?(\\(([0-9]+|[a-z])\\))?$": {
+        "^[0-9]{1,2}\\.[0-9]{2}(bis|ter|quater)?((\\([0-9]+\\))?(\\([a-z]\\))?|\\([IVX]+\\)(\\([0-9]+(bis)?\\))?)$": {
           "type": "object",
           "additionalProperties": false,
           "required": ["path", "chapter", "article", "jurisdiction"],
           "properties": {
             "path": {
               "type": "string",
-              "pattern": "^[0-9]+\\.[0-9]{2}(bis|ter)?(\\(([0-9]+|[a-z])\\))?$"
+              "pattern": "^[0-9]{1,2}\\.[0-9]{2}(bis|ter|quater)?((\\([0-9]+\\))?(\\([a-z]\\))?|\\([IVX]+\\)(\\([0-9]+(bis)?\\))?)$"
             },
             "chapter": {
               "type": "string",
-              "pattern": "^[0-9]+$"
+              "pattern": "^[0-9]{1,2}$"
             },
             "article": {
               "type": "string",
-              "pattern": "^[0-9]+\\.[0-9]{2}(bis|ter)?$"
+              "pattern": "^[0-9]{1,2}\\.[0-9]{2}(bis|ter|quater)?$"
             },
             "jurisdiction": {
-              "type": "string",
-              "pattern": "^[a-z]+(/[a-z]+)+$"
+              "$ref": "#/$defs/jurisdiction"
+            },
+            "images": {
+              "$ref": "#/$defs/images"
             }
           }
         }
