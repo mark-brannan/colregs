@@ -30,3 +30,6 @@ heading is the UTC stamp, so `agent_decisions.md#<stamp>` links one entry.
 
 ### 20261028t082224z
 - editions schema: in_force optional, CEVNI is a recommendation with no entry into force Undo: restore in_force to required ([#240](https://github.com/mark-brannan/colregs/pull/240))
+
+### 20261105t050702z
+- kept lineage.md chronology rows the review offered to cut; cutting them does not move the prose delta Undo: restore the rows from git ([#245](https://github.com/mark-brannan/colregs/pull/245#discussion_r4476800493)) ([#245](https://github.com/mark-brannan/colregs/pull/245))
