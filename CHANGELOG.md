@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.11](https://github.com/mark-brannan/colregs/compare/v0.3.10...v0.3.11) (2026-11-05)
+
+
+### Added
+
+* **rules:** the skeleton is a forest, CEVNI a second root with its own article grammar ([#240](https://github.com/mark-brannan/colregs/issues/240)) ([46be878](https://github.com/mark-brannan/colregs/commit/46be878ebe0b265b40277d8011c4df1f906a0785))
+
 ## [0.3.10](https://github.com/mark-brannan/colregs/compare/v0.3.9...v0.3.10) (2026-11-03)
 
 
