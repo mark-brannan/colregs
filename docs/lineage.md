@@ -166,8 +166,8 @@ secondary source states it (cited). Nothing recalled from memory is here.
 | 1948 | US | Western Rivers rules revised (62 Stat. 249), effective 1 January 1949 | [33 U.S.C. ch. 5 notes][usc33] | verified |
 | 1948 | Danube | Belgrade Convention, 18 August, in force 11 May 1949: the Commission sets the basic navigation provisions | [Danube Commission][dc-conv] | verified |
 | 1951 | Danube | The Commission adopts basic rules on rafting, pilotage and damage inquiry; Yugoslavia objects | [Denver Law Review][denver] | cited |
-| 1954 | sea | 1948 regulations in force 1 January (US Proclamation 3030) | [govinfo][us1954] | verified |
-| 1954 | Rhine | Rhine police regulation of 3 March, in force 1955: the sea light arcs; one, two and three short blasts | [BGBl. 1954 II][rh1954] | verified |
+| 1954 | sea | 1948 regulations in force 1 January (US Proclamation 3030, 18 F.R. 4983) | [Federal Register 1953][us1954] | verified |
+| 1954 | Rhine | Rhine police regulation, in German law 24 December, in force 1955: sea light arcs; one, two, three blasts | [BGBl. 1954 II S. 1411][rh1954] | verified |
 | 1954 | Germany | First BinSchStrO, 19 December, in force 1 January 1955 | [Wikipedia (de)][binsch-wp] | cited |
 | 1956 | Moselle | Moselle Convention, 27 October (DE, FR, LU); Moselle Commission from 1962 | [Sénat report 1983][moselle] | cited |
 | 1956 | UNECE | The Committee creates the Sub-Committee on Inland Water Transport, later SC.3 | [CEVNI Rev. 5][cevni5], [CEVNI Rev. 6][cevni6] | verified |
@@ -176,7 +176,7 @@ secondary source states it (cited). Nothing recalled from memory is here.
 | 1962 | UNECE | CEVNI first adopted, by Resolution No. 4 of the Sub-Committee (TRANS/270, annex 1) | [CEVNI Rev. 6][cevni6] | verified |
 | 1966 | Germany | BinSchStrO of 11 October (BGBl. II S. 1333) | [BGBl. 1970 I][rh1970] | verified |
 | 1967 | Danube | First DFND the current text names, 25th session, 9 June | [DFND 2018][dfnd2018] | verified |
-| 1970 | Rhine | Rhine police regulation 1970: chapter-and-article numbering in use (§ 1.22, § 4.01, § 6.33, § 7.09) | [BGBl. 1970 I][rh1970], [Swiss compilation][ch-rh] | verified |
+| 1970 | Rhine | Rhine police regulation 1970: chapter-and-article numbering in use (§ 1.22, § 4.01, § 6.33, § 7.09) | [BGBl. 1970 I][rh1970] | verified |
 | 1972 | sea | COLREG adopted 20 October, in force 15 July 1977; Rule 10 makes traffic separation schemes mandatory | [IMO][imo] | verified |
 | 1972 | sea | The conference reorders the rules: conduct before lights, shapes and sound; technical detail to annexes | [Cockcroft][cockcroft] | cited |
 | 1977 | US | International Navigational Rules Act (Pub. L. 95-75) adopts COLREG | [govinfo][us1977] | verified |
@@ -184,7 +184,7 @@ secondary source states it (cited). Nothing recalled from memory is here.
 | 1981 | US | Inland Rules in effect 24 December | [govinfo][us1980] | verified |
 | 1981–2013 | sea | Seven COLREG amendments; none renumbers a rule | [IMO][imo-amd], [`docs/timeline.md`](timeline.md) | verified |
 | 1982 | UNECE | Resolution No. 22 (SIGNI), 12 November, harmonising inland signs with the IALA maritime buoyage system | [SIGNI Rev. 2][signi2] | verified |
-| 1983 | Rhine | Rhine police regulation 1983, in force 1 October | [Swiss compilation][ch-rh] | verified |
+| 1982 | Rhine | Rhine police regulation of 2 December (Swiss AS 1983 761), replaced in 1995 | [Swiss ordinance 1994][ch-rh] | verified |
 | 1983 | US | Inland Rules in effect on the Great Lakes, 1 March | [Federal Register 1983][fr1983] | verified |
 | 1983 | Netherlands | BPR, decree of 26 October (Stb. 1983, 682), in force 1 April 1984, drafted from the Rhine regulation | [wetten.overheid.nl][bpr], [Stb. 2015, 395][bpr-stb] | verified |
 | 1985 | UNECE | Resolution No. 24, 15 November, replaces the CEVNI text; national rules keep its chapter order and numbers | [CEVNI Rev. 2][cevni2] | verified |
@@ -236,7 +236,7 @@ secondary source states it (cited). Nothing recalled from memory is here.
 [us1852]: https://www.govinfo.gov/link/statute/10/61
 [us1864]: https://www.govinfo.gov/link/statute/13/59
 [us1897]: https://www.govinfo.gov/link/statute/30/96
-[us1954]: https://www.govinfo.gov/content/pkg/STATUTE-79/pdf/STATUTE-79-Pg1454.pdf
+[us1954]: https://www.govinfo.gov/content/pkg/FR-1953-08-21/pdf/FR-1953-08-21.pdf
 [us1977]: https://www.govinfo.gov/content/pkg/STATUTE-91/pdf/STATUTE-91-Pg308.pdf
 [us1980]: https://www.govinfo.gov/content/pkg/STATUTE-94/pdf/STATUTE-94-Pg3415.pdf
 [usc33]: https://tile.loc.gov/storage-services/service/ll/uscode/uscode1976-00903/uscode1976-009033005/uscode1976-009033005.pdf
@@ -247,10 +247,10 @@ secondary source states it (cited). Nothing recalled from memory is here.
 [dc-dfnd]: https://www.danubecommission.org/dc/en/danube-navigation/basic-provisions-for-navigation-on-the-danube-dfnd/
 [dfnd2018]: https://www.danubecommission.org/uploads/doc/2018/DFND_2018_ru.pdf
 [denver]: https://digitalcommons.du.edu/cgi/viewcontent.cgi?article=3904&context=dlr
-[rh1954]: https://www.bgbl.de/
+[rh1954]: https://media.offenegesetze.de/bgbl2/1954/bgbl2_1954_28.pdf
 [rh1970]: https://media.offenegesetze.de/bgbl1/1970/bgbl1_1970_87.pdf
 [rh1995]: https://www.gesetze-im-internet.de/rheinschpev_1994/BJNR238160994.html
-[ch-rh]: https://www.fedlex.admin.ch/
+[ch-rh]: https://res.cloudinary.com/adminch/image/private/s--vAWvQNGy--/v1719842680/Bundespublikationen/747-224-111-1d.pdf
 [mosel]: https://www.gesetze-im-internet.de/moselschpv_1997/
 [moselle]: https://conferenceconsensuslogement.senat.fr/rap/1983-1984/i1983_1984_0279.pdf
 [binsch-wp]: https://de.wikipedia.org/wiki/Binnenschifffahrtsstra%C3%9Fen-Ordnung
