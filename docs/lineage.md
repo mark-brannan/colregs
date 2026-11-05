@@ -135,39 +135,39 @@ secondary source states it (cited). Nothing recalled from memory is here.
 
 | Year | Tradition | Event | Source | Confidence |
 |---|---|---|---|---|
-| 1815 | Rhine | Appendix 16 B to the Final Act of the Congress of Vienna creates the Central Commission for the Rhine; art. 110 wants police control "as much as possible" uniform along the river | [CCNR history][ccnr-h], [Collinson 1972][collinson] | verified / cited |
+| 1815 | Rhine | Congress of Vienna, Final Act Appendix 16 B, creates the Rhine Commission; art. 110 asks for uniform police | [CCNR history][ccnr-h], [Collinson 1972][collinson] | verified / cited |
 | 1831 | Rhine | Mainz Convention, 31 March | [CCNR history][ccnr-h] | verified |
 | 1838 | US | Steamboat Act (5 Stat. 304): steamboats running between sunset and sunrise carry signal lights | [govinfo][us1838] | verified |
-| 1840 | sea | Trinity House regulations: steamers in a narrow channel keep the other on the port hand; crossing steamers alter to starboard | [Cockcroft][cockcroft] | cited |
+| 1840 | sea | Trinity House rules: steamers in a narrow channel pass port to port; crossing steamers alter to starboard | [Cockcroft][cockcroft] | cited |
 | 1846 | sea | Steam Navigation Act enacts the Trinity House steering rule and empowers the Admiralty to regulate lights | [Bahr][bahr], [Cockcroft][cockcroft] | cited |
 | 1848 | sea | Admiralty lights for steamers in operation from July: white masthead, green starboard, red port | [Bahr][bahr], [Cockcroft][cockcroft] | cited |
 | 1850 | Rhine | First Rhine police regulation (Protocol No. VIII) | [CCNR regulations][ccnr-r] | verified |
-| 1852 | US | Steamboat Act (10 Stat. 61): Board of Supervising Inspectors; inspectors set rules for vessels passing each other | [govinfo][us1852] | verified |
+| 1852 | US | Steamboat Act (10 Stat. 61): Board of Supervising Inspectors, who set rules for vessels passing | [govinfo][us1852] | verified |
 | 1856 | Danube | Treaty of Paris puts the Danube under an international regime; European Commission of the Danube | [International Water Law][iwl] | cited |
 | 1858 | sea | Coloured sidelights extended to sailing vessels; fog signals required | [Cockcroft][cockcroft] | cited |
-| 1863 | sea | Board of Trade rules drawn up with the French government come into operation; adopted by more than thirty states by the end of 1864 | [Cockcroft][cockcroft] | cited |
-| 1864 | US | Act of 29 April (13 Stat. 58) adopts the British rules, in force 1 September; lights articles precede steering; arcs in compass points | [govinfo][us1864] | verified |
+| 1863 | sea | Board of Trade rules, drawn up with France, in operation; over thirty states adopt them by the end of 1864 | [Cockcroft][cockcroft] | cited |
+| 1864 | US | Act of 29 April (13 Stat. 58) adopts the British rules from 1 September: lights first, arcs in points | [govinfo][us1864] | verified |
 | 1868 | Rhine | Mannheim Act, 17 October: the Commission's legal foundation to this day | [CCNR history][ccnr-h] | verified |
 | 1880–84 | sea | 1880: whistle signals for action taken; 1884: a new set of 27 articles | [Cockcroft][cockcroft] | cited |
-| 1885 | US | Act of 3 March (23 Stat. 438) adopts the revised international regulations for the high seas and coast waters; the 1864 rules continue elsewhere | [33 U.S.C. ch. 5 notes][usc33] | verified |
-| 1889 | sea | International Marine Conference, Washington: the stand-on vessel keeps speed as well as course; optional second masthead light | [Cockcroft][cockcroft] | cited |
+| 1885 | US | Act of 3 March (23 Stat. 438): the revised international rules on high seas and coast waters | [33 U.S.C. ch. 5 notes][usc33] | verified |
+| 1889 | sea | Washington conference: the stand-on vessel keeps speed as well as course; optional second masthead light | [Cockcroft][cockcroft] | cited |
 | 1890 | US | Act of 19 August (26 Stat. 320) carries the Washington rules into US law | [33 U.S.C. ch. 5 notes][usc33] | verified |
 | 1895 | US | Great Lakes Rules (28 Stat. 645); the 1864 rules become special rules for other inland waters (28 Stat. 672) | [33 U.S.C. ch. 5 notes][usc33] | verified |
 | 1897 | sea | Washington regulations brought into force by the UK, the US and others | [Cockcroft][cockcroft] | cited |
 | 1897 | US | Inland Rules (30 Stat. 96); supervising inspectors' passing rules become the Pilot Rules | [govinfo][us1897] | verified |
-| 1897 | US | The 1864 rules thereafter govern only the Red River of the North and rivers emptying into the Gulf of Mexico: the Western Rivers rules | [33 U.S.C. ch. 5 notes][usc33] | verified |
+| 1897 | US | The 1864 rules remain on the Red River of the North and Gulf of Mexico rivers: the Western Rivers rules | [33 U.S.C. ch. 5 notes][usc33] | verified |
 | 1910 | sea | Brussels Collision Convention, 23 September: liability and apportionment of fault, not rules of the road | [Admiralty Law Guide][brussels] | verified |
 | 1910 | sea | Regulations slightly changed from Washington's, in force until 1954 | [Cockcroft][cockcroft] | cited |
 | 1921 | Danube | Definitive Statute of the Danube, Paris, 23 July | [Danube Commission][dc-conv] | verified |
 | 1929 | sea | SOLAS conference proposes minor changes, never ratified; direct-sense helm orders in force 1933 | [Cockcroft][cockcroft] | cited |
 | 1940 | US | Motorboat Act, 25 April, lights for motorboats; repealed by the 1980 Act | [govinfo][us1980] | verified |
 | 1947 | UNECE | Inland Transport Committee set up | [CEVNI Rev. 5][cevni5] | verified |
-| 1948 | sea | SOLAS conference revises the rules: second masthead light compulsory from 150 ft, sternlight, optional five-short-blast signal | [Cockcroft][cockcroft] | cited |
+| 1948 | sea | SOLAS conference: second masthead light compulsory from 150 ft, sternlight, optional five short blasts | [Cockcroft][cockcroft] | cited |
 | 1948 | US | Western Rivers rules revised (62 Stat. 249), effective 1 January 1949 | [33 U.S.C. ch. 5 notes][usc33] | verified |
-| 1948 | Danube | Belgrade Convention, 18 August, in force 11 May 1949: the Commission lays down "the basic provisions governing navigation"; national rules take them into account | [Danube Commission][dc-conv] | verified |
+| 1948 | Danube | Belgrade Convention, 18 August, in force 11 May 1949: the Commission sets the basic navigation provisions | [Danube Commission][dc-conv] | verified |
 | 1951 | Danube | The Commission adopts basic rules on rafting, pilotage and damage inquiry; Yugoslavia objects | [Denver Law Review][denver] | cited |
 | 1954 | sea | 1948 regulations in force 1 January (US Proclamation 3030) | [govinfo][us1954] | verified |
-| 1954 | Rhine | Rhine police regulation of 3 March (in force 1 January 1955): sequential sections; a Part I for the whole river; masthead 225°, sidelights 112°30' green and red; one, two and three short blasts; long blast 4–6 s | [BGBl. 1954 II][rh1954] | verified |
+| 1954 | Rhine | Rhine police regulation of 3 March, in force 1955: the sea light arcs; one, two and three short blasts | [BGBl. 1954 II][rh1954] | verified |
 | 1954 | Germany | First BinSchStrO, 19 December, in force 1 January 1955 | [Wikipedia (de)][binsch-wp] | cited |
 | 1956 | Moselle | Moselle Convention, 27 October (DE, FR, LU); Moselle Commission from 1962 | [Sénat report 1983][moselle] | cited |
 | 1956 | UNECE | The Committee creates the Sub-Committee on Inland Water Transport, later SC.3 | [CEVNI Rev. 5][cevni5], [CEVNI Rev. 6][cevni6] | verified |
@@ -180,15 +180,15 @@ secondary source states it (cited). Nothing recalled from memory is here.
 | 1972 | sea | COLREG adopted 20 October, in force 15 July 1977; Rule 10 makes traffic separation schemes mandatory | [IMO][imo] | verified |
 | 1972 | sea | The conference reorders the rules: conduct before lights, shapes and sound; technical detail to annexes | [Cockcroft][cockcroft] | cited |
 | 1977 | US | International Navigational Rules Act (Pub. L. 95-75) adopts COLREG | [govinfo][us1977] | verified |
-| 1980 | US | Inland Navigational Rules Act (Pub. L. 96-591), 24 December: "to unify the rules"; Parts A–E, Rules 1–38; "special rules" under COLREG Rule 1(b); annexes "as consistent as possible" with the Convention's; repeals the 1864, 1890, 1895, 1897 and 1940 rules | [govinfo][us1980] | verified |
+| 1980 | US | Inland Navigational Rules Act (Pub. L. 96-591), 24 December: unifies the inland rules as COLREG special rules | [govinfo][us1980] | verified |
 | 1981 | US | Inland Rules in effect 24 December | [govinfo][us1980] | verified |
 | 1981–2013 | sea | Seven COLREG amendments; none renumbers a rule | [IMO][imo-amd], [`docs/timeline.md`](timeline.md) | verified |
 | 1982 | UNECE | Resolution No. 22 (SIGNI), 12 November, harmonising inland signs with the IALA maritime buoyage system | [SIGNI Rev. 2][signi2] | verified |
 | 1983 | Rhine | Rhine police regulation 1983, in force 1 October | [Swiss compilation][ch-rh] | verified |
 | 1983 | US | Inland Rules in effect on the Great Lakes, 1 March | [Federal Register 1983][fr1983] | verified |
 | 1983 | Netherlands | BPR, decree of 26 October (Stb. 1983, 682), in force 1 April 1984, drafted from the Rhine regulation | [wetten.overheid.nl][bpr], [Stb. 2015, 395][bpr-stb] | verified |
-| 1985 | UNECE | Resolution No. 24, 15 November, replaces the CEVNI text; national rules in two parts, keeping "the existing order and numbering of the chapters" | [CEVNI Rev. 2][cevni2] | verified |
-| 1990 | Danube | New DFND, 25 April, in force 1 October 1991: two-part national rules keeping its chapter order, numbering and titles | [DFND 2018][dfnd2018] | verified |
+| 1985 | UNECE | Resolution No. 24, 15 November, replaces the CEVNI text; national rules keep its chapter order and numbers | [CEVNI Rev. 2][cevni2] | verified |
+| 1990 | Danube | New DFND, 25 April, in force 1 October 1991: national rules keep its chapter order and numbering | [DFND 2018][dfnd2018] | verified |
 | 1995 | Rhine | Rhine police regulation 1995, in force 1 January, the current base text; "based on" CEVNI and SIGNI | [gesetze-im-internet][rh1995], [CCNR integration study][ccnr-int] | verified / cited |
 | 1997 | Moselle | Moselle police regulation, 3 September | [gesetze-im-internet][mosel] | cited |
 | 1998 | UNECE | CEVNI Rev. 1 | [CEVNI Rev. 6][cevni6] | verified |
@@ -200,9 +200,9 @@ secondary source states it (cited). Nothing recalled from memory is here.
 | 2010 | US | Inland Rules moved from the U.S. Code into 33 CFR Part 83 (75 FR 19544) | [79 FR 37898][fr2014] | verified |
 | 2010 | UNECE | SIGNI Rev. 2 by Resolution No. 67, aligned with CEVNI Rev. 4 | [SIGNI Rev. 2][signi2] | verified |
 | 2010 | Danube | New DFND, 14 December, in force 1 January 2012, "taking into account" CEVNI Rev. 4 | [DFND 2018][dfnd2018] | verified |
-| 2011 | Germany | BinSchStrO of 16 December, in force 1 February 2012; section and annex numbering follows Resolution No. 24, with empty slots kept | [BinSchStrO PDF][binsch2011] | verified |
-| 2014 | UNECE | CEVNI Rev. 5 by Resolution No. 81 (published 2015); light specifications moved to Resolution No. 61; no reference to COLREG in the text | [CEVNI Rev. 5][cevni5] | verified |
-| 2014 | US | 79 FR 37898, effective 1 August: Inland Rules numbering and format aligned with COLREG, "very similar in both content and format" | [79 FR 37898][fr2014] | verified |
+| 2011 | Germany | BinSchStrO of 16 December, in force 1 February 2012; numbering follows Resolution No. 24, gaps kept | [BinSchStrO PDF][binsch2011] | verified |
+| 2014 | UNECE | CEVNI Rev. 5 by Resolution No. 81 (published 2015); light specs move to Resolution No. 61; COLREG unnamed | [CEVNI Rev. 5][cevni5] | verified |
+| 2014 | US | 79 FR 37898, effective 1 August: Inland Rules numbering and format aligned with COLREG | [79 FR 37898][fr2014] | verified |
 | 2016 | EU | Directive (EU) 2016/1629, technical requirements by reference to ES-TRIN; silent on navigation rules | [legislation.gov.uk][eu2016] | verified |
 | 2018 | Danube | New DFND, 29 June, in force 1 July 2019, taking into account CEVNI Rev. 5 | [DFND 2018][dfnd2018] | verified |
 | 2021 | UNECE | CEVNI Rev. 6 by Resolution No. 102, November, prepared with the Rhine, Danube, Moselle and Sava commissions | [CEVNI Rev. 6][cevni6], [UNECE (archived)][unece-r6] | verified |
