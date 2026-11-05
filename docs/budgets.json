@@ -42,7 +42,8 @@
       "CLAUDE.md",
       "docs/**/*.md",
       "runbooks/*.md",
-      "!docs/proposals/**"
+      "!docs/proposals/**",
+      "!docs/lineage.md"
     ]
   },
   "json_prose": {
