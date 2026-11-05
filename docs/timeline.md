@@ -4,7 +4,9 @@ When COLREG 1972 changed, and how long each jurisdiction took to catch up.
 Public record, every row cited. Relevant to this package because
 `jurisdiction` (`intl`, `us/inland`, …) is a first-class dimension here, not
 an afterthought — this is the evidence that national texts genuinely lag
-the IMO instrument, by years, and by different amounts per country.
+the IMO instrument, by years, and by different amounts per country. Where
+each body of rules came from, and how the sea, United States and European
+inland traditions relate, is in [`docs/lineage.md`](lineage.md).
 
 ## 1. IMO instrument history
 
