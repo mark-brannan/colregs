@@ -195,7 +195,7 @@ function withDerived(s) {
 const isDisplay = (e) => (e.category ?? 'category:display') === 'category:display';
 // Jurisdiction is a dimension, not a fork (REQ-SCOPE-2/3): a jurisdiction sees
 // its own entries and those of the jurisdictions it inherits, up to its root
-// (`us/inland` sees `intl`'s; `intl` and `eu/cevni`, both roots, see only their
+// (`us/inland` sees `intl`'s; `intl` and `cevni`, both roots, see only their
 // own). Without this filter a national entry would be selected for a fact
 // record evaluated under the Convention -- which is the whole distinction the
 // mooring-buoy case turns on.
@@ -631,8 +631,8 @@ test('i18n: every key in a display catalog resolves to its vocabulary', () => {
 // expressible, and on a half-withheld one being rejected.
 
 const corpusDoc = (paragraphs, over = {}) => ({
-  id: 'eu/cevni@rev6.fr.unece',
-  edition: 'eu/cevni@rev6',
+  id: 'cevni@rev6.fr.unece',
+  edition: 'cevni@rev6',
   edition_status: 'claimed',
   language: 'fr',
   source_id: 'unece',
@@ -1260,7 +1260,7 @@ test("skeletons: each root's keys parse under exactly its own grammar, and each 
 // A root inherits nothing: every row is its own, nothing is tombstoned there,
 // and no other jurisdiction's entry is in force under it. The last is not a
 // rule of its own but what inJurisdiction gives a root -- no intl entry is in
-// force under eu/cevni because intl is not its ancestor. ADR 0010 for the
+// force under cevni because intl is not its ancestor. ADR 0010 for the
 // withheld text.
 test('skeleton roots: every row is keyed by its own path, under its rule or article, and only its own entries are in force', () => {
   for (const [j, s] of Object.entries(skeletons)) {
@@ -1294,8 +1294,8 @@ test('skeleton roots: every row is keyed by its own path, under its rule or arti
       );
   }
   assert.ok(
-    !appl.entries.some((e) => e.jurisdiction === 'intl' && inJurisdiction(e, 'eu/cevni')),
-    'an intl entry is in force under eu/cevni',
+    !appl.entries.some((e) => e.jurisdiction === 'intl' && inJurisdiction(e, 'cevni')),
+    'an intl entry is in force under cevni',
   );
 });
 
