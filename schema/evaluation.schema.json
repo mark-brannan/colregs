@@ -14,9 +14,14 @@
       }
     },
     "paragraphCite": {
-      "$comment": "A Rules paragraph path, the vocabulary of `phase` and `breaches` (ADR 0011 §4); the pattern is data/rules.json's paragraph key, and the tests hold the two equal.",
+      "$comment": "A paragraph path, the vocabulary of `phase` and `breaches` (ADR 0011 §4), in either skeleton grammar of data/rules.json: the convention grammar (`23(a)(i)`) first, the article grammar (`3.08(1)(a)`) second. Each pattern is that grammar's paragraph key, and the tests hold them equal.",
       "type": "string",
-      "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$"
+      "anyOf": [
+        { "pattern": "^[0-9]+(\\([a-z]\\))?(\\([ivx]+\\))?$" },
+        {
+          "pattern": "^[0-9]{1,2}\\.[0-9]{2}(bis|ter|quater)?((\\([0-9]+\\))?(\\([a-z]\\))?|\\([IVX]+\\)(\\([0-9]+(bis)?\\))?)$"
+        }
+      ]
     },
     "colregs": {
       "$comment": "`resolved`: the data is the implementation's own colregs dependency and `version` describes it exactly. `caller`: the caller supplied the data and `version` names only the release the implementation resolved.",

@@ -56,7 +56,7 @@ lawful option comes back and none is picked. Selection belongs to the consumer.
 
 Every rule with a machine-checkable consequence: Part B conduct, Part C
 lights and shapes, Part D sound and light signals, and Annex I geometry.
-`intl` is the base; `us/inland`, `ca/inland` and `eu/cevni` are deltas on it.
+`intl` is the base; `us/inland` and `ca/inland` are deltas on it. `cevni` is a second root, bare because it is no state's national law.
 Today the entries hold Part C and Part D for `intl`. Part D's signals are
 entries like any other, keyed on the same paragraph paths: Rule 35 reads the
 vessel's own state, and Rule 34 reads what she is _doing_ — an `act` the helm
