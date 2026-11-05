@@ -43,7 +43,13 @@
                       "type": "string",
                       "minLength": 1
                     },
-                    "in_force": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+                    "in_force": {
+                      "$comment": "null for an instrument with no entry into force of its own, such as a UNECE recommendation that governments transpose.",
+                      "oneOf": [
+                        { "type": "null" },
+                        { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+                      ]
+                    },
                     "superseded_by": {
                       "$comment": "The later edition, where two are registered and one has lapsed.",
                       "type": "string",

@@ -27,6 +27,17 @@
      "note": "Provisional edition id: the Part C skeleton delta was verified against current eCFR text, not the 2014 final rule. Cornell's own source credit on 83.24 runs through 84 FR 30878 (June 28, 2019); this id and amended_through are unverified against the Federal Register and will be corrected or renamed once the corpus fetch settles which amendment the text reflects -- REQ-LANG-10, ADR 0020."
     }
    }
+  },
+  "cevni": {
+   "instrument": "CEVNI, European Code for Inland Waterways (UNECE resolution No. 24)",
+   "skeleton": "cevni@rev5",
+   "editions": {
+    "cevni@rev5": {
+     "amended_through": "resolution No. 81 (ECE/TRANS/SC.3/115/Rev.5, 2015: replaces the annex to resolution No. 24 as amended by resolutions Nos. 26, 27, 37, 39, 43-47, 54, 62 and 66)",
+     "in_force": null,
+     "note": "No in_force, a UNECE recommendation that governments transpose; keyed from Rev.5 because the Rev.6 that ADR 0001 names could not be retrieved."
+    }
+   }
   }
  }
 }

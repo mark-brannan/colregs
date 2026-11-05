@@ -27,6 +27,8 @@ const corpusFile = args.includes('--corpus')
   ? args[args.indexOf('--corpus') + 1]
   : 'data/text/intl/2016/en-US.uscg.json';
 const rules = load('data/rules.json');
+// The intl rows of the skeleton forest: this straw man reads the Convention only.
+const intl = rules.skeletons.intl.paragraphs;
 const corpus = load(corpusFile);
 const appl = load('data/applicability.json');
 const facts = load('data/facts.json');
@@ -288,7 +290,7 @@ export const slugOf = (paragraph) => tokens(paragraph.text);
 const range = (args.includes('--rules') ? args[args.indexOf('--rules') + 1] : '1-19').split('-').map(Number);
 const inRange = (p) => Number(p.rule) >= range[0] && Number(p.rule) <= (range[1] ?? range[0]);
 const paragraphs = Object.entries(corpus.paragraphs)
-  .map(([path, p]) => ({ path, rule: rules.paragraphs[path].rule, ...p }))
+  .map(([path, p]) => ({ path, rule: intl[path].rule, ...p }))
   .filter((p) => p.text !== undefined && inRange(p));
 const slugs = new Map(paragraphs.map((p) => [p.path, slugOf(p)]));
 
@@ -332,7 +334,7 @@ if (args.includes('--json')) {
   // Sibling discrimination: within a rule, does every paragraph differ from
   // every other by at least one term?
   const byRule = new Map();
-  for (const p of paths) byRule.set(rules.paragraphs[p].rule, [...(byRule.get(rules.paragraphs[p].rule) ?? []), p]);
+  for (const p of paths) byRule.set(intl[p].rule, [...(byRule.get(intl[p].rule) ?? []), p]);
   const same = [];
   for (const ps of byRule.values())
     for (let i = 0; i < ps.length; i++)
