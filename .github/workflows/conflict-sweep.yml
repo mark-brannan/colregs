@@ -25,7 +25,7 @@ jobs:
     if: github.event_name != 'pull_request' || (github.event.label.name == 'Has Conflict' && !github.event.pull_request.head.repo.fork)
     # What the called workflow's jobs ask for; a caller must grant at least that.
     permissions:
-      contents: read
+      issues: read
       pull-requests: write
       issues: write
       statuses: write
