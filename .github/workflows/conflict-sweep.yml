@@ -25,9 +25,9 @@ jobs:
     if: github.event_name != 'pull_request' || (github.event.label.name == 'Has Conflict' && !github.event.pull_request.head.repo.fork)
     # What the called workflow's jobs ask for; a caller must grant at least that.
     permissions:
-      issues: read
+      contents: read
       pull-requests: write
-      issues: write
+      issues: read
       statuses: write
       id-token: write
     uses: mark-brannan/.github/.github/workflows/conflict-sweep.yml@main
