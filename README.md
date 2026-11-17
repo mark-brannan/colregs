@@ -134,7 +134,7 @@ on the paragraph path. Citation unit and composition unit turn out to be the
 same thing.
 
 **Jurisdiction is a dimension, not a fork.** Every record carries a
-`jurisdiction`: `intl`, or `<country-or-body>/<waters>` as a delta on it.
+`jurisdiction`: `intl`, `<ISO 3166 code>/<waters>` as a delta on it, or a bare root such as `cevni`.
 Entries a jurisdiction doesn't override are inherited, not restated. The
 delta is an [RFC 7396](https://www.rfc-editor.org/rfc/rfc7396) merge patch
 over `intl` keyed by entry id: the jurisdiction's own entries are its keys,
