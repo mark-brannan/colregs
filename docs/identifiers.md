@@ -25,8 +25,8 @@ here reopens either.
 
 **Jurisdiction values sit beside paragraph paths in this class, and for the
 same reason.** `intl` and `us/inland` are not names this package coined:
-jurisdiction is a coordinate with REQ-SCOPE-2's own `<body>/<waters>`
-grammar, its left segment borrowed from ISO 3166, the whole value doubling
+jurisdiction is a coordinate with REQ-SCOPE-2's own grammar (bare, or
+`<ISO 3166 code>/<waters>`), its left segment borrowed from ISO 3166, the whole value doubling
 as a corpus key and a `data/text/` filesystem path — its sibling axis,
 `language`, is a bare BCP 47 tag for the same reason. A jurisdiction value
 is immutable under REQ-MODEL-10 like any identifier here — renaming

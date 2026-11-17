@@ -66,9 +66,10 @@ Neither consumer lives in this repo.
   (COLREGS 72) as its base body of rules.
 - **REQ-SCOPE-2** — Jurisdiction MUST be a first-class dimension on every
   applicability entry and every rule-text record, expressed as
-  `<country-or-body>/<waters>` with `intl` as the reserved base value.
+  bare (`cevni`) for an instrument that is no state's national law, and
+  `<ISO 3166-1 alpha-2 code, lowercase>/<waters>` otherwise, with `intl` as the reserved base value.
   Examples: `intl`, `us/inland`, `us/great-lakes`, `us/western-rivers`,
-  `ca/inland`, `de/binnen`, `eu/cevni`. The jurisdiction value is itself an identifier, unprefixed and immutable under REQ-MODEL-10 (ADR 0017).
+  `ca/inland`, `de/binnen`, `cevni`. The jurisdiction value is itself an identifier, unprefixed and immutable under REQ-MODEL-10 (ADR 0017).
 - **REQ-SCOPE-3** — A jurisdiction MUST be expressible as a *delta*: entries
   absent from a jurisdiction's data inherit from `intl`. A jurisdiction MUST
   NOT require restating the whole body of rules. Inheritance is "unless
